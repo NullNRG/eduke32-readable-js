@@ -185,6 +185,21 @@ const cPointerDiff = (left,right,stride) => {
   return delta;
 };
 
+// Standalone source-array allocations have an abstract aligned base. Aliases
+// retain the same buffer and offset; no copying or fabricated integer address.
+// Only zero-offset, complete, typed allocations may establish this guarantee.
+const cAlignedStorage = (storage, alignment) => {
+  if (!Number.isSafeInteger(alignment) || alignment<1 || alignment>1048576 ||
+      (alignment & (alignment-1)) || !ArrayBuffer.isView(storage) ||
+      storage instanceof DataView || storage.byteOffset!==0 ||
+      storage.byteLength!==storage.buffer.byteLength)
+    throw new TypeError('Explicit source alignment needs a complete typed allocation');
+  const key=Symbol.for('source-first.allocation-alignment/1');
+  const registry=globalThis[key] ||= new WeakMap();
+  registry.set(storage.buffer,Math.max(alignment,storage.BYTES_PER_ELEMENT,registry.get(storage.buffer)||1));
+  return storage;
+};
+
 const cRecordObject = source => {
   if (source?.__cDeferredPointer === true || source?.__cDeferredReference === true) return cRecordObject(source.resolve());
   if (source?.__cReference === true) return source.value;
@@ -200,8 +215,8 @@ const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:t
 const cObjectFieldRef = (owner, field) => { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); };
 const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });
 const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });
-const i32 = value => Number(value) | 0;
-const u32 = value => Number(value) >>> 0;
+const i32 = value => typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0;
+const u32 = value => typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0;
 const i64 = value => BigInt.asIntN(64, BigInt(value));
 const u64 = value => BigInt.asUintN(64, BigInt(value));
 const i128 = value => BigInt.asIntN(128, BigInt(value));
@@ -295,9 +310,9 @@ export function libdivide_u64_branchfree_do(numer, denom) {
 
 // C/C++ source: source/build/include/libdivide.h:1456
 export function libdivide_s32_do_raw(numer, magic, more) {
-  let shift = ((((i32((i32(more) & i32(31)))) & 255)) & 255);
+  let shift = (u32((u32(i32((i32(more) & i32(31)))) & 255)) & 255);
   if ((!Boolean(magic))) {
-    let sign = u32(i32((i32(((((((more) << 24) >> 24)) << 24) >> 24)) >> 7)));
+    let sign = u32(i32((i32(((u32(((u32(more) << 24) >> 24)) << 24) >> 24)) >> 7)));
     let mask = u32((u32((u32(1) << i32(shift))) - u32(1)));
     let uq = u32((u32(numer) + u32((u32(i32((numer >> 31))) & mask))));
     let q = i32(uq);
@@ -307,7 +322,7 @@ export function libdivide_s32_do_raw(numer, magic, more) {
   } else {
     let uq = u32(libdivide_mullhi_s32(magic, numer));
     if (Boolean(i32((i32(more) & i32(64))))) {
-      let sign = i32((i32(((((((more) << 24) >> 24)) << 24) >> 24)) >> 7));
+      let sign = i32((i32(((u32(((u32(more) << 24) >> 24)) << 24) >> 24)) >> 7));
       (uq = u32((Number(uq) + Number(u32((u32((u32(numer) ^ u32(sign))) - u32(sign)))))));
     }
     let q = i32(uq);
@@ -324,9 +339,9 @@ export function libdivide_s32_do(numer, denom) {
 
 // C/C++ source: source/build/include/libdivide.h:1487
 export function libdivide_s32_branchfree_do(numer, denom) {
-  let more = ((cRecordObject(denom).more) & 255);
-  let shift = ((((i32((i32(more) & i32(31)))) & 255)) & 255);
-  let sign = i32((i32(((((((more) << 24) >> 24)) << 24) >> 24)) >> 7));
+  let more = (u32(cRecordObject(denom).more) & 255);
+  let shift = (u32((u32(i32((i32(more) & i32(31)))) & 255)) & 255);
+  let sign = i32((i32(((u32(((u32(more) << 24) >> 24)) << 24) >> 24)) >> 7));
   let magic = i32(cRecordObject(denom).magic);
   let q = i32(libdivide_mullhi_s32(magic, numer));
   (q = i32((Number(q) + Number(numer))));
@@ -340,19 +355,19 @@ export function libdivide_s32_branchfree_do(numer, denom) {
 
 // C/C++ source: source/build/include/libdivide.h:1628
 export function libdivide_s64_do_raw(numer, magic, more) {
-  let shift = ((((i32((i32(more) & i32(63)))) & 255)) & 255);
+  let shift = (u32((u32(i32((i32(more) & i32(63)))) & 255)) & 255);
   if ((!Boolean(magic))) {
     let mask = u64((BigInt(u64((BigInt(u64(1)) << BigInt(i32(shift))))) - BigInt(u64(1))));
     let uq = u64((BigInt(u64(numer)) + BigInt(u64((BigInt(u64(i64((BigInt(numer) >> BigInt(63))))) & BigInt(mask))))));
     let q = i64(uq);
     (q = i64((BigInt(q) >> BigInt(i32(shift)))));
-    let sign = i64(i32((i32(((((((more) << 24) >> 24)) << 24) >> 24)) >> 7)));
+    let sign = i64(i32((i32(((u32(((u32(more) << 24) >> 24)) << 24) >> 24)) >> 7)));
     (q = i64((BigInt(i64((BigInt(q) ^ BigInt(sign)))) - BigInt(sign))));
     return i64(q);
   } else {
     let uq = u64(libdivide_mullhi_s64(magic, numer));
     if (Boolean(i32((i32(more) & i32(64))))) {
-      let sign = i64(i32((i32(((((((more) << 24) >> 24)) << 24) >> 24)) >> 7)));
+      let sign = i64(i32((i32(((u32(((u32(more) << 24) >> 24)) << 24) >> 24)) >> 7)));
       (uq = u64((BigInt(uq) + BigInt(u64((BigInt(u64((BigInt(u64(numer)) ^ BigInt(u64(sign))))) - BigInt(u64(sign))))))));
     }
     let q = i64(uq);
@@ -369,9 +384,9 @@ export function libdivide_s64_do(numer, denom) {
 
 // C/C++ source: source/build/include/libdivide.h:1660
 export function libdivide_s64_branchfree_do(numer, denom) {
-  let more = ((cRecordObject(denom).more) & 255);
-  let shift = ((((i32((i32(more) & i32(63)))) & 255)) & 255);
-  let sign = i64(i32((i32(((((((more) << 24) >> 24)) << 24) >> 24)) >> 7)));
+  let more = (u32(cRecordObject(denom).more) & 255);
+  let shift = (u32((u32(i32((i32(more) & i32(63)))) & 255)) & 255);
+  let sign = i64(i32((i32(((u32(((u32(more) << 24) >> 24)) << 24) >> 24)) >> 7)));
   let magic = i64(cRecordObject(denom).magic);
   let q = i64(libdivide_mullhi_s64(magic, numer));
   (q = i64((BigInt(q) + BigInt(numer))));

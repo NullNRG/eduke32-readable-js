@@ -5,7 +5,7 @@
   "playable_dist_index_present": false,
   "project_launcher": "index.html",
   "launcher_command": "npm run serve:project",
-  "compiler_frontend_sha256": "57f54f590a6f316d67e8650856cf40777a36847df025cc05df0893303348fc98",
+  "compiler_frontend_sha256": "652635d7d74953c6a21c4a85327805da527018393d2b00e4f981eb0062bef682",
   "compiler_fingerprint": "09314ea3ef29193be4e072dd43aba53f6f2d0cd1b3abf2ed2694740e61375cb6",
   "regression": {
     "report": "reports/oct27-final-recovery-regression.json",
@@ -19,9 +19,10 @@
     "selected_tests": 156,
     "all_passed": true,
     "regression_input_sha256": "4bb80ba1b3d67b82bfa1d3825d517ea7b160ffc7c6d79bbce117b32cca69dc85",
-    "revision_matches_current_inputs": true,
+    "revision_matches_current_inputs": false,
     "failures": [],
-    "does_not_verify_original_gameplay": true
+    "does_not_verify_original_gameplay": true,
+    "note": "Earlier 156-test suite passed before subsequent compiler changes; current regression is pending."
   },
   "browser_and_native_proofs": [
     "reports/oct23-original-initsystem-browser.json",
@@ -1357,21 +1358,24 @@
     ]
   },
   "remaining_implementation": [
+    "osdcmd_cvar_set_osd now passes pointer-array range lowering but remains blocked by OSD_SetTextMode",
     "Original allocator destruction, unique_ptr custom deleter, array/atomic subobjects, placement construction and thread caches",
     "Owned-subobject plans are tested metadata only; emitter integration remains disabled",
     "initprintf -> xrealloc -> handle_memerr -> engineDestroyAllocator",
     "OSD_Init original operator new/CircularQueue, OSD_RegisterCvar/hash_add and range-loop callbacks",
-    "videoSetPalette now requires XXH3_64bits; its original scalar header compilation blocks on alignment attributes and __builtin_assume. videoGetModes header-global duplication remains",
+    "Original palette and checksum are linked; verify the real palette/surface path and resolve videoGetModes header-global duplication",
     "Original app_main closure, GRP-to-level loading, menus, renderer, gameplay, audio and save/load",
     "Old menu/music undeclared references and historical export ambiguities"
   ],
   "resume": {
     "environment": ". work/session-env.ps1",
     "launcher": "npm run serve:project",
-    "startup": "python work/recover_current_boot_frontier.py --label next-boot-frontier --entries initprintf OSD_Init baselayer_init videoGetModes enginePreInit app_main",
+    "startup": "python work/recover_current_boot_frontier.py --label next-osd-frontier --entries OSD_SetTextMode osdcmd_cvar_set_osd",
     "regressions": "python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/next-regression.json",
     "pipeline": "npm run compile:game",
     "acceptance": "python tools/verify_port_acceptance.py --strict",
     "handoff": "npm run handoff:project"
-  }
+  },
+  "provisional_browser_profile": "tools/browser_classic_profile.json",
+  "latest_boot_frontier": "reports/oct28-pointer-range-frontier.json"
 }

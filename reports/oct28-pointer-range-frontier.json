@@ -1,0 +1,74 @@
+{
+  "format": "original-boot-frontier-recovery/1",
+  "jobs": [
+    {
+      "source": "source/build/src/osd.cpp",
+      "entry": "osdcmd_cvar_set_osd",
+      "returncode": 0,
+      "seconds": 145.5,
+      "log": "reports/oct28-pointer-range-frontier-osdcmd_cvar_set_osd.log",
+      "definition": [
+        {
+          "name": "osdcmd_cvar_set_osd",
+          "source_name": "osdcmd_cvar_set_osd",
+          "kind": "FunctionDecl",
+          "line": 678,
+          "original_type": "int (osdcmdptr_t)",
+          "linkage": "internal",
+          "physical_source": "source/build/src/osd.cpp",
+          "source_references": [
+            "OSD_SetTextMode",
+            "clamp__header_b0c3fa1a2e69",
+            "osd",
+            "osdcmd_cvar_set",
+            "osdmaxrows",
+            "osdrows",
+            "osdrowscur",
+            "xfree__header_8ce2c55c7c37"
+          ],
+          "external_reference_imports": [],
+          "external_storage_imports": [
+            {
+              "name": "osd",
+              "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+              "abi": "source-global-cell/2",
+              "original_type": "osdmain_t *"
+            },
+            {
+              "name": "osdmaxrows",
+              "binding": "__cxx_global_cell_64b7613b520ef4cff2d59856",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            },
+            {
+              "name": "osdrows",
+              "binding": "__cxx_global_cell_dfe0fcf36a090655f706ab0c",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            },
+            {
+              "name": "osdrowscur",
+              "binding": "__cxx_global_cell_6ff2c7feca9240fe8c1304ed",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            }
+          ],
+          "status": "blocked",
+          "external_imports": [
+            "osd",
+            "osdcmd_cvar_set",
+            "osdmaxrows",
+            "osdrows",
+            "osdrowscur"
+          ],
+          "unresolved_references": [
+            "OSD_SetTextMode"
+          ],
+          "reason": "unlinked identifiers: OSD_SetTextMode"
+        }
+      ],
+      "status": "source-blocked"
+    }
+  ],
+  "gameplay_verified": false
+}
