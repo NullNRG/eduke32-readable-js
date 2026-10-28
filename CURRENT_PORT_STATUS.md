@@ -8,7 +8,7 @@ The 156-test result below belongs to the earlier compiler revision, not the curr
 
 The compiler now supports a tested range-for pattern over pointer-array members. Original `osdcmd_cvar_set_osd` passes that former blocker but remains blocked by `OSD_SetTextMode`; it has not been installed or executed. Current full-regression progress, when available, is in `reports/oct28-recovery-regression.json`.
 
-The source checkpoint is now public at https://github.com/NullNRG/eduke32-readable-js and basic GitHub source/runtime CI passes. Original Make selection for the Linux classic configuration was audited at 114 units; final browser platform/audio selection remains pending. The current full suite is recorded in reports/oct28-publication-fixed-regression.json. Two test-harness assertions need correction; game acceptance remains failed.
+The source checkpoint is now public at https://github.com/NullNRG/eduke32-readable-js and basic GitHub source/runtime CI passes. Original Make selection for the Linux classic configuration was audited at 114 units; final browser platform/audio selection remains pending. The current full suite is recorded in reports/oct28-publication-fixed-regression.json. The full run finished with 160 passes and four failures. All four subsequently passed targeted reruns after test harness/time-budget corrections. Compiler/runtime inputs were unchanged; reports/oct28-regression-followup.json records that combined assessment. A single full run on the latest test-file revision has not been performed. Game acceptance remains failed.
 
 The remaining text records the preceding checkpoint and its checksum blocker has since been resolved as described above.
 
@@ -27,3 +27,5 @@ enginePreInit still requires baselayer_init, initprintf and videoGetModes. Deepe
 The audit covers 156 selected units: 27952 emitted observations, 4861 blocked observations, 4834 deduplicated blocked records. These use mixed historical compiler revisions, not a fresh uniform build or ninety-percent semantic recovery.
 
 Menu, E1L1, world rendering, movement, weapons, enemies, collision, audio, saving/loading, 60 seconds of gameplay, native-game parity, offline bundling and reproducible playable builds have not passed. Exact acceptance failures are in reports/port-acceptance.json and reports/project-current-status.json.
+
+The latest original console retry is reports/oct28-console-draw-frontier.json: OSD_UpdateDrawBuffer blocks on member-operator access, followed by OSD_ResizeDisplay, OSD_SetTextMode and osdcmd_cvar_set_osd. These functions have not been installed or executed.

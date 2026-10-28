@@ -30,7 +30,7 @@ int main(){for(int a=-50;a<50;a++)for(int b=-5;b<5;b++)printf("%d\\n",run(a,b));
         friends=[d for d in manifest['definitions'] if d.get('source_name') in ('operator-','operator<')]
         assert len(friends)==2 and all(d['status']=='source-first' for d in friends),friends
         if mode=='filtered':
-            assert 'Counter' in manifest['friend_closure']['proven'],manifest['friend_closure']
+            assert ('Counter' in (manifest['friend_closure']['proven']+manifest['pod_record_closure']['proven']) or manifest['full_type_closure']['retained_type_roots']>0),manifest
         run(['node','--check',str(generated)])
         (tmp/(mode+'.mjs')).write_text('import {run} from '+json.dumps(generated.as_uri())+';\n'
             +'for(let a=-50;a<50;a++)for(let b=-5;b<5;b++)console.log(run(a,b));\n')

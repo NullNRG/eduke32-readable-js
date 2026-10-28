@@ -30,8 +30,13 @@ int main(){for(int i=-160;i<160;i++)printf("%d\\n",work(i));}
     assert all(names[k]['status']=='source-first' for k in ('work','checked','bias','masks')),manifest
     assert all(names[k]['linkage']=='internal' for k in ('checked','bias','masks')),manifest
     assert all('__header_' in names[k]['name'] for k in ('checked','bias','masks')),manifest
-    # Clang references get remapped to the exact resolved private names.
-    generated=(ROOT/'tools/source_pointer_runtime.mjs').read_text()+'\nconst i32=x=>x|0;\n'+'\n'.join(code)+'\nfor(let i=-160;i<160;i++)console.log(work(i));\n'
+    # Exercise the production publisher so all selected narrowing helpers are
+    # included, rather than manually reconstructing a partial module prelude.
+    emitted=root/'emitted'
+    subprocess.run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),
+                    '--root',str(root),'--source','main.cpp','--out-dir',str(emitted),
+                    '--header-dependency-closure'],cwd=ROOT,check=True,capture_output=True,text=True)
+    generated='import {work} from '+json.dumps((emitted/'main.cpp.mjs').as_uri())+';\nfor(let i=-160;i<160;i++)console.log(work(i));\n'
     (root/'run.mjs').write_text(generated)
     c=subprocess.run(['node','--check',str(root/'run.mjs')],capture_output=True,text=True)
     assert c.returncode==0,c.stderr

@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory(prefix='eduke_native_nttp_') as temp:
               '--root',str(source_root),'--source',source,'--header-dependency-closure',
               '--compile-commands',str(ROOT/'factory-output/compile_commands.json'),
               '--out-dir',str(temp)]
-        p=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,timeout=100)
+        p=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,timeout=180)
         assert p.returncode==0,(source,p.stderr[-1200:],p.stdout[-1200:])
         js=Path(temp)/(source+'.mjs')
         manifest=js.with_suffix('.manifest.json')

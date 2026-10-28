@@ -102,8 +102,12 @@ int main(){printf("%d,%d\n",initially_zero(),enum_sizes());
     for name in ('table','grid','root','gates','tiny','signed_values','wide','pods','defaults',
                  'initially_zero','mutate','wide_value','enum_sizes','local_static','enum_pointer','wide_pointer','dynamic_static'):
         assert rows[name]['status']=='source-first',(name,rows[name])
-    for name in ('reject_constructor','reject_member_init','reject_unknown_enum','reject_alignment'):
+    for name in ('reject_constructor','reject_member_init','reject_unknown_enum'):
         assert rows[name]['status']=='blocked',(name,rows[name])
+    assert rows['reject_alignment']['status']=='source-first',rows['reject_alignment']
+    aligned_binding=rows['reject_alignment']['private_storage']['binding']
+    (directory/'alignment.mjs').write_text('import * as s from '+json.dumps(module.as_uri())+';const a=s['+json.dumps(aligned_binding)+']().value;if(a.length!==4||a.some(x=>x!==0)||globalThis[Symbol.for("source-first.allocation-alignment/1")].get(a.buffer)<32)throw Error("aligned original static storage");')
+    run(['node','alignment.mjs'],directory)
     run(['node','--check',str(module)],directory)
     (directory/'runner.mjs').write_text('import * as s from '+json.dumps(module.as_uri())+';\n'
         +'console.log(`${s.initially_zero()},${s.enum_sizes()}`);\n'
@@ -111,4 +115,4 @@ int main(){printf("%d,%d\n",initially_zero(),enum_sizes());
         +'console.log(`${s.dynamic_static(17)},${s.dynamic_static(-900)}`);\n')
     observed=run(['node','runner.mjs'],directory).splitlines()
     assert observed==expected,next(((i,a,b) for i,(a,b) in enumerate(zip(observed,expected)) if a!=b),None)
-    print('PASS 2564 native C++/JS values: metadata-only scalar/nested/bool/fixed-enum/POD arrays, exact enum widths, independent trivial default construction; nontrivial constructors/default members, unknown enum ABI and unproven alignment stay blocked')
+    print('PASS 2564 native C++/JS values: metadata-only scalar/nested/bool/fixed-enum/POD arrays, exact enum widths, independent trivial default construction; nontrivial constructors/default members, unknown enum ABI stay blocked; aligned scalar arrays retain zero storage and their guarantee')
