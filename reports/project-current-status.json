@@ -1370,12 +1370,15 @@
   "resume": {
     "environment": ". work/session-env.ps1",
     "launcher": "npm run serve:project",
-    "startup": "python work/recover_current_boot_frontier.py --label next-osd-frontier --entries OSD_SetTextMode osdcmd_cvar_set_osd",
+    "startup": "python work/recover_current_boot_frontier.py --label next-console-draw-frontier --entries OSD_UpdateDrawBuffer OSD_ResizeDisplay OSD_SetTextMode osdcmd_cvar_set_osd",
     "regressions": "python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/next-regression.json",
     "pipeline": "npm run compile:game",
     "acceptance": "python tools/verify_port_acceptance.py --strict",
     "handoff": "npm run handoff:project"
   },
   "provisional_browser_profile": "tools/browser_classic_profile.json",
-  "latest_boot_frontier": "reports/oct28-pointer-range-frontier.json"
+  "latest_boot_frontier": "reports/oct28-textmode-frontier.json",
+  "github_repository": "https://github.com/NullNRG/eduke32-readable-js",
+  "classic_make_inventory": "reports/oct28-classic-make-inventory.json",
+  "current_regression_in_progress": "reports/oct28-publication-fixed-regression.json"
 }

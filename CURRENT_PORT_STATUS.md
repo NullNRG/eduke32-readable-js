@@ -8,6 +8,8 @@ The 156-test result below belongs to the earlier compiler revision, not the curr
 
 The compiler now supports a tested range-for pattern over pointer-array members. Original `osdcmd_cvar_set_osd` passes that former blocker but remains blocked by `OSD_SetTextMode`; it has not been installed or executed. Current full-regression progress, when available, is in `reports/oct28-recovery-regression.json`.
 
+The source checkpoint is now public at https://github.com/NullNRG/eduke32-readable-js and basic GitHub source/runtime CI passes. Original Make selection for the Linux classic configuration was audited at 114 units; final browser platform/audio selection remains pending. The current full suite is recorded in reports/oct28-publication-fixed-regression.json. Two test-harness assertions need correction; game acceptance remains failed.
+
 The remaining text records the preceding checkpoint and its checksum blocker has since been resolved as described above.
 
 **The original game is not bootable or playable. There is no playable dist/index.html or genuine gameplay screenshot.** The root index.html is the existing build/test/acceptance/cleanup/handoff launcher.
