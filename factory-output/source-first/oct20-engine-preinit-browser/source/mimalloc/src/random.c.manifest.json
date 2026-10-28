@@ -1,0 +1,368 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-01\\\\.ast-lru-a5b2395b06a69a51acd58e0a3c932ba2722a9929251ec0ec45b196ffee770edf.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 27010,
+      "json_bytes": 118310098,
+      "objects": 218744,
+      "ranges_omitted": 59185,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 55294
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 5,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "rotl",
+      "original_type": "uint32_t (uint32_t, uint32_t)",
+      "physical_source": "source/mimalloc/src/random.c",
+      "source_name": "rotl",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 40,
+      "linkage": "internal",
+      "name": "qround",
+      "original_type": "void (uint32_t *, size_t, size_t, size_t, size_t)",
+      "source_name": "qround",
+      "source_references": [
+        "rotl"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 47,
+      "linkage": "internal",
+      "name": "chacha_block",
+      "original_type": "void (mi_random_ctx_t *)",
+      "source_name": "chacha_block",
+      "source_references": [
+        "qround"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 81,
+      "linkage": "internal",
+      "name": "chacha_next32",
+      "original_type": "uint32_t (mi_random_ctx_t *)",
+      "source_name": "chacha_next32",
+      "source_references": [
+        "chacha_block"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 92,
+      "linkage": "internal",
+      "name": "read32",
+      "original_type": "uint32_t (const uint8_t *, size_t)",
+      "source_name": "read32",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 97,
+      "linkage": "internal",
+      "name": "chacha_init",
+      "original_type": "void (mi_random_ctx_t *, const uint8_t *, uint64_t)",
+      "source_name": "chacha_init",
+      "source_references": [
+        "read32"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 116,
+      "linkage": "internal",
+      "name": "chacha_split",
+      "original_type": "void (mi_random_ctx_t *, uint64_t, mi_random_ctx_t *)",
+      "source_name": "chacha_split",
+      "source_references": [
+        "_mi_memcpy__header_4298056cd805",
+        "chacha_block"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 138,
+      "linkage": "external",
+      "name": "_mi_random_split",
+      "original_type": "void (mi_random_ctx_t *, mi_random_ctx_t *)",
+      "source_name": "_mi_random_split",
+      "source_references": [
+        "chacha_split"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 144,
+      "linkage": "external",
+      "name": "_mi_random_next",
+      "original_type": "uintptr_t (mi_random_ctx_t *)",
+      "source_name": "_mi_random_next",
+      "source_references": [
+        "chacha_next32"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 161,
+      "linkage": "external",
+      "name": "_mi_os_random_weak",
+      "original_type": "uintptr_t (uintptr_t)",
+      "reason": "unlinked identifiers: _mi_prim_clock_now",
+      "source_name": "_mi_os_random_weak",
+      "source_references": [
+        "_mi_os_random_weak",
+        "_mi_prim_clock_now",
+        "_mi_random_shuffle__header_de4e15233249"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_prim_clock_now"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 173,
+      "linkage": "internal",
+      "name": "mi_random_init_ex",
+      "original_type": "void (mi_random_ctx_t *, bool)",
+      "reason": "unlinked identifiers: _mi_os_random_weak, _mi_prim_random_buf, _mi_warning_message",
+      "source_name": "mi_random_init_ex",
+      "source_references": [
+        "_mi_os_random_weak",
+        "_mi_prim_random_buf",
+        "_mi_random_shuffle__header_de4e15233249",
+        "_mi_warning_message",
+        "chacha_init"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_random_weak",
+        "_mi_prim_random_buf",
+        "_mi_warning_message"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 194,
+      "linkage": "external",
+      "name": "_mi_random_init",
+      "original_type": "void (mi_random_ctx_t *)",
+      "reason": "unlinked identifiers: mi_random_init_ex",
+      "source_name": "_mi_random_init",
+      "source_references": [
+        "mi_random_init_ex"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_random_init_ex"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 198,
+      "linkage": "external",
+      "name": "_mi_random_init_weak",
+      "original_type": "void (mi_random_ctx_t *)",
+      "reason": "unlinked identifiers: mi_random_init_ex",
+      "source_name": "_mi_random_init_weak",
+      "source_references": [
+        "mi_random_init_ex"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_random_init_ex"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 202,
+      "linkage": "external",
+      "name": "_mi_random_reinit_if_weak",
+      "original_type": "void (mi_random_ctx_t *)",
+      "reason": "unlinked identifiers: _mi_random_init",
+      "source_name": "_mi_random_reinit_if_weak",
+      "source_references": [
+        "_mi_random_init"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_random_init"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 931,
+      "linkage": "internal",
+      "name": "_mi_memcpy__header_4298056cd805",
+      "original_type": "void (void *, const void *, size_t)",
+      "source_name": "_mi_memcpy",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 758,
+      "linkage": "internal",
+      "name": "_mi_random_shuffle__header_de4e15233249",
+      "original_type": "uintptr_t (uintptr_t)",
+      "source_name": "_mi_random_shuffle",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 11,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 16,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-7109bedb1a32515c\\source\\mimalloc\\src\\random.c.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/mimalloc/src/random.c",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

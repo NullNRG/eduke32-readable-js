@@ -1,0 +1,1479 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-99e2c06647f7ef2dd59df192bef9977da8736329f7871f71f715262f28f62aeb.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 77953,
+      "json_bytes": 410938988,
+      "objects": 720037,
+      "ranges_omitted": 205447,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 200835
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 30,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba9911800",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba9911800"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 111,
+        "source_offset": 5190,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 111,
+      "linkage": "internal",
+      "name": "fix16_rad_to_deg_mult__header_global_fc3b6793f99746a0",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_rad_to_deg_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba9911c80",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba9911c80"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 114,
+        "source_offset": 5371,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 114,
+      "linkage": "internal",
+      "name": "fix16_deg_to_rad_mult__header_global_3501decf6981e5e2",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_deg_to_rad_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 50,
+      "linkage": "internal",
+      "name": "AL_Volume",
+      "original_type": "int",
+      "source_name": "AL_Volume",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "emitted_constructor_providers": [
+        "_opl3_chip"
+      ],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 51,
+      "linkage": "internal",
+      "name": "AL_Chip",
+      "original_type": "struct _opl3_chip",
+      "reason": "unlinked identifiers: _opl3_chip",
+      "source_name": "AL_Chip",
+      "source_references": [
+        "_opl3_chip"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_opl3_chip"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 54,
+      "linkage": "internal",
+      "name": "ErrorCode",
+      "original_type": "int",
+      "source_name": "ErrorCode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 56,
+      "linkage": "external",
+      "name": "AdLibDrv_GetError",
+      "original_type": "int ()",
+      "source_name": "AdLibDrv_GetError",
+      "source_references": [
+        "ErrorCode"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 58,
+      "linkage": "external",
+      "name": "AdLibDrv_ErrorString",
+      "original_type": "const char *(const int)",
+      "source_name": "AdLibDrv_ErrorString",
+      "source_references": [
+        "AdLibDrv_ErrorString",
+        "ErrorCode"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 68,
+      "linkage": "external",
+      "name": "AdLibDrv_MIDI_Init",
+      "original_type": "int (midifuncs *const)",
+      "reason": "unlinked identifiers: AL_NoteOff, AL_NoteOn",
+      "source_name": "AdLibDrv_MIDI_Init",
+      "source_references": [
+        "AL_ControlChange",
+        "AL_NoteOff",
+        "AL_NoteOn",
+        "AL_ProgramChange",
+        "AL_SetPitchBend",
+        "AL_SetVolume",
+        "AL_Volume",
+        "AdLibDrv_MIDI_Shutdown"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_NoteOff",
+        "AL_NoteOn"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 87,
+      "linkage": "external",
+      "name": "AdLibDrv_MIDI_HaltPlayback",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: MV_UnhookMusicRoutine",
+      "source_name": "AdLibDrv_MIDI_HaltPlayback",
+      "source_references": [
+        "MV_UnhookMusicRoutine"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_UnhookMusicRoutine"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba990a318",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba990a318"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 31,
+        "source_offset": 667,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 31,
+      "linkage": "internal",
+      "name": "FIX16_MAX__header_global_5e65cc64c4a31401",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MAX",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba990a430",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba990a430"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 32,
+        "source_offset": 764,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 32,
+      "linkage": "internal",
+      "name": "FIX16_MIN__header_global_3b0d68b124318043",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MIN",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba990a560",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba990a560"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 33,
+        "source_offset": 861,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "internal",
+      "name": "FIX16_OVERFLOW__header_global_b105236903848a4e",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_OVERFLOW",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba990a690",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba990a690"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 35,
+        "source_offset": 967,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "fix16_one__header_global_36fd4e70a129ebd9",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_one",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba990a7a0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba990a7a0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 36,
+        "source_offset": 1056,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "fix16_half__header_global_fc0137d2659fc287",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_half",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba990a8b0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba990a8b0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 37,
+        "source_offset": 1147,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "flt_f161r__header_global_4c78b295ba0e9612",
+      "original_type": "const float",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "flt_f161r",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 89,
+      "linkage": "external",
+      "name": "AdLibDrv_MIDI_Shutdown",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: AdLibDrv_MIDI_HaltPlayback",
+      "source_name": "AdLibDrv_MIDI_Shutdown",
+      "source_references": [
+        "AL_Shutdown",
+        "AdLibDrv_MIDI_HaltPlayback"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AdLibDrv_MIDI_HaltPlayback"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 95,
+      "linkage": "external",
+      "name": "AdLibDrv_MIDI_StartPlayback",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: AdLibDrv_MIDI_HaltPlayback, MV_HookMusicRoutine",
+      "source_name": "AdLibDrv_MIDI_StartPlayback",
+      "source_references": [
+        "AL_Init",
+        "AdLibDrv_MIDI_HaltPlayback",
+        "AdLibDrv_MIDI_Service",
+        "MV_HookMusicRoutine"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AdLibDrv_MIDI_HaltPlayback",
+        "MV_HookMusicRoutine"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 105,
+      "linkage": "external",
+      "name": "AdLibDrv_MIDI_SetTempo",
+      "original_type": "void (const int, const int)",
+      "reason": "unlinked identifiers: MV_MIDIRenderTempo, MV_MIDIRenderTimer",
+      "source_name": "AdLibDrv_MIDI_SetTempo",
+      "source_references": [
+        "MV_MIDIRenderTempo",
+        "MV_MIDIRenderTimer"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_MIDIRenderTempo",
+        "MV_MIDIRenderTimer"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 111,
+      "linkage": "external",
+      "name": "AdLibDrv_MIDI_Service",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: AL_Chip, MIDI_ServiceRoutine, MV_Channels, MV_MIDIRenderTempo, MV_MIDIRenderTimer, MV_MixRate, MV_MusicBuffer, OPL3_GenerateResampled",
+      "source_name": "AdLibDrv_MIDI_Service",
+      "source_references": [
+        "AL_Chip",
+        "AL_PostAmp",
+        "AL_Volume",
+        "MIDI_ServiceRoutine",
+        "MV_Channels",
+        "MV_MIDIRenderTempo",
+        "MV_MIDIRenderTimer",
+        "MV_MixRate",
+        "MV_MusicBuffer",
+        "OPL3_GenerateResampled",
+        "clamp__header_2f26f744f633"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_Chip",
+        "MIDI_ServiceRoutine",
+        "MV_Channels",
+        "MV_MIDIRenderTempo",
+        "MV_MIDIRenderTimer",
+        "MV_MixRate",
+        "MV_MusicBuffer",
+        "OPL3_GenerateResampled"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 139,
+      "linkage": "internal",
+      "name": "OctavePitch",
+      "original_type": "const uint32_t[8]",
+      "source_name": "OctavePitch",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 143,
+      "linkage": "internal",
+      "name": "NoteMod12",
+      "original_type": "uint32_t[96]",
+      "source_name": "NoteMod12",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 144,
+      "linkage": "internal",
+      "name": "NoteDiv12",
+      "original_type": "uint32_t[96]",
+      "source_name": "NoteDiv12",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 153,
+      "linkage": "internal",
+      "name": "NotePitch",
+      "original_type": "const uint32_t[32][12]",
+      "source_name": "NotePitch",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 191,
+      "linkage": "internal",
+      "name": "slotVoice",
+      "original_type": "const int[9][2]",
+      "source_name": "slotVoice",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 203,
+      "linkage": "internal",
+      "name": "VoiceLevel",
+      "original_type": "int[18][2]",
+      "source_name": "VoiceLevel",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 204,
+      "linkage": "internal",
+      "name": "VoiceKsl",
+      "original_type": "int[18][2]",
+      "source_name": "VoiceKsl",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 209,
+      "linkage": "internal",
+      "name": "offsetSlot",
+      "original_type": "const int8_t[18]",
+      "source_name": "offsetSlot",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 211,
+      "linkage": "internal",
+      "name": "VoiceReserved",
+      "original_type": "int[18]",
+      "source_name": "VoiceReserved",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 213,
+      "linkage": "internal",
+      "name": "Voice",
+      "original_type": "AdLibVoice[18]",
+      "source_name": "Voice",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 214,
+      "linkage": "internal",
+      "name": "Voice_Pool",
+      "original_type": "struct AdLibVoiceList",
+      "source_name": "Voice_Pool",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 216,
+      "linkage": "internal",
+      "name": "Channel",
+      "original_type": "AdLibChannel[16]",
+      "source_name": "Channel",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 218,
+      "linkage": "internal",
+      "name": "AL_LeftPort",
+      "original_type": "const int",
+      "source_name": "AL_LeftPort",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 219,
+      "linkage": "internal",
+      "name": "AL_RightPort",
+      "original_type": "const int",
+      "source_name": "AL_RightPort",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 221,
+      "linkage": "internal",
+      "name": "AL_MaxMidiChannel",
+      "original_type": "const int",
+      "source_name": "AL_MaxMidiChannel",
+      "source_references": [
+        "ARRAY_SIZE__header_5e8a052e5cad",
+        "Channel"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_25b4c362c4cf6d8dc3a2fc77",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 223,
+      "linkage": "external",
+      "name": "AL_Stereo",
+      "original_type": "int",
+      "source_name": "AL_Stereo",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_105cb40b827387b1c500c7f2",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 224,
+      "linkage": "external",
+      "name": "AL_AdditiveMode",
+      "original_type": "int",
+      "source_name": "AL_AdditiveMode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_3efe13c096809501623ea758",
+        "original_type": "float"
+      },
+      "kind": "VarDecl",
+      "line": 226,
+      "linkage": "external",
+      "name": "AL_PostAmp",
+      "original_type": "float",
+      "source_name": "AL_PostAmp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 239,
+      "linkage": "internal",
+      "name": "LL_RemoveNode",
+      "original_type": "void (char *__restrict, char **__restrict, char **__restrict, intptr_t, intptr_t)",
+      "source_name": "LL_RemoveNode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 255,
+      "linkage": "internal",
+      "name": "LL_AddNode",
+      "original_type": "void (char *__restrict, char **__restrict, char **__restrict, intptr_t, intptr_t)",
+      "source_name": "LL_AddNode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 269,
+      "linkage": "internal",
+      "name": "AL_SendOutputToPort",
+      "original_type": "void (const int, const int, const int)",
+      "reason": "unlinked identifiers: AL_Chip, OPL3_WriteRegBuffered",
+      "source_name": "AL_SendOutputToPort",
+      "source_references": [
+        "AL_Chip",
+        "OPL3_WriteRegBuffered"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_Chip",
+        "OPL3_WriteRegBuffered"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 275,
+      "linkage": "internal",
+      "name": "AL_SendOutput",
+      "original_type": "void (const int, const int, const int)",
+      "reason": "unlinked identifiers: AL_SendOutputToPort",
+      "source_name": "AL_SendOutput",
+      "source_references": [
+        "AL_LeftPort",
+        "AL_RightPort",
+        "AL_SendOutputToPort"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SendOutputToPort"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 281,
+      "linkage": "internal",
+      "name": "AL_SetVoiceTimbre",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: ADLIB_TimbreBank, AL_SendOutput",
+      "source_name": "AL_SetVoiceTimbre",
+      "source_references": [
+        "ADLIB_TimbreBank",
+        "AL_SendOutput",
+        "Channel",
+        "Voice",
+        "VoiceKsl",
+        "VoiceLevel",
+        "offsetSlot",
+        "slotVoice"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ADLIB_TimbreBank",
+        "AL_SendOutput"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 335,
+      "linkage": "internal",
+      "name": "AL_SetVoiceVolume",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: ADLIB_TimbreBank, AL_SendOutput, min",
+      "source_name": "AL_SetVoiceVolume",
+      "source_references": [
+        "ADLIB_TimbreBank",
+        "AL_AdditiveMode",
+        "AL_SendOutput",
+        "Channel",
+        "Voice",
+        "VoiceKsl",
+        "VoiceLevel",
+        "min",
+        "offsetSlot",
+        "slotVoice"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ADLIB_TimbreBank",
+        "AL_SendOutput",
+        "min"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 374,
+      "linkage": "internal",
+      "name": "AL_AllocVoice",
+      "original_type": "int ()",
+      "reason": "OffsetOfExpr",
+      "source_name": "AL_AllocVoice",
+      "source_references": [
+        "LL_RemoveNode",
+        "Voice",
+        "Voice_Pool"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 385,
+      "linkage": "internal",
+      "name": "AL_GetVoice",
+      "original_type": "int (const int, const int)",
+      "source_name": "AL_GetVoice",
+      "source_references": [
+        "Channel"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 400,
+      "linkage": "internal",
+      "name": "AL_SetVoicePitch",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: ADLIB_TimbreBank, AL_SendOutput",
+      "source_name": "AL_SetVoicePitch",
+      "source_references": [
+        "ADLIB_TimbreBank",
+        "AL_SendOutput",
+        "Channel",
+        "NoteDiv12",
+        "NoteMod12",
+        "NotePitch",
+        "OctavePitch",
+        "Voice",
+        "clamp__header_e544dd17e2e0"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ADLIB_TimbreBank",
+        "AL_SendOutput"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 437,
+      "linkage": "internal",
+      "name": "AL_SetVoicePan",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: AL_SendOutput",
+      "source_name": "AL_SetVoicePan",
+      "source_references": [
+        "AL_SendOutput",
+        "AL_Stereo",
+        "Channel",
+        "Voice"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SendOutput"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 448,
+      "linkage": "internal",
+      "name": "AL_SetChannelVolume",
+      "original_type": "void (const int, const int)",
+      "reason": "unlinked identifiers: AL_SetVoiceVolume",
+      "source_name": "AL_SetChannelVolume",
+      "source_references": [
+        "AL_SetVoiceVolume",
+        "Channel",
+        "clamp__header_e544dd17e2e0"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SetVoiceVolume"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 462,
+      "linkage": "internal",
+      "name": "AL_SetChannelPan",
+      "original_type": "void (const int, const int)",
+      "reason": "unlinked identifiers: AL_SetVoicePan",
+      "source_name": "AL_SetChannelPan",
+      "source_references": [
+        "AL_SetVoicePan",
+        "Channel"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SetVoicePan"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 477,
+      "linkage": "internal",
+      "name": "AL_SetChannelDetune",
+      "original_type": "void (const int, const int)",
+      "source_name": "AL_SetChannelDetune",
+      "source_references": [
+        "Channel"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 480,
+      "linkage": "internal",
+      "name": "AL_ResetVoices",
+      "original_type": "void ()",
+      "reason": "OffsetOfExpr",
+      "source_name": "AL_ResetVoices",
+      "source_references": [
+        "Channel",
+        "LL_AddNode",
+        "Voice",
+        "VoiceReserved",
+        "Voice_Pool"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 514,
+      "linkage": "internal",
+      "name": "AL_CalcPitchInfo",
+      "original_type": "void ()",
+      "source_name": "AL_CalcPitchInfo",
+      "source_references": [
+        "NoteDiv12",
+        "NoteMod12"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 534,
+      "linkage": "internal",
+      "name": "AL_FlushCard",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: AL_SendOutputToPort",
+      "source_name": "AL_FlushCard",
+      "source_references": [
+        "AL_SendOutputToPort",
+        "VoiceReserved",
+        "offsetSlot",
+        "slotVoice"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SendOutputToPort"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 563,
+      "linkage": "internal",
+      "name": "AL_Reset",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: AL_FlushCard, AL_SendOutputToPort",
+      "source_name": "AL_Reset",
+      "source_references": [
+        "AL_FlushCard",
+        "AL_LeftPort",
+        "AL_RightPort",
+        "AL_SendOutputToPort",
+        "AL_SetStereo",
+        "AL_Stereo"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_FlushCard",
+        "AL_SendOutputToPort"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 578,
+      "linkage": "external",
+      "name": "AL_SetStereo",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: AL_SendOutputToPort",
+      "source_name": "AL_SetStereo",
+      "source_references": [
+        "AL_RightPort",
+        "AL_SendOutputToPort"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SendOutputToPort"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 581,
+      "linkage": "internal",
+      "name": "AL_NoteOff",
+      "original_type": "void (const int, const int, int)",
+      "reason": "OffsetOfExpr",
+      "source_name": "AL_NoteOff",
+      "source_references": [
+        "AL_GetVoice",
+        "AL_MaxMidiChannel",
+        "AL_SendOutput",
+        "Channel",
+        "LL_AddNode",
+        "LL_RemoveNode",
+        "Voice",
+        "Voice_Pool"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 606,
+      "linkage": "internal",
+      "name": "AL_NoteOn",
+      "original_type": "void (const int, const int, const int)",
+      "reason": "OffsetOfExpr",
+      "source_name": "AL_NoteOn",
+      "source_references": [
+        "AL_AllocVoice",
+        "AL_MaxMidiChannel",
+        "AL_NoteOff",
+        "AL_SetVoicePan",
+        "AL_SetVoicePitch",
+        "AL_SetVoiceTimbre",
+        "AL_SetVoiceVolume",
+        "Channel",
+        "LL_AddNode",
+        "Voice"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 646,
+      "linkage": "internal",
+      "name": "AL_AllNotesOff",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: AL_NoteOff",
+      "source_name": "AL_AllNotesOff",
+      "source_references": [
+        "AL_NoteOff",
+        "Channel"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_NoteOff"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 653,
+      "linkage": "internal",
+      "name": "AL_ControlChange",
+      "original_type": "void (const int, const int, const int)",
+      "reason": "unlinked identifiers: AL_AllNotesOff, AL_ResetVoices, AL_SetChannelPan, AL_SetChannelVolume",
+      "source_name": "AL_ControlChange",
+      "source_references": [
+        "AL_AllNotesOff",
+        "AL_MaxMidiChannel",
+        "AL_ResetVoices",
+        "AL_SetChannelDetune",
+        "AL_SetChannelPan",
+        "AL_SetChannelVolume",
+        "Channel"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_AllNotesOff",
+        "AL_ResetVoices",
+        "AL_SetChannelPan",
+        "AL_SetChannelVolume"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 713,
+      "linkage": "internal",
+      "name": "AL_ProgramChange",
+      "original_type": "void (const int, const int)",
+      "source_name": "AL_ProgramChange",
+      "source_references": [
+        "AL_MaxMidiChannel",
+        "Channel"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 723,
+      "linkage": "internal",
+      "name": "AL_SetPitchBend",
+      "original_type": "void (const int, const int, const int)",
+      "reason": "unlinked identifiers: AL_SetVoicePitch",
+      "source_name": "AL_SetPitchBend",
+      "source_references": [
+        "AL_MaxMidiChannel",
+        "AL_SetVoicePitch",
+        "Channel"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SetVoicePitch"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 747,
+      "linkage": "internal",
+      "name": "AL_SetVolume",
+      "original_type": "void (int)",
+      "source_name": "AL_SetVolume",
+      "source_references": [
+        "AL_Volume",
+        "clamp__header_e544dd17e2e0"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 750,
+      "linkage": "internal",
+      "name": "AL_Shutdown",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: AL_Chip, AL_Reset, AL_ResetVoices, MV_MixRate, OPL3_Reset",
+      "source_name": "AL_Shutdown",
+      "source_references": [
+        "AL_Chip",
+        "AL_Reset",
+        "AL_ResetVoices",
+        "MV_MixRate",
+        "OPL3_Reset"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_Chip",
+        "AL_Reset",
+        "AL_ResetVoices",
+        "MV_MixRate",
+        "OPL3_Reset"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 758,
+      "linkage": "internal",
+      "name": "AL_Init",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: AL_Shutdown",
+      "source_name": "AL_Init",
+      "source_references": [
+        "AL_CalcPitchInfo",
+        "AL_Shutdown"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_Shutdown"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 767,
+      "linkage": "external",
+      "name": "AL_RegisterTimbreBank",
+      "original_type": "void (uint8_t *)",
+      "reason": "unlinked identifiers: ADLIB_TimbreBank",
+      "source_name": "AL_RegisterTimbreBank",
+      "source_references": [
+        "ADLIB_TimbreBank"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ADLIB_TimbreBank"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x17ba963d7b0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17ba963d7b0"
+        ],
+        "source_header": "source/build/include/compat.h",
+        "source_line": 1169,
+        "source_offset": 32336,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1169,
+      "linkage": "internal",
+      "name": "pow2char__header_global_f2f29e8a9418d43f",
+      "original_type": "const const char[8]",
+      "physical_source": "source/build/include/compat.h",
+      "source_name": "pow2char",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "header_global_definition": {
+        "clang_decl_id": "0x17baa6b60c8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17baa6b60c8",
+          "0x17baa6b3a10"
+        ],
+        "source_header": "source/build/include/libasync.h",
+        "source_line": 1135,
+        "source_offset": 33158,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1135,
+      "linkage": "internal",
+      "name": "vtable_impl__header_global_003cf1ffad84e8b4",
+      "original_type": "const task_base_vtable",
+      "physical_source": "source/build/include/libasync.h",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "source_name": "vtable_impl",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "header_global_definition": {
+        "clang_decl_id": "0x17baa6bd8c8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x17baa6bd8c8",
+          "0x17baa6badc8"
+        ],
+        "source_header": "source/build/include/libasync.h",
+        "source_line": 1264,
+        "source_offset": 36527,
+        "translation_unit": "source/audiolib/src/driver_adlib.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1264,
+      "linkage": "internal",
+      "name": "vtable_impl__header_global_d18b61eaa6eda6e0",
+      "original_type": "const task_base_vtable",
+      "physical_source": "source/build/include/libasync.h",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "source_name": "vtable_impl",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "clamp__header_2f26f744f633",
+      "original_type": "float (float, int, int)",
+      "source_name": "clamp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ARRAY_SIZE__header_5e8a052e5cad",
+      "original_type": "size_t (const AdLibChannel (&)[16]) noexcept",
+      "source_name": "ARRAY_SIZE",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "clamp__header_e544dd17e2e0",
+      "original_type": "int (int, int, int)",
+      "source_name": "clamp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 41,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 71,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-2767571262baefc9\\source\\audiolib\\src\\driver_adlib.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/audiolib/src/driver_adlib.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_25b4c362c4cf6d8dc3a2fc77",
+      "name": "AL_Stereo",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_105cb40b827387b1c500c7f2",
+      "name": "AL_AdditiveMode",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_3efe13c096809501623ea758",
+      "name": "AL_PostAmp",
+      "original_type": "float"
+    }
+  ],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

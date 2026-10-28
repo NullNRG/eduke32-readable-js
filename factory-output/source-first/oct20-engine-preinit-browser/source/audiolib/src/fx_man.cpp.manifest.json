@@ -1,0 +1,995 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-8f4707ac0a037c268471af58de715b0b3524247a813e779c36ebc659688de002.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 114325,
+      "json_bytes": 485303594,
+      "objects": 873081,
+      "ranges_omitted": 253489,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 219861
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 18,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b2518fe10",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b2518fe10"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 111,
+        "source_offset": 5190,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 111,
+      "linkage": "internal",
+      "name": "fix16_rad_to_deg_mult__header_global_eafbd8a0e900b376",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_rad_to_deg_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25190290",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25190290"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 114,
+        "source_offset": 5371,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 114,
+      "linkage": "internal",
+      "name": "fix16_deg_to_rad_mult__header_global_e54e263cc4cb6f49",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_deg_to_rad_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_103ca1df5a9531b359a2ae15",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 48,
+      "linkage": "external",
+      "name": "FX_ErrorCode",
+      "original_type": "int",
+      "physical_source": "source/audiolib/src/fx_man.cpp",
+      "source_name": "FX_ErrorCode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_baecce8e0d645df20f706806",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 49,
+      "linkage": "external",
+      "name": "FX_Installed",
+      "original_type": "int",
+      "source_name": "FX_Installed",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_6208087938e6e1dc88de0fa9",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 50,
+      "linkage": "external",
+      "name": "FX_MixRate",
+      "original_type": "int",
+      "source_name": "FX_MixRate",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 52,
+      "linkage": "external",
+      "name": "FX_ErrorString",
+      "original_type": "const char *(const int)",
+      "reason": "unlinked identifiers: MV_ErrorString",
+      "source_name": "FX_ErrorString",
+      "source_references": [
+        "FX_ErrorCode",
+        "FX_ErrorString",
+        "MV_ErrorString"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_ErrorString"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 64,
+      "linkage": "internal",
+      "name": "osdcmd_cvar_set_audiolib",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: AL_SetStereo, AL_Stereo, ASS_MIDISoundDriver, MIDI_Restart, MV_Channels, MV_InitDataPtr, MV_MaxVoices, MV_MixRate, MV_SetXMPInterpolation, MV_XMPInterpolation, SDLDrv_PCM_CheckDriverName, SDLDrv_PCM_GetDriverName",
+      "source_name": "osdcmd_cvar_set_audiolib",
+      "source_references": [
+        "AL_SetStereo",
+        "AL_Stereo",
+        "ASS_MIDISoundDriver",
+        "FX_Init",
+        "FX_Installed",
+        "MIDI_Restart",
+        "MV_Channels",
+        "MV_InitDataPtr",
+        "MV_MaxVoices",
+        "MV_MixRate",
+        "MV_SetXMPInterpolation",
+        "MV_XMPInterpolation",
+        "SDLDrv_PCM_CheckDriverName",
+        "SDLDrv_PCM_GetDriverName",
+        "SDLDrv_PCM_PrintDrivers",
+        "osdcmd_cvar_set"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "AL_SetStereo",
+        "AL_Stereo",
+        "ASS_MIDISoundDriver",
+        "MIDI_Restart",
+        "MV_Channels",
+        "MV_InitDataPtr",
+        "MV_MaxVoices",
+        "MV_MixRate",
+        "MV_SetXMPInterpolation",
+        "MV_XMPInterpolation",
+        "SDLDrv_PCM_CheckDriverName",
+        "SDLDrv_PCM_GetDriverName",
+        "SDLDrv_PCM_PrintDrivers",
+        "osdcmd_cvar_set"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 119,
+      "linkage": "external",
+      "name": "FX_InitCvars",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: ALSA_ClientID, ALSA_PortID, AL_AdditiveMode, AL_PostAmp, AL_Stereo, ASS_EMIDICard, MV_LazyAlloc, MV_XMPInterpolation, OSD_RegisterCvar, SDLAudioDriverName, SF2_BankFile, SF2_EffectSampleBlockSize",
+      "source_name": "FX_InitCvars",
+      "source_references": [
+        "ALSA_ClientID",
+        "ALSA_PortID",
+        "AL_AdditiveMode",
+        "AL_PostAmp",
+        "AL_Stereo",
+        "ASS_EMIDICard",
+        "MV_LazyAlloc",
+        "MV_XMPInterpolation",
+        "OSD_RegisterCvar",
+        "SDLAudioDriverName",
+        "SF2_BankFile",
+        "SF2_EffectSampleBlockSize",
+        "osdcmd_cvar_set",
+        "osdcmd_cvar_set_audiolib"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ALSA_ClientID",
+        "ALSA_PortID",
+        "AL_AdditiveMode",
+        "AL_PostAmp",
+        "AL_Stereo",
+        "ASS_EMIDICard",
+        "MV_LazyAlloc",
+        "MV_XMPInterpolation",
+        "OSD_RegisterCvar",
+        "SDLAudioDriverName",
+        "SF2_BankFile",
+        "SF2_EffectSampleBlockSize",
+        "osdcmd_cvar_set",
+        "osdcmd_cvar_set_audiolib"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 153,
+      "linkage": "external",
+      "name": "FX_Init",
+      "original_type": "int (int, int, int, void *)",
+      "reason": "unlinked identifiers: MV_ErrorString, MV_Init, MV_MixRate, SoundDriver_IsPCMSupported, current_verbosity_cutoff, log",
+      "source_name": "FX_Init",
+      "source_references": [
+        "FX_Installed",
+        "FX_MixRate",
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "FX_Shutdown",
+        "MV_ErrorString",
+        "MV_Init",
+        "MV_MixRate",
+        "SoundDriver_IsPCMSupported",
+        "current_verbosity_cutoff",
+        "log"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_ErrorString",
+        "MV_Init",
+        "MV_MixRate",
+        "SoundDriver_IsPCMSupported",
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 193,
+      "linkage": "external",
+      "name": "FX_Shutdown",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: MV_Shutdown",
+      "source_name": "FX_Shutdown",
+      "source_references": [
+        "FX_Installed",
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_Shutdown"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_Shutdown"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 211,
+      "linkage": "external",
+      "name": "FX_GetDevice",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: ASS_PCMSoundDriver",
+      "source_name": "FX_GetDevice",
+      "source_references": [
+        "ASS_PCMSoundDriver"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ASS_PCMSoundDriver"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25188928",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25188928"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 31,
+        "source_offset": 667,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 31,
+      "linkage": "internal",
+      "name": "FIX16_MAX__header_global_48e64ce66ac7db95",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MAX",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25188a40",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25188a40"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 32,
+        "source_offset": 764,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 32,
+      "linkage": "internal",
+      "name": "FIX16_MIN__header_global_416db87f9f45431a",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MIN",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25188b70",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25188b70"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 33,
+        "source_offset": 861,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "internal",
+      "name": "FIX16_OVERFLOW__header_global_09b3a1f238a7aa4b",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_OVERFLOW",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25188ca0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25188ca0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 35,
+        "source_offset": 967,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "fix16_one__header_global_45574ce70fbb7ca9",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_one",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25188db0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25188db0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 36,
+        "source_offset": 1056,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "fix16_half__header_global_f3d74b55499c59fd",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_half",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25188ec0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25188ec0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 37,
+        "source_offset": 1147,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "flt_f161r__header_global_68259065915759c0",
+      "original_type": "const float",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "flt_f161r",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 215,
+      "linkage": "external",
+      "name": "FMT_CDXA_MAGIC",
+      "original_type": "const unsigned int",
+      "source_name": "FMT_CDXA_MAGIC",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 216,
+      "linkage": "external",
+      "name": "FMT_FLAC_MAGIC",
+      "original_type": "const unsigned int",
+      "source_name": "FMT_FLAC_MAGIC",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 217,
+      "linkage": "external",
+      "name": "FMT_OGG_MAGIC",
+      "original_type": "const unsigned int",
+      "source_name": "FMT_OGG_MAGIC",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 218,
+      "linkage": "external",
+      "name": "FMT_RIFF_MAGIC",
+      "original_type": "const unsigned int",
+      "source_name": "FMT_RIFF_MAGIC",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 219,
+      "linkage": "external",
+      "name": "FMT_VOC_MAGIC",
+      "original_type": "const unsigned int",
+      "source_name": "FMT_VOC_MAGIC",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 220,
+      "linkage": "external",
+      "name": "FMT_WAVE_MAGIC",
+      "original_type": "const unsigned int",
+      "source_name": "FMT_WAVE_MAGIC",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 223,
+      "linkage": "internal",
+      "name": "FX_ReadFmt",
+      "original_type": "wavefmt_t (const char *const, uint32_t)",
+      "reason": "unlinked identifiers: MV_IdentifyXMP",
+      "source_name": "FX_ReadFmt",
+      "source_references": [
+        "B_PASS32__header_40f06050db62",
+        "FMT_CDXA_MAGIC",
+        "FMT_FLAC_MAGIC",
+        "FMT_OGG_MAGIC",
+        "FMT_RIFF_MAGIC",
+        "FMT_VOC_MAGIC",
+        "FMT_WAVE_MAGIC",
+        "MV_IdentifyXMP"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_IdentifyXMP"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 245,
+      "linkage": "internal",
+      "name": "FX_BadFmt",
+      "original_type": "int (char *, uint32_t, int, int, int, int, int, int, int, fix16_t, intptr_t)",
+      "reason": "unlinked identifiers: MV_SetErrorCode__header_97bc9ae96281",
+      "source_name": "FX_BadFmt",
+      "source_references": [
+        "MV_SetErrorCode__header_97bc9ae96281"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_SetErrorCode__header_97bc9ae96281"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 246,
+      "linkage": "internal",
+      "name": "FX_BadFmt3D",
+      "original_type": "int (char *, uint32_t, int, int, int, int, int, fix16_t, intptr_t)",
+      "reason": "unlinked identifiers: MV_SetErrorCode__header_97bc9ae96281",
+      "source_name": "FX_BadFmt3D",
+      "source_references": [
+        "MV_SetErrorCode__header_97bc9ae96281"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_SetErrorCode__header_97bc9ae96281"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 248,
+      "linkage": "external",
+      "name": "FX_Play",
+      "original_type": "int (char *, uint32_t, int, int, int, int, int, int, int, fix16_t, intptr_t)",
+      "reason": "unsupported global array element type decltype(FX_Play) *",
+      "source_name": "FX_Play",
+      "source_references": [
+        "ARRAY_SIZE__header_0b86b055d68c",
+        "FX_BadFmt",
+        "FX_ReadFmt",
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_PlayFLAC",
+        "MV_PlayVOC",
+        "MV_PlayVorbis",
+        "MV_PlayWAV",
+        "MV_PlayXA",
+        "MV_PlayXMP"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 266,
+      "linkage": "external",
+      "name": "FX_Play3D",
+      "original_type": "int (char *, uint32_t, int, int, int, int, int, fix16_t, intptr_t)",
+      "reason": "unsupported global array element type decltype(FX_Play3D) *",
+      "source_name": "FX_Play3D",
+      "source_references": [
+        "ARRAY_SIZE__header_f2f23e6f8615",
+        "FX_BadFmt3D",
+        "FX_ReadFmt",
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_PlayFLAC3D",
+        "MV_PlayVOC3D",
+        "MV_PlayVorbis3D",
+        "MV_PlayWAV3D",
+        "MV_PlayXA3D",
+        "MV_PlayXMP3D"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 284,
+      "linkage": "external",
+      "name": "FX_PlayRaw",
+      "original_type": "int (char *, uint32_t, int, int, int, int, int, int, fix16_t, intptr_t)",
+      "reason": "unlinked identifiers: MV_PlayRAW",
+      "source_name": "FX_PlayRaw",
+      "source_references": [
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_PlayRAW"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_PlayRAW"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 298,
+      "linkage": "external",
+      "name": "FX_PlayLoopedRaw",
+      "original_type": "int (char *, uint32_t, char *, char *, int, int, int, int, int, int, fix16_t, intptr_t)",
+      "reason": "unlinked identifiers: MV_PlayRAW",
+      "source_name": "FX_PlayLoopedRaw",
+      "source_references": [
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_PlayRAW"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_PlayRAW"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 312,
+      "linkage": "external",
+      "name": "FX_StartDemandFeedPlayback",
+      "original_type": "int (void (*)(const char **, uint32_t *, void *), int, int, int, int, int, int, int, int, fix16_t, intptr_t, void *)",
+      "reason": "unlinked identifiers: MV_StartDemandFeedPlayback",
+      "source_name": "FX_StartDemandFeedPlayback",
+      "source_references": [
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_StartDemandFeedPlayback"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_StartDemandFeedPlayback"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 327,
+      "linkage": "external",
+      "name": "FX_StartDemandFeedPlayback3D",
+      "original_type": "int (void (*)(const char **, uint32_t *, void *), int, int, int, int, int, int, int, fix16_t, intptr_t, void *)",
+      "reason": "unlinked identifiers: MV_StartDemandFeedPlayback3D",
+      "source_name": "FX_StartDemandFeedPlayback3D",
+      "source_references": [
+        "FX_SetErrorCode__header_cbce4c78bfae",
+        "MV_StartDemandFeedPlayback3D"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_StartDemandFeedPlayback3D"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x25b24eb9050",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b24eb9050"
+        ],
+        "source_header": "source/build/include/compat.h",
+        "source_line": 1169,
+        "source_offset": 32336,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1169,
+      "linkage": "internal",
+      "name": "pow2char__header_global_3c032a43a0425e3f",
+      "original_type": "const const char[8]",
+      "physical_source": "source/build/include/compat.h",
+      "source_name": "pow2char",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25f25648",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25f25648",
+          "0x25b25f22fc0"
+        ],
+        "source_header": "source/build/include/libasync.h",
+        "source_line": 1135,
+        "source_offset": 33158,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1135,
+      "linkage": "internal",
+      "name": "vtable_impl__header_global_e39c56835a78c6fa",
+      "original_type": "const task_base_vtable",
+      "physical_source": "source/build/include/libasync.h",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "source_name": "vtable_impl",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "header_global_definition": {
+        "clang_decl_id": "0x25b25f2ce48",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x25b25f2ce48",
+          "0x25b25f2a348"
+        ],
+        "source_header": "source/build/include/libasync.h",
+        "source_line": 1264,
+        "source_offset": 36527,
+        "translation_unit": "source/audiolib/src/fx_man.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1264,
+      "linkage": "internal",
+      "name": "vtable_impl__header_global_8541ba8490139557",
+      "original_type": "const task_base_vtable",
+      "physical_source": "source/build/include/libasync.h",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "source_name": "vtable_impl",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 91,
+      "linkage": "internal",
+      "name": "FX_SetErrorCode__header_cbce4c78bfae",
+      "original_type": "int (int)",
+      "source_name": "FX_SetErrorCode",
+      "source_references": [
+        "FX_ErrorCode"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "B_PASS32__header_40f06050db62",
+      "original_type": "take_sign_t<int32_t, unsigned int> (unsigned int)",
+      "source_name": "B_PASS32",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 231,
+      "linkage": "internal",
+      "name": "MV_SetErrorCode__header_97bc9ae96281",
+      "original_type": "int (int)",
+      "reason": "unlinked identifiers: MV_ErrorCode",
+      "source_name": "MV_SetErrorCode",
+      "source_references": [
+        "MV_ErrorCode"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MV_ErrorCode"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ARRAY_SIZE__header_0b86b055d68c",
+      "original_type": "size_t (int (*const (&)[8])(char *, unsigned int, int, int, int, int, int, int, int, int, long)) noexcept",
+      "source_name": "ARRAY_SIZE",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ARRAY_SIZE__header_f2f23e6f8615",
+      "original_type": "size_t (int (*const (&)[8])(char *, unsigned int, int, int, int, int, int, int, long)) noexcept",
+      "source_name": "ARRAY_SIZE",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 22,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 40,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-68b9b37abaac67c8\\source\\audiolib\\src\\fx_man.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/audiolib/src/fx_man.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_103ca1df5a9531b359a2ae15",
+      "name": "FX_ErrorCode",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_baecce8e0d645df20f706806",
+      "name": "FX_Installed",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_6208087938e6e1dc88de0fa9",
+      "name": "FX_MixRate",
+      "original_type": "int"
+    }
+  ],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

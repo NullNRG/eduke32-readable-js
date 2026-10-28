@@ -1,0 +1,1 @@
+import * as m from "file:///C:/Users/andre/Documents/Codex/work/EDuke32_SourceFactory_Oct13/work/member-arrays-after/member-arrays-unit.cpp.mjs";for(let n=0;n<512;n++)console.log([m.member_arrays(n),m.member_array_bytes(n),m.member_array_init(n),m.global_member_array(n)].join(","));

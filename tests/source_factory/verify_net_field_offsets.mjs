@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { pathToFileURL } from 'node:url';
+const file=new URL('../../factory-output/source-first/offset-repair-alias/source/duke3d/src/network.cpp.mjs',import.meta.url);
+const mod=await import(file);
+assert.equal(mod.SectorFields.length,23);
+assert.equal(mod.SectorFields[0].offset,4);
+assert.equal(mod.SectorFields[1].offset,8);
+assert.equal(mod.WallFields[0].offset,4);
+assert.equal(mod.ActorFields[0].offset,0);
+console.log('PASS: original EDuke32 network tables evaluate with Clang-verified byte offsets');

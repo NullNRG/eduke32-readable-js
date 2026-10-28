@@ -1,0 +1,3409 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct20-source-closure-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-0e01d2bf81c3078fe85fa367790f054d1d5ad47af2ecc48507b7bfab4cdc2cb6.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 95922,
+      "json_bytes": 332680742,
+      "macro_declaration_ranges_retained": 1770,
+      "objects": 630687,
+      "ranges_omitted": 183076,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 149519
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 62,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a52e60",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a52e60"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 111,
+        "source_offset": 5190,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 111,
+      "linkage": "internal",
+      "name": "fix16_rad_to_deg_mult__header_global_1f20827e10fe1139",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_rad_to_deg_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a532e0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a532e0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 114,
+        "source_offset": 5371,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 114,
+      "linkage": "internal",
+      "name": "fix16_deg_to_rad_mult__header_global_3759c702c357b9ef",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_deg_to_rad_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 23,
+      "linkage": "internal",
+      "name": "whiteColorIdx",
+      "original_type": "int",
+      "source_name": "whiteColorIdx",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+        "original_type": "osdmain_t *"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "external",
+      "name": "osd",
+      "original_type": "osdmain_t *",
+      "source_name": "osd",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "osdrowscur",
+      "original_type": "int",
+      "source_name": "osdrowscur",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "osdmaxrows",
+      "original_type": "int",
+      "source_name": "osdmaxrows",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "osdrows",
+      "original_type": "int",
+      "source_name": "osdrows",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_e90cd4f2377fd5d285556e73",
+        "original_type": "const char *"
+      },
+      "kind": "VarDecl",
+      "line": 39,
+      "linkage": "external",
+      "name": "osdlogfn",
+      "original_type": "const char *",
+      "source_name": "osdlogfn",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 41,
+      "linkage": "internal",
+      "name": "osdkeytime",
+      "original_type": "unsigned int",
+      "source_name": "osdkeytime",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a4b978",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a4b978"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 31,
+        "source_offset": 667,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 31,
+      "linkage": "internal",
+      "name": "FIX16_MAX__header_global_b35467730dc04c6a",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MAX",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a4ba90",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a4ba90"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 32,
+        "source_offset": 764,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 32,
+      "linkage": "internal",
+      "name": "FIX16_MIN__header_global_3353344dc33d6e39",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MIN",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a4bbc0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a4bbc0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 33,
+        "source_offset": 861,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "internal",
+      "name": "FIX16_OVERFLOW__header_global_2a07a2526a32bd0f",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_OVERFLOW",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a4bcf0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a4bcf0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 35,
+        "source_offset": 967,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "fix16_one__header_global_7b9a68c01681fb34",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_one",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a4be00",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a4be00"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 36,
+        "source_offset": 1056,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "fix16_half__header_global_75d6a502adeb2e09",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_half",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e76a4bf10",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e76a4bf10"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 37,
+        "source_offset": 1147,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "flt_f161r__header_global_924f794035c2c765",
+      "original_type": "const float",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "flt_f161r",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 42,
+      "linkage": "internal",
+      "name": "osdscrtime",
+      "original_type": "unsigned int",
+      "source_name": "osdscrtime",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 47,
+      "linkage": "internal",
+      "name": "h_osd",
+      "original_type": "struct hashtable_t",
+      "source_name": "h_osd",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 49,
+      "linkage": "internal",
+      "name": "user_callbacks",
+      "original_type": "struct osdcallbacks_t",
+      "source_name": "user_callbacks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 50,
+      "linkage": "internal",
+      "name": "default_callbacks",
+      "original_type": "struct osdcallbacks_t",
+      "source_name": "default_callbacks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 52,
+      "linkage": "internal",
+      "name": "h_cvars",
+      "original_type": "struct hashtable_t",
+      "source_name": "h_cvars",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+        "owner_source": "source/build/src/osd.cpp",
+        "original_type": "struct hashtable_t",
+        "byte_record": {
+          "size": 24,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "__cxx_anonymous_0": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 12,
+                "align": 4,
+                "union": true,
+                "fields": {
+                  "size": {
+                    "offset": 0,
+                    "native": "Uint32Array",
+                    "size": 4
+                  },
+                  "prime": {
+                    "offset": 0,
+                    "byteRecord": {
+                      "size": 12,
+                      "align": 4,
+                      "union": false,
+                      "fields": {
+                        "v": {
+                          "offset": 0,
+                          "native": "Uint32Array",
+                          "size": 4
+                        },
+                        "d": {
+                          "offset": 4,
+                          "byteRecord": {
+                            "size": 5,
+                            "align": 1,
+                            "union": false,
+                            "fields": {
+                              "magic": {
+                                "offset": 0,
+                                "native": "Uint32Array",
+                                "size": 4
+                              },
+                              "more": {
+                                "offset": 4,
+                                "native": "Uint8Array",
+                                "size": 1
+                              }
+                            },
+                            "arrayAlign": 1,
+                            "overlaps": false
+                          }
+                        }
+                      },
+                      "arrayAlign": 1,
+                      "overlaps": false
+                    }
+                  }
+                },
+                "arrayAlign": 1,
+                "overlaps": true
+              }
+            },
+            "items": {
+              "offset": 16,
+              "pointer": true,
+              "size": 8
+            }
+          },
+          "arrayAlign": 1,
+          "overlaps": true
+        }
+      }
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_50934f4ac2e9701b845e3757",
+        "original_type": "bool"
+      },
+      "kind": "VarDecl",
+      "line": 53,
+      "linkage": "external",
+      "name": "m32_osd_tryscript",
+      "original_type": "bool",
+      "source_name": "m32_osd_tryscript",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 60,
+      "linkage": "external",
+      "name": "OSD_RegisterCvar",
+      "original_type": "void (osdcvardata_t *const, int (*)(osdcmdptr_t))",
+      "reason": "unlinked identifiers: OSD_Init, hash_add",
+      "source_name": "OSD_RegisterCvar",
+      "source_references": [
+        "OSD_Init",
+        "OSD_RegisterFunction",
+        "h_cvars",
+        "hash_add",
+        "osd",
+        "xrealloc__header_a01258fdb8e1"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Init",
+        "hash_add"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 91,
+      "linkage": "internal",
+      "name": "OSD_CvarModified",
+      "original_type": "int (const osdcvar_t *const)",
+      "source_name": "OSD_CvarModified",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 124,
+      "linkage": "external",
+      "name": "OSD_StripColors",
+      "original_type": "const char *(char *, const char *)",
+      "reason": "unlinked identifiers: isdigit, toupper",
+      "source_name": "OSD_StripColors",
+      "source_references": [
+        "isdigit",
+        "toupper"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "isdigit",
+        "toupper"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 155,
+      "linkage": "external",
+      "name": "OSD_HandleClipboard",
+      "original_type": "void (char *const)",
+      "reason": "unlinked identifiers: Bstrtoken, current_verbosity_cutoff, g_mouseBits, log",
+      "source_name": "OSD_HandleClipboard",
+      "source_references": [
+        "Bstrtoken",
+        "OSD_Dispatch",
+        "current_verbosity_cutoff",
+        "g_mouseBits",
+        "log",
+        "osd",
+        "xcalloc__header_9699dd54cb2f",
+        "xfree__header_8ce2c55c7c37"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "Bstrtoken",
+        "current_verbosity_cutoff",
+        "g_mouseBits",
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 177,
+      "linkage": "external",
+      "name": "OSD_Exec",
+      "original_type": "int (const char *)",
+      "reason": "unlinked identifiers: Bstrtoken, current_verbosity_cutoff, kclose, kfilelength, kopen4load, kread, log",
+      "source_name": "OSD_Exec",
+      "source_references": [
+        "Bstrtoken",
+        "OSD_Dispatch",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "kopen4load",
+        "kread",
+        "log",
+        "osd",
+        "xfree__header_8ce2c55c7c37",
+        "xmalloc__header_eb1d86c654ab"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "Bstrtoken",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "kopen4load",
+        "kread",
+        "log"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 223,
+      "linkage": "external",
+      "name": "OSD_ParsingScript",
+      "original_type": "int ()",
+      "source_name": "OSD_ParsingScript",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 224,
+      "linkage": "external",
+      "name": "OSD_OSDKey",
+      "original_type": "int ()",
+      "source_name": "OSD_OSDKey",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 225,
+      "linkage": "external",
+      "name": "OSD_GetCols",
+      "original_type": "int ()",
+      "source_name": "OSD_GetCols",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 226,
+      "linkage": "external",
+      "name": "OSD_IsMoving",
+      "original_type": "int ()",
+      "source_name": "OSD_IsMoving",
+      "source_references": [
+        "osd",
+        "osdrowscur"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 227,
+      "linkage": "external",
+      "name": "OSD_GetRowsCur",
+      "original_type": "int ()",
+      "source_name": "OSD_GetRowsCur",
+      "source_references": [
+        "osdrowscur"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 228,
+      "linkage": "external",
+      "name": "OSD_GetTextMode",
+      "original_type": "int ()",
+      "source_name": "OSD_GetTextMode",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 230,
+      "linkage": "external",
+      "name": "OSD_GetShadePal",
+      "original_type": "void (const char *, int *, int *)",
+      "source_name": "OSD_GetShadePal",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 247,
+      "linkage": "internal",
+      "name": "swaposdptrs",
+      "original_type": "void ()",
+      "source_name": "swaposdptrs",
+      "source_references": [
+        "default_callbacks",
+        "osd",
+        "user_callbacks"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 249,
+      "linkage": "external",
+      "name": "OSD_SetTextMode",
+      "original_type": "void (int)",
+      "reason": "unlinked identifiers: qsetmode, xdim, ydim",
+      "source_name": "OSD_SetTextMode",
+      "source_references": [
+        "OSD_ResizeDisplay",
+        "default_callbacks",
+        "osd",
+        "qsetmode",
+        "swaposdptrs",
+        "xdim",
+        "ydim"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "qsetmode",
+        "xdim",
+        "ydim"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 261,
+      "linkage": "internal",
+      "name": "osdfunc_exec",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: OSD_Exec, current_verbosity_cutoff, log",
+      "source_name": "osdfunc_exec",
+      "source_references": [
+        "OSD_Exec",
+        "current_verbosity_cutoff",
+        "log"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Exec",
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 272,
+      "linkage": "internal",
+      "name": "osdfunc_echo",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
+      "source_name": "osdfunc_echo",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "XXH32_state_s"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 279,
+      "linkage": "internal",
+      "name": "osdfunc_fileinfo",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: Bcrc32, XXH32_digest, XXH32_reset, XXH32_state_s, XXH32_update, current_verbosity_cutoff, kclose, kfilelength, klseek, kopen4load, kread, log",
+      "source_name": "osdfunc_fileinfo",
+      "source_references": [
+        "Bcrc32",
+        "OSD_Printf",
+        "XXH32_digest",
+        "XXH32_reset",
+        "XXH32_state_s",
+        "XXH32_update",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "klseek",
+        "kopen4load",
+        "kread",
+        "log",
+        "timerGetFractionalTicks",
+        "xfree__header_8ce2c55c7c37",
+        "xmalloc__header_eb1d86c654ab"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "Bcrc32",
+        "XXH32_digest",
+        "XXH32_reset",
+        "XXH32_state_s",
+        "XXH32_update",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "klseek",
+        "kopen4load",
+        "kread",
+        "log",
+        "timerGetFractionalTicks"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 339,
+      "linkage": "internal",
+      "name": "_internal_drawosdchar",
+      "original_type": "void (int, int, char, int, int)",
+      "reason": "unlinked identifiers: printext256",
+      "source_name": "_internal_drawosdchar",
+      "source_references": [
+        "printext256",
+        "whiteColorIdx"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "printext256"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 349,
+      "linkage": "internal",
+      "name": "_internal_drawosdstr",
+      "original_type": "void (int, int, const char *, int, int, int)",
+      "reason": "unlinked identifiers: palookup, printext256",
+      "source_name": "_internal_drawosdstr",
+      "source_references": [
+        "OSD_GetShadePal",
+        "palookup",
+        "printext256",
+        "whiteColorIdx"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "palookup",
+        "printext256"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 367,
+      "linkage": "internal",
+      "name": "_internal_drawosdcursor",
+      "original_type": "void (int, int, int, int)",
+      "reason": "unlinked identifiers: curpalette, printext256",
+      "source_name": "_internal_drawosdcursor",
+      "source_references": [
+        "curpalette",
+        "klabs__header_0fbdcd779b19",
+        "printext256",
+        "whiteColorIdx"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "curpalette",
+        "printext256"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 394,
+      "linkage": "internal",
+      "name": "_internal_getcolumnwidth",
+      "original_type": "int (int)",
+      "source_name": "_internal_getcolumnwidth",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 399,
+      "linkage": "internal",
+      "name": "_internal_getrowheight",
+      "original_type": "int (int)",
+      "source_name": "_internal_getrowheight",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 404,
+      "linkage": "internal",
+      "name": "_internal_clearbackground",
+      "original_type": "void (int, int)",
+      "source_name": "_internal_clearbackground",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 410,
+      "linkage": "internal",
+      "name": "_internal_gettime",
+      "original_type": "int32_t ()",
+      "source_name": "_internal_gettime",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 415,
+      "linkage": "internal",
+      "name": "_internal_onshowosd",
+      "original_type": "void (int)",
+      "source_name": "_internal_onshowosd",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 420,
+      "linkage": "internal",
+      "name": "osd_clear",
+      "original_type": "void (int)",
+      "reason": "unlinked identifiers: mutex_lock__header_88d14c33a9a7, mutex_unlock__header_870fb20e837e",
+      "source_name": "osd_clear",
+      "source_references": [
+        "mutex_lock__header_88d14c33a9a7",
+        "mutex_unlock__header_870fb20e837e",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mutex_lock__header_88d14c33a9a7",
+        "mutex_unlock__header_870fb20e837e"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 437,
+      "linkage": "internal",
+      "name": "osdfunc_alias",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "C++ range iteration requires bounded array and reference",
+      "source_name": "osdfunc_alias",
+      "source_references": [
+        "OSD_RegisterFunction",
+        "current_verbosity_cutoff",
+        "log",
+        "osd",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 493,
+      "linkage": "internal",
+      "name": "osdfunc_unalias",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
+      "source_name": "osdfunc_unalias",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "log",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 521,
+      "linkage": "internal",
+      "name": "osdfunc_listsymbols",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, hash_find, log, strcat",
+      "source_name": "osdfunc_listsymbols",
+      "source_references": [
+        "OSD_CvarModified",
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_find",
+        "log",
+        "max__template_b1cfaf2244c73238",
+        "osd",
+        "strcat"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "hash_find",
+        "log",
+        "strcat"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 586,
+      "linkage": "internal",
+      "name": "osdfunc_help",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, hash_findcase, log",
+      "source_name": "osdfunc_help",
+      "source_references": [
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "log",
+        "osd",
+        "osd_findexactsymbol",
+        "osdfunc_printvar"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "hash_findcase",
+        "log"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 606,
+      "linkage": "internal",
+      "name": "osdfunc_clear",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: osd_clear",
+      "source_name": "osdfunc_clear",
+      "source_references": [
+        "osd_clear"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "osd_clear"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 613,
+      "linkage": "internal",
+      "name": "osdfunc_history",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
+      "source_name": "osdfunc_history",
+      "source_references": [
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "log",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 636,
+      "linkage": "external",
+      "name": "OSD_Cleanup",
+      "original_type": "void ()",
+      "reason": "C++ range iteration requires bounded array and reference",
+      "source_name": "OSD_Cleanup",
+      "source_references": [
+        "h_cvars",
+        "h_osd",
+        "hash_free",
+        "mi_register_output",
+        "mutex_destroy",
+        "mutex_lock__header_88d14c33a9a7",
+        "operator_delete___ZdlPvm",
+        "osd",
+        "osd_clear",
+        "xfree__header_8ce2c55c7c37"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 678,
+      "linkage": "internal",
+      "name": "osdcmd_cvar_set_osd",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "C++ range iteration requires bounded array and reference",
+      "source_name": "osdcmd_cvar_set_osd",
+      "source_references": [
+        "OSD_SetTextMode",
+        "clamp__header_b0c3fa1a2e69",
+        "osd",
+        "osdcmd_cvar_set",
+        "osdmaxrows",
+        "osdrows",
+        "osdrowscur",
+        "xfree__header_8ce2c55c7c37"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 703,
+      "linkage": "internal",
+      "name": "osdfunc_toggle",
+      "original_type": "int (osdcmdptr_t)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, hash_find, log",
+      "source_name": "osdfunc_toggle",
+      "source_references": [
+        "OSD_ParsingScript",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_find",
+        "log",
+        "osd",
+        "osd_findexactsymbol",
+        "osdcmd_cvar_set"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "hash_find",
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 769,
+      "linkage": "external",
+      "name": "mi_log",
+      "original_type": "void (const char *, void *)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
+      "source_name": "mi_log",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 783,
+      "linkage": "external",
+      "name": "OSD_Init",
+      "original_type": "void ()",
+      "reason": "sizeof/alignof record layout: osdmain_t",
+      "source_name": "OSD_Init",
+      "source_references": [
+        "OSD_RegisterCvar",
+        "OSD_RegisterFunction",
+        "_internal_clearbackground",
+        "_internal_drawosdchar",
+        "_internal_drawosdcursor",
+        "_internal_drawosdstr",
+        "_internal_getcolumnwidth",
+        "_internal_getrowheight",
+        "_internal_gettime",
+        "_internal_onshowosd",
+        "default_callbacks",
+        "h_cvars",
+        "h_osd",
+        "hash_init",
+        "mi_log",
+        "mi_register_output",
+        "mutex_init",
+        "operator_new___Znwm",
+        "osd",
+        "osdcmd_cvar_set",
+        "osdcmd_cvar_set_osd",
+        "osdfunc_alias",
+        "osdfunc_clear",
+        "osdfunc_echo",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols",
+        "osdfunc_toggle",
+        "osdfunc_unalias",
+        "osdrows",
+        "xcalloc__header_9699dd54cb2f",
+        "xmalloc__header_eb1d86c654ab"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 868,
+      "linkage": "external",
+      "name": "OSD_SetLogFile",
+      "original_type": "void (const char *)",
+      "reason": "unlinked identifiers: OSD_Init, add_file",
+      "source_name": "OSD_SetLogFile",
+      "source_references": [
+        "OSD_Init",
+        "add_file",
+        "osd",
+        "osdlogfn"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Init",
+        "add_file"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 885,
+      "linkage": "external",
+      "name": "OSD_SetFunctions",
+      "original_type": "void (void (*)(int, int, char, int, int), void (*)(int, int, const char *, int, int, int), void (*)(int, int, int, int), int (*)(int), int (*)(int), void (*)(int, int), int32_t (*)(), void (*)(int))",
+      "reason": "aggregate copy requires verified pointer-free field shape: osdcallbacks_t",
+      "source_name": "OSD_SetFunctions",
+      "source_references": [
+        "OSD_Init",
+        "OSD_SetCallbacks",
+        "_internal_clearbackground",
+        "_internal_drawosdchar",
+        "_internal_drawosdcursor",
+        "_internal_drawosdstr",
+        "_internal_getcolumnwidth",
+        "_internal_getrowheight",
+        "_internal_gettime",
+        "_internal_onshowosd",
+        "default_callbacks",
+        "osd"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 912,
+      "linkage": "external",
+      "name": "OSD_SetCallbacks",
+      "original_type": "void (const osdcallbacks_t &)",
+      "reason": "unlinked identifiers: OSD_Init",
+      "source_name": "OSD_SetCallbacks",
+      "source_references": [
+        "OSD_Init",
+        "osd",
+        "user_callbacks"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Init"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 925,
+      "linkage": "external",
+      "name": "OSD_SetParameters",
+      "original_type": "void (int, int, int, int, int, int, const char *, const char *, const char *, uint32_t)",
+      "source_name": "OSD_SetParameters",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 949,
+      "linkage": "external",
+      "name": "OSD_CaptureKey",
+      "original_type": "void (uint8_t)",
+      "source_name": "OSD_CaptureKey",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 957,
+      "linkage": "internal",
+      "name": "OSD_FindDiffPoint",
+      "original_type": "int (const char *, const char *)",
+      "reason": "unlinked identifiers: tolower",
+      "source_name": "OSD_FindDiffPoint",
+      "source_references": [
+        "tolower"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "tolower"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 968,
+      "linkage": "internal",
+      "name": "OSD_AdjustEditorPosition",
+      "original_type": "void (osdedit_t &)",
+      "source_name": "OSD_AdjustEditorPosition",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 993,
+      "linkage": "internal",
+      "name": "OSD_HistoryPrev",
+      "original_type": "void ()",
+      "source_name": "OSD_HistoryPrev",
+      "source_references": [
+        "OSD_AdjustEditorPosition",
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1007,
+      "linkage": "internal",
+      "name": "OSD_HistoryNext",
+      "original_type": "void ()",
+      "source_name": "OSD_HistoryNext",
+      "source_references": [
+        "OSD_AdjustEditorPosition",
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1032,
+      "linkage": "external",
+      "name": "OSD_HandleWheel",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: g_mouseBits, ydim",
+      "source_name": "OSD_HandleWheel",
+      "source_references": [
+        "g_mouseBits",
+        "max__template_b1cfaf2244c73238",
+        "min__template_774131ccff66371d",
+        "osd",
+        "osdrowscur",
+        "ydim"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_mouseBits",
+        "ydim"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1052,
+      "linkage": "external",
+      "name": "OSD_HandleChar",
+      "original_type": "int (char)",
+      "reason": "unlinked identifiers: OSD_FindDiffPoint, current_verbosity_cutoff, log",
+      "source_name": "OSD_HandleChar",
+      "source_references": [
+        "OSD_FindDiffPoint",
+        "OSD_HistoryNext",
+        "OSD_HistoryPrev",
+        "OSD_Printf",
+        "OSD_SetHistory__header_434806b6835f",
+        "current_verbosity_cutoff",
+        "log",
+        "max__template_b1cfaf2244c73238",
+        "osd",
+        "osd_clear",
+        "osd_findsymbol",
+        "xfree__header_8ce2c55c7c37"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_FindDiffPoint",
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1351,
+      "linkage": "external",
+      "name": "OSD_HandleScanCode",
+      "original_type": "int (uint8_t, int)",
+      "reason": "unlinked identifiers: keystatus, timerGetTicks",
+      "source_name": "OSD_HandleScanCode",
+      "source_references": [
+        "OSD_CaptureInput",
+        "OSD_HistoryNext",
+        "OSD_HistoryPrev",
+        "keystatus",
+        "osd",
+        "osdkeytime",
+        "osdrowscur",
+        "osdscrtime",
+        "timerGetTicks"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "keystatus",
+        "timerGetTicks"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1541,
+      "linkage": "external",
+      "name": "OSD_ResizeDisplay",
+      "original_type": "void (int, int)",
+      "reason": "unlinked identifiers: OSD_UpdateDrawBuffer",
+      "source_name": "OSD_ResizeDisplay",
+      "source_references": [
+        "OSD_UpdateDrawBuffer",
+        "clamp__header_b0c3fa1a2e69",
+        "osd",
+        "osd_clear",
+        "osdmaxrows",
+        "osdrows",
+        "osdrowscur",
+        "whiteColorIdx"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_UpdateDrawBuffer"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1571,
+      "linkage": "external",
+      "name": "OSD_CaptureInput",
+      "original_type": "void (int)",
+      "reason": "unlinked identifiers: g_mouseBits, g_mouseLockedToWindow, keyFlushChars, mouseGrabInput",
+      "source_name": "OSD_CaptureInput",
+      "source_references": [
+        "g_mouseBits",
+        "g_mouseLockedToWindow",
+        "keyFlushChars",
+        "mouseGrabInput",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_mouseBits",
+        "g_mouseLockedToWindow",
+        "keyFlushChars",
+        "mouseGrabInput"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1585,
+      "linkage": "external",
+      "name": "OSD_ShowDisplay",
+      "original_type": "void (int)",
+      "reason": "unlinked identifiers: OSD_CaptureInput",
+      "source_name": "OSD_ShowDisplay",
+      "source_references": [
+        "OSD_CaptureInput",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_CaptureInput"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1596,
+      "linkage": "external",
+      "name": "OSD_Draw",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: OSD_ShowDisplay, OSD_UpdateDrawBuffer, sintable, tabledivide32_noinline, timer120, timerGetTicks, videoBeginDrawing, videoEndDrawing",
+      "source_name": "OSD_Draw",
+      "source_references": [
+        "OSD_ShowDisplay",
+        "OSD_UpdateDrawBuffer",
+        "min__template_774131ccff66371d",
+        "osd",
+        "osdkeytime",
+        "osdrowscur",
+        "osdscrtime",
+        "sintable",
+        "tabledivide32_noinline",
+        "timer120",
+        "timerGetTicks",
+        "videoBeginDrawing",
+        "videoEndDrawing"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_ShowDisplay",
+        "OSD_UpdateDrawBuffer",
+        "sintable",
+        "tabledivide32_noinline",
+        "timer120",
+        "timerGetTicks",
+        "videoBeginDrawing",
+        "videoEndDrawing"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1696,
+      "linkage": "external",
+      "name": "OSD_Printf",
+      "original_type": "int (const char *, ...)",
+      "reason": "unlinked identifiers: OSD_Puts, OSD_StripColors, current_verbosity_cutoff, g_useLogCallback, log, vsnprintf",
+      "source_name": "OSD_Printf",
+      "source_references": [
+        "OSD_Puts",
+        "OSD_StripColors",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "log",
+        "max__template_b1cfaf2244c73238",
+        "nextPow2__header_f264cb98d497",
+        "osd",
+        "vsnprintf",
+        "xfree__header_8ce2c55c7c37",
+        "xrealloc__header_a01258fdb8e1"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Puts",
+        "OSD_StripColors",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "log",
+        "vsnprintf"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 1733,
+      "linkage": "external",
+      "name": "OSD_Puts",
+      "original_type": "void (const char *)",
+      "reason": "C++ allocation operator requires original provider: ('operator new', 'void *(std::size_t)')",
+      "source_name": "OSD_Puts",
+      "source_references": [
+        "OSD_WritePendingLines",
+        "operator_new___Znwm",
+        "osd",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1742,
+      "linkage": "internal",
+      "name": "OSD_LineFeed",
+      "original_type": "void ()",
+      "source_name": "OSD_LineFeed",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1758,
+      "linkage": "internal",
+      "name": "OSD_FilterConsoleMsg",
+      "original_type": "int (char **)",
+      "reason": "unlinked identifiers: xstrdup__header_7be663807644",
+      "source_name": "OSD_FilterConsoleMsg",
+      "source_references": [
+        "osd",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "xstrdup__header_7be663807644"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 1780,
+      "linkage": "external",
+      "name": "OSD_UpdateDrawBuffer",
+      "original_type": "void (const bool)",
+      "reason": "nonidentifier member",
+      "source_name": "OSD_UpdateDrawBuffer",
+      "source_references": [
+        "OSD_LineFeed",
+        "atoi_safe__header_164228c95589",
+        "isdigit",
+        "mutex_lock__header_88d14c33a9a7",
+        "mutex_unlock__header_870fb20e837e",
+        "osd",
+        "toupper"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 1871,
+      "linkage": "external",
+      "name": "OSD_WritePendingLines",
+      "original_type": "void ()",
+      "reason": "while shape",
+      "source_name": "OSD_WritePendingLines",
+      "source_references": [
+        "OSD_FilterConsoleMsg",
+        "OSD_UpdateDrawBuffer",
+        "mutex_lock__header_88d14c33a9a7",
+        "mutex_unlock__header_870fb20e837e",
+        "operator_delete___ZdlPvm",
+        "osd"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1903,
+      "linkage": "external",
+      "name": "OSD_DispatchQueued",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: OSD_Dispatch",
+      "source_name": "OSD_DispatchQueued",
+      "source_references": [
+        "OSD_Dispatch",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Dispatch"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1919,
+      "linkage": "internal",
+      "name": "osd_strtoken",
+      "original_type": "char *(char *, char **, int *)",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_name": "osd_strtoken",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2013,
+      "linkage": "external",
+      "name": "OSD_Dispatch",
+      "original_type": "void (const char *, bool)",
+      "reason": "unlinked identifiers: M32RunScript, OSD_Printf, current_verbosity_cutoff, hash_findcase, log",
+      "source_name": "OSD_Dispatch",
+      "source_references": [
+        "ARRAY_SIZE__header_72600e724364",
+        "M32RunScript",
+        "OSD_Dispatch",
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "log",
+        "m32_osd_tryscript",
+        "osd",
+        "osd_findexactsymbol",
+        "osd_strtoken",
+        "osdfunc_printvar",
+        "xfree__header_8ce2c55c7c37",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "M32RunScript",
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "hash_findcase",
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2100,
+      "linkage": "external",
+      "name": "OSD_RegisterFunction",
+      "original_type": "int (const char *, const char *, int (*)(osdcmdptr_t))",
+      "reason": "unlinked identifiers: OSD_Init",
+      "source_name": "OSD_RegisterFunction",
+      "source_references": [
+        "OSD_Init",
+        "osd",
+        "osd_addsymbol",
+        "osd_findexactsymbol"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "OSD_Init"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2122,
+      "linkage": "external",
+      "name": "OSD_SetVersion",
+      "original_type": "void (const char *, int, int)",
+      "reason": "unlinked identifiers: xfree__header_8ce2c55c7c37, xstrdup__header_7be663807644",
+      "source_name": "OSD_SetVersion",
+      "source_references": [
+        "osd",
+        "xfree__header_8ce2c55c7c37",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "xfree__header_8ce2c55c7c37",
+        "xstrdup__header_7be663807644"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2136,
+      "linkage": "internal",
+      "name": "osd_addsymbol",
+      "original_type": "osdsymbol_t *(const char *)",
+      "reason": "unlinked identifiers: Bstrtolower, hash_add",
+      "source_name": "osd_addsymbol",
+      "source_references": [
+        "Bstrtolower",
+        "h_osd",
+        "hash_add",
+        "osd",
+        "xcalloc__header_9699dd54cb2f",
+        "xfree__header_8ce2c55c7c37",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "Bstrtolower",
+        "hash_add"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2187,
+      "linkage": "internal",
+      "name": "osd_findsymbol",
+      "original_type": "osdsymbol_t *(const char *const, osdsymbol_t *)",
+      "source_name": "osd_findsymbol",
+      "source_references": [
+        "osd"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2208,
+      "linkage": "internal",
+      "name": "osd_findexactsymbol",
+      "original_type": "osdsymbol_t *(const char *)",
+      "reason": "unlinked identifiers: Bstrtolower, hash_find",
+      "source_name": "osd_findexactsymbol",
+      "source_references": [
+        "Bstrtolower",
+        "h_osd",
+        "hash_find",
+        "osd",
+        "xfree__header_8ce2c55c7c37",
+        "xstrdup__header_7be663807644"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "Bstrtolower",
+        "hash_find"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2226,
+      "linkage": "internal",
+      "name": "osdfunc_printvar",
+      "original_type": "int (const int)",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
+      "source_name": "osdfunc_printvar",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "log",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 2368,
+      "linkage": "external",
+      "name": "OSD_WriteAliases",
+      "original_type": "void (buildvfs_FILE)",
+      "reason": "C++ range iteration requires bounded array and reference",
+      "source_name": "OSD_WriteAliases",
+      "source_references": [
+        "buildvfs_fputstr__header_0dfa66d80e1e",
+        "buildvfs_fputstr__header_163fcf6be917",
+        "buildvfs_fputstr__header_8914c35a14a1",
+        "buildvfs_fputstrptr__header_0068f3fff747",
+        "osd"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 2385,
+      "linkage": "external",
+      "name": "OSD_WriteCvars",
+      "original_type": "void (buildvfs_FILE)",
+      "reason": "unlinked identifiers: buildvfs_fputstr__header_8914c35a14a1, buildvfs_fputstrptr__header_0068f3fff747",
+      "source_name": "OSD_WriteCvars",
+      "source_references": [
+        "OSD_CvarModified",
+        "buildvfs_fputstr__header_8914c35a14a1",
+        "buildvfs_fputstrptr__header_0068f3fff747",
+        "osd"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "buildvfs_fputstr__header_8914c35a14a1",
+        "buildvfs_fputstrptr__header_0068f3fff747"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e767677b0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e767677b0"
+        ],
+        "source_header": "source/build/include/compat.h",
+        "source_line": 1169,
+        "source_offset": 32336,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1169,
+      "linkage": "internal",
+      "name": "pow2char__header_global_66413628a3df7c67",
+      "original_type": "const const char[8]",
+      "physical_source": "source/build/include/compat.h",
+      "source_name": "pow2char",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e771c72a8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e771c72a8"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 172,
+        "source_offset": 4847,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 172,
+      "linkage": "internal",
+      "name": "g_defaultVideoModes__header_global_35adac1381ac169d",
+      "object_storage": {
+        "abi": "source-byte-record-array/1",
+        "dimensions": [
+          25
+        ],
+        "name": "g_defaultVideoModes__header_global_35adac1381ac169d",
+        "original_type": "const vec2_t[25]",
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "stride": 8
+      },
+      "original_type": "const vec2_t[25]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_defaultVideoModes",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e771c8f00",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e771c8f00"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 188,
+        "source_offset": 5455,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 188,
+      "linkage": "internal",
+      "name": "g_keyAsciiTable__header_global_be2e77f43026110c",
+      "original_type": "const const char[128]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_keyAsciiTable",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e771cad30",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e771cad30"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 196,
+        "source_offset": 6158,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 196,
+      "linkage": "internal",
+      "name": "g_keyAsciiTableShift__header_global_e1159f15f687f49c",
+      "original_type": "const const char[128]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_keyAsciiTableShift",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e772586e8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e772586e8"
+        ],
+        "source_header": "source/build/include/build.h",
+        "source_line": 895,
+        "source_offset": 26019,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 895,
+      "linkage": "internal",
+      "name": "pow2long__header_global_98b4672d8978dd4b",
+      "original_type": "const const int32_t[32]",
+      "physical_source": "source/build/include/build.h",
+      "source_name": "pow2long",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e77258ee8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e77258ee8"
+        ],
+        "source_header": "source/build/include/build.h",
+        "source_line": 907,
+        "source_offset": 26350,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 907,
+      "linkage": "internal",
+      "name": "pow2ulong__header_global_967d023c09448336",
+      "original_type": "const const uint32_t[32]",
+      "physical_source": "source/build/include/build.h",
+      "source_name": "pow2ulong",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x28e772599e8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x28e772599e8"
+        ],
+        "source_header": "source/build/include/build.h",
+        "source_line": 919,
+        "source_offset": 26665,
+        "translation_unit": "source/build/src/osd.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 919,
+      "linkage": "internal",
+      "name": "pow264__header_global_74a44b65f4270ffa",
+      "original_type": "const const int64_t[64]",
+      "physical_source": "source/build/include/build.h",
+      "source_name": "pow264",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1414,
+      "linkage": "internal",
+      "name": "xrealloc__header_a01258fdb8e1",
+      "original_type": "void *(void *const, const bsize_t)",
+      "reason": "unlinked identifiers: g_sm_heap, handle_memerr",
+      "source_name": "xrealloc",
+      "source_references": [
+        "_sm_realloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap",
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1401,
+      "linkage": "internal",
+      "name": "xcalloc__header_9699dd54cb2f",
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "reason": "unlinked identifiers: g_sm_heap, handle_memerr",
+      "source_name": "xcalloc",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap",
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "linkage": "internal",
+      "name": "xfree__header_8ce2c55c7c37",
+      "original_type": "void (void *const)",
+      "reason": "unlinked identifiers: g_sm_heap",
+      "source_name": "xfree",
+      "source_references": [
+        "_sm_free",
+        "g_sm_heap"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1393,
+      "linkage": "internal",
+      "name": "xmalloc__header_eb1d86c654ab",
+      "original_type": "void *(const bsize_t)",
+      "reason": "unlinked identifiers: g_sm_heap, handle_memerr",
+      "source_name": "xmalloc",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap",
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 321,
+      "linkage": "internal",
+      "name": "klabs__header_0fbdcd779b19",
+      "original_type": "int32_t (const int32_t)",
+      "reason": "unlinked identifiers: abs",
+      "source_name": "klabs",
+      "source_references": [
+        "abs"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "abs"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 29,
+      "linkage": "internal",
+      "name": "mutex_lock__header_88d14c33a9a7",
+      "original_type": "void (mutex_t *)",
+      "reason": "unlinked identifiers: SDL_AtomicLock",
+      "source_name": "mutex_lock",
+      "source_references": [
+        "SDL_AtomicLock"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "SDL_AtomicLock"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 40,
+      "linkage": "internal",
+      "name": "mutex_unlock__header_870fb20e837e",
+      "original_type": "void (mutex_t *)",
+      "reason": "unlinked identifiers: SDL_AtomicUnlock",
+      "source_name": "mutex_unlock",
+      "source_references": [
+        "SDL_AtomicUnlock"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "SDL_AtomicUnlock"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1379,
+      "linkage": "internal",
+      "name": "xstrdup__header_7be663807644",
+      "original_type": "char *(const char *)",
+      "reason": "unlinked identifiers: g_sm_heap, handle_memerr",
+      "source_name": "xstrdup",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap",
+        "handle_memerr"
+      ]
+    },
+    {
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "const": true,
+            "index": 0,
+            "type": "int"
+          },
+          {
+            "const": true,
+            "index": 1,
+            "type": "int"
+          }
+        ],
+        "result": "int"
+      },
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 254,
+      "linkage": "external",
+      "name": "max__template_b1cfaf2244c73238",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "fc59e4285df3ef0518c5dc0755aad79af1221a4bc7c5a3fb095e72334f72e2d0",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "type": "const int &(const int &, const int &)"
+      },
+      "original_type": "const int &(const int &, const int &)",
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_name": "max",
+      "source_references": [],
+      "status": "source-first",
+      "toolchain_header_definition": {
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "clamp__header_b0c3fa1a2e69",
+      "original_type": "int (int, int, int)",
+      "source_name": "clamp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "const": true,
+            "index": 0,
+            "type": "int"
+          },
+          {
+            "const": true,
+            "index": 1,
+            "type": "int"
+          }
+        ],
+        "result": "int"
+      },
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 230,
+      "linkage": "external",
+      "name": "min__template_774131ccff66371d",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "40a2391737c2963050802e7b828dd57ed20016a303001600d364be7b9763c81e",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "type": "const int &(const int &, const int &)"
+      },
+      "original_type": "const int &(const int &, const int &)",
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_name": "min",
+      "source_references": [],
+      "status": "source-first",
+      "toolchain_header_definition": {
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 331,
+      "linkage": "internal",
+      "name": "OSD_SetHistory__header_434806b6835f",
+      "original_type": "void (int, const char *)",
+      "reason": "unlinked identifiers: xmalloc__header_eb1d86c654ab",
+      "source_name": "OSD_SetHistory",
+      "source_references": [
+        "Bstrncpyz__header_79868b389ac5",
+        "osd",
+        "xmalloc__header_eb1d86c654ab"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "xmalloc__header_eb1d86c654ab"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1161,
+      "linkage": "internal",
+      "name": "nextPow2__header_f264cb98d497",
+      "original_type": "int (const int)",
+      "source_name": "nextPow2",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 698,
+      "linkage": "internal",
+      "name": "atoi_safe__header_164228c95589",
+      "original_type": "int32_t (const char *)",
+      "reason": "unlinked identifiers: strtol",
+      "source_name": "atoi_safe",
+      "source_references": [
+        "strtol"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "strtol"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ARRAY_SIZE__header_72600e724364",
+      "original_type": "size_t (const char (&)[10]) noexcept",
+      "source_name": "ARRAY_SIZE",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "clamp__header_8a7517c11404",
+      "original_type": "float (float, int, int)",
+      "source_name": "clamp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "clamp__header_d02f8e4f541f",
+      "original_type": "double (double, int, int)",
+      "source_name": "clamp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "clamp__header_a39de2443867",
+      "original_type": "unsigned long (unsigned long, int, int)",
+      "source_name": "clamp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "buildvfs_fputstr__header_163fcf6be917",
+      "original_type": "void (buildvfs_FILE, const char (&)[8])",
+      "reason": "unlinked identifiers: fwrite",
+      "source_name": "buildvfs_fputstr",
+      "source_references": [
+        "fwrite"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fwrite"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 163,
+      "linkage": "internal",
+      "name": "buildvfs_fputstrptr__header_0068f3fff747",
+      "original_type": "void (buildvfs_FILE, const char *)",
+      "reason": "unlinked identifiers: fwrite",
+      "source_name": "buildvfs_fputstrptr",
+      "source_references": [
+        "fwrite"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fwrite"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "buildvfs_fputstr__header_0dfa66d80e1e",
+      "original_type": "void (buildvfs_FILE, const char (&)[4])",
+      "reason": "unlinked identifiers: fwrite",
+      "source_name": "buildvfs_fputstr",
+      "source_references": [
+        "fwrite"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fwrite"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "buildvfs_fputstr__header_8914c35a14a1",
+      "original_type": "void (buildvfs_FILE, const char (&)[3])",
+      "reason": "unlinked identifiers: fwrite",
+      "source_name": "buildvfs_fputstr",
+      "source_references": [
+        "fwrite"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fwrite"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 866,
+      "linkage": "external",
+      "name": "_sm_realloc",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "15147a3b92b2c568bf963c2394feb463885bf738cd5e35a8c649a27be02e9c11",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 26035,
+        "type": "void *(sm_allocator, void *, size_t, size_t)"
+      },
+      "original_type": "void *(sm_allocator, void *, size_t, size_t)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_realloc",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 859,
+      "linkage": "external",
+      "name": "_sm_malloc",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "3cde34437303d4edd03f3ec8c57355c9b640fd325715fbe3e4ecde81424e6b84",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25761,
+        "type": "void *(sm_allocator, size_t, size_t)"
+      },
+      "original_type": "void *(sm_allocator, size_t, size_t)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_malloc",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 864,
+      "linkage": "external",
+      "name": "_sm_free",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "c22f8fadf34f394324abe40c02a95d48dd5c4b5fe32bd62afea6375b762691cc",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25931,
+        "type": "void (sm_allocator, void *)"
+      },
+      "original_type": "void (sm_allocator, void *)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_free",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1235,
+      "linkage": "internal",
+      "name": "Bstrncpyz__header_79868b389ac5",
+      "original_type": "char *(char *, const char *, bsize_t)",
+      "source_name": "Bstrncpyz",
+      "source_references": [
+        "min__template_c237f4424e2bda8a"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "const": true,
+            "index": 0,
+            "type": "unsigned long"
+          },
+          {
+            "const": true,
+            "index": 1,
+            "type": "unsigned long"
+          }
+        ],
+        "result": "unsigned long"
+      },
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 230,
+      "linkage": "external",
+      "name": "min__template_c237f4424e2bda8a",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "e38f0352422704d4726ac17ba92cdc7f40a3abe95bc7992a6fac9540722405eb",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "type": "const unsigned long &(const unsigned long &, const unsigned long &)"
+      },
+      "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_name": "min",
+      "source_references": [],
+      "status": "source-first",
+      "toolchain_header_definition": {
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "unresolved_references": []
+    },
+    {
+      "name": "osdcmd_cvar_set",
+      "source_name": "osdcmd_cvar_set",
+      "kind": "FunctionDecl",
+      "line": 2258,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_ParsingScript",
+        "atoi_safe__header_164228c95589",
+        "clamp__header_8a7517c11404",
+        "clamp__header_a39de2443867",
+        "clamp__header_b0c3fa1a2e69",
+        "clamp__header_d02f8e4f541f",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "loguru_log",
+        "osd",
+        "osdfunc_printvar",
+        "sscanf",
+        "strtoul"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_cvars",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_ParsingScript",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "loguru_log",
+        "osd",
+        "sscanf",
+        "strtoul"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 64,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 126,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct20-source-closure-recovery\\batch-8e97ad3c86cd2191\\source\\build\\src\\osd.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/build/src/osd.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+      "name": "osd",
+      "original_type": "osdmain_t *"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_e90cd4f2377fd5d285556e73",
+      "name": "osdlogfn",
+      "original_type": "const char *"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_50934f4ac2e9701b845e3757",
+      "name": "m32_osd_tryscript",
+      "original_type": "bool"
+    }
+  ],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  },
+  "private_storage_exports": [
+    {
+      "name": "h_cvars",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+      "owner_source": "source/build/src/osd.cpp",
+      "original_type": "struct hashtable_t",
+      "byte_record": {
+        "size": 24,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "__cxx_anonymous_0": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 12,
+              "align": 4,
+              "union": true,
+              "fields": {
+                "size": {
+                  "offset": 0,
+                  "native": "Uint32Array",
+                  "size": 4
+                },
+                "prime": {
+                  "offset": 0,
+                  "byteRecord": {
+                    "size": 12,
+                    "align": 4,
+                    "union": false,
+                    "fields": {
+                      "v": {
+                        "offset": 0,
+                        "native": "Uint32Array",
+                        "size": 4
+                      },
+                      "d": {
+                        "offset": 4,
+                        "byteRecord": {
+                          "size": 5,
+                          "align": 1,
+                          "union": false,
+                          "fields": {
+                            "magic": {
+                              "offset": 0,
+                              "native": "Uint32Array",
+                              "size": 4
+                            },
+                            "more": {
+                              "offset": 4,
+                              "native": "Uint8Array",
+                              "size": 1
+                            }
+                          },
+                          "arrayAlign": 1,
+                          "overlaps": false
+                        }
+                      }
+                    },
+                    "arrayAlign": 1,
+                    "overlaps": false
+                  }
+                }
+              },
+              "arrayAlign": 1,
+              "overlaps": true
+            }
+          },
+          "items": {
+            "offset": 16,
+            "pointer": true,
+            "size": 8
+          }
+        },
+        "arrayAlign": 1,
+        "overlaps": true
+      }
+    }
+  ],
+  "private_storage_upgrades": [
+    {
+      "format": "verified-private-storage-export/1",
+      "source": "source/build/src/osd.cpp",
+      "proofs": [
+        {
+          "name": "h_cvars",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "declaration_and_factory_sha256": "8583789d2e48a536da23a039d5d352d8d30f99db193159e02cfa92bd6da99119"
+        }
+      ],
+      "original_bytes_retained": 100651,
+      "original_definitions_recovered": 0,
+      "global_initializers_changed": false,
+      "fresh_manifest_sha256": "64cf7a9b8d58702f3a3303f29b6ca4db4c92bca6f4b8b00d4bfb2b4dafb3ec7b",
+      "before_module_sha256": "ab5f3fb11a9d54099281f3810be7b141bd5493a499eed0adfdea7fab5c75086b",
+      "after_module_sha256": "d41aa21f83230b08021eaddcb376918c4858dfb56c2d0b4fadbf4d42d22d150f",
+      "gameplay_verified": false
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_64b02a88965e.mjs",
+      "sha256": "64b02a88965e34e9ad1efed195ca667258b50f4644be45585e44ae08818c8c76",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "osdcmd_cvar_set"
+      ],
+      "imports": [
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "sscanf",
+          "from": "browser-abi/libc_provider"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider"
+        },
+        {
+          "name": "strtoul",
+          "from": "browser-abi/libc_provider"
+        }
+      ],
+      "source_manifest_sha256": "24edf4ea86deb6ac7e814aaa999b54734888063124885f8d5fd7c5818da9b922"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_3575eeb0de6f.mjs",
+      "sha256": "3575eeb0de6f915b6eecf6d1bbf904eec9cdf1d6dc652a10a167dd6a2a746873",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "osdcmd_cvar_set"
+      ],
+      "imports": [
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "sscanf",
+          "from": "browser-abi/libc_provider"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider"
+        },
+        {
+          "name": "strtoul",
+          "from": "browser-abi/libc_provider"
+        }
+      ],
+      "source_manifest_sha256": "09853305d154d64c3c5dc3456f7efcc668c9a5ae716ba848fd4f328d10f4619b"
+    }
+  ]
+}

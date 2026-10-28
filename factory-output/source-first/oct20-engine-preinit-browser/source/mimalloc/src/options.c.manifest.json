@@ -1,0 +1,1001 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-5c8ca8ef3e422151b31914950686ddd1b339329d4e2b4af5b615491107c64832.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 28650,
+      "json_bytes": 125154282,
+      "objects": 230591,
+      "ranges_omitted": 62967,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 58599
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 29,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 17,
+      "linkage": "internal",
+      "name": "mi_max_error_count",
+      "original_type": "long",
+      "physical_source": "source/mimalloc/src/options.c",
+      "source_name": "mi_max_error_count",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 18,
+      "linkage": "internal",
+      "name": "mi_max_warning_count",
+      "original_type": "long",
+      "source_name": "mi_max_warning_count",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 22,
+      "linkage": "external",
+      "name": "mi_version",
+      "original_type": "int () noexcept",
+      "source_name": "mi_version",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "CXXRecordDecl",
+      "line": 39,
+      "linkage": "external",
+      "name": "mi_option_desc_s",
+      "original_type": "",
+      "reason": "class pointer/reference field requires ownership/alias lowering",
+      "source_name": "mi_option_desc_s",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 91,
+      "linkage": "internal",
+      "name": "options",
+      "original_type": "mi_option_desc_t[32]",
+      "source_name": "options",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 144,
+      "linkage": "internal",
+      "name": "mi_option_has_size_in_kib",
+      "original_type": "bool (mi_option_t)",
+      "source_name": "mi_option_has_size_in_kib",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 148,
+      "linkage": "external",
+      "name": "_mi_options_init",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: _mi_verbose_message, mi_add_stderr_output",
+      "source_name": "_mi_options_init",
+      "source_references": [
+        "_mi_verbose_message",
+        "mi_add_stderr_output",
+        "mi_max_error_count",
+        "mi_max_warning_count",
+        "mi_option_get",
+        "mi_option_has_size_in_kib",
+        "options"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_verbose_message",
+        "mi_add_stderr_output"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 173,
+      "linkage": "external",
+      "name": "_mi_option_get_fast",
+      "original_type": "long (mi_option_t)",
+      "source_name": "_mi_option_get_fast",
+      "source_references": [
+        "options"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 182,
+      "linkage": "external",
+      "name": "mi_option_get",
+      "original_type": "long (mi_option_t)",
+      "reason": "unlinked identifiers: mi_option_init",
+      "source_name": "mi_option_get",
+      "source_references": [
+        "mi_option_init",
+        "options"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_option_init"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 193,
+      "linkage": "external",
+      "name": "mi_option_get_clamp",
+      "original_type": "long (mi_option_t, long, long)",
+      "reason": "unlinked identifiers: mi_option_get",
+      "source_name": "mi_option_get_clamp",
+      "source_references": [
+        "mi_option_get"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_option_get"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 198,
+      "linkage": "external",
+      "name": "mi_option_get_size",
+      "original_type": "size_t (mi_option_t)",
+      "reason": "unlinked identifiers: mi_option_get",
+      "source_name": "mi_option_get_size",
+      "source_references": [
+        "mi_option_get",
+        "mi_option_has_size_in_kib"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_option_get"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 208,
+      "linkage": "external",
+      "name": "mi_option_set",
+      "original_type": "void (mi_option_t, long)",
+      "source_name": "mi_option_set",
+      "source_references": [
+        "_mi_option_get_fast",
+        "mi_option_set",
+        "options"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 224,
+      "linkage": "external",
+      "name": "mi_option_set_default",
+      "original_type": "void (mi_option_t, long)",
+      "source_name": "mi_option_set_default",
+      "source_references": [
+        "options"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 233,
+      "linkage": "external",
+      "name": "mi_option_is_enabled",
+      "original_type": "bool (mi_option_t)",
+      "reason": "unlinked identifiers: mi_option_get",
+      "source_name": "mi_option_is_enabled",
+      "source_references": [
+        "mi_option_get"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_option_get"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 237,
+      "linkage": "external",
+      "name": "mi_option_set_enabled",
+      "original_type": "void (mi_option_t, bool)",
+      "source_name": "mi_option_set_enabled",
+      "source_references": [
+        "mi_option_set"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 241,
+      "linkage": "external",
+      "name": "mi_option_set_enabled_default",
+      "original_type": "void (mi_option_t, bool)",
+      "source_name": "mi_option_set_enabled_default",
+      "source_references": [
+        "mi_option_set_default"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 245,
+      "linkage": "external",
+      "name": "mi_option_enable",
+      "original_type": "void (mi_option_t)",
+      "source_name": "mi_option_enable",
+      "source_references": [
+        "mi_option_set_enabled"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 249,
+      "linkage": "external",
+      "name": "mi_option_disable",
+      "original_type": "void (mi_option_t)",
+      "source_name": "mi_option_disable",
+      "source_references": [
+        "mi_option_set_enabled"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 253,
+      "linkage": "internal",
+      "name": "mi_out_stderr",
+      "original_type": "void (const char *, void *)",
+      "reason": "unlinked identifiers: _mi_prim_out_stderr",
+      "source_name": "mi_out_stderr",
+      "source_references": [
+        "_mi_prim_out_stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_prim_out_stderr"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 267,
+      "linkage": "internal",
+      "name": "out_buf",
+      "original_type": "char[16385]",
+      "source_name": "out_buf",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "VarDecl",
+      "line": 268,
+      "linkage": "internal",
+      "name": "out_len",
+      "original_type": "std::atomic<unsigned long>",
+      "reason": "constructor requires Clang-identified record type: std::atomic<unsigned long>",
+      "source_name": "out_len",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 270,
+      "linkage": "internal",
+      "name": "mi_out_buf",
+      "original_type": "void (const char *, void *)",
+      "reason": "unlinked identifiers: _mi_strlen, atomic_fetch_add_explicit, atomic_load_explicit, out_len",
+      "source_name": "mi_out_buf",
+      "source_references": [
+        "_mi_memcpy__header_d5c2ea3f14ef",
+        "_mi_strlen",
+        "atomic_fetch_add_explicit",
+        "atomic_load_explicit",
+        "out_buf",
+        "out_len"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_strlen",
+        "atomic_fetch_add_explicit",
+        "atomic_load_explicit",
+        "out_len"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 286,
+      "linkage": "internal",
+      "name": "mi_out_buf_flush",
+      "original_type": "void (mi_output_fun *, bool, void *)",
+      "reason": "unlinked identifiers: atomic_fetch_add_explicit, out_len",
+      "source_name": "mi_out_buf_flush",
+      "source_references": [
+        "atomic_fetch_add_explicit",
+        "out_buf",
+        "out_len"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_fetch_add_explicit",
+        "out_len"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 302,
+      "linkage": "internal",
+      "name": "mi_out_buf_stderr",
+      "original_type": "void (const char *, void *)",
+      "reason": "unlinked identifiers: mi_out_buf, mi_out_stderr",
+      "source_name": "mi_out_buf_stderr",
+      "source_references": [
+        "mi_out_buf",
+        "mi_out_stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_out_buf",
+        "mi_out_stderr"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 315,
+      "linkage": "internal",
+      "name": "mi_out_default",
+      "original_type": "mi_output_fun *volatile",
+      "source_name": "mi_out_default",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "VarDecl",
+      "line": 316,
+      "linkage": "internal",
+      "name": "mi_out_arg",
+      "original_type": "std::atomic<void *>",
+      "reason": "constructor requires Clang-identified record type: std::atomic<void *>",
+      "source_name": "mi_out_arg",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 318,
+      "linkage": "internal",
+      "name": "mi_out_get_default",
+      "original_type": "mi_output_fun *(void **)",
+      "reason": "unlinked identifiers: atomic_load_explicit, mi_out_arg, mi_out_buf",
+      "source_name": "mi_out_get_default",
+      "source_references": [
+        "atomic_load_explicit",
+        "mi_out_arg",
+        "mi_out_buf",
+        "mi_out_default"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_load_explicit",
+        "mi_out_arg",
+        "mi_out_buf"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 324,
+      "linkage": "external",
+      "name": "mi_register_output",
+      "original_type": "void (mi_output_fun *, void *) noexcept",
+      "reason": "unlinked identifiers: atomic_store_explicit, mi_out_arg, mi_out_buf_flush, mi_out_stderr",
+      "source_name": "mi_register_output",
+      "source_references": [
+        "atomic_store_explicit",
+        "mi_out_arg",
+        "mi_out_buf_flush",
+        "mi_out_default",
+        "mi_out_stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_store_explicit",
+        "mi_out_arg",
+        "mi_out_buf_flush",
+        "mi_out_stderr"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 331,
+      "linkage": "internal",
+      "name": "mi_add_stderr_output",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: mi_out_buf_flush, mi_out_buf_stderr, mi_out_stderr",
+      "source_name": "mi_add_stderr_output",
+      "source_references": [
+        "mi_out_buf_flush",
+        "mi_out_buf_stderr",
+        "mi_out_default",
+        "mi_out_stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_out_buf_flush",
+        "mi_out_buf_stderr",
+        "mi_out_stderr"
+      ]
+    },
+    {
+      "kind": "VarDecl",
+      "line": 340,
+      "linkage": "internal",
+      "name": "error_count",
+      "original_type": "std::atomic<unsigned long>",
+      "reason": "constructor requires Clang-identified record type: std::atomic<unsigned long>",
+      "source_name": "error_count",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "kind": "VarDecl",
+      "line": 341,
+      "linkage": "internal",
+      "name": "warning_count",
+      "original_type": "std::atomic<unsigned long>",
+      "reason": "constructor requires Clang-identified record type: std::atomic<unsigned long>",
+      "source_name": "warning_count",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 352,
+      "linkage": "internal",
+      "name": "recurse",
+      "original_type": "bool",
+      "source_name": "recurse",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 354,
+      "linkage": "internal",
+      "name": "mi_recurse_enter_prim",
+      "original_type": "bool ()",
+      "source_name": "mi_recurse_enter_prim",
+      "source_references": [
+        "recurse"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 360,
+      "linkage": "internal",
+      "name": "mi_recurse_exit_prim",
+      "original_type": "void ()",
+      "source_name": "mi_recurse_exit_prim",
+      "source_references": [
+        "recurse"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 364,
+      "linkage": "internal",
+      "name": "mi_recurse_enter",
+      "original_type": "bool ()",
+      "source_name": "mi_recurse_enter",
+      "source_references": [
+        "mi_recurse_enter_prim"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 371,
+      "linkage": "internal",
+      "name": "mi_recurse_exit",
+      "original_type": "void ()",
+      "source_name": "mi_recurse_exit",
+      "source_references": [
+        "mi_recurse_exit_prim"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 378,
+      "linkage": "external",
+      "name": "_mi_fputs",
+      "original_type": "void (mi_output_fun *, void *, const char *, const char *)",
+      "reason": "unlinked identifiers: mi_out_get_default, stderr, stdout",
+      "source_name": "_mi_fputs",
+      "source_references": [
+        "mi_out_get_default",
+        "mi_recurse_enter",
+        "mi_recurse_exit",
+        "stderr",
+        "stdout"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_out_get_default",
+        "stderr",
+        "stdout"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 394,
+      "linkage": "internal",
+      "name": "mi_vfprintf",
+      "original_type": "void (mi_output_fun *, void *, const char *, const char *, __va_list_tag *)",
+      "reason": "unlinked identifiers: _mi_fputs, _mi_vsnprintf",
+      "source_name": "mi_vfprintf",
+      "source_references": [
+        "_mi_fputs",
+        "_mi_vsnprintf",
+        "mi_recurse_enter",
+        "mi_recurse_exit"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_fputs",
+        "_mi_vsnprintf"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 403,
+      "linkage": "external",
+      "name": "_mi_fprintf",
+      "original_type": "void (mi_output_fun *, void *, const char *, ...)",
+      "reason": "unlinked identifiers: mi_vfprintf",
+      "source_name": "_mi_fprintf",
+      "source_references": [
+        "mi_vfprintf"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_vfprintf"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 410,
+      "linkage": "internal",
+      "name": "mi_vfprintf_thread",
+      "original_type": "void (mi_output_fun *, void *, const char *, const char *, __va_list_tag *)",
+      "reason": "unlinked identifiers: _mi_is_main_thread, _mi_snprintf, _mi_strnlen, _mi_thread_id, mi_vfprintf",
+      "source_name": "mi_vfprintf_thread",
+      "source_references": [
+        "_mi_is_main_thread",
+        "_mi_snprintf",
+        "_mi_strnlen",
+        "_mi_thread_id",
+        "mi_vfprintf"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_is_main_thread",
+        "_mi_snprintf",
+        "_mi_strnlen",
+        "_mi_thread_id",
+        "mi_vfprintf"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 421,
+      "linkage": "external",
+      "name": "_mi_trace_message",
+      "original_type": "void (const char *, ...)",
+      "reason": "unlinked identifiers: mi_vfprintf_thread",
+      "source_name": "_mi_trace_message",
+      "source_references": [
+        "mi_option_get",
+        "mi_vfprintf_thread"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_vfprintf_thread"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 429,
+      "linkage": "external",
+      "name": "_mi_verbose_message",
+      "original_type": "void (const char *, ...)",
+      "reason": "unlinked identifiers: mi_vfprintf",
+      "source_name": "_mi_verbose_message",
+      "source_references": [
+        "mi_option_is_enabled",
+        "mi_vfprintf"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_vfprintf"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 437,
+      "linkage": "internal",
+      "name": "mi_show_error_message",
+      "original_type": "void (const char *, __va_list_tag *)",
+      "reason": "unlinked identifiers: atomic_fetch_add_explicit, error_count, mi_vfprintf_thread",
+      "source_name": "mi_show_error_message",
+      "source_references": [
+        "atomic_fetch_add_explicit",
+        "error_count",
+        "mi_max_error_count",
+        "mi_option_is_enabled",
+        "mi_vfprintf_thread"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_fetch_add_explicit",
+        "error_count",
+        "mi_vfprintf_thread"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 445,
+      "linkage": "external",
+      "name": "_mi_warning_message",
+      "original_type": "void (const char *, ...)",
+      "reason": "unlinked identifiers: atomic_fetch_add_explicit, mi_vfprintf_thread, warning_count",
+      "source_name": "_mi_warning_message",
+      "source_references": [
+        "atomic_fetch_add_explicit",
+        "mi_max_warning_count",
+        "mi_option_is_enabled",
+        "mi_vfprintf_thread",
+        "warning_count"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_fetch_add_explicit",
+        "mi_vfprintf_thread",
+        "warning_count"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 468,
+      "linkage": "internal",
+      "name": "mi_error_handler",
+      "original_type": "mi_error_fun *volatile",
+      "source_name": "mi_error_handler",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "VarDecl",
+      "line": 469,
+      "linkage": "internal",
+      "name": "mi_error_arg",
+      "original_type": "std::atomic<void *>",
+      "reason": "constructor requires Clang-identified record type: std::atomic<void *>",
+      "source_name": "mi_error_arg",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 471,
+      "linkage": "internal",
+      "name": "mi_error_default",
+      "original_type": "void (int)",
+      "source_name": "mi_error_default",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 493,
+      "linkage": "external",
+      "name": "mi_register_error",
+      "original_type": "void (mi_error_fun *, void *)",
+      "reason": "unlinked identifiers: atomic_store_explicit, mi_error_arg",
+      "source_name": "mi_register_error",
+      "source_references": [
+        "atomic_store_explicit",
+        "mi_error_arg",
+        "mi_error_handler"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_store_explicit",
+        "mi_error_arg"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 498,
+      "linkage": "external",
+      "name": "_mi_error_message",
+      "original_type": "void (int, const char *, ...)",
+      "reason": "unlinked identifiers: atomic_load_explicit, mi_error_arg, mi_show_error_message",
+      "source_name": "_mi_error_message",
+      "source_references": [
+        "atomic_load_explicit",
+        "mi_error_arg",
+        "mi_error_default",
+        "mi_error_handler",
+        "mi_show_error_message"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_load_explicit",
+        "mi_error_arg",
+        "mi_show_error_message"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 522,
+      "linkage": "internal",
+      "name": "mi_option_init",
+      "original_type": "void (mi_option_desc_t *)",
+      "reason": "unlinked identifiers: _mi_getenv, _mi_preloading, _mi_strlcat, _mi_strlcpy, _mi_strnlen, _mi_toupper, _mi_warning_message, strstr, strtol",
+      "source_name": "mi_option_init",
+      "source_references": [
+        "_mi_getenv",
+        "_mi_preloading",
+        "_mi_strlcat",
+        "_mi_strlcpy",
+        "_mi_strnlen",
+        "_mi_toupper",
+        "_mi_warning_message",
+        "mi_mul_overflow__header_d77fadafa56a",
+        "mi_option_has_size_in_kib",
+        "mi_option_set",
+        "strstr",
+        "strtol"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_getenv",
+        "_mi_preloading",
+        "_mi_strlcat",
+        "_mi_strlcpy",
+        "_mi_strnlen",
+        "_mi_toupper",
+        "_mi_warning_message",
+        "strstr",
+        "strtol"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 931,
+      "linkage": "internal",
+      "name": "_mi_memcpy__header_d5c2ea3f14ef",
+      "original_type": "void (void *, const void *, size_t)",
+      "source_name": "_mi_memcpy",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 373,
+      "linkage": "internal",
+      "name": "mi_mul_overflow__header_d77fadafa56a",
+      "original_type": "bool (size_t, size_t, size_t *)",
+      "source_name": "mi_mul_overflow",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 23,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 52,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-fa6d97dee511edba\\source\\mimalloc\\src\\options.c.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/mimalloc/src/options.c",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

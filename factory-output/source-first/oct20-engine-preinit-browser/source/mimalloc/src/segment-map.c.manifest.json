@@ -1,0 +1,283 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-af09e8d2d7ee3e2177235ec03c4e29abbd314297d08c5f1740170ec8d49d5c35.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 27161,
+      "json_bytes": 119632118,
+      "objects": 219128,
+      "ranges_omitted": 59234,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 55268
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 7,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "CXXRecordDecl",
+      "line": 36,
+      "linkage": "external",
+      "name": "mi_segmap_part_s",
+      "original_type": "",
+      "physical_source": "source/mimalloc/src/segment-map.c",
+      "source_name": "mi_segmap_part_s",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "VarDecl",
+      "line": 42,
+      "linkage": "internal",
+      "name": "mi_segment_map",
+      "original_type": "std::atomic<mi_segmap_part_t *>[196]",
+      "reason": "pointer array requires original list initializer",
+      "source_name": "mi_segment_map",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 44,
+      "linkage": "internal",
+      "name": "mi_segment_map_index_of",
+      "original_type": "mi_segmap_part_t *(const mi_segment_t *, bool, size_t *, size_t *)",
+      "reason": "aggregate copy requires verified pointer-free field shape: mi_memid_s",
+      "source_name": "mi_segment_map_index_of",
+      "source_references": [
+        "_mi_os_alloc",
+        "_mi_os_free",
+        "atomic_compare_exchange_strong_explicit",
+        "atomic_load_explicit",
+        "mi_segment_map"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 75,
+      "linkage": "external",
+      "name": "_mi_segment_map_allocated_at",
+      "original_type": "void (const mi_segment_t *)",
+      "reason": "unlinked identifiers: atomic_compare_exchange_weak_explicit, atomic_load_explicit, mi_segment_map_index_of",
+      "source_name": "_mi_segment_map_allocated_at",
+      "source_references": [
+        "atomic_compare_exchange_weak_explicit",
+        "atomic_load_explicit",
+        "mi_segment_map_index_of"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_compare_exchange_weak_explicit",
+        "atomic_load_explicit",
+        "mi_segment_map_index_of"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 88,
+      "linkage": "external",
+      "name": "_mi_segment_map_freed_at",
+      "original_type": "void (const mi_segment_t *)",
+      "reason": "unlinked identifiers: atomic_compare_exchange_weak_explicit, atomic_load_explicit, mi_segment_map_index_of",
+      "source_name": "_mi_segment_map_freed_at",
+      "source_references": [
+        "atomic_compare_exchange_weak_explicit",
+        "atomic_load_explicit",
+        "mi_segment_map_index_of"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_compare_exchange_weak_explicit",
+        "atomic_load_explicit",
+        "mi_segment_map_index_of"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 102,
+      "linkage": "internal",
+      "name": "_mi_segment_of",
+      "original_type": "mi_segment_t *(const void *)",
+      "reason": "unlinked identifiers: atomic_load_explicit, mi_segment_map_index_of",
+      "source_name": "_mi_segment_of",
+      "source_references": [
+        "_mi_ptr_cookie__header_79715d0a0046",
+        "_mi_ptr_segment__header_5b41de108df7",
+        "atomic_load_explicit",
+        "mi_segment_map_index_of"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_load_explicit",
+        "mi_segment_map_index_of"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 119,
+      "linkage": "internal",
+      "name": "mi_is_valid_pointer",
+      "original_type": "bool (const void *)",
+      "reason": "unlinked identifiers: _mi_arena_contains, _mi_segment_of",
+      "source_name": "mi_is_valid_pointer",
+      "source_references": [
+        "_mi_arena_contains",
+        "_mi_segment_of"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_arena_contains",
+        "_mi_segment_of"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 124,
+      "linkage": "external",
+      "name": "mi_is_in_heap_region",
+      "original_type": "bool (const void *) noexcept",
+      "reason": "unlinked identifiers: mi_is_valid_pointer",
+      "source_name": "mi_is_in_heap_region",
+      "source_references": [
+        "mi_is_valid_pointer"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_is_valid_pointer"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 445,
+      "linkage": "internal",
+      "name": "_mi_ptr_segment__header_5b41de108df7",
+      "original_type": "mi_segment_t *(const void *)",
+      "source_name": "_mi_ptr_segment",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 423,
+      "linkage": "internal",
+      "name": "_mi_ptr_cookie__header_79715d0a0046",
+      "original_type": "uintptr_t (const void *)",
+      "source_name": "_mi_ptr_cookie",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 3,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 10,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-290a842ae44d2389\\source\\mimalloc\\src\\segment-map.c.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/mimalloc/src/segment-map.c",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

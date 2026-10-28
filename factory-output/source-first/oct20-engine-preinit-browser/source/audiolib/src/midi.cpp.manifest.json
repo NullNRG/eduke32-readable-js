@@ -1,0 +1,1550 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-856a10f3c0359742cf85adb4ebaacde56b755a1e04a1b6f5fd220c8291ba55aa.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 45902,
+      "json_bytes": 237322129,
+      "objects": 395076,
+      "ranges_omitted": 120517,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 109631
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 21,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa9a30",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa9a30"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 111,
+        "source_offset": 5190,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 111,
+      "linkage": "internal",
+      "name": "fix16_rad_to_deg_mult__header_global_a0edd773ff1e0618",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_rad_to_deg_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa9eb0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa9eb0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 114,
+        "source_offset": 5371,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 114,
+      "linkage": "internal",
+      "name": "fix16_deg_to_rad_mult__header_global_538451e0546e2050",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_deg_to_rad_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 47,
+      "linkage": "external",
+      "name": "MIDI_GetDevice",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: ASS_MIDISoundDriver",
+      "source_name": "MIDI_GetDevice",
+      "source_references": [
+        "ASS_MIDISoundDriver"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ASS_MIDISoundDriver"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 52,
+      "linkage": "internal",
+      "name": "_MIDI_CommandLengths",
+      "original_type": "const int[16]",
+      "source_name": "_MIDI_CommandLengths",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 54,
+      "linkage": "internal",
+      "name": "_MIDI_TrackPtr",
+      "original_type": "track *",
+      "source_name": "_MIDI_TrackPtr",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 55,
+      "linkage": "internal",
+      "name": "_MIDI_TrackMemSize",
+      "original_type": "int",
+      "source_name": "_MIDI_TrackMemSize",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 56,
+      "linkage": "internal",
+      "name": "_MIDI_NumTracks",
+      "original_type": "int",
+      "source_name": "_MIDI_NumTracks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 58,
+      "linkage": "internal",
+      "name": "_MIDI_SongActive",
+      "original_type": "int",
+      "source_name": "_MIDI_SongActive",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 59,
+      "linkage": "internal",
+      "name": "_MIDI_SongLoaded",
+      "original_type": "int",
+      "source_name": "_MIDI_SongLoaded",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 60,
+      "linkage": "internal",
+      "name": "_MIDI_Loop",
+      "original_type": "int",
+      "source_name": "_MIDI_Loop",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 62,
+      "linkage": "internal",
+      "name": "_MIDI_Division",
+      "original_type": "int",
+      "source_name": "_MIDI_Division",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 63,
+      "linkage": "internal",
+      "name": "_MIDI_Tick",
+      "original_type": "int",
+      "source_name": "_MIDI_Tick",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 64,
+      "linkage": "internal",
+      "name": "_MIDI_Beat",
+      "original_type": "int",
+      "source_name": "_MIDI_Beat",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 65,
+      "linkage": "internal",
+      "name": "_MIDI_Measure",
+      "original_type": "int",
+      "source_name": "_MIDI_Measure",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 66,
+      "linkage": "internal",
+      "name": "_MIDI_Time",
+      "original_type": "unsigned int",
+      "source_name": "_MIDI_Time",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 67,
+      "linkage": "internal",
+      "name": "_MIDI_BeatsPerMeasure",
+      "original_type": "int",
+      "source_name": "_MIDI_BeatsPerMeasure",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 68,
+      "linkage": "internal",
+      "name": "_MIDI_TicksPerBeat",
+      "original_type": "int",
+      "source_name": "_MIDI_TicksPerBeat",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 69,
+      "linkage": "internal",
+      "name": "_MIDI_TimeBase",
+      "original_type": "int",
+      "source_name": "_MIDI_TimeBase",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 70,
+      "linkage": "internal",
+      "name": "_MIDI_FPSecondsPerTick",
+      "original_type": "int",
+      "source_name": "_MIDI_FPSecondsPerTick",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 71,
+      "linkage": "internal",
+      "name": "_MIDI_TotalTime",
+      "original_type": "unsigned int",
+      "source_name": "_MIDI_TotalTime",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 72,
+      "linkage": "internal",
+      "name": "_MIDI_TotalTicks",
+      "original_type": "int",
+      "source_name": "_MIDI_TotalTicks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 73,
+      "linkage": "internal",
+      "name": "_MIDI_TotalBeats",
+      "original_type": "int",
+      "source_name": "_MIDI_TotalBeats",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 74,
+      "linkage": "internal",
+      "name": "_MIDI_TotalMeasures",
+      "original_type": "int",
+      "source_name": "_MIDI_TotalMeasures",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_6c32a6acbc578619946b696c",
+        "original_type": "unsigned int"
+      },
+      "kind": "VarDecl",
+      "line": 76,
+      "linkage": "external",
+      "name": "_MIDI_PositionInTicks",
+      "original_type": "unsigned int",
+      "source_name": "_MIDI_PositionInTicks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_ce9451e16d242c0b6f6ad7f1",
+        "original_type": "unsigned int"
+      },
+      "kind": "VarDecl",
+      "line": 77,
+      "linkage": "external",
+      "name": "_MIDI_GlobalPositionInTicks",
+      "original_type": "unsigned int",
+      "source_name": "_MIDI_GlobalPositionInTicks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 79,
+      "linkage": "internal",
+      "name": "_MIDI_Context",
+      "original_type": "int",
+      "source_name": "_MIDI_Context",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 81,
+      "linkage": "internal",
+      "name": "_MIDI_ActiveTracks",
+      "original_type": "int",
+      "source_name": "_MIDI_ActiveTracks",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 82,
+      "linkage": "internal",
+      "name": "_MIDI_TotalVolume",
+      "original_type": "int",
+      "source_name": "_MIDI_TotalVolume",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa2548",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa2548"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 31,
+        "source_offset": 667,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 31,
+      "linkage": "internal",
+      "name": "FIX16_MAX__header_global_276f22e3d44cf116",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MAX",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa2660",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa2660"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 32,
+        "source_offset": 764,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 32,
+      "linkage": "internal",
+      "name": "FIX16_MIN__header_global_6446b8e5627ce080",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MIN",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa2790",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa2790"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 33,
+        "source_offset": 861,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "internal",
+      "name": "FIX16_OVERFLOW__header_global_9ce8131ad62c5625",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_OVERFLOW",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa28c0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa28c0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 35,
+        "source_offset": 967,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "fix16_one__header_global_9cbfd3e223175bcc",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_one",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa29d0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa29d0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 36,
+        "source_offset": 1056,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "fix16_half__header_global_1104c09af5a7364f",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_half",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bfa2ae0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bfa2ae0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 37,
+        "source_offset": 1147,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "flt_f161r__header_global_2be30c8896897aa6",
+      "original_type": "const float",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "flt_f161r",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 84,
+      "linkage": "internal",
+      "name": "_MIDI_ChannelVolume",
+      "original_type": "int[16]",
+      "source_name": "_MIDI_ChannelVolume",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 86,
+      "linkage": "internal",
+      "name": "_MIDI_Funcs",
+      "original_type": "midifuncs *",
+      "source_name": "_MIDI_Funcs",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 88,
+      "linkage": "internal",
+      "name": "_MIDI_Reset",
+      "original_type": "int",
+      "source_name": "_MIDI_Reset",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_ece418416652c380cd3a06e4",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 90,
+      "linkage": "external",
+      "name": "MV_MIDIRenderTempo",
+      "original_type": "int",
+      "source_name": "MV_MIDIRenderTempo",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_34ab867f9f9964abc4c8037b",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 91,
+      "linkage": "external",
+      "name": "MV_MIDIRenderTimer",
+      "original_type": "int",
+      "source_name": "MV_MIDIRenderTimer",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 93,
+      "linkage": "internal",
+      "name": "_MIDI_SongPtr",
+      "original_type": "char *",
+      "source_name": "_MIDI_SongPtr",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "emitted_constructor_providers": [
+        "songposition"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 97,
+      "linkage": "external",
+      "name": "MIDI_Restart",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: MIDI_PlaySong, songposition",
+      "source_name": "MIDI_Restart",
+      "source_references": [
+        "MIDI_GetSongPosition",
+        "MIDI_PlaySong",
+        "MIDI_SetSongPosition",
+        "_MIDI_Loop",
+        "_MIDI_SongLoaded",
+        "_MIDI_SongPtr",
+        "songposition"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MIDI_PlaySong",
+        "songposition"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 108,
+      "linkage": "internal",
+      "name": "_MIDI_ReadNumber",
+      "original_type": "int (void *, size_t)",
+      "source_name": "_MIDI_ReadNumber",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 125,
+      "linkage": "internal",
+      "name": "_MIDI_ReadDelta",
+      "original_type": "int (track *)",
+      "source_name": "_MIDI_ReadDelta",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 147,
+      "linkage": "internal",
+      "name": "_MIDI_ResetTracks",
+      "original_type": "void ()",
+      "reason": "pointer increment requires bounded element layout: track *",
+      "source_name": "_MIDI_ResetTracks",
+      "source_references": [
+        "_MIDI_ActiveTracks",
+        "_MIDI_Beat",
+        "_MIDI_BeatsPerMeasure",
+        "_MIDI_Context",
+        "_MIDI_Division",
+        "_MIDI_Measure",
+        "_MIDI_NumTracks",
+        "_MIDI_PositionInTicks",
+        "_MIDI_ReadDelta",
+        "_MIDI_Tick",
+        "_MIDI_TicksPerBeat",
+        "_MIDI_Time",
+        "_MIDI_TimeBase",
+        "_MIDI_TrackPtr"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 178,
+      "linkage": "internal",
+      "name": "_MIDI_AdvanceTick",
+      "original_type": "void ()",
+      "source_name": "_MIDI_AdvanceTick",
+      "source_references": [
+        "_MIDI_Beat",
+        "_MIDI_BeatsPerMeasure",
+        "_MIDI_FPSecondsPerTick",
+        "_MIDI_Measure",
+        "_MIDI_PositionInTicks",
+        "_MIDI_Tick",
+        "_MIDI_TicksPerBeat",
+        "_MIDI_Time"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 196,
+      "linkage": "internal",
+      "name": "_MIDI_SysEx",
+      "original_type": "void (track *)",
+      "source_name": "_MIDI_SysEx",
+      "source_references": [
+        "_MIDI_ReadDelta"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 203,
+      "linkage": "internal",
+      "name": "_MIDI_MetaEvent",
+      "original_type": "void (track *)",
+      "reason": "unlinked identifiers: tabledivide32_noinline",
+      "source_name": "_MIDI_MetaEvent",
+      "source_references": [
+        "MIDI_SetTempo",
+        "_MIDI_ActiveTracks",
+        "_MIDI_Beat",
+        "_MIDI_BeatsPerMeasure",
+        "_MIDI_Division",
+        "_MIDI_Measure",
+        "_MIDI_ReadNumber",
+        "_MIDI_Tick",
+        "_MIDI_TicksPerBeat",
+        "_MIDI_TimeBase",
+        "tabledivide32_noinline"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "tabledivide32_noinline"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 251,
+      "linkage": "internal",
+      "name": "_MIDI_InterpretControllerInfo",
+      "original_type": "int (track *, int, int, int, int)",
+      "reason": "pointer increment requires bounded element layout: track *",
+      "source_name": "_MIDI_InterpretControllerInfo",
+      "source_references": [
+        "_MIDI_ActiveTracks",
+        "_MIDI_Beat",
+        "_MIDI_BeatsPerMeasure",
+        "_MIDI_Context",
+        "_MIDI_FPSecondsPerTick",
+        "_MIDI_Funcs",
+        "_MIDI_Measure",
+        "_MIDI_NumTracks",
+        "_MIDI_SetChannelVolume",
+        "_MIDI_Tick",
+        "_MIDI_TicksPerBeat",
+        "_MIDI_Time",
+        "_MIDI_TimeBase",
+        "_MIDI_TrackPtr"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 408,
+      "linkage": "external",
+      "name": "MIDI_ServiceRoutine",
+      "original_type": "void ()",
+      "reason": "pointer increment requires bounded element layout: track *",
+      "source_name": "MIDI_ServiceRoutine",
+      "source_references": [
+        "_MIDI_ActiveTracks",
+        "_MIDI_AdvanceTick",
+        "_MIDI_CommandLengths",
+        "_MIDI_Funcs",
+        "_MIDI_GlobalPositionInTicks",
+        "_MIDI_InterpretControllerInfo",
+        "_MIDI_Loop",
+        "_MIDI_MetaEvent",
+        "_MIDI_NumTracks",
+        "_MIDI_ReadDelta",
+        "_MIDI_ResetTracks",
+        "_MIDI_SongActive",
+        "_MIDI_SysEx",
+        "_MIDI_TrackPtr"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 524,
+      "linkage": "internal",
+      "name": "_MIDI_SendControlChange",
+      "original_type": "int (int, int, int)",
+      "source_name": "_MIDI_SendControlChange",
+      "source_references": [
+        "_MIDI_Funcs"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 534,
+      "linkage": "internal",
+      "name": "_MIDI_SendProgramChange",
+      "original_type": "int (int, int)",
+      "source_name": "_MIDI_SendProgramChange",
+      "source_references": [
+        "_MIDI_Funcs"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 544,
+      "linkage": "external",
+      "name": "MIDI_AllNotesOff",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "source_name": "MIDI_AllNotesOff",
+      "source_references": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_SendControlChange"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 561,
+      "linkage": "internal",
+      "name": "_MIDI_SetChannelVolume",
+      "original_type": "void (int, int)",
+      "reason": "unlinked identifiers: tabledivide32_noinline",
+      "source_name": "_MIDI_SetChannelVolume",
+      "source_references": [
+        "_MIDI_ChannelVolume",
+        "_MIDI_Funcs",
+        "_MIDI_TotalVolume",
+        "tabledivide32_noinline"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "tabledivide32_noinline"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 577,
+      "linkage": "internal",
+      "name": "_MIDI_SendChannelVolumes",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: _MIDI_SetChannelVolume",
+      "source_name": "_MIDI_SendChannelVolumes",
+      "source_references": [
+        "_MIDI_ChannelVolume",
+        "_MIDI_SetChannelVolume"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_MIDI_SetChannelVolume"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 583,
+      "linkage": "external",
+      "name": "MIDI_Reset",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: MIDI_AllNotesOff, SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock, _MIDI_SendChannelVolumes",
+      "source_name": "MIDI_Reset",
+      "source_references": [
+        "MIDI_AllNotesOff",
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_ChannelVolume",
+        "_MIDI_Reset",
+        "_MIDI_SendChannelVolumes",
+        "_MIDI_SendControlChange",
+        "_MIDI_SendProgramChange"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MIDI_AllNotesOff",
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_SendChannelVolumes"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 615,
+      "linkage": "external",
+      "name": "MIDI_SetVolume",
+      "original_type": "int (int)",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock, _MIDI_SendChannelVolumes, max, min",
+      "source_name": "MIDI_SetVolume",
+      "source_references": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_Funcs",
+        "_MIDI_SendChannelVolumes",
+        "_MIDI_TotalVolume",
+        "max",
+        "min"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_SendChannelVolumes",
+        "max",
+        "min"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 638,
+      "linkage": "external",
+      "name": "MIDI_GetVolume",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "source_name": "MIDI_GetVolume",
+      "source_references": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_Funcs",
+        "_MIDI_TotalVolume"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 650,
+      "linkage": "external",
+      "name": "MIDI_SetLoopFlag",
+      "original_type": "void (int)",
+      "source_name": "MIDI_SetLoopFlag",
+      "source_references": [
+        "_MIDI_Loop"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 652,
+      "linkage": "external",
+      "name": "MIDI_ContinueSong",
+      "original_type": "void ()",
+      "source_name": "MIDI_ContinueSong",
+      "source_references": [
+        "_MIDI_SongActive",
+        "_MIDI_SongLoaded"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 660,
+      "linkage": "external",
+      "name": "MIDI_PauseSong",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: MIDI_AllNotesOff",
+      "source_name": "MIDI_PauseSong",
+      "source_references": [
+        "MIDI_AllNotesOff",
+        "_MIDI_SongActive",
+        "_MIDI_SongLoaded"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MIDI_AllNotesOff"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 669,
+      "linkage": "external",
+      "name": "MIDI_SetMidiFuncs",
+      "original_type": "void (midifuncs *)",
+      "source_name": "MIDI_SetMidiFuncs",
+      "source_references": [
+        "_MIDI_Funcs"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 671,
+      "linkage": "external",
+      "name": "MIDI_StopSong",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: MIDI_Reset, SoundDriver_MIDI_HaltPlayback, _MIDI_ResetTracks",
+      "source_name": "MIDI_StopSong",
+      "source_references": [
+        "MIDI_Reset",
+        "SoundDriver_MIDI_HaltPlayback",
+        "_MIDI_NumTracks",
+        "_MIDI_ResetTracks",
+        "_MIDI_SongActive",
+        "_MIDI_SongLoaded",
+        "_MIDI_TotalBeats",
+        "_MIDI_TotalMeasures",
+        "_MIDI_TotalTicks",
+        "_MIDI_TotalTime",
+        "_MIDI_TrackMemSize",
+        "_MIDI_TrackPtr",
+        "xfree__header_f18db95ac721"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MIDI_Reset",
+        "SoundDriver_MIDI_HaltPlayback",
+        "_MIDI_ResetTracks"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 697,
+      "linkage": "external",
+      "name": "MIDI_PlaySong",
+      "original_type": "int (char *, int)",
+      "reason": "sizeof/alignof record layout: track",
+      "source_name": "MIDI_PlaySong",
+      "source_references": [
+        "B_UNBUF32__header_c263e3884392",
+        "MIDI_Reset",
+        "MIDI_SetTempo",
+        "MIDI_StopSong",
+        "SoundDriver_MIDI_StartPlayback",
+        "_MIDI_Division",
+        "_MIDI_Funcs",
+        "_MIDI_InitEMIDI",
+        "_MIDI_Loop",
+        "_MIDI_NumTracks",
+        "_MIDI_ReadNumber",
+        "_MIDI_Reset",
+        "_MIDI_ResetTracks",
+        "_MIDI_SongActive",
+        "_MIDI_SongLoaded",
+        "_MIDI_SongPtr",
+        "_MIDI_TrackMemSize",
+        "_MIDI_TrackPtr",
+        "xfree__header_f18db95ac721",
+        "xmalloc__header_4b29368f24ef"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 785,
+      "linkage": "external",
+      "name": "MIDI_SetTempo",
+      "original_type": "void (int)",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_SetTempo, tabledivide32_noinline",
+      "source_name": "MIDI_SetTempo",
+      "source_references": [
+        "SoundDriver_MIDI_SetTempo",
+        "_MIDI_Division",
+        "_MIDI_FPSecondsPerTick",
+        "tabledivide32_noinline"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "SoundDriver_MIDI_SetTempo",
+        "tabledivide32_noinline"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 792,
+      "linkage": "internal",
+      "name": "_MIDI_ProcessNextTick",
+      "original_type": "int ()",
+      "reason": "pointer increment requires bounded element layout: track *",
+      "source_name": "_MIDI_ProcessNextTick",
+      "source_references": [
+        "_MIDI_ActiveTracks",
+        "_MIDI_AdvanceTick",
+        "_MIDI_CommandLengths",
+        "_MIDI_Funcs",
+        "_MIDI_InterpretControllerInfo",
+        "_MIDI_MetaEvent",
+        "_MIDI_NumTracks",
+        "_MIDI_ReadDelta",
+        "_MIDI_SysEx",
+        "_MIDI_TrackPtr"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 903,
+      "linkage": "external",
+      "name": "MIDI_SetSongPosition",
+      "original_type": "void (int, int, int)",
+      "reason": "unlinked identifiers: MIDI_PauseSong, MIDI_Reset, MIDI_SetVolume, SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock, _MIDI_ProcessNextTick, _MIDI_ResetTracks",
+      "source_name": "MIDI_SetSongPosition",
+      "source_references": [
+        "MIDI_ContinueSong",
+        "MIDI_PauseSong",
+        "MIDI_Reset",
+        "MIDI_SetVolume",
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_ActiveTracks",
+        "_MIDI_Beat",
+        "_MIDI_Loop",
+        "_MIDI_Measure",
+        "_MIDI_ProcessNextTick",
+        "_MIDI_ResetTracks",
+        "_MIDI_SongLoaded",
+        "_MIDI_Tick",
+        "_MIDI_TotalVolume"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "MIDI_PauseSong",
+        "MIDI_Reset",
+        "MIDI_SetVolume",
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock",
+        "_MIDI_ProcessNextTick",
+        "_MIDI_ResetTracks"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 944,
+      "linkage": "external",
+      "name": "MIDI_GetSongPosition",
+      "original_type": "void (songposition *)",
+      "source_name": "MIDI_GetSongPosition",
+      "source_references": [
+        "_MIDI_Beat",
+        "_MIDI_Measure",
+        "_MIDI_PositionInTicks",
+        "_MIDI_Tick",
+        "_MIDI_Time"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 955,
+      "linkage": "internal",
+      "name": "_MIDI_InitEMIDI",
+      "original_type": "void ()",
+      "reason": "pointer increment requires bounded element layout: track *",
+      "source_name": "_MIDI_InitEMIDI",
+      "source_references": [
+        "ASS_EMIDICard",
+        "SoundDriver_MIDI_GetCardType",
+        "_MIDI_ActiveTracks",
+        "_MIDI_AdvanceTick",
+        "_MIDI_Beat",
+        "_MIDI_BeatsPerMeasure",
+        "_MIDI_CommandLengths",
+        "_MIDI_Context",
+        "_MIDI_Division",
+        "_MIDI_FPSecondsPerTick",
+        "_MIDI_Measure",
+        "_MIDI_MetaEvent",
+        "_MIDI_NumTracks",
+        "_MIDI_PositionInTicks",
+        "_MIDI_ReadDelta",
+        "_MIDI_ResetTracks",
+        "_MIDI_SysEx",
+        "_MIDI_Tick",
+        "_MIDI_TicksPerBeat",
+        "_MIDI_Time",
+        "_MIDI_TimeBase",
+        "_MIDI_TotalBeats",
+        "_MIDI_TotalMeasures",
+        "_MIDI_TotalTicks",
+        "_MIDI_TotalTime",
+        "_MIDI_TrackPtr",
+        "max"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2313bccc7b0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2313bccc7b0"
+        ],
+        "source_header": "source/build/include/compat.h",
+        "source_line": 1169,
+        "source_offset": 32336,
+        "translation_unit": "source/audiolib/src/midi.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1169,
+      "linkage": "internal",
+      "name": "pow2char__header_global_7d00111facc2fbfd",
+      "original_type": "const const char[8]",
+      "physical_source": "source/build/include/compat.h",
+      "source_name": "pow2char",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "linkage": "internal",
+      "name": "xfree__header_f18db95ac721",
+      "original_type": "void (void *const)",
+      "reason": "unlinked identifiers: g_sm_heap",
+      "source_name": "xfree",
+      "source_references": [
+        "_sm_free",
+        "g_sm_heap"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1036,
+      "linkage": "internal",
+      "name": "B_UNBUF32__header_c263e3884392",
+      "original_type": "uint32_t (const void *const)",
+      "source_name": "B_UNBUF32",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1393,
+      "linkage": "internal",
+      "name": "xmalloc__header_4b29368f24ef",
+      "original_type": "void *(const bsize_t)",
+      "reason": "unlinked identifiers: g_sm_heap, handle_memerr",
+      "source_name": "xmalloc",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "g_sm_heap",
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 864,
+      "linkage": "external",
+      "name": "_sm_free",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "c22f8fadf34f394324abe40c02a95d48dd5c4b5fe32bd62afea6375b762691cc",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25931,
+        "type": "void (sm_allocator, void *)"
+      },
+      "original_type": "void (sm_allocator, void *)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_free",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 859,
+      "linkage": "external",
+      "name": "_sm_malloc",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "3cde34437303d4edd03f3ec8c57355c9b640fd325715fbe3e4ecde81424e6b84",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25761,
+        "type": "void *(sm_allocator, size_t, size_t)"
+      },
+      "original_type": "void *(sm_allocator, size_t, size_t)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_malloc",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 53,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 74,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-47047262b61a3374\\source\\audiolib\\src\\midi.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/audiolib/src/midi.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_6c32a6acbc578619946b696c",
+      "name": "_MIDI_PositionInTicks",
+      "original_type": "unsigned int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_ce9451e16d242c0b6f6ad7f1",
+      "name": "_MIDI_GlobalPositionInTicks",
+      "original_type": "unsigned int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_ece418416652c380cd3a06e4",
+      "name": "MV_MIDIRenderTempo",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_34ab867f9f9964abc4c8037b",
+      "name": "MV_MIDIRenderTimer",
+      "original_type": "int"
+    }
+  ],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

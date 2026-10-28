@@ -1,0 +1,86 @@
+{
+  "description": "Source-backed boot helper batches, preserving verified original stage functions. No game code replacement.",
+  "units": [
+    {
+      "source": "source/duke3d/src/common.cpp",
+      "filters": [
+        "g_selectedGrp",
+        "g_gameType",
+        "g_addonNum",
+        "g_gameNamePtr",
+        "defaultconfilename",
+        "defaultgamegrp",
+        "defaultdeffilename",
+        "defaultgameconfilename",
+        "g_grpNamePtr",
+        "g_scriptNamePtr",
+        "g_rtsNamePtr",
+        "G_DefaultGrpFile",
+        "G_GrpFile",
+        "g_rootDir",
+        "g_useCwd",
+        "g_groupFileHandle",
+        "CommandPaths",
+        "CommandGrps",
+        "g_maybeUpgradeSoundFormats",
+        "g_maybeUpgradeMusic",
+        "_sm_free",
+        "_sm_malloc",
+        "G_ExtPreInit",
+        "G_CleanupSearchPaths",
+        "xfree",
+        "ARRAY_SIZE",
+        "G_DefaultConFile",
+        "G_ConFile",
+        "G_DefaultDefFile",
+        "G_DefFile",
+        "g_defNamePtr"
+      ],
+      "required_exports": [
+        "G_ExtPreInit",
+        "G_CleanupSearchPaths",
+        "g_gameNamePtr",
+        "G_GrpFile",
+        "g_selectedGrp",
+        "g_scriptNamePtr",
+        "g_rtsNamePtr",
+        "g_gameType",
+        "G_DefaultConFile",
+        "G_ConFile",
+        "G_DefaultDefFile",
+        "G_DefFile"
+      ],
+      "preserve_exports": [
+        "G_ExtPreInit",
+        "g_rootDir",
+        "g_useCwd",
+        "_sm_free"
+      ]
+    },
+    {
+      "source": "source/duke3d/src/cheats.cpp",
+      "filters": [
+        "CheatStrings",
+        "G_SetupCheats"
+      ],
+      "required_exports": [
+        "CheatStrings",
+        "G_SetupCheats"
+      ],
+      "preserve_exports": []
+    },
+    {
+      "source": "source/duke3d/src/game.cpp",
+      "filters": [
+        "G_UpdateAppTitle",
+        "G_CheckGametype",
+        "clamp"
+      ],
+      "required_exports": [
+        "G_UpdateAppTitle",
+        "G_CheckGametype"
+      ],
+      "preserve_exports": []
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {ABIHeap} from '../../runtime/abi.mjs';
+import {createCxxStringABI} from '../../runtime/cxx_string_abi.mjs';
+const PREFIX='_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE';
+test('GNU libstdc++ basic_string ABI retains SSO, heap capacity and original byte values',()=>{
+ const heap=new ABIHeap(),str=createCxxStringABI({heap});
+ const get=(obj)=>({ptr:Number(heap.read(obj,'u64')),len:Number(heap.read(obj+8,'u64'))});
+ const value=(obj)=>heap.bytes(get(obj).ptr,get(obj).len);
+ const obj=heap.malloc(32),alt=heap.malloc(32);
+ str[PREFIX+'12_M_constructEmc'](obj,5n,65);
+ assert.equal(get(obj).ptr,obj+16);
+ assert.equal(new TextDecoder().decode(value(obj)),'AAAAA');
+ str[PREFIX+'12_M_constructEmc'](alt,20n,66);
+ assert.notEqual(get(alt).ptr,alt+16);assert.equal(get(alt).len,20);
+ assert.ok(Number(heap.read(alt+16,'u64'))>=20);
+ str[PREFIX+'9_M_assignERKS4_'](obj,alt);
+ assert.equal(get(obj).len,20);assert.equal(new TextDecoder().decode(value(obj)),'B'.repeat(20));
+ const source=heap.writeCString('world');
+ assert.equal(str[PREFIX+'10_M_replaceEmmPKcm'](obj,5n,10n,source,5n),obj);
+ assert.equal(new TextDecoder().decode(value(obj)),'BBBBBworldBBBBB');
+ assert.equal(str[PREFIX+'4findEPKcmm'](obj,source,0n,5n),5n);
+ assert.equal(str[PREFIX+'4findEPKcmm'](obj,source,6n,5n),-1n);
+ str[PREFIX+'6resizeEmc'](obj,20n,33);
+ assert.equal(new TextDecoder().decode(value(obj)),'BBBBBworldBBBBB!!!!!');
+ const enough=Number(heap.read(obj+16,'u64'));
+ str[PREFIX+'7reserveEm'](obj,75n);
+ assert.ok(Number(heap.read(obj+16,'u64'))>=75&&Number(heap.read(obj+16,'u64'))>enough);
+ assert.equal(new TextDecoder().decode(value(obj)),'BBBBBworldBBBBB!!!!!');
+ str[PREFIX+'14_M_replace_auxEmmmc'](obj,5n,5n,3n,35);
+ assert.equal(new TextDecoder().decode(value(obj)),'BBBBB###BBBBB!!!!!');
+ str[PREFIX+'9_M_appendEPKcm'](obj,source,5n);
+ assert.equal(new TextDecoder().decode(value(obj)),'BBBBB###BBBBB!!!!!world');
+ str[PREFIX+'D2Ev'](obj);str[PREFIX+'D2Ev'](alt);
+ assert.equal(get(obj).ptr,obj+16);assert.equal(get(obj).len,0);
+});
+
+test('GNU libstdc++ _M_mutate preserves caller-owned _M_length update',()=>{
+ const heap=new ABIHeap(),s=createCxxStringABI({heap}),obj=heap.malloc(32);
+ s[PREFIX+'12_M_constructEmc'](obj,15n,65);
+ const src=heap.writeCString('xy');
+ s[PREFIX+'9_M_mutateEmmPKcm'](obj,5n,0n,src,2n);
+ assert.equal(heap.read(obj+8,'u64'),15n);
+ const data=Number(heap.read(obj,'u64'));
+ assert.equal(new TextDecoder().decode(heap.bytes(data,17)),'AAAAAxyAAAAAAAAAA');
+ assert.equal(heap.read(obj+16,'u64')>=17n,true);
+});

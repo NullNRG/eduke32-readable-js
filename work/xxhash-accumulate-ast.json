@@ -1,0 +1,2477 @@
+{
+  "id": "0x1e951a40960",
+  "kind": "FunctionDecl",
+  "loc": {
+    "spellingLoc": {
+      "offset": 1898,
+      "file": "<scratch space>",
+      "line": 160,
+      "col": 1,
+      "tokLen": 22
+    },
+    "expansionLoc": {
+      "offset": 212077,
+      "file": "factory-output/source-tree/eduke32-master/source/build/include/xxhash.h",
+      "line": 5754,
+      "col": 18,
+      "tokLen": 24
+    }
+  },
+  "range": {
+    "begin": {
+      "spellingLoc": {
+        "offset": 89817,
+        "line": 2401,
+        "col": 30,
+        "tokLen": 6
+      },
+      "expansionLoc": {
+        "offset": 212060,
+        "line": 5754,
+        "col": 1,
+        "tokLen": 16
+      }
+    },
+    "end": {
+      "spellingLoc": {
+        "offset": 173343,
+        "line": 4846,
+        "col": 61,
+        "tokLen": 3
+      },
+      "expansionLoc": {
+        "offset": 212077,
+        "line": 5754,
+        "col": 18,
+        "tokLen": 24
+      }
+    }
+  },
+  "isUsed": true,
+  "name": "XXH3_accumulate_scalar",
+  "mangledName": "XXH3_accumulate_scalar",
+  "type": {
+    "qualType": "void (xxh_u64 *restrict, const xxh_u8 *restrict, const xxh_u8 *restrict, size_t)"
+  },
+  "storageClass": "static",
+  "inner": [
+    {
+      "id": "0x1e951a40688",
+      "kind": "ParmVarDecl",
+      "loc": {
+        "spellingLoc": {
+          "offset": 172522,
+          "line": 4833,
+          "col": 46,
+          "tokLen": 3
+        },
+        "expansionLoc": {
+          "offset": 212077,
+          "line": 5754,
+          "col": 18,
+          "tokLen": 24
+        }
+      },
+      "range": {
+        "begin": {
+          "spellingLoc": {
+            "offset": 172500,
+            "line": 4833,
+            "col": 24,
+            "tokLen": 7
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        },
+        "end": {
+          "spellingLoc": {
+            "offset": 172522,
+            "line": 4833,
+            "col": 46,
+            "tokLen": 3
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        }
+      },
+      "isUsed": true,
+      "name": "acc",
+      "type": {
+        "qualType": "xxh_u64 *restrict"
+      }
+    },
+    {
+      "id": "0x1e951a40710",
+      "kind": "ParmVarDecl",
+      "loc": {
+        "spellingLoc": {
+          "offset": 172589,
+          "line": 4834,
+          "col": 51,
+          "tokLen": 5
+        },
+        "expansionLoc": {
+          "offset": 212077,
+          "line": 5754,
+          "col": 18,
+          "tokLen": 24
+        }
+      },
+      "range": {
+        "begin": {
+          "spellingLoc": {
+            "offset": 172562,
+            "line": 4834,
+            "col": 24,
+            "tokLen": 5
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        },
+        "end": {
+          "spellingLoc": {
+            "offset": 172589,
+            "line": 4834,
+            "col": 51,
+            "tokLen": 5
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        }
+      },
+      "isUsed": true,
+      "name": "input",
+      "type": {
+        "qualType": "const xxh_u8 *restrict"
+      }
+    },
+    {
+      "id": "0x1e951a40798",
+      "kind": "ParmVarDecl",
+      "loc": {
+        "spellingLoc": {
+          "offset": 172651,
+          "line": 4835,
+          "col": 51,
+          "tokLen": 6
+        },
+        "expansionLoc": {
+          "offset": 212077,
+          "line": 5754,
+          "col": 18,
+          "tokLen": 24
+        }
+      },
+      "range": {
+        "begin": {
+          "spellingLoc": {
+            "offset": 172624,
+            "line": 4835,
+            "col": 24,
+            "tokLen": 5
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        },
+        "end": {
+          "spellingLoc": {
+            "offset": 172651,
+            "line": 4835,
+            "col": 51,
+            "tokLen": 6
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        }
+      },
+      "isUsed": true,
+      "name": "secret",
+      "type": {
+        "qualType": "const xxh_u8 *restrict"
+      }
+    },
+    {
+      "id": "0x1e951a40818",
+      "kind": "ParmVarDecl",
+      "loc": {
+        "spellingLoc": {
+          "offset": 172693,
+          "line": 4836,
+          "col": 31,
+          "tokLen": 9
+        },
+        "expansionLoc": {
+          "offset": 212077,
+          "line": 5754,
+          "col": 18,
+          "tokLen": 24
+        }
+      },
+      "range": {
+        "begin": {
+          "spellingLoc": {
+            "offset": 172686,
+            "line": 4836,
+            "col": 24,
+            "tokLen": 6
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        },
+        "end": {
+          "spellingLoc": {
+            "offset": 172693,
+            "line": 4836,
+            "col": 31,
+            "tokLen": 9
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        }
+      },
+      "isUsed": true,
+      "name": "nbStripes",
+      "type": {
+        "desugaredQualType": "unsigned long long",
+        "qualType": "size_t",
+        "typeAliasDeclId": "0x1e9518344d0"
+      }
+    },
+    {
+      "id": "0x1e951a41238",
+      "kind": "CompoundStmt",
+      "range": {
+        "begin": {
+          "spellingLoc": {
+            "offset": 172723,
+            "line": 4836,
+            "col": 61,
+            "tokLen": 3
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        },
+        "end": {
+          "spellingLoc": {
+            "offset": 173343,
+            "line": 4846,
+            "col": 61,
+            "tokLen": 3
+          },
+          "expansionLoc": {
+            "offset": 212077,
+            "line": 5754,
+            "col": 18,
+            "tokLen": 24
+          }
+        }
+      },
+      "inner": [
+        {
+          "id": "0x1e951a40b18",
+          "kind": "DeclStmt",
+          "range": {
+            "begin": {
+              "spellingLoc": {
+                "offset": 172791,
+                "line": 4838,
+                "col": 5,
+                "tokLen": 6
+              },
+              "expansionLoc": {
+                "offset": 212077,
+                "line": 5754,
+                "col": 18,
+                "tokLen": 24
+              }
+            },
+            "end": {
+              "spellingLoc": {
+                "offset": 172799,
+                "line": 4838,
+                "col": 13,
+                "tokLen": 1
+              },
+              "expansionLoc": {
+                "offset": 212077,
+                "line": 5754,
+                "col": 18,
+                "tokLen": 24
+              }
+            }
+          },
+          "inner": [
+            {
+              "id": "0x1e951a40ab0",
+              "kind": "VarDecl",
+              "loc": {
+                "spellingLoc": {
+                  "offset": 172798,
+                  "line": 4838,
+                  "col": 12,
+                  "tokLen": 1
+                },
+                "expansionLoc": {
+                  "offset": 212077,
+                  "line": 5754,
+                  "col": 18,
+                  "tokLen": 24
+                }
+              },
+              "range": {
+                "begin": {
+                  "spellingLoc": {
+                    "offset": 172791,
+                    "line": 4838,
+                    "col": 5,
+                    "tokLen": 6
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                },
+                "end": {
+                  "spellingLoc": {
+                    "offset": 172798,
+                    "line": 4838,
+                    "col": 12,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                }
+              },
+              "isUsed": true,
+              "name": "n",
+              "type": {
+                "desugaredQualType": "unsigned long long",
+                "qualType": "size_t",
+                "typeAliasDeclId": "0x1e9518344d0"
+              }
+            }
+          ]
+        },
+        {
+          "id": "0x1e951a411d8",
+          "kind": "ForStmt",
+          "range": {
+            "begin": {
+              "spellingLoc": {
+                "offset": 172853,
+                "line": 4839,
+                "col": 5,
+                "tokLen": 3
+              },
+              "expansionLoc": {
+                "offset": 212077,
+                "line": 5754,
+                "col": 18,
+                "tokLen": 24
+              }
+            },
+            "end": {
+              "spellingLoc": {
+                "offset": 173287,
+                "line": 4846,
+                "col": 5,
+                "tokLen": 1
+              },
+              "expansionLoc": {
+                "offset": 212077,
+                "line": 5754,
+                "col": 18,
+                "tokLen": 24
+              }
+            }
+          },
+          "inner": [
+            {
+              "id": "0x1e951a40b88",
+              "kind": "BinaryOperator",
+              "range": {
+                "begin": {
+                  "spellingLoc": {
+                    "offset": 172858,
+                    "line": 4839,
+                    "col": 10,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                },
+                "end": {
+                  "spellingLoc": {
+                    "offset": 172862,
+                    "line": 4839,
+                    "col": 14,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                }
+              },
+              "type": {
+                "desugaredQualType": "unsigned long long",
+                "qualType": "size_t",
+                "typeAliasDeclId": "0x1e9518344d0"
+              },
+              "valueCategory": "prvalue",
+              "opcode": "=",
+              "inner": [
+                {
+                  "id": "0x1e951a40b30",
+                  "kind": "DeclRefExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 172858,
+                        "line": 4839,
+                        "col": 10,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 172858,
+                        "line": 4839,
+                        "col": 10,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "desugaredQualType": "unsigned long long",
+                    "qualType": "size_t",
+                    "typeAliasDeclId": "0x1e9518344d0"
+                  },
+                  "valueCategory": "lvalue",
+                  "referencedDecl": {
+                    "id": "0x1e951a40ab0",
+                    "kind": "VarDecl",
+                    "name": "n",
+                    "type": {
+                      "desugaredQualType": "unsigned long long",
+                      "qualType": "size_t",
+                      "typeAliasDeclId": "0x1e9518344d0"
+                    }
+                  }
+                },
+                {
+                  "id": "0x1e951a40b70",
+                  "kind": "ImplicitCastExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 172862,
+                        "line": 4839,
+                        "col": 14,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 172862,
+                        "line": 4839,
+                        "col": 14,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "desugaredQualType": "unsigned long long",
+                    "qualType": "size_t",
+                    "typeAliasDeclId": "0x1e9518344d0"
+                  },
+                  "valueCategory": "prvalue",
+                  "castKind": "IntegralCast",
+                  "inner": [
+                    {
+                      "id": "0x1e951a40b50",
+                      "kind": "IntegerLiteral",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 172862,
+                            "line": 4839,
+                            "col": 14,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 172862,
+                            "line": 4839,
+                            "col": 14,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "qualType": "int"
+                      },
+                      "valueCategory": "prvalue",
+                      "value": "0"
+                    }
+                  ]
+                }
+              ]
+            },
+            {},
+            {
+              "id": "0x1e951a40c18",
+              "kind": "BinaryOperator",
+              "range": {
+                "begin": {
+                  "spellingLoc": {
+                    "offset": 172865,
+                    "line": 4839,
+                    "col": 17,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                },
+                "end": {
+                  "spellingLoc": {
+                    "offset": 172869,
+                    "line": 4839,
+                    "col": 21,
+                    "tokLen": 9
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                }
+              },
+              "type": {
+                "qualType": "int"
+              },
+              "valueCategory": "prvalue",
+              "opcode": "<",
+              "inner": [
+                {
+                  "id": "0x1e951a40be8",
+                  "kind": "ImplicitCastExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 172865,
+                        "line": 4839,
+                        "col": 17,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 172865,
+                        "line": 4839,
+                        "col": 17,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "desugaredQualType": "unsigned long long",
+                    "qualType": "size_t",
+                    "typeAliasDeclId": "0x1e9518344d0"
+                  },
+                  "valueCategory": "prvalue",
+                  "castKind": "LValueToRValue",
+                  "inner": [
+                    {
+                      "id": "0x1e951a40ba8",
+                      "kind": "DeclRefExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 172865,
+                            "line": 4839,
+                            "col": 17,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 172865,
+                            "line": 4839,
+                            "col": 17,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "desugaredQualType": "unsigned long long",
+                        "qualType": "size_t",
+                        "typeAliasDeclId": "0x1e9518344d0"
+                      },
+                      "valueCategory": "lvalue",
+                      "referencedDecl": {
+                        "id": "0x1e951a40ab0",
+                        "kind": "VarDecl",
+                        "name": "n",
+                        "type": {
+                          "desugaredQualType": "unsigned long long",
+                          "qualType": "size_t",
+                          "typeAliasDeclId": "0x1e9518344d0"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "0x1e951a40c00",
+                  "kind": "ImplicitCastExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 172869,
+                        "line": 4839,
+                        "col": 21,
+                        "tokLen": 9
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 172869,
+                        "line": 4839,
+                        "col": 21,
+                        "tokLen": 9
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "desugaredQualType": "unsigned long long",
+                    "qualType": "size_t",
+                    "typeAliasDeclId": "0x1e9518344d0"
+                  },
+                  "valueCategory": "prvalue",
+                  "castKind": "LValueToRValue",
+                  "inner": [
+                    {
+                      "id": "0x1e951a40bc8",
+                      "kind": "DeclRefExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 172869,
+                            "line": 4839,
+                            "col": 21,
+                            "tokLen": 9
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 172869,
+                            "line": 4839,
+                            "col": 21,
+                            "tokLen": 9
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "desugaredQualType": "unsigned long long",
+                        "qualType": "size_t",
+                        "typeAliasDeclId": "0x1e9518344d0"
+                      },
+                      "valueCategory": "lvalue",
+                      "referencedDecl": {
+                        "id": "0x1e951a40818",
+                        "kind": "ParmVarDecl",
+                        "name": "nbStripes",
+                        "type": {
+                          "desugaredQualType": "unsigned long long",
+                          "qualType": "size_t",
+                          "typeAliasDeclId": "0x1e9518344d0"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "0x1e951a40c58",
+              "kind": "UnaryOperator",
+              "range": {
+                "begin": {
+                  "spellingLoc": {
+                    "offset": 172880,
+                    "line": 4839,
+                    "col": 32,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                },
+                "end": {
+                  "spellingLoc": {
+                    "offset": 172881,
+                    "line": 4839,
+                    "col": 33,
+                    "tokLen": 2
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                }
+              },
+              "type": {
+                "desugaredQualType": "unsigned long long",
+                "qualType": "size_t",
+                "typeAliasDeclId": "0x1e9518344d0"
+              },
+              "valueCategory": "prvalue",
+              "isPostfix": true,
+              "opcode": "++",
+              "inner": [
+                {
+                  "id": "0x1e951a40c38",
+                  "kind": "DeclRefExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 172880,
+                        "line": 4839,
+                        "col": 32,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 172880,
+                        "line": 4839,
+                        "col": 32,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "desugaredQualType": "unsigned long long",
+                    "qualType": "size_t",
+                    "typeAliasDeclId": "0x1e9518344d0"
+                  },
+                  "valueCategory": "lvalue",
+                  "referencedDecl": {
+                    "id": "0x1e951a40ab0",
+                    "kind": "VarDecl",
+                    "name": "n",
+                    "type": {
+                      "desugaredQualType": "unsigned long long",
+                      "qualType": "size_t",
+                      "typeAliasDeclId": "0x1e9518344d0"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "0x1e951a411b0",
+              "kind": "CompoundStmt",
+              "range": {
+                "begin": {
+                  "spellingLoc": {
+                    "offset": 172886,
+                    "line": 4839,
+                    "col": 38,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                },
+                "end": {
+                  "spellingLoc": {
+                    "offset": 173287,
+                    "line": 4846,
+                    "col": 5,
+                    "tokLen": 1
+                  },
+                  "expansionLoc": {
+                    "offset": 212077,
+                    "line": 5754,
+                    "col": 18,
+                    "tokLen": 24
+                  }
+                }
+              },
+              "inner": [
+                {
+                  "id": "0x1e951a40de0",
+                  "kind": "DeclStmt",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 172919,
+                        "line": 4840,
+                        "col": 9,
+                        "tokLen": 5
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 172968,
+                        "line": 4840,
+                        "col": 58,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "inner": [
+                    {
+                      "id": "0x1e951a40c90",
+                      "kind": "VarDecl",
+                      "loc": {
+                        "spellingLoc": {
+                          "offset": 172939,
+                          "line": 4840,
+                          "col": 29,
+                          "tokLen": 2
+                        },
+                        "expansionLoc": {
+                          "offset": 212077,
+                          "line": 5754,
+                          "col": 18,
+                          "tokLen": 24
+                        }
+                      },
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 172919,
+                            "line": 4840,
+                            "col": 9,
+                            "tokLen": 5
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 171484,
+                            "line": 4800,
+                            "col": 24,
+                            "tokLen": 2
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "isUsed": true,
+                      "name": "in",
+                      "type": {
+                        "qualType": "const xxh_u8 *const"
+                      },
+                      "init": "c",
+                      "inner": [
+                        {
+                          "id": "0x1e951a40dc0",
+                          "kind": "BinaryOperator",
+                          "range": {
+                            "begin": {
+                              "spellingLoc": {
+                                "offset": 172944,
+                                "line": 4840,
+                                "col": 34,
+                                "tokLen": 5
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            },
+                            "end": {
+                              "spellingLoc": {
+                                "offset": 171484,
+                                "line": 4800,
+                                "col": 24,
+                                "tokLen": 2
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            }
+                          },
+                          "type": {
+                            "qualType": "const xxh_u8 *"
+                          },
+                          "valueCategory": "prvalue",
+                          "opcode": "+",
+                          "inner": [
+                            {
+                              "id": "0x1e951a40da8",
+                              "kind": "ImplicitCastExpr",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 172944,
+                                    "line": 4840,
+                                    "col": 34,
+                                    "tokLen": 5
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 172944,
+                                    "line": 4840,
+                                    "col": 34,
+                                    "tokLen": 5
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                }
+                              },
+                              "type": {
+                                "qualType": "const xxh_u8 *"
+                              },
+                              "valueCategory": "prvalue",
+                              "castKind": "LValueToRValue",
+                              "inner": [
+                                {
+                                  "id": "0x1e951a40cf8",
+                                  "kind": "DeclRefExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 172944,
+                                        "line": 4840,
+                                        "col": 34,
+                                        "tokLen": 5
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 172944,
+                                        "line": 4840,
+                                        "col": 34,
+                                        "tokLen": 5
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "qualType": "const xxh_u8 *restrict"
+                                  },
+                                  "valueCategory": "lvalue",
+                                  "referencedDecl": {
+                                    "id": "0x1e951a40710",
+                                    "kind": "ParmVarDecl",
+                                    "name": "input",
+                                    "type": {
+                                      "qualType": "const xxh_u8 *restrict"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "0x1e951a40d88",
+                              "kind": "BinaryOperator",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 172952,
+                                    "line": 4840,
+                                    "col": 42,
+                                    "tokLen": 1
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 171484,
+                                    "line": 4800,
+                                    "col": 24,
+                                    "tokLen": 2
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                }
+                              },
+                              "type": {
+                                "desugaredQualType": "unsigned long long",
+                                "qualType": "size_t",
+                                "typeAliasDeclId": "0x1e9518344d0"
+                              },
+                              "valueCategory": "prvalue",
+                              "opcode": "*",
+                              "inner": [
+                                {
+                                  "id": "0x1e951a40d58",
+                                  "kind": "ImplicitCastExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 172952,
+                                        "line": 4840,
+                                        "col": 42,
+                                        "tokLen": 1
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 172952,
+                                        "line": 4840,
+                                        "col": 42,
+                                        "tokLen": 1
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "desugaredQualType": "unsigned long long",
+                                    "qualType": "size_t",
+                                    "typeAliasDeclId": "0x1e9518344d0"
+                                  },
+                                  "valueCategory": "prvalue",
+                                  "castKind": "LValueToRValue",
+                                  "inner": [
+                                    {
+                                      "id": "0x1e951a40d18",
+                                      "kind": "DeclRefExpr",
+                                      "range": {
+                                        "begin": {
+                                          "spellingLoc": {
+                                            "offset": 172952,
+                                            "line": 4840,
+                                            "col": 42,
+                                            "tokLen": 1
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        },
+                                        "end": {
+                                          "spellingLoc": {
+                                            "offset": 172952,
+                                            "line": 4840,
+                                            "col": 42,
+                                            "tokLen": 1
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        }
+                                      },
+                                      "type": {
+                                        "desugaredQualType": "unsigned long long",
+                                        "qualType": "size_t",
+                                        "typeAliasDeclId": "0x1e9518344d0"
+                                      },
+                                      "valueCategory": "lvalue",
+                                      "referencedDecl": {
+                                        "id": "0x1e951a40ab0",
+                                        "kind": "VarDecl",
+                                        "name": "n",
+                                        "type": {
+                                          "desugaredQualType": "unsigned long long",
+                                          "qualType": "size_t",
+                                          "typeAliasDeclId": "0x1e9518344d0"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "0x1e951a40d70",
+                                  "kind": "ImplicitCastExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 171484,
+                                        "line": 4800,
+                                        "col": 24,
+                                        "tokLen": 2
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 171484,
+                                        "line": 4800,
+                                        "col": 24,
+                                        "tokLen": 2
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "desugaredQualType": "unsigned long long",
+                                    "qualType": "size_t",
+                                    "typeAliasDeclId": "0x1e9518344d0"
+                                  },
+                                  "valueCategory": "prvalue",
+                                  "castKind": "IntegralCast",
+                                  "inner": [
+                                    {
+                                      "id": "0x1e951a40d38",
+                                      "kind": "IntegerLiteral",
+                                      "range": {
+                                        "begin": {
+                                          "spellingLoc": {
+                                            "offset": 171484,
+                                            "line": 4800,
+                                            "col": 24,
+                                            "tokLen": 2
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        },
+                                        "end": {
+                                          "spellingLoc": {
+                                            "offset": 171484,
+                                            "line": 4800,
+                                            "col": 24,
+                                            "tokLen": 2
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        }
+                                      },
+                                      "type": {
+                                        "qualType": "int"
+                                      },
+                                      "valueCategory": "prvalue",
+                                      "value": "64"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "0x1e951a40ec0",
+                  "kind": "CStyleCastExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 150442,
+                        "line": 4276,
+                        "col": 30,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 150452,
+                        "line": 4276,
+                        "col": 40,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "qualType": "void"
+                  },
+                  "valueCategory": "prvalue",
+                  "castKind": "ToVoid",
+                  "inner": [
+                    {
+                      "id": "0x1e951a40ea0",
+                      "kind": "ParenExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 150448,
+                            "line": 4276,
+                            "col": 36,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 150452,
+                            "line": 4276,
+                            "col": 40,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "qualType": "const xxh_u8 *"
+                      },
+                      "valueCategory": "prvalue",
+                      "inner": [
+                        {
+                          "id": "0x1e951a40e50",
+                          "kind": "BinaryOperator",
+                          "range": {
+                            "begin": {
+                              "spellingLoc": {
+                                "offset": 172994,
+                                "line": 4841,
+                                "col": 22,
+                                "tokLen": 2
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24,
+                                "isMacroArgExpansion": true
+                              }
+                            },
+                            "end": {
+                              "spellingLoc": {
+                                "offset": 171801,
+                                "line": 4811,
+                                "col": 31,
+                                "tokLen": 3
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24,
+                                "isMacroArgExpansion": true
+                              }
+                            }
+                          },
+                          "type": {
+                            "qualType": "const xxh_u8 *"
+                          },
+                          "valueCategory": "prvalue",
+                          "opcode": "+",
+                          "inner": [
+                            {
+                              "id": "0x1e951a40e38",
+                              "kind": "ImplicitCastExpr",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 172994,
+                                    "line": 4841,
+                                    "col": 22,
+                                    "tokLen": 2
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24,
+                                    "isMacroArgExpansion": true
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 172994,
+                                    "line": 4841,
+                                    "col": 22,
+                                    "tokLen": 2
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24,
+                                    "isMacroArgExpansion": true
+                                  }
+                                }
+                              },
+                              "type": {
+                                "qualType": "const xxh_u8 *"
+                              },
+                              "valueCategory": "prvalue",
+                              "castKind": "LValueToRValue",
+                              "inner": [
+                                {
+                                  "id": "0x1e951a40df8",
+                                  "kind": "DeclRefExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 172994,
+                                        "line": 4841,
+                                        "col": 22,
+                                        "tokLen": 2
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24,
+                                        "isMacroArgExpansion": true
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 172994,
+                                        "line": 4841,
+                                        "col": 22,
+                                        "tokLen": 2
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24,
+                                        "isMacroArgExpansion": true
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "qualType": "const xxh_u8 *const"
+                                  },
+                                  "valueCategory": "lvalue",
+                                  "referencedDecl": {
+                                    "id": "0x1e951a40c90",
+                                    "kind": "VarDecl",
+                                    "name": "in",
+                                    "type": {
+                                      "qualType": "const xxh_u8 *const"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "0x1e951a40e18",
+                              "kind": "IntegerLiteral",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 171801,
+                                    "line": 4811,
+                                    "col": 31,
+                                    "tokLen": 3
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24,
+                                    "isMacroArgExpansion": true
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 171801,
+                                    "line": 4811,
+                                    "col": 31,
+                                    "tokLen": 3
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24,
+                                    "isMacroArgExpansion": true
+                                  }
+                                }
+                              },
+                              "type": {
+                                "qualType": "int"
+                              },
+                              "valueCategory": "prvalue",
+                              "value": "320"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "0x1e951a410f8",
+                  "kind": "CallExpr",
+                  "range": {
+                    "begin": {
+                      "spellingLoc": {
+                        "offset": 1922,
+                        "file": "<scratch space>",
+                        "line": 161,
+                        "col": 1,
+                        "tokLen": 26
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "file": "factory-output/source-tree/eduke32-master/source/build/include/xxhash.h",
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    },
+                    "end": {
+                      "spellingLoc": {
+                        "offset": 173272,
+                        "line": 4845,
+                        "col": 52,
+                        "tokLen": 1
+                      },
+                      "expansionLoc": {
+                        "offset": 212077,
+                        "line": 5754,
+                        "col": 18,
+                        "tokLen": 24
+                      }
+                    }
+                  },
+                  "type": {
+                    "qualType": "void"
+                  },
+                  "valueCategory": "prvalue",
+                  "inner": [
+                    {
+                      "id": "0x1e951a410e0",
+                      "kind": "ImplicitCastExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 1922,
+                            "file": "<scratch space>",
+                            "line": 161,
+                            "col": 1,
+                            "tokLen": 26
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "file": "factory-output/source-tree/eduke32-master/source/build/include/xxhash.h",
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 1922,
+                            "file": "<scratch space>",
+                            "line": 161,
+                            "col": 1,
+                            "tokLen": 26
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "file": "factory-output/source-tree/eduke32-master/source/build/include/xxhash.h",
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "qualType": "void (*)(void *restrict, const void *restrict, const void *restrict)"
+                      },
+                      "valueCategory": "prvalue",
+                      "castKind": "FunctionToPointerDecay",
+                      "inner": [
+                        {
+                          "id": "0x1e951a40f30",
+                          "kind": "DeclRefExpr",
+                          "range": {
+                            "begin": {
+                              "spellingLoc": {
+                                "offset": 1922,
+                                "file": "<scratch space>",
+                                "line": 161,
+                                "col": 1,
+                                "tokLen": 26
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "file": "factory-output/source-tree/eduke32-master/source/build/include/xxhash.h",
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            },
+                            "end": {
+                              "spellingLoc": {
+                                "offset": 1922,
+                                "file": "<scratch space>",
+                                "line": 161,
+                                "col": 1,
+                                "tokLen": 26
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "file": "factory-output/source-tree/eduke32-master/source/build/include/xxhash.h",
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            }
+                          },
+                          "type": {
+                            "qualType": "void (void *restrict, const void *restrict, const void *restrict)"
+                          },
+                          "valueCategory": "prvalue",
+                          "referencedDecl": {
+                            "id": "0x1e951a40080",
+                            "kind": "FunctionDecl",
+                            "name": "XXH3_accumulate_512_scalar",
+                            "type": {
+                              "qualType": "void (void *restrict, const void *restrict, const void *restrict)"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "0x1e951a41150",
+                      "kind": "ImplicitCastExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 173114,
+                            "line": 4843,
+                            "col": 18,
+                            "tokLen": 3
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 173114,
+                            "line": 4843,
+                            "col": 18,
+                            "tokLen": 3
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "qualType": "void *"
+                      },
+                      "valueCategory": "prvalue",
+                      "castKind": "BitCast",
+                      "inner": [
+                        {
+                          "id": "0x1e951a41138",
+                          "kind": "ImplicitCastExpr",
+                          "range": {
+                            "begin": {
+                              "spellingLoc": {
+                                "offset": 173114,
+                                "line": 4843,
+                                "col": 18,
+                                "tokLen": 3
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            },
+                            "end": {
+                              "spellingLoc": {
+                                "offset": 173114,
+                                "line": 4843,
+                                "col": 18,
+                                "tokLen": 3
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            }
+                          },
+                          "type": {
+                            "qualType": "xxh_u64 *"
+                          },
+                          "valueCategory": "prvalue",
+                          "castKind": "LValueToRValue",
+                          "inner": [
+                            {
+                              "id": "0x1e951a40f50",
+                              "kind": "DeclRefExpr",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 173114,
+                                    "line": 4843,
+                                    "col": 18,
+                                    "tokLen": 3
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 173114,
+                                    "line": 4843,
+                                    "col": 18,
+                                    "tokLen": 3
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                }
+                              },
+                              "type": {
+                                "qualType": "xxh_u64 *restrict"
+                              },
+                              "valueCategory": "lvalue",
+                              "referencedDecl": {
+                                "id": "0x1e951a40688",
+                                "kind": "ParmVarDecl",
+                                "name": "acc",
+                                "type": {
+                                  "qualType": "xxh_u64 *restrict"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "0x1e951a41180",
+                      "kind": "ImplicitCastExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 173176,
+                            "line": 4844,
+                            "col": 18,
+                            "tokLen": 2
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 173176,
+                            "line": 4844,
+                            "col": 18,
+                            "tokLen": 2
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "qualType": "const void *"
+                      },
+                      "valueCategory": "prvalue",
+                      "castKind": "BitCast",
+                      "inner": [
+                        {
+                          "id": "0x1e951a41168",
+                          "kind": "ImplicitCastExpr",
+                          "range": {
+                            "begin": {
+                              "spellingLoc": {
+                                "offset": 173176,
+                                "line": 4844,
+                                "col": 18,
+                                "tokLen": 2
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            },
+                            "end": {
+                              "spellingLoc": {
+                                "offset": 173176,
+                                "line": 4844,
+                                "col": 18,
+                                "tokLen": 2
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            }
+                          },
+                          "type": {
+                            "qualType": "const xxh_u8 *"
+                          },
+                          "valueCategory": "prvalue",
+                          "castKind": "LValueToRValue",
+                          "inner": [
+                            {
+                              "id": "0x1e951a40f70",
+                              "kind": "DeclRefExpr",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 173176,
+                                    "line": 4844,
+                                    "col": 18,
+                                    "tokLen": 2
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 173176,
+                                    "line": 4844,
+                                    "col": 18,
+                                    "tokLen": 2
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                }
+                              },
+                              "type": {
+                                "qualType": "const xxh_u8 *const"
+                              },
+                              "valueCategory": "lvalue",
+                              "referencedDecl": {
+                                "id": "0x1e951a40c90",
+                                "kind": "VarDecl",
+                                "name": "in",
+                                "type": {
+                                  "qualType": "const xxh_u8 *const"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "0x1e951a41198",
+                      "kind": "ImplicitCastExpr",
+                      "range": {
+                        "begin": {
+                          "spellingLoc": {
+                            "offset": 173238,
+                            "line": 4845,
+                            "col": 18,
+                            "tokLen": 6
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        },
+                        "end": {
+                          "spellingLoc": {
+                            "offset": 171519,
+                            "line": 4801,
+                            "col": 33,
+                            "tokLen": 1
+                          },
+                          "expansionLoc": {
+                            "offset": 212077,
+                            "line": 5754,
+                            "col": 18,
+                            "tokLen": 24
+                          }
+                        }
+                      },
+                      "type": {
+                        "qualType": "const void *"
+                      },
+                      "valueCategory": "prvalue",
+                      "castKind": "BitCast",
+                      "inner": [
+                        {
+                          "id": "0x1e951a41058",
+                          "kind": "BinaryOperator",
+                          "range": {
+                            "begin": {
+                              "spellingLoc": {
+                                "offset": 173238,
+                                "line": 4845,
+                                "col": 18,
+                                "tokLen": 6
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            },
+                            "end": {
+                              "spellingLoc": {
+                                "offset": 171519,
+                                "line": 4801,
+                                "col": 33,
+                                "tokLen": 1
+                              },
+                              "expansionLoc": {
+                                "offset": 212077,
+                                "line": 5754,
+                                "col": 18,
+                                "tokLen": 24
+                              }
+                            }
+                          },
+                          "type": {
+                            "qualType": "const xxh_u8 *"
+                          },
+                          "valueCategory": "prvalue",
+                          "opcode": "+",
+                          "inner": [
+                            {
+                              "id": "0x1e951a41040",
+                              "kind": "ImplicitCastExpr",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 173238,
+                                    "line": 4845,
+                                    "col": 18,
+                                    "tokLen": 6
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 173238,
+                                    "line": 4845,
+                                    "col": 18,
+                                    "tokLen": 6
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                }
+                              },
+                              "type": {
+                                "qualType": "const xxh_u8 *"
+                              },
+                              "valueCategory": "prvalue",
+                              "castKind": "LValueToRValue",
+                              "inner": [
+                                {
+                                  "id": "0x1e951a40f90",
+                                  "kind": "DeclRefExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 173238,
+                                        "line": 4845,
+                                        "col": 18,
+                                        "tokLen": 6
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 173238,
+                                        "line": 4845,
+                                        "col": 18,
+                                        "tokLen": 6
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "qualType": "const xxh_u8 *restrict"
+                                  },
+                                  "valueCategory": "lvalue",
+                                  "referencedDecl": {
+                                    "id": "0x1e951a40798",
+                                    "kind": "ParmVarDecl",
+                                    "name": "secret",
+                                    "type": {
+                                      "qualType": "const xxh_u8 *restrict"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "id": "0x1e951a41020",
+                              "kind": "BinaryOperator",
+                              "range": {
+                                "begin": {
+                                  "spellingLoc": {
+                                    "offset": 173247,
+                                    "line": 4845,
+                                    "col": 27,
+                                    "tokLen": 1
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                },
+                                "end": {
+                                  "spellingLoc": {
+                                    "offset": 171519,
+                                    "line": 4801,
+                                    "col": 33,
+                                    "tokLen": 1
+                                  },
+                                  "expansionLoc": {
+                                    "offset": 212077,
+                                    "line": 5754,
+                                    "col": 18,
+                                    "tokLen": 24
+                                  }
+                                }
+                              },
+                              "type": {
+                                "desugaredQualType": "unsigned long long",
+                                "qualType": "size_t",
+                                "typeAliasDeclId": "0x1e9518344d0"
+                              },
+                              "valueCategory": "prvalue",
+                              "opcode": "*",
+                              "inner": [
+                                {
+                                  "id": "0x1e951a40ff0",
+                                  "kind": "ImplicitCastExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 173247,
+                                        "line": 4845,
+                                        "col": 27,
+                                        "tokLen": 1
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 173247,
+                                        "line": 4845,
+                                        "col": 27,
+                                        "tokLen": 1
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "desugaredQualType": "unsigned long long",
+                                    "qualType": "size_t",
+                                    "typeAliasDeclId": "0x1e9518344d0"
+                                  },
+                                  "valueCategory": "prvalue",
+                                  "castKind": "LValueToRValue",
+                                  "inner": [
+                                    {
+                                      "id": "0x1e951a40fb0",
+                                      "kind": "DeclRefExpr",
+                                      "range": {
+                                        "begin": {
+                                          "spellingLoc": {
+                                            "offset": 173247,
+                                            "line": 4845,
+                                            "col": 27,
+                                            "tokLen": 1
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        },
+                                        "end": {
+                                          "spellingLoc": {
+                                            "offset": 173247,
+                                            "line": 4845,
+                                            "col": 27,
+                                            "tokLen": 1
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        }
+                                      },
+                                      "type": {
+                                        "desugaredQualType": "unsigned long long",
+                                        "qualType": "size_t",
+                                        "typeAliasDeclId": "0x1e9518344d0"
+                                      },
+                                      "valueCategory": "lvalue",
+                                      "referencedDecl": {
+                                        "id": "0x1e951a40ab0",
+                                        "kind": "VarDecl",
+                                        "name": "n",
+                                        "type": {
+                                          "desugaredQualType": "unsigned long long",
+                                          "qualType": "size_t",
+                                          "typeAliasDeclId": "0x1e9518344d0"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "0x1e951a41008",
+                                  "kind": "ImplicitCastExpr",
+                                  "range": {
+                                    "begin": {
+                                      "spellingLoc": {
+                                        "offset": 171519,
+                                        "line": 4801,
+                                        "col": 33,
+                                        "tokLen": 1
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    },
+                                    "end": {
+                                      "spellingLoc": {
+                                        "offset": 171519,
+                                        "line": 4801,
+                                        "col": 33,
+                                        "tokLen": 1
+                                      },
+                                      "expansionLoc": {
+                                        "offset": 212077,
+                                        "line": 5754,
+                                        "col": 18,
+                                        "tokLen": 24
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "desugaredQualType": "unsigned long long",
+                                    "qualType": "size_t",
+                                    "typeAliasDeclId": "0x1e9518344d0"
+                                  },
+                                  "valueCategory": "prvalue",
+                                  "castKind": "IntegralCast",
+                                  "inner": [
+                                    {
+                                      "id": "0x1e951a40fd0",
+                                      "kind": "IntegerLiteral",
+                                      "range": {
+                                        "begin": {
+                                          "spellingLoc": {
+                                            "offset": 171519,
+                                            "line": 4801,
+                                            "col": 33,
+                                            "tokLen": 1
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        },
+                                        "end": {
+                                          "spellingLoc": {
+                                            "offset": 171519,
+                                            "line": 4801,
+                                            "col": 33,
+                                            "tokLen": 1
+                                          },
+                                          "expansionLoc": {
+                                            "offset": 212077,
+                                            "line": 5754,
+                                            "col": 18,
+                                            "tokLen": 24
+                                          }
+                                        }
+                                      },
+                                      "type": {
+                                        "qualType": "int"
+                                      },
+                                      "valueCategory": "prvalue",
+                                      "value": "8"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0x1e951a40a28",
+      "kind": "UnusedAttr",
+      "range": {
+        "begin": {
+          "spellingLoc": {
+            "offset": 89839,
+            "line": 2401,
+            "col": 52,
+            "tokLen": 10
+          },
+          "expansionLoc": {
+            "offset": 212060,
+            "line": 5754,
+            "col": 1,
+            "tokLen": 16
+          }
+        },
+        "end": {
+          "spellingLoc": {
+            "offset": 89839,
+            "line": 2401,
+            "col": 52,
+            "tokLen": 10
+          },
+          "expansionLoc": {
+            "offset": 212060,
+            "line": 5754,
+            "col": 1,
+            "tokLen": 16
+          }
+        }
+      }
+    }
+  ]
+}

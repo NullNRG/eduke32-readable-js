@@ -1,0 +1,1947 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct20-source-closure-link-input\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-6b5f5b5d14aa23a91534f055b95296aab68a129b31a15242478fc79d2fbadafb.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 96272,
+      "json_bytes": 320317337,
+      "macro_declaration_ranges_retained": 1768,
+      "objects": 613318,
+      "ranges_omitted": 175306,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 140853
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 18,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e8580",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e8580"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 111,
+        "source_offset": 5190,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 111,
+      "linkage": "internal",
+      "name": "fix16_rad_to_deg_mult__header_global_cbfeccbc5ee4c97e",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_rad_to_deg_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e8a00",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e8a00"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 114,
+        "source_offset": 5371,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 114,
+      "linkage": "internal",
+      "name": "fix16_deg_to_rad_mult__header_global_443358f289d54b51",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_deg_to_rad_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "emitted_constructor_providers": [
+        "timeval"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "GetTickCount",
+      "original_type": "int ()",
+      "physical_source": "source/build/src/mmulti.cpp",
+      "reason": "unlinked identifiers: gettimeofday, timeval",
+      "source_name": "GetTickCount",
+      "source_references": [
+        "gettimeofday",
+        "timeval"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "gettimeofday",
+        "timeval"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_234479c02a6b9adf306b06c2",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 66,
+      "linkage": "external",
+      "name": "packetrate",
+      "original_type": "int",
+      "source_name": "packetrate",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_c371527a4a6e640e407b0d15",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 77,
+      "linkage": "external",
+      "name": "networkmode",
+      "original_type": "int",
+      "source_name": "networkmode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 78,
+      "linkage": "external",
+      "name": "myconnectindex",
+      "original_type": "int",
+      "source_name": "myconnectindex",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_af3e7a8f9b4d40a559acf109",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "external",
+      "name": "numplayers",
+      "original_type": "int",
+      "source_name": "numplayers",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_37274ddda5136df9cc793c3b",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 79,
+      "linkage": "external",
+      "name": "connecthead",
+      "original_type": "int",
+      "source_name": "connecthead",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "external",
+      "name": "connectpoint2",
+      "original_type": "int[16]",
+      "source_name": "connectpoint2",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 81,
+      "linkage": "internal",
+      "name": "tims",
+      "original_type": "int",
+      "source_name": "tims",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "lastsendtims",
+      "original_type": "int[16]",
+      "source_name": "lastsendtims",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 82,
+      "linkage": "internal",
+      "name": "pakbuf",
+      "original_type": "char[2048]",
+      "source_name": "pakbuf",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 83,
+      "linkage": "internal",
+      "name": "fullpakbufsignals",
+      "original_type": "int[16]",
+      "source_name": "fullpakbufsignals",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 86,
+      "linkage": "internal",
+      "name": "ipak",
+      "original_type": "int[16][512]",
+      "source_name": "ipak",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "icnt0",
+      "original_type": "int[16]",
+      "source_name": "icnt0",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 87,
+      "linkage": "internal",
+      "name": "opak",
+      "original_type": "int[16][512]",
+      "source_name": "opak",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ocnt0",
+      "original_type": "int[16]",
+      "source_name": "ocnt0",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ocnt1",
+      "original_type": "int[16]",
+      "source_name": "ocnt1",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 90,
+      "linkage": "internal",
+      "name": "pakmem",
+      "original_type": "char *",
+      "source_name": "pakmem",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e1098",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e1098"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 31,
+        "source_offset": 667,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 31,
+      "linkage": "internal",
+      "name": "FIX16_MAX__header_global_c4eadfe43fb93a17",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MAX",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e11b0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e11b0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 32,
+        "source_offset": 764,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 32,
+      "linkage": "internal",
+      "name": "FIX16_MIN__header_global_67d716259a6b888d",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MIN",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e12e0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e12e0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 33,
+        "source_offset": 861,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "internal",
+      "name": "FIX16_OVERFLOW__header_global_16954dbf61fdd04c",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_OVERFLOW",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e1410",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e1410"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 35,
+        "source_offset": 967,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "fix16_one__header_global_5a036f2fc2cdd825",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_one",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e1520",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e1520"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 36,
+        "source_offset": 1056,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "fix16_half__header_global_e64e638dfc693673",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_half",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df68e1630",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df68e1630"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 37,
+        "source_offset": 1147,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "flt_f161r__header_global_8746fa78fd8f6d9f",
+      "original_type": "const float",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "flt_f161r",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 91,
+      "linkage": "internal",
+      "name": "pakmemi",
+      "original_type": "int",
+      "source_name": "pakmemi",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 94,
+      "linkage": "internal",
+      "name": "mysock",
+      "original_type": "int",
+      "source_name": "mysock",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 95,
+      "linkage": "internal",
+      "name": "myip",
+      "original_type": "int",
+      "source_name": "myip",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "myport",
+      "original_type": "int",
+      "source_name": "myport",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "otherip",
+      "original_type": "int[16]",
+      "source_name": "otherip",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "otherport",
+      "original_type": "int[16]",
+      "source_name": "otherport",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 96,
+      "linkage": "internal",
+      "name": "snatchip",
+      "original_type": "int",
+      "source_name": "snatchip",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "snatchport",
+      "original_type": "int",
+      "source_name": "snatchport",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "netready",
+      "original_type": "int",
+      "source_name": "netready",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_81696b4f3d6fd9c7e3b6b0b1",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 103,
+      "linkage": "external",
+      "name": "natfree",
+      "original_type": "int",
+      "source_name": "natfree",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_a76839e4b4da8a8f0f0c2cba",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 104,
+      "linkage": "external",
+      "name": "nfCurrentPlayer",
+      "original_type": "int",
+      "source_name": "nfCurrentPlayer",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_327d6d9c2f87cafbc2d024c9",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 105,
+      "linkage": "external",
+      "name": "nfFinished",
+      "original_type": "int",
+      "source_name": "nfFinished",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 106,
+      "linkage": "external",
+      "name": "HeardFrom",
+      "original_type": "int[16]",
+      "source_name": "HeardFrom",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 107,
+      "linkage": "external",
+      "name": "HeardFrom2",
+      "original_type": "int[16]",
+      "source_name": "HeardFrom2",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 109,
+      "linkage": "external",
+      "name": "nfCheckCP",
+      "original_type": "int (int)",
+      "source_name": "nfCheckCP",
+      "source_references": [
+        "natfree",
+        "nfCurrentPlayer",
+        "nfFinished"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 119,
+      "linkage": "external",
+      "name": "nfCheckHF",
+      "original_type": "int (int)",
+      "source_name": "nfCheckHF",
+      "source_references": [
+        "HeardFrom"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 127,
+      "linkage": "external",
+      "name": "nfIncCP",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: log",
+      "source_name": "nfIncCP",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "log",
+        "myconnectindex",
+        "natfree",
+        "nfCurrentPlayer",
+        "nfFinished",
+        "numplayers"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "log"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 143,
+      "linkage": "external",
+      "name": "netuninit",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: close",
+      "source_name": "netuninit",
+      "source_references": [
+        "close",
+        "mysock"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "close"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 152,
+      "linkage": "internal",
+      "name": "set_socket_blockmode",
+      "original_type": "int (int, int)",
+      "reason": "unlinked identifiers: fcntl",
+      "source_name": "set_socket_blockmode",
+      "source_references": [
+        "fcntl"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fcntl"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "sockaddr_in"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 181,
+      "linkage": "external",
+      "name": "netinit",
+      "original_type": "int (int)",
+      "reason": "unlinked identifiers: bind, gethostbyname, gethostname, htons, inet_ntoa, printf, set_socket_blockmode, sockaddr_in, socket",
+      "source_name": "netinit",
+      "source_references": [
+        "bind",
+        "gethostbyname",
+        "gethostname",
+        "htons",
+        "inet_ntoa",
+        "myip",
+        "myport",
+        "mysock",
+        "printf",
+        "set_socket_blockmode",
+        "sockaddr_in",
+        "socket"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "bind",
+        "gethostbyname",
+        "gethostname",
+        "htons",
+        "inet_ntoa",
+        "printf",
+        "set_socket_blockmode",
+        "sockaddr_in",
+        "socket"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "sockaddr_in"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 225,
+      "linkage": "external",
+      "name": "netsend",
+      "original_type": "int (int, char *, int)",
+      "reason": "unlinked identifiers: sendto, sockaddr_in",
+      "source_name": "netsend",
+      "source_references": [
+        "connecthead",
+        "myconnectindex",
+        "mysock",
+        "natfree",
+        "nfCheckCP",
+        "nfCheckHF",
+        "nfFinished",
+        "otherip",
+        "otherport",
+        "sendto",
+        "sockaddr_in"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "sendto",
+        "sockaddr_in"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "sockaddr_in"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 253,
+      "linkage": "external",
+      "name": "netread",
+      "original_type": "int (int *, char *, int)",
+      "reason": "unlinked identifiers: log, recvfrom, sockaddr_in",
+      "source_name": "netread",
+      "source_references": [
+        "HeardFrom",
+        "HeardFrom2",
+        "connecthead",
+        "current_verbosity_cutoff",
+        "log",
+        "myconnectindex",
+        "mysock",
+        "natfree",
+        "nfCheckHF",
+        "nfCurrentPlayer",
+        "nfFinished",
+        "otherip",
+        "otherport",
+        "recvfrom",
+        "snatchip",
+        "snatchport",
+        "sockaddr_in"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "log",
+        "recvfrom",
+        "sockaddr_in"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 313,
+      "linkage": "external",
+      "name": "isvalidipaddress",
+      "original_type": "int (const char *)",
+      "source_name": "isvalidipaddress",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_44993e0ee4c31a98bcf52fcb",
+        "original_type": "char"
+      },
+      "kind": "VarDecl",
+      "line": 341,
+      "linkage": "external",
+      "name": "syncstate",
+      "original_type": "char",
+      "source_name": "syncstate",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 342,
+      "linkage": "external",
+      "name": "mmulti_setpackettimeout",
+      "original_type": "void (int, int)",
+      "source_name": "mmulti_setpackettimeout",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 343,
+      "linkage": "external",
+      "name": "mmulti_generic",
+      "original_type": "void (int, unsigned char *, int, int)",
+      "source_name": "mmulti_generic",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 350,
+      "linkage": "external",
+      "name": "mmulti_getoutputcirclesize",
+      "original_type": "int ()",
+      "source_name": "mmulti_getoutputcirclesize",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 351,
+      "linkage": "external",
+      "name": "mmulti_flushpackets",
+      "original_type": "void ()",
+      "source_name": "mmulti_flushpackets",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 352,
+      "linkage": "external",
+      "name": "mmulti_sendlogon",
+      "original_type": "void ()",
+      "source_name": "mmulti_sendlogon",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 353,
+      "linkage": "external",
+      "name": "mmulti_sendlogoff",
+      "original_type": "void ()",
+      "source_name": "mmulti_sendlogoff",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 356,
+      "linkage": "external",
+      "name": "mmulti_uninitmultiplayers",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: netuninit",
+      "source_name": "mmulti_uninitmultiplayers",
+      "source_references": [
+        "netuninit",
+        "pakmem",
+        "xfree__header_2958dfba6143"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "netuninit"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 362,
+      "linkage": "internal",
+      "name": "initmultiplayers_reset",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: GetTickCount, htons",
+      "source_name": "initmultiplayers_reset",
+      "source_references": [
+        "GetTickCount",
+        "htons",
+        "icnt0",
+        "initcrc16",
+        "ipak",
+        "lastsendtims",
+        "myconnectindex",
+        "numplayers",
+        "ocnt0",
+        "ocnt1",
+        "otherip",
+        "otherport"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "GetTickCount",
+        "htons"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 396,
+      "linkage": "external",
+      "name": "initmultiplayersparms",
+      "original_type": "int (int, const char *const *)",
+      "reason": "unlinked identifiers: atol, gethostbyname, htons, inet_addr, inet_ntoa, initmultiplayers_reset, mi_free, netinit, ntohs, printf, strtol",
+      "source_name": "initmultiplayersparms",
+      "source_references": [
+        "atol",
+        "connecthead",
+        "connectpoint2",
+        "gethostbyname",
+        "htons",
+        "inet_addr",
+        "inet_ntoa",
+        "initmultiplayers_reset",
+        "isvalidipaddress",
+        "mi_free",
+        "mi_strdup",
+        "myconnectindex",
+        "netinit",
+        "networkmode",
+        "ntohs",
+        "numplayers",
+        "otherip",
+        "otherport",
+        "pakmem",
+        "printf",
+        "strtol",
+        "xmalloc__header_c659de19c123"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atol",
+        "gethostbyname",
+        "htons",
+        "inet_addr",
+        "inet_ntoa",
+        "initmultiplayers_reset",
+        "mi_free",
+        "netinit",
+        "ntohs",
+        "printf",
+        "strtol"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 507,
+      "linkage": "external",
+      "name": "initmultiplayerscycle",
+      "original_type": "int ()",
+      "reason": "unlinked identifiers: GetTickCount, handleevents, netsend, nfIncCP",
+      "source_name": "initmultiplayerscycle",
+      "source_references": [
+        "GetTickCount",
+        "connecthead",
+        "getcrc16__header_43e838d3174d",
+        "handleevents",
+        "idle__header_c921a72179cb",
+        "lastsendtims",
+        "mmulti_getpacket",
+        "myconnectindex",
+        "netready",
+        "netsend",
+        "nfIncCP",
+        "numplayers",
+        "otherip",
+        "pakbuf",
+        "tims"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "GetTickCount",
+        "handleevents",
+        "netsend",
+        "nfIncCP"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 553,
+      "linkage": "external",
+      "name": "mmulti_initmultiplayers",
+      "original_type": "void (int, const char *const *, char, char, char)",
+      "reason": "unlinked identifiers: initmultiplayerscycle, initmultiplayersparms",
+      "source_name": "mmulti_initmultiplayers",
+      "source_references": [
+        "initmultiplayerscycle",
+        "initmultiplayersparms",
+        "netready"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "initmultiplayerscycle",
+        "initmultiplayersparms"
+      ]
+    },
+    {
+      "external_reference_imports": [
+        {
+          "name": "max__template_b1cfaf2244c73238",
+          "reference_contract": {
+            "abi": "source-cpp-lvalue-reference/1",
+            "parameters": [
+              {
+                "const": true,
+                "index": 0,
+                "type": "int"
+              },
+              {
+                "const": true,
+                "index": 1,
+                "type": "int"
+              }
+            ],
+            "result": "int"
+          }
+        }
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 597,
+      "linkage": "external",
+      "name": "dosendpackets",
+      "original_type": "void (int)",
+      "reason": "unlinked identifiers: GetTickCount, log, netsend",
+      "source_name": "dosendpackets",
+      "source_references": [
+        "GetTickCount",
+        "current_verbosity_cutoff",
+        "fullpakbufsignals",
+        "getcrc16__header_43e838d3174d",
+        "icnt0",
+        "ipak",
+        "lastsendtims",
+        "log",
+        "max__template_b1cfaf2244c73238",
+        "natfree",
+        "netsend",
+        "nfCheckCP",
+        "ocnt0",
+        "ocnt1",
+        "opak",
+        "otherip",
+        "packetrate",
+        "pakbuf",
+        "pakmem",
+        "tims"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "GetTickCount",
+        "log",
+        "netsend"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 661,
+      "linkage": "external",
+      "name": "mmulti_sendpacket",
+      "original_type": "void (int, unsigned char *, int)",
+      "reason": "unlinked identifiers: dosendpackets",
+      "source_name": "mmulti_sendpacket",
+      "source_references": [
+        "dosendpackets",
+        "numplayers",
+        "ocnt1",
+        "opak",
+        "pakmem",
+        "pakmemi"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "dosendpackets"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 681,
+      "linkage": "external",
+      "name": "mmulti_getpacket",
+      "original_type": "int (int *, unsigned char *)",
+      "reason": "unlinked identifiers: dosendpackets, log, netread, netsend, nfIncCP",
+      "source_name": "mmulti_getpacket",
+      "source_references": [
+        "HeardFrom",
+        "HeardFrom2",
+        "connecthead",
+        "connectpoint2",
+        "current_verbosity_cutoff",
+        "dosendpackets",
+        "getcrc16__header_43e838d3174d",
+        "icnt0",
+        "ipak",
+        "log",
+        "myconnectindex",
+        "natfree",
+        "netread",
+        "netready",
+        "netsend",
+        "networkmode",
+        "nfCheckHF",
+        "nfCurrentPlayer",
+        "nfIncCP",
+        "numplayers",
+        "ocnt0",
+        "ocnt1",
+        "opak",
+        "otherip",
+        "otherport",
+        "pakbuf",
+        "pakmem",
+        "pakmemi",
+        "snatchip",
+        "snatchport"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "dosendpackets",
+        "log",
+        "netread",
+        "netsend",
+        "nfIncCP"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "sockaddr_in"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 845,
+      "linkage": "external",
+      "name": "getexternaladdress",
+      "original_type": "int (char *, const char *, int)",
+      "reason": "unlinked identifiers: __errno_location, __h_errno_location, close, connect, gethostbyname, htons, isdigit, log, recv, send, sockaddr_in, socket",
+      "source_name": "getexternaladdress",
+      "source_references": [
+        "__errno_location",
+        "__h_errno_location",
+        "close",
+        "connect",
+        "current_verbosity_cutoff",
+        "gethostbyname",
+        "htons",
+        "isdigit",
+        "log",
+        "mysock",
+        "recv",
+        "send",
+        "sockaddr_in",
+        "socket"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "__errno_location",
+        "__h_errno_location",
+        "close",
+        "connect",
+        "gethostbyname",
+        "htons",
+        "isdigit",
+        "log",
+        "recv",
+        "send",
+        "sockaddr_in",
+        "socket"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df65f5510",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df65f5510"
+        ],
+        "source_header": "source/build/include/compat.h",
+        "source_line": 1169,
+        "source_offset": 32336,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1169,
+      "linkage": "internal",
+      "name": "pow2char__header_global_41e01d7bf51b0611",
+      "original_type": "const const char[8]",
+      "physical_source": "source/build/include/compat.h",
+      "source_name": "pow2char",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df7061c38",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df7061c38"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 172,
+        "source_offset": 4847,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 172,
+      "linkage": "internal",
+      "name": "g_defaultVideoModes__header_global_9801ef0c9317e1d2",
+      "object_storage": {
+        "abi": "source-byte-record-array/1",
+        "dimensions": [
+          25
+        ],
+        "name": "g_defaultVideoModes__header_global_9801ef0c9317e1d2",
+        "original_type": "const vec2_t[25]",
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "stride": 8
+      },
+      "original_type": "const vec2_t[25]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_defaultVideoModes",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df7063890",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df7063890"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 188,
+        "source_offset": 5455,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 188,
+      "linkage": "internal",
+      "name": "g_keyAsciiTable__header_global_c5ae47629cc175b5",
+      "original_type": "const const char[128]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_keyAsciiTable",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df70656c0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df70656c0"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 196,
+        "source_offset": 6158,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 196,
+      "linkage": "internal",
+      "name": "g_keyAsciiTableShift__header_global_79f87523d52c1c38",
+      "original_type": "const const char[128]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_keyAsciiTableShift",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df70fcbb8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df70fcbb8"
+        ],
+        "source_header": "source/build/include/build.h",
+        "source_line": 895,
+        "source_offset": 26019,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 895,
+      "linkage": "internal",
+      "name": "pow2long__header_global_fe39c080311ed072",
+      "original_type": "const const int32_t[32]",
+      "physical_source": "source/build/include/build.h",
+      "source_name": "pow2long",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df70fd3b8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df70fd3b8"
+        ],
+        "source_header": "source/build/include/build.h",
+        "source_line": 907,
+        "source_offset": 26350,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 907,
+      "linkage": "internal",
+      "name": "pow2ulong__header_global_fa541027b43118b9",
+      "original_type": "const const uint32_t[32]",
+      "physical_source": "source/build/include/build.h",
+      "source_name": "pow2ulong",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x21df70fdeb8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x21df70fdeb8"
+        ],
+        "source_header": "source/build/include/build.h",
+        "source_line": 919,
+        "source_offset": 26665,
+        "translation_unit": "source/build/src/mmulti.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 919,
+      "linkage": "internal",
+      "name": "pow264__header_global_6009b95cbeb9f66f",
+      "original_type": "const const int64_t[64]",
+      "physical_source": "source/build/include/build.h",
+      "source_name": "pow264",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "linkage": "internal",
+      "name": "xfree__header_2958dfba6143",
+      "original_type": "void (void *const)",
+      "source_name": "xfree",
+      "source_references": [
+        "_sm_free",
+        "g_sm_heap"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1393,
+      "linkage": "internal",
+      "name": "xmalloc__header_c659de19c123",
+      "original_type": "void *(const bsize_t)",
+      "reason": "unlinked identifiers: handle_memerr",
+      "source_name": "xmalloc",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 88,
+      "linkage": "internal",
+      "name": "idle__header_c921a72179cb",
+      "original_type": "void (const int)",
+      "reason": "unlinked identifiers: nanosleep",
+      "source_name": "idle",
+      "source_references": [
+        "nanosleep"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "nanosleep"
+      ]
+    },
+    {
+      "external_imports": [
+        "crctab16"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1300,
+      "linkage": "internal",
+      "name": "getcrc16__header_43e838d3174d",
+      "original_type": "uint16_t (const void *, int, int)",
+      "source_name": "getcrc16",
+      "source_references": [
+        "crctab16"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "const": true,
+            "index": 0,
+            "type": "int"
+          },
+          {
+            "const": true,
+            "index": 1,
+            "type": "int"
+          }
+        ],
+        "result": "int"
+      },
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 254,
+      "linkage": "external",
+      "name": "max__template_b1cfaf2244c73238",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "fc59e4285df3ef0518c5dc0755aad79af1221a4bc7c5a3fb095e72334f72e2d0",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "type": "const int &(const int &, const int &)"
+      },
+      "original_type": "const int &(const int &, const int &)",
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_name": "max",
+      "source_references": [],
+      "status": "source-first",
+      "toolchain_header_definition": {
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 864,
+      "linkage": "external",
+      "name": "_sm_free",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "c22f8fadf34f394324abe40c02a95d48dd5c4b5fe32bd62afea6375b762691cc",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25931,
+        "type": "void (sm_allocator, void *)"
+      },
+      "original_type": "void (sm_allocator, void *)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_free",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 859,
+      "linkage": "external",
+      "name": "_sm_malloc",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "3cde34437303d4edd03f3ec8c57355c9b640fd325715fbe3e4ecde81424e6b84",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25761,
+        "type": "void *(sm_allocator, size_t, size_t)"
+      },
+      "original_type": "void *(sm_allocator, size_t, size_t)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_malloc",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 60,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 78,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [
+    {
+      "from": "source/build/src/engine.cpp",
+      "name": "crctab16"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+      "from": "source/build/src/compat.cpp",
+      "name": "g_sm_heap",
+      "original_type": "sm::Allocator *"
+    }
+  ],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\AppData\\Local\\Temp\\eduke_original_link_enb7gzhf\\2_5\\output\\source\\build\\src\\mmulti.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/build/src/mmulti.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_234479c02a6b9adf306b06c2",
+      "name": "packetrate",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_c371527a4a6e640e407b0d15",
+      "name": "networkmode",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
+      "name": "myconnectindex",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_af3e7a8f9b4d40a559acf109",
+      "name": "numplayers",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_37274ddda5136df9cc793c3b",
+      "name": "connecthead",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_81696b4f3d6fd9c7e3b6b0b1",
+      "name": "natfree",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_a76839e4b4da8a8f0f0c2cba",
+      "name": "nfCurrentPlayer",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_327d6d9c2f87cafbc2d024c9",
+      "name": "nfFinished",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_44993e0ee4c31a98bcf52fcb",
+      "name": "syncstate",
+      "original_type": "char"
+    }
+  ],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

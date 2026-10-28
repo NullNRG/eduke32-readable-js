@@ -1,0 +1,6 @@
+const fs=require('fs'),vm=require('vm'),path=require('path');
+const code=fs.readFileSync(path.resolve(__dirname,'../web/runner.js'),'utf8').split('for(const g of GAME_BUNDLES)')[0];
+const context={console,TextDecoder,Uint8Array,Map,Set,Math,DataView,Array,Number,Error,Promise,performance:{now:()=>10000},clearTimeout:()=>{},setTimeout:()=>0,document:{getElementById:(id)=>({style:{},addEventListener(){},clientWidth:1280,clientHeight:720})}};
+vm.createContext(context);vm.runInContext(code,context);context.sourceBytes=new Uint8Array(fs.readFileSync(process.env.DUKE_GRP||path.resolve(__dirname,'../inputs/DUKE3D.GRP')));
+const result=vm.runInContext(`(()=>{archive=new GRP(sourceBytes);archive.initArt();world=parseMap(archive.get('E1L1.MAP'));world.sectorLoops=world.sectors.map(s=>loopsForSector(s,world.walls));const r=Object.create(NativeGL.prototype);r.gl={deleteBuffer(){},deleteTexture(){}};r.staticMeshes=[];r.textures=new Map();r.buffer=a=>{if(a.some(x=>!Number.isFinite(x)))throw Error('NaN in mesh');return{count:a.length/6,buf:1}};r.setWorld(world);return {sector:world.sectors.length,walls:world.walls.length,sprites:world.allSprites.length,meshes:r.staticMeshes.length,vertices:r.staticMeshes.reduce((x,m)=>x+m.count,0)}})()`,context,{timeout:120000});console.log(result);
+if(!result.meshes||!result.vertices)process.exitCode=1;

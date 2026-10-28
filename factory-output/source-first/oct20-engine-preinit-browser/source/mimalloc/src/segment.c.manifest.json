@@ -1,0 +1,1275 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-01\\\\.ast-lru-aaa7cdb9e090c0a08ec4d79a62b7fe69e9d3426ffd9d245d56124e20b264cd0f.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 27340,
+      "json_bytes": 123565289,
+      "objects": 229032,
+      "ranges_omitted": 63246,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 59460
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 42,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 64,
+      "linkage": "internal",
+      "name": "mi_segment_queue_remove",
+      "original_type": "void (mi_segment_queue_t *, mi_segment_t *)",
+      "source_name": "mi_segment_queue_remove",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 74,
+      "linkage": "internal",
+      "name": "mi_segment_enqueue",
+      "original_type": "void (mi_segment_queue_t *, mi_segment_t *)",
+      "source_name": "mi_segment_enqueue",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 88,
+      "linkage": "internal",
+      "name": "mi_segment_free_queue_of_kind",
+      "original_type": "mi_segment_queue_t *(mi_page_kind_t, mi_segments_tld_t *)",
+      "source_name": "mi_segment_free_queue_of_kind",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 94,
+      "linkage": "internal",
+      "name": "mi_segment_free_queue",
+      "original_type": "mi_segment_queue_t *(const mi_segment_t *, mi_segments_tld_t *)",
+      "source_name": "mi_segment_free_queue",
+      "source_references": [
+        "mi_segment_free_queue_of_kind"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 99,
+      "linkage": "internal",
+      "name": "mi_segment_remove_from_free_queue",
+      "original_type": "void (mi_segment_t *, mi_segments_tld_t *)",
+      "source_name": "mi_segment_remove_from_free_queue",
+      "source_references": [
+        "mi_segment_free_queue",
+        "mi_segment_queue_remove"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 107,
+      "linkage": "internal",
+      "name": "mi_segment_insert_in_free_queue",
+      "original_type": "void (mi_segment_t *, mi_segments_tld_t *)",
+      "source_name": "mi_segment_insert_in_free_queue",
+      "source_references": [
+        "mi_segment_enqueue",
+        "mi_segment_free_queue"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 166,
+      "linkage": "internal",
+      "name": "mi_page_not_in_queue",
+      "original_type": "bool (const mi_page_t *, mi_segments_tld_t *)",
+      "source_name": "mi_page_not_in_queue",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 183,
+      "linkage": "internal",
+      "name": "mi_segment_protect_range",
+      "original_type": "void (void *, size_t, bool)",
+      "reason": "unlinked identifiers: _mi_os_protect, _mi_os_unprotect",
+      "source_name": "mi_segment_protect_range",
+      "source_references": [
+        "_mi_os_protect",
+        "_mi_os_unprotect"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_protect",
+        "_mi_os_unprotect"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 192,
+      "linkage": "internal",
+      "name": "mi_segment_protect",
+      "original_type": "void (mi_segment_t *, bool, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: _mi_os_commit, _mi_os_page_size, mi_segment_protect_range",
+      "source_name": "mi_segment_protect",
+      "source_references": [
+        "_mi_os_commit",
+        "_mi_os_page_size",
+        "mi_segment_protect_range"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_commit",
+        "_mi_os_page_size",
+        "mi_segment_protect_range"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 237,
+      "linkage": "internal",
+      "name": "mi_page_purge",
+      "original_type": "void (mi_segment_t *, mi_page_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_os_purge",
+      "source_name": "mi_page_purge",
+      "source_references": [
+        "_mi_os_purge",
+        "mi_segment_raw_page_start"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_purge"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 251,
+      "linkage": "internal",
+      "name": "mi_page_ensure_committed",
+      "original_type": "bool (mi_segment_t *, mi_page_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_os_commit, _mi_os_page_size, mi_segment_protect_range",
+      "source_name": "mi_page_ensure_committed",
+      "source_references": [
+        "_mi_os_commit",
+        "_mi_os_page_size",
+        "mi_segment_protect_range",
+        "mi_segment_raw_page_start"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_commit",
+        "_mi_os_page_size",
+        "mi_segment_protect_range"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 281,
+      "linkage": "internal",
+      "name": "mi_page_get_expire",
+      "original_type": "uint32_t (mi_page_t *)",
+      "source_name": "mi_page_get_expire",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 285,
+      "linkage": "internal",
+      "name": "mi_page_set_expire",
+      "original_type": "void (mi_page_t *, uint32_t)",
+      "source_name": "mi_page_set_expire",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 289,
+      "linkage": "internal",
+      "name": "mi_page_purge_set_expire",
+      "original_type": "void (mi_page_t *)",
+      "reason": "unlinked identifiers: _mi_clock_now, mi_option_get",
+      "source_name": "mi_page_purge_set_expire",
+      "source_references": [
+        "_mi_clock_now",
+        "mi_option_get",
+        "mi_page_set_expire"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_clock_now",
+        "mi_option_get"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 299,
+      "linkage": "internal",
+      "name": "mi_page_purge_is_expired",
+      "original_type": "bool (mi_page_t *, mi_msecs_t)",
+      "source_name": "mi_page_purge_is_expired",
+      "source_references": [
+        "mi_page_get_expire"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 304,
+      "linkage": "internal",
+      "name": "mi_segment_schedule_purge",
+      "original_type": "void (mi_segment_t *, mi_page_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_option_get, mi_page_purge, mi_page_purge_set_expire",
+      "source_name": "mi_segment_schedule_purge",
+      "source_references": [
+        "mi_option_get",
+        "mi_page_purge",
+        "mi_page_purge_set_expire"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_option_get",
+        "mi_page_purge",
+        "mi_page_purge_set_expire"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 333,
+      "linkage": "internal",
+      "name": "mi_page_purge_remove",
+      "original_type": "void (mi_page_t *, mi_segments_tld_t *)",
+      "source_name": "mi_page_purge_remove",
+      "source_references": [
+        "mi_page_not_in_queue",
+        "mi_page_set_expire"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 349,
+      "linkage": "internal",
+      "name": "mi_segment_remove_all_purges",
+      "original_type": "void (mi_segment_t *, bool, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_page_purge",
+      "source_name": "mi_segment_remove_all_purges",
+      "source_references": [
+        "mi_page_purge",
+        "mi_page_purge_remove"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_page_purge"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 365,
+      "linkage": "internal",
+      "name": "mi_pages_try_purge",
+      "original_type": "void (bool, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_clock_now, mi_option_get, mi_page_purge",
+      "source_name": "mi_pages_try_purge",
+      "source_references": [
+        "_mi_clock_now",
+        "_mi_page_segment__header_1fee9c049323",
+        "mi_option_get",
+        "mi_page_purge",
+        "mi_page_purge_is_expired",
+        "mi_page_purge_remove"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_clock_now",
+        "mi_option_get",
+        "mi_page_purge"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 393,
+      "linkage": "internal",
+      "name": "mi_segment_raw_page_size",
+      "original_type": "size_t (const mi_segment_t *)",
+      "source_name": "mi_segment_raw_page_size",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 399,
+      "linkage": "internal",
+      "name": "mi_segment_raw_page_start",
+      "original_type": "uint8_t *(const mi_segment_t *, const mi_page_t *, size_t *)",
+      "source_name": "mi_segment_raw_page_start",
+      "source_references": [
+        "mi_segment_raw_page_size"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 424,
+      "linkage": "external",
+      "name": "_mi_segment_page_start",
+      "original_type": "uint8_t *(const mi_segment_t *, const mi_page_t *, size_t *)",
+      "source_name": "_mi_segment_page_start",
+      "source_references": [
+        "mi_page_block_size__header_7554e5b3b6bc",
+        "mi_segment_raw_page_start"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 449,
+      "linkage": "internal",
+      "name": "mi_segment_calculate_sizes",
+      "original_type": "size_t (size_t, size_t, size_t *, size_t *)",
+      "reason": "unlinked identifiers: _mi_os_page_size",
+      "source_name": "mi_segment_calculate_sizes",
+      "source_references": [
+        "_mi_align_up__header_067ed6bfd8b5",
+        "_mi_os_page_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_page_size"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 485,
+      "linkage": "internal",
+      "name": "mi_segments_track_size",
+      "original_type": "void (long, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_stat_decrease, _mi_stat_increase",
+      "source_name": "mi_segments_track_size",
+      "source_references": [
+        "_mi_stat_decrease",
+        "_mi_stat_increase"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_stat_decrease",
+        "_mi_stat_increase"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 494,
+      "linkage": "internal",
+      "name": "mi_segment_os_free",
+      "original_type": "void (mi_segment_t *, size_t, mi_segments_tld_t *)",
+      "reason": "C++ member operator requires source-defined class/method ABI: ('std::__atomic_base<unsigned long>', 'operator=', '__int_type (__int_type) noexcept')",
+      "source_name": "mi_segment_os_free",
+      "source_references": [
+        "_mi_arena_free",
+        "_mi_segment_map_freed_at",
+        "mi_segment_protect",
+        "mi_segment_raw_page_size",
+        "mi_segments_track_size",
+        "std::__atomic_base<unsigned long>"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 523,
+      "linkage": "external",
+      "name": "_mi_segments_collect",
+      "original_type": "void (bool, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_pages_try_purge",
+      "source_name": "_mi_segments_collect",
+      "source_references": [
+        "mi_pages_try_purge"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_pages_try_purge"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 538,
+      "linkage": "internal",
+      "name": "mi_segment_os_alloc",
+      "original_type": "mi_segment_t *(bool, size_t, mi_arena_id_t, size_t, size_t, bool, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "aggregate copy requires verified pointer-free field shape: mi_memid_s",
+      "source_name": "mi_segment_os_alloc",
+      "source_references": [
+        "_mi_align_up__header_067ed6bfd8b5",
+        "_mi_arena_alloc_aligned",
+        "_mi_arena_free",
+        "_mi_os_commit",
+        "_mi_segment_map_allocated_at",
+        "mi_option_get",
+        "mi_segments_track_size"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 580,
+      "linkage": "internal",
+      "name": "mi_segment_alloc",
+      "original_type": "mi_segment_t *(size_t, mi_page_kind_t, size_t, size_t, mi_arena_id_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "OffsetOfExpr",
+      "source_name": "mi_segment_alloc",
+      "source_references": [
+        "_mi_current_thread_count",
+        "_mi_memzero__header_07f419bd98d6",
+        "_mi_ptr_cookie__header_ef01ab72f1f0",
+        "_mi_thread_id",
+        "mi_option_get",
+        "mi_option_is_enabled",
+        "mi_segment_calculate_sizes",
+        "mi_segment_insert_in_free_queue",
+        "mi_segment_os_alloc",
+        "mi_segment_protect",
+        "std::__atomic_base<unsigned long>"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 652,
+      "linkage": "internal",
+      "name": "mi_segment_free",
+      "original_type": "void (mi_segment_t *, bool, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_stat_decrease, mi_segment_os_free, mi_segment_remove_all_purges",
+      "source_name": "mi_segment_free",
+      "source_references": [
+        "_mi_stat_decrease",
+        "mi_segment_os_free",
+        "mi_segment_remove_all_purges",
+        "mi_segment_remove_from_free_queue"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_stat_decrease",
+        "mi_segment_os_free",
+        "mi_segment_remove_all_purges"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 674,
+      "linkage": "internal",
+      "name": "mi_segment_has_free",
+      "original_type": "bool (const mi_segment_t *)",
+      "source_name": "mi_segment_has_free",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 678,
+      "linkage": "internal",
+      "name": "mi_segment_page_claim",
+      "original_type": "bool (mi_segment_t *, mi_page_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_page_ensure_committed",
+      "source_name": "mi_segment_page_claim",
+      "source_references": [
+        "mi_page_ensure_committed",
+        "mi_page_purge_remove",
+        "mi_segment_remove_from_free_queue"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_page_ensure_committed"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 707,
+      "linkage": "internal",
+      "name": "mi_segment_page_clear",
+      "original_type": "void (mi_segment_t *, mi_page_t *, mi_segments_tld_t *)",
+      "reason": "OffsetOfExpr",
+      "source_name": "mi_segment_page_clear",
+      "source_references": [
+        "_mi_memzero__header_07f419bd98d6",
+        "_mi_stat_decrease",
+        "mi_page_block_size__header_7554e5b3b6bc",
+        "mi_segment_schedule_purge"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 745,
+      "linkage": "external",
+      "name": "_mi_segment_page_free",
+      "original_type": "void (mi_page_t *, bool, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_pages_try_purge, mi_segment_free, mi_segment_page_clear",
+      "source_name": "_mi_segment_page_free",
+      "source_references": [
+        "_mi_page_segment__header_1fee9c049323",
+        "mi_pages_try_purge",
+        "mi_segment_abandon",
+        "mi_segment_free",
+        "mi_segment_insert_in_free_queue",
+        "mi_segment_page_clear"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_pages_try_purge",
+        "mi_segment_free",
+        "mi_segment_page_clear"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 797,
+      "linkage": "internal",
+      "name": "mi_segment_abandon",
+      "original_type": "void (mi_segment_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_arena_segment_mark_abandoned, _mi_stat_increase, mi_option_is_enabled, mi_pages_try_purge, mi_segment_remove_all_purges, mi_segments_track_size",
+      "source_name": "mi_segment_abandon",
+      "source_references": [
+        "_mi_arena_segment_mark_abandoned",
+        "_mi_stat_increase",
+        "mi_option_is_enabled",
+        "mi_pages_try_purge",
+        "mi_segment_remove_all_purges",
+        "mi_segment_remove_from_free_queue",
+        "mi_segments_track_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_arena_segment_mark_abandoned",
+        "_mi_stat_increase",
+        "mi_option_is_enabled",
+        "mi_pages_try_purge",
+        "mi_segment_remove_all_purges",
+        "mi_segments_track_size"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 823,
+      "linkage": "external",
+      "name": "_mi_segment_page_abandon",
+      "original_type": "void (mi_page_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_stat_increase, mi_segment_abandon",
+      "source_name": "_mi_segment_page_abandon",
+      "source_references": [
+        "_mi_page_segment__header_1fee9c049323",
+        "_mi_stat_increase",
+        "mi_segment_abandon"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_stat_increase",
+        "mi_segment_abandon"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 844,
+      "linkage": "internal",
+      "name": "mi_segment_check_free",
+      "original_type": "bool (mi_segment_t *, size_t, bool *)",
+      "reason": "unlinked identifiers: _mi_page_free_collect",
+      "source_name": "mi_segment_check_free",
+      "source_references": [
+        "_mi_page_free_collect",
+        "mi_page_all_free__header_3ee677ac640b",
+        "mi_page_block_size__header_7554e5b3b6bc",
+        "mi_page_has_any_available__header_0f19945b78b5"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_page_free_collect"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 882,
+      "linkage": "internal",
+      "name": "mi_segment_reclaim",
+      "original_type": "mi_segment_t *(mi_segment_t *, mi_heap_t *, size_t, bool *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_error_message, _mi_heap_by_tag, _mi_page_free_collect, _mi_page_reclaim, _mi_page_use_delayed_free, _mi_stat_decrease, _mi_thread_id, atomic_store_explicit, mi_segment_free, mi_segment_page_clear, mi_segments_track_size",
+      "source_name": "mi_segment_reclaim",
+      "source_references": [
+        "_mi_error_message",
+        "_mi_heap_by_tag",
+        "_mi_page_free_collect",
+        "_mi_page_reclaim",
+        "_mi_page_use_delayed_free",
+        "_mi_stat_decrease",
+        "_mi_thread_id",
+        "atomic_store_explicit",
+        "mi_page_all_free__header_3ee677ac640b",
+        "mi_page_block_size__header_7554e5b3b6bc",
+        "mi_page_has_any_available__header_0f19945b78b5",
+        "mi_page_set_heap__header_f77ecb028181",
+        "mi_segment_free",
+        "mi_segment_has_free",
+        "mi_segment_insert_in_free_queue",
+        "mi_segment_page_clear",
+        "mi_segments_track_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_error_message",
+        "_mi_heap_by_tag",
+        "_mi_page_free_collect",
+        "_mi_page_reclaim",
+        "_mi_page_use_delayed_free",
+        "_mi_stat_decrease",
+        "_mi_thread_id",
+        "atomic_store_explicit",
+        "mi_segment_free",
+        "mi_segment_page_clear",
+        "mi_segments_track_size"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 951,
+      "linkage": "external",
+      "name": "_mi_segment_attempt_reclaim",
+      "original_type": "bool (mi_heap_t *, mi_segment_t *)",
+      "reason": "aggregate copy requires verified pointer-free field shape: mi_memid_s",
+      "source_name": "_mi_segment_attempt_reclaim",
+      "source_references": [
+        "_mi_arena_segment_clear_abandoned",
+        "_mi_heap_memid_is_suitable",
+        "atomic_load_explicit",
+        "mi_segment_reclaim"
+      ],
+      "status": "blocked"
+    },
+    {
+      "emitted_constructor_providers": [
+        "mi_arena_field_cursor_s"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 969,
+      "linkage": "external",
+      "name": "_mi_abandoned_reclaim_all",
+      "original_type": "void (mi_heap_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: _mi_arena_field_cursor_done, _mi_arena_field_cursor_init, _mi_arena_segment_clear_abandoned_next, mi_arena_field_cursor_s, mi_segment_reclaim",
+      "source_name": "_mi_abandoned_reclaim_all",
+      "source_references": [
+        "_mi_arena_field_cursor_done",
+        "_mi_arena_field_cursor_init",
+        "_mi_arena_segment_clear_abandoned_next",
+        "mi_arena_field_cursor_s",
+        "mi_segment_reclaim"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_arena_field_cursor_done",
+        "_mi_arena_field_cursor_init",
+        "_mi_arena_segment_clear_abandoned_next",
+        "mi_arena_field_cursor_s",
+        "mi_segment_reclaim"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 979,
+      "linkage": "internal",
+      "name": "mi_segment_get_reclaim_tries",
+      "original_type": "long (mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: atomic_load_explicit, mi_option_get_clamp",
+      "source_name": "mi_segment_get_reclaim_tries",
+      "source_references": [
+        "atomic_load_explicit",
+        "mi_option_get_clamp"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_load_explicit",
+        "mi_option_get_clamp"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 991,
+      "linkage": "internal",
+      "name": "mi_segment_try_reclaim",
+      "original_type": "mi_segment_t *(mi_heap_t *, size_t, mi_page_kind_t, bool *, mi_segments_tld_t *)",
+      "reason": "aggregate copy requires verified pointer-free field shape: mi_memid_s",
+      "source_name": "mi_segment_try_reclaim",
+      "source_references": [
+        "_mi_arena_field_cursor_done",
+        "_mi_arena_field_cursor_init",
+        "_mi_arena_segment_clear_abandoned_next",
+        "_mi_arena_segment_mark_abandoned",
+        "_mi_heap_memid_is_suitable",
+        "mi_segment_check_free",
+        "mi_segment_get_reclaim_tries",
+        "mi_segment_reclaim"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1045,
+      "linkage": "internal",
+      "name": "mi_segment_reclaim_or_alloc",
+      "original_type": "mi_segment_t *(mi_heap_t *, size_t, mi_page_kind_t, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_alloc, mi_segment_try_reclaim",
+      "source_name": "mi_segment_reclaim_or_alloc",
+      "source_references": [
+        "mi_segment_alloc",
+        "mi_segment_try_reclaim"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_alloc",
+        "mi_segment_try_reclaim"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1072,
+      "linkage": "internal",
+      "name": "mi_segment_find_free",
+      "original_type": "mi_page_t *(mi_segment_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_page_claim",
+      "source_name": "mi_segment_find_free",
+      "source_references": [
+        "mi_segment_page_claim"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_page_claim"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1087,
+      "linkage": "internal",
+      "name": "mi_segment_page_alloc_in",
+      "original_type": "mi_page_t *(mi_segment_t *, mi_segments_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_find_free",
+      "source_name": "mi_segment_page_alloc_in",
+      "source_references": [
+        "mi_segment_find_free"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_find_free"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 1092,
+      "linkage": "internal",
+      "name": "mi_segment_page_try_alloc_in_queue",
+      "original_type": "mi_page_t *(mi_heap_t *, mi_page_kind_t, mi_segments_tld_t *)",
+      "reason": "aggregate copy requires verified pointer-free field shape: mi_memid_s",
+      "source_name": "mi_segment_page_try_alloc_in_queue",
+      "source_references": [
+        "_mi_arena_memid_is_suitable",
+        "mi_segment_free_queue_of_kind",
+        "mi_segment_has_free",
+        "mi_segment_page_alloc_in"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1103,
+      "linkage": "internal",
+      "name": "mi_segment_page_alloc",
+      "original_type": "mi_page_t *(mi_heap_t *, size_t, mi_page_kind_t, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_page_try_alloc_in_queue, mi_segment_reclaim_or_alloc",
+      "source_name": "mi_segment_page_alloc",
+      "source_references": [
+        "mi_segment_page_try_alloc_in_queue",
+        "mi_segment_reclaim_or_alloc"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_page_try_alloc_in_queue",
+        "mi_segment_reclaim_or_alloc"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1122,
+      "linkage": "internal",
+      "name": "mi_segment_small_page_alloc",
+      "original_type": "mi_page_t *(mi_heap_t *, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_page_alloc",
+      "source_name": "mi_segment_small_page_alloc",
+      "source_references": [
+        "mi_segment_page_alloc"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_page_alloc"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1126,
+      "linkage": "internal",
+      "name": "mi_segment_medium_page_alloc",
+      "original_type": "mi_page_t *(mi_heap_t *, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_page_alloc",
+      "source_name": "mi_segment_medium_page_alloc",
+      "source_references": [
+        "mi_segment_page_alloc"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_page_alloc"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1134,
+      "linkage": "internal",
+      "name": "mi_segment_large_page_alloc",
+      "original_type": "mi_page_t *(mi_heap_t *, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_find_free, mi_segment_reclaim_or_alloc",
+      "source_name": "mi_segment_large_page_alloc",
+      "source_references": [
+        "mi_segment_find_free",
+        "mi_segment_reclaim_or_alloc"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_find_free",
+        "mi_segment_reclaim_or_alloc"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1145,
+      "linkage": "internal",
+      "name": "mi_segment_huge_page_alloc",
+      "original_type": "mi_page_t *(size_t, size_t, mi_arena_id_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: _mi_os_reset, mi_segment_alloc, mi_segment_find_free",
+      "source_name": "mi_segment_huge_page_alloc",
+      "source_references": [
+        "_mi_align_up__header_067ed6bfd8b5",
+        "_mi_os_reset",
+        "mi_segment_alloc",
+        "mi_segment_find_free",
+        "mi_segment_raw_page_start"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_reset",
+        "mi_segment_alloc",
+        "mi_segment_find_free"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1208,
+      "linkage": "external",
+      "name": "_mi_segment_huge_page_reset",
+      "original_type": "void (mi_segment_t *, mi_page_t *, mi_block_t *)",
+      "reason": "unlinked identifiers: _mi_os_reset, _mi_stats_main, mi_usable_size",
+      "source_name": "_mi_segment_huge_page_reset",
+      "source_references": [
+        "_mi_os_reset",
+        "_mi_stats_main",
+        "mi_usable_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_reset",
+        "_mi_stats_main",
+        "mi_usable_size"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1228,
+      "linkage": "external",
+      "name": "_mi_segment_page_alloc",
+      "original_type": "mi_page_t *(mi_heap_t *, size_t, size_t, mi_segments_tld_t *, mi_os_tld_t *)",
+      "reason": "unlinked identifiers: mi_segment_huge_page_alloc, mi_segment_large_page_alloc, mi_segment_medium_page_alloc, mi_segment_small_page_alloc",
+      "source_name": "_mi_segment_page_alloc",
+      "source_references": [
+        "mi_segment_huge_page_alloc",
+        "mi_segment_large_page_alloc",
+        "mi_segment_medium_page_alloc",
+        "mi_segment_small_page_alloc"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_huge_page_alloc",
+        "mi_segment_large_page_alloc",
+        "mi_segment_medium_page_alloc",
+        "mi_segment_small_page_alloc"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "mi_heap_area_s"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1262,
+      "linkage": "internal",
+      "name": "mi_segment_visit_page",
+      "original_type": "bool (mi_page_t *, bool, mi_block_visit_fun *, void *)",
+      "reason": "unlinked identifiers: _mi_heap_area_init, _mi_heap_area_visit_blocks, mi_heap_area_s",
+      "source_name": "mi_segment_visit_page",
+      "source_references": [
+        "_mi_heap_area_init",
+        "_mi_heap_area_visit_blocks",
+        "mi_heap_area_s"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_heap_area_init",
+        "_mi_heap_area_visit_blocks",
+        "mi_heap_area_s"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1274,
+      "linkage": "external",
+      "name": "_mi_segment_visit_blocks",
+      "original_type": "bool (mi_segment_t *, int, bool, mi_block_visit_fun *, void *)",
+      "reason": "unlinked identifiers: mi_segment_visit_page",
+      "source_name": "_mi_segment_visit_blocks",
+      "source_references": [
+        "mi_segment_visit_page"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_segment_visit_page"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 455,
+      "linkage": "internal",
+      "name": "_mi_page_segment__header_1fee9c049323",
+      "original_type": "mi_segment_t *(const mi_page_t *)",
+      "source_name": "_mi_page_segment",
+      "source_references": [
+        "_mi_ptr_segment__header_1bd740738e0d"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 493,
+      "linkage": "internal",
+      "name": "mi_page_block_size__header_7554e5b3b6bc",
+      "original_type": "size_t (const mi_page_t *)",
+      "source_name": "mi_page_block_size",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 320,
+      "linkage": "internal",
+      "name": "_mi_align_up__header_067ed6bfd8b5",
+      "original_type": "uintptr_t (uintptr_t, size_t)",
+      "source_name": "_mi_align_up",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 934,
+      "linkage": "internal",
+      "name": "_mi_memzero__header_07f419bd98d6",
+      "original_type": "void (void *, size_t)",
+      "source_name": "_mi_memzero",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 423,
+      "linkage": "internal",
+      "name": "_mi_ptr_cookie__header_ef01ab72f1f0",
+      "original_type": "uintptr_t (const void *)",
+      "source_name": "_mi_ptr_cookie",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 554,
+      "linkage": "internal",
+      "name": "mi_page_all_free__header_3ee677ac640b",
+      "original_type": "bool (const mi_page_t *)",
+      "source_name": "mi_page_all_free",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 560,
+      "linkage": "internal",
+      "name": "mi_page_has_any_available__header_0f19945b78b5",
+      "original_type": "bool (const mi_page_t *)",
+      "reason": "unlinked identifiers: mi_page_thread_free__header_d6c2d2a1a66c",
+      "source_name": "mi_page_has_any_available",
+      "source_references": [
+        "mi_page_thread_free__header_d6c2d2a1a66c"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_page_thread_free__header_d6c2d2a1a66c"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 529,
+      "linkage": "internal",
+      "name": "mi_page_set_heap__header_f77ecb028181",
+      "original_type": "void (mi_page_t *, mi_heap_t *)",
+      "reason": "unlinked identifiers: atomic_store_explicit",
+      "source_name": "mi_page_set_heap",
+      "source_references": [
+        "atomic_store_explicit"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_store_explicit"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 445,
+      "linkage": "internal",
+      "name": "_mi_ptr_segment__header_1bd740738e0d",
+      "original_type": "mi_segment_t *(const void *)",
+      "source_name": "_mi_ptr_segment",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 516,
+      "linkage": "internal",
+      "name": "mi_page_thread_free__header_d6c2d2a1a66c",
+      "original_type": "mi_block_t *(const mi_page_t *)",
+      "reason": "unlinked identifiers: atomic_load_explicit",
+      "source_name": "mi_page_thread_free",
+      "source_references": [
+        "atomic_load_explicit"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "atomic_load_explicit"
+      ]
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 22,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 64,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-4452649da76d88a1\\source\\mimalloc\\src\\segment.c.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/mimalloc/src/segment.c",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

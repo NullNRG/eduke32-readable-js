@@ -1,0 +1,550 @@
+{
+  "source": "source/build/include/libdivide.h",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "libdivide_mullhi_s32",
+      "libdivide_mullhi_s64",
+      "libdivide_mullhi_u32",
+      "libdivide_mullhi_u64",
+      "libdivide_s32_do_raw",
+      "libdivide_s64_do_raw",
+      "libdivide_u32_do_raw",
+      "libdivide_u64_do_raw"
+    ],
+    "additional_ast_roots": 12,
+    "rounds": 1
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [
+      "LIBDIVIDE_32_SHIFT_MASK",
+      "LIBDIVIDE_64_SHIFT_MASK",
+      "LIBDIVIDE_ADD_MARKER"
+    ],
+    "proven_values": {
+      "LIBDIVIDE_32_SHIFT_MASK": 31,
+      "LIBDIVIDE_64_SHIFT_MASK": 63,
+      "LIBDIVIDE_ADD_MARKER": 64
+    },
+    "rejected": {},
+    "rounds": 1
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\AppData\\Local\\Temp\\libdivide-source-cbb20kl7\\source\\build\\include\\libdivide.h.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 16,
+  "emitted": 16,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "libdivide_mullhi_u32",
+      "source_name": "libdivide_mullhi_u32",
+      "kind": "FunctionDecl",
+      "line": 321,
+      "original_type": "uint32_t (uint32_t, uint32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_s32",
+      "source_name": "libdivide_mullhi_s32",
+      "kind": "FunctionDecl",
+      "line": 327,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_u64",
+      "source_name": "libdivide_mullhi_u64",
+      "kind": "FunctionDecl",
+      "line": 334,
+      "original_type": "uint64_t (uint64_t, uint64_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_s64",
+      "source_name": "libdivide_mullhi_s64",
+      "kind": "FunctionDecl",
+      "line": 360,
+      "original_type": "int64_t (int64_t, int64_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_u32_do_raw",
+      "source_name": "libdivide_u32_do_raw",
+      "kind": "FunctionDecl",
+      "line": 934,
+      "original_type": "uint32_t (uint32_t, uint32_t, uint8_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_u32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_u32_do",
+      "source_name": "libdivide_u32_do",
+      "kind": "FunctionDecl",
+      "line": 950,
+      "original_type": "uint32_t (uint32_t, const struct libdivide_u32_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_u32_do_raw"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_u32_branchfree_do",
+      "source_name": "libdivide_u32_branchfree_do",
+      "kind": "FunctionDecl",
+      "line": 954,
+      "original_type": "uint32_t (uint32_t, const struct libdivide_u32_branchfree_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_u32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_u64_do_raw",
+      "source_name": "libdivide_u64_do_raw",
+      "kind": "FunctionDecl",
+      "line": 1097,
+      "original_type": "uint64_t (uint64_t, uint64_t, uint8_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_u64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_u64_do",
+      "source_name": "libdivide_u64_do",
+      "kind": "FunctionDecl",
+      "line": 1113,
+      "original_type": "uint64_t (uint64_t, const struct libdivide_u64_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_u64_do_raw"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_u64_branchfree_do",
+      "source_name": "libdivide_u64_branchfree_do",
+      "kind": "FunctionDecl",
+      "line": 1117,
+      "original_type": "uint64_t (uint64_t, const struct libdivide_u64_branchfree_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_u64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_s32_do_raw",
+      "source_name": "libdivide_s32_do_raw",
+      "kind": "FunctionDecl",
+      "line": 1456,
+      "original_type": "int32_t (int32_t, int32_t, uint8_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_s32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_s32_do",
+      "source_name": "libdivide_s32_do",
+      "kind": "FunctionDecl",
+      "line": 1483,
+      "original_type": "int32_t (int32_t, const struct libdivide_s32_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_s32_do_raw"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_s32_branchfree_do",
+      "source_name": "libdivide_s32_branchfree_do",
+      "kind": "FunctionDecl",
+      "line": 1487,
+      "original_type": "int32_t (int32_t, const struct libdivide_s32_branchfree_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_s32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_s64_do_raw",
+      "source_name": "libdivide_s64_do_raw",
+      "kind": "FunctionDecl",
+      "line": 1628,
+      "original_type": "int64_t (int64_t, int64_t, uint8_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_s64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_s64_do",
+      "source_name": "libdivide_s64_do",
+      "kind": "FunctionDecl",
+      "line": 1656,
+      "original_type": "int64_t (int64_t, const struct libdivide_s64_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_s64_do_raw"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_s64_branchfree_do",
+      "source_name": "libdivide_s64_branchfree_do",
+      "kind": "FunctionDecl",
+      "line": 1660,
+      "original_type": "int64_t (int64_t, const struct libdivide_s64_branchfree_t *)",
+      "linkage": "external",
+      "physical_source": "source/build/include/libdivide.h",
+      "source_references": [
+        "libdivide_mullhi_s64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": false,
+    "records": 0,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 4,
+      "objects": 236,
+      "ranges_omitted": 99,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 88,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 104729,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 104,
+      "ranges_omitted": 43,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 36,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 40707,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 4,
+      "objects": 444,
+      "ranges_omitted": 182,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 189,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 205419,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 264,
+      "ranges_omitted": 105,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 110,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 99963,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 4,
+      "objects": 236,
+      "ranges_omitted": 99,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 88,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 104798,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 104,
+      "ranges_omitted": 43,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 36,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 40742,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 4,
+      "objects": 444,
+      "ranges_omitted": 182,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 189,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 205538,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 268,
+      "ranges_omitted": 107,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "type_metadata_reuses": 112,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 102781,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    }
+  ],
+  "storage_exports": [],
+  "private_storage_exports": []
+}

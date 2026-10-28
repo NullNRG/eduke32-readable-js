@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {ABIHeap} from '../../runtime/abi.mjs';
+import {createStdlib} from '../../runtime/stdlib.mjs';
+test('getaddrinfo and getnameinfo preserve Linux ABI sockaddr IPv4/IPv6 and byte order',()=>{
+ const heap=new ABIHeap(),s=createStdlib({heap}).symbols,result=heap.calloc(1,8);
+ let rc=s.getaddrinfo(heap.writeCString('127.30.2.4'),heap.writeCString('80'),0,result);
+ assert.equal(rc,0);let p=Number(heap.read(result,'u64'));let sockaddr=Number(heap.read(p+24,'u64'));
+ assert.equal(heap.read(p+4,'i32'),2);assert.equal(heap.read(sockaddr,'u16'),2);
+ assert.deepEqual([...heap.bytes(sockaddr+2,6)],[0,80,127,30,2,4]);
+ const host=heap.malloc(128),serv=heap.malloc(32);
+ assert.equal(s.getnameinfo(sockaddr,16,host,128,serv,32,3),0);
+ assert.equal(heap.readCString(host),'127.30.2.4');assert.equal(heap.readCString(serv),'80');
+ s.freeaddrinfo(p);
+ rc=s.getaddrinfo(heap.writeCString('2001:db8::12'),heap.writeCString('8080'),0,result);
+ assert.equal(rc,0);p=Number(heap.read(result,'u64'));sockaddr=Number(heap.read(p+24,'u64'));
+ assert.equal(heap.read(p+4,'i32'),10);
+ assert.equal(s.getnameinfo(sockaddr,28,host,128,serv,32,3),0);
+ assert.equal(heap.readCString(host),'2001:db8::12');assert.equal(heap.readCString(serv),'8080');s.freeaddrinfo(p);
+ assert.equal(s.getaddrinfo(heap.writeCString('nonexistent.invalid'),0,0,result),-3);
+});
+test('gethostbyname supplies real hostent pointer layout for numeric and loopback names',()=>{
+ const heap=new ABIHeap(),s=createStdlib({heap}).symbols;
+ const p=s.gethostbyname(heap.writeCString('localhost'));
+ assert.ok(p);assert.equal(heap.read(p+16,'i32'),2);assert.equal(heap.read(p+20,'i32'),4);
+ const list=Number(heap.read(p+24,'u64'));
+ const data=Number(heap.read(list,'u64'));
+ assert.deepEqual([...heap.bytes(data,4)],[127,0,0,1]);
+ assert.equal(s.gethostbyname(heap.writeCString('example.invalid')),0);
+});

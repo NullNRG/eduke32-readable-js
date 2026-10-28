@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {LLVMContext} from '../../runtime/llvm_context.mjs';
+test('fprintf and printf format bytes through ABI-correct external stdout/stderr FILE* globals',()=>{
+  const printed=[],errors=[];
+  const c=new LLVMContext({stdio:{stdout:b=>printed.push([...b]),stderr:b=>errors.push([...b])}}),h=c.heap;
+  const stdout=Number(h.read(c.ptr('stdout'),'u64'));
+  const stderr=Number(h.read(c.ptr('stderr'),'u64'));
+  assert.notEqual(stdout,stderr);
+  const s=c.libraries,fmt=h.writeCString('code=%04d path=%s 0x%x\n'),path=h.writeCString('hello');
+  const expected='code=0017 path=hello 0xff\n';
+  assert.equal(s.fprintf(stderr,fmt,17,path,255),expected.length);
+  assert.equal(new TextDecoder().decode(new Uint8Array(errors[0])),expected);
+  assert.equal(s.printf(fmt,17,path,255),expected.length);
+  assert.equal(new TextDecoder().decode(new Uint8Array(printed[0])),expected);
+  assert.equal(s.fputs(path,stdout),1);
+  assert.equal(s.fputc(33,stderr),33);
+  assert.equal(s.fflush(stderr),0);assert.equal(s.fflush(0),0);
+  assert.throws(()=>s.fprintf(0,fmt,1,path,2),/Unsupported C FILE/);
+});

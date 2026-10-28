@@ -1,0 +1,2161 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-db0ffbfc02659f75ef3034d1fc0bd82d4882c40db956df8dd718b34ac4b0cf8d.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 82403,
+      "json_bytes": 306178586,
+      "objects": 546804,
+      "ranges_omitted": 169560,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 129173
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 45,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2331802e5d0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2331802e5d0"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 111,
+        "source_offset": 5190,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 111,
+      "linkage": "internal",
+      "name": "fix16_rad_to_deg_mult__header_global_17aee3ec488220bb",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_rad_to_deg_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2331802ea50",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2331802ea50"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 114,
+        "source_offset": 5371,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 114,
+      "linkage": "internal",
+      "name": "fix16_deg_to_rad_mult__header_global_342c56765d0ecf88",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_deg_to_rad_mult",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 21,
+      "linkage": "external",
+      "name": "toupperlookup",
+      "original_type": "char[256]",
+      "source_name": "toupperlookup",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 48,
+      "linkage": "internal",
+      "name": "kzipopen",
+      "original_type": "intptr_t (const char *)",
+      "physical_source": "source/build/src/vfs.cpp",
+      "reason": "unlinked identifiers: kzopen",
+      "source_name": "kzipopen",
+      "source_references": [
+        "kzopen"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kzopen"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+        "original_type": "char *"
+      },
+      "kind": "VarDecl",
+      "line": 61,
+      "linkage": "external",
+      "name": "kpzbuf",
+      "original_type": "char *",
+      "source_name": "kpzbuf",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_82fc53700c75bce13e04b518",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 62,
+      "linkage": "external",
+      "name": "kpzbufsiz",
+      "original_type": "int",
+      "source_name": "kpzbufsiz",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 64,
+      "linkage": "external",
+      "name": "kpzbufloadfil",
+      "original_type": "int32_t (const buildvfs_kfd)",
+      "reason": "unlinked identifiers: kfilelength, kread, xrealloc__header_9fb083e4a075",
+      "source_name": "kpzbufloadfil",
+      "source_references": [
+        "kfilelength",
+        "kpzbuf",
+        "kpzbufsiz",
+        "kread",
+        "xrealloc__header_9fb083e4a075"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kfilelength",
+        "kread",
+        "xrealloc__header_9fb083e4a075"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 81,
+      "linkage": "external",
+      "name": "kpzbufload",
+      "original_type": "int32_t (const char *const)",
+      "reason": "unlinked identifiers: kclose, kopen4load, kpzbufloadfil",
+      "source_name": "kpzbufload",
+      "source_references": [
+        "kclose",
+        "kopen4load",
+        "kpzbufloadfil"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kclose",
+        "kopen4load",
+        "kpzbufloadfil"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x233180270e8",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x233180270e8"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 31,
+        "source_offset": 667,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 31,
+      "linkage": "internal",
+      "name": "FIX16_MAX__header_global_7c752513b708f6d5",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MAX",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23318027200",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23318027200"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 32,
+        "source_offset": 764,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 32,
+      "linkage": "internal",
+      "name": "FIX16_MIN__header_global_065b24449633456d",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_MIN",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23318027330",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23318027330"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 33,
+        "source_offset": 861,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 33,
+      "linkage": "internal",
+      "name": "FIX16_OVERFLOW__header_global_32d80320de168f5c",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "FIX16_OVERFLOW",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23318027460",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23318027460"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 35,
+        "source_offset": 967,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 35,
+      "linkage": "internal",
+      "name": "fix16_one__header_global_9128961a382e4351",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_one",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23318027570",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23318027570"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 36,
+        "source_offset": 1056,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 36,
+      "linkage": "internal",
+      "name": "fix16_half__header_global_21d6aac3559c4929",
+      "original_type": "const int",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "fix16_half",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23318027680",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23318027680"
+        ],
+        "source_header": "source/build/include/fix16.h",
+        "source_line": 37,
+        "source_offset": 1147,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 37,
+      "linkage": "internal",
+      "name": "flt_f161r__header_global_e312c204844933e8",
+      "original_type": "const float",
+      "physical_source": "source/build/include/fix16.h",
+      "source_name": "flt_f161r",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "CXXRecordDecl",
+      "line": 122,
+      "linkage": "external",
+      "name": "_searchpath",
+      "original_type": "",
+      "reason": "class pointer/reference field requires ownership/alias lowering",
+      "source_name": "_searchpath",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 129,
+      "linkage": "internal",
+      "name": "searchpathhead",
+      "original_type": "searchpath_t *",
+      "source_name": "searchpathhead",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 130,
+      "linkage": "internal",
+      "name": "maxsearchpathlen",
+      "original_type": "unsigned long",
+      "source_name": "maxsearchpathlen",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 131,
+      "linkage": "external",
+      "name": "pathsearchmode",
+      "original_type": "int",
+      "source_name": "pathsearchmode",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 135,
+      "linkage": "external",
+      "name": "listsearchpath",
+      "original_type": "char *(int32_t)",
+      "source_name": "listsearchpath",
+      "source_references": [
+        "searchpathhead"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "emitted_constructor_providers": [
+        "stat"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 147,
+      "linkage": "external",
+      "name": "addsearchpath_user",
+      "original_type": "int32_t (const char *, int32_t)",
+      "reason": "unlinked identifiers: __errno_location, log, stat, strcat",
+      "source_name": "addsearchpath_user",
+      "source_references": [
+        "Bcorrectfilename",
+        "__errno_location",
+        "current_verbosity_cutoff",
+        "log",
+        "maxsearchpathlen",
+        "searchpathhead",
+        "stat",
+        "strcat",
+        "toupperlookup",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "__errno_location",
+        "log",
+        "stat",
+        "strcat"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 196,
+      "linkage": "external",
+      "name": "removesearchpath",
+      "original_type": "int32_t (const char *)",
+      "reason": "unlinked identifiers: strcat",
+      "source_name": "removesearchpath",
+      "source_references": [
+        "Bcorrectfilename",
+        "SILENCE_UNUSED__header_5119f34568fc",
+        "searchpathhead",
+        "strcat",
+        "toupperlookup",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "strcat"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 247,
+      "linkage": "external",
+      "name": "removesearchpaths_withuser",
+      "original_type": "void (int32_t)",
+      "source_name": "removesearchpaths_withuser",
+      "source_references": [
+        "searchpathhead",
+        "xfree__header_13edfa973cd4"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 280,
+      "linkage": "external",
+      "name": "findfrompath",
+      "original_type": "int32_t (const char *, char **)",
+      "reason": "unlinked identifiers: max, strcat",
+      "source_name": "findfrompath",
+      "source_references": [
+        "Bcorrectfilename",
+        "Bstrtolower",
+        "Bstrupr",
+        "buildvfs_exists__header_a5d5ccb242c5",
+        "max",
+        "maxsearchpathlen",
+        "pathsearchmode",
+        "searchpathhead",
+        "strcat",
+        "toupperlookup",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "max",
+        "strcat"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 394,
+      "linkage": "internal",
+      "name": "openfrompath_internal",
+      "original_type": "buildvfs_kfd (const char *, char **, int32_t, int32_t)",
+      "reason": "unlinked identifiers: findfrompath, open",
+      "source_name": "openfrompath_internal",
+      "source_references": [
+        "findfrompath",
+        "open"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "findfrompath",
+        "open"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 402,
+      "linkage": "external",
+      "name": "openfrompath",
+      "original_type": "buildvfs_kfd (const char *, int32_t, int32_t)",
+      "reason": "unlinked identifiers: openfrompath_internal",
+      "source_name": "openfrompath",
+      "source_references": [
+        "openfrompath_internal",
+        "xfree__header_13edfa973cd4"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "openfrompath_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 413,
+      "linkage": "external",
+      "name": "fopenfrompath",
+      "original_type": "buildvfs_FILE (const char *, const char *)",
+      "reason": "unlinked identifiers: close, fdopen, openfrompath",
+      "source_name": "fopenfrompath",
+      "source_references": [
+        "close",
+        "fdopen",
+        "openfrompath"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "close",
+        "fdopen",
+        "openfrompath"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 453,
+      "linkage": "external",
+      "name": "numgroupfiles",
+      "original_type": "int",
+      "source_name": "numgroupfiles",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 454,
+      "linkage": "internal",
+      "name": "gnumfiles",
+      "original_type": "int32_t[8]",
+      "source_name": "gnumfiles",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 455,
+      "linkage": "internal",
+      "name": "groupfil",
+      "original_type": "intptr_t[8]",
+      "source_name": "groupfil",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 456,
+      "linkage": "internal",
+      "name": "groupfilpos",
+      "original_type": "int32_t[8]",
+      "source_name": "groupfilpos",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 457,
+      "linkage": "internal",
+      "name": "groupfilgrp",
+      "original_type": "uint8_t[8]",
+      "source_name": "groupfilgrp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 458,
+      "linkage": "internal",
+      "name": "gfilelist",
+      "object_storage": {
+        "abi": "source-pointer-array/1",
+        "element_declaration": "char *[]",
+        "extent": 8,
+        "name": "gfilelist",
+        "original_type": "char *[8]",
+        "stride": 8
+      },
+      "original_type": "char *[8]",
+      "source_name": "gfilelist",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 459,
+      "linkage": "internal",
+      "name": "groupname",
+      "object_storage": {
+        "abi": "source-pointer-array/1",
+        "element_declaration": "char *[]",
+        "extent": 8,
+        "name": "groupname",
+        "original_type": "char *[8]",
+        "stride": 8
+      },
+      "original_type": "char *[8]",
+      "source_name": "groupname",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 460,
+      "linkage": "internal",
+      "name": "gfileoffs",
+      "object_storage": {
+        "abi": "source-pointer-array/1",
+        "element_declaration": "int32_t *[]",
+        "extent": 8,
+        "name": "gfileoffs",
+        "original_type": "int32_t *[8]",
+        "stride": 8
+      },
+      "original_type": "int32_t *[8]",
+      "source_name": "gfileoffs",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 462,
+      "linkage": "internal",
+      "name": "filegrp",
+      "original_type": "uint8_t[64]",
+      "source_name": "filegrp",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 463,
+      "linkage": "internal",
+      "name": "filepos",
+      "original_type": "int32_t[64]",
+      "source_name": "filepos",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 464,
+      "linkage": "internal",
+      "name": "filehan",
+      "original_type": "intptr_t[64]",
+      "source_name": "filehan",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 473,
+      "linkage": "internal",
+      "name": "filenamsav",
+      "original_type": "char[64][260]",
+      "source_name": "filenamsav",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 474,
+      "linkage": "internal",
+      "name": "kzcurhand",
+      "original_type": "int",
+      "source_name": "kzcurhand",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 476,
+      "linkage": "external",
+      "name": "cache1d_file_fromzip",
+      "original_type": "int32_t (buildvfs_kfd)",
+      "source_name": "cache1d_file_fromzip",
+      "source_references": [
+        "filegrp"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 487,
+      "linkage": "external",
+      "name": "initgroupfile",
+      "original_type": "int (const char *)",
+      "reason": "unlinked identifiers: kopen_internal",
+      "source_name": "initgroupfile",
+      "source_references": [
+        "B_PASS32__header_416cc10abcf4",
+        "gfilelist",
+        "gfileoffs",
+        "gnumfiles",
+        "groupfil",
+        "groupfilgrp",
+        "groupfilpos",
+        "groupname",
+        "kclose_grp",
+        "klseek_grp",
+        "kopen_internal",
+        "kread_grp",
+        "kzaddstack",
+        "numgroupfiles",
+        "toupperlookup",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kopen_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 659,
+      "linkage": "external",
+      "name": "uninitgroupfile",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: close",
+      "source_name": "uninitgroupfile",
+      "source_references": [
+        "close",
+        "filegrp",
+        "filehan",
+        "gfilelist",
+        "gfileoffs",
+        "groupfil",
+        "groupname",
+        "numgroupfiles",
+        "xfree__header_13edfa973cd4"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "close"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 730,
+      "linkage": "internal",
+      "name": "kopen_internal",
+      "original_type": "int32_t (const char *, char **, char, char, char, int32_t, uint8_t *, intptr_t *, int32_t *)",
+      "reason": "source control flow: goto target nested inside a statement or switch",
+      "source_name": "kopen_internal",
+      "source_references": [
+        "filenamsav",
+        "gfilelist",
+        "gnumfiles",
+        "groupfil",
+        "kzclose__header_fa818b4f2176",
+        "kzcurhand",
+        "kzipopen",
+        "kztell__header_df1c549f3c13",
+        "numgroupfiles",
+        "openfrompath_internal",
+        "toupperlookup"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 830,
+      "linkage": "external",
+      "name": "krename",
+      "original_type": "void (int32_t, int32_t, const char *)",
+      "source_name": "krename",
+      "source_references": [
+        "gfilelist"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 835,
+      "linkage": "external",
+      "name": "kfileparent",
+      "original_type": "const char *(const int32_t)",
+      "source_name": "kfileparent",
+      "source_references": [
+        "filegrp",
+        "groupfil",
+        "groupname"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 845,
+      "linkage": "external",
+      "name": "kopen4load",
+      "original_type": "buildvfs_kfd (const char *, char)",
+      "reason": "unlinked identifiers: kopen_internal, log",
+      "source_name": "kopen4load",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "engineDestroyAllocator__header_79eabc223f85",
+        "filegrp",
+        "filehan",
+        "filepos",
+        "kopen_internal",
+        "log",
+        "xfree__header_13edfa973cd4"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kopen_internal",
+        "log"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 871,
+      "linkage": "external",
+      "name": "g_modDir",
+      "original_type": "char[256]",
+      "source_name": "g_modDir",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 873,
+      "linkage": "external",
+      "name": "kopen4loadfrommod",
+      "original_type": "buildvfs_kfd (const char *, char)",
+      "reason": "unlinked identifiers: kopen4load",
+      "source_name": "kopen4loadfrommod",
+      "source_references": [
+        "g_modDir",
+        "kopen4load"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kopen4load"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 887,
+      "linkage": "external",
+      "name": "kread_internal",
+      "original_type": "int32_t (int32_t, void *, int32_t, const uint8_t *, const intptr_t *, int32_t *)",
+      "reason": "unlinked identifiers: kzipopen, kzread, lseek, min, read",
+      "source_name": "kread_internal",
+      "source_references": [
+        "filenamsav",
+        "gfileoffs",
+        "groupfil",
+        "groupfilgrp",
+        "groupfilpos",
+        "kzclose__header_fa818b4f2176",
+        "kzcurhand",
+        "kzipopen",
+        "kzread",
+        "kzseek",
+        "kztell__header_df1c549f3c13",
+        "lseek",
+        "min",
+        "read"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kzipopen",
+        "kzread",
+        "lseek",
+        "min",
+        "read"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 935,
+      "linkage": "external",
+      "name": "klseek_internal",
+      "original_type": "int32_t (int32_t, int32_t, int32_t, const uint8_t *, intptr_t *, int32_t *)",
+      "reason": "unlinked identifiers: kzipopen, lseek",
+      "source_name": "klseek_internal",
+      "source_references": [
+        "filenamsav",
+        "gfileoffs",
+        "groupfil",
+        "kzclose__header_fa818b4f2176",
+        "kzcurhand",
+        "kzipopen",
+        "kzseek",
+        "kztell__header_df1c549f3c13",
+        "lseek"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kzipopen",
+        "lseek"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 974,
+      "linkage": "external",
+      "name": "kfilelength_internal",
+      "original_type": "int32_t (int32_t, const uint8_t *, intptr_t *, int32_t *)",
+      "reason": "unlinked identifiers: kzipopen",
+      "source_name": "kfilelength_internal",
+      "source_references": [
+        "buildvfs_length__header_e629f4d97284",
+        "filenamsav",
+        "gfileoffs",
+        "kzclose__header_fa818b4f2176",
+        "kzcurhand",
+        "kzfilelength__header_fa0b046b8508",
+        "kzipopen",
+        "kzseek",
+        "kztell__header_df1c549f3c13"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kzipopen"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 998,
+      "linkage": "external",
+      "name": "ktell_internal",
+      "original_type": "int32_t (int32_t, const uint8_t *, intptr_t *, int32_t *)",
+      "reason": "unlinked identifiers: kzipopen, lseek",
+      "source_name": "ktell_internal",
+      "source_references": [
+        "filenamsav",
+        "groupfil",
+        "kzclose__header_fa818b4f2176",
+        "kzcurhand",
+        "kzipopen",
+        "kzseek",
+        "kztell__header_df1c549f3c13",
+        "lseek"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kzipopen",
+        "lseek"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1021,
+      "linkage": "external",
+      "name": "kclose_internal",
+      "original_type": "void (int32_t, const uint8_t *, intptr_t *)",
+      "reason": "unlinked identifiers: close",
+      "source_name": "kclose_internal",
+      "source_references": [
+        "close",
+        "kzclose__header_fa818b4f2176",
+        "kzcurhand"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "close"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1035,
+      "linkage": "external",
+      "name": "kread",
+      "original_type": "int32_t (int32_t, void *, int32_t)",
+      "reason": "unlinked identifiers: kread_internal",
+      "source_name": "kread",
+      "source_references": [
+        "filegrp",
+        "filehan",
+        "filepos",
+        "kread_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kread_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1039,
+      "linkage": "external",
+      "name": "klseek",
+      "original_type": "int32_t (int32_t, int32_t, int32_t)",
+      "reason": "unlinked identifiers: klseek_internal",
+      "source_name": "klseek",
+      "source_references": [
+        "filegrp",
+        "filehan",
+        "filepos",
+        "klseek_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "klseek_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1043,
+      "linkage": "external",
+      "name": "kfilelength",
+      "original_type": "int32_t (int32_t)",
+      "reason": "unlinked identifiers: kfilelength_internal",
+      "source_name": "kfilelength",
+      "source_references": [
+        "filegrp",
+        "filehan",
+        "filepos",
+        "kfilelength_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kfilelength_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1047,
+      "linkage": "external",
+      "name": "ktell",
+      "original_type": "int32_t (int32_t)",
+      "reason": "unlinked identifiers: ktell_internal",
+      "source_name": "ktell",
+      "source_references": [
+        "filegrp",
+        "filehan",
+        "filepos",
+        "ktell_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ktell_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1051,
+      "linkage": "external",
+      "name": "kclose",
+      "original_type": "void (int32_t)",
+      "reason": "unlinked identifiers: kclose_internal",
+      "source_name": "kclose",
+      "source_references": [
+        "filegrp",
+        "filehan",
+        "kclose_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kclose_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1056,
+      "linkage": "internal",
+      "name": "kread_grp",
+      "original_type": "int32_t (int32_t, void *, int32_t)",
+      "reason": "unlinked identifiers: kread_internal",
+      "source_name": "kread_grp",
+      "source_references": [
+        "groupfil",
+        "groupfilgrp",
+        "groupfilpos",
+        "kread_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kread_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1060,
+      "linkage": "internal",
+      "name": "klseek_grp",
+      "original_type": "int32_t (int32_t, int32_t, int32_t)",
+      "reason": "unlinked identifiers: klseek_internal",
+      "source_name": "klseek_grp",
+      "source_references": [
+        "groupfil",
+        "groupfilgrp",
+        "groupfilpos",
+        "klseek_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "klseek_internal"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1064,
+      "linkage": "internal",
+      "name": "kclose_grp",
+      "original_type": "void (int32_t)",
+      "reason": "unlinked identifiers: kclose_internal",
+      "source_name": "kclose_grp",
+      "source_references": [
+        "groupfil",
+        "groupfilgrp",
+        "kclose_internal"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kclose_internal"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1070,
+      "linkage": "external",
+      "name": "klistaddentry",
+      "original_type": "int32_t (BUILDVFS_FIND_REC **, const char *, int32_t, int32_t)",
+      "reason": "unlinked identifiers: xmalloc__header_74ee7b637863",
+      "source_name": "klistaddentry",
+      "source_references": [
+        "xmalloc__header_74ee7b637863"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "xmalloc__header_74ee7b637863"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1150,
+      "linkage": "external",
+      "name": "klistfree",
+      "original_type": "void (BUILDVFS_FIND_REC *)",
+      "source_name": "klistfree",
+      "source_references": [
+        "xfree__header_13edfa973cd4"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 1162,
+      "linkage": "external",
+      "name": "klistpath",
+      "original_type": "BUILDVFS_FIND_REC *(const char *, const char *, int32_t)",
+      "reason": "source control flow: goto target nested inside a statement or switch",
+      "source_name": "klistpath",
+      "source_references": [
+        "Bclosedir",
+        "Bgetsystemdrives",
+        "Bopendir",
+        "Breaddir",
+        "gfilelist",
+        "gnumfiles",
+        "groupfil",
+        "klistaddentry",
+        "klistfree",
+        "kzfindfile",
+        "kzfindfilestart",
+        "pathsearchmode",
+        "searchpathhead",
+        "strcat",
+        "toupperlookup",
+        "wildmatch",
+        "xfree__header_13edfa973cd4",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1425,
+      "linkage": "internal",
+      "name": "kdfread_func",
+      "original_type": "int32_t (intptr_t, void *, int32_t)",
+      "reason": "unlinked identifiers: kread",
+      "source_name": "kdfread_func",
+      "source_references": [
+        "kread"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kread"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1430,
+      "linkage": "internal",
+      "name": "dfwrite_func",
+      "original_type": "void (intptr_t, const void *, int32_t)",
+      "reason": "unlinked identifiers: fwrite",
+      "source_name": "dfwrite_func",
+      "source_references": [
+        "fwrite"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fwrite"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1436,
+      "linkage": "external",
+      "name": "kdfread",
+      "original_type": "int32_t (void *, int, int, buildvfs_kfd)",
+      "reason": "unlinked identifiers: kdfread_func",
+      "source_name": "kdfread",
+      "source_references": [
+        "kdfread_func",
+        "klzw_read_compressed"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kdfread_func"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "VarDecl",
+      "line": 1445,
+      "linkage": "internal",
+      "name": "compressedDataStackBuf",
+      "original_type": "char[131072]",
+      "source_name": "compressedDataStackBuf",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "global_storage": {
+        "abi": "source-global-cell/2",
+        "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+        "original_type": "int"
+      },
+      "kind": "VarDecl",
+      "line": 1446,
+      "linkage": "external",
+      "name": "lz4CompressionLevel",
+      "original_type": "int",
+      "source_name": "lz4CompressionLevel",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1448,
+      "linkage": "external",
+      "name": "kdfread_LZ4",
+      "original_type": "int32_t (void *, int, int, buildvfs_kfd)",
+      "reason": "unlinked identifiers: kread",
+      "source_name": "kdfread_LZ4",
+      "source_references": [
+        "ARRAY_SIZE__header_d8336ed114b0",
+        "B_PASS32__header_416cc10abcf4",
+        "LZ4_decompress_safe",
+        "compressedDataStackBuf",
+        "kread",
+        "xaligned_alloc__header_dfccd4cb96f1",
+        "xaligned_free__header_de7cc18f4b2c"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "kread"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1475,
+      "linkage": "external",
+      "name": "dfwrite",
+      "original_type": "void (const void *, int, int, buildvfs_FILE)",
+      "reason": "unlinked identifiers: dfwrite_func",
+      "source_name": "dfwrite",
+      "source_references": [
+        "dfwrite_func",
+        "klzw_write_compressed"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "dfwrite_func"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1480,
+      "linkage": "external",
+      "name": "dfwrite_LZ4",
+      "original_type": "void (const void *, int, int, buildvfs_FILE)",
+      "reason": "unlinked identifiers: fwrite",
+      "source_name": "dfwrite_LZ4",
+      "source_references": [
+        "ARRAY_SIZE__header_d8336ed114b0",
+        "B_PASS32__header_416cc10abcf4",
+        "LZ4_compressBound",
+        "LZ4_compress_fast",
+        "compressedDataStackBuf",
+        "fwrite",
+        "lz4CompressionLevel",
+        "xaligned_alloc__header_dfccd4cb96f1",
+        "xaligned_free__header_de7cc18f4b2c"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fwrite"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23317d407b0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23317d407b0"
+        ],
+        "source_header": "source/build/include/compat.h",
+        "source_line": 1169,
+        "source_offset": 32336,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 1169,
+      "linkage": "internal",
+      "name": "pow2char__header_global_d21761740b3acbcf",
+      "original_type": "const const char[8]",
+      "physical_source": "source/build/include/compat.h",
+      "source_name": "pow2char",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x23318642468",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x23318642468"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 172,
+        "source_offset": 4847,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 172,
+      "linkage": "internal",
+      "name": "g_defaultVideoModes__header_global_503fe97fcec2796b",
+      "original_type": "const vec2_t[25]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_defaultVideoModes",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x233186440c0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x233186440c0"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 188,
+        "source_offset": 5455,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 188,
+      "linkage": "internal",
+      "name": "g_keyAsciiTable__header_global_0f29854c4685af07",
+      "original_type": "const const char[128]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_keyAsciiTable",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x2331866a740",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x2331866a740"
+        ],
+        "source_header": "source/build/include/baselayer.h",
+        "source_line": 196,
+        "source_offset": 6158,
+        "translation_unit": "source/build/src/vfs.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 196,
+      "linkage": "internal",
+      "name": "g_keyAsciiTableShift__header_global_3bbf46f3f71d0c44",
+      "original_type": "const const char[128]",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_name": "g_keyAsciiTableShift",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1414,
+      "linkage": "internal",
+      "name": "xrealloc__header_9fb083e4a075",
+      "original_type": "void *(void *const, const bsize_t)",
+      "reason": "unlinked identifiers: handle_memerr",
+      "source_name": "xrealloc",
+      "source_references": [
+        "_sm_realloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1379,
+      "linkage": "internal",
+      "name": "xstrdup__header_54caacf0b3b5",
+      "original_type": "char *(const char *)",
+      "reason": "unlinked identifiers: handle_memerr",
+      "source_name": "xstrdup",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_imports": [
+        "g_sm_heap"
+      ],
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "linkage": "internal",
+      "name": "xfree__header_13edfa973cd4",
+      "original_type": "void (void *const)",
+      "source_name": "xfree",
+      "source_references": [
+        "_sm_free",
+        "g_sm_heap"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1393,
+      "linkage": "internal",
+      "name": "xmalloc__header_74ee7b637863",
+      "original_type": "void *(const bsize_t)",
+      "reason": "unlinked identifiers: handle_memerr",
+      "source_name": "xmalloc",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "SILENCE_UNUSED__header_5119f34568fc",
+      "original_type": "void (const char &[40], char *const &) noexcept",
+      "source_name": "SILENCE_UNUSED",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "emitted_constructor_providers": [
+        "stat"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 140,
+      "linkage": "internal",
+      "name": "buildvfs_exists__header_a5d5ccb242c5",
+      "original_type": "int (const char *)",
+      "reason": "unlinked identifiers: stat",
+      "source_name": "buildvfs_exists",
+      "source_references": [
+        "stat"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "stat"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "B_PASS32__header_416cc10abcf4",
+      "original_type": "take_sign_t<int32_t, int> (int)",
+      "source_name": "B_PASS32",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [
+        "kzfs"
+      ],
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "name": "kzfs",
+          "original_type": "struct kzfilestate"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 44,
+      "linkage": "internal",
+      "name": "kztell__header_df1c549f3c13",
+      "original_type": "int32_t ()",
+      "source_name": "kztell",
+      "source_references": [
+        "kzfs"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "name": "kzfs",
+          "original_type": "struct kzfilestate"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 48,
+      "linkage": "internal",
+      "name": "kzclose__header_fa818b4f2176",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: fclose",
+      "source_name": "kzclose",
+      "source_references": [
+        "fclose",
+        "kzfs"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fclose"
+      ]
+    },
+    {
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "linkage": "internal",
+      "name": "engineDestroyAllocator__header_79eabc223f85",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: _sm_allocator_destroy",
+      "source_name": "engineDestroyAllocator",
+      "source_references": [
+        "_sm_allocator_destroy",
+        "_sm_allocator_thread_cache_destroy",
+        "g_sm_heap"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_sm_allocator_destroy"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "stat"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 105,
+      "linkage": "internal",
+      "name": "buildvfs_length__header_e629f4d97284",
+      "original_type": "int64_t (int)",
+      "reason": "unlinked identifiers: fstat, stat",
+      "source_name": "buildvfs_length",
+      "source_references": [
+        "fstat",
+        "stat"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fstat",
+        "stat"
+      ]
+    },
+    {
+      "external_imports": [
+        "kzfs"
+      ],
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "name": "kzfs",
+          "original_type": "struct kzfilestate"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 46,
+      "linkage": "internal",
+      "name": "kzfilelength__header_fa0b046b8508",
+      "original_type": "int32_t ()",
+      "source_name": "kzfilelength",
+      "source_references": [
+        "kzfs"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": null,
+      "linkage": "internal",
+      "name": "ARRAY_SIZE__header_d8336ed114b0",
+      "original_type": "size_t (const char (&)[131072]) noexcept",
+      "source_name": "ARRAY_SIZE",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1429,
+      "linkage": "internal",
+      "name": "xaligned_alloc__header_dfccd4cb96f1",
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "reason": "unlinked identifiers: handle_memerr",
+      "source_name": "xaligned_alloc",
+      "source_references": [
+        "_sm_malloc",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "handle_memerr"
+      ]
+    },
+    {
+      "external_imports": [
+        "g_sm_heap"
+      ],
+      "external_storage_imports": [
+        {
+          "abi": "source-global-cell/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "name": "g_sm_heap",
+          "original_type": "sm::Allocator *"
+        }
+      ],
+      "kind": "FunctionDecl",
+      "line": 1451,
+      "linkage": "internal",
+      "name": "xaligned_free__header_de7cc18f4b2c",
+      "original_type": "void (void *const)",
+      "source_name": "xaligned_free",
+      "source_references": [
+        "_sm_free",
+        "g_sm_heap"
+      ],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 866,
+      "linkage": "external",
+      "name": "_sm_realloc",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "15147a3b92b2c568bf963c2394feb463885bf738cd5e35a8c649a27be02e9c11",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 26035,
+        "type": "void *(sm_allocator, void *, size_t, size_t)"
+      },
+      "original_type": "void *(sm_allocator, void *, size_t, size_t)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_realloc",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 859,
+      "linkage": "external",
+      "name": "_sm_malloc",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "3cde34437303d4edd03f3ec8c57355c9b640fd325715fbe3e4ecde81424e6b84",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25761,
+        "type": "void *(sm_allocator, size_t, size_t)"
+      },
+      "original_type": "void *(sm_allocator, size_t, size_t)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_malloc",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 864,
+      "linkage": "external",
+      "name": "_sm_free",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "c22f8fadf34f394324abe40c02a95d48dd5c4b5fe32bd62afea6375b762691cc",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25931,
+        "type": "void (sm_allocator, void *)"
+      },
+      "original_type": "void (sm_allocator, void *)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_free",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 849,
+      "linkage": "external",
+      "name": "_sm_allocator_thread_cache_destroy",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "382b4cb1b15157509962afa086b74214ef96aa25c7f3af40183f301f499c3d0e",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 25543,
+        "type": "void (sm_allocator)"
+      },
+      "original_type": "void (sm_allocator)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_name": "_sm_allocator_thread_cache_destroy",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 819,
+      "linkage": "external",
+      "name": "_sm_allocator_destroy",
+      "odr_inline": {
+        "enclosing_record": "(free inline function)",
+        "semantic_sha256": "1f0c2ec0cb7d74acb305f3fc8f8c2a12cceb9ebaec636a76ee30ce682e613e12",
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 24685,
+        "type": "void (sm_allocator)"
+      },
+      "original_type": "void (sm_allocator)",
+      "physical_source": "source/build/include/smmalloc.h",
+      "reason": "explicit C++ destructor requires original source class ABI: sm::Allocator",
+      "source_name": "_sm_allocator_destroy",
+      "source_references": [],
+      "status": "blocked"
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 51,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 96,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+      "from": "source/build/src/compat.cpp",
+      "name": "g_sm_heap",
+      "original_type": "sm::Allocator *"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+      "from": "source/build/src/kplib.cpp",
+      "name": "kzfs",
+      "original_type": "struct kzfilestate"
+    }
+  ],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\AppData\\Local\\Temp\\eduke_original_link_ks8ygzrd\\2_5\\output\\source\\build\\src\\vfs.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/build/src/vfs.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+      "name": "kpzbuf",
+      "original_type": "char *"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_82fc53700c75bce13e04b518",
+      "name": "kpzbufsiz",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+      "name": "pathsearchmode",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+      "name": "numgroupfiles",
+      "original_type": "int"
+    },
+    {
+      "abi": "source-global-cell/2",
+      "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+      "name": "lz4CompressionLevel",
+      "original_type": "int"
+    }
+  ],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

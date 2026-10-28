@@ -1,0 +1,215 @@
+{
+  "format": "original-pointer-array-recovery-plan/1",
+  "priority_units": [
+    {
+      "source": "source/build/src/smmalloc_generic.cpp",
+      "score": 5000,
+      "reason": "original startup allocator/logging closure"
+    },
+    {
+      "source": "source/mimalloc/src/alloc.c",
+      "score": 4999,
+      "reason": "original startup allocator/logging closure"
+    },
+    {
+      "source": "source/build/src/osd.cpp",
+      "score": 4998,
+      "reason": "original startup allocator/logging closure"
+    },
+    {
+      "source": "source/build/src/loguru.cpp",
+      "score": 4997,
+      "reason": "original startup allocator/logging closure"
+    },
+    {
+      "source": "source/build/src/baselayer.cpp",
+      "score": 4996,
+      "reason": "original startup allocator/logging closure"
+    },
+    {
+      "source": "source/duke3d/src/game.cpp",
+      "score": 4995,
+      "reason": "original startup allocator/logging closure"
+    },
+    {
+      "source": "source/build/src/a-c.cpp",
+      "score": 1002,
+      "affected": [
+        {
+          "name": "vlineasm4",
+          "reason": "C aggregate list requires verified storage shape: char *const __restrict[4]"
+        },
+        {
+          "name": "mvlineasm4",
+          "reason": "C aggregate list requires verified storage shape: char *const __restrict[4]"
+        }
+      ]
+    },
+    {
+      "source": "source/build/src/defs.cpp",
+      "score": 1001,
+      "affected": [
+        {
+          "name": "defsparser",
+          "reason": "C aggregate list requires verified storage shape: char *[6]"
+        }
+      ]
+    },
+    {
+      "source": "source/duke3d/src/gamedef.cpp",
+      "score": 1001,
+      "affected": [
+        {
+          "name": "C_InitQuotes",
+          "reason": "C aggregate list requires verified storage shape: const char *[48]"
+        }
+      ]
+    },
+    {
+      "source": "source/duke3d/src/premap.cpp",
+      "score": 1001,
+      "affected": [
+        {
+          "name": "G_SetupFilenameBasedMusic",
+          "reason": "C aggregate list requires verified storage shape: const char *[8]"
+        }
+      ]
+    },
+    {
+      "source": "source/audiolib/src/fx_man.cpp",
+      "score": 502,
+      "affected": [
+        {
+          "name": "FX_Play",
+          "reason": "unsupported global array element type decltype(FX_Play) *"
+        },
+        {
+          "name": "FX_Play3D",
+          "reason": "unsupported global array element type decltype(FX_Play3D) *"
+        }
+      ]
+    },
+    {
+      "source": "source/audiolib/src/opl3.cpp",
+      "score": 501,
+      "affected": [
+        {
+          "name": "envelope_sin",
+          "reason": "unsupported global array element type int16_t (*)(uint16_t, uint16_t)"
+        }
+      ]
+    },
+    {
+      "source": "source/audiolib/src/xmp.cpp",
+      "score": 501,
+      "affected": [
+        {
+          "name": "MV_IdentifyXMP",
+          "reason": "unsupported global array element type decltype(mod_test_memory) *"
+        }
+      ]
+    },
+    {
+      "source": "source/imgui/src/imgui_demo.cpp",
+      "score": 9,
+      "affected": [
+        {
+          "name": "DemoWindowWidgetsComboBoxes",
+          "reason": "C aggregate list requires verified storage shape: const char *[14]"
+        },
+        {
+          "name": "DemoWindowWidgetsListBoxes",
+          "reason": "C aggregate list requires verified storage shape: const char *[14]"
+        },
+        {
+          "name": "DemoWindowWidgetsQueryingStatuses",
+          "reason": "C aggregate list requires verified storage shape: const char *[16]"
+        },
+        {
+          "name": "DemoWindowWidgetsTabs",
+          "reason": "C aggregate list requires verified storage shape: const char *[4]"
+        },
+        {
+          "name": "DemoWindowPopups",
+          "reason": "C aggregate list requires verified storage shape: const char *[5]"
+        },
+        {
+          "name": "DemoWindowColumns",
+          "reason": "C aggregate list requires verified storage shape: const char *[3]"
+        },
+        {
+          "name": "DemoWindowInputs",
+          "reason": "C aggregate list requires verified storage shape: const char *[3]"
+        },
+        {
+          "name": "ShowStyleSelector",
+          "reason": "C aggregate list requires verified storage shape: const char *[3]"
+        },
+        {
+          "name": "ShowExampleAppConstrainedResize",
+          "reason": "C aggregate list requires verified storage shape: const char *[9]"
+        }
+      ]
+    },
+    {
+      "source": "source/imgui/src/imgui.cpp",
+      "score": 6,
+      "affected": [
+        {
+          "name": "FindBestWheelingWindow",
+          "reason": "C aggregate list requires verified storage shape: ImGuiWindow *[2]"
+        },
+        {
+          "name": "GetInputSourceName",
+          "reason": "C aggregate list requires verified storage shape: const char *[4]"
+        },
+        {
+          "name": "GetMouseSourceName",
+          "reason": "C aggregate list requires verified storage shape: const char *[3]"
+        },
+        {
+          "name": "Platform_OpenInShellFn_DefaultImpl",
+          "reason": "C aggregate list requires verified storage shape: const char *[3]"
+        },
+        {
+          "name": "ShowMetricsWindow",
+          "reason": "C aggregate list requires verified storage shape: const char *[8]"
+        },
+        {
+          "name": "UpdateDebugToolItemPicker",
+          "reason": "C aggregate list requires verified storage shape: const char *[3]"
+        }
+      ]
+    },
+    {
+      "source": "source/libxmp-lite/src/mixer.c",
+      "score": 3,
+      "affected": [
+        {
+          "name": "nearest_mixers",
+          "reason": "unsupported global array element type void (*)(struct mixer_voice *, int32 *, int, int, int, int, int, int, int)"
+        },
+        {
+          "name": "linear_mixers",
+          "reason": "unsupported global array element type void (*)(struct mixer_voice *, int32 *, int, int, int, int, int, int, int)"
+        },
+        {
+          "name": "spline_mixers",
+          "reason": "unsupported global array element type void (*)(struct mixer_voice *, int32 *, int, int, int, int, int, int, int)"
+        }
+      ]
+    },
+    {
+      "source": "source/imgui/src/imgui_impl_opengl3.cpp",
+      "score": 1,
+      "affected": [
+        {
+          "name": "ImGui_ImplOpenGL3_CreateDeviceObjects",
+          "reason": "C aggregate list requires verified storage shape: const GLchar *[2]"
+        }
+      ]
+    }
+  ],
+  "source_revision": "historical uniform scan; fresh emission still required",
+  "gameplay_verified": false
+}

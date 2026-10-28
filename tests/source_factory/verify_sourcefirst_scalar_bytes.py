@@ -1,0 +1,60 @@
+"""Reinterpreted scalar addresses retain one original mutable byte allocation."""
+import base64,json,os,subprocess,sys,tempfile
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+def run(args):
+    r=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,timeout=120)
+    assert r.returncode==0,(args,r.stdout[-1600:],r.stderr[-2500:])
+    return r.stdout
+with tempfile.TemporaryDirectory(prefix='source-scalar-bytes-') as directory:
+    p=Path(directory)
+    code='''extern "C" void mutate_ref(long long &value){
+ unsigned char *bytes=(unsigned char*)&value;bytes[2]^=0x42;value+=17;
+}
+extern "C" long long scalar_bytes(long long key,int index){
+ unsigned char *bytes=(unsigned char const *)&key;
+ unsigned h=5381;for(auto p=bytes,end=p+sizeof(key);p<end;p++)h=((h<<5)+h)^*p;
+ bytes[index&7]^=(unsigned char)(index+31);
+ long long local=key^0x12ac5634;
+ void *address=&local;unsigned char *alias=(unsigned char*)&local;
+ alias[(index+3)&7]^=0x55;local+=71;
+ mutate_ref(local);
+ if((void*)alias!=address)return -999;
+ int sum=0;
+ for(int i=0;i<3;i++){int temporary=index+i;unsigned char *part=(unsigned char*)&temporary;part[0]^=3;sum+=temporary;}
+ return local^(long long)h^sum;
+}
+extern "C" int uninitialized_bytes(){int x;return *(unsigned char*)&x;}
+'''.replace('unsigned char *bytes=(unsigned char const *)&key;','unsigned char *bytes=(unsigned char*)&key;')
+    (p/'unit.cpp').write_text(code)
+    (p/'main.cpp').write_text('''#include <cstdio>
+#include <cstdint>
+extern "C" long long scalar_bytes(long long,int);
+int main(){uint64_t state=0x75abf14a;
+ for(int i=0;i<256;i++){state=state*6364136223846793005ULL+1442695040888963407ULL;
+ printf("%lld %lld\\n",(long long)state,scalar_bytes((long long)state,i));}}
+''')
+    exe=p/('native.exe' if os.name=='nt' else 'native')
+    run(['clang++','-std=c++14','-O1',str(p/'unit.cpp'),str(p/'main.cpp'),'-o',str(exe)])
+    expected=[line.split() for line in run([str(exe)]).splitlines()]
+    run([sys.executable,'tools/source_ast_to_js.py','--root',str(p),'--source','unit.cpp','--out-dir',str(p/'out')])
+    module=p/'out/unit.cpp.mjs';manifest=json.loads(module.with_suffix('.manifest.json').read_text())
+    rows={row['name']:row for row in manifest['definitions']}
+    assert rows['scalar_bytes']['status']=='source-first' and rows['mutate_ref']['status']=='source-first',rows
+    assert rows['uninitialized_bytes']['status']=='blocked' and 'initialization' in rows['uninitialized_bytes']['reason'],rows
+    js='''async ({module,cases})=>{const m=await import(module);return cases.map((row,index)=>String(m.scalar_bytes(BigInt(row[0]),index)));}'''
+    (p/'check.mjs').write_text('console.log(JSON.stringify(await ('+js+')('+json.dumps({'module':module.as_uri(),'cases':expected})+')));')
+    actual=json.loads(run(['node',str(p/'check.mjs')]))
+    assert actual==[row[1] for row in expected],[(i,a,e) for i,(a,e) in enumerate(zip(actual,expected)) if a!=e[1]][:5]
+    report={'passed':True,'native_node_cases':256,'parameter_local_reference_and_byte_aliases_verified':True,
+        'uninitialized_byte_storage_rejected':True,'gameplay_verified':False}
+    if os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'):
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as playwright:
+            browser=playwright.chromium.launch(executable_path=os.environ['EDUKE_CHROMIUM_EXECUTABLE'],headless=True)
+            page=browser.new_page();errors=[];page.on('pageerror',lambda error:errors.append(str(error)))
+            actual=page.evaluate(js,{'module':'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode(),'cases':expected})
+            assert actual==[row[1] for row in expected] and not errors,(actual[:5],errors)
+            report.update(chromium_cases=256,browser_version=browser.version);browser.close()
+    (ROOT/'reports/oct26-scalar-bytes-parity.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps(report,indent=2))

@@ -1,0 +1,612 @@
+#!/usr/bin/env python3
+"""EDuke32 whole-source compilation, missing-feature audit and ESM linker.
+
+Runs every GNUmakefile-selected source file through Clang, detects headers,
+types, unresolved functions/globals and unsupported LLVM constructs, and
+links every lowerable definition automatically. Unsupported engine components
+are fatal for --require-complete; no fake implementations are generated.
+"""
+from __future__ import annotations
+import argparse, collections, concurrent.futures, hashlib, json, os, pathlib, re, shutil, subprocess, sys, time
+from source_factory import capture_make_commands, inventory, extract_archive
+from llvm_linked_backend import Emitter, Blocked, definitions, global_defs, top_level_symbol_references
+from llvm_layout import Layout
+from llvm_symbols import resolve_locals
+from readable_js import to_readable
+
+RUNTIME_SYMBOLS={'llvm.fmuladd.f32','llvm.fmuladd.f64','llvm.fshl.i32','llvm.ctpop.i64','llvm.ctlz.i64','llvm.ctlz.i32','llvm.cttz.i64','llvm.fabs.f32','llvm.ceil.f32','llvm.floor.f32','llvm.rint.f32','llvm.rint.f64','llvm.smin.i16','llvm.smax.i16','llvm.abs.i16','llvm.x86.sse.cvtss2si','llvm.x86.sse2.cvtsd2si','llvm.x86.sse2.lfence','llvm.x86.sse2.pause','llvm.lifetime.start.p0','llvm.lifetime.end.p0','llvm.memcpy.p0.p0.i64',
+                 'llvm.memmove.p0.p0.i64','llvm.memset.p0.i64','llvm.smax.i32','llvm.smax.i64','llvm.smin.i64','llvm.bswap.i16','llvm.bswap.i32','llvm.bswap.i64','llvm.smin.i32',
+                 'llvm.umin.i32','llvm.umin.i64','llvm.umax.i64','llvm.usub.sat.i32','malloc','calloc','realloc','free','memcpy','memmove','memset','memcmp',
+                 'strlen','strcmp','puts','fopen','fread','fwrite','fseek','ftell','fclose','getenv',
+                 'clock_gettime_ms','llvm.umax.i32','llvm.abs.i32','llvm.abs.i64','llvm.assume',
+                 'strcpy','strcat','bcmp','strcasecmp','abort','__errno_location'}
+# Implemented and smoke-tested browser runtime intrinsics. Deliberately
+# exclude va_list, thread.pointer, SIMD rsqrt, and load.relative until proven.
+RUNTIME_SYMBOLS.update({'llvm.va_start.p0','llvm.va_end.p0','llvm.va_copy.p0','llvm.invariant.start.p0',
+    'strncpy','strncmp','strncasecmp','strchr','strrchr','memchr','tolower','toupper','isalnum',
+    'sqrtf','sinf','cosf','acosf','logf','powf','exp2f','exp2','fmodf','log','pow','fmod',
+    'sprintf','snprintf','vsnprintf','llvm.load.relative.i64','llvm.prefetch.p0',
+    'llvm.abs.i8','llvm.bitreverse.i32','llvm.ceil.f64','llvm.floor.f64',
+    'llvm.fabs.f64','llvm.ctpop.i32','llvm.cttz.i32','llvm.fshl.i64',
+    'llvm.sadd.sat.i16','llvm.smin.i8','llvm.smax.i8',
+    'llvm.umin.i8','llvm.umax.i8','llvm.umin.i16','llvm.umax.i16',
+    'llvm.uadd.sat.i32','llvm.uadd.sat.i64','llvm.usub.sat.i64',
+    'llvm.sadd.with.overflow.i32','llvm.smul.with.overflow.i32',
+    'llvm.umul.with.overflow.i64','llvm.threadlocal.address.p0',
+    'llvm.trap','llvm.debugtrap'
+})
+RUNTIME_SYMBOLS.update({'SDL_CreateWindow', 'SDL_SetWindowSize', 'SDL_GetError', 'SDL_Init', 'SDL_GetNumVideoDisplays', 'SDL_DestroyWindow', 'SDL_GetWindowID', 'SDL_InitSubSystem', 'SDL_SetWindowTitle', 'SDL_Quit', 'SDL_GL_GetDrawableSize', 'SDL_GetWindowSize', 'SDL_GetPerformanceFrequency', 'SDL_WasInit', 'SDL_GetWindowFlags', 'SDL_QuitSubSystem', 'SDL_GetPerformanceCounter'})
+RUNTIME_SYMBOLS.update({'atan2f', 'isalpha', 'isspace', 'tan', 'isupper', 'sqrt', 'strncat', 'strstr', 'atanf', 'islower', 'cos', 'exp', 'ldexp', 'log10f', 'isxdigit', 'sin', 'expf', 'ldexpf', 'tanf'})
+RUNTIME_SYMBOLS.update({'__dso_handle','__cxa_atexit','stdout','stderr','fprintf','printf','fputs','fputc','fflush'})
+RUNTIME_SYMBOLS.update({'SDL_PollEvent','SDL_PumpEvents','SDL_FlushEvent','SDL_PeepEvents','SDL_GetKeyboardState','SDL_GetModState','SDL_GetMouseState'})
+RUNTIME_SYMBOLS.update({'qsort','clock_gettime','gettimeofday','time', 'pthread_mutex_init','pthread_mutex_destroy','pthread_mutex_lock','pthread_mutex_trylock','pthread_mutex_unlock','pthread_once'})
+RUNTIME_SYMBOLS.update({'strtol','strtoll','strtoul','strtoull','__isoc23_strtol','__isoc23_strtoll','__isoc23_strtoul','__isoc23_strtoull'})
+# Keep the linker's claim of platform support synchronized with actual exported
+# JavaScript ABI functions. This is a one-time build-time contract read; no
+# game-title-specific exemptions or handwritten "resolved" symbol stubs.
+def _load_runtime_symbol_manifest():
+    manifest=pathlib.Path(__file__).with_name('runtime_symbol_manifest.mjs')
+    r=subprocess.run(['node',str(manifest)],capture_output=True,text=True,timeout=30)
+    if r.returncode:
+        raise RuntimeError('Unable to inspect runtime exports: '+r.stderr[-1200:])
+    data=json.loads(r.stdout)
+    if data.get('format')!='eduke-runtime-symbols/1':raise RuntimeError('Invalid runtime symbol contract')
+    names=data['symbols']+data['globals']
+    if len(names)!=len(set(names)):raise RuntimeError('Duplicate runtime ABI symbol name')
+    return set(names)
+
+# llvm.va_start is generated by the lowering pass directly (not a library call).
+# All other linked runtime functions must appear in the actual runtime export map.
+_DECLARED_COMPILER_INTERNALS={'llvm.va_start.p0'}
+_actual_runtime_symbols=_load_runtime_symbol_manifest()
+_unimplemented_declared=RUNTIME_SYMBOLS-_actual_runtime_symbols-_DECLARED_COMPILER_INTERNALS
+if _unimplemented_declared:
+    raise RuntimeError('Stale runtime symbol declarations: '+repr(sorted(_unimplemented_declared)))
+RUNTIME_SYMBOLS=_actual_runtime_symbols|_DECLARED_COMPILER_INTERNALS
+
+SRC_EXTS={'.c','.cc','.cpp','.cxx'}
+
+def sh(cmd,**kw):return subprocess.run(cmd,text=True,capture_output=True,**kw)
+
+def clean_args(row, clang):
+    orig=row['argv'];source=row['source']
+    out=[clang, '-O1','-S','-emit-llvm','-Wno-unknown-warning-option','-Wno-unused-command-line-argument','-Wno-c++11-narrowing',
+         '-Iplatform/Windows/include','-Iplatform/Windows/include/SDL2']
+    # Compile under exactly the selected GNUmakefile macro/include environment.
+    # CPU-specific and native linker flags cannot be replayed on browser target.
+    idx=1
+    while idx<len(orig):
+        t=orig[idx];idx+=1
+        if t in ('-I','-D','-U','-include','-isystem','-imacros','-iquote') and idx<len(orig):
+            out.extend([t,orig[idx]]);idx+=1
+        elif t.startswith(('-I','-D','-U')) or (t.startswith('-std=') and not (source.endswith('.c') and '++' in t)) or t in ('-fno-exceptions','-fno-rtti','-fno-strict-aliasing','-fno-threadsafe-statics','-fshort-enums','-funsigned-char','-fsigned-char'):
+            out.append(t)
+    out.append(source)
+    return out
+
+def diagnostic_entries(text):
+    categories={
+        'missing_header':r"fatal error: ['<]([^'>]+)['>] file not found",
+        'unknown_type':r"(?:error: unknown type name|error: use of undeclared identifier) ['‘]([^'’]+)['’]",
+        'undeclared_symbol':r"(?:error: (?:use of|call to) undeclared (?:identifier|function)) ['‘]([^'’]+)['’]",
+        'unsupported_compiler_feature':r'error: (unsupported [^\n]+)',
+        'type_mismatch':r'error: (?:cannot|no viable|incompatible|invalid) [^\n]{1,180}',
+    }
+    results=[]
+    for kind,pat in categories.items():
+        for m in re.finditer(pat,text):results.append({'kind':kind,'symbol':m[1] if m.lastindex else m[0]})
+    return results
+
+def compile_one(item):
+    root,row,outdir,clang,timeout=item
+    src=row['source'];rel=hashlib.sha256(src.encode()).hexdigest()[:16]
+    if not (root/src).is_file():
+        return {'source':src,'status':'missing_generated_source','llvm':None,
+                'diagnostics':'Build-selected generated source not materialized: '+src,
+                'missing_features':[{'kind':'missing_generated_source','symbol':src}], 'clang_argv':None}
+    dest=outdir/(rel+'.ll')
+    cmd=clean_args(row,clang)+['-o',str(dest)]
+    try:
+        r=sh(cmd,cwd=root,timeout=timeout)
+        diagnostic=r.stderr[-7500:]
+        status='llvm_ir' if r.returncode==0 and dest.is_file() else 'compilation_blocked'
+    except subprocess.TimeoutExpired as ex:
+        diagnostic='Clang timeout after '+str(timeout)+'s';status='compiler_timeout'
+    return {'source':src,'status':status,'llvm':rel+'.ll' if status=='llvm_ir' else None,
+            'diagnostics':diagnostic,'missing_features':diagnostic_entries(diagnostic),
+            'clang_argv':cmd if status!='llvm_ir' else None}
+
+def materialize_generated_shader_sources(root, commands):
+    """Replay EDuke GNUmakefile's %.glsl -> %.glsl.cpp generation.
+
+    Only materializes a source when the Makefile selected the corresponding
+    generated translation unit and its original GLSL input exists.
+    """
+    result=[]
+    for row in commands:
+        path=pathlib.PurePosixPath(row['source'])
+        if not str(path).startswith('obj/build/') or not str(path).endswith('.glsl.cpp'):
+            continue
+        shader=root/'source'/'build'/'src'/path.name[:-4]
+        generated=root/path
+        if not shader.is_file():continue
+        identifier=shader.name[:-5]
+        if not re.fullmatch(r'[A-Za-z_][A-Za-z_0-9]*',identifier):continue
+        content='extern char const *'+identifier+';\nchar const *'+identifier+' = R"shader('+shader.read_text(errors='replace')+')shader";\n'
+        generated.parent.mkdir(parents=True,exist_ok=True)
+        # The generated file is a reproducible compiler input, not a game fix.
+        if not generated.is_file() or generated.read_text()!=content:
+            generated.write_text(content)
+        result.append({'source':str(path),'input':str(shader.relative_to(root)),'sha256':hashlib.sha256(content.encode()).hexdigest()})
+    return result
+
+
+def detect_slicing_crc32(name, args, body, global_variables):
+    """Recognize LLVM's unsigned, little-endian slicing-by-eight CRC32 CFG.
+
+    Must exhibit an i32 seed, final inversion, 8 independent 256-entry i32
+    table slices at exact offsets, and a byte-tail loop. No game title,
+    function name, source file name or checksum value is special-cased.
+    A separate runtime differential check is required before activation.
+    """
+    from llvm_linked_backend import parse_args
+    if [t for t,_ in parse_args(args)] != ['ptr','i32','i32']:
+        return None
+    if len(re.findall(r'\bxor i32\b', body)) < 8 or 'lshr i32' not in body:
+        return None
+    if not re.search(r'xor i32 %\d+, -1', body):
+        return None
+    for table, desc in global_variables.items():
+        if desc.get('size') != 8192:continue
+        refs=re.findall(r'ptr @'+re.escape(table)+r'(?=[,\)])', body)
+        if len(refs) < 9:continue
+        offsets=set(map(int,re.findall(r'getelementptr inbounds \(i8, ptr @'+re.escape(table)+r', i64 (\d+)\)',body)))
+        if offsets != {1024,2048,3072,4096,5120,6144,7168}:continue
+        if not re.search(r'getelementptr inbounds \[256 x i32\], ptr @'+re.escape(table),body):continue
+        if not re.search(r'load i8, ptr %\d+',body):continue
+        return table
+    return None
+
+def optimize_two_pass_i32_byte_search(js):
+    """Strength-reduce a pure two-pass LLVM linear lookup after SSA lowering.
+
+    Recognize the *control-flow and memory-access shape*, never game names,
+    symbols, hashes, or basic-block numbers. A nonmatching CFG is untouched.
+    The first pass checks a byte predicate, the second ignores it; both return
+    the earliest matching i32 key. The original LLVM CFG remains the fallback
+    for invalid/unsupported address shapes and all other executions.
+    """
+    import re
+    bs={m.group(1):m.group(2) for m in re.finditer(r'case "(\d+)":\{\n(.*?)\nbreak;\}',js,re.S)}
+    for entry,b in bs.items():
+        # An i64 induction value, i32 length and a zero-length split.
+        m=re.search(r'_phi\["(\d+)"\]=prev===.*?ctx\.coerceBigIntOrPoison\(0\).*?Object\.assign\(v,_phi\);\n'
+                    r'v\["(\d+)"\]=ctx\.load\(ctx\.ptr\("([^"]+)"\),"i32"\);.*?'
+                    r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',b,re.S)
+        if not m:continue
+        valreg,countreg,countsym,exitblock,init=m.groups()
+        bi=bs.get(init,'');m2=re.search(r'v\["(\d+)"\]=ctx\.load\(ctx\.ptr\("([^"]+)"\),"ptr"\);\n'
+                    r'v\["(\d+)"\]=ctx\.load\(ctx\.ptr\("([^"]+)"\),"ptr"\);.*?block="(\d+)";break;',bi,re.S)
+        if not m2:continue
+        codeptrreg,codesym,byteptrreg,bytesym,first=m2.groups()
+        bf=bs.get(first,'');
+        # The two arrays must be loaded read-only, with four-byte i32 values.
+        fp=re.search(r'v\["\d+"\]=\(v\["'+codeptrreg+r'"\]\+\(ctx\.offset\(v\["(\d+)"\]\) \* 4\)\);\n'
+                     r'v\["\d+"\]=ctx\.load\(v\["\d+"\],"i32"\);.*?'
+                     r'v\["\d+"\]=\+\(BigInt\.asIntN\(64,BigInt\(v\["'+valreg+r'"\]\)\)===.*?'
+                     r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',bf,re.S)
+        if not fp:continue
+        indexreg,typecheck,advance=fp.groups()
+        bt=bs.get(typecheck,'');ta=re.search(r'v\["\d+"\]=\(v\["'+byteptrreg+r'"\]\+\(ctx\.offset\(v\["'+indexreg+r'"\]\) \* 1\)\);\n'
+                     r'v\["\d+"\]=ctx\.load\(v\["\d+"\],"i8"\);.*?'
+                     r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',bt,re.S)
+        if not ta or ta.group(1)!=advance:continue
+        found=ta.group(2)
+        ba=bs.get(advance,'');am=re.search(r'v\["(\d+)"\]=BigInt\.asIntN\(64,\(BigInt\(v\["'+indexreg+r'"\]\)\+BigInt\(1\)\)\);.*?'
+                 r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',ba,re.S)
+        if not am or am.group(3)!=first:continue
+        after_first=am.group(2)
+        bfound=bs.get(found,'');fm=re.search(r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',bfound)
+        if not fm or fm.group(1)!=exitblock:continue
+        secondinit=fm.group(2)
+        bx=bs.get(after_first,'');xm=re.search(r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',bx)
+        if not xm or (xm.group(1),xm.group(2))!=(exitblock,secondinit):continue
+        bs2=bs.get(secondinit,'');sm=re.search(r'v\["\d+"\]=ctx\.load\(ctx\.ptr\("'+re.escape(codesym)+r'"\),"ptr"\);.*?block="(\d+)";break;',bs2,re.S)
+        if not sm:continue
+        second=sm.group(1);bs3=bs.get(second,'');sp=re.search(r'v\["\d+"\]=ctx\.load\(v\["\d+"\],"i32"\);.*?'
+                       r'BigInt\.asIntN\(64,BigInt\(v\["'+valreg+r'"\]\)\)===.*?'
+                       r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(\d+)" : "(\d+)";break;',bs3,re.S)
+        if not sp:continue
+        success,secondadvance=sp.groups();br=bs.get(success,'');rm=re.search(r'v\["(\d+)"\]=\(Number\(BigInt\(v\["\d+"\]\)\)\|0\);\nprev=block;block="'+exitblock+r'";break;',br)
+        if not rm:continue
+        resultreg=rm.group(1);bfail=bs.get(secondadvance,'')
+        if f' ? "{exitblock}" : "{second}";break;' not in bfail:continue
+        be=bs.get(exitblock,'')
+        if not re.search(r'_phi\["\d+"\]=.*?prev==="'+success+r'" \? v\["'+resultreg+r'"\].*?prev==="'+secondadvance+r'" \? -1',be,re.S):continue
+        # Prove that the recognized search blocks contain no observable stores,
+        # calls, indirect branches or nested exits. Unrecognized code falls back.
+        searchblocks=[init,first,typecheck,advance,found,after_first,secondinit,second,secondadvance,success]
+        if any(re.search(r'ctx\.(?:store|call|callIndirect|alloca|memcpy|memset)\(',bs.get(k,'')) for k in searchblocks):continue
+        # Enter the fast path only with safe, validated addresses. All other
+        # cases continue to execute the *original* translated LLVM blocks.
+        suffix=(f'const _quickCount=ctx.load(ctx.ptr({countsym!r}),"i32");\n'
+                f'const _quickValue=v["{valreg}"];\n'
+                f'const _quickCodes=ctx.load(ctx.ptr({codesym!r}),"ptr");\n'
+                f'const _quickFlags=ctx.load(ctx.ptr({bytesym!r}),"ptr");\n'
+                f'const _quickResult=ctx.tryTwoPassI32ByteSearch(_quickCodes,_quickFlags,_quickCount,_quickValue);\n'
+                f'if(_quickResult!==null){{v["{resultreg}"]=_quickResult;prev=_quickResult>=0?"{success}":"{secondadvance}";block="{exitblock}";break;}}\n')
+        anchor=f'case "{entry}":{{\n'
+        # The original entry PHI is essential: retain it before running scan.
+        reg=r'(case "'+entry+r'":\{\n(?:const _phi=Object\.create\(null\);\n.*?Object\.assign\(v,_phi\);\n))'
+        patched,n=re.subn(reg,lambda m:m.group(1)+suffix.replace('\\n','\n'),js,count=1,flags=re.S)
+        if n:return patched,{'algorithm':'two-pass-i32-byte-linear-search','entry':entry,'exit':exitblock,'symbols':[countsym,codesym,bytesym]}
+    return js,None
+
+def optimize_descending_i32_threshold_search(js):
+    """Elide a pure descending bounded i32 table scan in lowered LLVM CFG.
+
+    Detects PHI(15,i-1), a read-only i32 table lookup, signed comparison
+    and a decrement-to-2 clamp. No function names, game data or table
+    contents are hardcoded. Nonmatching loops stay on the original IR CFG.
+    """
+    import re
+    bs={m.group(1):m.group(2) for m in re.finditer(r'case "(\d+)":\{\n(.*?)\nbreak;\}',js,re.S)}
+    patches=[]
+    for loop,b in bs.items():
+        m=re.search(r'_phi\["(?P<idx>\d+)"\]=prev==="(?P<from>\d+)" \? 15 : prev==="(?P<decblock>\d+)" \? v\["(?P<decnum>\d+)"\] : .*?Object\.assign\(v,_phi\);',b,re.S)
+        if not m:continue
+        idx=m['idx'];decblock=m['decblock'];decnum=m['decnum']
+        tb=re.search(r'v\["\d+"\]=\(ctx\.ptr\("(?P<table>[^"]+)"\)\+\(ctx\.offset\(0\) \* \d+\) \+ \(ctx\.offset\(v\["\d+"\]\) \* 4\)\);\n'
+                     r'v\["\d+"\]=ctx\.load\(v\["\d+"\],"i32"\);\n'
+                     r'v\["\d+"\]=\+\(\(v\["\d+"\]\|0\)>\(v\["(?P<value>\d+)"\]\|0\)\);',b)
+        if not tb:continue
+        tr=re.search(r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "(?P<dec>\d+)" : "(?P<end>\d+)";break;',b)
+        if not tr or tr['dec']!=decblock:continue
+        end=tr['end']; bd=bs.get(decblock,''); be=bs.get(end,'')
+        dx=re.search(r'v\["'+decnum+r'"\]=\(\(v\["'+idx+r'"\]\+-1\)\|0\);\n'
+                     r'v\["\d+"\]=\+\(\(v\["'+idx+r'"\]>>>0\)>\(2>>>0\)\);\n'
+                     r'prev=block;block=ctx\.requireDefined\(v\["\d+"\],"branch"\) \? "'+loop+r'" : "'+end+r'";break;',bd)
+        er=re.search(r'_phi\["\d+"\]=prev==="'+decblock+r'" \? 1 : prev==="'+loop+r'" \? v\["'+idx+r'"\]',be)
+        if not dx or not er:continue
+        if any(re.search(r'ctx\.(?:store|call|callIndirect|memset|memcpy)\(',x) for x in (b,bd)):continue
+        table=tb['table'];value=tb['value']
+        snippet=(f'const _thresholdFast=ctx.tryDescendingI32Threshold(ctx.ptr({table!r}),v["{value}"],v["{idx}"]);\n'
+                 f'if(_thresholdFast!==null){{v["{idx}"]=_thresholdFast;prev="{loop}";block="{end}";break;}}\n')
+        # Insert immediately after the induction variable PHI. When the fast
+        # path declines, the exact original LLVM read/branch loop still runs.
+        anchor=f'case "{loop}":{{\n'
+        body_start=js.find(anchor)
+        if body_start<0:continue
+        start=body_start+len(anchor)
+        phi_end=js.find('Object.assign(v,_phi);\n',start)
+        if phi_end<0 or phi_end>start+550:continue
+        insert=phi_end+len('Object.assign(v,_phi);\n')
+        patches.append((insert,snippet,{'algorithm':'descending-i32-table-threshold','entry':loop,'exit':end,'table':table}))
+    for position,snippet,_ in sorted(patches,key=lambda t:t[0],reverse=True):js=js[:position]+snippet+js[position:]
+    return js,[p[2] for p in patches]
+
+def optimize_byte_remap_256(js):
+    """Strength-reduce a proven 256-entry byte remapping LLVM loop.
+
+    The proof is the complete straight-line memory and CFG shape, not a
+    function/game name. Returns the original CFG unchanged if it differs.
+    Reads the *live* C ABI memory and retains the original LLVM fallback.
+    """
+    blocks={m.group(1):(m.group(2),m.start(2)) for m in re.finditer(
+        r'case "(\d+)":\{\n(.*?)\nbreak;\}',js,re.S)}
+    patches=[]
+    for block,(body,start) in blocks.items():
+        phi=re.match(r'const _phi=Object\.create\(null\);\n_phi\["(?P<idx>\d+)"\]=prev==="(?P<parent>\d+)" \? ctx\.coerceBigIntOrPoison\(0\) : prev==="'+re.escape(block)+r'" \? ctx\.coerceBigIntOrPoison\(v\["(?P<next>\d+)"\]\) : \(\(\)=>\{throw Error\("invalid predecessor"\)\}\)\(\);\nObject\.assign\(v,_phi\);\n',body)
+        if not phi:continue
+        idx=phi['idx'];nextval=phi['next']
+        # Parse the *exact* 256-byte: dst[row+i] = src[row+remap[i]]
+        # load/store chain; reject code with any additional side effects.
+        pat=(r'v\["(?P<src>\d+)"\]=ctx\.load\(ctx\.ptr\("(?P<source>[^"\n]+)"\),"ptr"\);\n'
+             r'v\["(?P<mptr>\d+)"\]=\(v\["(?P<map>\d+)"\]\+\(ctx\.offset\(v\["'+idx+r'"\]\) \* 1\)\);\n'
+             r'v\["(?P<mi>\d+)"\]=ctx\.load\(v\["(?P=mptr)"\],"i8"\);\n'
+             r'v\["(?P<mi64>\d+)"\]=BigInt\.asUintN\(64,BigInt\(\(\(v\["(?P=mi)"\]\)\&255\)\)\);\n'
+             r'v\["(?P<srcidx>\d+)"\]=BigInt\.asIntN\(64,\(BigInt\(v\["(?P<row>\d+)"\]\)\|BigInt\(v\["(?P=mi64)"\]\)\)\);\n'
+             r'v\["(?P<readptr>\d+)"\]=\(v\["(?P=src)"\]\+\(ctx\.offset\(v\["(?P=srcidx)"\]\) \* 1\)\);\n'
+             r'v\["(?P<byte>\d+)"\]=ctx\.load\(v\["(?P=readptr)"\],"i8"\);\n'
+             r'v\["(?P<dst>\d+)"\]=ctx\.load\(v\["(?P<desttable>\d+)"\],"ptr"\);\n'
+             r'v\["(?P<dstidx>\d+)"\]=BigInt\.asIntN\(64,\(BigInt\(v\["'+idx+r'"\]\)\|BigInt\(v\["(?P<dstrow>\d+)"\]\)\)\);\n'
+             r'v\["(?P<writeptr>\d+)"\]=\(v\["(?P=dst)"\]\+\(ctx\.offset\(v\["(?P=dstidx)"\]\) \* 1\)\);\n'
+             r'ctx\.store\(v\["(?P=writeptr)"\],"i8",v\["(?P=byte)"\]\);\n'
+             r'v\["'+nextval+r'"\]=BigInt\.asIntN\(64,\(BigInt\(v\["'+idx+r'"\]\)\+BigInt\(1\)\)\);\n'
+             r'v\["(?P<cond>\d+)"\]=\+\(BigInt\.asIntN\(64,BigInt\(v\["'+nextval+r'"\]\)\)===BigInt\.asIntN\(64,BigInt\(256\)\)\);\n'
+             r'prev=block;block=ctx\.requireDefined\(v\["(?P=cond)"\],"branch"\) \? "(?P<exit>\d+)" : "'+re.escape(block)+r'";break;')
+        match=re.fullmatch(pat,body[phi.end():])
+        if not match:continue
+        if idx==nextval or match['row']==idx:continue
+        record={'algorithm':'byte-remap-256','loop':block,'exit':match['exit'],'source':match['source']}
+        # Fast path on induction index zero; all other flows use original CFG.
+        snippet=(f'if(v["{idx}"]===0n && ctx.tryRemap256(ctx.ptr({match["source"]!r}),'
+                 f'v["{match["desttable"]}"],v["{match["map"]}"],v["{match["row"]}"],v["{match["dstrow"]}"]))'
+                 f'{{v["{nextval}"]=256n;prev="{block}";block="{match["exit"]}";break;}}\n')
+        patches.append((start+phi.end(),snippet,record))
+    for i,code,_ in sorted(patches,reverse=True):js=js[:i]+code+js[i:]
+    return js,[p[2] for p in patches]
+
+def emit_modules(results,outdir):
+    mods=outdir/'modules';mods.mkdir(exist_ok=True)
+    # Upgrade existing hash-only build directories in place. The old files
+    # contain duplicate generated bodies and must not survive in packages.
+    for obsolete in mods.glob('mod_[0-9a-f]'+'*'+'.mjs'):
+        if re.fullmatch(r'mod_[0-9a-f]{16}\.mjs',obsolete.name):obsolete.unlink()
+    defined={};globals_def={};module_info=[];failed=[];duplicates=[];odr_coalesced=[];private_count=0;constructors=[];checksum_optimizations=[];linear_search_optimizations=[];descending_optimizations=[];byte_remap_optimizations=[];readable_count=0;readable_reasons=collections.Counter();readable_manifest=[]
+    for row in results:
+        if row['status']!='llvm_ir':continue
+        source=row['source'];ir=(outdir/'llvm'/row['llvm']).read_text()
+        ir,linkage,locals_report=resolve_locals(ir,source);private_count+=locals_report['private_or_internal_definitions']
+        # Appending LLVM constructors are LINKER TABLES, not multiply-defined
+        # variables. Merge them across translation units in priority order.
+        for declaration in re.findall(r'^@llvm\.global_ctors\s*=\s*([^\n]+)',ir,re.M):
+            if not re.match(r'appending\s+global\s+\[\d+ x',declaration):
+                raise ValueError('Unsupported LLVM constructor declaration: '+declaration[:200])
+            for priority,func in re.findall(r'\{\s*i32\s+(\d+),\s*ptr\s+@('+r'[-\w.$]+'+r'),\s*ptr\s+null\s*\}',declaration):
+                constructors.append({'priority':int(priority),'name':func,'source':source,'order':len(constructors)})
+        functions=definitions(ir);layout=Layout(ir);global_variables=global_defs(ir,layout)
+        global_variables.pop('llvm.global_ctors',None)
+        # Similarly, LLVM global_dtors is an appending table. Destructor
+        # execution is deliberately not enabled until its ABI is supported.
+        global_variables.pop('llvm.global_dtors',None)
+        global_variables.pop('llvm.compiler.used',None)
+        global_variables.pop('llvm.used',None)
+        code=[];succeeded=[];blocked=[];refs=set();function_deps={}
+        for name,args,body in functions:
+            if name in defined and linkage.get(name) in ('weak','weak_odr','linkonce','linkonce_odr','available_externally'):
+                odr_coalesced.append({'symbol':name,'source':source,'canonical_source':defined[name]})
+                continue
+            emitter=Emitter(layout)
+            try:
+                js=emitter.lower(name,args,body)
+                js,search_specialization=optimize_two_pass_i32_byte_search(js)
+                js,descending_specializations=optimize_descending_i32_threshold_search(js)
+                js,byte_remap_specializations=optimize_byte_remap_256(js)
+                # Preserve the exact LLVM ABI operations, but emit real JS
+                # branches/returns for proven acyclic PHI-free control flow.
+                # Do not guess original C local identifiers or replace code
+                # with a title-specific handwritten engine implementation.
+                readable=to_readable(js,name)
+                js=readable.code
+                readable_count+=int(readable.structured)
+                readable_reasons[readable.reason]+=1
+                readable_manifest.append({'function':name,'source':source,'mode':'structured' if readable.structured else 'llvm-cfg',
+                                          'reason':readable.reason,'basic_blocks':readable.basic_blocks})
+                # Lowering is independent of parity testing or cross-TU closure.
+                succeeded.append({'name':name,'calls_and_globals':sorted(emitter.dependencies),'js':js,'variadic':emitter.variadic,'named_types':[t for t,_ in __import__('llvm_linked_backend').parse_args(args)] if emitter.variadic else []})
+                function_deps[name]=sorted(emitter.dependencies)
+                refs.update(emitter.dependencies)
+                crc_table=detect_slicing_crc32(name,args,body,global_variables)
+                for opt in byte_remap_specializations:
+                    byte_remap_optimizations.append({'function':name,**opt})
+                for threshold in descending_specializations:
+                    descending_optimizations.append({'function':name,**threshold})
+                if search_specialization:
+                    linear_search_optimizations.append({'function':name,**search_specialization})
+                if crc_table:
+                    checksum_optimizations.append({'function':name,'table':crc_table,'algorithm':'crc32-slicing-by-eight'})
+            except (Blocked,ValueError) as e:
+                blocked.append({'name':name,'error':str(e)[:500]})
+                failed.append({'name':name,'source':source,'error':str(e)[:500]})
+            if name in defined:duplicates.append({'symbol':name,'first':defined[name],'second':source})
+            defined.setdefault(name,source)
+        for name,decl in global_variables.items():
+            if name in globals_def:
+                if linkage.get(name) in ('weak','weak_odr','linkonce','linkonce_odr','available_externally'):
+                    odr_coalesced.append({'symbol':name,'source':source,'canonical_source':globals_def[name]['source']})
+                    continue
+                duplicates.append({'symbol':name,'first':globals_def[name]['source'],'second':source})
+            globals_def.setdefault(name,{'source':source,**decl})
+        # Preserve the complete original source identity. LLVM modules are still
+        # separate translation units, even when basenames repeat.
+        relative=pathlib.PurePosixPath(source)
+        if relative.is_absolute() or '..' in relative.parts or not all(re.fullmatch(r'[A-Za-z0-9_.+-]+',part) for part in relative.parts):
+            raise ValueError('Unsafe original source path: '+source)
+        file=relative.as_posix()+'.mjs'
+        (mods/file).parent.mkdir(parents=True,exist_ok=True)
+        content=['// Generated from '+source+'; not all original definitions are supported.','export function register(ctx){']
+        for record in succeeded:
+            # Use a real named JS function expression, so debugging stacks,
+            # inspection and editor navigation refer to source functions.
+            # The exact linker symbol remains the registry key. A function
+            # expression's local name cannot collide with another TU.
+            plain_name=re.sub(r'[^A-Za-z0-9_$]','_',record['name'])
+            safe_name=(plain_name if re.fullmatch(r'[A-Za-z_$][A-Za-z0-9_$]*',plain_name) and plain_name not in {'return','default','delete','new','class','function','const','let','var','for','while','do','if','else','switch','case','break','continue','await','yield','throw','try','catch','finally','export','import','super','this','true','false','null'} else 'compiled_'+plain_name)
+            named_js=re.sub(r'^function\(',lambda _:'function '+safe_name+'(',record['js'],count=1)
+            content.append('ctx.register('+json.dumps(record['name'])+','+named_js+(','+json.dumps({'namedTypes':record['named_types']}) if record['variadic'] else '')+');')
+        content.append('}')
+        (mods/file).write_text('\n'.join(content)+'\n')
+        module_info.append({'source':source,'file':'modules/'+file,'functions_lowered':[x['name'] for x in succeeded],
+                            'functions_blocked':blocked,'global_names':list(global_variables),'references':sorted(refs),
+                            'function_dependencies':function_deps,
+                            'ir_functions_found':len(functions)})
+    defined_func={x for m in module_info for x in m['functions_lowered']}
+    defined_globals=set(globals_def)
+    all_callees=set(r for m in module_info for r in m['references'])
+    # Global initializer relocations are real linker dependencies too. They
+    # must not disappear from the strict build gate just because they aren't
+    # referenced in executable IR instructions.
+    reloc_targets={r['symbol'] if 'symbol' in r else r['blockaddress']['function']
+                   for g in globals_def.values() for r in g.get('references',[])}
+    unresolved=sorted((all_callees | reloc_targets | {c['name'] for c in constructors})-defined_func-defined_globals-RUNTIME_SYMBOLS)
+    blocked_symbols=set(defined)-defined_func
+    # Precise per-function dependency closure, not whole-TU union: otherwise
+    # one missing library symbol falsely invalidates every function in a TU.
+    # Constructor roots are included, even if nothing else calls them.
+    direct_deps={name:set(deps) for m in module_info for name,deps in m['function_dependencies'].items()}
+    reverse=collections.defaultdict(set)
+    for caller,deps in direct_deps.items():
+        for target in deps:reverse[target].add(caller)
+    cannot_link=set(unresolved)
+    todo=list(unresolved)
+    while todo:
+        missing=todo.pop()
+        for caller in reverse.get(missing,()):
+            if caller not in cannot_link:
+                cannot_link.add(caller);todo.append(caller)
+    # Report the highest-impact missing symbols to guide future compiler and
+    # browser runtime implementation, without inventing a substitute.
+    blockers_ranked=sorted(({'symbol':s,'direct_callers':len(reverse.get(s,())),
+                             'source_units':sorted({m['source'] for m in module_info if s in m['references']})[:12]}
+                            for s in unresolved),key=lambda x:(-x['direct_callers'],x['symbol']))
+    # All source definitions need conversion even if they were never referenced.
+    linked=not failed and not unresolved and not duplicates and not any(v['kind']=='unsupported' for v in globals_def.values())
+    imports=['import { LLVMContext } from "./runtime/llvm_context.mjs";']
+    for i,m in enumerate(module_info):imports.append('import {register as reg'+str(i)+'} from "./'+m['file']+'";')
+    imports.append('export function boot({libraries={},heap,fs=null,cpuidProvider=null,canvas=null,clock=null,stdio={},instructionBudget=50000000,blockProgress=null}={}){')
+    imports.append('const ctx=new LLVMContext({libraries,heap,fs,cpuidProvider,canvas,clock,stdio,instructionBudget,blockProgress});')
+    for name,value in globals_def.items():
+        descriptor={k:v for k,v in value.items() if k!='source'}
+        imports.append('ctx.defineGlobal('+json.dumps(name)+','+json.dumps(descriptor)+');')
+    for i in range(len(module_info)):imports.append('reg'+str(i)+'(ctx);')
+    imports.append('ctx.finishGlobals();')
+    for optimization in checksum_optimizations:
+        imports.append('ctx.specializeSlicingCRC32('+json.dumps(optimization['function'])+','+json.dumps(optimization['table'])+');')
+    imports.append('ctx.validate('+json.dumps(unresolved)+');')
+    for ctor in sorted(constructors,key=lambda c:(c['priority'],c['order'])):
+        imports.append('ctx.call('+json.dumps(ctor['name'])+',[]);')
+    imports.append('return ctx;}')
+    (outdir/'readability-manifest.json').write_text(json.dumps({'structured_count':readable_count,'remaining_cfg_count':len(readable_manifest)-readable_count,'reasons':dict(readable_reasons),'functions':readable_manifest},indent=2))
+    (outdir/'source-map.json').write_text(json.dumps({m['source']: {'module':m['file'],'functions':m['functions_lowered'],'globals':m['global_names']} for m in module_info},indent=2))
+    (outdir/'linked.mjs').write_text('\n'.join(imports)+'\n')
+    return {'modules':module_info,'locally_scoped_symbols_renamed':private_count,'weak_odr_definitions_coalesced':len(odr_coalesced),
+            'weak_odr_examples':odr_coalesced[:80], 'llvm_global_constructors':sorted(constructors,key=lambda c:(c['priority'],c['order'])), 'symbols_defined':sorted(defined),
+            'symbols_lowered':sorted(defined_func),'globals':globals_def,
+            'duplicate_symbols':duplicates,'unsupported_functions':failed,
+            'unresolved_symbols':unresolved,'blocker_priorities':blockers_ranked[:150],
+            'unlinked_transitive_symbols':sorted(cannot_link),
+            'lowered_function_count':len(defined_func),'blocked_function_count':len(failed),
+            'readable_structured_functions':readable_count,'readable_remaining_cfg_functions':len(readable_manifest)-readable_count,'readable_reasons':dict(readable_reasons),
+            'checksum_optimizations':checksum_optimizations,'linear_search_optimizations':linear_search_optimizations,'descending_optimizations':descending_optimizations,'byte_remap_optimizations':byte_remap_optimizations,
+            'full_symbol_closure':linked,'runtime_provided_symbols':sorted(RUNTIME_SYMBOLS)}
+
+def source_types(files,root):
+    # Source-wide type/feature index, not a fake complete Clang AST. Records
+    # tokens for diagnostics, independently of missing SDL compile dependencies.
+    results=collections.Counter();members=collections.Counter()
+    patterns={'struct':r'\bstruct\s+([A-Za-z_]\w*)','class':r'\bclass\s+([A-Za-z_]\w*)',
+              'enum':r'\benum(?:\s+class)?\s+([A-Za-z_]\w*)',
+              'typedef':r'\btypedef\b','template':r'\btemplate\s*<',
+              'asm':r'\b(?:asm|__asm__)\s*\(',
+              'exceptions':r'\b(?:throw|try|catch)\b',
+              'thread_local':r'\b(?:thread_local|__thread)\b',
+              'variadic':r'\bva_(?:start|arg|end)\b',
+              'cxx_virtual':r'\bvirtual\s+\w+',
+              'function_pointer':r'\(\s*\*\s*[A-Za-z_]\w*\s*\)\s*\(',
+              'inline_asm':r'\b__asm__\b'}
+    for f in files:
+        raw=(root/f['path']).read_bytes().decode('utf8',errors='replace')
+        for kind,pat in patterns.items():
+            matches=re.findall(pat,raw)
+            results[kind]+=len(matches)
+            if kind in ('struct','class','enum'):
+                members.update(kind+':'+x for x in matches if isinstance(x,str))
+    return {'language_features_lexically_seen':dict(results),
+            'named_type_tokens':dict(members.most_common(500)),
+            'warning':'Lexical occurrences, not semantically validated type definitions; Clang AST unavailable on failing TUs'}
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--source',type=pathlib.Path,required=True)
+    p.add_argument('--out',type=pathlib.Path,required=True)
+    p.add_argument('--jobs',type=int,default=8)
+    p.add_argument('--timeout',type=int,default=35)
+    p.add_argument('--require-complete',action='store_true',help='Fail if any selected TU, function or symbol remains unsupported')
+    p.add_argument('--refresh',action='store_true',help='Ignore saved TU diagnostics/IR cache')
+    p.add_argument('--fixture',action='store_true',help='Compile every C/C++ TU in the directory, without GNUmakefile')
+    args=p.parse_args();root=args.source.resolve();out=args.out.resolve();out.mkdir(parents=True,exist_ok=True)
+    if root.suffix=='.zip':root=extract_archive(root,out/'source-tree')
+    if args.fixture:
+        commands=[{'source':str(f.relative_to(root)),'argv':['clang++' if f.suffix!='.c' else 'clang',str(f.relative_to(root))]} for f in root.rglob('*') if f.suffix in SRC_EXTS]
+        files,edges,ext,missing=inventory(root,commands)
+    else:
+        commands,note=capture_make_commands(root)
+        files,edges,ext,missing=inventory(root,commands)
+    generated_sources=materialize_generated_shader_sources(root,commands)
+    clang=shutil.which('clang');clangcpp=shutil.which('clang++')
+    if not clang or not clangcpp:sys.exit('Requires installed Clang/LLVM')
+    (out/'llvm').mkdir(exist_ok=True)
+    started=time.monotonic()
+    jobs=[(root,c,out/'llvm',clang if c['source'].endswith('.c') else clangcpp,args.timeout) for c in commands]
+    cache_dir=out/'compile-cache';cache_dir.mkdir(exist_ok=True)
+    # Headers participate in cache invalidation. Build the transitive include
+    # closure per source, rather than relying solely on source-file mtime.
+    content_hash={f['path']:f['sha256'] for f in files}
+    graph=collections.defaultdict(list)
+    for parent,child in edges:graph[parent].append(child)
+    def include_fingerprint(source):
+        visited=set();todo=[source];h=hashlib.sha256()
+        while todo:
+            path=todo.pop()
+            if path in visited:continue
+            visited.add(path);todo.extend(graph[path])
+        for path in sorted(visited):
+            h.update(path.encode());h.update(content_hash.get(path,'not-indexed').encode())
+        return h.hexdigest()
+
+    results_by_source={}
+    pending=[]
+    for job in jobs:
+        root0,row,_,cc,secs=job
+        argv=clean_args(row,cc)
+        # Cache keys change when Clang args, source bytes or headers change.
+        # --refresh forces recompilation after external header edits.
+        key=hashlib.sha256((str(argv)+str(root0)+include_fingerprint(row['source'])+
+                            str((root0/row['source']).stat().st_mtime_ns if (root0/row['source']).exists() else 'GENERATED_MISSING')).encode()).hexdigest()[:20]
+        cached=cache_dir/(key+'.json')
+        if cached.exists() and not args.refresh:
+            record=json.loads(cached.read_text())
+            prior_secs=int(re.search(r'after (\d+)s',record.get('diagnostics','')).group(1)) if re.search(r'after (\d+)s',record.get('diagnostics','')) else 0
+            if record['status']=='compiler_timeout' and secs>prior_secs:pass  # retry with a larger budget
+            elif record['status']!='llvm_ir' or (out/'llvm'/record['llvm']).is_file():
+                results_by_source[row['source']]=record;continue
+        pending.append((job,cached))
+    if pending:print('LLVM compilation attempts:',len(pending),'cache hits:',len(jobs)-len(pending),flush=True)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1,min(32,args.jobs))) as pool:
+        futures={pool.submit(compile_one,job):cached for job,cached in pending}
+        for count,future in enumerate(concurrent.futures.as_completed(futures),1):
+            record=future.result()
+            results_by_source[record['source']]=record
+            target=futures[future]
+            temp=target.with_suffix('.tmp');temp.write_text(json.dumps(record));temp.replace(target)
+            if count%8==0 or count==len(pending):
+                print(f'compiled attempts {count}/{len(pending)}; IR successes '+str(sum(r['status']=='llvm_ir' for r in results_by_source.values())),flush=True)
+    results=[results_by_source[c['source']] for c in commands]
+    emitted=emit_modules(results,out)
+    # Self-contained run tree; generated module imports resolve without package install.
+    shutil.copytree(pathlib.Path(__file__).resolve().parents[1]/'runtime',out/'runtime',dirs_exist_ok=True)
+    missing_headers=collections.Counter(x['symbol'] for row in results for x in row['missing_features'] if x['kind']=='missing_header')
+    missing_types=collections.Counter(x['symbol'] for row in results for x in row['missing_features'] if x['kind']=='unknown_type')
+    feature_counts=collections.Counter(x['kind'] for row in results for x in row['missing_features'])
+    summary={'format':'eduke-whole-program/2','complete_engine_transpiled':False,
+             'actual_complete_build':False,'compile_seconds':round(time.monotonic()-started,2),
+             'all_source_files_indexed':len(files),'all_headers_indexed':sum(f['kind']=='header' for f in files),
+             'all_translation_units_indexed':sum(f['kind']=='translation_unit' for f in files),
+             'translation_units_selected_and_attempted':len(commands),
+             'translation_units_llvm_compiled':sum(r['status']=='llvm_ir' for r in results),
+             'translation_units_compilation_blocked':sum(r['status']!='llvm_ir' for r in results),
+             'lowered_js_functions':emitted['lowered_function_count'],
+             'lowering_blocked_functions':emitted['blocked_function_count'],
+             'startup_constructors_discovered':len(emitted['llvm_global_constructors']),
+             'generated_shader_translation_units':len(generated_sources),
+             'cross_file_unresolved_symbols':len(emitted['unresolved_symbols']),
+             'lowered_functions_without_full_link_closure':len(set(emitted['unlinked_transitive_symbols']) & set(emitted['symbols_lowered'])),
+             'critical_missing_headers':dict(missing_headers.most_common(80)),
+             'unknown_type_errors':dict(missing_types.most_common(80)),
+             'compiler_error_categories':dict(feature_counts),
+             'functional_js_game_port':False,
+             'notes':'All Make-selected TUs attempted together, no function allowlist; full engine rejected until every required TU compiles and all symbols close.'}
+    if summary['translation_units_compilation_blocked']==0 and emitted['full_symbol_closure'] and not emitted['unlinked_transitive_symbols']:
+        summary['actual_complete_build']=True
+    summary['complete_engine_transpiled']=summary['actual_complete_build'] if not args.fixture else False
+    (out/'generated-sources.json').write_text(json.dumps(generated_sources,indent=2))
+    (out/'SUMMARY.json').write_text(json.dumps(summary,indent=2))
+    (out/'compiler-diagnostics.json').write_text(json.dumps(results,indent=2))
+    (out/'symbol-link-report.json').write_text(json.dumps({k:v for k,v in emitted.items() if k!='modules'},indent=2))
+    (out/'modules.json').write_text(json.dumps(emitted['modules'],indent=2))
+    (out/'type-and-feature-index.json').write_text(json.dumps(source_types(files,root),indent=2))
+    (out/'source-include-graph.json').write_text(json.dumps({'edges':edges,'unresolved':dict(missing),'external':dict(ext)},indent=2))
+    print(json.dumps(summary,indent=2))
+    if args.require_complete and not summary['actual_complete_build']:sys.exit(2)
+if __name__=='__main__':main()

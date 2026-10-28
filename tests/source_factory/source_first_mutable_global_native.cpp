@@ -1,0 +1,51 @@
+#include "source_first_mutable_global_fixture.h"
+#include <cstdio>
+static void snapshot(double result) {
+    std::printf("[%.17g,%d,%d,%d,%.17g,%u,%u,%d,%u,%d,%d,%d,%d]\n",result,scalar,consumer_count,pointer_index(),(double)gain,(unsigned)narrow,serial,(int)small_signed,(unsigned)small_unsigned,(int)signed_short,(int)gate,effect_calls,next);
+}
+int main() {
+    snapshot(set_scalar(7));
+    snapshot(compound_scalar(4));
+    snapshot(post_scalar());
+    snapshot(pre_scalar());
+    snapshot(set_gain(0.1f));
+    snapshot(compound_gain(3.0f));
+    snapshot(post_serial());
+    snapshot(post_serial());
+    snapshot(set_narrow(65537));
+    snapshot(compound_narrow(65535));
+    snapshot(alias_shared(81));
+    snapshot(alias_owner(92));
+    snapshot(retarget_cursor(0));
+    snapshot(step_cursor());
+    snapshot(post_cursor());
+    snapshot(pre_cursor());
+    snapshot(alias_cursor_slot());
+    snapshot(retarget_const_pointee());
+    snapshot(local_shadow());
+    snapshot(cycle_write());
+    snapshot(compare_addresses());
+    snapshot(validate_global_address());
+    snapshot(write_via_call(12));
+    snapshot(static_cycle_alias(42));
+    snapshot(narrow_alias(65538));
+    snapshot(gain_alias(0.2f));
+    snapshot(assign_schar_expression(260));
+    snapshot(assign_schar_expression(-129));
+    snapshot(assign_uchar_expression(260));
+    snapshot(assign_short_expression(65535));
+    snapshot(assign_ushort_expression(65539));
+    snapshot(assign_bool_expression(2));
+    snapshot(assign_bool_expression(0));
+    snapshot(assign_gain_expression(0.3333333333333333));
+    snapshot(alias_byte_expression(258));
+    snapshot(read_constants());
+    snapshot(mutate_array_element(67));
+    snapshot(retarget_cursor(2));
+    snapshot(compound_counted());
+    snapshot(assign_uchar_expression(255));
+    snapshot(pre_counted_byte());
+    snapshot(post_counted_byte());
+    snapshot(local_next_alias());
+    snapshot(global_next_write(8));
+}

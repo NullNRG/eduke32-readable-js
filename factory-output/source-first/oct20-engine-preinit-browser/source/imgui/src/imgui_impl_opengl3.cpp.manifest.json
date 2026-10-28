@@ -1,0 +1,692 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 2,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-b0e60a07f6d7c1a30bc6a8cd4884b9affdcb447842f7c17aef5943816267f604.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 7681,
+      "json_bytes": 27704581,
+      "objects": 59853,
+      "ranges_omitted": 19131,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 18311
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 19,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_record_factory": true,
+      "kind": "CXXRecordDecl",
+      "line": 295,
+      "linkage": "external",
+      "name": "ImVec2",
+      "odr_inline": {
+        "enclosing_record": "ImVec2",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "semantic_sha256": "bd04bece61164a0b6631e238e5f132e64931eb76c4b775ed15cf4a5d0c0e6d88",
+        "source_header": "source/imgui/include/imgui.h",
+        "source_offset": 23827,
+        "type": "ImVec2"
+      },
+      "original_type": "",
+      "physical_source": "source/imgui/include/imgui.h",
+      "source_name": "ImVec2",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "header_record_factory": true,
+      "kind": "CXXRecordDecl",
+      "line": 2181,
+      "linkage": "external",
+      "name": "ImNewWrapper",
+      "odr_inline": {
+        "enclosing_record": "ImNewWrapper",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "semantic_sha256": "c4d586da23d73448d6ede45f24e46502e5c9ed321d6238d14429c8dead857c60",
+        "source_header": "source/imgui/include/imgui.h",
+        "source_offset": 222579,
+        "type": "ImNewWrapper"
+      },
+      "original_type": "",
+      "physical_source": "source/imgui/include/imgui.h",
+      "reason": "empty or implicit record",
+      "source_name": "ImNewWrapper",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "kind": "CXXRecordDecl",
+      "line": 232,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_Data",
+      "original_type": "",
+      "physical_source": "source/imgui/src/imgui_impl_opengl3.cpp",
+      "reason": "nontrivial C++ destructor requires standalone source lifetime ABI",
+      "source_name": "ImGui_ImplOpenGL3_Data",
+      "source_references": [
+        "__cxx_record_ImVector_06f90b83d9fd6e47"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 261,
+      "linkage": "internal",
+      "name": "ImGui_ImplOpenGL3_GetBackendData",
+      "original_type": "ImGui_ImplOpenGL3_Data *()",
+      "reason": "unlinked identifiers: GetCurrentContext, GetIO",
+      "source_name": "ImGui_ImplOpenGL3_GetBackendData",
+      "source_references": [
+        "GetCurrentContext",
+        "GetIO"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "GetCurrentContext",
+        "GetIO"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 292,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_InitLoader",
+      "original_type": "bool ()",
+      "reason": "unlinked identifiers: fprintf, imgl3wInit, stderr",
+      "source_name": "ImGui_ImplOpenGL3_InitLoader",
+      "source_references": [
+        "fprintf",
+        "imgl3wInit",
+        "imgl3wProcs",
+        "stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "fprintf",
+        "imgl3wInit",
+        "stderr"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 306,
+      "linkage": "internal",
+      "name": "ImGui_ImplOpenGL3_ShutdownLoader",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: imgl3wShutdown",
+      "source_name": "ImGui_ImplOpenGL3_ShutdownLoader",
+      "source_references": [
+        "imgl3wShutdown"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "imgl3wShutdown"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 314,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_Init",
+      "original_type": "bool (const char *)",
+      "reason": "C++ allocation operator requires original provider: ('operator new', 'void *(size_t, ImNewWrapper, void *)')",
+      "source_name": "ImGui_ImplOpenGL3_Init",
+      "source_references": [
+        "DebugCheckVersionAndDataLayout",
+        "GetIO",
+        "GetPlatformIO",
+        "ImGui_ImplOpenGL3_Data",
+        "ImGui_ImplOpenGL3_InitLoader",
+        "MemAlloc",
+        "imgl3wProcs",
+        "operator_new___Znwm12ImNewWrapperPv",
+        "sscanf",
+        "strcat"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 429,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_Shutdown",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: GetIO, GetPlatformIO, IM_DELETE, ImGui_ImplOpenGL3_GetBackendData, ImGui_ImplOpenGL3_ShutdownLoader",
+      "source_name": "ImGui_ImplOpenGL3_Shutdown",
+      "source_references": [
+        "GetIO",
+        "GetPlatformIO",
+        "IM_DELETE",
+        "ImGui_ImplOpenGL3_DestroyDeviceObjects",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_ShutdownLoader"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "GetIO",
+        "GetPlatformIO",
+        "IM_DELETE",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_ShutdownLoader"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 447,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_NewFrame",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: ImGui_ImplOpenGL3_GetBackendData, ImGui_ImplOpenGL3_InitLoader",
+      "source_name": "ImGui_ImplOpenGL3_NewFrame",
+      "source_references": [
+        "ImGui_ImplOpenGL3_CreateDeviceObjects",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 458,
+      "linkage": "internal",
+      "name": "ImGui_ImplOpenGL3_SetupRenderState",
+      "original_type": "void (ImDrawData *, int, int, GLuint)",
+      "reason": "unsupported aggregate array extents",
+      "source_name": "ImGui_ImplOpenGL3_SetupRenderState",
+      "source_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "imgl3wProcs"
+      ],
+      "status": "blocked"
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 535,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_RenderDrawData",
+      "original_type": "void (ImDrawData *)",
+      "reason": "address-of requires a stable lvalue",
+      "source_name": "ImGui_ImplOpenGL3_RenderDrawData",
+      "source_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader",
+        "ImGui_ImplOpenGL3_SetupRenderState",
+        "ImGui_ImplOpenGL3_UpdateTexture",
+        "ImVec2",
+        "__cxx_record_ImVector_1cb99a9a39702a1e",
+        "imgl3wProcs"
+      ],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 720,
+      "linkage": "internal",
+      "name": "ImGui_ImplOpenGL3_DestroyTexture",
+      "original_type": "void (ImTextureData *)",
+      "reason": "unlinked identifiers: imgl3wProcs",
+      "source_name": "ImGui_ImplOpenGL3_DestroyTexture",
+      "source_references": [
+        "imgl3wProcs"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "imgl3wProcs"
+      ]
+    },
+    {
+      "kind": "FunctionDecl",
+      "line": 730,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_UpdateTexture",
+      "original_type": "void (ImTextureData *)",
+      "reason": "C++ span reference escapes through call",
+      "source_name": "ImGui_ImplOpenGL3_UpdateTexture",
+      "source_references": [
+        "ImGui_ImplOpenGL3_DestroyTexture",
+        "imgl3wProcs"
+      ],
+      "status": "blocked"
+    },
+    {
+      "emitted_constructor_providers": [
+        "__cxx_record_ImVector_06f90b83d9fd6e47"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 807,
+      "linkage": "internal",
+      "name": "CheckShader",
+      "original_type": "bool (GLuint, const char *)",
+      "reason": "unlinked identifiers: ImGui_ImplOpenGL3_GetBackendData, __cxx_record_ImVector_06f90b83d9fd6e47, fprintf, stderr",
+      "source_name": "CheckShader",
+      "source_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "__cxx_record_ImVector_06f90b83d9fd6e47",
+        "fprintf",
+        "imgl3wProcs",
+        "stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "__cxx_record_ImVector_06f90b83d9fd6e47",
+        "fprintf",
+        "stderr"
+      ]
+    },
+    {
+      "emitted_constructor_providers": [
+        "__cxx_record_ImVector_06f90b83d9fd6e47"
+      ],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 826,
+      "linkage": "internal",
+      "name": "CheckProgram",
+      "original_type": "bool (GLuint, const char *)",
+      "reason": "unlinked identifiers: ImGui_ImplOpenGL3_GetBackendData, __cxx_record_ImVector_06f90b83d9fd6e47, fprintf, stderr",
+      "source_name": "CheckProgram",
+      "source_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "__cxx_record_ImVector_06f90b83d9fd6e47",
+        "fprintf",
+        "imgl3wProcs",
+        "stderr"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "__cxx_record_ImVector_06f90b83d9fd6e47",
+        "fprintf",
+        "stderr"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 844,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_CreateDeviceObjects",
+      "original_type": "bool ()",
+      "reason": "unlinked identifiers: CheckProgram, CheckShader, ImGui_ImplOpenGL3_GetBackendData, ImGui_ImplOpenGL3_InitLoader, sscanf",
+      "source_name": "ImGui_ImplOpenGL3_CreateDeviceObjects",
+      "source_references": [
+        "CheckProgram",
+        "CheckShader",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader",
+        "imgl3wProcs",
+        "sscanf"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "CheckProgram",
+        "CheckShader",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader",
+        "sscanf"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 1043,
+      "linkage": "external",
+      "name": "ImGui_ImplOpenGL3_DestroyDeviceObjects",
+      "original_type": "void ()",
+      "reason": "unlinked identifiers: GetPlatformIO, ImGui_ImplOpenGL3_GetBackendData, ImGui_ImplOpenGL3_InitLoader",
+      "source_name": "ImGui_ImplOpenGL3_DestroyDeviceObjects",
+      "source_references": [
+        "GetPlatformIO",
+        "ImGui_ImplOpenGL3_DestroyTexture",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader",
+        "imgl3wProcs"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "GetPlatformIO",
+        "ImGui_ImplOpenGL3_GetBackendData",
+        "ImGui_ImplOpenGL3_InitLoader"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6ebe58",
+        "clang_initializer_kind": null,
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6ebe58"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 694,
+        "source_offset": 34654,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 694,
+      "linkage": "internal",
+      "name": "libgl__header_global_4f7cb698437193e1",
+      "original_type": "void *",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "source_name": "libgl",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6ebed8",
+        "clang_initializer_kind": null,
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6ebed8"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 695,
+        "source_offset": 34693,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 695,
+      "linkage": "internal",
+      "name": "libglx__header_global_8977ad21aa6ed3dc",
+      "original_type": "void *",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "source_name": "libglx",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6ebf58",
+        "clang_initializer_kind": null,
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6ebf58"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 696,
+        "source_offset": 34730,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 696,
+      "linkage": "internal",
+      "name": "libegl__header_global_13a7923fd15f8c15",
+      "original_type": "void *",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "source_name": "libegl",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6ebfd8",
+        "clang_initializer_kind": null,
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6ebfd8"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 697,
+        "source_offset": 34784,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 697,
+      "linkage": "internal",
+      "name": "gl_get_proc_address__header_global_d8e92a95393c0a96",
+      "original_type": "GL3WglProc (*)(const char *)",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "source_name": "gl_get_proc_address",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6f02e8",
+        "clang_initializer_kind": "call",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6f02e8"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 819,
+        "source_offset": 38047,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 819,
+      "linkage": "internal",
+      "name": "version__header_global_6b65394adbf9978b",
+      "original_type": "struct (unnamed at source/imgui/include/imgui_impl_opengl3_loader.h:819:8)",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "reason": "constructor requires Clang-identified record type: struct (unnamed at source/imgui/include/imgui_impl_opengl3_loader.h:819:8)",
+      "source_name": "version",
+      "source_references": [],
+      "status": "blocked"
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6f63a0",
+        "clang_initializer_kind": "c",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "internal",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6f63a0"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 873,
+        "source_offset": 39331,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 873,
+      "linkage": "internal",
+      "name": "proc_names__header_global_1209726ad58576f0",
+      "object_storage": {
+        "abi": "source-pointer-array/1",
+        "element_declaration": "const char *[]",
+        "extent": 63,
+        "name": "proc_names__header_global_1209726ad58576f0",
+        "original_type": "const char *[63]",
+        "stride": 8
+      },
+      "original_type": "const char *[63]",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "source_name": "proc_names",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "emitted_constructor_providers": [
+        "ImGL3WProcs"
+      ],
+      "external_storage_imports": [],
+      "header_global_definition": {
+        "clang_decl_id": "0x20aec6f7e40",
+        "clang_initializer_kind": "call",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "linkage": "external",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "redeclaration_chain": [
+          "0x20aec6f7e40",
+          "0x20aec60d038"
+        ],
+        "source_header": "source/imgui/include/imgui_impl_opengl3_loader.h",
+        "source_line": 939,
+        "source_offset": 40814,
+        "translation_unit": "source/imgui/src/imgui_impl_opengl3.cpp"
+      },
+      "kind": "VarDecl",
+      "line": 939,
+      "linkage": "external",
+      "name": "imgl3wProcs",
+      "original_type": "union ImGL3WProcs",
+      "physical_source": "source/imgui/include/imgui_impl_opengl3_loader.h",
+      "reason": "unlinked identifiers: ImGL3WProcs",
+      "source_name": "imgl3wProcs",
+      "source_references": [
+        "ImGL3WProcs"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "ImGL3WProcs"
+      ]
+    },
+    {
+      "kind": "CXXRecordDecl",
+      "line": 2203,
+      "linkage": "external",
+      "name": "__cxx_record_ImVector_06f90b83d9fd6e47",
+      "original_type": "",
+      "reason": "overloaded non-operator methods require type-selected calls",
+      "source_name": "ImVector<char>",
+      "source_references": [
+        "MemAlloc",
+        "MemFree"
+      ],
+      "status": "blocked"
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 6,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 25,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-d23e3cf2ea39a860\\source\\imgui\\src\\imgui_impl_opengl3.cpp.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/imgui/src/imgui_impl_opengl3.cpp",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

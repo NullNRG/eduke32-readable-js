@@ -1,0 +1,949 @@
+// Source-first C/C++ -> JavaScript (original identifiers/structured statements).
+// Original translation unit: source/imgui/src/imgui_tables.cpp
+// Status: partial STRICT semantic conversion, not a full engine module.
+// Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.
+
+function cCopyTrivialClass(value, C, fields) {
+  if (!(value instanceof C)) throw new TypeError('C++ trivial class copy type mismatch');
+  const copy=Object.create(C.prototype);
+  for (const field of fields) copy[field]=value[field];
+  return copy;
+}
+
+// Bounded source-language pointer aliases over native JS typed buffers/arrays.
+// Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
+const cPointer = source => {
+  if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
+  if (source && source.__cPointer === true) return source;
+  const allocation=source&&globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(source);
+  if (allocation) return {__cPointer:true,buffer:allocation.slots,lower:0,
+    upper:allocation.extent,offset:0,array:true,stride:allocation.extent};
+  if (Array.isArray(source)) {
+    const bytes=source[Symbol.for('source-first.clang-byte-record-array/1')];
+    return { __cPointer:true, buffer:source, lower:0, upper:bytes?bytes.length:source.length,
+      offset:0,array:true,stride:bytes&&source.length?bytes.length/source.length:1 };
+  }
+  if (!ArrayBuffer.isView(source) || source instanceof DataView)
+    throw new TypeError('C pointer requires bounded array storage');
+  return { __cPointer:true, buffer:source.buffer, lower:source.byteOffset,
+    upper:source.byteOffset+source.byteLength, offset:source.byteOffset, array:false };
+};
+// A static C array address is a link-time relocation. Resolve its proven
+// source owner on use, after module initialization; do not read an ESM binding
+// early while merely constructing a forward/static pointer initializer.
+const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+const cPointerElementRef = (source,index) => {
+  if (source?.__cDeferredPointer===true || source?.__cDeferredReference===true)
+    return cPointerElementRef(source.resolve(),index);
+  // C++ native_t is pointer-sized (64-bit on this build) and lowers to
+  // BigInt. Convert only when the index is representable exactly in JS.
+  if (typeof index === 'bigint') {
+    if (index < -BigInt(Number.MAX_SAFE_INTEGER) || index > BigInt(Number.MAX_SAFE_INTEGER))
+      throw new RangeError('C pointer index exceeds exactly representable bounds');
+    index = Number(index);
+  }
+  if (!Number.isSafeInteger(index)) throw new TypeError('C pointer index requires an integer');
+  if (source?.__cReference===true) {
+    if (index!==0) throw new RangeError('C single-object pointer escapes original storage');
+    return source;
+  }
+  const pointer=cPointer(source);
+  if (!pointer.array) {
+    const allocation=globalThis[Symbol.for('source-first.pointer-array-allocations/1')]?.get(pointer.buffer);
+    const offset=pointer.offset+index*8;
+    if(!allocation)throw new TypeError('C aggregate/pointer slot requires a proven source array');
+    if(!Number.isSafeInteger(offset)||offset%8||offset<pointer.lower||offset+8>pointer.upper||
+        offset<allocation.lower||offset+8>allocation.upper)throw new RangeError('Pointer slot escapes original LP64 allocation');
+    return {get value(){return allocation.read(offset);},set value(value){allocation.write(offset,value);}};
+  }
+  const stride=pointer.stride || 1;
+  const offset=pointer.offset+index*stride;
+  if (!Number.isSafeInteger(offset) || offset<pointer.lower || offset>=pointer.upper || offset%stride)
+    throw new RangeError('C aggregate/pointer array index escapes original bounds');
+  const slot=offset/stride;
+  return {get value(){return pointer.buffer[slot];},set value(next){pointer.buffer[slot]=next;}};
+};
+const cTypedPointer = (source, Type) => {
+  if (!Type || !Number.isSafeInteger(Type.BYTES_PER_ELEMENT)) throw new TypeError('Unsupported pointer element type');
+  if (source===null) return null;
+  const pointerBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
+  if(pointerBytes)return cPointer(pointerBytes);
+  if (Array.isArray(source)) return { ...cPointer(source), upper:source.length*Type.BYTES_PER_ELEMENT, stride:Type.BYTES_PER_ELEMENT };
+  return cPointer(source);
+};
+const cPointerOffset = (source, delta, stride=1) => {
+  const initial=cPointer(source);
+  const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
+  if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
+  const change=Number(delta)*stride, next=p.offset+change;
+  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || next<p.lower || next>p.upper)
+    throw new RangeError('C pointer escapes original array bounds');
+  return { ...p, offset:next };
+};
+const cDeref = (source, Type) => {
+  if (source && !ArrayBuffer.isView(source) && source.__cPointer !== true &&
+      typeof source==='object' && 'value' in source) return source;
+  const p=cPointer(source);
+  if (p.array) {
+    if (p.offset>=p.upper) throw new RangeError('C array pointer dereferences one-past-end');
+    if (Type.BYTES_PER_ELEMENT!==p.stride || p.offset%p.stride!==0)
+      throw new TypeError('Array element type does not match original pointer stride');
+    const index=p.offset/p.stride;
+    return {get value(){return p.buffer[index];}, set value(value){p.buffer[index]=value;}};
+  }
+  const width=Type?.BYTES_PER_ELEMENT;
+  if (!Number.isSafeInteger(width) || width<=0 || p.offset+width>p.upper)
+    throw new RangeError('C typed pointer dereference out of bounds');
+  const access=new Map([
+    [Uint8Array,['getUint8','setUint8']], [Int8Array,['getInt8','setInt8']],
+    [Uint16Array,['getUint16','setUint16']], [Int16Array,['getInt16','setInt16']],
+    [Uint32Array,['getUint32','setUint32']], [Int32Array,['getInt32','setInt32']],
+    [Float32Array,['getFloat32','setFloat32']], [Float64Array,['getFloat64','setFloat64']],
+    [BigInt64Array,['getBigInt64','setBigInt64']], [BigUint64Array,['getBigUint64','setBigUint64']]
+  ]).get(Type);
+  if (!access) throw new TypeError('Unsupported C pointer scalar type');
+  const view=new DataView(p.buffer,p.offset,width);
+  return {get value(){return view[access[0]](0,true);},
+          set value(next){view[access[1]](0,next,true);}};
+};
+const cPointerCompare = (left,right,op) => {
+  if (left?.__cDeferredReference===true) left=left.resolve();
+  if (right?.__cDeferredReference===true) right=right.resolve();
+  if (left===null || right===null) {
+    if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
+    throw new TypeError('Cannot order a null C pointer');
+  }
+  if(typeof left==='function'||typeof right==='function'){
+    if(op==='=='||op==='!=')return op==='=='?left===right:left!==right;
+    throw new TypeError('Cannot order original function pointers');
+  }
+  const opaqueRecord=value=>value?.[Symbol.for('source-first.original-record-storage/1')]===true&&
+    !value[Symbol.for('source-first.original-byte-record-storage/1')];
+  if(opaqueRecord(left)||opaqueRecord(right)){
+    if(op==='=='||op==='!=')return op==='=='?left===right:left!==right;
+    throw new TypeError('Cannot order nonbyte original record pointers');
+  }
+  // Scalar global addresses are stable owner-created reference objects, not
+  // array-buffer addresses. Equality is legal; ordering unrelated scalar
+  // objects is deliberately rejected rather than guessed.
+  if (left?.__cReference===true || right?.__cReference===true) {
+    if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
+    throw new TypeError('Cannot order scalar reference pointers');
+  }
+  const pointerAddress=value=>cPointer(value?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes||value);
+  const a=Array.isArray(left) && right?.__cPointer && right.array
+    ? {...cPointer(left),upper:left.length*right.stride,stride:right.stride} : pointerAddress(left);
+  const b=Array.isArray(right) && a.array
+    ? {...cPointer(right),upper:right.length*a.stride,stride:a.stride} : pointerAddress(right);
+  const address=p=>{const bytes=p.array&&p.buffer[Symbol.for('source-first.clang-byte-record-array/1')];
+    return bytes?{buffer:bytes.buffer,offset:bytes.byteOffset+p.offset,lower:bytes.byteOffset+p.lower,upper:bytes.byteOffset+p.upper}:p;};
+  const addressA=address(a),addressB=address(b);
+  const equal=addressA.buffer===addressB.buffer && addressA.offset===addressB.offset;
+  if (op==='==') return equal;
+  if (op==='!=') return !equal;
+  if (addressA.buffer!==addressB.buffer || addressA.lower!==addressB.lower || addressA.upper!==addressB.upper)
+    throw new TypeError('Cannot order pointers to different source array bounds');
+  switch(op){case '<':return addressA.offset<addressB.offset;case '<=':return addressA.offset<=addressB.offset;
+    case '>':return addressA.offset>addressB.offset;case '>=':return addressA.offset>=addressB.offset;}
+  throw new TypeError('Invalid C pointer comparison');
+};
+const cPointerDiff = (left,right,stride) => {
+  const a=Array.isArray(left) ? {...cPointer(left),upper:left.length*stride,stride} : cPointer(left);
+  const b=Array.isArray(right) ? {...cPointer(right),upper:right.length*stride,stride} : cPointer(right);
+  if (a.buffer!==b.buffer || a.lower!==b.lower || a.upper!==b.upper)
+    throw new TypeError('Cannot subtract pointers to different source arrays');
+  const delta=(a.offset-b.offset)/stride;
+  if (!Number.isSafeInteger(delta)) throw new RangeError('Misaligned C pointer difference');
+  return delta;
+};
+
+const cRecordObject = source => {
+  if (source?.__cDeferredPointer === true || source?.__cDeferredReference === true) return cRecordObject(source.resolve());
+  if (source?.__cReference === true) return source.value;
+  if (Array.isArray(source)) { if (!source.length) throw new RangeError("C record pointer dereferences empty array"); return source[0]; }
+  if (source?.__cPointer === true) {
+    if (!source.array) throw new TypeError("C record pointer requires source-backed object slots");
+    return cPointerElementRef(source,0).value;
+  }
+  return source;
+};
+const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });
+const cObjectFieldRef = (owner, field) => { const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); };
+const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });
+const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });
+// Native JavaScript implementation of verified C byte-memory operations.
+// This is not CPU emulation. All accesses remain inside the original storage.
+// A C source pointer represented by an opaque JS array of nonbyte values is
+// rejected: its object representation has not been proven or materialized.
+const cByteMemory = (() => {
+  const extent = (source, amount) => {
+    const n = Number(amount);
+    if ((typeof amount !== 'number' && typeof amount !== 'bigint') ||
+        !Number.isSafeInteger(n) || n < 0) throw new RangeError('invalid C byte count');
+    let buffer, start, lower, upper;
+    if (source?.__cDeferredPointer===true || source?.__cDeferredReference===true)
+      return extent(source.resolve(),amount);
+    if (source?.__cReference===true) return extent(source.value,amount);
+    if (source && source.__cPointer === true) {
+      const records=source.array && source.buffer?.[Symbol.for('source-first.clang-byte-record-array/1')];
+      if (records instanceof Uint8Array) {
+        buffer=records.buffer;start=records.byteOffset+source.offset;
+        lower=records.byteOffset+source.lower;upper=records.byteOffset+source.upper;
+        if (source.upper>records.byteLength) throw new RangeError('C record pointer bounds exceed original allocation');
+      } else if (source.array || !(source.buffer instanceof ArrayBuffer))
+        throw new TypeError('C byte operation needs actual contiguous byte storage');
+      else {({buffer,lower,upper}=source); start=source.offset;}
+    } else if (ArrayBuffer.isView(source) && !(source instanceof DataView)) {
+      ({buffer}=source); start=source.byteOffset;
+      lower=start; upper=start+source.byteLength;
+    } else {
+      const bytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')] ||
+                  source?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes;
+      if (!(bytes instanceof Uint8Array))
+        throw new TypeError('C byte operation requires bounded native TypedArray or C pointer');
+      ({buffer}=bytes);start=bytes.byteOffset;lower=start;upper=start+bytes.byteLength;
+    }
+    if (!Number.isSafeInteger(start) || start<lower || start>upper ||
+        !Number.isSafeInteger(upper) || n>upper-start)
+      throw new RangeError('C byte operation exceeds original allocation');
+    return {buffer,start,n,view:new Uint8Array(buffer,start,n)};
+  };
+  const cstring = source => {
+    // C's char* addresses have bounded storage, not JavaScript UTF-16 strings.
+    // Accept the same owned byte views as memcpy and stop only at a NUL byte.
+    if (source && source.__cPointer === true) {
+      if (source.array || !(source.buffer instanceof ArrayBuffer) ||
+          !Number.isSafeInteger(source.offset) || source.offset<source.lower ||
+          source.offset>source.upper)
+        throw new TypeError('unproven C char pointer storage');
+      return new Uint8Array(source.buffer,source.offset,source.upper-source.offset);
+    }
+    if (ArrayBuffer.isView(source) && !(source instanceof DataView))
+      return new Uint8Array(source.buffer,source.byteOffset,source.byteLength);
+    throw new TypeError('C string needs bounded native byte storage');
+  };
+  const terminator = value => {
+    const view=cstring(value), idx=view.indexOf(0);
+    if (idx<0) throw new RangeError('unterminated C string exceeds its allocation');
+    return {view,idx};
+  };
+  const pair = (dest,src,count,overlapAllowed) => {
+    const d=extent(dest,count),s=extent(src,count);
+    const overlaps=d.buffer===s.buffer && d.start<s.start+d.n && s.start<d.start+d.n;
+    if (overlaps && !overlapAllowed) throw new RangeError('overlapping C memcpy has undefined behavior');
+    return {d,s};
+  };
+  // ISO C printf-compatible byte formatting for *verified* sprintf/snprintf
+  // declarations. Only byte-representable scalar conversions are supported;
+  // unsupported ABI conversions fail closed instead of silently corrupting
+  // source game data or overflowing a C allocation.
+  const asCBytes = value => {
+    if (typeof value === 'string') {
+      const bytes = new Uint8Array(value.length + 1);
+      for (let i=0;i<value.length;i++) {
+        const n=value.charCodeAt(i);
+        if (n>255) throw new TypeError('C literal contains nonbyte Unicode');
+        bytes[i]=n;
+      }
+      return bytes;
+    }
+    return cstring(value);
+  };
+  const toText = bytes => {
+    let s=''; for (let i=0;i<bytes.length;i++) s+=String.fromCharCode(bytes[i]);
+    return s;
+  };
+  const asInteger = value => {
+    if (typeof value === 'bigint') return value;
+    if (typeof value !== 'number' || !Number.isSafeInteger(value))
+      throw new TypeError('C printf integer requires proven integral scalar');
+    return BigInt(value);
+  };
+  const formatC = (format,args) => {
+    const raw=asCBytes(format),nul=raw.indexOf(0);
+    if(nul<0)throw new RangeError('unterminated printf format');
+    const fmt=toText(raw.subarray(0,nul));
+    let output='',at=0;
+    const next=()=>{if(at>=args.length)throw new TypeError('missing C vararg');return args[at++];};
+    for(let i=0;i<fmt.length;) {
+      if(fmt[i]!=='%') {output+=fmt[i++];continue;}
+      i++;
+      if(fmt[i]==='%'){output+='%';i++;continue;}
+      let flags='';while(i<fmt.length && '-+ #0'.includes(fmt[i]))flags+=fmt[i++];
+      let width=null;
+      if(fmt[i]==='*') {width=Number(asInteger(next()));i++;}
+      else {const start=i;while(/[0-9]/.test(fmt[i]??''))i++;
+        if(i>start)width=Number(fmt.slice(start,i));}
+      if(width!==null && width<0) {flags+='-';width=-width;}
+      let precision=null;
+      if(fmt[i]==='.') {
+        i++;if(fmt[i]==='*'){precision=Number(asInteger(next()));i++;if(precision<0)precision=null;}
+        else {const start=i;while(/[0-9]/.test(fmt[i]??''))i++;
+          precision=Number(fmt.slice(start,i)||'0');}
+      }
+      let length='';
+      if('hljztL'.includes(fmt[i]??'') && i<fmt.length){length=fmt[i++];
+        if((length==='h'||length==='l')&&fmt[i]===length)length+=fmt[i++];}
+      const spec=fmt[i++];
+      if(!spec || !'diuoxXcspfFeEgG'.includes(spec))
+        throw new TypeError('unsupported C printf conversion: '+spec);
+      if(width!==null && (!Number.isSafeInteger(width)||width>1_000_000) ||
+        precision!==null && (!Number.isSafeInteger(precision)||precision>1_000_000))
+        throw new RangeError('C printf width or precision outside safe bound');
+      let result='',sign='',prefix='';
+      if('diuoxX'.includes(spec)) {
+        if(!['','h','hh','l','ll','j','z','t'].includes(length))
+          throw new TypeError('unproven integer printf length');
+        const bits=length==='hh'?8:length==='h'?16:['l','ll','j','z','t'].includes(length)?64:32;
+        const signed=spec==='d'||spec==='i';
+        let n=asInteger(next()); n=signed?BigInt.asIntN(bits,n):BigInt.asUintN(bits,n);
+        if(n<0n){sign='-';n=-n;}
+        else if(signed){sign=flags.includes('+')?'+':flags.includes(' ')?' ':'';}
+        const base='xX'.includes(spec)?16:spec==='o'?8:10;
+        result=n.toString(base);
+        if(spec==='X')result=result.toUpperCase();
+        if(precision===0 && n===0n)result='';
+        if(precision!==null)result=result.padStart(precision,'0');
+        if(flags.includes('#')) {
+          if('xX'.includes(spec) && n!==0n) prefix=spec==='X'?'0X':'0x';
+          if(spec==='o' && !result.startsWith('0')) prefix='0';
+        }
+      } else if(spec==='s') {
+        if(length)throw new TypeError('wide printf string unsupported');
+        const bytes=asCBytes(next());const zero=bytes.indexOf(0);
+        if(precision===null && zero<0)throw new RangeError('unterminated C printf string');
+        const end=precision===null?zero:Math.min(precision,zero<0?bytes.length:zero);
+        if(end>bytes.length)throw new RangeError('C string formatting overreads source');
+        result=toText(bytes.subarray(0,end));
+      } else if(spec==='c') {
+        if(length)throw new TypeError('wide printf character unsupported');
+        result=String.fromCharCode(Number(BigInt.asUintN(8,asInteger(next()))));
+      } else if('fFeEgG'.includes(spec)) {
+        if(length && length!=='l')throw new TypeError('unproven floating printf length');
+        const n=Number(next());if(Number.isNaN(n)){result='nan';}
+        else if(!Number.isFinite(n)){result='inf';sign=n<0?'-':flags.includes('+')?'+':'';}
+        else {
+          if(n<0 || Object.is(n,-0))sign='-';
+          else sign=flags.includes('+')?'+':flags.includes(' ')?' ':'';
+          const v=Math.abs(n),p=precision===null?6:precision;
+          if(p>100)throw new RangeError('C float precision exceeds proven implementation');
+          if(spec==='f'||spec==='F')result=v.toFixed(p);
+          else if(spec==='e'||spec==='E') {
+            result=v.toExponential(p).replace(/e([+-])(\d)$/, 'e$10$2');
+          } else {
+            result=v.toPrecision(Math.max(1,p)).replace(/(\.\d*?)0+(e|$)/,'$1$2').replace(/\.(e|$)/,'$1');
+          }
+          if(flags.includes('#')&&!result.includes('.'))result=result.replace(/(e|$)/,'.'+'$1');
+        }
+        if(/[FEG]/.test(spec))result=result.toUpperCase();
+      } else throw new TypeError('unsupported printf conversion');
+      const left=flags.includes('-'),fill=flags.includes('0')&&!left&&precision===null?'0':' ';
+      const n=sign.length+prefix.length+result.length;
+      if(width!==null&&n<width) {
+        const pad=fill.repeat(width-n);
+        output+=left?sign+prefix+result+pad:fill==='0'?sign+prefix+pad+result:pad+sign+prefix+result;
+      } else output+=sign+prefix+result;
+      if(output.length>16_777_216)throw new RangeError('C printf output excessive');
+    }
+    return output;
+  };
+  const writeFormatted = (dest,limit,format,args,truncates) => {
+    const rendered=formatC(format,args);
+    const available=Number(limit);
+    if(!Number.isSafeInteger(available)||available<0)throw new RangeError('invalid C printf destination extent');
+    // snprintf with n=0 must never dereference dest (C permits null).
+    if(!available && truncates)return rendered.length;
+    const bytes=extent(dest,truncates?available:rendered.length+1);
+    if(!truncates && rendered.length+1>bytes.n)throw new RangeError('sprintf overflow');
+    const actual=Math.min(rendered.length,bytes.n-1);
+    for(let i=0;i<actual;i++)bytes.view[i]=rendered.charCodeAt(i);
+    bytes.view[actual]=0;
+    return rendered.length;
+  };
+  return Object.freeze({
+    sprintf(dest,format,...args) {
+      // The destination is a known bounded source-level C allocation.
+      const d=extent(dest,0);const cap=dest&&dest.__cPointer===true?dest.upper-d.start:dest.byteLength;return writeFormatted(dest,cap,format,args,false);
+    },
+    snprintf(dest,limit,format,...args) {return writeFormatted(dest,limit,format,args,true);},
+    memcpy(dest,src,count) {
+      const {d,s}=pair(dest,src,count,false);d.view.set(s.view);return dest;
+    },
+    memmove(dest,src,count) {
+      const {d,s}=pair(dest,src,count,true);d.view.set(s.view.slice());return dest;
+    },
+    memset(dest,byte,count) {
+      const d=extent(dest,count);
+      if (typeof byte!=='number' || !Number.isFinite(byte)) throw new TypeError('C memset requires integer scalar');
+      d.view.fill(Math.trunc(byte)&255);return dest;
+    },
+    memcmp(a,b,count) {
+      const x=extent(a,count).view,y=extent(b,count).view;
+      for (let i=0;i<x.length;i++) if (x[i]!==y[i]) return x[i]-y[i];
+      return 0;
+    },
+    strlen(value) { return terminator(value).idx; },
+    strcmp(a,b) {
+      const x=terminator(a).view,y=terminator(b).view;
+      for (let i=0;;i++) {
+        const d=x[i]-y[i];
+        if (d || x[i]===0) return d;
+      }
+    },
+    strncmp(a,b,n) {
+      const count=Number(n);
+      if (!Number.isSafeInteger(count) || count<0) throw new RangeError('invalid C string bound');
+      if (count===0) return 0;
+      const x=cstring(a),y=cstring(b);
+      for (let i=0;i<count;i++) {
+        if (i>=x.length || i>=y.length) throw new RangeError('C string read exceeds allocation');
+        const d=x[i]-y[i];
+        if (d || x[i]===0) return d;
+      }
+      return 0;
+    },
+    strcasecmp(a,b) {
+      const x=terminator(a).view,y=terminator(b).view;
+      const fold=v=>v>=65&&v<=90?v+32:v;
+      for(let i=0;;i++){
+        const d=fold(x[i])-fold(y[i]);
+        if(d||x[i]===0)return d;
+      }
+    },
+    strncasecmp(a,b,n) {
+      const count=Number(n);
+      if(!Number.isSafeInteger(count)||count<0)throw new RangeError('invalid bounded C case compare');
+      if(count===0)return 0;
+      const x=cstring(a),y=cstring(b),fold=v=>v>=65&&v<=90?v+32:v;
+      for(let i=0;i<count;i++){
+        if(i>=x.length||i>=y.length)throw new RangeError('C case compare reads beyond allocation');
+        const d=fold(x[i])-fold(y[i]);
+        if(d||x[i]===0)return d;
+      }
+      return 0;
+    },
+    strcpy(dest,src) {
+      const {idx}=terminator(src);
+      const {d,s}=pair(dest,src,idx+1,false);
+      d.view.set(s.view);return dest;
+    },
+    strncpy(dest,src,n) {
+      const count=Number(n);
+      if (!Number.isSafeInteger(count) || count<0) throw new RangeError('invalid C string copy bound');
+      const d=extent(dest,count);
+      if (!count)return dest;
+      const s=cstring(src);
+      let copied=0;
+      while (copied<count && copied<s.length && s[copied]!==0)copied++;
+      if (copied===s.length && copied<count)throw new RangeError('C string read exceeds allocation');
+      // strncpy includes the NUL if encountered, then pads with NULs.
+      const readBytes=Math.min(count,copied+(copied<s.length && s[copied]===0?1:0));
+      const srcExtent=extent(src,readBytes);
+      if (d.buffer===srcExtent.buffer && d.start<srcExtent.start+readBytes &&
+          srcExtent.start<d.start+count)
+        throw new RangeError('overlapping C strncpy has undefined behavior');
+      d.view.fill(0);
+      if (copied)d.view.set(srcExtent.view.subarray(0,copied));
+      return dest;
+    }
+  });
+})();
+
+const i32 = value => Number(value) | 0;
+const u32 = value => Number(value) >>> 0;
+const u64 = value => BigInt.asUintN(64, BigInt(value));
+const fabsf = a => Math.fround(Math.abs(Math.fround(a)));
+
+// C/C++ source: source/imgui/include/imgui_internal.h:2941
+export function ImGuiTableInstanceData() {
+  return ImGuiTableInstanceData.type || (ImGuiTableInstanceData.type = class ImGuiTableInstanceData__implementation {
+  constructor() {
+    (this.TableInstanceID = u32(0));
+    (this.LastOuterHeight = Math.fround((this.LastTopHeadersRowHeight = Math.fround((this.LastFrozenHeight = Math.fround(Math.fround(0)))))));
+    (this.HoveredRowLast = i32((this.HoveredRowNext = i32((-1)))));
+  }
+});
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:3127
+export function ImGuiTableSettings() {
+  return ImGuiTableSettings.type || (ImGuiTableSettings.type = class ImGuiTableSettings__implementation {
+  constructor() {
+    cByteMemory.memset(this, 0, 20);
+  }
+  GetColumnSettings() {
+    return cPointerOffset(this, 1, 20);
+  }
+});
+}
+
+// C/C++ source: source/imgui/include/imgui.h:295
+export function ImVec2() {
+  return ImVec2.type || (ImVec2.type = class ImVec2__implementation {
+  constructor() { throw new TypeError("Clang-selected constructor factory required"); }
+  __cxx_construct_3fdb0b4b21c3726c() {
+    this.x = Math.fround(0);
+    this.y = Math.fround(0);
+    
+  }
+  static __cxx_construct_3fdb0b4b21c3726c() {
+    const value=Object.create(ImVec2__implementation.prototype);
+    value.__cxx_construct_3fdb0b4b21c3726c();
+    return value;
+  }
+  __cxx_construct_edecdff36a89174e(_x, _y) {
+    this.x = _x;
+    this.y = _y;
+    
+  }
+  static __cxx_construct_edecdff36a89174e(_x, _y) {
+    const value=Object.create(ImVec2__implementation.prototype);
+    value.__cxx_construct_edecdff36a89174e(_x, _y);
+    return value;
+  }
+  __cxx_operator_6a20d07852a9c373(idx) {
+    0;
+    return (cDeref(cPointerOffset(cTypedPointer(cTypedPointer(this, Uint8Array), Float32Array), idx, Float32Array.BYTES_PER_ELEMENT), Float32Array).value);
+  }
+  __cxx_operator_4b2512a953823607(idx) {
+    0;
+    return Math.fround((cDeref(cPointerOffset(cTypedPointer(cTypedPointer(this, Uint8Array), Float32Array), idx, Float32Array.BYTES_PER_ELEMENT), Float32Array).value));
+  }
+});
+}
+
+// C/C++ source: source/imgui/include/imgui.h:308
+export function ImVec4() {
+  return ImVec4.type || (ImVec4.type = class ImVec4__implementation {
+  constructor() { throw new TypeError("Clang-selected constructor factory required"); }
+  __cxx_construct_3fdb0b4b21c3726c() {
+    this.x = Math.fround(0);
+    this.y = Math.fround(0);
+    this.z = Math.fround(0);
+    this.w = Math.fround(0);
+    
+  }
+  static __cxx_construct_3fdb0b4b21c3726c() {
+    const value=Object.create(ImVec4__implementation.prototype);
+    value.__cxx_construct_3fdb0b4b21c3726c();
+    return value;
+  }
+  __cxx_construct_33e919b602ff0017(_x, _y, _z, _w) {
+    this.x = _x;
+    this.y = _y;
+    this.z = _z;
+    this.w = _w;
+    
+  }
+  static __cxx_construct_33e919b602ff0017(_x, _y, _z, _w) {
+    const value=Object.create(ImVec4__implementation.prototype);
+    value.__cxx_construct_33e919b602ff0017(_x, _y, _z, _w);
+    return value;
+  }
+});
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:264
+export const TABLE_DRAW_CHANNEL_BG0 = i32(0);
+function __cxx_static_address_78cf7bb08d43e8a7c0ec50f1() {
+  return __cxx_static_address_78cf7bb08d43e8a7c0ec50f1.reference || (__cxx_static_address_78cf7bb08d43e8a7c0ec50f1.reference = {
+    __cReference: true,
+    get value() { return TABLE_DRAW_CHANNEL_BG0; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:265
+export const TABLE_DRAW_CHANNEL_BG2_FROZEN = i32(1);
+function __cxx_static_address_2e0753a851a9333d477ec8d5() {
+  return __cxx_static_address_2e0753a851a9333d477ec8d5.reference || (__cxx_static_address_2e0753a851a9333d477ec8d5.reference = {
+    __cReference: true,
+    get value() { return TABLE_DRAW_CHANNEL_BG2_FROZEN; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:266
+export const TABLE_DRAW_CHANNEL_NOCLIP = i32(2);
+function __cxx_static_address_ebe1ef91b30b3d74e0445b8f() {
+  return __cxx_static_address_ebe1ef91b30b3d74e0445b8f.reference || (__cxx_static_address_ebe1ef91b30b3d74e0445b8f.reference = {
+    __cReference: true,
+    get value() { return TABLE_DRAW_CHANNEL_NOCLIP; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:267
+export const TABLE_BORDER_SIZE = Math.fround(Math.fround(1));
+function __cxx_static_address_c37e242f535db146279088a8() {
+  return __cxx_static_address_c37e242f535db146279088a8.reference || (__cxx_static_address_c37e242f535db146279088a8.reference = {
+    __cReference: true,
+    get value() { return TABLE_BORDER_SIZE; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:268
+export const TABLE_RESIZE_SEPARATOR_HALF_THICKNESS = Math.fround(Math.fround(4));
+function __cxx_static_address_93348f60fb2374f054d8c752() {
+  return __cxx_static_address_93348f60fb2374f054d8c752.reference || (__cxx_static_address_93348f60fb2374f054d8c752.reference = {
+    __cReference: true,
+    get value() { return TABLE_RESIZE_SEPARATOR_HALF_THICKNESS; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:269
+export const TABLE_RESIZE_SEPARATOR_FEEDBACK_TIMER = Math.fround(Math.fround(0.0599999987));
+function __cxx_static_address_3db70f712fedd2c47ef9b37b() {
+  return __cxx_static_address_3db70f712fedd2c47ef9b37b.reference || (__cxx_static_address_3db70f712fedd2c47ef9b37b.reference = {
+    __cReference: true,
+    get value() { return TABLE_RESIZE_SEPARATOR_FEEDBACK_TIMER; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:272
+export function TableFixFlags(flags, outer_window) {
+  if ((i32((flags & i32(57344))) == 0)) {
+    (flags = i32((flags | i32(((Boolean(i32((flags & i32(16777216)))) || Boolean(i32((cRecordObject(outer_window).Flags & i32(64))))) ? 8192 : 32768)))));
+  }
+  if ((i32((flags & i32(57344))) == i32(16384))) {
+    (flags = i32((flags | i32(262144))));
+  }
+  if (Boolean(i32((flags & i32(1))))) {
+    (flags = i32((flags | i32(512))));
+  }
+  if (Boolean(i32((flags & i32((i32(16777216) | i32(33554432))))))) {
+    (flags = i32((flags & (~i32((i32(65536) | i32(131072)))))));
+  }
+  if (Boolean(i32((flags & i32(4096))))) {
+    (flags = i32((flags & (~i32(2048)))));
+  }
+  if ((i32((flags & i32((i32((i32((i32(1) | i32(4))) | i32(2))) | i32(8))))) == 0)) {
+    (flags = i32((flags | i32(16))));
+  }
+  if (Boolean(i32((cRecordObject(cRecordObject(outer_window).RootWindow).Flags & i32(256))))) {
+    (flags = i32((flags | i32(16))));
+  }
+  return flags;
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:746
+export function TableSetupColumnFlags(table, column, flags_in) {
+  let flags = i32(flags_in);
+  if ((i32((flags & i32(24))) == 0)) {
+    let table_sizing_policy = i32((cRecordObject(table).Flags & i32(57344)));
+    if (((table_sizing_policy == i32(8192)) || (table_sizing_policy == i32(16384)))) {
+      (flags = i32((flags | i32(16))));
+    } else {
+      (flags = i32((flags | i32(8))));
+    }
+  } else {
+    0;
+  }
+  if ((i32((cRecordObject(table).Flags & i32(1))) == 0)) {
+    (flags = i32((flags | i32(32))));
+  }
+  if ((Boolean(i32((flags & i32(1024)))) && Boolean(i32((flags & i32(2048)))))) {
+    (flags = i32((flags | i32(512))));
+  }
+  if ((i32((flags & i32(196608))) == 0)) {
+    (flags = i32((flags | i32(((cRecordObject(table).Columns.index_from_ptr(column) == 0) ? 65536 : 131072)))));
+  }
+  (cRecordObject(column).Flags = i32((flags | i32((cRecordObject(column).Flags & i32(251658240))))));
+  (cRecordObject(column).SortDirectionsAvailCount = (((cRecordObject(column).SortDirectionsAvailMask = (((cRecordObject(column).SortDirectionsAvailList = ((((0) & 255)) & 255))) & 255))) & 255));
+  if (Boolean(i32((cRecordObject(table).Flags & i32(8))))) {
+    let count = i32(0);
+    let mask = i32(0);
+    let list = i32(0);
+    if (((i32((flags & i32(16384))) != 0) && (i32((flags & i32(1024))) == 0))) {
+      (mask = i32((mask | i32((1 << i32(1))))));
+      (list = i32((list | i32((i32(1) << i32((count << 1)))))));
+      ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => count, __cxx_lvalue_1 => { count = __cxx_lvalue_1; }));
+    }
+    if (((i32((flags & i32(32768))) != 0) && (i32((flags & i32(2048))) == 0))) {
+      (mask = i32((mask | i32((1 << i32(2))))));
+      (list = i32((list | i32((i32(2) << i32((count << 1)))))));
+      ((__cxx_lvalue_2) => { const previous = __cxx_lvalue_2.value; const next = i32((previous + 1)); __cxx_lvalue_2.value = next; return previous; })(cRef(() => count, __cxx_lvalue_3 => { count = __cxx_lvalue_3; }));
+    }
+    if (((i32((flags & i32(16384))) == 0) && (i32((flags & i32(1024))) == 0))) {
+      (mask = i32((mask | i32((1 << i32(1))))));
+      (list = i32((list | i32((i32(1) << i32((count << 1)))))));
+      ((__cxx_lvalue_4) => { const previous = __cxx_lvalue_4.value; const next = i32((previous + 1)); __cxx_lvalue_4.value = next; return previous; })(cRef(() => count, __cxx_lvalue_5 => { count = __cxx_lvalue_5; }));
+    }
+    if (((i32((flags & i32(32768))) == 0) && (i32((flags & i32(2048))) == 0))) {
+      (mask = i32((mask | i32((1 << i32(2))))));
+      (list = i32((list | i32((i32(2) << i32((count << 1)))))));
+      ((__cxx_lvalue_6) => { const previous = __cxx_lvalue_6.value; const next = i32((previous + 1)); __cxx_lvalue_6.value = next; return previous; })(cRef(() => count, __cxx_lvalue_7 => { count = __cxx_lvalue_7; }));
+    }
+    if ((Boolean(i32((cRecordObject(table).Flags & i32(134217728)))) || (count == 0))) {
+      (mask = i32((mask | i32((1 << i32(0))))));
+      ((__cxx_lvalue_8) => { const previous = __cxx_lvalue_8.value; const next = i32((previous + 1)); __cxx_lvalue_8.value = next; return previous; })(cRef(() => count, __cxx_lvalue_9 => { count = __cxx_lvalue_9; }));
+    }
+    (cRecordObject(column).SortDirectionsAvailList = ((((((list) & 255)) & 255)) & 255));
+    (cRecordObject(column).SortDirectionsAvailMask = ((((((mask) & 255)) & 255)) & 255));
+    (cRecordObject(column).SortDirectionsAvailCount = ((((((count) & 255)) & 255)) & 255));
+    TableFixColumnSortDirection(table, column);
+  }
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:1572
+export function TableInitColumnDefaults(table, column, init_mask) {
+  let flags = i32(cRecordObject(column).Flags);
+  if (Boolean(i32((init_mask & i32(1))))) {
+    let init_width_or_weight = Math.fround(cRecordObject(column).InitStretchWeightOrWidth);
+    (cRecordObject(column).WidthRequest = Math.fround(((Boolean(i32((flags & i32(16)))) && (init_width_or_weight > Math.fround(0))) ? init_width_or_weight : (-Math.fround(1)))));
+    (cRecordObject(column).StretchWeight = Math.fround((((init_width_or_weight > Math.fround(0)) && Boolean(i32((flags & i32(8))))) ? init_width_or_weight : (-Math.fround(1)))));
+    if ((init_width_or_weight > Math.fround(0))) {
+      (cRecordObject(column).AutoFitQueue = ((((0) & 255)) & 255));
+    }
+  }
+  if (Boolean(i32((init_mask & i32(2))))) {
+    (cRecordObject(column).DisplayOrder = (((((((((cRecordObject(table).Columns.index_from_ptr(column)) << 16) >> 16)) << 16) >> 16)) << 16) >> 16));
+  }
+  if (Boolean(i32((init_mask & i32(4))))) {
+    (cRecordObject(column).IsUserEnabled = Boolean((cRecordObject(column).IsUserEnabledNextFrame = Boolean(Boolean((Boolean(i32((flags & i32(2)))) ? 0 : 1))))));
+  }
+  if (Boolean(i32((init_mask & i32(8))))) {
+    (cRecordObject(column).SortOrder = (((((((Boolean(i32((flags & i32(4)))) ? 0 : (-1))) << 16) >> 16)) << 16) >> 16));
+    (cRecordObject(column).SortDirection = (((((Boolean(i32((flags & i32(4)))) ? (Boolean(i32((flags & i32(32768)))) ? i32(((((((2) << 24) >> 24)) << 24) >> 24)) : i32(((((1) & 255)) & 255))) : i32(((((((0) << 24) >> 24)) << 24) >> 24)))) & 255)) & 255));
+  }
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:2880
+export function TableGetColumnAvailSortDirection(column, n) {
+  0;
+  return i32((i32((i32(cRecordObject(column).SortDirectionsAvailList) >> i32((n << 1)))) & 3));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:2887
+export function TableFixColumnSortDirection(table, column) {
+  if (((i32(cRecordObject(column).SortOrder) == (-1)) || (i32((i32(cRecordObject(column).SortDirectionsAvailMask) & i32((1 << i32(cRecordObject(column).SortDirection))))) != 0))) {
+    return;
+  }
+  (cRecordObject(column).SortDirection = ((((((TableGetColumnAvailSortDirection(column, 0)) & 255)) & 255)) & 255));
+  (cRecordObject(table).IsSortSpecsDirty = Boolean(true));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:2899
+export function TableGetColumnNextSortDirection(column) {
+  0;
+  if ((i32(cRecordObject(column).SortOrder) == (-1))) {
+    return TableGetColumnAvailSortDirection(column, 0);
+  }
+  for (let n = i32(0); (n < 3); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => n, __cxx_lvalue_1 => { n = __cxx_lvalue_1; }))) {
+    if ((i32(cRecordObject(column).SortDirection) == i32(TableGetColumnAvailSortDirection(column, n)))) {
+      return TableGetColumnAvailSortDirection(column, (i32((n + 1)) % i32(cRecordObject(column).SortDirectionsAvailCount)));
+    }
+  }
+  0;
+  return 0;
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:3616
+export function TableSettingsCalcChunkSize(columns_count) {
+  return u64((BigInt(20) + BigInt((BigInt(u64(columns_count)) * BigInt(16)))));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:3656
+export function TableResetSettings(table) {
+  (cRecordObject(table).IsInitializing = Boolean((cRecordObject(table).IsSettingsDirty = Boolean(true))));
+  (cRecordObject(table).IsResetAllRequest = Boolean(false));
+  (cRecordObject(table).IsSettingsRequestLoad = Boolean(false));
+  (cRecordObject(table).SettingsLoadedFlags = i32(0));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:3882
+const __cxx_literal_4ebe87ee29b752420eda = Uint8Array.from([91, 37, 115, 93, 91, 48, 120, 37, 48, 56, 88, 44, 37, 100, 93, 10, 0]);
+const __cxx_literal_d72d71834451cdded81c = Uint8Array.from([82, 101, 102, 83, 99, 97, 108, 101, 61, 37, 103, 10, 0]);
+const __cxx_literal_04a13cc56ce236863025 = Uint8Array.from([67, 111, 108, 117, 109, 110, 32, 37, 45, 50, 100, 0]);
+const __cxx_literal_5a8f94bc5f49448384a2 = Uint8Array.from([32, 85, 115, 101, 114, 73, 68, 61, 37, 48, 56, 88, 0]);
+const __cxx_literal_01b14f17aad559ecb209 = Uint8Array.from([32, 87, 101, 105, 103, 104, 116, 61, 37, 46, 52, 102, 0]);
+const __cxx_literal_2044d5c264eb10b9c88b = Uint8Array.from([32, 87, 105, 100, 116, 104, 61, 37, 100, 0]);
+const __cxx_literal_f8c73aa1cd0f534dd344 = Uint8Array.from([32, 86, 105, 115, 105, 98, 108, 101, 61, 37, 100, 0]);
+const __cxx_literal_b65f5ae504f0d40e46d0 = Uint8Array.from([32, 79, 114, 100, 101, 114, 61, 37, 100, 0]);
+const __cxx_literal_78901c1640a2b47ab6e3 = Uint8Array.from([32, 83, 111, 114, 116, 61, 37, 100, 37, 99, 0]);
+const __cxx_literal_39b3e2cccdddf144436f = Uint8Array.from([10, 0]);
+const __cxx_literal_a0104050f23e7511f52b = Uint8Array.from([10, 0]);
+export function TableSettingsHandler_WriteAll(ctx, handler, buf) {
+  let g = cRecordObject(ctx);
+  for (let settings = g.SettingsTables.begin(); cPointerCompare(settings, null, "!="); (settings = g.SettingsTables.next_chunk(settings))) {
+    if ((cRecordObject(settings).ID == u32(0))) {
+      continue;
+    }
+    let save_size = Boolean((i32((cRecordObject(settings).SaveFlags & i32(1))) != 0));
+    let save_visible = Boolean((i32((cRecordObject(settings).SaveFlags & i32(4))) != 0));
+    let save_order = Boolean((i32((cRecordObject(settings).SaveFlags & i32(2))) != 0));
+    let save_sort = Boolean((i32((cRecordObject(settings).SaveFlags & i32(8))) != 0));
+    cRecordObject(buf).reserve(i32((i32((cRecordObject(buf).size() + 30)) + i32(Math.imul(i32(cRecordObject(settings).ColumnsCount), 50)))));
+    cRecordObject(buf).appendf(__cxx_literal_4ebe87ee29b752420eda, cRecordObject(handler).TypeName, cRecordObject(settings).ID, i32(cRecordObject(settings).ColumnsCount));
+    if ((cRecordObject(settings).RefScale != Math.fround(0))) {
+      cRecordObject(buf).appendf(__cxx_literal_d72d71834451cdded81c, cRecordObject(settings).RefScale);
+    }
+    let column = cRecordObject(settings).GetColumnSettings();
+    for (let column_n = i32(0); (column_n < i32(cRecordObject(settings).ColumnsCount)); (((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => column_n, __cxx_lvalue_1 => { column_n = __cxx_lvalue_1; })), ((__cxx_lvalue_2) => { const previous = __cxx_lvalue_2.value; const next = cPointerOffset(previous, 1, 16); __cxx_lvalue_2.value = next; return previous; })(cRef(() => column, __cxx_lvalue_3 => { column = __cxx_lvalue_3; })))) {
+      let save_column = Boolean((((((cRecordObject(column).UserID != u32(0)) || save_size) || save_visible) || save_order) || (save_sort && (i32(cRecordObject(column).SortOrder) != (-1)))));
+      if ((!save_column)) {
+        continue;
+      }
+      cRecordObject(buf).appendf(__cxx_literal_04a13cc56ce236863025, column_n);
+      if ((cRecordObject(column).UserID != u32(0))) {
+        cRecordObject(buf).appendf(__cxx_literal_5a8f94bc5f49448384a2, cRecordObject(column).UserID);
+      }
+      if ((save_size && Boolean(cRecordObject(column).IsStretch))) {
+        cRecordObject(buf).appendf(__cxx_literal_01b14f17aad559ecb209, cRecordObject(column).WidthOrWeight);
+      }
+      if ((save_size && (!Boolean(cRecordObject(column).IsStretch)))) {
+        cRecordObject(buf).appendf(__cxx_literal_2044d5c264eb10b9c88b, i32(cRecordObject(column).WidthOrWeight));
+      }
+      if (save_visible) {
+        cRecordObject(buf).appendf(__cxx_literal_f8c73aa1cd0f534dd344, i32(cRecordObject(column).IsEnabled));
+      }
+      if (save_order) {
+        cRecordObject(buf).appendf(__cxx_literal_b65f5ae504f0d40e46d0, i32(cRecordObject(column).DisplayOrder));
+      }
+      if ((save_sort && (i32(cRecordObject(column).SortOrder) != (-1)))) {
+        cRecordObject(buf).appendf(__cxx_literal_78901c1640a2b47ab6e3, i32(cRecordObject(column).SortOrder), i32(((i32(cRecordObject(column).SortDirection) == i32(1)) ? 118 : 94)));
+      }
+      cRecordObject(buf).append(__cxx_literal_39b3e2cccdddf144436f, null);
+    }
+    cRecordObject(buf).append(__cxx_literal_a0104050f23e7511f52b, null);
+  }
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:3971
+export function TableGcCompactTransientBuffers__cxx_7aced01582ed(temp_data) {
+  cRecordObject(temp_data).DrawSplitter.ClearFreeMemory();
+  (cRecordObject(temp_data).LastTimeActive = Math.fround((-Math.fround(1))));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:4004
+const __cxx_literal_f91b72ae4e5f329c41d8 = Uint8Array.from([70, 105, 120, 101, 100, 70, 105, 116, 0]);
+const __cxx_literal_348a55f4770ea70e76ea = Uint8Array.from([70, 105, 120, 101, 100, 83, 97, 109, 101, 0]);
+const __cxx_literal_9286faf42753b3fc78ae = Uint8Array.from([83, 116, 114, 101, 116, 99, 104, 80, 114, 111, 112, 0]);
+const __cxx_literal_bad892be159ac395534c = Uint8Array.from([83, 116, 114, 101, 116, 99, 104, 83, 97, 109, 101, 0]);
+const __cxx_literal_e258b21975b3e0c770cc = Uint8Array.from([78, 47, 65, 0]);
+export function DebugNodeTableGetSizingPolicyDesc(sizing_policy) {
+  (sizing_policy = i32((sizing_policy & i32(57344))));
+  if ((sizing_policy == i32(8192))) {
+    return __cxx_literal_f91b72ae4e5f329c41d8;
+  }
+  if ((sizing_policy == i32(16384))) {
+    return __cxx_literal_348a55f4770ea70e76ea;
+  }
+  if ((sizing_policy == i32(24576))) {
+    return __cxx_literal_9286faf42753b3fc78ae;
+  }
+  if ((sizing_policy == i32(32768))) {
+    return __cxx_literal_bad892be159ac395534c;
+  }
+  return __cxx_literal_e258b21975b3e0c770cc;
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:4162
+export function GetColumnOffsetFromNorm(columns, offset_norm) {
+  return Math.fround(Math.fround((offset_norm * Math.fround((cRecordObject(columns).OffMaxX - cRecordObject(columns).OffMinX)))));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:4167
+export function GetColumnNormFromOffset(columns, offset) {
+  return Math.fround(Math.fround((offset / Math.fround((cRecordObject(columns).OffMaxX - cRecordObject(columns).OffMinX)))));
+}
+
+// C/C++ source: source/imgui/src/imgui_tables.cpp:4172
+export const COLUMNS_HIT_RECT_HALF_THICKNESS = Math.fround(Math.fround(4));
+function __cxx_static_address_2cf3bf4faa5f398ba8732ae8() {
+  return __cxx_static_address_2cf3bf4faa5f398ba8732ae8.reference || (__cxx_static_address_2cf3bf4faa5f398ba8732ae8.reference = {
+    __cReference: true,
+    get value() { return COLUMNS_HIT_RECT_HALF_THICKNESS; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:525
+export function ImTrunc__cxx_60cf3ae97be4(v) {
+  return cCopyTrivialClass((ImVec2()).__cxx_construct_edecdff36a89174e(Math.fround(Math.fround(i32(v.x))), Math.fround(Math.fround(i32(v.y)))), ImVec2(), ["x", "y"]);
+}
+
+// C/C++ source: source/imgui/include/imgui.h:2899
+export function __cxx_operator_e11e480209a9c93d(lhs, rhs) {
+  return cCopyTrivialClass((ImVec2()).__cxx_construct_edecdff36a89174e(Math.fround((lhs.x + rhs.x)), Math.fround((lhs.y + rhs.y))), ImVec2(), ["x", "y"]);
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:3282
+export function ItemSize(bb, text_baseline_y) {
+  ItemSize(bb.GetSize(), text_baseline_y);
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:621
+export function ImBitArrayGetStorageSizeInBytes(bitcount) {
+  return u64((BigInt(u64(i32((i32((bitcount + 31)) >> 5)))) << BigInt(2)));
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:622
+export function ImBitArrayClearAllBits(arr, bitcount) {
+  cByteMemory.memset(arr, 0, ImBitArrayGetStorageSizeInBytes(bitcount));
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:625
+export function ImBitArraySetBit(arr, n) {
+  let mask = u32((u32(1) << i32((n & 31))));
+  ((__cxx_lvalue_0) => (__cxx_lvalue_0.value = u32((__cxx_lvalue_0.value | mask))))(cDeref(cPointerOffset(arr, i32((n >> 5)), Uint32Array.BYTES_PER_ELEMENT), Uint32Array));
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:524
+export function ImTrunc__cxx_6fee328fee59(f) {
+  return Math.fround(Math.fround(Math.fround(i32(f))));
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:626
+export function ImBitArraySetBitRange(arr, n, n2) {
+  ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous - 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => n2, __cxx_lvalue_1 => { n2 = __cxx_lvalue_1; }));
+  while ((n <= n2)) {
+    let a_mod = i32((n & 31));
+    let b_mod = i32((((n2 > i32((n | 31))) ? 31 : i32((n2 & 31))) + 1));
+    let mask = u32((u32((BigInt((BigInt(u64(1)) << BigInt(b_mod))) - BigInt(u64(1)))) & (~u32((BigInt((BigInt(u64(1)) << BigInt(a_mod))) - BigInt(u64(1)))))));
+    ((__cxx_lvalue_2) => (__cxx_lvalue_2.value = u32((__cxx_lvalue_2.value | mask))))(cDeref(cPointerOffset(arr, i32((n >> 5)), Uint32Array.BYTES_PER_ELEMENT), Uint32Array));
+    (n = i32((i32((n + 32)) & (~31))));
+  }
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:624
+export function ImBitArrayClearBit(arr, n) {
+  let mask = u32((u32(1) << i32((n & 31))));
+  ((__cxx_lvalue_0) => (__cxx_lvalue_0.value = u32((__cxx_lvalue_0.value & (~mask)))))(cDeref(cPointerOffset(arr, i32((n >> 5)), Uint32Array.BYTES_PER_ELEMENT), Uint32Array));
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:532
+export function ImRotate(v, cos_a, sin_a) {
+  return cCopyTrivialClass((ImVec2()).__cxx_construct_edecdff36a89174e(Math.fround((Math.fround((v.x * cos_a)) - Math.fround((v.y * sin_a)))), Math.fround((Math.fround((v.x * sin_a)) + Math.fround((v.y * cos_a))))), ImVec2(), ["x", "y"]);
+}
+
+// C/C++ source: source/imgui/include/imgui.h:2897
+export function __cxx_operator_5cbbdd7bd8f48e39(lhs, rhs) {
+  return cCopyTrivialClass((ImVec2()).__cxx_construct_edecdff36a89174e(Math.fround((lhs.x * rhs)), Math.fround((lhs.y * rhs))), ImVec2(), ["x", "y"]);
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:526
+export function ImFloor(f) {
+  return Math.fround(Math.fround(Math.fround((((f >= Math.fround(0)) || (Math.fround(Math.fround(i32(f))) == f)) ? i32(f) : i32((i32(f) - 1))))));
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:493
+export function ImAbs(x) {
+  return Math.fround(fabsf(x));
+}
+
+// C/C++ source: source/imgui/include/imgui.h:2906
+export function __cxx_operator_a3e4877983633319(lhs, rhs) {
+  ((__cxx_lvalue_0) => (__cxx_lvalue_0.value = Math.fround((__cxx_lvalue_0.value + rhs.x))))(cObjectFieldRef(lhs, "x"));
+  ((__cxx_lvalue_1) => (__cxx_lvalue_1.value = Math.fround((__cxx_lvalue_1.value + rhs.y))))(cObjectFieldRef(lhs, "y"));
+  return lhs;
+}
+
+// C/C++ source: source/imgui/include/imgui_internal.h:3204
+export function GetForegroundDrawList(window) {
+  window;
+  return GetForegroundDrawList();
+}

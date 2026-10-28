@@ -1,0 +1,61 @@
+{
+  "root": "factory-output/source-tree/eduke32-master",
+  "units": [
+    {
+      "source": "source/build/src/fix16.cpp",
+      "filter": "fix16_,FIX16_,int64_",
+      "header_inlines": true
+    },
+    {
+      "source": "source/audiolib/src/pitch.cpp",
+      "filter": "PITCH_,PitchTable"
+    },
+    {
+      "source": "source/libxmp-lite/src/lfo.c",
+      "filter": "libxmp_,get_lfo_,sine_wave"
+    },
+    {
+      "source": "source/duke3d/src/game.cpp",
+      "filter": "G_DefaultRtsFile"
+    },
+    {
+      "source": "source/build/src/mutex.cpp",
+      "filter": "mutex_"
+    },
+    {
+      "source": "source/mact/src/joystick.cpp",
+      "filter": "JOYSTICK_"
+    },
+    {
+      "source": "source/build/src/crc32.cpp"
+    },
+    {
+      "source": "source/build/src/rev.cpp"
+    },
+    {
+      "source": "source/build/src/softsurface.cpp"
+    },
+    {
+      "source": "source/build/src/cpuid.cpp"
+    },
+    {
+      "source": "source/duke3d/src/global.cpp"
+    },
+    {
+      "source": "source/duke3d/src/rts.cpp"
+    },
+    {
+      "source": "source/duke3d/src/osdfuncs.cpp"
+    },
+    {
+      "source": "source/libxmp-lite/src/dataio.c"
+    },
+    {
+      "source": "source/libxmp-lite/src/memio.c"
+    },
+    {
+      "source": "source/libxmp-lite/src/filter.c"
+    }
+  ],
+  "notes": "Source-first Clang AST only; full original-file discovery for added units. No LLVM fallback."
+}

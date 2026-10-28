@@ -1,0 +1,1082 @@
+{
+  "source": "source/build/include/xxhash.h",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "XXH3_64bits_internal",
+      "XXH3_hashLong_64b_withSecret",
+      "XXH3_len_0to16_64b",
+      "XXH3_len_129to240_64b",
+      "XXH3_len_17to128_64b",
+      "XXH3_accumulate_scalar__header_c95e53707021",
+      "XXH3_hashLong_64b_internal",
+      "XXH3_scrambleAcc_scalar",
+      "XXH3_accumulate_512_scalar",
+      "XXH3_avalanche",
+      "XXH3_hashLong_64b_default",
+      "XXH3_hashLong_64b_withSeed",
+      "XXH3_hashLong_internal_loop",
+      "XXH3_kSecret",
+      "XXH3_len_1to3_64b",
+      "XXH3_len_4to8_64b",
+      "XXH3_len_9to16_64b",
+      "XXH3_mergeAccs",
+      "XXH3_mix16B",
+      "XXH3_scalarScrambleRound",
+      "XXH64_avalanche",
+      "XXH_readLE64",
+      "PRIME_MX1",
+      "XXH3_hashLong_64b_withSeed_internal",
+      "XXH3_initCustomSecret_scalar",
+      "XXH3_mix2Accs",
+      "XXH3_mul128_fold64",
+      "XXH3_rrmxmx",
+      "XXH3_scalarRound",
+      "XXH_read64",
+      "XXH_readLE32",
+      "XXH_swap32",
+      "XXH_swap64",
+      "XXH_xorshift64",
+      "PRIME_MX2",
+      "XXH_mult32to64_add64",
+      "XXH_mult64to128",
+      "XXH_read32",
+      "XXH_writeLE64",
+      "XXH_memcpy"
+    ],
+    "additional_ast_roots": 39,
+    "rounds": 6
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\xxhash-browser-library\\source\\build\\include\\xxhash.h.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 45,
+  "emitted": 44,
+  "blocked": 1,
+  "definitions": [
+    {
+      "name": "<anonymous>",
+      "source_name": "<anonymous>",
+      "kind": "CXXRecordDecl",
+      "line": 1366,
+      "original_type": "",
+      "linkage": "external",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "status": "blocked",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+    },
+    {
+      "name": "XXH_memcpy",
+      "source_name": "XXH_memcpy",
+      "kind": "FunctionDecl",
+      "line": 2384,
+      "original_type": "void *(void *, const void *, size_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_read32",
+      "source_name": "XXH_read32",
+      "kind": "FunctionDecl",
+      "line": 2608,
+      "original_type": "xxh_u32 (const void *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_swap32",
+      "source_name": "XXH_swap32",
+      "kind": "FunctionDecl",
+      "line": 2781,
+      "original_type": "xxh_u32 (xxh_u32)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_readLE32",
+      "source_name": "XXH_readLE32",
+      "kind": "FunctionDecl",
+      "line": 2830,
+      "original_type": "xxh_u32 (const void *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH_read32",
+        "XXH_swap32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_read64",
+      "source_name": "XXH_read64",
+      "kind": "FunctionDecl",
+      "line": 3290,
+      "original_type": "xxh_u64 (const void *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_swap64",
+      "source_name": "XXH_swap64",
+      "kind": "FunctionDecl",
+      "line": 3316,
+      "original_type": "xxh_u64 (xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_readLE64",
+      "source_name": "XXH_readLE64",
+      "kind": "FunctionDecl",
+      "line": 3360,
+      "original_type": "xxh_u64 (const void *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH_read64",
+        "XXH_swap64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH64_avalanche",
+      "source_name": "XXH64_avalanche",
+      "kind": "FunctionDecl",
+      "line": 3440,
+      "original_type": "xxh_u64 (xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_kSecret__header_global_d82a1bdec4b0ec6a",
+      "source_name": "XXH3_kSecret",
+      "kind": "VarDecl",
+      "line": 4302,
+      "original_type": "const xxh_u8[192]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/xxhash.h",
+        "source_offset": 151524,
+        "source_line": 4302,
+        "translation_unit": "source/build/include/xxhash.h",
+        "clang_decl_id": "0x2a9b3012928",
+        "redeclaration_chain": [
+          "0x2a9b3012928"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_7368e9c7cc5267f58d8fb712",
+        "owner_source": "source/build/include/xxhash.h",
+        "original_type": "const xxh_u8[192]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            192
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "PRIME_MX1__header_global_8b8aaf66187d6010",
+      "source_name": "PRIME_MX1",
+      "kind": "VarDecl",
+      "line": 4317,
+      "original_type": "const unsigned long",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/xxhash.h",
+        "source_offset": 152791,
+        "source_line": 4317,
+        "translation_unit": "source/build/include/xxhash.h",
+        "clang_decl_id": "0x2415a8b8190",
+        "redeclaration_chain": [
+          "0x2415a8b8190"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "PRIME_MX2__header_global_5e986da71df7f3b2",
+      "source_name": "PRIME_MX2",
+      "kind": "VarDecl",
+      "line": 4318,
+      "original_type": "const unsigned long",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/xxhash.h",
+        "source_offset": 152923,
+        "source_line": 4318,
+        "translation_unit": "source/build/include/xxhash.h",
+        "clang_decl_id": "0x2385c566180",
+        "redeclaration_chain": [
+          "0x2385c566180"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_mult64to128",
+      "source_name": "XXH_mult64to128",
+      "kind": "FunctionDecl",
+      "line": 4369,
+      "original_type": "XXH128_hash_t (xxh_u64, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "storage_constructor_count": 1,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_mul128_fold64",
+      "source_name": "XXH3_mul128_fold64",
+      "kind": "FunctionDecl",
+      "line": 4503,
+      "original_type": "xxh_u64 (xxh_u64, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH_mult64to128"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_xorshift64",
+      "source_name": "XXH_xorshift64",
+      "kind": "FunctionDecl",
+      "line": 4510,
+      "original_type": "xxh_u64 (xxh_u64, int)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_avalanche",
+      "source_name": "XXH3_avalanche",
+      "kind": "FunctionDecl",
+      "line": 4520,
+      "original_type": "XXH64_hash_t (xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "PRIME_MX1__header_global_8b8aaf66187d6010",
+        "XXH_xorshift64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_rrmxmx",
+      "source_name": "XXH3_rrmxmx",
+      "kind": "FunctionDecl",
+      "line": 4533,
+      "original_type": "XXH64_hash_t (xxh_u64, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "PRIME_MX2__header_global_5e986da71df7f3b2",
+        "XXH_xorshift64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_len_1to3_64b",
+      "source_name": "XXH3_len_1to3_64b",
+      "kind": "FunctionDecl",
+      "line": 4578,
+      "original_type": "XXH64_hash_t (const xxh_u8 *, size_t, const xxh_u8 *, XXH64_hash_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH64_avalanche",
+        "XXH_readLE32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_len_4to8_64b",
+      "source_name": "XXH3_len_4to8_64b",
+      "kind": "FunctionDecl",
+      "line": 4600,
+      "original_type": "XXH64_hash_t (const xxh_u8 *, size_t, const xxh_u8 *, XXH64_hash_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_rrmxmx",
+        "XXH_readLE32",
+        "XXH_readLE64",
+        "XXH_swap32"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_len_9to16_64b",
+      "source_name": "XXH3_len_9to16_64b",
+      "kind": "FunctionDecl",
+      "line": 4616,
+      "original_type": "XXH64_hash_t (const xxh_u8 *, size_t, const xxh_u8 *, XXH64_hash_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_avalanche",
+        "XXH3_mul128_fold64",
+        "XXH_readLE64",
+        "XXH_swap64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_len_0to16_64b",
+      "source_name": "XXH3_len_0to16_64b",
+      "kind": "FunctionDecl",
+      "line": 4633,
+      "original_type": "XXH64_hash_t (const xxh_u8 *, size_t, const xxh_u8 *, XXH64_hash_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_len_1to3_64b",
+        "XXH3_len_4to8_64b",
+        "XXH3_len_9to16_64b",
+        "XXH64_avalanche",
+        "XXH_readLE64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_mix16B",
+      "source_name": "XXH3_mix16B",
+      "kind": "FunctionDecl",
+      "line": 4669,
+      "original_type": "xxh_u64 (const xxh_u8 *__restrict, const xxh_u8 *__restrict, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_mul128_fold64",
+        "XXH_readLE64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_len_17to128_64b",
+      "source_name": "XXH3_len_17to128_64b",
+      "kind": "FunctionDecl",
+      "line": 4703,
+      "original_type": "XXH64_hash_t (const xxh_u8 *__restrict, size_t, const xxh_u8 *__restrict, size_t, XXH64_hash_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_avalanche",
+        "XXH3_mix16B"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_len_129to240_64b",
+      "source_name": "XXH3_len_129to240_64b",
+      "kind": "FunctionDecl",
+      "line": 4739,
+      "original_type": "XXH64_hash_t (const xxh_u8 *__restrict, size_t, const xxh_u8 *__restrict, size_t, XXH64_hash_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_avalanche",
+        "XXH3_mix16B"
+      ],
+      "original_empty_asm_barriers": [
+        {
+          "source": "source/build/include/xxhash.h",
+          "offset": 92866,
+          "source_sha256": "d50fb9b93da02962c264a317e866d388983ea0073ea6cb96b779782c181822ea",
+          "statement": "__asm__(\"\" : \"+r\" (var))",
+          "proof": "original-empty-readwrite-register-barrier"
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_writeLE64",
+      "source_name": "XXH_writeLE64",
+      "kind": "FunctionDecl",
+      "line": 4850,
+      "original_type": "void (void *, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH_memcpy",
+        "XXH_swap64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH_mult32to64_add64",
+      "source_name": "XXH_mult32to64_add64",
+      "kind": "FunctionDecl",
+      "line": 5701,
+      "original_type": "xxh_u64 (xxh_u64, xxh_u64, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_scalarRound",
+      "source_name": "XXH3_scalarRound",
+      "kind": "FunctionDecl",
+      "line": 5715,
+      "original_type": "void (void *__restrict, const void *__restrict, const void *__restrict, size_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH_mult32to64_add64",
+        "XXH_readLE64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_accumulate_512_scalar",
+      "source_name": "XXH3_accumulate_512_scalar",
+      "kind": "FunctionDecl",
+      "line": 5738,
+      "original_type": "void (void *__restrict, const void *__restrict, const void *__restrict)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_scalarRound"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_scalarScrambleRound",
+      "source_name": "XXH3_scalarScrambleRound",
+      "kind": "FunctionDecl",
+      "line": 5764,
+      "original_type": "void (void *__restrict, const void *__restrict, size_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH_readLE64",
+        "XXH_xorshift64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_scrambleAcc_scalar",
+      "source_name": "XXH3_scrambleAcc_scalar",
+      "kind": "FunctionDecl",
+      "line": 5787,
+      "original_type": "void (void *__restrict, const void *__restrict)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_scalarScrambleRound"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_initCustomSecret_scalar",
+      "source_name": "XXH3_initCustomSecret_scalar",
+      "kind": "FunctionDecl",
+      "line": 5796,
+      "original_type": "void (void *__restrict, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_kSecret__header_global_d82a1bdec4b0ec6a",
+        "XXH_readLE64",
+        "XXH_writeLE64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_hashLong_internal_loop",
+      "source_name": "XXH3_hashLong_internal_loop",
+      "kind": "FunctionDecl",
+      "line": 5925,
+      "original_type": "void (xxh_u64 *__restrict, const xxh_u8 *__restrict, size_t, const xxh_u8 *__restrict, size_t, XXH3_f_accumulate, XXH3_f_scrambleAcc)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_accumulate_512_scalar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_mix2Accs",
+      "source_name": "XXH3_mix2Accs",
+      "kind": "FunctionDecl",
+      "line": 5958,
+      "original_type": "xxh_u64 (const xxh_u64 *__restrict, const xxh_u8 *__restrict)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_mul128_fold64",
+        "XXH_readLE64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_mergeAccs",
+      "source_name": "XXH3_mergeAccs",
+      "kind": "FunctionDecl",
+      "line": 5966,
+      "original_type": "XXH64_hash_t (const xxh_u64 *__restrict, const xxh_u8 *__restrict, xxh_u64)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_avalanche",
+        "XXH3_mix2Accs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_hashLong_64b_internal",
+      "source_name": "XXH3_hashLong_64b_internal",
+      "kind": "FunctionDecl",
+      "line": 5996,
+      "original_type": "XXH64_hash_t (const void *__restrict, size_t, const void *__restrict, size_t, XXH3_f_accumulate, XXH3_f_scrambleAcc)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_hashLong_internal_loop",
+        "XXH3_mergeAccs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_hashLong_64b_withSecret",
+      "source_name": "XXH3_hashLong_64b_withSecret",
+      "kind": "FunctionDecl",
+      "line": 6021,
+      "original_type": "XXH64_hash_t (const void *__restrict, size_t, XXH64_hash_t, const xxh_u8 *__restrict, size_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_accumulate_scalar__header_c95e53707021",
+        "XXH3_hashLong_64b_internal",
+        "XXH3_scrambleAcc_scalar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_hashLong_64b_default",
+      "source_name": "XXH3_hashLong_64b_default",
+      "kind": "FunctionDecl",
+      "line": 6035,
+      "original_type": "XXH64_hash_t (const void *__restrict, size_t, XXH64_hash_t, const xxh_u8 *__restrict, size_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_accumulate_scalar__header_c95e53707021",
+        "XXH3_hashLong_64b_internal",
+        "XXH3_kSecret__header_global_d82a1bdec4b0ec6a",
+        "XXH3_scrambleAcc_scalar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_hashLong_64b_withSeed_internal",
+      "source_name": "XXH3_hashLong_64b_withSeed_internal",
+      "kind": "FunctionDecl",
+      "line": 6054,
+      "original_type": "XXH64_hash_t (const void *, size_t, XXH64_hash_t, XXH3_f_accumulate, XXH3_f_scrambleAcc, XXH3_f_initCustomSecret)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_hashLong_64b_internal",
+        "XXH3_kSecret__header_global_d82a1bdec4b0ec6a"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_hashLong_64b_withSeed",
+      "source_name": "XXH3_hashLong_64b_withSeed",
+      "kind": "FunctionDecl",
+      "line": 6077,
+      "original_type": "XXH64_hash_t (const void *__restrict, size_t, XXH64_hash_t, const xxh_u8 *__restrict, size_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_accumulate_scalar__header_c95e53707021",
+        "XXH3_hashLong_64b_withSeed_internal",
+        "XXH3_initCustomSecret_scalar",
+        "XXH3_scrambleAcc_scalar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_64bits_internal",
+      "source_name": "XXH3_64bits_internal",
+      "kind": "FunctionDecl",
+      "line": 6090,
+      "original_type": "XXH64_hash_t (const void *__restrict, size_t, XXH64_hash_t, const void *__restrict, size_t, XXH3_hashLong64_f)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_len_0to16_64b",
+        "XXH3_len_129to240_64b",
+        "XXH3_len_17to128_64b"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_64bits",
+      "source_name": "XXH3_64bits",
+      "kind": "FunctionDecl",
+      "line": 6115,
+      "original_type": "XXH64_hash_t (__attribute__((noescape)) const void *, size_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_64bits_internal",
+        "XXH3_hashLong_64b_default",
+        "XXH3_kSecret__header_global_d82a1bdec4b0ec6a"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_64bits_withSecret",
+      "source_name": "XXH3_64bits_withSecret",
+      "kind": "FunctionDecl",
+      "line": 6122,
+      "original_type": "XXH64_hash_t (__attribute__((noescape)) const void *, size_t, __attribute__((noescape)) const void *, size_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_64bits_internal",
+        "XXH3_hashLong_64b_withSecret"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_64bits_withSeed",
+      "source_name": "XXH3_64bits_withSeed",
+      "kind": "FunctionDecl",
+      "line": 6129,
+      "original_type": "XXH64_hash_t (__attribute__((noescape)) const void *, size_t, XXH64_hash_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_64bits_internal",
+        "XXH3_hashLong_64b_withSeed",
+        "XXH3_kSecret__header_global_d82a1bdec4b0ec6a"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_64bits_withSecretandSeed",
+      "source_name": "XXH3_64bits_withSecretandSeed",
+      "kind": "FunctionDecl",
+      "line": 6135,
+      "original_type": "XXH64_hash_t (__attribute__((noescape)) const void *, size_t, __attribute__((noescape)) const void *, size_t, XXH64_hash_t)",
+      "linkage": "external",
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_64bits_internal",
+        "XXH3_hashLong_64b_withSecret",
+        "XXH3_kSecret__header_global_d82a1bdec4b0ec6a"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "XXH3_accumulate_scalar__header_c95e53707021",
+      "source_name": "XXH3_accumulate_scalar",
+      "kind": "FunctionDecl",
+      "line": 5754,
+      "original_type": "void (xxh_u64 *__restrict, const xxh_u8 *__restrict, const xxh_u8 *__restrict, size_t)",
+      "linkage": "internal",
+      "macro_header_definition": {
+        "source_header": "source/build/include/xxhash.h",
+        "source_offset": 212077,
+        "source_line": 5754,
+        "header_sha256": "d50fb9b93da02962c264a317e866d388983ea0073ea6cb96b779782c181822ea",
+        "expansion_token": "XXH3_ACCUMULATE_TEMPLATE",
+        "clang_spelling_location": {
+          "offset": 2228,
+          "file": "<scratch space>",
+          "line": 170,
+          "col": 1,
+          "tokLen": 22
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "6f71c47f847700d1313df5a38bd1ed38e1c7dc4e8848949bf74bdd6923a29f2b"
+      },
+      "physical_source": "source/build/include/xxhash.h",
+      "source_references": [
+        "XXH3_accumulate_512_scalar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": false,
+    "records": 2924,
+    "sha256": "e3783509c68288732cc72d793856d80e7f2496b416e80c8c1387e5cf142e0ce1"
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 9,
+      "objects": 1198,
+      "ranges_omitted": 537,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 241,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 412621,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 187,
+      "ranges_omitted": 51,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 3,
+      "semantic_barrier_ranges_retained": 2,
+      "type_metadata_reuses": 48,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 95205,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 192,
+      "ranges_omitted": 75,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 41,
+      "include_metadata_reuses": 0,
+      "cache_hit": false,
+      "json_bytes": 55372,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "no-cache-directory"
+    }
+  ],
+  "storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "XXH3_kSecret__header_global_d82a1bdec4b0ec6a",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_7368e9c7cc5267f58d8fb712",
+      "owner_source": "source/build/include/xxhash.h",
+      "original_type": "const xxh_u8[192]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          192
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,478 @@
+{
+  "ast_decode": [
+    {
+      "allocator_body_ranges_retained": 4,
+      "backend": "yajl2_c",
+      "cache_budget_bytes": 536870912,
+      "cache_evicted_bytes": 0,
+      "cache_evicted_entries": 0,
+      "cache_hit": false,
+      "cache_policy_revision": "source-ast-disk-cache/1",
+      "cache_retained": false,
+      "cache_retained_bytes": 0,
+      "cache_retention_reason": "cache-write-error",
+      "cache_write_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\andre\\\\Documents\\\\Codex\\\\work\\\\EDuke32_SourceFactory_Oct13\\\\factory-output\\\\source-first\\\\oct15-heap-pointer-recovery\\\\clang-ast-cache\\\\8abf13170665d3692901673c72fed7451dbbbdc9a56b5d1029566f67be053cac\\\\shard-00\\\\.ast-lru-d926d25b07a92c7f6ebb2bb8be2f30af112032ecc83920b8507aea97792262c0.json'",
+      "format": "source-ast-stream/1",
+      "include_metadata_reuses": 27929,
+      "json_bytes": 121273184,
+      "objects": 222944,
+      "ranges_omitted": 60371,
+      "retained_source_ranges": false,
+      "roots": 1,
+      "type_metadata_reuses": 55924
+    }
+  ],
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "blocked": 17,
+  "control_flow": {
+    "recognized_goto_edges": 0,
+    "recognized_goto_functions": 0,
+    "structured_functions": 0
+  },
+  "definitions": [
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 35,
+      "linkage": "external",
+      "name": "mi_malloc_size",
+      "original_type": "size_t (const void *) noexcept",
+      "physical_source": "source/mimalloc/src/alloc-posix.c",
+      "reason": "unlinked identifiers: mi_usable_size",
+      "source_name": "mi_malloc_size",
+      "source_references": [
+        "mi_usable_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_usable_size"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 40,
+      "linkage": "external",
+      "name": "mi_malloc_usable_size",
+      "original_type": "size_t (const void *) noexcept",
+      "reason": "unlinked identifiers: mi_usable_size",
+      "source_name": "mi_malloc_usable_size",
+      "source_references": [
+        "mi_usable_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_usable_size"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 45,
+      "linkage": "external",
+      "name": "mi_malloc_good_size",
+      "original_type": "size_t (size_t) noexcept",
+      "reason": "unlinked identifiers: mi_good_size",
+      "source_name": "mi_malloc_good_size",
+      "source_references": [
+        "mi_good_size"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_good_size"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 49,
+      "linkage": "external",
+      "name": "mi_cfree",
+      "original_type": "void (void *) noexcept",
+      "reason": "unlinked identifiers: mi_free, mi_is_in_heap_region",
+      "source_name": "mi_cfree",
+      "source_references": [
+        "mi_free",
+        "mi_is_in_heap_region"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_free",
+        "mi_is_in_heap_region"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 55,
+      "linkage": "external",
+      "name": "mi_posix_memalign",
+      "original_type": "int (void **, size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: mi_malloc_aligned",
+      "source_name": "mi_posix_memalign",
+      "source_references": [
+        "_mi_is_power_of_two__header_2c694333499e",
+        "mi_malloc_aligned"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_malloc_aligned"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 69,
+      "linkage": "external",
+      "name": "mi_memalign",
+      "original_type": "void *(size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: mi_malloc_aligned",
+      "source_name": "mi_memalign",
+      "source_references": [
+        "mi_malloc_aligned"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_malloc_aligned"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 75,
+      "linkage": "external",
+      "name": "mi_valloc",
+      "original_type": "void *(size_t) noexcept",
+      "reason": "unlinked identifiers: _mi_os_page_size, mi_memalign",
+      "source_name": "mi_valloc",
+      "source_references": [
+        "_mi_os_page_size",
+        "mi_memalign"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_page_size",
+        "mi_memalign"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 79,
+      "linkage": "external",
+      "name": "mi_pvalloc",
+      "original_type": "void *(size_t) noexcept",
+      "reason": "unlinked identifiers: _mi_os_page_size, mi_malloc_aligned",
+      "source_name": "mi_pvalloc",
+      "source_references": [
+        "_mi_align_up__header_ce1f90a2e84e",
+        "_mi_os_page_size",
+        "mi_malloc_aligned"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_os_page_size",
+        "mi_malloc_aligned"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 86,
+      "linkage": "external",
+      "name": "mi_aligned_alloc",
+      "original_type": "void *(size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: mi_malloc_aligned",
+      "source_name": "mi_aligned_alloc",
+      "source_references": [
+        "mi_malloc_aligned"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_malloc_aligned"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 102,
+      "linkage": "external",
+      "name": "mi_reallocarray",
+      "original_type": "void *(void *, size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: __errno_location, mi_reallocn",
+      "source_name": "mi_reallocarray",
+      "source_references": [
+        "__errno_location",
+        "mi_reallocn"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "__errno_location",
+        "mi_reallocn"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 108,
+      "linkage": "external",
+      "name": "mi_reallocarr",
+      "original_type": "int (void *, size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: __errno_location, mi_reallocarray",
+      "source_name": "mi_reallocarr",
+      "source_references": [
+        "__errno_location",
+        "mi_reallocarray"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "__errno_location",
+        "mi_reallocarray"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 121,
+      "linkage": "external",
+      "name": "mi__expand",
+      "original_type": "void *(void *, size_t) noexcept",
+      "reason": "unlinked identifiers: __errno_location, mi_expand",
+      "source_name": "mi__expand",
+      "source_references": [
+        "__errno_location",
+        "mi_expand"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "__errno_location",
+        "mi_expand"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 127,
+      "linkage": "external",
+      "name": "mi_wcsdup",
+      "original_type": "unsigned short *(const unsigned short *) noexcept",
+      "reason": "unlinked identifiers: mi_malloc",
+      "source_name": "mi_wcsdup",
+      "source_references": [
+        "_mi_memcpy__header_eb245fbca1f2",
+        "mi_malloc"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_malloc"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 139,
+      "linkage": "external",
+      "name": "mi_mbsdup",
+      "original_type": "unsigned char *(const unsigned char *) noexcept",
+      "reason": "unlinked identifiers: mi_strdup",
+      "source_name": "mi_mbsdup",
+      "source_references": [
+        "mi_strdup"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_strdup"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 143,
+      "linkage": "external",
+      "name": "mi_dupenv_s",
+      "original_type": "int (char **, size_t *, const char *) noexcept",
+      "reason": "unlinked identifiers: _mi_strlen, getenv, mi_strdup",
+      "source_name": "mi_dupenv_s",
+      "source_references": [
+        "_mi_strlen",
+        "getenv",
+        "mi_strdup"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "_mi_strlen",
+        "getenv",
+        "mi_strdup"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 158,
+      "linkage": "external",
+      "name": "mi_wdupenv_s",
+      "original_type": "int (unsigned short **, size_t *, const unsigned short *) noexcept",
+      "source_name": "mi_wdupenv_s",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 179,
+      "linkage": "external",
+      "name": "mi_aligned_offset_recalloc",
+      "original_type": "void *(void *, size_t, size_t, size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: mi_recalloc_aligned_at",
+      "source_name": "mi_aligned_offset_recalloc",
+      "source_references": [
+        "mi_recalloc_aligned_at"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_recalloc_aligned_at"
+      ]
+    },
+    {
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 183,
+      "linkage": "external",
+      "name": "mi_aligned_recalloc",
+      "original_type": "void *(void *, size_t, size_t, size_t) noexcept",
+      "reason": "unlinked identifiers: mi_recalloc_aligned",
+      "source_name": "mi_aligned_recalloc",
+      "source_references": [
+        "mi_recalloc_aligned"
+      ],
+      "status": "blocked",
+      "unresolved_references": [
+        "mi_recalloc_aligned"
+      ]
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 309,
+      "linkage": "internal",
+      "name": "_mi_is_power_of_two__header_2c694333499e",
+      "original_type": "bool (uintptr_t)",
+      "physical_source": "source/mimalloc/include/mimalloc/internal.h",
+      "source_name": "_mi_is_power_of_two",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 320,
+      "linkage": "internal",
+      "name": "_mi_align_up__header_ce1f90a2e84e",
+      "original_type": "uintptr_t (uintptr_t, size_t)",
+      "source_name": "_mi_align_up",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    },
+    {
+      "external_imports": [],
+      "external_storage_imports": [],
+      "kind": "FunctionDecl",
+      "line": 931,
+      "linkage": "internal",
+      "name": "_mi_memcpy__header_eb245fbca1f2",
+      "original_type": "void (void *, const void *, size_t)",
+      "source_name": "_mi_memcpy",
+      "source_references": [],
+      "status": "source-first",
+      "unresolved_references": []
+    }
+  ],
+  "dependency_closure": {
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "enabled": false,
+    "rounds": 0
+  },
+  "emitted": 4,
+  "enum_closure": {
+    "enabled": false,
+    "proven_values": {},
+    "queried": [],
+    "rejected": {},
+    "rounds": 0
+  },
+  "found": 21,
+  "friend_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "header_ctor_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "imports": [],
+  "lifetime_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "llvm_fallback_used": false,
+  "member_operator_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct15-heap-pointer-recovery\\batch-207ae23cec964ac3\\source\\mimalloc\\src\\alloc-posix.c.mjs",
+  "pod_record_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "source": "source/mimalloc/src/alloc-posix.c",
+  "span_closure": {
+    "proven": [],
+    "queried": [],
+    "rejected": {}
+  },
+  "storage_exports": [],
+  "toolchain": {
+    "abi": "x86_64-linux-lp64-le",
+    "abi_verified": true,
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE"
+  },
+  "typedef_closure": {
+    "proven": {},
+    "queried": [],
+    "rejected": {}
+  }
+}

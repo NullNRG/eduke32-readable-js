@@ -1,0 +1,30 @@
+name: Source checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  basic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: npm ci
+      - run: python -m compileall -q tools
+      - run: python tests/source_factory/verify_sourcefirst_public_package.py
+      - run: node --test tests/source_factory/runtime.test.mjs tests/source_factory/portability.test.mjs
+      - name: Reject accidentally tracked game archives or generated pages
+        shell: bash
+        run: |
+          if git ls-files | grep -Ei '(^input-data/|^dist/|\.grp$)'; then
+            echo 'Private assets or generated pages must not be committed.' >&2
+            exit 1
+          fi

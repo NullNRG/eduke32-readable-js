@@ -1,0 +1,64 @@
+{
+  "priority_units": [
+    {
+      "source": "source/build/src/loguru.cpp",
+      "score": 1000,
+      "reason": "original logging callback lock-guard and borrowed references"
+    },
+    {
+      "source": "source/build/src/baselayer.cpp",
+      "score": 999,
+      "reason": "original engineSetLogFile and argc reference startup semantics"
+    },
+    {
+      "source": "source/build/src/engine.cpp",
+      "score": 998,
+      "reason": "original cansee and rendering reference lifetimes across structured goto"
+    },
+    {
+      "source": "source/duke3d/src/gamedef.cpp",
+      "score": 997,
+      "reason": "refresh verified recovery rejected by old user_defs storage ABI"
+    },
+    {
+      "source": "source/duke3d/src/network.cpp",
+      "score": 996,
+      "reason": "refresh verified recovery rejected by old user_defs storage ABI"
+    },
+    {
+      "source": "source/duke3d/src/sounds.cpp",
+      "score": 995,
+      "reason": "refresh verified recovery rejected by old user_defs storage ABI"
+    },
+    {
+      "source": "source/mact/src/control.cpp",
+      "score": 994,
+      "reason": "refresh saved input recovery against current mouse providers"
+    },
+    {
+      "source": "source/build/src/pragmas.cpp",
+      "score": 983,
+      "reason": "original startup and rendering dependencies after macro/sysroot header recovery"
+    },
+    {
+      "source": "source/build/src/osd.cpp",
+      "score": 982,
+      "reason": "original startup and rendering dependencies after macro/sysroot header recovery"
+    },
+    {
+      "source": "source/duke3d/src/game.cpp",
+      "score": 981,
+      "reason": "original startup and rendering dependencies after macro/sysroot header recovery"
+    },
+    {
+      "source": "source/build/src/clip.cpp",
+      "score": 980,
+      "reason": "original startup and rendering dependencies after macro/sysroot header recovery"
+    },
+    {
+      "source": "source/build/src/tiles.cpp",
+      "score": 979,
+      "reason": "original startup and rendering dependencies after macro/sysroot header recovery"
+    }
+  ]
+}
