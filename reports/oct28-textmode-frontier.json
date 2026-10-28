@@ -1,0 +1,148 @@
+{
+  "format": "original-boot-frontier-recovery/1",
+  "jobs": [
+    {
+      "source": "source/build/src/osd.cpp",
+      "entry": "OSD_SetTextMode",
+      "returncode": 0,
+      "seconds": 27.42,
+      "log": "reports/oct28-textmode-frontier-OSD_SetTextMode.log",
+      "definition": [
+        {
+          "name": "OSD_SetTextMode",
+          "source_name": "OSD_SetTextMode",
+          "kind": "FunctionDecl",
+          "line": 249,
+          "original_type": "void (int)",
+          "linkage": "external",
+          "physical_source": "source/build/src/osd.cpp",
+          "source_references": [
+            "OSD_ResizeDisplay",
+            "default_callbacks",
+            "osd",
+            "qsetmode",
+            "swaposdptrs",
+            "xdim",
+            "ydim"
+          ],
+          "external_reference_imports": [],
+          "external_storage_imports": [
+            {
+              "name": "default_callbacks",
+              "binding": "__cxx_global_cell_126f3ff65fe6fab06930eae3",
+              "abi": "source-global-cell/2",
+              "original_type": "struct osdcallbacks_t"
+            },
+            {
+              "name": "osd",
+              "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+              "abi": "source-global-cell/2",
+              "original_type": "osdmain_t *"
+            },
+            {
+              "name": "qsetmode",
+              "binding": "__cxx_global_cell_6fba320e7d23de23519fe332",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            },
+            {
+              "name": "xdim",
+              "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            },
+            {
+              "name": "ydim",
+              "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            }
+          ],
+          "status": "blocked",
+          "external_imports": [
+            "default_callbacks",
+            "osd",
+            "qsetmode",
+            "swaposdptrs",
+            "xdim",
+            "ydim"
+          ],
+          "unresolved_references": [
+            "OSD_ResizeDisplay"
+          ],
+          "reason": "unlinked identifiers: OSD_ResizeDisplay"
+        }
+      ],
+      "status": "source-blocked"
+    },
+    {
+      "source": "source/build/src/osd.cpp",
+      "entry": "osdcmd_cvar_set_osd",
+      "returncode": 0,
+      "seconds": 29.31,
+      "log": "reports/oct28-textmode-frontier-osdcmd_cvar_set_osd.log",
+      "definition": [
+        {
+          "name": "osdcmd_cvar_set_osd",
+          "source_name": "osdcmd_cvar_set_osd",
+          "kind": "FunctionDecl",
+          "line": 678,
+          "original_type": "int (osdcmdptr_t)",
+          "linkage": "internal",
+          "physical_source": "source/build/src/osd.cpp",
+          "source_references": [
+            "OSD_SetTextMode",
+            "clamp__header_b0c3fa1a2e69",
+            "osd",
+            "osdcmd_cvar_set",
+            "osdmaxrows",
+            "osdrows",
+            "osdrowscur",
+            "xfree__header_8ce2c55c7c37"
+          ],
+          "external_reference_imports": [],
+          "external_storage_imports": [
+            {
+              "name": "osd",
+              "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+              "abi": "source-global-cell/2",
+              "original_type": "osdmain_t *"
+            },
+            {
+              "name": "osdmaxrows",
+              "binding": "__cxx_global_cell_64b7613b520ef4cff2d59856",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            },
+            {
+              "name": "osdrows",
+              "binding": "__cxx_global_cell_dfe0fcf36a090655f706ab0c",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            },
+            {
+              "name": "osdrowscur",
+              "binding": "__cxx_global_cell_6ff2c7feca9240fe8c1304ed",
+              "abi": "source-global-cell/2",
+              "original_type": "int"
+            }
+          ],
+          "status": "blocked",
+          "external_imports": [
+            "osd",
+            "osdcmd_cvar_set",
+            "osdmaxrows",
+            "osdrows",
+            "osdrowscur"
+          ],
+          "unresolved_references": [
+            "OSD_SetTextMode"
+          ],
+          "reason": "unlinked identifiers: OSD_SetTextMode"
+        }
+      ],
+      "status": "source-blocked"
+    }
+  ],
+  "gameplay_verified": false
+}

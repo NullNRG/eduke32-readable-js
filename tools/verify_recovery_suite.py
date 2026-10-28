@@ -15,8 +15,23 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
+
+def atomic_json(path,data):
+    """Retry temporary Windows reader locks without exposing partial JSON."""
+    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=path.parent,
+                                     prefix=path.name+'.',suffix='.tmp',delete=False) as stream:
+        json.dump(data,stream,indent=2);stream.write('\n');stage=Path(stream.name)
+    try:
+        for attempt in range(101):
+            try:os.replace(stage,path);return
+            except PermissionError:
+                if attempt==100:raise
+                time.sleep(0.05)
+    finally:stage.unlink(missing_ok=True)
 
 
 def regression_inputs():
@@ -78,9 +93,11 @@ def main():
         except OSError as error:
             status='launch-failed';code=None;output=str(error)
         path=logs/(name+'.log');path.write_text(output,encoding='utf-8')
-        return {'test':name,'command':command,'status':status,'returncode':code,
+        result={'test':name,'command':command,'status':status,'returncode':code,
                 'elapsed_seconds':round(time.monotonic()-begin,3),'log':str(path),
                 'output_tail':output[-2400:] if status!='passed' else output[-500:]}
+        atomic_json(logs/(name+'.result.json'),result)
+        return result
     def save(complete=False):
         counts={kind:sum(item['status']==kind for item in results)
                 for kind in ('passed','failed','timeout','launch-failed')}
@@ -99,12 +116,16 @@ def main():
               'source_target':os.environ.get('EDUKE32_CLANG_TARGET','x86_64-linux-gnu'),
               'sysroot':os.environ.get('EDUKE32_SYSROOT'),'tests':sorted(results,key=lambda item:item['test']),
               'gameplay_verified':False}
-        stage=report.with_suffix(report.suffix+'.tmp')
-        stage.write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8');os.replace(stage,report)
+        atomic_json(report,data)
     save()
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         for future in as_completed([pool.submit(execute,item) for item in tests]):
-            result=future.result();results.append(result);save()
+            result=future.result();results.append(result)
+            try:save()
+            except OSError as error:
+                # Individual outcomes are durable. Continue collecting instead
+                # of silently draining queued tests in executor.__exit__.
+                print('Report publication failed; individual results retained: '+str(error),file=sys.stderr,flush=True)
             print(f'{result["status"].upper()}: {result["test"]} ({result["elapsed_seconds"]}s)',flush=True)
     save(True)
     failures=sum(item['status']!='passed' for item in results)
