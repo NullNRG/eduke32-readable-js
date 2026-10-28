@@ -21,7 +21,7 @@
     "compile:auto": "node tools/run_python.mjs tools/source_first_automate.py --jobs 2 --resume",
     "compile:bulk-boot-sample": "node tools/run_python.mjs tools/source_first_project.py --plan tools/source-first-bulk-boot-plan.json --out-dir factory-output/source-first/bulk-boot-sample",
     "compile:bulk-memory-sample": "node tools/run_python.mjs tools/source_first_project.py --plan tools/source-first-bulk-memory-plan.json --out-dir factory-output/source-first/bulk-memory-sample",
-    "compile:game": "node tools/run_python.mjs tools/source_first_autonomous.py build --resume --strict --jobs 1 --persistent-ast-cache",
+    "compile:game": "node tools/run_python.mjs tools/build_browser_classic.py",
     "compile:global-storage-sample": "node tools/run_python.mjs tools/source_first_project.py --plan tools/source-first-global-storage-plan.json --out-dir factory-output/source-first/global-storage-batch",
     "compile:readable": "node tools/run_python.mjs tools/source_first_project.py --plan tools/source-first-selected-plan.json --out-dir factory-output/source-first/selected",
     "link:auto": "node tools/run_python.mjs tools/source_first_global_link.py",

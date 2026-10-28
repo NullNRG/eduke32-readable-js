@@ -1,5 +1,14 @@
 # Current EDuke32 continuation status
 
+## Active browser build
+
+`npm run compile:game` and the launcher now use `tools/build_browser_classic.py`. The original Make configuration selects 113 units with enhanced rendering, multiplayer, desktop dialogs, GTK, mimalloc, optional external codecs and ALSA excluded. Original SDL/OPL/mixer and classic game code remain. Browser preparation makes an attested source overlay with two ALSA capability guards; original archived source bytes are preserved.
+
+Initial emission and cross-unit retries now receive the same selected command database. Targeted profile, project, linker, acceptance and source-restoration checks pass. A bounded one-unit diagnostic attempted original game.cpp under that profile and correctly failed strict game acceptance. This does not verify startup or gameplay. Candidate browser packaging and gameplay verification remain unfinished.
+
+Earlier regression results below precede these profile/pipeline changes. The old oct20 integration is a preserved migration input, not automatically valid browser-profile output.
+
+
 ## Update, October 28
 
 The browser startup integration now contains the original `videoSetPalette` and `osdcmd_cvar_set_baselayer` functions. The original XXH3 checksum has passed 272 native/Node and Chromium comparisons, and the original gamma function still matches 5,376 native samples in Chromium. Palette function installation is not evidence that the complete palette/surface path or the game runs.

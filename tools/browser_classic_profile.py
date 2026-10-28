@@ -3,11 +3,24 @@
 Macro changes invalidate prior compiler outputs. A captured desktop inventory is
 not a Make-verified classic inventory; the report explicitly refuses that claim.
 """
-import argparse,hashlib,json,os,re,tempfile
+import argparse,hashlib,json,os,re,tempfile,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PROFILE=ROOT/'tools/browser_classic_profile.json'
 def sha(data):return hashlib.sha256(data).hexdigest()
+
+def selected_commands(root,build):
+    """One command database for compilation, recovery and acceptance."""
+    metadata=Path(build)/'build-profile.json'
+    if not metadata.is_file():return Path(root)/'factory-output/compile_commands.json'
+    record=json.loads(metadata.read_text());root=Path(root).resolve()
+    path=(root/record['command_database']).resolve()
+    if not path.is_relative_to(root) or sha(path.read_bytes())!=record['commands_sha256']:
+        raise ValueError('Browser build profile command database changed')
+    commands=json.loads(path.read_text());names=[r['file'] for r in commands]
+    if len(names)!=len(set(names)) or len(names)!=record['selected_units']:
+        raise ValueError('Browser build selection does not match its manifest')
+    return path
 def derive(profile,commands):
     if profile.get('format')!='sourcefactory-browser-profile/1':raise ValueError('Unknown build profile')
     removed=set(profile['remove_defines']);added=profile['add_defines']
@@ -40,7 +53,11 @@ def derive(profile,commands):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--profile',type=Path,default=PROFILE)
     p.add_argument('--out',type=Path);p.add_argument('--report',type=Path);args=p.parse_args()
-    profile=json.loads(args.profile.read_text(encoding='utf-8'));source=(ROOT/profile['source_commands']).resolve()
+    profile=json.loads(args.profile.read_text(encoding='utf-8'))
+    if profile.get('preparation_tool') and not args.out and not args.report:
+        subprocess.run([sys.executable,str(ROOT/profile['preparation_tool'])],cwd=ROOT,check=True)
+        return
+    source=(ROOT/profile['source_commands']).resolve()
     if not source.is_relative_to(ROOT):raise SystemExit('Source database escapes project')
     original=source.read_bytes();commands=json.loads(original);derived,changes=derive(profile,commands)
     output=(args.out or ROOT/profile['derived_commands']).resolve();report=(args.report or output.with_name('profile-inventory.json')).resolve()

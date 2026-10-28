@@ -27,8 +27,11 @@ npm run compile:game
 npm run test:recovery
 ```
 
-The strict game build currently fails incomplete-game acceptance. The classic
-browser profile is provisional until its Make-selected inventory is verified.
+The strict game build currently fails incomplete-game acceptance. The active
+browser profile selects 113 original Make units and excludes desktop dialogs,
+GTK, enhanced renderers, multiplayer, mimalloc, optional external codecs and ALSA.
+GNU Make is required for source selection. Compilation and recovery share this
+configuration; original engine startup and playable output remain unfinished.
 The root launcher provides local build, test, acceptance and packaging actions.
 
 ## Assets and publication

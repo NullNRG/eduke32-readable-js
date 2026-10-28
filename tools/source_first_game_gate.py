@@ -12,6 +12,7 @@ import json
 import sys
 from pathlib import Path
 from verify_port_acceptance import evaluate
+from browser_classic_profile import selected_commands
 
 ROOT=Path(__file__).resolve().parents[1]
 def read(path):return json.loads(path.read_text()) if path.is_file() else None
@@ -21,7 +22,7 @@ parser.add_argument('--reports-root',type=Path)
 parser.add_argument('--build-root',type=Path,default=ROOT/'factory-output/source-first/autonomous')
 args=parser.parse_args()
 ROOT=args.root.resolve()
-commands=read(ROOT/'factory-output/compile_commands.json') or []
+commands=read(selected_commands(ROOT,args.build_root)) or []
 expected=len({entry['file'] for entry in commands})
 build=args.build_root.resolve()
 recover=read(build/'automatic/recovery-report.json') or {}

@@ -11,11 +11,15 @@ with tempfile.TemporaryDirectory(prefix='link_ast_reuse_') as temporary:
     root=Path(temporary);source=root/'original';source.mkdir();directory=root/'saved';directory.mkdir()
     (source/'provider.cpp').write_text('int original_provider(int value){return value+7;}')
     (source/'caller.cpp').write_text('extern int original_provider(int); int original_caller(int value){return original_provider(value)*3;}')
+    commands=root/'browser-commands.json'
+    commands.write_text(json.dumps([{'file':n,'arguments':['clang++','-std=c++14','-DBROWSER_PROFILE=1',n]} for n in ('provider.cpp','caller.cpp')]))
+    original_caller=(source/'caller.cpp').read_text()
+    (source/'caller.cpp').write_text('#ifndef BROWSER_PROFILE\n#error Browser profile lost during recovery\n#endif\n'+original_caller)
     rows=[]
     for number,name in enumerate(('provider.cpp','caller.cpp')):
         batch=directory/str(number)
         run=subprocess.run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(source),
-            '--source',name,'--out-dir',str(batch)],cwd=ROOT,capture_output=True,text=True,timeout=90)
+            '--source',name,'--out-dir',str(batch),'--compile-commands',str(commands)],cwd=ROOT,capture_output=True,text=True,timeout=90)
         assert run.returncode==0,(run.stdout,run.stderr)
         manifest=json.loads((batch/(name+'.manifest.json')).read_text())
         build=batch/'project-build.json'
@@ -26,7 +30,7 @@ with tempfile.TemporaryDirectory(prefix='link_ast_reuse_') as temporary:
         'compiler_revision_source_counts':{'published-fixture-revision':2},
         'uniform_compiler_revision_verified':True,'batch_results':rows}))
     out=root/'linked'
-    first=link.relink(directory,out,source,round_limit=2,jobs=1,persistent_ast_cache=True)
+    first=link.relink(directory,out,source,round_limit=2,jobs=1,persistent_ast_cache=True,compile_commands=commands)
     assert not first['invalid_imports_or_syntax'] and first['recovered_definitions']>=1,first
     assert first['published_input_revision_counts']=={'published-fixture-revision':2}
     assert first['linker_input_attestation_verified'] and not first['all_units_recompiled_under_linker_revision']
@@ -34,7 +38,7 @@ with tempfile.TemporaryDirectory(prefix='link_ast_reuse_') as temporary:
             if len(path.stem)==64}
     assert caches,'real Clang AST was not cached'
     generated=(out/'caller.cpp.mjs').read_bytes()
-    second=link.relink(directory,out,source,round_limit=2,jobs=1,persistent_ast_cache=True)
+    second=link.relink(directory,out,source,round_limit=2,jobs=1,persistent_ast_cache=True,compile_commands=commands)
     assert second['recovered_definitions']>=1 and not second['previously_resumed_units']
     assert all(path.stat().st_mtime_ns==mtime for path,mtime in caches.items()),'raw AST was recompiled'
     assert (out/'caller.cpp.mjs').read_bytes()==generated,'cache changed readable source emission'
@@ -42,7 +46,7 @@ with tempfile.TemporaryDirectory(prefix='link_ast_reuse_') as temporary:
     assert subprocess.check_output(['node',str(runner)],text=True).strip()=='36'
     # A new non-header original input invalidates the entire semantic epoch.
     (source/'included.def').write_text('captured original input')
-    third=link.relink(directory,out,source,round_limit=2,jobs=1,persistent_ast_cache=True)
+    third=link.relink(directory,out,source,round_limit=2,jobs=1,persistent_ast_cache=True,compile_commands=commands)
     assert third['linker_input_fingerprint']!=first['linker_input_fingerprint']
     assert len(list((directory/'clang-ast-cache').iterdir()))==2
 print('PASS real source linker: persistent raw-AST hit, fresh JS emission, readable output equality, original input invalidation and historical revision provenance')

@@ -1370,7 +1370,7 @@
   "resume": {
     "environment": ". work/session-env.ps1",
     "launcher": "npm run serve:project",
-    "startup": "python work/recover_current_boot_frontier.py --label next-console-draw-frontier --entries OSD_UpdateDrawBuffer OSD_ResizeDisplay OSD_SetTextMode osdcmd_cvar_set_osd",
+    "startup": "npm run compile:game",
     "regressions": "python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/next-regression.json",
     "pipeline": "npm run compile:game",
     "acceptance": "python tools/verify_port_acceptance.py --strict",
@@ -1381,5 +1381,11 @@
   "github_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "classic_make_inventory": "reports/oct28-classic-make-inventory.json",
   "regression_followup": "reports/oct28-regression-followup.json",
-  "current_regression_completed": "reports/oct28-publication-fixed-regression.json"
+  "current_regression_completed": "reports/oct28-publication-fixed-regression.json",
+  "active_build_root": "factory-output/source-first/browser-classic",
+  "active_profile": "tools/browser_classic_profile.json",
+  "active_source_root": "factory-output/browser-classic/source-tree/eduke32-master",
+  "browser_selected_units": 113,
+  "historical_integration_only": "factory-output/source-first/oct20-engine-preinit-browser",
+  "classic_preparation": "reports/browser-classic-preparation.json"
 }

@@ -7,9 +7,32 @@
   "build_root": "factory-output/source-first/browser-classic",
   "migration_input": "factory-output/source-first/oct20-engine-preinit-browser",
   "migration_policy": "reuse only after source, configuration, target ABI, compiler and runtime fingerprints are verified",
-  "remove_defines": ["USE_OPENGL", "POLYMER", "STARTUP_WINDOW", "USE_MIMALLOC", "HAVE_VORBIS", "HAVE_FLAC", "HAVE_XMP", "USE_LIBVPX"],
-  "add_defines": ["NOASM", "NETCODE_DISABLE"],
-  "retained_media": ["VOC", "MID", "ART", "MAP", "CON", "ANM"],
-  "inventory_policy": "captured desktop translation units are a provisional superset; regenerate and compare Make-selected units before attestation",
-  "gameplay_verified": false
+  "remove_defines": [
+    "USE_OPENGL",
+    "POLYMER",
+    "STARTUP_WINDOW",
+    "USE_MIMALLOC",
+    "HAVE_VORBIS",
+    "HAVE_FLAC",
+    "HAVE_XMP",
+    "USE_LIBVPX",
+    "HAVE_GTK2"
+  ],
+  "add_defines": [
+    "NOASM",
+    "NETCODE_DISABLE"
+  ],
+  "retained_media": [
+    "VOC",
+    "MID",
+    "ART",
+    "MAP",
+    "CON",
+    "ANM"
+  ],
+  "inventory_policy": "Default preparation uses original Make with the classic feature switches and SUBPLATFORM=BROWSER; the generated source overlay excludes ALSA driver registration while retaining original SDL/OPL/mixer code. Captured-command derivation is diagnostic only.",
+  "gameplay_verified": false,
+  "preparation_tool": "tools/prepare_browser_classic.py",
+  "prepared_source_root": "factory-output/browser-classic/source-tree/eduke32-master",
+  "browser_define": "EDUKE32_BROWSER"
 }

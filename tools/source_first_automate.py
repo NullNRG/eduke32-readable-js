@@ -327,7 +327,7 @@ def run_batch(items, out, source_root, timeout, state, fingerprint_value, batch_
                 'revision_guard_verified':revision_guard is not None}, batch_counter
     target.mkdir(parents=True,exist_ok=True)
     plan=out/'plans'/f'{name}.json'
-    put_json(plan,{'root':str(source_root),'units':[{'source':s,'header_dependency_closure':True} for s in sources]})
+    put_json(plan,{'root':str(source_root),'compile_commands':str(revision_guard.commands_path) if revision_guard else None,'units':[{'source':s,'header_dependency_closure':True} for s in sources]})
     cmd=[sys.executable,str(COMPILER),'--plan',str(plan),'--out-dir',str(target)]
     if ast_cache is not None:cmd+=['--ast-cache-dir',str(ast_cache),'--ast-cache-shards',str(ast_cache_shards)]
     start=time.monotonic()
@@ -588,7 +588,7 @@ def main():
     put_json(out/'recovery-report.json',report)
     if not args.no_global_link and attestation.get('verified') is True:
         from source_first_global_link import relink
-        link=relink(out,out.parent/'globally-linked',src_root,timeout=args.timeout)
+        link=relink(out,out.parent/'globally-linked',src_root,timeout=args.timeout,compile_commands=args.compile_commands)
         report['global_recovery']={
             'recovered_definitions':link['recovered_definitions'],
             'unique_exports':link['unique_exports'],

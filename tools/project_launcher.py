@@ -7,7 +7,7 @@ from urllib.parse import unquote, urlsplit
 from project_workspace import ROOT, cleanup_plan, save, sha
 
 JOBS = {
-    'build': ('Compile original game', ['tools/source_first_autonomous.py','build','--resume','--strict','--jobs','1','--persistent-ast-cache']),
+    'build': ('Compile original game', ['tools/build_browser_classic.py']),
     'test': ('Compiler and runtime regression tests', ['tools/verify_recovery_suite.py','--jobs','1','--timeout','240','--report','reports/project-regression.json']),
     'acceptance': ('Original game acceptance checks', ['tools/verify_port_acceptance.py','--strict']),
     'handoff': ('Create continuation ZIP', ['tools/project_workspace.py','package']),

@@ -13,7 +13,7 @@ from source_first_global_link import internal_definition, storage_import_error, 
 ROOT=Path(__file__).resolve().parents[1]
 FRONT=ROOT/'tools/source_ast_to_js.py'
 
-def run_emit(root,out,unit,index=None,cache=None):
+def run_emit(root,out,unit,index=None,cache=None,commands=None):
  args=[sys.executable,str(FRONT),'--root',str(root),'--source',unit['source'],
        '--out-dir',str(out)]
  if unit.get('filter'):args+=['--filter',unit['filter']]
@@ -22,6 +22,7 @@ def run_emit(root,out,unit,index=None,cache=None):
  if unit.get('dependency_closure'):args+=['--dependency-closure']
  if index:args+=['--project-symbols',str(index)]
  if cache:args+=['--ast-cache-dir',str(cache)]
+ if commands:args+=['--compile-commands',str(commands)]
  p=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,timeout=180)
  if p.returncode:raise RuntimeError(f'AST compile {unit["source"]}: {p.stderr[-2500:]} {p.stdout[-800:]}')
  return json.loads(p.stdout)
@@ -30,11 +31,16 @@ def main():
  ap=argparse.ArgumentParser(description=__doc__)
  ap.add_argument('--plan',type=Path,required=True)
  ap.add_argument('--out-dir',type=Path,required=True)
+ ap.add_argument('--compile-commands',type=Path,help='Selected profile database for all passes')
  ap.add_argument('--strict',action='store_true',help='reject unresolved or unsupported definitions')
  ap.add_argument('--ast-cache-dir',type=Path,help='attested persistent AST cache epoch, independent of JS emitter edits')
  ap.add_argument('--ast-cache-shards',type=int,default=8,help='lock-isolation shards; cache policy applies per shard')
  args=ap.parse_args()
  plan=json.loads(args.plan.read_text());src_root=Path(plan['root']).resolve()
+ commands=args.compile_commands or plan.get('compile_commands')
+ if commands:
+  commands=Path(commands).resolve()
+  if not commands.is_file():raise SystemExit('Selected compilation database missing')
  out=args.out_dir.resolve();out.mkdir(parents=True,exist_ok=True)
  units=plan['units'];files=[x['source'] for x in units]
  if args.ast_cache_shards < 1 or args.ast_cache_shards > 64:
@@ -55,7 +61,7 @@ def main():
   if (not (src_root/u['source']).is_file() or Path(u['source']).is_absolute() or '..' in Path(u['source']).parts):
    raise SystemExit('bad source path '+u['source'])
  # Initial pass: recover available AST-declared code without assuming imports.
- probes={u['source']:run_emit(src_root,out,u,cache=cache_for(u['source'])) for u in units}
+ probes={u['source']:run_emit(src_root,out,u,cache=cache_for(u['source']),commands=commands) for u in units}
  declarations=defaultdict(set)
  probe_units={}
  for u in units:
@@ -107,7 +113,7 @@ def main():
   owner_file=out/('.symbols-'+str(len(results))+'.json')
   owner_file.write_text(json.dumps(module_index,sort_keys=True))
   try:
-   results.append(run_emit(src_root,out,u,owner_file,cache=cache_for(u['source'])));relowered.append(u['source'])
+   results.append(run_emit(src_root,out,u,owner_file,cache=cache_for(u['source']),commands=commands));relowered.append(u['source'])
   finally:owner_file.unlink(missing_ok=True)
  reports={}
  for u in units:
@@ -133,6 +139,7 @@ def main():
    p=subprocess.run(['node','--check',str(out/(src+'.mjs'))],capture_output=True,text=True)
    if p.returncode:invalid.append({'source':src,'invalid_javascript':p.stderr[-1000:]})
  summary={'format':'source-first-project/1','source_root':str(src_root),
+          'compile_commands_sha256':hashlib.sha256(commands.read_bytes()).hexdigest() if commands else None,
    'canonical_header_odr_owners':canonical_header_odr_owners,
    'selected_units':len(units),'attempted_units':len(reports),
    'compiler_passes':len(probes)+len(relowered),

@@ -50,7 +50,8 @@ def evaluate(root, reports_root=None, build_root=None):
                                   else 'recovery-regression.json')}
     snapshots = {key: snapshot_json(path) for key,path in paths.items()}
     data = {key: value[0] or {} for key,value in snapshots.items()}
-    commands_path = root/'factory-output/compile_commands.json'
+    from browser_classic_profile import selected_commands
+    commands_path = selected_commands(root,build)
     commands = read_json(commands_path) or []
     selected = {entry['file'].replace('\\','/') for entry in commands}
     expected = len(selected)

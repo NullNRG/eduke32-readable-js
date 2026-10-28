@@ -376,7 +376,7 @@ def rank_retry_units(units, ready, declared, ambiguous):
     return sorted(set(ready),key=lambda src:(-counts[src],src))
 
 
-def link_input_fingerprint(directory,source_root=None,include_toolchain=True):
+def link_input_fingerprint(directory,source_root=None,include_toolchain=True,compile_commands=None):
     """Revalidate the exact recovered compilation and compiler implementation."""
     digest=hashlib.sha256()
     if include_toolchain:fingerprint_toolchain(digest)
@@ -423,7 +423,7 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True):
             digest.update(path.relative_to(source_root).as_posix().encode()+b'\0')
             with path.open('rb') as stream:
                 for chunk in iter(lambda:stream.read(1024*1024),b''):digest.update(chunk)
-        commands=ROOT/'factory-output/compile_commands.json'
+        commands=Path(compile_commands) if compile_commands is not None else ROOT/'factory-output/compile_commands.json'
         if commands.is_file():digest.update(commands.read_bytes())
     return digest.hexdigest()
 
@@ -469,15 +469,15 @@ def write_link_checkpoint(out,units,initial_units,fingerprint,round_number):
                                             'verified':verified})
 
 
-def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budget=0,resume=False,persistent_ast_cache=False):
+def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budget=0,resume=False,persistent_ast_cache=False,compile_commands=None):
     report,units=gather_batches(directory)
     out.mkdir(parents=True,exist_ok=True)
     initial_units={src:{'manifest':unit['manifest'],'module':unit['module']}
                    for src,unit in units.items()}
-    fingerprint=link_input_fingerprint(directory,source_root)
-    content_guard=link_input_fingerprint(directory,source_root,include_toolchain=False)
+    fingerprint=link_input_fingerprint(directory,source_root,compile_commands=compile_commands)
+    content_guard=link_input_fingerprint(directory,source_root,include_toolchain=False,compile_commands=compile_commands)
     def attest_content():
-        if content_guard!=link_input_fingerprint(directory,source_root,include_toolchain=False):
+        if content_guard!=link_input_fingerprint(directory,source_root,include_toolchain=False,compile_commands=compile_commands):
             raise RuntimeError('link input source, compiler or published artifacts changed during recovery')
     previously_recovered=(resume_verified_units(directory,out,units,fingerprint,source_root) if resume else 0)
     stage_modules(units,out)
@@ -488,7 +488,7 @@ def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budge
     ast_cache_owner=None
     if persistent_ast_cache:
         from source_first_automate import ast_semantic_epoch
-        commands=ROOT/'factory-output/compile_commands.json'
+        commands=Path(compile_commands) if compile_commands is not None else ROOT/'factory-output/compile_commands.json'
         ast_cache=directory/'clang-ast-cache'/ast_semantic_epoch(commands if commands.is_file() else None,source_root)/'shard-00'
     else:
         ast_cache_owner=tempfile.TemporaryDirectory(prefix='eduke_original_ast_')
@@ -540,6 +540,7 @@ def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budge
                     command=[sys.executable,str(FRONT),'--root',str(source_root),'--source',source,
                              '--out-dir',str(output),'--project-symbols',str(symbols),
                                  '--ast-cache-dir',str(ast_cache),'--header-dependency-closure']
+                    if compile_commands is not None:command.extend(['--compile-commands',str(compile_commands)])
                     try:
                         from source_first_automate import run_compiler_process
                         result=run_compiler_process(command,timeout)
@@ -623,7 +624,7 @@ def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budge
             attempted_without_gain.update(ready)
             if not retry_budget:break
     attest_content()
-    if fingerprint!=link_input_fingerprint(directory,source_root):
+    if fingerprint!=link_input_fingerprint(directory,source_root,compile_commands=compile_commands):
         raise RuntimeError('link toolchain changed during recovery')
     owners,ambiguous=ownership(units,source_root)
     invalid=[]
@@ -691,6 +692,7 @@ def main():
     parser.add_argument('--directory',type=Path,default=ROOT/'factory-output/source-first/automatic')
     parser.add_argument('--out',type=Path,default=ROOT/'factory-output/source-first/globally-linked')
     parser.add_argument('--source-root',type=Path,default=ROOT/'factory-output/source-tree/eduke32-master')
+    parser.add_argument('--compile-commands',type=Path,help='Use the selected profile for every recovery compile and cache key')
     parser.add_argument('--timeout',type=int,default=65)
     parser.add_argument('--rounds',type=int,default=8)
     parser.add_argument('--resume',action='store_true',help='reuse only fingerprint-matching, revalidated link checkpoints')
@@ -701,7 +703,7 @@ def main():
                         help='memory-bounded concurrent Clang AST retry workers')
     args=parser.parse_args()
     if args.retry_budget<0:parser.error('--retry-budget must be nonnegative')
-    summary=relink(args.directory.resolve(),args.out.resolve(),args.source_root.resolve(),args.rounds,args.timeout,args.jobs,args.retry_budget,args.resume,args.persistent_ast_cache)
+    summary=relink(args.directory.resolve(),args.out.resolve(),args.source_root.resolve(),args.rounds,args.timeout,args.jobs,args.retry_budget,args.resume,args.persistent_ast_cache,args.compile_commands)
     print(json.dumps({k:v for k,v in summary.items() if k not in ('remaining','recovery_attempts')},indent=2))
     return 2 if summary['invalid_imports_or_syntax'] else 0
 
