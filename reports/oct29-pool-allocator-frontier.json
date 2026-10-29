@@ -1,0 +1,625 @@
+{
+  "format": "original-small-pool-allocator-continuation/1",
+  "source_file": "source/build/src/smmalloc.cpp",
+  "source_sha256": "04b70b87f32b8eb5034bfbebadaca501d64bf2099ec68e49effc7bac29efc817",
+  "semantic_fingerprint": "fa17d16a5825de4dc49ce1217e21dd66e08bfdbee28945ed815752a6930fef63",
+  "source_instance_methods_and_constructor": [
+    {
+      "id": "bbeaa074187b4eb266bac9c955f8fc94f15ec1fdd3cb4d0f5267989456014a7d",
+      "usr": "c:@N@sm@N@internal@S@TlsPoolBucket@F@Init#*i#i#$@N@sm@E@CacheWarmupOptions#*$@N@sm@S@Allocator#l#",
+      "kind": "CXX_METHOD",
+      "name": "Init",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 35,
+      "canonical_type": "void (unsigned int *, unsigned int, sm::CacheWarmupOptions, sm::Allocator *, unsigned long)",
+      "mangled_name": "_ZN2sm8internal13TlsPoolBucket4InitEPjjNS_18CacheWarmupOptionsEPNS_9AllocatorEm",
+      "definition_extent": [
+        1298,
+        3423
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "e4d40733d6caba53599718a6296707ed5d265cbc5e2255c68b3ce9e4bce50f14",
+          "target_usr": "c:@N@sm@S@Allocator@F@Free#*v#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "Free",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 80
+        },
+        {
+          "target_id": "54ce14097a3946e8b1c0eba8e21ff1b8139b8d43c66e64137715275e260aac53",
+          "target_usr": "c:@N@sm@S@Allocator@F@GetBucketIndex#*v#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "GetBucketIndex",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 78
+        },
+        {
+          "target_id": "3ae8f19eede49bd5ff18e107b706c10c11a0423f625383ab470568d391844315",
+          "target_usr": "c:@N@loguru@F@log_and_abort#I#*1C#S0_#i#S0_.#",
+          "target_kind": "FUNCTION_DECL",
+          "target_name": "log_and_abort",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 47
+        },
+        {
+          "target_id": "47e5c9c4411e8a67242ace29cbaa97dba15623be66d0e8d379ad592f65a959bc",
+          "target_usr": "c:@F@__builtin_expect",
+          "target_kind": "FUNCTION_DECL",
+          "target_name": "__builtin_expect",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 47
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    },
+    {
+      "id": "d69dffb3bbd0d2aec82c2e11a0068f70f4678d5bf6284a8d3cdbda343fb85e69",
+      "usr": "c:@N@sm@N@internal@S@TlsPoolBucket@F@Destroy#",
+      "kind": "CXX_METHOD",
+      "name": "Destroy",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 103,
+      "canonical_type": "unsigned int *()",
+      "mangled_name": "_ZN2sm8internal13TlsPoolBucket7DestroyEv",
+      "definition_extent": [
+        3425,
+        4017
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "2c4c8e94ea66a0b2cb623cc5780ae9e31482be0cb2b3536a30c073c5e6aca847",
+          "target_usr": "c:@N@sm@N@internal@S@TlsPoolBucket@F@ReturnL1CacheToMaster#i#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "ReturnL1CacheToMaster",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 115
+        },
+        {
+          "target_id": "e00d896de657cfe2ea4f96d83bc15ece06eb950e28137837b3ec8306992455d7",
+          "target_usr": "c:@N@std@S@array>#i#Vl7@F@operator[]#l#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "operator[]",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 108
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    },
+    {
+      "id": "4c828abccea385da42d77409349d91e51ed952c8f029bb2f8c45bb1bac638156",
+      "usr": "c:@N@sm@S@Allocator@F@CreateThreadCache#$@N@sm@E@CacheWarmupOptions#$@N@std@S@initializer_list>#i#",
+      "kind": "CXX_METHOD",
+      "name": "CreateThreadCache",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 130,
+      "canonical_type": "void (sm::CacheWarmupOptions, std::initializer_list<unsigned int>)",
+      "mangled_name": "_ZN2sm9Allocator17CreateThreadCacheENS_18CacheWarmupOptionsESt16initializer_listIjE",
+      "definition_extent": [
+        4044,
+        4689
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "bbeaa074187b4eb266bac9c955f8fc94f15ec1fdd3cb4d0f5267989456014a7d",
+          "target_usr": "c:@N@sm@N@internal@S@TlsPoolBucket@F@Init#*i#i#$@N@sm@E@CacheWarmupOptions#*$@N@sm@S@Allocator#l#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "Init",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 148
+        },
+        {
+          "target_id": "ea9cc583e9dc442c152a83fa551af782a57ea67bc964bbd8bc7fa838557a45b3",
+          "target_usr": "c:@N@sm@F@GetTlsBucket#l#",
+          "target_kind": "FUNCTION_DECL",
+          "target_name": "GetTlsBucket",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 148
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    },
+    {
+      "id": "3dae7fa51761c0da9f08d9c91f472efa7c8441c5deafe352affe2342cfd83343",
+      "usr": "c:@N@sm@S@Allocator@F@DestroyThreadCache#",
+      "kind": "CXX_METHOD",
+      "name": "DestroyThreadCache",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 154,
+      "canonical_type": "void ()",
+      "mangled_name": "_ZN2sm9Allocator18DestroyThreadCacheEv",
+      "definition_extent": [
+        4691,
+        5029
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "aac6c9db13ae85d516babe059bbcc3e6e92e2cf347ce7e7ba81167e66f38d085",
+          "target_usr": "c:@N@sm@S@GenericAllocator@F@Free#*v#S0_#S",
+          "target_kind": "CXX_METHOD",
+          "target_name": "Free",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 163
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    },
+    {
+      "id": "a393695e65eaa0d3a2c9ef4d28e12342804fc0b741b58c0304a6de02d3d4e02b",
+      "usr": "c:@N@sm@S@Allocator@S@PoolBucket@F@Create#l#",
+      "kind": "CXX_METHOD",
+      "name": "Create",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 167,
+      "canonical_type": "void (unsigned long)",
+      "mangled_name": "_ZN2sm9Allocator10PoolBucket6CreateEm",
+      "definition_extent": [
+        5031,
+        6017
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "8ccd321a2362bee3a9cdaa21ea1964002c7bcd2eda9dfa77efa774c073f00c28",
+          "target_usr": "c:@N@std@S@__atomic_base>#i@F@fetch_add#i#$@N@std@E@memory_order#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "fetch_add",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 199
+        },
+        {
+          "target_id": "16ac49095fd3bd4a087b0ef8dbc917bd33147949b6af447c73cf3d32c58b9404",
+          "target_usr": "c:@N@sm@S@Allocator@S@PoolBucket@U@TaggedIndex@F@operator=#&1$@N@sm@S@Allocator@S@PoolBucket@U@TaggedIndex#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "operator=",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 189
+        },
+        {
+          "target_id": "faa6639a8bb5f92e659f37702518bd01b3cb906e6a1f11fa39cb2ba848116ed7",
+          "target_usr": "c:@N@std@S@__atomic_base>#i@F@load#$@N@std@E@memory_order#1",
+          "target_kind": "CXX_METHOD",
+          "target_name": "load",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 186
+        },
+        {
+          "target_id": "40e16c6a5c63aa10d0afb58276c1a89e991a7f5dacc61c22c96a7a6871edef24",
+          "target_usr": "c:@N@std@S@__atomic_base>#l@F@store#l#$@N@std@E@memory_order#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "store",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 178
+        },
+        {
+          "target_id": "faa6639a8bb5f92e659f37702518bd01b3cb906e6a1f11fa39cb2ba848116ed7",
+          "target_usr": "c:@N@std@S@__atomic_base>#i@F@load#$@N@std@E@memory_order#1",
+          "target_kind": "CXX_METHOD",
+          "target_name": "load",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 176
+        },
+        {
+          "target_id": "cec0517da6c10be863513dcb2fee5b867e4a22e92937558e5d5c8911833b61ba",
+          "target_usr": "c:@N@std@S@__atomic_base>#i@F@store#i#$@N@std@E@memory_order#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "store",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 172
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    },
+    {
+      "id": "b5baa58055b19e6d60affede13e874d77098540462c754e16ec95c9955a0baed",
+      "usr": "c:@N@sm@S@Allocator@F@Allocator#*v#",
+      "kind": "CONSTRUCTOR",
+      "name": "Allocator",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 203,
+      "canonical_type": "void (void *)",
+      "mangled_name": "_ZN2sm9AllocatorC1EPv",
+      "definition_extent": [
+        6019,
+        6313
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "40e16c6a5c63aa10d0afb58276c1a89e991a7f5dacc61c22c96a7a6871edef24",
+          "target_usr": "c:@N@std@S@__atomic_base>#l@F@store#l#$@N@std@E@memory_order#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "store",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 211
+        },
+        {
+          "target_id": "8991c468a9028e1492dd4f0ca81b63d590fe346fce24992b8ea6dd4f8ec79b35",
+          "target_usr": "c:@N@std@S@unique_ptr>#c#$@N@sm@S@GenericAllocator@S@Deleter@F@unique_ptr<#S0_#v>#*c#&&S0_#",
+          "target_kind": "CONSTRUCTOR",
+          "target_name": "unique_ptr",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 207
+        },
+        {
+          "target_id": "28a029cb9e8ed564c2983fefc4fc78a39b9316a4e8dcff1a88d8d394fbe2e268",
+          "target_usr": "c:@N@sm@S@GenericAllocator@S@Deleter@F@Deleter#*v#",
+          "target_kind": "CONSTRUCTOR",
+          "target_name": "Deleter",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 207
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    },
+    {
+      "id": "f72a08520a921caa33f8dba85c3e54b79219b2775e3d1c5f4d09acdf64287b20",
+      "usr": "c:@N@sm@S@Allocator@F@Init#i#l#",
+      "kind": "CXX_METHOD",
+      "name": "Init",
+      "file": "source/build/src/smmalloc.cpp",
+      "line": 231,
+      "canonical_type": "void (unsigned int, unsigned long)",
+      "mangled_name": "_ZN2sm9Allocator4InitEjm",
+      "definition_extent": [
+        6659,
+        7901
+      ],
+      "direct_source_calls": [
+        {
+          "target_id": "d5177966efb65c266e412a4e26e6e9162e70fbf3d59b7fd932fa34a276729ac7",
+          "target_usr": "c:@N@std@S@array>#*c#Vl8@F@operator[]#l#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "operator[]",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 268
+        },
+        {
+          "target_id": "a393695e65eaa0d3a2c9ef4d28e12342804fc0b741b58c0304a6de02d3d4e02b",
+          "target_usr": "c:@N@sm@S@Allocator@S@PoolBucket@F@Create#l#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "Create",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 266
+        },
+        {
+          "target_id": "a65a77cee76d84da762ff49fd7e85d956e8888511dfca2baaf8229221e0926e3",
+          "target_usr": "c:@N@std@S@unique_ptr>#c#$@N@sm@S@GenericAllocator@S@Deleter@F@get#1",
+          "target_kind": "CXX_METHOD",
+          "target_name": "get",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 263
+        },
+        {
+          "target_id": "a65a77cee76d84da762ff49fd7e85d956e8888511dfca2baaf8229221e0926e3",
+          "target_usr": "c:@N@std@S@unique_ptr>#c#$@N@sm@S@GenericAllocator@S@Deleter@F@get#1",
+          "target_kind": "CXX_METHOD",
+          "target_name": "get",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 257
+        },
+        {
+          "target_id": "43ff0560938f1076bdb81a8286c6b63910612562812fe9cad68d3d176eec6fee",
+          "target_usr": "c:@N@std@S@unique_ptr>#c#$@N@sm@S@GenericAllocator@S@Deleter@F@reset#*c#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "reset",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 256
+        },
+        {
+          "target_id": "18e3eab09756c68c176db3090789f3d395d04f70c821d1e9eea1a7a81b0852f8",
+          "target_usr": "c:@N@sm@S@GenericAllocator@F@Alloc#*v#l#l#S",
+          "target_kind": "CXX_METHOD",
+          "target_name": "Alloc",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 256
+        },
+        {
+          "target_id": "d5177966efb65c266e412a4e26e6e9162e70fbf3d59b7fd932fa34a276729ac7",
+          "target_usr": "c:@N@std@S@array>#*c#Vl8@F@operator[]#l#",
+          "target_kind": "CXX_METHOD",
+          "target_name": "operator[]",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 252
+        },
+        {
+          "target_id": "2a9feec1c96b603898f89a4a98d41cc8420acf31b4a4d62e7bc3012a1f503774",
+          "target_usr": "c:@N@std@S@array>#*c#Vl8@F@size#1",
+          "target_kind": "CXX_METHOD",
+          "target_name": "size",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 250
+        },
+        {
+          "target_id": "1be2232411d58b2beef49e2a924699bd30391862fb673f3f0e86999f4de02feb",
+          "target_usr": "c:@N@sm@F@Align#l#l#",
+          "target_kind": "FUNCTION_DECL",
+          "target_name": "Align",
+          "file": "source/build/src/smmalloc.cpp",
+          "line": 247
+        }
+      ],
+      "original_body_in_semantic_index": true,
+      "baseline_emitted_method_ownership": "unrepresented by the older source emission catalog"
+    }
+  ],
+  "header_fields": [
+    {
+      "name": "bucketSizeInBytes",
+      "line": 326,
+      "canonical_type": "unsigned long",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 64,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "buckets",
+      "line": 329,
+      "canonical_type": "std::array<sm::Allocator::PoolBucket, 8>",
+      "size_bytes": 512,
+      "align_bytes": 8,
+      "field_offset_bits": 704,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "bucketsCount",
+      "line": 325,
+      "canonical_type": "unsigned long",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 0,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "bucketsDataBegin",
+      "line": 328,
+      "canonical_type": "std::array<unsigned char *, 8>",
+      "size_bytes": 64,
+      "align_bytes": 8,
+      "field_offset_bits": 192,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "cacheHitCount",
+      "line": 103,
+      "canonical_type": "std::atomic<unsigned long>",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 0,
+      "parent_id": "615e1b053674012c090fb9dafc01cad2e4447bb53f8c291bf28f026e7963eb1f"
+    },
+    {
+      "name": "freeCount",
+      "line": 106,
+      "canonical_type": "std::atomic<unsigned long>",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 192,
+      "parent_id": "615e1b053674012c090fb9dafc01cad2e4447bb53f8c291bf28f026e7963eb1f"
+    },
+    {
+      "name": "gAllocator",
+      "line": 331,
+      "canonical_type": "void *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 4928,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "globalMissCount",
+      "line": 334,
+      "canonical_type": "std::atomic<unsigned long>",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 4992,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "globalTag",
+      "line": 200,
+      "canonical_type": "std::atomic<unsigned int>",
+      "size_bytes": 4,
+      "align_bytes": 4,
+      "field_offset_bits": 64,
+      "parent_id": "8944d4517d446f4eeb2a7023a8e4e98e492e0229cb44ee4950b35da732146916"
+    },
+    {
+      "name": "head",
+      "line": 199,
+      "canonical_type": "std::atomic<unsigned long>",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 0,
+      "parent_id": "8944d4517d446f4eeb2a7023a8e4e98e492e0229cb44ee4950b35da732146916"
+    },
+    {
+      "name": "hitCount",
+      "line": 104,
+      "canonical_type": "std::atomic<unsigned long>",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 64,
+      "parent_id": "615e1b053674012c090fb9dafc01cad2e4447bb53f8c291bf28f026e7963eb1f"
+    },
+    {
+      "name": "instance",
+      "line": 170,
+      "canonical_type": "void *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 0,
+      "parent_id": "c309861f5ce4edb6b6ed2074c1db5a6b751b5bfcbd6555689b14325808fe58cb"
+    },
+    {
+      "name": "maxElementsCount",
+      "line": 644,
+      "canonical_type": "unsigned int",
+      "size_bytes": 4,
+      "align_bytes": 4,
+      "field_offset_bits": 416,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "missCount",
+      "line": 105,
+      "canonical_type": "std::atomic<unsigned long>",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 128,
+      "parent_id": "615e1b053674012c090fb9dafc01cad2e4447bb53f8c291bf28f026e7963eb1f"
+    },
+    {
+      "name": "numElementsL0",
+      "line": 646,
+      "canonical_type": "unsigned char",
+      "size_bytes": 1,
+      "align_bytes": 1,
+      "field_offset_bits": 480,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "numElementsL1",
+      "line": 645,
+      "canonical_type": "unsigned int",
+      "size_bytes": 4,
+      "align_bytes": 4,
+      "field_offset_bits": 448,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "offset",
+      "line": 193,
+      "canonical_type": "unsigned int",
+      "size_bytes": 4,
+      "align_bytes": 4,
+      "field_offset_bits": 32,
+      "parent_id": "d36ef13caa06ad32b4db92c40690ce005e46b49b77e652667de3997673c8e04a"
+    },
+    {
+      "name": "p",
+      "line": 194,
+      "canonical_type": "sm::Allocator::PoolBucket::TaggedIndex::(unnamed struct at source/build/include/smmalloc.h:190:13)",
+      "size_bytes": 8,
+      "align_bytes": 4,
+      "field_offset_bits": 0,
+      "parent_id": "e32dd7d9e4ba804a877d8884c1916673f4a98184e20f86c5fa66e14046945f55"
+    },
+    {
+      "name": "pBucket",
+      "line": 640,
+      "canonical_type": "sm::Allocator::PoolBucket *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 128,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "pBucketData",
+      "line": 638,
+      "canonical_type": "unsigned char *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 0,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "pBuffer",
+      "line": 330,
+      "canonical_type": "std::unique_ptr<unsigned char, sm::GenericAllocator::Deleter>",
+      "size_bytes": 16,
+      "align_bytes": 8,
+      "field_offset_bits": 4800,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "pBufferEnd",
+      "line": 202,
+      "canonical_type": "unsigned char *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 192,
+      "parent_id": "8944d4517d446f4eeb2a7023a8e4e98e492e0229cb44ee4950b35da732146916"
+    },
+    {
+      "name": "pBufferEnd",
+      "line": 327,
+      "canonical_type": "unsigned char *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 128,
+      "parent_id": "ef526d7eefdd816c47fe4e84c648da7af7b3a58c93d877a4d15d860ee24bc337"
+    },
+    {
+      "name": "pData",
+      "line": 201,
+      "canonical_type": "unsigned char *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 128,
+      "parent_id": "8944d4517d446f4eeb2a7023a8e4e98e492e0229cb44ee4950b35da732146916"
+    },
+    {
+      "name": "pStorageL1",
+      "line": 639,
+      "canonical_type": "unsigned int *",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 64,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "stats",
+      "line": 205,
+      "canonical_type": "sm::AllocatorStats",
+      "size_bytes": 32,
+      "align_bytes": 8,
+      "field_offset_bits": 256,
+      "parent_id": "8944d4517d446f4eeb2a7023a8e4e98e492e0229cb44ee4950b35da732146916"
+    },
+    {
+      "name": "storageL0",
+      "line": 642,
+      "canonical_type": "std::array<unsigned int, 7>",
+      "size_bytes": 28,
+      "align_bytes": 4,
+      "field_offset_bits": 192,
+      "parent_id": "dcfad86463b61edeaae825a685d7b241ff861ed8e3492e7fadfd821c4797ce01"
+    },
+    {
+      "name": "tag",
+      "line": 192,
+      "canonical_type": "unsigned int",
+      "size_bytes": 4,
+      "align_bytes": 4,
+      "field_offset_bits": 0,
+      "parent_id": "d36ef13caa06ad32b4db92c40690ce005e46b49b77e652667de3997673c8e04a"
+    },
+    {
+      "name": "u",
+      "line": 195,
+      "canonical_type": "unsigned long",
+      "size_bytes": 8,
+      "align_bytes": 8,
+      "field_offset_bits": 0,
+      "parent_id": "e32dd7d9e4ba804a877d8884c1916673f4a98184e20f86c5fa66e14046945f55"
+    }
+  ],
+  "next_semantic_requirements": [
+    "Exact same-Clang ownership for out-of-line instance methods and constructors",
+    "Base/member construction and implicit owned-subobject destruction",
+    "std::array record members and original bucket initialization",
+    "std::unique_ptr with original GenericAllocator::Deleter",
+    "Required atomic/TLS semantics for the selected single-threaded browser configuration",
+    "Cross-unit method/prototype identity and original logging/failure dependencies"
+  ],
+  "already_verified": "All eight original GenericAllocator methods pass native/Node/Chromium allocation comparisons, including the original pool low-address sentinel range. See the exact module hash in oct29-original-generic-allocator-full-parity.json.",
+  "original_pool_execution_verified": false,
+  "engine_boot_verified": false,
+  "gameplay_verified": false
+}

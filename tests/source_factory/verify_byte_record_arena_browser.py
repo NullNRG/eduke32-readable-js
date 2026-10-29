@@ -30,7 +30,7 @@ SCHEMA={'size':12,'fields':{
  'pair':{'offset':0,'native':'Int32Array','size':8,'length':2},
  'shade':{'offset':8,'native':'Uint16Array','size':2},
  'flags':{'offset':10,'native':'Uint16Array','size':2}}}
-JS=(ROOT/'tools/source_aggregate_runtime.mjs').read_text()+'''
+JS=(ROOT/'tools/source_address_runtime.mjs').read_text()+'\n'+(ROOT/'tools/source_aggregate_runtime.mjs').read_text()+'''
 function run() {
  const schema = '''+json.dumps(SCHEMA)+''';
  const a=cByteRecordArray(schema,4);

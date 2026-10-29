@@ -21,6 +21,44 @@ def method_symbol(method):
     return name+'__cxx_static_'+hashlib.sha256(mangled.encode()).hexdigest()[:16]
 
 
+def constant_members(ast,source_root,prove_header,resolve_type,integer_type):
+    """Prove integral static-member constant values, never their addresses.
+
+    Only Clang's non-ODR constant uses may substitute these values. A runtime
+    address use still needs the original storage owner. No class execution or
+    textual evaluation of C++ expressions is involved.
+    """
+    def value(node):
+        if node.get('kind') in ('ConstantExpr','IntegerLiteral','CharacterLiteral') and node.get('value') is not None:
+            try:return int(str(node['value']),0)
+            except ValueError:return None
+        children=[c for c in node.get('inner',[]) if c]
+        if node.get('kind') in ('ImplicitCastExpr','ParenExpr') and len(children)==1:return value(children[0])
+        return None
+    result={}
+    for tree in ast:
+        for record in walk(tree):
+            if record.get('kind')!='CXXRecordDecl' or not record.get('completeDefinition'):continue
+            members=[]
+            for child in record.get('inner',[]):
+                original_type=child.get('type',{}).get('qualType','')
+                typ=resolve_type(original_type)
+                if (child.get('kind')!='VarDecl' or child.get('storageClass')!='static'
+                        or not child.get('id') or not re.search(r'\bconst\b',original_type)
+                        or re.search(r'\bvolatile\b',original_type) or not integer_type(typ)):continue
+                initial=[c for c in child.get('inner',[]) if c]
+                number=value(initial[0]) if len(initial)==1 else None
+                if number is not None:members.append((child,typ,number))
+            if not members:continue
+            proof=prove_header(record,source_root)
+            if not proof:continue
+            for child,typ,number in members:
+                result[child['id']]={'value':number,'type':typ,'name':child['name'],
+                    'source_header':proof['source_header'],'class_offset':proof['source_offset'],
+                    'member_offset':child.get('loc',{}).get('offset')}
+    return result
+
+
 def recover(ast,source_root,source_rel,prove_header):
     if not source_root:return [],{}
     root=Path(source_root).resolve();path=(root/source_rel).resolve()

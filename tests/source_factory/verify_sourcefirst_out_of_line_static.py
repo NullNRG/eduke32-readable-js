@@ -19,13 +19,14 @@ with tempfile.TemporaryDirectory(prefix='source-static-members-') as temporary:
     root=Path(temporary)
     (root/'methods.hpp').write_text('''#pragma once
 namespace left {struct Math {
+ static const int scale=3;
  static int f(int); static int f(int,int);static int use(int);
  static unsigned long long address(void*);
 };}
 namespace right {struct Math {static int f(int);};}
 ''')
     (root/'provider.cpp').write_text('''#include "methods.hpp"
-int left::Math::f(int x){return x*3+7;}
+int left::Math::f(int x){return x*scale+7;}
 int left::Math::f(int x,int y){return x-y*2;}
 int left::Math::use(int n){auto callback=(int(*)(int))&f;return callback(n)+f(n,5);}
 unsigned long long left::Math::address(void*p){return (unsigned long long)p;}
@@ -54,10 +55,9 @@ int main(){for(int n=-512;n<512;n++)printf("%d\\n",api_static(n));}
     for row in methods:
         assert row['original_static_member']['mangled_name'].startswith('_Z')
         assert row['physical_source']=='provider.cpp',row
-        if row['source_name']=='address':
-            assert row['status']=='blocked' and 'address-space' in row['reason'],row
-        else:assert row['status']=='source-first',row
+        assert row['status']=='source-first',row
     assert len({row['name'] for row in methods if row['source_name']=='f'})==3
+    assert any(row.get('non_odr_static_constants') for row in methods)
     caller=emit('caller.cpp')
     row=next(row for row in caller['definitions'] if row['name']=='api_static')
     assert row['status']=='blocked' and 'unlinked identifiers:' in row['reason'],row
@@ -72,4 +72,8 @@ int main(){for(int n=-512;n<512;n++)printf("%d\\n",api_static(n));}
     runner.write_text('import {api_static} from '+json.dumps((out/'caller.cpp.mjs').as_uri())+';\n'
                      'for(let n=-512;n<512;n++)console.log(api_static(n));\n')
     assert run(['node',str(runner)],root).splitlines()==expected
-print('PASS 1024 native/JavaScript values: source-owned static methods, namespace/overload identities, callbacks and cross-unit linking; unverified address conversion blocked')
+    (root/'address.cpp').write_text('#include "methods.hpp"\nconst int*constant_address(){return &left::Math::scale;}\n')
+    address=emit('address.cpp')
+    row=next(r for r in address['definitions'] if r['name']=='constant_address')
+    assert row['status']=='blocked' and 'scale' in row['reason'],row
+print('PASS 1024 native/JavaScript values: source-owned static methods, namespace/overload identities, callbacks and cross-unit linking')

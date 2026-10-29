@@ -33,6 +33,7 @@ const cByteMemory = (() => {
     if (!Number.isSafeInteger(start) || start<lower || start>upper ||
         !Number.isSafeInteger(upper) || n>upper-start)
       throw new RangeError('C byte operation exceeds original allocation');
+    globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(buffer,start,n);
     return {buffer,start,n,view:new Uint8Array(buffer,start,n)};
   };
   const cstring = source => {
@@ -43,6 +44,7 @@ const cByteMemory = (() => {
           !Number.isSafeInteger(source.offset) || source.offset<source.lower ||
           source.offset>source.upper)
         throw new TypeError('unproven C char pointer storage');
+      globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset,source.upper-source.offset);
       return new Uint8Array(source.buffer,source.offset,source.upper-source.offset);
     }
     if (ArrayBuffer.isView(source) && !(source instanceof DataView))

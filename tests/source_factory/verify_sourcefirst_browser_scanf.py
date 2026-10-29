@@ -1,5 +1,5 @@
 """Compile real C sscanf callers and compare their source storage to native C."""
-import base64,json,os,subprocess,sys,tempfile
+import base64,hashlib,json,os,subprocess,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 def run(args):
@@ -31,6 +31,11 @@ extern "C" void scan_fields(const char *text,int *out){
     expected=[[int(v) for v in line.split()] for line in run([str(exe)]).splitlines()]
     host='import {createCScanf} from '+json.dumps((ROOT/'runtime/c_scanf.mjs').as_uri())+';\nimport {ABIHeap} from '+json.dumps((ROOT/'runtime/abi.mjs').as_uri())+';\nexport const sscanf=createCScanf({heap:new ABIHeap()}).sscanf;\n'
     (p/'scan-host.mjs').write_text(host)
+    # This real browser adapter borrows native source bytes and references;
+    # attest its boundary explicitly, then verify it against native C below.
+    (p/'scan-host.manifest.json').write_text(json.dumps({'source':'scan-host',
+        'native_pointer_abi':'source-lp64-addresses/2','definitions':[],
+        'browser_adapter':'runtime/c_scanf.mjs','module_sha256':hashlib.sha256(host.encode()).hexdigest()}))
     (p/'symbols.json').write_text(json.dumps({'sscanf':'scan-host'}))
     run([sys.executable,'tools/source_ast_to_js.py','--root',str(p),'--source','unit.cpp',
          '--out-dir',str(p/'out'),'--filter','scan_fields','--project-symbols',str(p/'symbols.json'),'--import-root',str(p)])

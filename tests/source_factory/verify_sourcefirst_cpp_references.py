@@ -70,7 +70,7 @@ with tempfile.TemporaryDirectory(prefix='eduke-cpp-references-') as directory:
  dependency=next(d for d in caller['imports'] if d['name']=='cross_add')
  units={'provider.cpp':{'manifest':provider,'module':out/'provider.cpp.mjs'}}
  assert storage_import_error(dependency,units) is None
- assert 'reference-call consumer' in storage_import_error({'name':'cross_add','from':'provider.cpp'},units)
+ assert 'reference-call consumer' in storage_import_error({'name':'cross_add','from':'provider.cpp','native_pointer_abi':provider['native_pointer_abi']},units)
  (root/'cross.mjs').write_text('import {cross_case} from '+json.dumps((out/'caller.cpp.mjs').as_uri())+';for(let n=0;n<512;n++)if(cross_case(n)!==n+17)throw Error("cross TU reference mismatch");')
  run(['node',str(root/'cross.mjs')],root)
  next(d for d in provider['definitions'] if d['name']=='cross_add').pop('cpp_reference_contract')

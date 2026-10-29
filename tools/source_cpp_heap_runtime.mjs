@@ -17,7 +17,10 @@ const cxxHeap = (() => {
     const extent=n*width;state.bytes+=extent;
     return {count:n,extent,live:true};
   };
-  const release=allocation=>{if(allocation.live){allocation.live=false;state.bytes-=allocation.extent;}};
+  const release=allocation=>{if(allocation.live){
+    try{globalThis[Symbol.for('source-lp64-addresses/2')]?.forgetAllocation(allocation.pointer);}
+    finally{allocation.live=false;state.bytes-=allocation.extent;}
+  }};
   const native=(name,count,width,align,type,array,initialize)=>{
     const C=constructors[name];
     if(!C||C.BYTES_PER_ELEMENT!==width)throw new TypeError('C++ scalar allocation ABI mismatch');

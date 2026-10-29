@@ -15,7 +15,7 @@ with tempfile.TemporaryDirectory(prefix='source-reexport-storage-') as directory
     shard=module.with_name('_source_legacy_verified_storage.mjs');module.rename(shard)
     names=exported_names(shard);facade='export { '+', '.join(sorted(names))+' } from "./'+shard.name+'";\n'
     module.write_text(facade)
-    dependency={**row['object_storage'],'name':'slots','from':'unit.cpp'}
+    dependency={**row['object_storage'],'name':'slots','from':'unit.cpp','native_pointer_abi':manifest['native_pointer_abi']}
     units={'unit.cpp':{'module':module,'manifest':manifest}}
     assert storage_import_error(dependency,units) is None
     assert exported_names(module)==names

@@ -19,4 +19,11 @@ with tempfile.TemporaryDirectory(prefix='fragment-proof-',dir=ROOT/'work') as te
     assert owner['module_fragments'][0]['sha256']==proof['fragment_sha256']
     p=subprocess.run(['node','--input-type=module','-e','const m=await import('+json.dumps((target/'unit.cpp.mjs').as_uri())+');if(m.original()!==37||m.state!==7)process.exit(1);'],capture_output=True,text=True)
     assert p.returncode==0,p.stderr
+    before=(target/'unit.cpp.mjs').read_bytes()
+    incompatible=json.loads(manifest.read_text());incompatible['native_pointer_abi']='source-lp64-addresses/2'
+    manifest.write_text(json.dumps(incompatible))
+    p=subprocess.run([sys.executable,str(ROOT/'tools/install_verified_fragment.py'),'--manifest',str(manifest),
+        '--target',str(target),'--exports','original','--report',str(report)],cwd=ROOT,capture_output=True,text=True)
+    assert p.returncode!=0 and 'native-pointer ABI differs' in p.stderr,p.stderr
+    assert (target/'unit.cpp.mjs').read_bytes()==before
     print('Installed fragment bytes match both proofs; original owner state and new export execute')

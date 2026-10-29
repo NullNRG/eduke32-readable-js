@@ -2,16 +2,158 @@
 // Original translation unit: source/build/include/xxhash.h
 // Status: partial STRICT semantic conversion, not a full engine module.
 // Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.
+// LP64 source object addresses over native JavaScript storage. No instructions
+// or virtual machine are executed. Pointer slots and uintptr_t use these SAME
+// bits; arithmetic remains ordinary generated JavaScript/BigInt arithmetic.
+const cSourceAddresses = (() => {
+  const abi='source-lp64-addresses/2', abiKey=Symbol.for('source-first.native-pointer-abi');
+  if(globalThis[abiKey] && globalThis[abiKey]!==abi)
+    throw new TypeError('Incompatible source pointer representation');
+  if(globalThis[Symbol.for('source-first.byte-record-pointer-identities/1')])
+    throw new TypeError('Legacy pointer tokens cannot share LP64 address storage');
+  globalThis[abiKey]=abi;
+  const key=Symbol.for(abi);
+  if(globalThis[key])return globalThis[key];
+  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map();
+  let nextRegion=0x10000000000n,nextOpaque=0xffff000000000000n;
+  const heapKey=Symbol.for('source-first.native-C-heap/2');
+  const heap=()=>globalThis[heapKey];
+  const regionFor=buffer=>{
+    if(!(buffer instanceof ArrayBuffer))throw new TypeError('C address requires original byte storage');
+    let region=byBuffer.get(buffer);
+    if(!region){
+      if(buffer.byteLength>0x100000000)throw new RangeError('C address region exceeds 4 GiB');
+      const native=heap();
+      region={buffer,base:native?.buffer===buffer?0n:nextRegion};
+      if(region.base!==0n){nextRegion+=0x200000000n;if(nextRegion>=nextOpaque)throw new RangeError('LP64 source address capacity exceeded');}
+      regions.push(region);byBuffer.set(buffer,region);
+    }
+    if(region.base===0n&&heap()?.buffer!==buffer)throw new TypeError('Original C heap identity changed');
+    return region;
+  };
+  const liveBounds=(buffer,offset,width=0)=>{
+    if(!Number.isSafeInteger(offset)||!Number.isSafeInteger(width)||offset<0||width<0)
+      throw new RangeError('Invalid original C pointer bounds');
+    const cpp=globalThis[Symbol.for('source-first.cpp-heap/1')]?.buffers.get(buffer);
+    if(cpp&&!cpp.live)throw new RangeError('C pointer addresses deleted C++ storage');
+    const native=heap();
+    if(native?.buffer===buffer){
+      for(const [base,size] of native.allocations){
+        if(offset>=base&&offset+width<=base+size)return {lower:base,upper:base+size};
+      }
+      throw new RangeError('C pointer addresses freed or unallocated heap storage');
+    }
+    if(!Number.isSafeInteger(offset)||offset<0||offset+width>buffer.byteLength)
+      throw new RangeError('C pointer address escapes original byte storage');
+    return {lower:0,upper:buffer.byteLength};
+  };
+  const canonical=value=>{
+    if(value?.__cDeferredPointer===true||value?.__cDeferredReference===true)return canonical(value.resolve());
+    const bytes=value?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes||
+      value?.[Symbol.for('source-first.clang-byte-record-array/1')];
+    if(bytes)return {buffer:bytes.buffer,offset:bytes.byteOffset};
+    if(ArrayBuffer.isView(value))return {buffer:value.buffer,offset:value.byteOffset};
+    if(value?.__cPointer===true){
+      const arrayBytes=value.array&&value.buffer?.[Symbol.for('source-first.clang-byte-record-array/1')];
+      if(arrayBytes)return {buffer:arrayBytes.buffer,offset:arrayBytes.byteOffset+value.offset};
+      if(!value.array)return {buffer:value.buffer,offset:value.offset};
+      // Managed non-byte C++ objects retain identity but do not acquire an
+      // invented byte layout. Integer arithmetic on opaque addresses fails.
+      if(value.offset===0&&globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value.buffer?.[0]))
+        return {owner:value.buffer[0],value:value.buffer[0]};
+      throw new TypeError('C integer address requires proven contiguous byte storage');
+    }
+    if(value?.__cReference===true){
+      if(value.value?.[Symbol.for('source-first.original-byte-record-storage/1')])return canonical(value.value);
+      return {owner:value,value};
+    }
+    if(typeof value==='function'||Array.isArray(value)||globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value))
+      return {owner:value,value};
+    throw new TypeError('C address requires original storage, lvalue or callable');
+  };
+  const api={abi,
+    encode(value){
+      const seen=new Set();
+      while(value?.__cDeferredPointer===true||value?.__cDeferredReference===true){
+        if(seen.has(value))throw new TypeError('Cyclic original static pointer relocation');
+        seen.add(value);value=value.resolve();
+      }
+      if(value===null)return 0n;
+      const item=canonical(value);
+      if(item.buffer){
+        const region=regionFor(item.buffer);liveBounds(item.buffer,item.offset);
+        const bits=region.base+BigInt(item.offset);
+        if(!byBits.has(bits))byBits.set(bits,value);
+        return bits;
+      }
+      if(!opaque.has(item.owner)){
+        if(nextOpaque>0xfffffffffffffff8n)throw new RangeError('C opaque address capacity exceeded');
+        opaque.set(item.owner,nextOpaque);byBits.set(nextOpaque,item.value);nextOpaque+=8n;
+      }
+      return opaque.get(item.owner);
+    },
+    decode(value){
+      if(typeof value!=='bigint'&&!(typeof value==='number'&&Number.isSafeInteger(value)))
+        throw new TypeError('C integer address must be exactly representable');
+      const bits=BigInt.asUintN(64,BigInt(value));
+      if(bits===0n)return null;
+      if(byBits.has(bits)){
+        const value=byBits.get(bits),allocation=globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
+        if(allocation&&!allocation.live)throw new RangeError('C address refers to a destroyed C++ object');
+        const item=canonical(value);if(item.buffer)liveBounds(item.buffer,item.offset);
+        return value;
+      }
+      for(const region of regions){
+        const offset=bits-region.base;
+        if(offset<0n||offset>BigInt(region.buffer.byteLength))continue;
+        const at=Number(offset),bounds=liveBounds(region.buffer,at);
+        return {__cPointer:true,buffer:region.buffer,offset:at,array:false,...bounds};
+      }
+      throw new TypeError('Unknown original C pointer address');
+    },
+    assert(buffer,offset,width=0){liveBounds(buffer,offset,width);},
+    forgetHeap(base,size){
+      const start=BigInt(base),end=start+BigInt(size);
+      for(const bits of byBits.keys())if(bits>=start&&bits<=end)byBits.delete(bits);
+    },
+    forgetAllocation(value){
+      if(value===undefined)return;
+      const item=canonical(value);
+      if(item.buffer){
+        const region=byBuffer.get(item.buffer);
+        if(region&&region.base!==0n){
+          const end=region.base+BigInt(region.buffer.byteLength);
+          for(const bits of byBits.keys())if(bits>=region.base&&bits<=end)byBits.delete(bits);
+          regions.splice(regions.indexOf(region),1);byBuffer.delete(item.buffer);
+        }
+      }else if(opaque.has(item.owner)){
+        byBits.delete(opaque.get(item.owner));opaque.delete(item.owner);
+      }
+    },
+    registerHeap(native){
+      if(heap()&&heap()!==native)throw new TypeError('Cannot replace the original source C heap');
+      if(byBuffer.has(native.buffer)&&byBuffer.get(native.buffer).base!==0n)
+        throw new TypeError('C heap was previously registered as foreign storage');
+      globalThis[heapKey]=native;regionFor(native.buffer);
+    }
+  };
+  globalThis[key]=api;return api;
+})();
+
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
-  if (source && source.__cPointer === true) return source;
+  if (source && source.__cPointer === true) {
+    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset);
+    return source;
+  }
   if(source?.__cReference===true&&source.value?.[Symbol.for('source-first.original-byte-record-storage/1')])
     return cPointer(source.value);
   const record=source?.[Symbol.for('source-first.original-byte-record-storage/1')];
   if(record)return cPointer(record.bytes);
   const allocation=source&&globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(source);
+  if(allocation&&!allocation.live)throw new RangeError('C pointer addresses a destroyed C++ object');
   if (allocation) return {__cPointer:true,buffer:allocation.slots,lower:0,
     upper:allocation.extent,offset:0,array:true,stride:allocation.extent};
   if (Array.isArray(source)) {
@@ -21,6 +163,7 @@ const cPointer = source => {
   }
   if (!ArrayBuffer.isView(source) || source instanceof DataView)
     throw new TypeError('C pointer requires bounded array storage');
+  globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.byteOffset,source.byteLength);
   return { __cPointer:true, buffer:source.buffer, lower:source.byteOffset,
     upper:source.byteOffset+source.byteLength, offset:source.byteOffset, array:false };
 };
@@ -53,7 +196,12 @@ const cPointerElementRef = (source,index) => {
     return api.element(pointer,index);
   }
   if (!pointer.array) {
-    const allocation=globalThis[Symbol.for('source-first.pointer-array-allocations/1')]?.get(pointer.buffer);
+    const allocation=globalThis[Symbol.for('source-first.pointer-array-allocations/1')]?.get(pointer.buffer)||
+      (globalThis[Symbol.for('source-lp64-addresses/2')]?{
+        lower:pointer.lower,upper:pointer.upper,
+        read:offset=>globalThis[Symbol.for('source-lp64-addresses/2')].decode(new DataView(pointer.buffer).getBigUint64(offset,true)),
+        write:(offset,value)=>new DataView(pointer.buffer).setBigUint64(offset,globalThis[Symbol.for('source-lp64-addresses/2')].encode(value),true)
+      }:null);
     const offset=pointer.offset+index*8;
     if(!allocation)throw new TypeError('C aggregate/pointer slot requires a proven source array');
     if(!Number.isSafeInteger(offset)||offset%8||offset<pointer.lower||offset+8>pointer.upper||
@@ -237,56 +385,8 @@ const cByteRecordNative = {
   Float32Array:[Float32Array,'Float32'], Float64Array:[Float64Array,'Float64'],
   BigInt64Array:[BigInt64Array,'BigInt64'], BigUint64Array:[BigUint64Array,'BigUint64']
 };
-// Byte-backed pointer fields preserve borrowed pointer identity across copies,
-// unions, and separately generated modules in the same realm. These tokens
-// are only an object representation, not integer-address arithmetic. Unknown
-// bit patterns fail closed rather than inventing an object or an allocation.
-const cByteRecordPointers = (() => {
-  const key=Symbol.for('source-first.byte-record-pointer-identities/1');
-  const state=globalThis[key] || Object.defineProperty(globalThis,key,{value:
-    {next:1n,byOwner:new WeakMap(),byBits:new Map()}})[key];
-  const canonical = value => {
-    if (value?.__cDeferredPointer===true || value?.__cDeferredReference===true)
-      return canonical(value.resolve());
-    const managed=value&&globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
-    if (managed) return {owner:managed.slots,offset:0,value};
-    if (value?.__cReference===true&&value.__cPointer!==true) {
-      const target=value.value;
-      if (target?.[cByteRecordStorageTag]) return canonical(target);
-      return {owner:value,offset:0,value};
-    }
-    if (value?.__cPointer===true) {
-      const bytes=value.array && value.buffer?.[Symbol.for('source-first.clang-byte-record-array/1')];
-      if (bytes) return {owner:bytes.buffer,offset:bytes.byteOffset+value.offset,value};
-      return {owner:value.buffer,offset:value.offset,value};
-    }
-    const bytes=value?.[cByteRecordStorageTag]?.bytes ||
-                value?.[Symbol.for('source-first.clang-byte-record-array/1')];
-    if (bytes) return {owner:bytes.buffer,offset:bytes.byteOffset,value};
-    if (ArrayBuffer.isView(value)) return {owner:value.buffer,offset:value.byteOffset,value};
-    if (typeof value==='function' || Array.isArray(value)) return {owner:value,offset:0,value};
-    throw new TypeError('C pointer field requires original owned storage or callable');
-  };
-  return {
-    encode(value) {
-      if (value===null) return 0n;
-      const item=canonical(value);
-      let offsets=state.byOwner.get(item.owner);
-      if (!offsets) {offsets=new Map();state.byOwner.set(item.owner,offsets);}
-      if (!offsets.has(item.offset)) {
-        const bits=state.next++;
-        if (bits>0xffffffffffffffffn) throw new RangeError('C pointer identity storage exhausted');
-        offsets.set(item.offset,bits);state.byBits.set(bits,item.value);
-      }
-      return offsets.get(item.offset);
-    },
-    decode(bits) {
-      if (bits===0n) return null;
-      if (!state.byBits.has(bits)) throw new TypeError('Unknown C pointer object representation');
-      return state.byBits.get(bits);
-    }
-  };
-})();
+// Pointer fields and uintptr_t share the verified LP64 source address space.
+const cByteRecordPointers = cSourceAddresses;
 // Contiguous LP64 slots preserve pointer identity and native byte copies.
 const cPointerArray = (count, values=[], storage=null) => {
   if(!Number.isSafeInteger(count)||count<0||count>1000000||
@@ -728,6 +828,7 @@ const cByteMemory = (() => {
     if (!Number.isSafeInteger(start) || start<lower || start>upper ||
         !Number.isSafeInteger(upper) || n>upper-start)
       throw new RangeError('C byte operation exceeds original allocation');
+    globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(buffer,start,n);
     return {buffer,start,n,view:new Uint8Array(buffer,start,n)};
   };
   const cstring = source => {
@@ -738,6 +839,7 @@ const cByteMemory = (() => {
           !Number.isSafeInteger(source.offset) || source.offset<source.lower ||
           source.offset>source.upper)
         throw new TypeError('unproven C char pointer storage');
+      globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset,source.upper-source.offset);
       return new Uint8Array(source.buffer,source.offset,source.upper-source.offset);
     }
     if (ArrayBuffer.isView(source) && !(source instanceof DataView))
@@ -1224,10 +1326,11 @@ export function XXH3_len_129to240_64b(input, len, secret, secretSize, seed) {
 
 // C/C++ source: source/build/include/xxhash.h:4850
 export function XXH_writeLE64(dst, v64) {
+  const __cxx_lvalue_0 = cScalarStorage(BigUint64Array, v64);
   if ((!Boolean(1))) {
-    (v64 = u64(XXH_swap64(v64)));
+    (__cxx_lvalue_0.value = u64(XXH_swap64(__cxx_lvalue_0.value)));
   }
-  XXH_memcpy(dst, cRef(() => v64, __cxx_lvalue_0 => { v64 = __cxx_lvalue_0; }), 8);
+  XXH_memcpy(dst, __cxx_lvalue_0, 8);
 }
 
 // C/C++ source: source/build/include/xxhash.h:5701

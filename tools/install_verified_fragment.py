@@ -21,6 +21,8 @@ def main():
     original=target/(source+'.mjs');owner_manifest=original.with_suffix('.manifest.json')
     if not original.resolve().is_relative_to(target):raise ValueError('Original source owner escapes target')
     before=original.read_bytes();before_manifest=owner_manifest.read_bytes();owner=json.loads(before_manifest)
+    if owner.get('native_pointer_abi')!=manifest.get('native_pointer_abi'):
+        raise ValueError('Fragment native-pointer ABI differs from original owner; recompile the owner and consumers')
     code_path=Path(manifest['output']).resolve();code=code_path.read_text()
     names=active_exports(code_path);active=active_exports(original)
     replacing=None;old_export=None
@@ -47,7 +49,7 @@ def main():
         provider=target/(dep['from']+'.mjs');binding=dep.get('binding',dep['name'])
         if not provider.resolve().is_relative_to(target) or binding not in active_exports(provider):
             raise ValueError('Missing fragment provider '+binding)
-        if dep.get('binding') or dep.get('abi') in ('source-pointer-array/1','source-byte-record-array/1'):
+        if dep.get('native_pointer_abi') or dep.get('binding') or dep.get('abi') in ('source-pointer-array/1','source-byte-record-array/1'):
             doc=json.loads(provider.with_suffix('.manifest.json').read_text())
             error=storage_import_error(dep,{dep['from']:{'manifest':doc,'module':provider}})
             if error:raise ValueError('Fragment storage ABI rejected: '+error)
@@ -82,6 +84,7 @@ def main():
             owner['module_fragments'].remove(replacing)
         owner.setdefault('module_fragments',[]).append({'module':fragment.relative_to(target).as_posix(),
             'sha256':digest,'original_source':source,'exports':a.exports,'imports':manifest['imports'],
+            'native_pointer_abi':manifest.get('native_pointer_abi'),
             'source_manifest_sha256':hashlib.sha256(a.manifest.read_bytes()).hexdigest()})
         original.write_bytes(rendered.encode('utf-8'));owner_manifest.write_text(json.dumps(owner,indent=2)+'\n')
     except Exception:

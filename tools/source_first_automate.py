@@ -115,6 +115,7 @@ def pipeline_inputs(commands_path, source_root):
         ROOT/'tools/source_aggregate_assignment_runtime.mjs',
         COMPILER, FRONTEND, FLOW, ROOT/'tools/source_first_generated.py',
         ROOT/'tools/source_pointer_runtime.mjs', ROOT/'tools/source_pointer_span_runtime.mjs',
+        ROOT/'tools/source_address_runtime.mjs',ROOT/'tools/source_c_heap_runtime.mjs',
         ROOT/'tools/source_aggregate_runtime.mjs', ROOT/'tools/source_byte_memory_runtime.mjs',
         ROOT/'tools/source_variadic_runtime.mjs',
         ROOT/'tools/source_first_global_link.py', ROOT/'tools/source_first_automate.py']
@@ -124,6 +125,7 @@ def pipeline_inputs(commands_path, source_root):
                   ROOT/'tools/source_ast_cache_paths.py'])
     paths.append(ROOT/'tools/source_template_destructors.py')
     paths.append(ROOT/'tools/source_static_members.py')
+    paths.append(ROOT/'tools/source_c_allocators.py')
     if commands_path is not None:
         paths.append(commands_path)
         from source_standard_heap_contract import contract_path

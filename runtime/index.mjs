@@ -1,5 +1,6 @@
 import { ABIHeap } from './abi.mjs';
 import { createBuildBrowserPlatform, bindSourceFreeAllocator } from './build_browser_platform.mjs';
+import { bindSourceCHeap } from './source_memory.mjs';
 import { createDukeBrowserPaths } from './duke_browser_paths.mjs';
 import { createEngineBrowserPlatform } from './engine_browser_platform.mjs';
 import { VirtualFS } from './filesystem.mjs';
@@ -36,8 +37,9 @@ export class NativeRuntime {
     this.linker.require(unresolvedExternals);
     this.linker.register(name, symbols);
   }
+  bindSourceMemory() { return bindSourceCHeap(this.heap); }
   start() { this.platform.attach(); }
   close() { this.sdl.symbols.SDL_Quit(); this.platform.destroy(); this.renderer?.destroy(); }
   manifest() { return { backend: this.renderer?.backend || null, exports: this.linker.manifest() }; }
 }
-export { createDukeBrowserPaths, createBuildBrowserPlatform, createEngineBrowserPlatform, bindSourceFreeAllocator, ABIHeap, VirtualFS, BrowserPlatform, createRenderer, createSDLBrowser, createStdlib, SymbolLinker };
+export { createDukeBrowserPaths, createBuildBrowserPlatform, createEngineBrowserPlatform, bindSourceFreeAllocator, bindSourceCHeap, ABIHeap, VirtualFS, BrowserPlatform, createRenderer, createSDLBrowser, createStdlib, SymbolLinker };

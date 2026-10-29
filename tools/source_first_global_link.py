@@ -50,6 +50,9 @@ def missing_exports(names, file):
 
 def storage_import_error(dependency,units):
     actual_provider=units.get(dependency['from'])
+    if actual_provider and (dependency.get('native_pointer_abi') or actual_provider['manifest'].get('native_pointer_abi')):
+        if dependency.get('native_pointer_abi')!=actual_provider['manifest'].get('native_pointer_abi'):
+            return 'source native-pointer ABI differs across translation units'
     if actual_provider:
         actual_rows=[row for row in actual_provider['manifest']['definitions']
                      if row['name']==dependency['name'] and row['status']=='source-first']
@@ -395,12 +398,14 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True,com
              ROOT/'tools/source_ast_cache_paths.py',
              ROOT/'tools/source_template_destructors.py',
              ROOT/'tools/source_static_members.py',
+             ROOT/'tools/source_c_allocators.py',
              ROOT/'tools/source_scalar_types.py',
              ROOT/'tools/source_ast_events.py',ROOT/'tools/source_coroutine_cfg.py',
              ROOT/'tools/source_process_runtime.mjs',
              ROOT/'tools/source_aggregate_assignment_runtime.mjs',
              ROOT/'tools/source_control_flow.py',
              ROOT/'tools/source_pointer_runtime.mjs',
+             ROOT/'tools/source_address_runtime.mjs',ROOT/'tools/source_c_heap_runtime.mjs',
              ROOT/'tools/source_pointer_span_runtime.mjs',
              ROOT/'tools/source_aggregate_runtime.mjs',
              ROOT/'tools/source_byte_memory_runtime.mjs',

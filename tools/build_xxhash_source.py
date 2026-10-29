@@ -33,7 +33,8 @@ def build():
         'source_header_sha256':digest(source/HEADER),'module_sha256':digest(destination),
         'compiler_frontend_sha256':digest(ROOT/'tools/source_ast_to_js.py'),
         'compiler_inputs':{p:digest(ROOT/p) for p in ('tools/source_ast_stream.py','tools/source_empty_asm.py',
-            'tools/source_pointer_runtime.mjs','tools/source_scalar_types.py')},
+            'tools/source_pointer_runtime.mjs','tools/source_address_runtime.mjs','tools/source_aggregate_runtime.mjs',
+            'tools/source_scalar_types.py')},
         'exports':['XXH3_64bits'],'all_emitted_definitions':sorted(names),
         'excluded_declarations':[r for r in rows if r['status']=='blocked'],
         'original_library_configuration':flags,'native_parity_required':True,'gameplay_verified':False}

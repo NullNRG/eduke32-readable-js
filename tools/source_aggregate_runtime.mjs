@@ -20,56 +20,8 @@ const cByteRecordNative = {
   Float32Array:[Float32Array,'Float32'], Float64Array:[Float64Array,'Float64'],
   BigInt64Array:[BigInt64Array,'BigInt64'], BigUint64Array:[BigUint64Array,'BigUint64']
 };
-// Byte-backed pointer fields preserve borrowed pointer identity across copies,
-// unions, and separately generated modules in the same realm. These tokens
-// are only an object representation, not integer-address arithmetic. Unknown
-// bit patterns fail closed rather than inventing an object or an allocation.
-const cByteRecordPointers = (() => {
-  const key=Symbol.for('source-first.byte-record-pointer-identities/1');
-  const state=globalThis[key] || Object.defineProperty(globalThis,key,{value:
-    {next:1n,byOwner:new WeakMap(),byBits:new Map()}})[key];
-  const canonical = value => {
-    if (value?.__cDeferredPointer===true || value?.__cDeferredReference===true)
-      return canonical(value.resolve());
-    const managed=value&&globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
-    if (managed) return {owner:managed.slots,offset:0,value};
-    if (value?.__cReference===true&&value.__cPointer!==true) {
-      const target=value.value;
-      if (target?.[cByteRecordStorageTag]) return canonical(target);
-      return {owner:value,offset:0,value};
-    }
-    if (value?.__cPointer===true) {
-      const bytes=value.array && value.buffer?.[Symbol.for('source-first.clang-byte-record-array/1')];
-      if (bytes) return {owner:bytes.buffer,offset:bytes.byteOffset+value.offset,value};
-      return {owner:value.buffer,offset:value.offset,value};
-    }
-    const bytes=value?.[cByteRecordStorageTag]?.bytes ||
-                value?.[Symbol.for('source-first.clang-byte-record-array/1')];
-    if (bytes) return {owner:bytes.buffer,offset:bytes.byteOffset,value};
-    if (ArrayBuffer.isView(value)) return {owner:value.buffer,offset:value.byteOffset,value};
-    if (typeof value==='function' || Array.isArray(value)) return {owner:value,offset:0,value};
-    throw new TypeError('C pointer field requires original owned storage or callable');
-  };
-  return {
-    encode(value) {
-      if (value===null) return 0n;
-      const item=canonical(value);
-      let offsets=state.byOwner.get(item.owner);
-      if (!offsets) {offsets=new Map();state.byOwner.set(item.owner,offsets);}
-      if (!offsets.has(item.offset)) {
-        const bits=state.next++;
-        if (bits>0xffffffffffffffffn) throw new RangeError('C pointer identity storage exhausted');
-        offsets.set(item.offset,bits);state.byBits.set(bits,item.value);
-      }
-      return offsets.get(item.offset);
-    },
-    decode(bits) {
-      if (bits===0n) return null;
-      if (!state.byBits.has(bits)) throw new TypeError('Unknown C pointer object representation');
-      return state.byBits.get(bits);
-    }
-  };
-})();
+// Pointer fields and uintptr_t share the verified LP64 source address space.
+const cByteRecordPointers = cSourceAddresses;
 // Contiguous LP64 slots preserve pointer identity and native byte copies.
 const cPointerArray = (count, values=[], storage=null) => {
   if(!Number.isSafeInteger(count)||count<0||count>1000000||

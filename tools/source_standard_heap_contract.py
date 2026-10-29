@@ -16,7 +16,7 @@ import sqlite3
 from source_first_toolchain import fingerprint_toolchain, target_attestation
 from source_cpp_references import function_type_parts
 
-FORMAT = 'source-first-standard-heap-contract/1'
+FORMAT = 'source-first-standard-heap-contract/2'
 OPERATORS = ('operator new', 'operator new[]', 'operator delete', 'operator delete[]')
 
 
@@ -97,7 +97,13 @@ def inspect_index(database, commands, fingerprint):
         compact = lambda rows: sorted([
             {key: row.get(key) for key in ('id', 'name', 'file', 'line', 'canonical_type', 'kind')}
             for row in rows], key=lambda row: (row['file'], row['line'], row['name']))
+        c_allocators=[]
+        for (record,) in connection.execute("SELECT record FROM declarations WHERE name IN ('malloc','calloc','realloc','free') AND definition=1"):
+            row=json.loads(record)
+            if row.get('kind')=='FUNCTION_DECL' and row.get('mangled_name')==row.get('name'):
+                c_allocators.append(row)
         return {'selected_units': len(selected), 'global_standard_replacements': [],
+                'source_c_allocator_definitions':compact(c_allocators),
                 'nonstandard_source_operators': compact(nonstandard),
                 'class_specific_source_operators': compact(members)}
     finally:
@@ -150,7 +156,8 @@ def validate(root, commands):
         raise ValueError('standard heap contract allocation ownership evidence changed')
     return {'contract_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
             'semantic_fingerprint': fingerprint, 'selected_units': evidence['selected_units'],
-            'original_global_replacements_absent': True}
+            'original_global_replacements_absent': True,
+            'original_c_allocators_absent':not evidence['source_c_allocator_definitions']}
 
 
 def main():

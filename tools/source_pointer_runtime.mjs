@@ -2,12 +2,16 @@
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
-  if (source && source.__cPointer === true) return source;
+  if (source && source.__cPointer === true) {
+    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset);
+    return source;
+  }
   if(source?.__cReference===true&&source.value?.[Symbol.for('source-first.original-byte-record-storage/1')])
     return cPointer(source.value);
   const record=source?.[Symbol.for('source-first.original-byte-record-storage/1')];
   if(record)return cPointer(record.bytes);
   const allocation=source&&globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(source);
+  if(allocation&&!allocation.live)throw new RangeError('C pointer addresses a destroyed C++ object');
   if (allocation) return {__cPointer:true,buffer:allocation.slots,lower:0,
     upper:allocation.extent,offset:0,array:true,stride:allocation.extent};
   if (Array.isArray(source)) {
@@ -17,6 +21,7 @@ const cPointer = source => {
   }
   if (!ArrayBuffer.isView(source) || source instanceof DataView)
     throw new TypeError('C pointer requires bounded array storage');
+  globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.byteOffset,source.byteLength);
   return { __cPointer:true, buffer:source.buffer, lower:source.byteOffset,
     upper:source.byteOffset+source.byteLength, offset:source.byteOffset, array:false };
 };
@@ -49,7 +54,12 @@ const cPointerElementRef = (source,index) => {
     return api.element(pointer,index);
   }
   if (!pointer.array) {
-    const allocation=globalThis[Symbol.for('source-first.pointer-array-allocations/1')]?.get(pointer.buffer);
+    const allocation=globalThis[Symbol.for('source-first.pointer-array-allocations/1')]?.get(pointer.buffer)||
+      (globalThis[Symbol.for('source-lp64-addresses/2')]?{
+        lower:pointer.lower,upper:pointer.upper,
+        read:offset=>globalThis[Symbol.for('source-lp64-addresses/2')].decode(new DataView(pointer.buffer).getBigUint64(offset,true)),
+        write:(offset,value)=>new DataView(pointer.buffer).setBigUint64(offset,globalThis[Symbol.for('source-lp64-addresses/2')].encode(value),true)
+      }:null);
     const offset=pointer.offset+index*8;
     if(!allocation)throw new TypeError('C aggregate/pointer slot requires a proven source array');
     if(!Number.isSafeInteger(offset)||offset%8||offset<pointer.lower||offset+8>pointer.upper||

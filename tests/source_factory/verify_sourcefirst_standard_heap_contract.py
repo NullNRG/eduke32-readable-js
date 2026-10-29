@@ -104,6 +104,14 @@ int main(){for(int x=0;x<512;x++){int *p=make_value(x);
     connection.commit()
     reject(lambda: validate(root, commands), 'every selected unit')
     connection.execute("UPDATE units SET status='parsed' WHERE source='drop.cpp'")
+    c_replacement={'kind':'FUNCTION_DECL','name':'malloc','mangled_name':'malloc','file':'unit.cpp',
+                   'line':1,'canonical_type':'void *(unsigned long)'}
+    connection.execute('INSERT INTO declarations VALUES(?,?,?,?,?,?,?,?,?)',
+        ('test-c-malloc','','unit.cpp','malloc',1,c_replacement['canonical_type'],'EXTERNAL',1,json.dumps(c_replacement)))
+    connection.commit()
+    assert len(inspect_index(database,commands,contract['semantic_fingerprint'])['source_c_allocator_definitions'])==1
+    reject(lambda:validate(root,commands),'allocation ownership evidence changed')
+    connection.execute("DELETE FROM declarations WHERE id='test-c-malloc'")
     original = {'kind': 'FUNCTION_DECL', 'name': 'operator new', 'file': 'unit.cpp',
                 'line': 1, 'canonical_type': 'void *(unsigned long)'}
     connection.execute('INSERT INTO declarations VALUES(?,?,?,?,?,?,?,?,?)',

@@ -28,10 +28,12 @@ from source_private_record_schema import private_record_schema_compatible
 from source_empty_asm import prove_empty_asm
 from source_anonymous_records import blocked_anonymous_global_arrays
 from source_template_destructors import complete as complete_template_destructors
-from source_static_members import recover as recover_out_of_line_static_members
+from source_static_members import recover as recover_out_of_line_static_members, constant_members
+from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 
 HERE=Path(__file__).resolve().parents[1]
+NATIVE_POINTER_ABI='source-lp64-addresses/2'
 WRAPPERS={'ImplicitCastExpr','ExprWithCleanups','MaterializeTemporaryExpr','FullExpr','ConstantExpr','ParenExpr','CXXBindTemporaryExpr'}
 UNSUPPORTED=("CXXNewExpr", "CXXDeleteExpr", "CXXThrowExpr", "CXXTryStmt", "AsmStmt", "GCCAsmStmt", "LambdaExpr", "CXXMemberCallExpr")
 
@@ -877,7 +879,7 @@ class Emit:
         declarations={node.get('id'):node for node in descendants(function)
             if kind(node) in ('VarDecl','ParmVarDecl') and node.get('id')}
         selected={}
-        casts={'CStyleCastExpr','CXXReinterpretCastExpr','CXXStaticCastExpr'}
+        casts={'CStyleCastExpr','CXXReinterpretCastExpr','CXXStaticCastExpr','ImplicitCastExpr'}
         for node in descendants(function):
             if kind(node) not in casts or '*' not in qual(node):continue
             for operation in descendants(node):
@@ -932,6 +934,17 @@ class Emit:
         return f'cRecordObject({expression})'
     def expr(self,n):
         k=kind(n); a=kids(n)
+        if k in ('ImplicitCastExpr','CStyleCastExpr','CXXStaticCastExpr','CXXFunctionalCastExpr','CXXReinterpretCastExpr') and n.get('castKind')=='NullToPointer':
+            if len(a)!=1:raise Unsupported('null-pointer cast operand shape')
+            zero=a[0]
+            while kind(zero) in WRAPPERS and len(kids(zero))==1:zero=kids(zero)[0]
+            if kind(zero) in ('CXXNullPtrLiteralExpr','GNUNullExpr') or kind(zero)=='IntegerLiteral' and zero.get('value')=='0':return 'null'
+            return '('+self.expr(a[0])+', null)'
+        if k in ('ImplicitCastExpr','CStyleCastExpr','CXXStaticCastExpr','CXXFunctionalCastExpr','CXXReinterpretCastExpr') and n.get('castKind')=='PointerToIntegral':
+            if len(a)!=1:raise Unsupported('pointer/integer cast operand shape')
+            target=resolve_scalar_storage_alias(qual(n),self.type_aliases)
+            if not is_integer(target):raise Unsupported('pointer cast requires proven integer ABI: '+target)
+            return js_cast('cSourceAddresses.encode('+self.expr(a[0])+')',target)
         if k=='CXXBindTemporaryExpr':
             evidence=self.lifetime_class(qual(n))
             if not evidence:
@@ -952,6 +965,8 @@ class Emit:
             return 'cLifetime.expression(('+scope+') => '+value+', '+str(transfer).lower()+')'
         if k in WRAPPERS:
             if not a:raise Unsupported(f'{k}: empty')
+            if k=='ImplicitCastExpr' and n.get('castKind')=='IntegralToPointer':
+                return 'cSourceAddresses.decode('+self.expr(a[0])+')'
             if k=='ImplicitCastExpr' and n.get('castKind')=='ArrayToPointerDecay':
                 literal=a[0]
                 while kind(literal) in WRAPPERS and len(kids(literal))==1:
@@ -1050,6 +1065,10 @@ class Emit:
         if k=='CXXThisExpr':return 'this'
         if k=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
+            constant=getattr(self,'non_odr_static_values',{}).get(decl.get('id')) if n.get('nonOdrUseReason')=='constant' else None
+            if constant:
+                self.used_static_constants=getattr(self,'used_static_constants',{})|{decl['id']:constant}
+                return js_cast(str(constant['value'])+('n' if is_wide_integer(constant['type']) else ''),constant['type'])
             if decl.get('id') in getattr(self,'byte_scalar_cells',{}):
                 return self.local_reference_cells[decl['id']]+'.value'
             if decl.get('kind')=='CXXMethodDecl':
@@ -1703,9 +1722,10 @@ class Emit:
 
             null_offset=self.proven_null_base_field_offset(n) if k=='CStyleCastExpr' else None
             if null_offset is not None:return str(null_offset)
+            original=('cSourceAddresses.decode('+self.expr(a[0])+')'
+                      if n.get('castKind')=='IntegralToPointer' else self.expr(a[0]))
             cast_t=self.pointer_type(qual(n))
             if cast_t:
-                original=self.expr(a[0])
                 return f'cTypedPointer({original}, {cast_t})'
             target=qual(n)
             if target.strip().endswith('*'):
@@ -1713,11 +1733,11 @@ class Emit:
                 record=self.global_storage_records.get(base,{})
                 if record.get('byte_schema'):
                     shape={'byteRecord':record['byte_schema']}
-                    return ('cRecordPointer('+self.expr(a[0])+', '+json.dumps(record['byte_schema'],sort_keys=True)
+                    return ('cRecordPointer('+original+', '+json.dumps(record['byte_schema'],sort_keys=True)
                         +', '+self.byte_record_prototypes(shape)+')')
             enum_name=re.sub(r'\b(?:const|volatile|enum)\b','',target).strip()
             storage=resolve_scalar_storage_alias(target,self.type_aliases) if enum_name in self.enum_types else target
-            return js_cast(self.expr(a[0]),storage)
+            return js_cast(original,storage)
         if k=='InitListExpr':
             if self.lifetime_class(qual(n)):
                 raise Unsupported('C++ lifetime aggregate initialization requires verified original class storage ABI')
@@ -3061,7 +3081,7 @@ for _bits in (8,16,32,64):
 def verified_libc_byte_symbol(decl):
     if decl.get('kind') != 'FunctionDecl':return None
     name=decl.get('name','')
-    if name not in ('memcpy','memmove','memset','memcmp',
+    if name not in ('malloc','calloc','realloc','free','memcpy','memmove','memset','memcmp',
                      'strlen','strcmp','strncmp','strcasecmp','strncasecmp','strcpy','strncpy','sprintf','snprintf','exit'):return None
     signature=decl.get('type',{}).get('qualType','')
     signature=re.sub(r'\b(?:__restrict|__restrict__|restrict|noexcept\s*\(true\))\b','',signature)
@@ -3073,6 +3093,10 @@ def verified_libc_byte_symbol(decl):
     signature=signature.replace('unsignedlonglongint','unsignedlonglong')
     signature=signature.replace('unsignedlong','size_t') # original build targets LP64
     expected={
+        'malloc':'void*(size_t)',
+        'calloc':'void*(size_t,size_t)',
+        'realloc':'void*(void*,size_t)',
+        'free':'void(void*)',
         'memcpy':'void*(void*,constvoid*,size_t)',
         'memmove':'void*(void*,constvoid*,size_t)',
         'memset':'void*(void*,int,size_t)',
@@ -3089,7 +3113,8 @@ def verified_libc_byte_symbol(decl):
         'exit':'void(int)',
     }
     if signature!=expected[name]:return None
-    return 'cProcess.exit' if name=='exit' else 'cByteMemory.'+name
+    return ('cProcess.exit' if name=='exit' else
+            'cCHeap.'+name if name in ('malloc','calloc','realloc','free') else 'cByteMemory.'+name)
 
 BUILTIN_RUNTIME='''
 const clz64 = value => {let v=BigInt.asUintN(64,BigInt(value));if(v===0n)return 64;let n=0;while((v&(1n<<63n))===0n){v<<=1n;n++;}return n;};
@@ -3789,7 +3814,7 @@ def recover_referenced_header_functions(ast, candidates, source_root):
     return added,odr_origins,{id(n) for n in added if id(n) in template_ids}
 
 
-def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None):
+def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None):
     """Find non-local symbol dependencies using Clang DECLARATION IDENTITIES.
 
     Names alone are unsafe: a shadowing local `int globals;` must not suppress
@@ -3837,6 +3862,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
                 if cls and ref.get('id') not in (trivial_assignments or {}):result.add(js_ident(cls))
         if kind(n)=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
+            if n.get('nonOdrUseReason')=='constant' and decl.get('id') in (non_odr_static_values or {}):return
             dk=decl.get('kind')
             if dk=='CXXMethodDecl' and decl.get('id') in (static_method_owners or {}):
                 result.add(static_method_owners[decl['id']][0])
@@ -3845,7 +3871,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
                 if name and decl.get('id') not in local_ids and name not in BUILTIN_HELPERS and name not in LIBM and name not in ('__builtin_assume_aligned',):
                     if resolver and dk in ('FunctionDecl','VarDecl'):name=resolver(decl)
                     else:name=js_ident(name)
-                    if not name.startswith(('cByteMemory.','cProcess.')):
+                    if not name.startswith(('cByteMemory.','cProcess.','cCHeap.')):
                         result.add(name)
         for child in semantic_kids(n):walk(child)
     walk(node)
@@ -3965,7 +3991,7 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
         except OSError:continue
     return matches[0] if len(matches)==1 else None
 
-def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None):
+def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False):
     normalize_specializations(ast)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
     static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
@@ -4431,15 +4457,22 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if key not in ambiguous_variable_signatures and key not in by_signature:
             by_signature[key]=symbol
     source_owned_names={n.get('name') for n in candidates if n.get('name')}
+    all_declarations={node.get('id'):node for top in ast for node in descendants(top) if node.get('id')}
+    def libc_adapter(decl):
+        adapter=verified_libc_byte_symbol(decl)
+        if adapter and adapter.startswith('cCHeap.'):
+            original=all_declarations.get(decl.get('id'),{})
+            if not standard_c_heap_runtime or original.get('mangledName')!=decl.get('name'):return None
+        return adapter
     def resolve(decl):
         if decl.get('id') in by_id:return by_id[decl['id']]
         key=(decl.get('name'),decl.get('type',{}).get('qualType'))
         if key in by_signature:return by_signature[key]
         desugared=(decl.get('name'),decl.get('type',{}).get('desugaredQualType'))
         if desugared in by_signature:return by_signature[desugared]
-        if decl.get('name') not in source_owned_names:
-            adapter=verified_libc_byte_symbol(decl)
-            if adapter:return adapter
+        if decl.get('name') not in source_owned_names and decl.get('name') not in project_symbols:
+            adapter=libc_adapter(decl)
+            if adapter and (standard_c_heap_runtime or not adapter.startswith('cCHeap.')):return adapter
         # A project-symbol table indexed only by spelling is insufficient for
         # overloads that share names with browser libc functions.  For the
         # canonical C math log(double), the host exposes the numeric math
@@ -4463,9 +4496,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         for refnode in descendants(root):
             if kind(refnode)!='DeclRefExpr':continue
             decl=refnode.get('referencedDecl',{})
-            if decl.get('name') in source_owned_names:continue
-            adapter=verified_libc_byte_symbol(decl)
-            if adapter:
+            if decl.get('name') in source_owned_names or decl.get('name') in project_symbols:continue
+            adapter=libc_adapter(decl)
+            if adapter and (standard_c_heap_runtime or not adapter.startswith('cCHeap.')):
                 if decl.get('id'):by_id[decl['id']]=adapter
                 by_signature[(decl['name'],decl.get('type',{}).get('qualType'))]=adapter
     class_dependencies={n.get('name') for n in candidates if kind(n)=='CXXRecordDecl'
@@ -4539,7 +4572,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 if kind(node)!='GCCAsmStmt':continue
                 proof=prove_empty_asm(node,source_root,source_rel,original_header_source_bytes(str(source_root)))
                 if proof:empty_asm_barriers[id(node)]=proof
-    all_declarations={node.get('id'):node for top in ast for node in descendants(top) if node.get('id')}
+    non_odr_static_values=constant_members(ast,source_root,header_proof,
+        lambda typ:resolve_scalar_storage_alias(typ,aliases),is_integer)
     # A static method is owned by its exact Clang record, not by its spelling
     # or return type. The dependency auditor must require that same class.
     static_method_owners={}
@@ -4634,7 +4668,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         # This is diagnostic evidence for bootstrap/link planning, not a claim
         # that a blocked definition has linked imports or executable JS.
         try:
-            row['source_references']=sorted(reference_names(n,resolve,class_dependencies,trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,static_method_owners=static_method_owners))
+            row['source_references']=sorted(reference_names(n,resolve,class_dependencies,trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,static_method_owners=static_method_owners,non_odr_static_values=non_odr_static_values))
         except Unsupported as exc:
             row['source_reference_error']=str(exc)
         if symbol is None:
@@ -4642,6 +4676,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             source.append((n,None,row));continue
         em=Emit();em.lifetime_classes=lifetime_classes;em.header_record_factories=header_record_factories;em.header_trivial_assignments=header_trivial_assignments;em.allowed_static_prototypes=set(previous_class_prototypes)|header_record_factories;em.trivial_assignment_methods=trivial_assignments;em.implicit_byte_assignable=implicit_byte_assignable;em.enum_values=enum_values;em.record_layouts=record_layouts
         em.all_declarations=all_declarations
+        em.non_odr_static_values=non_odr_static_values
         em.empty_asm_barriers=empty_asm_barriers
         barriers=[empty_asm_barriers[id(part)] for part in descendants(n) if id(part) in empty_asm_barriers]
         if barriers:row['original_empty_asm_barriers']=barriers
@@ -4717,10 +4752,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if (kind(n)=='VarDecl' and normalized_record_name(qual(n),aliases) in addressable_classes
                     and target_type_layout(qual(n),record_layouts,aliases) is None):
                 raise Unsupported('C++ global class address requires exact Clang layout: '+qual(n))
-            if n.get('_source_static_member') and any(part.get('castKind') in ('PointerToIntegral','IntegralToPointer') for part in descendants(n)):
-                raise Unsupported('out-of-line static member pointer/integer conversion requires verified address-space semantics')
             code=(em.function(n,symbol=symbol) if kind(n)=='FunctionDecl' else
                   em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n))
+            if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
                 original='export class '+js_ident(name)+' {'
                 assert original in code
@@ -4742,7 +4776,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 row['source_references']=sorted(reference_names(n,resolve,class_dependencies,
                     trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,
                     static_method_owners=static_method_owners,
-                    storage_constructor_nodes=em.storage_constructor_nodes))
+                    storage_constructor_nodes=em.storage_constructor_nodes,non_odr_static_values=non_odr_static_values))
                 row['storage_constructor_count']=len(em.storage_constructor_nodes)
             resolved_references=set(row.get('source_references',[]))|getattr(em,'used_aggregate_prototypes',set())
             # A filtered C++ class definition is emitted as its bare ES class
@@ -4848,7 +4882,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         changed=False
         for n,code,row in source:
             if row['status']!='source-first':continue
-            try:refs=set(row['source_references']) if 'source_references' in row else reference_names(n,resolve,class_dependencies,trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,static_method_owners=static_method_owners)
+            try:refs=set(row['source_references']) if 'source_references' in row else reference_names(n,resolve,class_dependencies,trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,static_method_owners=static_method_owners,non_odr_static_values=non_odr_static_values)
             except Unsupported as exc:
                 row.update(status='blocked',reason=str(exc));available.discard(row['name']);changed=True;continue
             missing=sorted(x for x in refs if x!=row['name'] and x not in available and x not in project_symbols)
@@ -4951,8 +4985,23 @@ def main():
     # unit (EDuke32 actually does). Never silently substitute the standalone
     # standard heap for those original source-owned allocator operators.
     standard_heap_contract=validate_standard_heap_contract(root,opt.compile_commands) if comp is not None else None
+    c_allocator_declarations={'queried':[],'proven':[],'rejected':{}}
+    c_allocator_query_cache={}
+    standard_c_heap_runtime=bool(standard_heap_contract and standard_heap_contract.get('original_c_allocators_absent')) or comp is None
+    def allocator_query(name):
+        command=[frontend,*language,'-Xclang','-ast-dump=json','-Xclang','-ast-dump-filter='+name,'-fsyntax-only',*args,opt.source]
+        cache=None
+        if opt.ast_cache_dir:
+            identity=json.dumps([str(root),command,toolchain,hashlib.sha256(src.read_bytes()).hexdigest()],sort_keys=True)
+            cache=opt.ast_cache_dir/(hashlib.sha256(identity.encode()).hexdigest()+'.json')
+        declarations,decode=run_clang_ast(command,cwd=root,cache_path=cache)
+        ast_decode.append(decode);return declarations
     def produce_current(*args,**kwargs):
+        if standard_c_heap_runtime:
+            complete_c_allocator_declarations(args[0],allocator_query,verified_libc_byte_symbol,
+                c_allocator_query_cache,c_allocator_declarations)
         return produce(*args,**kwargs,standard_heap_runtime=bool(standard_heap_contract) or (comp is None and opt.project_symbols is None),
+                       standard_c_heap_runtime=standard_c_heap_runtime,
                        private_source_storage=private_source_storage)
     args=[]
     # Preserve the original compilation *language*, not the filename suffix.
@@ -5820,11 +5869,14 @@ def main():
             binding=storage_imports.get(name,{}).get('binding',js_ident(name))
             if not target.is_file() or binding not in active_exports(target):
                 raise SystemExit('Fragment import has no actual implementation: '+name)
+            pointer_provider=target.with_suffix('.manifest.json')
+            if not pointer_provider.is_file() or json.loads(pointer_provider.read_text()).get('native_pointer_abi')!=NATIVE_POINTER_ABI:
+                raise SystemExit('Fragment provider native-pointer ABI differs: '+name)
             if name in storage_imports or name in reference_imports:
                 from source_first_global_link import storage_import_error
                 provider_manifest=target.with_suffix('.manifest.json')
                 if not provider_manifest.is_file():raise SystemExit('Fragment storage provider lacks source proof: '+name)
-                dep={**storage_imports.get(name,{}),**reference_imports.get(name,{}),'from':index[name]}
+                dep={**storage_imports.get(name,{}),**reference_imports.get(name,{}),'from':index[name],'native_pointer_abi':NATIVE_POINTER_ABI}
                 error=storage_import_error(dep,{index[name]:{'manifest':json.loads(provider_manifest.read_text()),'module':target}})
                 if error:raise SystemExit('Fragment storage ABI rejected: '+name+': '+error)
         spec=os.path.relpath(target, outfile.parent).replace(os.sep,'/')
@@ -5888,6 +5940,14 @@ const cStackAlloc = amount => {
     assignment_helpers=(HERE/'tools/source_aggregate_assignment_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cAssignAggregate(' in body else ''
     variadic_helpers=(HERE/'tools/source_variadic_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cVariadic.' in body else ''
     memory_helpers=(HERE/'tools/source_byte_memory_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cByteMemory.' in body else ''
+    c_heap_helpers=''
+    if 'cCHeap.' in body:
+        # Reuse the canonical JS heap implementation, including stable borrowed
+        # views during growth. Every ES module shares one source C heap.
+        c_heap_helpers=((HERE/'runtime/abi.mjs').read_text(encoding='utf-8').replace('export class ABIHeap','class ABIHeap',1)
+                        +'\n'+(HERE/'tools/source_c_heap_runtime.mjs').read_text(encoding='utf-8')+'\n')
+    address_helpers=((HERE/'tools/source_address_runtime.mjs').read_text(encoding='utf-8')+'\n'
+                     if pointer_helpers or aggregate_helpers or c_heap_helpers or 'cSourceAddresses.' in body else '')
     process_helpers=(HERE/'tools/source_process_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cProcess.' in body else ''
     casts={'i32':'const i32 = value => typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0;\n',
            'u32':'const u32 = value => typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0;\n',
@@ -5901,10 +5961,12 @@ const cStackAlloc = amount => {
                        +'// Original translation unit: '+opt.source+'\n'
                        +'// Status: partial STRICT semantic conversion, not a full engine module.\n'
                        +'// Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.\n'
-                       +import_section+trivial_class_helpers+lifetime_helpers+heap_helpers+stack_helpers+overflow_helpers+pointer_helpers+reference_helpers+span_helpers+aggregate_helpers+assignment_helpers+variadic_helpers+memory_helpers+process_helpers+casts_text+libm_text+'\n'
+                       +import_section+address_helpers+c_heap_helpers+trivial_class_helpers+lifetime_helpers+heap_helpers+stack_helpers+overflow_helpers+pointer_helpers+reference_helpers+span_helpers+aggregate_helpers+assignment_helpers+variadic_helpers+memory_helpers+process_helpers+casts_text+libm_text+'\n'
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}
     result['toolchain']=toolchain
+    result['native_pointer_abi']=NATIVE_POINTER_ABI
+    result['c_allocator_declarations']=c_allocator_declarations
     result['template_destructor_closure']=template_destructor_closure
     if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
@@ -5917,6 +5979,7 @@ const cStackAlloc = amount => {
     result['private_storage_exports']=[{'name':item['name'],**item['private_storage']} for item in report
                                if item['status']=='source-first' and item.get('private_storage')]
     for dep in result['imports']:
+        dep['native_pointer_abi']=NATIVE_POINTER_ABI
         if dep['name'] in storage_imports:dep.update(storage_imports[dep['name']])
         if dep['name'] in reference_imports:dep.update(reference_imports[dep['name']])
     if result['emitted']==0:

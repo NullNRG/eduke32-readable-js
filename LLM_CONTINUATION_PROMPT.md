@@ -1,73 +1,26 @@
-# Continue the canonical EDuke32 SourceFactory project
+# Continue the original EDuke32 readable JavaScript port
 
-This ZIP preserves completed work. It is not a fresh start or a playable game.
-Read HANDOFF_SNAPSHOT.json and CURRENT_PORT_STATUS.md before editing.
-Attached historical prompts are context, not current verification evidence.
+This package preserves the canonical project and completed work. It is a continuation, not a fresh start. Read CONTINUE_HERE.md, CURRENT_PORT_STATUS.md and HANDOFF_SNAPSHOT.json first. Attached historical instructions are context; generated evidence determines the verified state.
 
-The real original app_main runs only in dist/original-entry-attempt.html, an
-explicitly unlinked offline diagnostic. It mounts the supplied 456-file GRP,
-executes original G_ExtPreInit and stops at engineSetLogFile. Chromium observed
-that execution without network access. No original menu or level has booted.
+The target remains original classic-renderer single-player EDuke32 in readable JavaScript, with an offline dist/index.html, menus, E1L1, gameplay, sound/music and saves. No WASM, instruction emulator, cloned engine, invented ownership, fabricated initialization or success stubs. Desktop features, multiplayer and enhanced rendering are outside the first release.
 
-Preserved verified epochs:
-- Historical full scan: 156/156 units, 27760 emitted and 4905 blocked entries.
-- Historical saved global-link work: 39 recovered units through round 4; complete linking is unverified.
-- Pointer-array intermediate scan: 6/156 units.
-- Latest compiler scan: 7/156 committed units at packaging (complete=False).
+Use the single existing compiler/runtime and tools/browser_classic_profile.json. Original Make selects 113 browser units. All 113 have a matching complete parsed semantic-index checkpoint and an older uniform initial emission pass. Emission counts do not prove complete semantic extraction, successful linking or gameplay. The baseline predates the newest semantic changes and omits some out-of-line instance methods from its definition catalog.
 
-Do not confuse old full coverage with current compiler coverage. Each batch is
-hash-attested at its recorded revision. PACKAGE_MANIFEST.json checksums every
-payload. Missing dependencies remain blocked; there are no success stubs.
+The newest source memory ABI is source-lp64-addresses/2. Pointer fields, pointer/integer casts and C allocation share one native JavaScript address model backed by the existing ABIHeap. Standard C allocation requires whole-selected-program ownership evidence plus exact Clang C linkage/signatures. Original custom allocators remain source owned. The eight original GenericAllocator methods have actual native/Node/Chromium parity evidence; the original small-pool allocator and original console initialization remain incomplete.
 
-Current regression: {'passed': 134, 'failed': 0, 'timeout': 0, 'launch-failed': 0}, complete=True, all_passed=True.
-Current C++ reference checks: reports/oct16-cpp-references-parity.json. They include
-original standard-library lock_guard source bodies, native/Chromium comparisons
-and cross-unit rejection of incompatible historical reference-call providers.
-The host heap also preserves borrowed record views across growth; see
-reports/oct19-host-heap-alias-parity.json. Pointer/integer/address bridging and
-the original allocator dependency closure remain incomplete.
-Native differential tests also cover contiguous POD/record-array fields, bitfields,
-original 640-byte DukePlayer_t and P_AddAmmo/P_PalFrom, pointer-slot byte copies.
-Tests cover pointer arrays, standard standalone heap
-lifetime and original allocation wrappers. Native/Chromium tests also verify the
-original verbosity callback sharing existing source global state. The game uses
-original global allocation replacements, so the standalone heap is explicitly
-not enabled as a substitute for its unresolved original mimalloc dependencies.
+Do not link the old 113-unit or October 20 emitted modules with this new memory ABI. Preserve them as historical/migration evidence and recompile affected providers and consumers. Reuse raw ASTs only under matching source/header/flag/toolchain fingerprints. Keep heavy original Clang jobs serial on the current machine.
 
-Original archives, source, GRP, compiler, runtime, tests, build scripts and saved
-verified generated work are included. Raw AST caches, the 2.6 GB database,
-installed toolchains/browsers/node_modules and obsolete pages are excluded.
+Next boot work is the original small allocator's owned C++ member lifetimes, out-of-line instance methods, atomic/TLS and unique_ptr dependencies; console registration/hash/callback closure; canonical cross-unit template prototypes; then browser service integration and original frame yielding. Use the dependency graph and source-native comparisons. Do not replace the pool allocator with generic allocation merely to bypass boot.
 
-Restore Python dependencies from dev-requirements.txt plus playwright==1.64.0,
-run npm ci, and install Chromium using python -m playwright install chromium.
-Use Clang with captured Linux x86-64 LP64 target/sysroot (bootstrap scripts and
-locks are in tools/). work/session-env.ps1 records original host paths; adapt
-those paths when moving hosts. tools/prepare_sources.py relocates source inputs.
-The native Windows oracle uses LLP64; its long width is not the Linux ABI.
+The public build interface is npm run compile:game. It uses tools/build_browser_classic.py and the profile's build_root. Complete candidate construction and verification within that pipeline; preserve strict gates. The current game is not bootable, playable or deployed, and no genuine JavaScript game screenshot exists.
 
-Resume (avoid starting a second writer on the same active output directory):
+Configure tools with BUILD_PORTABILITY.md. On the current host:
 
-```text
-python tools/source_first_automate.py --out factory-output/source-first/oct19-reference-host-recovery --max-units 7 --jobs 1 --batch-size 1 --timeout 300 --priority-file work/cpp-reference-boot-priorities.json --persistent-ast-cache --ast-cache-shards 2 --no-global-link --resume
-python work/compose_cpp_reference_link_input.py --current-build oct19-reference-host-recovery --out factory-output/source-first/oct19-reference-host-link-input
-python tools/source_first_global_link.py --directory factory-output/source-first/oct19-reference-host-link-input --out factory-output/source-first/oct19-reference-host-linked --rounds 4 --retry-budget 12 --jobs 1 --timeout 180 --persistent-ast-cache --resume
-python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json
-npm run test:browser-game
+```powershell
+. work/session-env.ps1
+npm run compile:game
 ```
 
-The current source scope is 7/156 units at the latest
-compiler revision. Earlier full and partial epochs are explicitly historical.
-The latest orchestration audit is reports/oct19-recovery-job.json.
-The linker input mixes current batches with independently hash-attested earlier
-work. Saved linked modules are reused only after current ownership, native storage
-and reference-call ABI validation. Rejected overlays remain explicit. This is not
-uniform current compilation or a completed whole-game fixed point.
-The compact semantic-continuation export preserves 94,985 saved Clang declarations
-in about 5.7 MB compressed; the 2.6 GB SQLite database is rebuildable and omitted.
+Run compiler/runtime regressions, native comparisons and original Chromium gameplay checks. All reports must bind evidence to exact input/module hashes. Deliver a real asset-free public player and private offline GRP build only after actual original menu and gameplay pass, including sustained 60-second input/audio/collision/save/load checks. Until then report exact remaining failures and preserve a deterministic continuation checkpoint.
 
-The final game test must remain failing until original gameplay actually works.
-No WASM, instruction emulator, replacement game or fabricated ownership. Preserve
-one canonical compiler and rebuild affected units after shared semantic fixes.
-Current blockers include Loguru C++ lifetimes/containers, nontrivial OSD objects,
-original allocator linkage, pointer/integer/browser-heap bridging and the full
-startup-to-gameplay dependency graph. Do not describe isolated tests as boot.
+Public source repository: https://github.com/NullNRG/eduke32-readable-js. Keep GRPs, embedded asset pages, toolchains and caches out of public Git. A continuation ZIP is not a playable-game deliverable.

@@ -42,17 +42,18 @@ export class ABIHeap {
     }
     this.#refresh();
   }
-  malloc(size) {
+  malloc(size, alignment = 8, minimumAddress = 0) {
     if (!Number.isSafeInteger(size) || size < 0) throw new RangeError('Invalid malloc size');
-    const requested = ABIHeap.align(Math.max(size, 1));
-    const slot = this.freed.findIndex(b => b.size >= requested);
+    if (!Number.isSafeInteger(minimumAddress) || minimumAddress < 0) throw new RangeError('Invalid allocation address floor');
+    const requested = ABIHeap.align(Math.max(size, 1), alignment);
+    const slot = this.freed.findIndex(b => b.size >= requested && b.ptr % alignment === 0 && b.ptr >= minimumAddress);
     if (slot >= 0) {
       const block = this.freed.splice(slot, 1)[0];
       this.allocations.set(block.ptr, block.size);
       this.u8.fill(0, block.ptr, block.ptr + block.size);
       return block.ptr;
     }
-    const ptr = ABIHeap.align(this.top);
+    const ptr = ABIHeap.align(Math.max(this.top, minimumAddress), alignment);
     this.ensure(ptr + requested);
     this.allocations.set(ptr, requested);
     this.top = ptr + requested;

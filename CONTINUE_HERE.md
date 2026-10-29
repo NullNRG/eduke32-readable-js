@@ -1,28 +1,37 @@
 # Continue the canonical project
 
-Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/project-current-status.json first. This is a continuation, not a fresh start. Preserve original inputs and verified emitted source.
+This is a continuation of the existing EDuke32 SourceFactory project. The original JavaScript game has not booted. Read `CURRENT_PORT_STATUS.md`, `HANDOFF_SNAPSHOT.json` and `reports/project-current-status.json` before changing code. Historical prompts and reports do not establish current execution success.
 
-Configure dependencies using BUILD_PORTABILITY.md. On this host:
+The authoritative configuration is `tools/browser_classic_profile.json`. It selects 113 original units for classic software rendering, NOASM and single-player browser services. The October 20 integration is a preserved migration input. It is not the active build output and cannot be mixed with the new pointer ABI.
+
+On this host:
 
 ```powershell
 . work/session-env.ps1
-python work/recover_current_boot_frontier.py --label next-boot-frontier --entries initprintf OSD_Init baselayer_init videoGetModes enginePreInit app_main
+npm run compile:game
 ```
 
-The current integration is factory-output/source-first/oct20-engine-preinit-browser. The Oct26 palette-fade and Oct27 gamma-storage frontier reports record the latest failures and gamma integration. XXH3 scalar-header diagnostics are in reports/oct27-xxhash-scalar.log and its generated manifest. work/xxhash-browser-compile-commands.json records the explicit original scalar library configuration; that candidate is not installed or verified. Keep heavy Clang jobs serial. Recompile affected functions into a new epoch and preserve source-owned globals.
+The build uses `tools/build_browser_classic.py` and `factory-output/source-first/browser-classic`. Original source preparation, profile inventory, semantic extraction, C/C++ allocator ownership proofs, emission, linking, blocker reports and strict acceptance use this configuration. Browser candidate construction and real gameplay remain unfinished; the acceptance gate must continue failing until original startup and gameplay pass.
 
-Do not run work/recover_browser_preinit.py on this target: it restores an older snapshot. The current frontier helper rejects duplicate globals and incompatible ABI. Replacing an already installed fragment requires tools/install_verified_fragment.py --replace-fragment-sha256 with its exact current manifest hash. This preserves original owner storage and the previous immutable shard. tools/expose_verified_private_storage.py only upgrades verified original bindings.
+The 113-unit semantic index and initial uniform emission pass are preserved. That emission pass predates the newest compiler changes. The new source memory ABI is `source-lp64-addresses/2`; old modules use incompatible pointer tokens. Recompile providers and consumers after this ABI change. Raw Clang AST reuse remains independently fingerprinted and does not imply valid JavaScript artifact reuse.
 
-Original browser checks are work/verify_original_initsystem_browser.py, work/verify_original_clipping_browser.py, work/verify_original_hash_browser.py and work/verify_original_console_browser.py, work/verify_original_palette_storage_browser.py and work/verify_original_gamma_browser.py. Their reports identify test storage and incomplete original initialization. work/upgrade_verified_zero_record_arrays.py only upgrades source-proven all-zero unsigned-byte record storage; the actual palette upgrades and source hashes are in the Oct26 palette-storage integration reports. Owned lifetime plans remain disabled until construction and destruction emission are implemented.
+Latest memory work is documented in `tools/SOURCE_MEMORY_ABI.md`. Standard C allocation reuses the project's ABIHeap; it does not replace original game allocator functions. All eight original GenericAllocator methods pass 257 native/Node/Chromium cases. The original small-pool allocator, owned C++ subobjects and console boot closure remain incomplete. The original console queue now gets past calloc/free and still requires original xfree.
+
+Latest original probes:
+
+- `factory-output/source-first/oct29-browser-generic-allocator-addresses`
+- `factory-output/source-first/oct29-browser-console-addresses`
+- `reports/oct29-original-generic-allocator-full-parity.json`
+- `reports/oct29-memory-full-regression.json` (check complete/all_passed and input fingerprints)
+
+Keep heavy original Clang jobs serial. To repeat the allocator execution comparison after regenerating its module, run `python work/verify_original_generic_allocator_full.py`. The fixture regression is `python tests/source_factory/verify_sourcefirst_native_addresses.py`.
 
 ```powershell
 npm run serve:project
-python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/next-regression.json
+python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json
 python tools/verify_port_acceptance.py --strict
-npm run compile:game
-npm run handoff:project
 ```
 
-compile:game remains the canonical pipeline and fails strict game acceptance while dependencies are unresolved. dist/original-entry-attempt.html is an old failed diagnostic that bypasses services, not a game. Never promote it to dist/index.html or count isolated subsystem tests as gameplay.
+Preserve original source inputs, license notices, supplied GRP and verified implementation work. `dist/original-entry-attempt.html` is an old failed diagnostic. There is no verified playable dist/index.html, original JavaScript menu or E1L1 screenshot. No WASM, emulator, replacement engine or success stubs are permitted.
 
-The continuation archive includes source and GRP, compiler/runtime, tests, scripts, compact semantic evidence and incremental source epochs. It excludes downloaded toolchain binaries, node_modules, raw ASTs, the large semantic SQLite database and redundant ZIPs. Install tools as documented. CONTINUATION_MANIFEST.json contains verified SHA-256 for every payload.
+For another host, follow BUILD_PORTABILITY.md and adapt the saved host paths. Revalidate source, commands, toolchain/sysroot, ABI, compiler and runtime fingerprints. Do not restore old browser snapshots over current implementation work.
