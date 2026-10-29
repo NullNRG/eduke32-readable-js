@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/2",
-  "updated_utc": "2026-10-29T14:48:44.880822+00:00",
+  "updated_utc": "2026-10-29T15:21:38.247159+00:00",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
   "project_launcher": "index.html",
@@ -11,7 +11,7 @@
   "integration_target": "factory-output/source-first/browser-classic",
   "migration_input": "factory-output/source-first/oct20-engine-preinit-browser",
   "migration_policy": "Historical integration only; do not reuse across different configuration/ABI/compiler/runtime fingerprints.",
-  "compiler_frontend_sha256": "6c5416dbe30dcd17b8cb82f31d7d4b4167f830c7f4eb7a2af92e792a1b9f1211",
+  "compiler_frontend_sha256": "539581c1550beb8ff85e98b9ff99d9c29b32921c88df6c1402aa2c0c6f5bb5cc",
   "semantic_index": {
     "fingerprint": "fa17d16a5825de4dc49ce1217e21dd66e08bfdbee28945ed815752a6930fef63",
     "selected_units": 113,
@@ -95,7 +95,59 @@
     "all_passed": true,
     "revision_matches_current_inputs": false,
     "does_not_verify_original_gameplay": true,
-    "frontend_matches_full_suite": true
+    "frontend_matches_full_suite": false
+  },
+  "latest_semantic_regression": {
+    "report": "reports/oct29-template-lifetime-regression.json",
+    "complete": true,
+    "all_passed": true,
+    "counts": {
+      "passed": 10,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "regression_inputs_unchanged": true
+  },
+  "original_template_destructor_closure": {
+    "requested": [
+      "CircularQueue<char *, 1024, RF_INIT_AND_FREE>"
+    ],
+    "proven": [
+      {
+        "type": "CircularQueue<char *, 1024, RF_INIT_AND_FREE>",
+        "source_header": "source/build/include/lru.h",
+        "source_offset": 998,
+        "template_pattern_sha256": "7841038ae852b1a3bb2998af1c68ba2e944260ae27bff439d2761fbf2aa250f8",
+        "directive": "template CircularQueue<char *, 1024, RF_INIT_AND_FREE>::~CircularQueue();",
+        "ast_decode": {
+          "format": "source-ast-stream/1",
+          "backend": "yajl2_c",
+          "retained_source_ranges": false,
+          "roots": 1,
+          "objects": 2249,
+          "ranges_omitted": 803,
+          "allocator_body_ranges_retained": 0,
+          "macro_declaration_ranges_retained": 0,
+          "semantic_barrier_ranges_retained": 0,
+          "type_metadata_reuses": 651,
+          "include_metadata_reuses": 272,
+          "cache_storage": "gzip",
+          "cache_entry_bytes": 117674,
+          "cache_hit": false,
+          "json_bytes": 1196035,
+          "cache_policy_revision": "source-ast-disk-cache/2",
+          "cache_budget_bytes": 536870912,
+          "cache_retained": true,
+          "cache_retained_bytes": 60935770,
+          "cache_evicted_entries": 0,
+          "cache_evicted_bytes": 0,
+          "cache_retention_reason": "compressed-retained"
+        },
+        "runtime_provider_fabricated": false
+      }
+    ],
+    "rejected": {}
   },
   "latest_pipeline_regression": {
     "report": "reports/oct29-compressed-cache-regression.json",
@@ -126,12 +178,12 @@
     {
       "name": "OSD_Init",
       "status": "blocked",
-      "reason": "C++ heap object needs complete original class construction/destruction: CircularQueue<char *, 1024, RF_INIT_AND_FREE>"
+      "reason": "unlinked identifiers: OSD_RegisterCvar, OSD_RegisterFunction, _internal_clearbackground, _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, _internal_getcolumnwidth, _internal_getrowheight, _internal_gettime, _internal_onshowosd, default_callbacks, h_cvars"
     },
     {
       "name": "OSD_UpdateDrawBuffer",
       "status": "blocked",
-      "reason": "unlinked identifiers: __cxx_record_CircularQueue_72e67824d02fa6e1, isdigit, toupper"
+      "reason": "unlinked identifiers: OSD_LineFeed, atoi_safe, isdigit, mutex_lock, mutex_unlock, osd, toupper"
     }
   ],
   "original_audio_frontier": [
@@ -150,7 +202,8 @@
   "original_allocator_verified": false,
   "owned_lifetime_emitter_enabled": false,
   "native_template_instantiation_experiment": "reports/oct29-template-instantiation-probe.log",
-  "template_experiment_limitation": "Clang can instantiate original queue lifetime bodies, but supplementary declaration provenance and integration are not implemented. No boot claim.",
+  "template_experiment_limitation": "Demanded template destructor recovery is now implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destructor extraction passes; its class still has unlinked C allocation/free and original xfree dependencies. This is source lowering, not executed console/game initialization.",
+  "unrepresented_original_methods_note": "The baseline emitter catalog omits source-defined out-of-line C++ methods, including 8 GenericAllocator methods and 7 small-allocator methods/constructors. Its blocked-entry count is not a complete declaration inventory.",
   "remaining_acceptance_failures": [
     "Original app_main and enginePreInit boot closure",
     "Original allocator and console initialization",

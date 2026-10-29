@@ -122,6 +122,7 @@ def pipeline_inputs(commands_path, source_root):
     paths.extend([ROOT/'tools/source_anonymous_records.py', ROOT/'tools/source_explicit_member_operators.py',
                   ROOT/'tools/source_cpp_types.py', ROOT/'tools/source_standard_heap_contract.py',
                   ROOT/'tools/source_ast_cache_paths.py'])
+    paths.append(ROOT/'tools/source_template_destructors.py')
     if commands_path is not None:
         paths.append(commands_path)
         from source_standard_heap_contract import contract_path

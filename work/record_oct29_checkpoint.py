@@ -16,7 +16,7 @@ semantic=read(build/'reports/semantic-index.summary.json')
 blockers=read(build/'reports/all-blockers.json')
 regression=read('reports/oct29-final-regression.json')
 regression_match=regression.get('regression_inputs')==regression_inputs() if regression else False
-console=read('factory-output/source-first/oct29-browser-console/source/build/src/osd.cpp.manifest.json')
+console=read('factory-output/source-first/oct29-browser-console-lifetime/source/build/src/osd.cpp.manifest.json')
 audio=read('factory-output/source-first/oct29-browser-audio-table/source/audiolib/src/drivers.cpp.manifest.json')
 frontier=lambda doc,names:[{'name':r['name'],'status':r['status'],'reason':r.get('reason')} for r in doc.get('definitions',[]) if r['name'] in names]
 state={
@@ -39,6 +39,8 @@ state={
   'counts':regression.get('counts'),'selected_tests':regression.get('selected_tests'),
   'all_passed':regression.get('all_passed',False),'revision_matches_current_inputs':regression_match,
   'does_not_verify_original_gameplay':True,'frontend_matches_full_suite':regression.get('compiler_frontend_sha256')==sha('tools/source_ast_to_js.py')},
+ 'latest_semantic_regression':{'report':'reports/oct29-template-lifetime-regression.json',**{k:read('reports/oct29-template-lifetime-regression.json').get(k) for k in ('complete','all_passed','counts','regression_inputs_unchanged')}},
+ 'original_template_destructor_closure':console.get('template_destructor_closure'),
  'latest_pipeline_regression':{'report':'reports/oct29-compressed-cache-regression.json',**{k:read('reports/oct29-compressed-cache-regression.json').get(k) for k in ('complete','all_passed','counts','regression_inputs_unchanged')}},
  'original_ast_cache_proof':{'report':'reports/oct29-original-cache-proof.json',**{k:read('reports/oct29-original-cache-proof.json').get(k) for k in ('passed','readable_js_bytes_unchanged','gameplay_verified')}},
  'semantic_changes':['Clang-proven anonymous callback tables and empty C++ function prototype spellings',
@@ -50,7 +52,8 @@ state={
  'original_audio_frontier':frontier(audio,{'SoundDrivers','SoundDriver_IsPCMSupported'}),
  'original_console_initialization_verified':False,'original_allocator_verified':False,'owned_lifetime_emitter_enabled':False,
  'native_template_instantiation_experiment':'reports/oct29-template-instantiation-probe.log',
- 'template_experiment_limitation':'Clang can instantiate original queue lifetime bodies, but supplementary declaration provenance and integration are not implemented. No boot claim.',
+ 'template_experiment_limitation':'Demanded template destructor recovery is now implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destructor extraction passes; its class still has unlinked C allocation/free and original xfree dependencies. This is source lowering, not executed console/game initialization.',
+ 'unrepresented_original_methods_note':'The baseline emitter catalog omits source-defined out-of-line C++ methods, including 8 GenericAllocator methods and 7 small-allocator methods/constructors. Its blocked-entry count is not a complete declaration inventory.',
  'remaining_acceptance_failures':['Original app_main and enginePreInit boot closure','Original allocator and console initialization',
   'Canonical cross-unit template prototypes and remaining dependencies','Browser platform integration under the new profile',
   'Real rendered menu and E1L1','60-second gameplay/input/audio/collision/save/load verification','Standalone offline dist/index.html'],

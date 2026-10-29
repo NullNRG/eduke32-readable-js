@@ -27,6 +27,7 @@ from source_scalar_types import scalar_info, is_integer
 from source_private_record_schema import private_record_schema_compatible
 from source_empty_asm import prove_empty_asm
 from source_anonymous_records import blocked_anonymous_global_arrays
+from source_template_destructors import complete as complete_template_destructors
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 
 HERE=Path(__file__).resolve().parents[1]
@@ -4988,7 +4989,7 @@ def main():
     # Filtered new/delete expressions carry small declaration references, not
     # ABI mangling. Query their original global declarations in this same TU
     # so separate recovery runs still use identical allocator symbol names.
-    if opt.filter and comp is not None:
+    if opt.filter:
         allocation_queries={declaration['name'] for tree in ast for node in descendants(tree)
             for declaration in (node.get('operatorNewDecl'),node.get('operatorDeleteDecl'))
             if declaration and declaration.get('kind')=='FunctionDecl'}
@@ -5352,7 +5353,8 @@ def main():
         # parse; no anonymous shape or layout is inferred from a nearby name.
         anonymous_arrays=blocked_anonymous_global_arrays(report)
         explicit_members=has_unresolved_explicit_operators(ast)
-        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members) and not full_type_closure['attempted']:
+        heap_types=any(row.get('reason','').startswith('C++ heap object needs complete original class construction/destruction:') for row in report)
+        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or heap_types) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
             full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
             full_cache=None
@@ -5427,6 +5429,24 @@ def main():
         except (subprocess.TimeoutExpired,OSError):
             pass  # Retain the array blocker; never fabricate target offsets.
     retry_pod_record_closure()
+    template_destructor_closure={'requested':[],'proven':[],'rejected':{}}
+    def retry_template_destructor_closure():
+        nonlocal emitted,report
+        if not compile_as_cpp:return
+        prefix='C++ heap object needs complete original class construction/destruction: '
+        pending=[row for row in report if row.get('reason','').startswith(prefix)
+                 and row['reason'][len(prefix):] not in template_destructor_closure['requested']]
+        if not pending:return
+        recovered=complete_template_destructors(ast,pending,root=root,source=src,
+            frontend=frontend,language=language,arguments=args,aliases=recover_type_aliases(ast),
+            normalize=normalized_record_name,cache_dir=opt.ast_cache_dir)
+        for key in ('requested','proven'):template_destructor_closure[key].extend(recovered[key])
+        template_destructor_closure['rejected'].update(recovered['rejected'])
+        if recovered['proven']:
+            emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
+                project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
+                source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
+    retry_template_destructor_closure()
     # Automatically recover header-defined friend operators from Clang's
     # original CXXRecordDecl, using the actual operand type rather than a
     # game-specific name. -ast-dump-filter on app_main omits all declarations
@@ -5764,6 +5784,7 @@ def main():
         previous=[(row['name'],row['status'],row.get('reason')) for row in report]
         retry_enum_closure()
         retry_pod_record_closure()
+        retry_template_destructor_closure()
         # A verified layout can reveal calls that were unreachable to the
         # emitter on the first pass. Revisit actual source dependencies too;
         # the shared query set keeps failed/ambiguous declarations bounded.
@@ -5874,6 +5895,7 @@ const cStackAlloc = amount => {
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}
     result['toolchain']=toolchain
+    result['template_destructor_closure']=template_destructor_closure
     if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}
