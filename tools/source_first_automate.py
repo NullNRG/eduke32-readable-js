@@ -120,7 +120,8 @@ def pipeline_inputs(commands_path, source_root):
         ROOT/'tools/source_first_global_link.py', ROOT/'tools/source_first_automate.py']
     paths.extend(sorted((ROOT/'runtime').rglob('*.mjs')))
     paths.extend([ROOT/'tools/source_anonymous_records.py', ROOT/'tools/source_explicit_member_operators.py',
-                  ROOT/'tools/source_cpp_types.py', ROOT/'tools/source_standard_heap_contract.py'])
+                  ROOT/'tools/source_cpp_types.py', ROOT/'tools/source_standard_heap_contract.py',
+                  ROOT/'tools/source_ast_cache_paths.py'])
     if commands_path is not None:
         paths.append(commands_path)
         from source_standard_heap_contract import contract_path
@@ -543,7 +544,8 @@ def main():
     # Raw AST cache is not a precompiled JS module. It is independently keyed
     # to all original source bytes, Clang options and the original LP64 ABI.
     # Keep the expensive epoch fingerprint out of every batch/worker.
-    ast_cache=(out/'clang-ast-cache'/ast_semantic_epoch(args.compile_commands,src_root)
+    from source_ast_cache_paths import persistent_ast_cache_directory
+    ast_cache=(persistent_ast_cache_directory(out,ast_semantic_epoch(args.compile_commands,src_root))
                if args.persistent_ast_cache else None)
     put_json(out/'original-build-inventory.json',make_build_inventory(
         units, chosen, inventory.total_selected, inventory.missing_generated,

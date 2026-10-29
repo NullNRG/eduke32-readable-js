@@ -12,7 +12,8 @@ entry=next(row for row in commands if row['file']=='source/build/src/osd.cpp')
 frontend,_=frontend_config(True);args=captured_args(entry)
 with tempfile.TemporaryDirectory(prefix='eduke-template-instantiation-') as temporary:
  wrapper=Path(temporary)/'instantiate.cpp'
- wrapper.write_text('#include '+json.dumps((root/entry['file']).as_posix())+'\ntemplate class CircularQueue<char *,1024,RF_INIT_AND_FREE>;\n')
+ directive=('template CircularQueue<char *,1024,RF_INIT_AND_FREE>::~CircularQueue();' if '--destructor' in sys.argv else 'template class CircularQueue<char *,1024,RF_INIT_AND_FREE>;')
+ wrapper.write_text('#include '+json.dumps((root/entry['file']).as_posix())+'\n'+directive+'\n')
  result=subprocess.run([frontend,*args,'-Xclang','-ast-dump=json','-Xclang','-ast-dump-filter=CircularQueue','-fsyntax-only',str(wrapper)],cwd=root,capture_output=True,text=True,timeout=120)
  print('Clang returncode',result.returncode,'AST bytes',len(result.stdout));print(result.stderr[-2000:])
  if result.returncode==0:

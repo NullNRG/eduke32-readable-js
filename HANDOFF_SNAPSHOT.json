@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/2",
-  "updated_utc": "2026-10-29T14:28:11.301978+00:00",
+  "updated_utc": "2026-10-29T14:48:44.880822+00:00",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
   "project_launcher": "index.html",
@@ -93,8 +93,27 @@
     },
     "selected_tests": 170,
     "all_passed": true,
-    "revision_matches_current_inputs": true,
-    "does_not_verify_original_gameplay": true
+    "revision_matches_current_inputs": false,
+    "does_not_verify_original_gameplay": true,
+    "frontend_matches_full_suite": true
+  },
+  "latest_pipeline_regression": {
+    "report": "reports/oct29-compressed-cache-regression.json",
+    "complete": true,
+    "all_passed": true,
+    "counts": {
+      "passed": 8,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "regression_inputs_unchanged": true
+  },
+  "original_ast_cache_proof": {
+    "report": "reports/oct29-original-cache-proof.json",
+    "passed": true,
+    "readable_js_bytes_unchanged": true,
+    "gameplay_verified": false
   },
   "semantic_changes": [
     "Clang-proven anonymous callback tables and empty C++ function prototype spellings",

@@ -392,6 +392,7 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True,com
              ROOT/'tools/source_anonymous_records.py',ROOT/'tools/source_explicit_member_operators.py',
              ROOT/'tools/source_standard_heap_contract.py',
              ROOT/'tools/source_cpp_types.py',
+             ROOT/'tools/source_ast_cache_paths.py',
              ROOT/'tools/source_scalar_types.py',
              ROOT/'tools/source_ast_events.py',ROOT/'tools/source_coroutine_cfg.py',
              ROOT/'tools/source_process_runtime.mjs',
@@ -495,8 +496,10 @@ def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budge
     ast_cache_owner=None
     if persistent_ast_cache:
         from source_first_automate import ast_semantic_epoch
+        from source_ast_cache_paths import persistent_ast_cache_directory
         commands=Path(compile_commands) if compile_commands is not None else ROOT/'factory-output/compile_commands.json'
-        ast_cache=directory/'clang-ast-cache'/ast_semantic_epoch(commands if commands.is_file() else None,source_root)/'shard-00'
+        epoch=ast_semantic_epoch(commands if commands.is_file() else None,source_root)
+        ast_cache=persistent_ast_cache_directory(directory,epoch)/'shard-00'
     else:
         ast_cache_owner=tempfile.TemporaryDirectory(prefix='eduke_original_ast_')
         ast_cache=Path(ast_cache_owner.name)

@@ -10,6 +10,7 @@ from decimal import Decimal
 from contextlib import contextmanager
 from source_explicit_member_operators import explicit_operator
 import os
+import gzip
 from pathlib import Path
 import re
 import shutil
@@ -24,8 +25,9 @@ _STRINGS=frozenset(('kind','qualType','desugaredQualType','name','castKind',
     'valueCategory','file','storageClass','mangledName','opcode','constructionKind',
     'tagUsed','explicitlyDefaulted','tls'))
 
-CACHE_POLICY_REVISION='source-ast-disk-cache/1'
+CACHE_POLICY_REVISION='source-ast-disk-cache/2'
 DEFAULT_CACHE_BYTES=512*1024*1024
+COMPRESS_ABOVE_BYTES=1024*1024
 _MARKER_PREFIX='.ast-lru-'
 _PARTIAL_PREFIX='.ast-cache-publish-'
 
@@ -38,6 +40,7 @@ def cache_policy():
             'eviction':'least-recently-used','oversized_dump':'decode-completely-without-retention',
             'concurrency':'cross-process directory lock covering reads and eviction',
             'transient_dump':'one automatic-delete spool per locked cache directory',
+            'large_dump_storage':'lossless streaming gzip; disk budget counts stored bytes',
             'source_node_filtering':False}
 
 
@@ -266,27 +269,48 @@ def run_clang_ast(command, *, cwd, cache_path=None, timeout=None):
         output.close();return finish(ast,stats,size,False,False,reason='no-cache-directory')
     with _cache_lock(cache.parent):
         _prepare_cache(cache.parent)
-        if cache.is_file():
-            _marker(cache).touch(exist_ok=True)
-            with cache.open('rb') as stream:
-                size=os.fstat(stream.fileno()).st_size;ast,stats=parse_ast_file(stream)
-            _touch(cache)
+        compressed_cache=cache.with_suffix(cache.suffix+'.gz')
+        existing=cache if cache.is_file() else compressed_cache if compressed_cache.is_file() else None
+        if existing is not None:
+            _marker(existing).touch(exist_ok=True)
+            with existing.open('rb') as raw:
+                stored_size=os.fstat(raw.fileno()).st_size
+                if existing==compressed_cache:
+                    with gzip.GzipFile(fileobj=raw,mode='rb') as stream:
+                        ast,stats=parse_ast_file(stream);size=stream.tell()
+                else:
+                    size=stored_size;ast,stats=parse_ast_file(raw)
+            stats.update(cache_storage='gzip' if existing==compressed_cache else 'json',cache_entry_bytes=stored_size)
+            _touch(existing)
             used,count,removed=_evict(cache.parent,budget)
-            return finish(ast,stats,size,True,cache.is_file(),used,count,removed,
-                          'oversized' if size>budget else 'cache-hit')
+            return finish(ast,stats,size,True,existing.is_file(),used,count,removed,
+                          'oversized' if stored_size>budget else 'cache-hit')
         used,count,removed=_evict(cache.parent,budget)
         output,ast,stats,size=_decode_command(command,cwd,timeout,cache.parent)
         reason='oversized' if size>budget else 'disabled' if not budget else 'retained'
+        compressed=None;stored_size=size;target=cache
         try:
-            if size<=budget and budget:
-                used,more,more_bytes=_evict(cache.parent,budget-size)
-                count+=more;removed+=more_bytes
-                if used<=budget-size:
-                    try:_publish(output,cache);used+=size
-                    except OSError as error:
-                        # Caching is optional. Never lose a fully decoded original
-                        # AST merely because cache admission hits a disk/ACL limit.
-                        reason='cache-write-error';stats['cache_write_error']=str(error)
-                else:reason='busy-cache-entries'
-        finally:output.close()
-        return finish(ast,stats,size,False,cache.is_file(),used,count,removed,reason)
+            try:
+                payload=output
+                if budget and size>=COMPRESS_ABOVE_BYTES:
+                    compressed=tempfile.TemporaryFile(mode='w+b',dir=cache.parent)
+                    output.seek(0)
+                    with gzip.GzipFile(fileobj=compressed,mode='wb',compresslevel=1,mtime=0,filename='') as stream:
+                        shutil.copyfileobj(output,stream,length=1024*1024)
+                    stored_size=compressed.tell();payload=compressed;target=compressed_cache
+                    reason='compressed-retained' if stored_size<=budget else 'oversized'
+                stats.update(cache_storage='gzip' if target==compressed_cache else 'json',cache_entry_bytes=stored_size)
+                if stored_size<=budget and budget:
+                    used,more,more_bytes=_evict(cache.parent,budget-stored_size)
+                    count+=more;removed+=more_bytes
+                    if used<=budget-stored_size:
+                        _publish(payload,target);used+=stored_size
+                    else:reason='busy-cache-entries'
+            except OSError as error:
+                # Optional cache admission must never lose a fully decoded
+                # original AST, including when the compression spool is full.
+                reason='cache-write-error';stats['cache_write_error']=str(error)
+        finally:
+            if compressed is not None:compressed.close()
+            output.close()
+        return finish(ast,stats,size,False,target.is_file(),used,count,removed,reason)
