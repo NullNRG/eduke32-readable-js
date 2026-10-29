@@ -29,7 +29,7 @@ Keep heavy original Clang jobs serial. To repeat the allocator execution compari
 ```powershell
 npm run serve:project
 python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json
-python tools/verify_port_acceptance.py --strict
+python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --reports factory-output/source-first/browser-classic/reports --out reports/port-acceptance.json --strict
 ```
 
 Preserve original source inputs, license notices, supplied GRP and verified implementation work. `dist/original-entry-attempt.html` is an old failed diagnostic. There is no verified playable dist/index.html, original JavaScript menu or E1L1 screenshot. No WASM, emulator, replacement engine or success stubs are permitted.

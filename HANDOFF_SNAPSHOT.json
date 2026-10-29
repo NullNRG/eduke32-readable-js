@@ -1,8 +1,13 @@
 {
   "format": "sourcefactory-current-project/2",
-  "updated_utc": "2026-10-29T20:17:17.792788+00:00",
+  "updated_utc": "2026-10-29T20:40:11.711286+00:00",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
+  "current_full_profile_emission_verified": false,
+  "current_whole_program_linked": false,
+  "original_entry_executed_current_profile": false,
+  "original_menu_rendered_in_javascript": false,
+  "original_e1l1_rendered_in_javascript": false,
   "project_launcher": "index.html",
   "launcher_command": "npm run serve:project",
   "build_command": "npm run compile:game",
@@ -93,15 +98,15 @@
   },
   "regression": {
     "report": "reports/oct29-memory-final-regression.json",
-    "complete": false,
+    "complete": true,
     "counts": {
-      "passed": 109,
+      "passed": 175,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
     "selected_tests": 175,
-    "all_passed": false,
+    "all_passed": true,
     "revision_matches_current_inputs": true,
     "does_not_verify_original_gameplay": true,
     "frontend_matches_full_suite": true
@@ -182,6 +187,13 @@
     "Pointer/enum template argument identities and target layouts",
     "Whole-selected-program standard new/delete ownership contract; original class-specific/placement operators remain source-owned",
     "Shared browser command database propagated into blockers and boot audits; configured Clang dependency queries serial"
+  ],
+  "memory_changes": [
+    "Pointer fields and pointer/integer casts use one LP64 byte-address representation",
+    "Canonical ABIHeap C allocation, alignment, realloc, failure behavior, native low-address sentinel range and browser heap binding",
+    "Whole-selected-program C allocation ownership and exact Clang C linkage proof, including filtered declarations",
+    "Deferred static relocations preserve actual source storage and C++ delete releases retained registry buffers",
+    "Original out-of-line static methods and non-ODR integral class constants lower by Clang identity"
   ],
   "original_console_frontier": [
     {
@@ -570,6 +582,22 @@
     "gameplay_verified": false,
     "engine_boot_verified": false
   },
+  "strict_acceptance": {
+    "all_acceptance_criteria_passed": false,
+    "failed_checks": [
+      "complete_source_semantics",
+      "startup_dependency_closure",
+      "linked_javascript_integrity",
+      "reachable_gameplay_recovery",
+      "self_contained_offline_game"
+    ],
+    "unverified_checks": [
+      "historical_recovery_ninety_percent",
+      "original_browser_gameplay",
+      "native_engine_comparison",
+      "reproducible_one_command_build"
+    ]
+  },
   "latest_memory_regression": {
     "report": "reports/oct29-memory-corrected-regression.json",
     "complete": true,
@@ -606,7 +634,7 @@
   "original_generic_allocator_verified": true,
   "owned_lifetime_emitter_enabled": false,
   "native_template_instantiation_experiment": "reports/oct29-template-instantiation-probe.log",
-  "template_experiment_limitation": "Demanded template destructor recovery is now implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destructor extraction passes; its class still has unlinked C allocation/free and original xfree dependencies. This is source lowering, not executed console/game initialization.",
+  "template_experiment_limitation": "Demanded template destructor recovery is implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destruction and C allocation/free lowering pass; the class still needs original xfree through the small-pool allocator. This is source lowering, not executed console/game initialization.",
   "unrepresented_original_methods_note": "The 113-unit baseline predates out-of-line static lowering and omits 8 GenericAllocator methods. The latest isolated compile emits all 8 with exact Clang ownership and native/Node/Chromium allocation parity. Seven original small-allocator instance methods/constructors remain unrepresented by the baseline. The baseline blocked count is not a complete definition inventory.",
   "remaining_acceptance_failures": [
     "Original app_main and enginePreInit boot closure",

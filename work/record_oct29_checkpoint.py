@@ -1,5 +1,5 @@
 """Refresh the factual continuation checkpoint from current build evidence."""
-import hashlib,json,sys
+import hashlib,json,shutil,sys
 from pathlib import Path
 from datetime import datetime,timezone
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
@@ -18,6 +18,10 @@ blockers=read(build/'reports/all-blockers.json')
 regression_path=('reports/oct29-memory-final-regression.json' if (ROOT/'reports/oct29-memory-final-regression.json').is_file() else 'reports/oct29-final-regression.json')
 regression=read(regression_path)
 regression_match=regression.get('regression_inputs')==regression_inputs() if regression else False
+inventory=ROOT/build/'all-files-audit.json'
+if inventory.is_file():shutil.copyfile(inventory,ROOT/build/'reports/source-files-current.json')
+if regression.get('all_passed') and regression.get('complete') and regression_match:
+ shutil.copyfile(ROOT/regression_path,ROOT/build/'reports/recovery-regression-final.json')
 console=read('factory-output/source-first/oct29-browser-console-addresses/source/build/src/osd.cpp.manifest.json') or read('factory-output/source-first/oct29-browser-console-lifetime/source/build/src/osd.cpp.manifest.json')
 audio=read('factory-output/source-first/oct29-browser-audio-table/source/audiolib/src/drivers.cpp.manifest.json')
 allocator=read('factory-output/source-first/oct29-browser-generic-allocator-addresses/source/build/src/smmalloc_generic.cpp.manifest.json')
@@ -60,11 +64,17 @@ state={
   'Pointer/enum template argument identities and target layouts',
   'Whole-selected-program standard new/delete ownership contract; original class-specific/placement operators remain source-owned',
   'Shared browser command database propagated into blockers and boot audits; configured Clang dependency queries serial'],
+ 'memory_changes':['Pointer fields and pointer/integer casts use one LP64 byte-address representation',
+  'Canonical ABIHeap C allocation, alignment, realloc, failure behavior, native low-address sentinel range and browser heap binding',
+  'Whole-selected-program C allocation ownership and exact Clang C linkage proof, including filtered declarations',
+  'Deferred static relocations preserve actual source storage and C++ delete releases retained registry buffers',
+  'Original out-of-line static methods and non-ODR integral class constants lower by Clang identity'],
  'original_console_frontier':frontier(console,{'OSD_Init','OSD_UpdateDrawBuffer'}),
  'latest_static_member_regression':{'report':'reports/oct29-static-member-regression.json',**{k:read('reports/oct29-static-member-regression.json').get(k) for k in ('complete','all_passed','counts','regression_inputs_unchanged')}},
  'original_generic_allocator_frontier':[{'source_name':r['source_name'],'name':r['name'],'status':r['status'],'reason':r.get('reason')} for r in allocator.get('definitions',[]) if r.get('original_static_member')],
  'original_generic_allocator_partial_parity':read('reports/oct29-original-generic-allocator-parity.json'),
  'original_generic_allocator_full_parity':read('reports/oct29-original-generic-allocator-full-parity.json'),
+ 'strict_acceptance':{k:read('reports/port-acceptance.json').get(k) for k in ('all_acceptance_criteria_passed','failed_checks','unverified_checks')},
  'latest_memory_regression':{'report':'reports/oct29-memory-corrected-regression.json',**{k:read('reports/oct29-memory-corrected-regression.json').get(k) for k in ('complete','all_passed','counts','regression_inputs_unchanged')}},
  'portable_semantic_checkpoint':{'data':'reports/semantic-browser-checkpoint/index.jsonl.gz',
   'metadata':'reports/semantic-browser-checkpoint/index.jsonl.json','lossless_all_tables':True,
@@ -74,7 +84,7 @@ state={
  'original_console_initialization_verified':False,'original_allocator_verified':False,
  'original_generic_allocator_verified':read('reports/oct29-original-generic-allocator-full-parity.json').get('passed',False),'owned_lifetime_emitter_enabled':False,
  'native_template_instantiation_experiment':'reports/oct29-template-instantiation-probe.log',
- 'template_experiment_limitation':'Demanded template destructor recovery is now implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destructor extraction passes; its class still has unlinked C allocation/free and original xfree dependencies. This is source lowering, not executed console/game initialization.',
+ 'template_experiment_limitation':'Demanded template destructor recovery is implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destruction and C allocation/free lowering pass; the class still needs original xfree through the small-pool allocator. This is source lowering, not executed console/game initialization.',
  'unrepresented_original_methods_note':'The 113-unit baseline predates out-of-line static lowering and omits 8 GenericAllocator methods. The latest isolated compile emits all 8 with exact Clang ownership and native/Node/Chromium allocation parity. Seven original small-allocator instance methods/constructors remain unrepresented by the baseline. The baseline blocked count is not a complete definition inventory.',
  'remaining_acceptance_failures':['Original app_main and enginePreInit boot closure','Original allocator and console initialization',
   'Canonical cross-unit template prototypes and remaining dependencies','Browser platform integration under the new profile',

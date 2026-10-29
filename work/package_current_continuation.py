@@ -55,6 +55,7 @@ def selected(root,public=False):
                 or relative.parts[0] in ('native-oracle','semantic-continuation')):
             if path.suffix in ('.json','.gz','.log','.md','.png'):add(path)
     add(root/'reports/historical-latest/dependency-graph.json')
+    add(root/'reports/port-acceptance.json')
     return sorted(chosen)
 
 if __name__=='__main__':

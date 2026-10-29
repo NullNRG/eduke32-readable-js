@@ -1,0 +1,87 @@
+{
+  "steps": [
+    {
+      "step": "Rebuild original libdivide provider",
+      "arguments": [
+        "tools/build_libdivide_source.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.057
+    },
+    {
+      "step": "Rebuild original xxHash provider",
+      "arguments": [
+        "tools/build_xxhash_source.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 24.908
+    },
+    {
+      "step": "Recompile all eight original generic allocator methods",
+      "arguments": [
+        "tools/source_ast_to_js.py",
+        "--root",
+        "factory-output/browser-classic/source-tree/eduke32-master",
+        "--source",
+        "source/build/src/smmalloc_generic.cpp",
+        "--compile-commands",
+        "factory-output/browser-classic/compile_commands.json",
+        "--header-dependency-closure",
+        "--require-record-layouts",
+        "--ast-cache-dir",
+        "work/ast/f3f73c89e7558265637b0512990774fe2bdcc6ec733701b88b4869ed0334ea68/shard-00",
+        "--out-dir",
+        "factory-output/source-first/oct29-browser-generic-allocator-addresses"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 26.403
+    },
+    {
+      "step": "Original allocator native/Node/Chromium comparison",
+      "arguments": [
+        "work/verify_original_generic_allocator_full.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 6.066
+    },
+    {
+      "step": "Affected integrations",
+      "arguments": [
+        "tools/verify_recovery_suite.py",
+        "--match",
+        "browser_scanf",
+        "--match",
+        "partial_array",
+        "--match",
+        "reexport",
+        "--match",
+        "wide_division",
+        "--match",
+        "native_addresses",
+        "--match",
+        "cpp_heap",
+        "--match",
+        "fragment",
+        "--report",
+        "reports/oct29-memory-corrected-regression.json",
+        "--timeout",
+        "180"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 53.584
+    },
+    {
+      "step": "Complete frozen compiler regression",
+      "arguments": [
+        "tools/verify_recovery_suite.py",
+        "--report",
+        "reports/oct29-memory-final-regression.json",
+        "--timeout",
+        "240"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1109.941
+    }
+  ],
+  "gameplay_verified": false
+}
