@@ -34,7 +34,7 @@ state={
  'baseline_global_link':{k:linked.get(k) for k in ('completed_source_units','source_named_modules','unique_exports','ambiguous_export_names','invalid_imports_or_syntax','total_blocked_definitions','ast_dependency_recovery_attempted','recovery_round_limit','full_game_linked')},
  'baseline_global_link_note':'Initial ownership/import audit only; zero recovery rounds. Fixed-point recovery with the latest compiler remains required.',
  'current_blocker_reports':[(build/'reports'/name).as_posix() for name in ('all-blockers.json','all-blockers.csv','root-causes.json','dependency-graph.json','boot-blockers.json')],
- 'current_inventory':blockers.get('summary',{}),
+ 'current_inventory':blockers.get('summary',{k:blockers.get(k) for k in ('audited_source_units','all_selected_units_audited','raw_definition_observations','deduplicated_definition_records','blocked_definition_records','stable_declaration_identity_records','uniform_compiler_revision_verified')}),
  'regression':{'report':'reports/oct29-final-regression.json','complete':regression.get('complete',False),
   'counts':regression.get('counts'),'selected_tests':regression.get('selected_tests'),
   'all_passed':regression.get('all_passed',False),'revision_matches_current_inputs':regression_match,
