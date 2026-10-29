@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/2",
-  "updated_utc": "2026-10-29T15:21:38.247159+00:00",
+  "updated_utc": "2026-10-29T15:47:32.817807+00:00",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
   "project_launcher": "index.html",
@@ -11,7 +11,7 @@
   "integration_target": "factory-output/source-first/browser-classic",
   "migration_input": "factory-output/source-first/oct20-engine-preinit-browser",
   "migration_policy": "Historical integration only; do not reuse across different configuration/ABI/compiler/runtime fingerprints.",
-  "compiler_frontend_sha256": "539581c1550beb8ff85e98b9ff99d9c29b32921c88df6c1402aa2c0c6f5bb5cc",
+  "compiler_frontend_sha256": "401956e4623e2470300115cf83a0571c08f211f902fd720859f380f73488be84",
   "semantic_index": {
     "fingerprint": "fa17d16a5825de4dc49ce1217e21dd66e08bfdbee28945ed815752a6930fef63",
     "selected_units": 113,
@@ -186,6 +186,81 @@
       "reason": "unlinked identifiers: OSD_LineFeed, atoi_safe, isdigit, mutex_lock, mutex_unlock, osd, toupper"
     }
   ],
+  "latest_static_member_regression": {
+    "report": "reports/oct29-static-member-regression.json",
+    "complete": true,
+    "all_passed": true,
+    "counts": {
+      "passed": 9,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "regression_inputs_unchanged": true
+  },
+  "original_generic_allocator_frontier": [
+    {
+      "source_name": "Invalid",
+      "name": "Invalid__cxx_static_a4bf526f6eeaa6da",
+      "status": "source-first",
+      "reason": null
+    },
+    {
+      "source_name": "IsValid",
+      "name": "IsValid__cxx_static_37d38e4ea936ce3c",
+      "status": "source-first",
+      "reason": null
+    },
+    {
+      "source_name": "Create",
+      "name": "Create__cxx_static_b7202f8c9d4230a6",
+      "status": "source-first",
+      "reason": null
+    },
+    {
+      "source_name": "Destroy",
+      "name": "Destroy__cxx_static_777d0ae31c789182",
+      "status": "source-first",
+      "reason": null
+    },
+    {
+      "source_name": "Alloc",
+      "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+      "status": "blocked",
+      "reason": "out-of-line static member pointer/integer conversion requires verified address-space semantics"
+    },
+    {
+      "source_name": "Free",
+      "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+      "status": "blocked",
+      "reason": "unlinked identifiers: free"
+    },
+    {
+      "source_name": "Realloc",
+      "name": "Realloc__cxx_static_478d5da25b6b3923",
+      "status": "blocked",
+      "reason": "unlinked identifiers: Alloc__cxx_static_e0036cfb06bcfe42, Free__cxx_static_0dfd3f42f0dc2c05"
+    },
+    {
+      "source_name": "GetUsableSpace",
+      "name": "GetUsableSpace__cxx_static_e0d3307150ae81d4",
+      "status": "source-first",
+      "reason": null
+    }
+  ],
+  "original_generic_allocator_partial_parity": {
+    "format": "original-generic-allocator-header-native-parity/1",
+    "passed": true,
+    "native_snapshots": 256,
+    "source_file": "source/build/src/smmalloc_generic.cpp",
+    "source_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+    "module_sha256": "4efc2edbe3f84a3232bbb4e744c9af7bb7bfb8669a2b0b23862af17b4432521b",
+    "native_original_alloc_free_executed": true,
+    "javascript_original_header_lookup_compared": true,
+    "javascript_original_full_allocation_verified": false,
+    "address_conversion_still_blocked": true,
+    "gameplay_verified": false
+  },
   "original_audio_frontier": [
     {
       "name": "SoundDrivers",
@@ -203,7 +278,7 @@
   "owned_lifetime_emitter_enabled": false,
   "native_template_instantiation_experiment": "reports/oct29-template-instantiation-probe.log",
   "template_experiment_limitation": "Demanded template destructor recovery is now implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destructor extraction passes; its class still has unlinked C allocation/free and original xfree dependencies. This is source lowering, not executed console/game initialization.",
-  "unrepresented_original_methods_note": "The baseline emitter catalog omits source-defined out-of-line C++ methods, including 8 GenericAllocator methods and 7 small-allocator methods/constructors. Its blocked-entry count is not a complete declaration inventory.",
+  "unrepresented_original_methods_note": "The 113-unit baseline predates out-of-line static lowering and omits 8 GenericAllocator methods. The latest isolated compile now attempts all 8 with exact Clang ownership: 5 emitted, Alloc blocked by address conversion, Free unlinked, Realloc dependent on those. Seven original small-allocator instance methods/constructors remain unrepresented. The baseline blocked count is not a complete definition inventory.",
   "remaining_acceptance_failures": [
     "Original app_main and enginePreInit boot closure",
     "Original allocator and console initialization",

@@ -394,6 +394,7 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True,com
              ROOT/'tools/source_cpp_types.py',
              ROOT/'tools/source_ast_cache_paths.py',
              ROOT/'tools/source_template_destructors.py',
+             ROOT/'tools/source_static_members.py',
              ROOT/'tools/source_scalar_types.py',
              ROOT/'tools/source_ast_events.py',ROOT/'tools/source_coroutine_cfg.py',
              ROOT/'tools/source_process_runtime.mjs',

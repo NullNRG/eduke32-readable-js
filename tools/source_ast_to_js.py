@@ -28,6 +28,7 @@ from source_private_record_schema import private_record_schema_compatible
 from source_empty_asm import prove_empty_asm
 from source_anonymous_records import blocked_anonymous_global_arrays
 from source_template_destructors import complete as complete_template_destructors
+from source_static_members import recover as recover_out_of_line_static_members
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 
 HERE=Path(__file__).resolve().parents[1]
@@ -1057,6 +1058,7 @@ class Emit:
                     raise Unsupported('method reference lacks exact static class owner: '+str(decl.get('name')))
                 owner,member=method
                 self.used_static_method_owners=getattr(self,'used_static_method_owners',set())|{owner}
+                if member is None:return owner
                 receiver=owner+'()' if owner in self.header_record_factories else owner
                 return receiver+'.'+member
             if decl.get('id') in self.range_aliases:
@@ -3966,6 +3968,7 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
 def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None):
     normalize_specializations(ast)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
+    static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
     candidates=[]
     # Collect C++ destructor traits from the SAME Clang translation-unit AST.
     # A copy-constructed object must not be allowed past goto validation just
@@ -4132,6 +4135,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if k=='TranslationUnitDecl' or k in ('NamespaceDecl','LinkageSpecDecl'):
             for c in kids(node):scan(c)
     for node in ast:scan(node)
+    candidates.extend(static_member_definitions)
     allocator_definitions=original_allocator_definitions(ast,source_root,source_rel)
     allocator_proofs={id(node):proof for node,proof in allocator_definitions}
     known_candidates={id(node) for node in candidates}
@@ -4551,6 +4555,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         previous=declaration.get('previousDecl')
         if kind(declaration)=='CXXMethodDecl' and previous in static_method_owners:
             static_method_owners[declaration['id']]=static_method_owners[previous]
+    static_method_owners.update(external_static_members)
     reference_records={node.get('name'):node for node in all_declarations.values()
                        if kind(node)=='CXXRecordDecl' and node.get('completeDefinition')}
     heap_operators=standard_allocation_operators(ast,source_root) if standard_heap_runtime else {}
@@ -4568,6 +4573,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         symbol=symbols.get(id(n))
         row={'name':symbol or name,'source_name':n.get('_source_record_name',name),'kind':kind(n),
              'line':n.get('loc',{}).get('line'),'original_type':qual(n)}
+        if n.get('_source_static_member'):
+            row['source_name']=n['_source_static_member']['name']
+            row['original_static_member']=n['_source_static_member']
         # C/C++ `static` at translation-unit scope has INTERNAL linkage.
         # ES modules may both contain an `fx` or `ErrorCode` without those
         # private declarations competing for a global provider.  Preserve
@@ -4709,6 +4717,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if (kind(n)=='VarDecl' and normalized_record_name(qual(n),aliases) in addressable_classes
                     and target_type_layout(qual(n),record_layouts,aliases) is None):
                 raise Unsupported('C++ global class address requires exact Clang layout: '+qual(n))
+            if n.get('_source_static_member') and any(part.get('castKind') in ('PointerToIntegral','IntegralToPointer') for part in descendants(n)):
+                raise Unsupported('out-of-line static member pointer/integer conversion requires verified address-space semantics')
             code=(em.function(n,symbol=symbol) if kind(n)=='FunctionDecl' else
                   em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
