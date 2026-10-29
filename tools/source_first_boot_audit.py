@@ -26,13 +26,16 @@ def main():
     parser.add_argument('--probe',action='append',default=[],help='also cold-recheck this source symbol')
     parser.add_argument('--source-root',type=Path,default=ROOT/'factory-output/source-tree/eduke32-master')
     parser.add_argument('--manifest-root',type=Path,default=ROOT/'factory-output/source-first/globally-linked')
+    parser.add_argument('--compile-commands',type=Path,default=ROOT/'factory-output/compile_commands.json',
+                        help='Selected build profile used for inventory and every cold probe')
     parser.add_argument('--out',type=Path,default=ROOT/'factory-output/source-first/boot-audit.json')
     parser.add_argument('--depth',type=int,default=2)
     parser.add_argument('--fast-current-only',action='store_true',help='boot gate: use freshly compiled manifests without expensive filtered Clang reprobes')
     args=parser.parse_args()
     if not 0<=args.depth<=5:parser.error('depth must be 0..5')
     root=args.source_root.resolve();manifest_root=args.manifest_root.resolve()
-    source_units={row['file'] for row in (read(ROOT/'factory-output/compile_commands.json') or [])}
+    commands=args.compile_commands.resolve()
+    source_units={row['file'] for row in (read(commands) or [])}
     old={}
     for path in sorted(manifest_root.rglob('*.manifest.json')):
         doc=read(path)
@@ -85,7 +88,8 @@ def main():
                 continue
             source=original_sources[0]
             command=[sys.executable,str(ROOT/'tools/source_ast_to_js.py'),
-                     '--root',str(root),'--source',source,'--filter',symbol,'--out-dir',str(directory)]
+                     '--root',str(root),'--source',source,'--compile-commands',str(commands),
+                     '--filter',symbol,'--out-dir',str(directory)]
             try:
                 result=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=120)
                 if result.returncode:
@@ -142,6 +146,7 @@ def main():
                     'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
     entry_record=reached.get(args.entry)
     summary={'entry':args.entry,'depth_limit':args.depth,
+             'compile_commands_sha256':hashlib.sha256(commands.read_bytes()).hexdigest(),
              'original_source_units':len(source_units),'current_linked_manifests':current_linked_manifest_count,
              'historical_owner_manifests_for_diagnostics':len(previous),
              'fresh_probed':sorted(set(s for _,s in refreshed)),

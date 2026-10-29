@@ -27,6 +27,18 @@ def clean_type(spelling):
     return re.sub(r'\s*\[\s*(\d+)\s*\]', r'[\1]', spelling)
 
 
+def cpp_layout_type(spelling):
+    """Normalize Clang's two spellings of an empty C++ parameter list.
+
+    The AST spells an original ``int (*)(void)`` as ``int (*)()`` while its
+    record-layout printer retains ``(void)``. Both denote the same function
+    prototype in C++. This extractor accepts CXXRecordDecls only; do not use
+    this equivalence for old-style C function declarations. No parameter or
+    return type, calling convention, pointer layer or qualifier is inferred.
+    """
+    return re.sub(r'\(\s*void\s*\)', '()', clean_type(spelling))
+
+
 def anonymous_location(spelling):
     found = re.search(r'\((?:anonymous|unnamed)(?: (?:struct|class|union))? at (.+)\)', spelling)
     return found.group(1).replace('\\', '/') if found else None
@@ -311,14 +323,15 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 break
             same_anonymous = (anonymous_location(layout_field) is not None and
                               anonymous_location(layout_field) == anonymous_location(declared))
-            if clean_type(layout_field) != declared and not same_anonymous:
+            if cpp_layout_type(layout_field) != cpp_layout_type(declared) and not same_anonymous:
                 # Clang's layout dump desugars integral typedefs.
                 resolved = declared
                 seen = set()
                 while resolved in aliases and resolved not in seen:
                     seen.add(resolved)
                     resolved = clean_type(aliases[resolved])
-                if clean_type(layout_field) != clean_type(typ) and clean_type(layout_field) != resolved:
+                if (cpp_layout_type(layout_field) != cpp_layout_type(typ) and
+                        cpp_layout_type(layout_field) != cpp_layout_type(resolved)):
                     valid = False
                     break
             if field.get('mutable') or field.get('hasInClassInitializer'):

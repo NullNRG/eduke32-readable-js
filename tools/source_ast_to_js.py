@@ -17,13 +17,17 @@ from source_byte_records import recover_byte_records, clean_type as clean_record
 from source_trivial_assignment import recover_trivial_assignment_methods
 from source_cpp_lifetime import recover_lifetime_classes
 from source_cpp_references import REFERENCE_ABI, function_type_parts, lvalue_referent, const_referent
+from source_cpp_types import has_outer_indirection
 from source_cpp_heap import standard_allocation_operators, allocation_symbol, original_allocator_definitions
-from source_header_records import normalize_specializations, specialization_aliases, demanded_header_records, header_proof, eligible_record, safe_scalar_default_member_record, safe_zero_default_member_record
+from source_standard_heap_contract import validate as validate_standard_heap_contract
+from source_header_records import normalize_specializations, specialization_aliases, specialization_layouts, demanded_header_records, header_proof, eligible_record, safe_scalar_default_member_record, safe_zero_default_member_record
 from source_first_toolchain import frontend_config, target_attestation, fingerprint_toolchain
 from source_ast_stream import run_clang_ast
 from source_scalar_types import scalar_info, is_integer
 from source_private_record_schema import private_record_schema_compatible
 from source_empty_asm import prove_empty_asm
+from source_anonymous_records import blocked_anonymous_global_arrays
+from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 
 HERE=Path(__file__).resolve().parents[1]
 WRAPPERS={'ImplicitCastExpr','ExprWithCleanups','MaterializeTemporaryExpr','FullExpr','ConstantExpr','ParenExpr','CXXBindTemporaryExpr'}
@@ -222,7 +226,11 @@ def target_type_layout(type_name,records,aliases=None,depth=0):
         if alias is None or alias in (tag,cleaned):value=records.get(tag)
     if value is not None:
         size,alignment=value['size'],value['align']
-    elif '*' in cleaned or '&' in cleaned:
+    elif aliases and original in aliases and aliases[original]!=original:
+        value=target_type_layout(aliases[original],records,aliases,depth+1)
+        if value is None:return None
+        size,alignment=value
+    elif has_outer_indirection(cleaned):
         # Original selected build targets x86-64 LP64.
         size=alignment=8
     else:
@@ -245,15 +253,20 @@ def target_type_layout(type_name,records,aliases=None,depth=0):
 def normalized_record_name(t, aliases=None):
     """Only resolve type spellings backed by Clang declarations, not substrings."""
     aliases=aliases or {}
-    t=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',t).strip()
-    if '*' in t or '&' in t or '[' in t:return None
-    t=re.sub(r'\s+',' ',t)
+    def outer_qualifiers(spelling):
+        spelling=re.sub(r'\s+',' ',spelling).strip()
+        spelling=re.sub(r'^(?:(?:const|volatile|struct|class|union)\s+)+','',spelling).strip()
+        return re.sub(r'(?:\s+(?:const|volatile))+$','',spelling).strip()
+    t=outer_qualifiers(t)
     seen=set()
     while t in aliases and t not in seen:
         seen.add(t)
-        next_name=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',aliases[t]).strip()
-        if '*' in next_name or '&' in next_name or '[' in next_name:break
+        # Only the record's own qualifiers/tags are removable. A pointer or
+        # const inside Queue<const char *> is part of the template identity.
+        next_name=outer_qualifiers(aliases[t])
+        if next_name==t or next_name in seen:break
         t=next_name
+    if has_outer_indirection(t):return None
     return t
 
 def recover_trivial_aggregate_records(ast, static_storage=False, source_root=None):
@@ -759,7 +772,8 @@ class Emit:
         while kind(callee) in WRAPPERS and len(kids(callee))==1:callee=kids(callee)[0]
         if kind(callee)=='DeclRefExpr':return qual(callee.get('referencedDecl',{}))
         if kind(callee)=='MemberExpr':
-            return qual(getattr(self,'all_declarations',{}).get(callee.get('referencedMemberDecl'),{}))
+            return qual(callee.get('_source_member_declaration') or
+                        getattr(self,'all_declarations',{}).get(callee.get('referencedMemberDecl'),{}))
         return qual(kids(n)[0])
     def reference_argument(self,n,typ):
         original=n
@@ -1120,7 +1134,20 @@ class Emit:
                     physical_names.discard(None)
                     if len(physical_names)==1:name=next(iter(physical_names))
             if not re.match(r'^[\w$]+$',name):
-                if name.startswith('operator '):
+                if explicit_operator(n):
+                    declaration=(n.get('_source_member_declaration') or
+                        getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{}))
+                    receiver_type=re.sub(r'[&*]+\s*$','',qual(a[0])).strip()
+                    cls=normalized_record_name(receiver_type,self.type_aliases)
+                    if (declaration.get('kind')!='CXXMethodDecl' or declaration.get('name')!=name
+                            or not qual(declaration)):
+                        raise Unsupported('explicit C++ member operator requires exact source declaration: '+name)
+                    resolved=self.member_operators.get((cls,name,qual(declaration)))
+                    if not resolved:
+                        raise Unsupported('explicit C++ member operator requires source-defined class/method ABI: '
+                                          +str((cls,name,qual(declaration))))
+                    name=resolved
+                elif name.startswith('operator '):
                     resolved=self.member_conversions.get(n.get('referencedMemberDecl'))
                     if not resolved:
                         receiver_type=qual(a[0]).strip()
@@ -1895,6 +1922,7 @@ class Emit:
                     return ('function' if kind(inner)=='DeclRefExpr' and
                             inner.get('referencedDecl',{}).get('kind')=='FunctionDecl' and
                             (inner.get('referencedDecl',{}).get('id') in self.function_symbols or
+                             (inner.get('referencedDecl',{}).get('name'),qual(inner.get('referencedDecl',{}))) in self.signature_symbols or
                              inner.get('referencedDecl',{}).get('name') in getattr(self,'project_source_symbols',set())) else None)
                 if cast=='ArrayToPointerDecay' and owner_lvalue(a[0]):return 'array'
                 if cast in ('NoOp','BitCast') and '*' in qual(n):return prove(a[0])
@@ -3787,10 +3815,11 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
                 declaration=n.get(key)
                 if declaration and declaration.get('kind')=='FunctionDecl':
                     result.add(resolver(declaration) if resolver else js_ident(declaration['name']))
-        if kind(n)=='MemberExpr' and n.get('name','').startswith('operator '):
+        if kind(n)=='MemberExpr' and (n.get('name','').startswith('operator ') or explicit_operator(n)):
             receiver=kids(n)
             if receiver:
-                cls=normalized_record_name(qual(receiver[0]),type_aliases)
+                spelling=re.sub(r'[&*]+\s*$','',qual(receiver[0])).strip()
+                cls=normalized_record_name(spelling,type_aliases)
                 if cls:result.add(js_ident(cls))
         if kind(n) in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
             cls=normalized_record_name(qual(n),type_aliases)
@@ -4039,6 +4068,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     aliases=recover_type_aliases(ast)
     aliases.update(lifetime_aliases)
     record_layouts=dict(record_layouts or {})
+    record_layouts.update(specialization_layouts(ast,record_layouts))
     record_layouts.update(recover_typedef_record_layouts(ast, record_layouts))
     byte_records=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,layout_aliases=record_layouts)
     for record_name,record in byte_records.items():
@@ -4909,8 +4939,9 @@ def main():
     # A captured multi-unit program can replace global new/delete in another
     # unit (EDuke32 actually does). Never silently substitute the standalone
     # standard heap for those original source-owned allocator operators.
+    standard_heap_contract=validate_standard_heap_contract(root,opt.compile_commands) if comp is not None else None
     def produce_current(*args,**kwargs):
-        return produce(*args,**kwargs,standard_heap_runtime=comp is None and opt.project_symbols is None,
+        return produce(*args,**kwargs,standard_heap_runtime=bool(standard_heap_contract) or (comp is None and opt.project_symbols is None),
                        private_source_storage=private_source_storage)
     args=[]
     # Preserve the original compilation *language*, not the filename suffix.
@@ -5319,7 +5350,9 @@ def main():
         # Recover the complete SAME translation unit once and retain only
         # type declarations. Their typedef->tag IDs then come from one Clang
         # parse; no anonymous shape or layout is inferred from a nearby name.
-        if pod_record_closure['rejected'] and not full_type_closure['attempted']:
+        anonymous_arrays=blocked_anonymous_global_arrays(report)
+        explicit_members=has_unresolved_explicit_operators(ast)
+        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
             full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
             full_cache=None
@@ -5332,6 +5365,7 @@ def main():
                 full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
+                full_type_closure['explicit_member_calls_rebound']=rebind_explicit_operators(ast,complete)
                 # Complete EnumDecls prove implicit successors as well as
                 # explicit constants. Reconnect only uniquely valued names
                 # actually referenced by the filtered source; retain this
@@ -5585,6 +5619,12 @@ def main():
                 reason=row.get('reason','')
                 if reason.startswith('unlinked identifiers:'):
                     names.update(x.strip() for x in reason.partition(':')[2].split(',') if x.strip())
+                if reason.startswith('static pointer initializer requires a proven original source address:'):
+                    # A filtered table's callback providers can be absent
+                    # before its static relocation is authorized. Query only
+                    # Clang-recorded references; normal ownership and exact
+                    # signature checks must still prove every initializer.
+                    names.update(row.get('source_references',[]))
             pending=sorted(x for x in names if x not in dependency_tried and re.fullmatch(r'[A-Za-z_]\w*',x))[:16]
             if not pending or len(closure['additional_ast_filters'])>=48:break
             closure['rounds']+=1
@@ -5606,7 +5646,10 @@ def main():
                 # source declaration can extend this dependency frontier.
                 roots=parse_json_stream(proc.stdout)
                 return [node for node in roots if node.get('name')==name]
-            workers=min(4,len(pending))
+            # Each configured EDuke32 query reparses a large complete TU.
+            # Keep those Clang processes serial on the supported constrained
+            # host; standalone bounded fixtures can still query in parallel.
+            workers=min(1 if comp is not None else 4,len(pending))
             with ThreadPoolExecutor(max_workers=workers) as executor:
                 # Executor.map yields input order, never completion order.
                 try: recovered=list(executor.map(dependency_query,pending))
@@ -5831,6 +5874,7 @@ const cStackAlloc = amount => {
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}
     result['toolchain']=toolchain
+    if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}
     if opt.import_root:result['module_fragment']={'import_root':str(opt.import_root.resolve()),'provider_exports_and_storage_abi_verified':True}

@@ -1,0 +1,144 @@
+{
+  "format": "sourcefactory-current-project/2",
+  "updated_utc": "2026-10-29T14:11:32.446944+00:00",
+  "gameplay_verified": false,
+  "playable_dist_index_present": false,
+  "project_launcher": "index.html",
+  "launcher_command": "npm run serve:project",
+  "build_command": "npm run compile:game",
+  "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
+  "active_profile": "tools/browser_classic_profile.json",
+  "integration_target": "factory-output/source-first/browser-classic",
+  "migration_input": "factory-output/source-first/oct20-engine-preinit-browser",
+  "migration_policy": "Historical integration only; do not reuse across different configuration/ABI/compiler/runtime fingerprints.",
+  "compiler_frontend_sha256": "6c5416dbe30dcd17b8cb82f31d7d4b4167f830c7f4eb7a2af92e792a1b9f1211",
+  "semantic_index": {
+    "fingerprint": "fa17d16a5825de4dc49ce1217e21dd66e08bfdbee28945ed815752a6930fef63",
+    "selected_units": 113,
+    "attempted_units": 113,
+    "unit_statuses": {
+      "parsed": 113
+    },
+    "all_selected_units_parsed_without_errors": true,
+    "complete_semantic_extraction": false,
+    "limitations": [
+      "No complete indirect-call or callback target dataflow",
+      "Global read/write classification not yet implemented",
+      "Implicit template/lifetime details limited to libclang cursor API",
+      "Clang JSON emitter does not yet attach these USRs automatically"
+    ]
+  },
+  "baseline_compilation": {
+    "original_selected_units": 113,
+    "attempted_units": 113,
+    "verified_batch_units": 113,
+    "failed_batch_units": 0,
+    "readable_definitions": 27415,
+    "blocked_definitions": 3986,
+    "invalid_imports": 0,
+    "uniform_compiler_revision_verified": true,
+    "compiler_revision_source_counts": {
+      "2143f2a8fb6f621c93e56307d40659951ad2a62bef43299e965d8f2c49381162": 113
+    }
+  },
+  "baseline_compilation_note": "This 113-unit pass precedes the October 29 semantic fixes. All selected units parsed and emitted manifests, but blocked definitions remain. It is not a complete current-revision compile or boot proof.",
+  "baseline_global_link": {
+    "completed_source_units": 113,
+    "source_named_modules": 108,
+    "unique_exports": 2334,
+    "ambiguous_export_names": {
+      "__cxx_record_vec2_2150e186aab2ebda": [
+        "source/build/src/clip.cpp",
+        "source/build/src/defs.cpp",
+        "source/build/src/engine.cpp",
+        "source/build/src/hightile.cpp",
+        "source/build/src/palette.cpp",
+        "source/build/src/sdlayer.cpp",
+        "source/build/src/tiles.cpp",
+        "source/duke3d/src/actors.cpp",
+        "source/duke3d/src/gameexec.cpp"
+      ]
+    },
+    "invalid_imports_or_syntax": [],
+    "total_blocked_definitions": 3986,
+    "ast_dependency_recovery_attempted": false,
+    "recovery_round_limit": 0,
+    "full_game_linked": false
+  },
+  "baseline_global_link_note": "Initial ownership/import audit only; zero recovery rounds. Fixed-point recovery with the latest compiler remains required.",
+  "current_blocker_reports": [
+    "factory-output/source-first/browser-classic/reports/all-blockers.json",
+    "factory-output/source-first/browser-classic/reports/all-blockers.csv",
+    "factory-output/source-first/browser-classic/reports/root-causes.json",
+    "factory-output/source-first/browser-classic/reports/dependency-graph.json",
+    "factory-output/source-first/browser-classic/reports/boot-blockers.json"
+  ],
+  "current_inventory": {},
+  "regression": {
+    "report": "reports/oct29-final-regression.json",
+    "complete": false,
+    "counts": {
+      "passed": 23,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "selected_tests": 170,
+    "all_passed": false,
+    "revision_matches_current_inputs": true,
+    "does_not_verify_original_gameplay": true
+  },
+  "semantic_changes": [
+    "Clang-proven anonymous callback tables and empty C++ function prototype spellings",
+    "Exact explicit member operator selection across filtered Clang queries",
+    "Pointer/enum template argument identities and target layouts",
+    "Whole-selected-program standard new/delete ownership contract; original class-specific/placement operators remain source-owned",
+    "Shared browser command database propagated into blockers and boot audits; configured Clang dependency queries serial"
+  ],
+  "original_console_frontier": [
+    {
+      "name": "OSD_Init",
+      "status": "blocked",
+      "reason": "C++ heap object needs complete original class construction/destruction: CircularQueue<char *, 1024, RF_INIT_AND_FREE>"
+    },
+    {
+      "name": "OSD_UpdateDrawBuffer",
+      "status": "blocked",
+      "reason": "unlinked identifiers: __cxx_record_CircularQueue_72e67824d02fa6e1, isdigit, toupper"
+    }
+  ],
+  "original_audio_frontier": [
+    {
+      "name": "SoundDrivers",
+      "status": "blocked",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr int (*)()"
+    },
+    {
+      "name": "SoundDriver_IsPCMSupported",
+      "status": "blocked",
+      "reason": "unlinked identifiers: SoundDrivers"
+    }
+  ],
+  "original_console_initialization_verified": false,
+  "original_allocator_verified": false,
+  "owned_lifetime_emitter_enabled": false,
+  "native_template_instantiation_experiment": "reports/oct29-template-instantiation-probe.log",
+  "template_experiment_limitation": "Clang can instantiate original queue lifetime bodies, but supplementary declaration provenance and integration are not implemented. No boot claim.",
+  "remaining_acceptance_failures": [
+    "Original app_main and enginePreInit boot closure",
+    "Original allocator and console initialization",
+    "Canonical cross-unit template prototypes and remaining dependencies",
+    "Browser platform integration under the new profile",
+    "Real rendered menu and E1L1",
+    "60-second gameplay/input/audio/collision/save/load verification",
+    "Standalone offline dist/index.html"
+  ],
+  "resume_commands": [
+    ". work/session-env.ps1",
+    "npm run compile:game"
+  ],
+  "developer_probe_commands": [
+    "python work/probe_template_instantiation.py"
+  ],
+  "no_wasm_or_emulation_introduced": true
+}

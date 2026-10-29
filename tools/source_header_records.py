@@ -50,6 +50,24 @@ def normalize_specializations(ast):
             full=(namespace+'::' if namespace else '')+spelling
             record['_source_record_qualified_name']=full
             record['_source_template_name']=name
+            # The selected specialization's own this-expressions carry exact
+            # source spellings (including enum-valued template arguments).
+            # Keep these aliases only under this owning Clang declaration;
+            # never evaluate textual template expressions to guess identity.
+            self_types=set()
+            def selected_this(node):
+                if node is not record and node.get('kind') in ('CXXRecordDecl','ClassTemplateSpecializationDecl','LambdaExpr'):
+                    return
+                if node.get('kind')=='CXXThisExpr':
+                    typ=node.get('type',{}).get('qualType','').strip()
+                    if typ.endswith('*'):
+                        typ=typ[:-1].strip()
+                        typ=re.sub(r'^(?:const\s+|volatile\s+)+','',typ)
+                        self_types.add(typ)
+                for child in node.get('inner',[]):
+                    if child:selected_this(child)
+            selected_this(record)
+            record['_source_self_type_spellings']=sorted(self_types)
             record['name']='__cxx_record_'+name+'_'+hashlib.sha256(full.encode()).hexdigest()[:16]
             record['kind']='CXXRecordDecl'
 
@@ -58,9 +76,26 @@ def specialization_aliases(ast):
     for root in ast:
         for node in walk(root):
             if not node.get('_source_record_name'):continue
-            for spelling in (node['_source_record_name'],node.get('_source_record_qualified_name')):
+            for spelling in (node['_source_record_name'],node.get('_source_record_qualified_name'),
+                             *node.get('_source_self_type_spellings',[])):
                 if spelling:found.setdefault(spelling,set()).add(node['name'])
     return {spelling:next(iter(names)) for spelling,names in found.items() if len(names)==1}
+
+
+def specialization_layouts(ast, layouts):
+    """Alias only exact Clang layout spellings of an identified specialization."""
+    aliases=specialization_aliases(ast)
+    found={}
+    for spelling,name in aliases.items():
+        if spelling in layouts:
+            found.setdefault(name,[]).append(layouts[spelling])
+    result={}
+    for name,options in found.items():
+        unique={json.dumps(layout,sort_keys=True):layout for layout in options}
+        if len(unique)==1:
+            layout=next(iter(unique.values()))
+            if name not in layouts or layouts[name]==layout:result[name]=layout
+    return result
 
 @lru_cache(maxsize=1)
 def _source_header_index(root_string):

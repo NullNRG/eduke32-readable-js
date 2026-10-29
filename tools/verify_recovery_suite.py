@@ -50,7 +50,8 @@ def main():
                         help='Serial by default: several legacy tests share fixture output paths')
     parser.add_argument('--timeout',type=int,default=180)
     parser.add_argument('--report',type=Path,default=ROOT/'reports/recovery-regression.json')
-    parser.add_argument('--match',default='',help='Run only test filenames containing this text')
+    parser.add_argument('--match',action='append',default=[],
+                        help='Run test filenames containing any supplied text; repeat for affected feature families')
     args=parser.parse_args()
     if args.jobs<1 or args.timeout<1: parser.error('jobs and timeout must be positive')
     tests=[([sys.executable,str(path)],path.name) for path in
@@ -59,7 +60,7 @@ def main():
     tests.append(([sys.executable,str(semantic)],semantic.name))
     tests += [(['node','--test',str(ROOT/'tests/source_factory'/name)],name)
               for name in ('runtime.test.mjs','portability.test.mjs')]
-    if args.match: tests=[item for item in tests if args.match in item[1]]
+    if args.match: tests=[item for item in tests if any(text in item[1] for text in args.match)]
     if not tests: parser.error('no matching tests')
     initial_inputs=regression_inputs()
     input_digest=hashlib.sha256(json.dumps(initial_inputs,sort_keys=True).encode()).hexdigest()

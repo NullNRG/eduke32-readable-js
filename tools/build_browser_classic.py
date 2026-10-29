@@ -28,6 +28,12 @@ def main():
         '--resume','--max-units',a.max_units,'--out',build/'reports/semantic-index.sqlite')
     write(build/'semantic-extraction-result.json',{'returncode':semantic_code,
         'partial_diagnostic_requested':bool(a.max_units),'gameplay_verified':False})
+    # A configured multi-unit program may override standard new/delete in any
+    # unit. Enable the language heap only with a fresh whole-program proof.
+    from source_standard_heap_contract import contract_path, create as create_heap_contract
+    contract_path(commands).unlink(missing_ok=True)
+    if not semantic_code and not a.max_units:
+        create_heap_contract(source,commands,build/'reports/semantic-index.sqlite')
     priorities=['source/duke3d/src/game.cpp','source/build/src/engine.cpp','source/build/src/baselayer.cpp',
         'source/build/src/sdlayer.cpp','source/build/src/osd.cpp','source/build/src/compat.cpp',
         'source/build/src/smmalloc_generic.cpp','source/build/src/smmalloc.cpp','source/build/src/palette.cpp']
@@ -43,9 +49,11 @@ def main():
     if not linked.is_file():return link_code or 2
     write(build/'source-build-attestation.json',{'linked_manifest_sha256':hashlib.sha256(linked.read_bytes()).hexdigest(),
         'source_compile_report_present':True,'original_units_compiled':read(linked)['completed_source_units']})
-    run('tools/source_first_reports.py','--manifests',linked.parent,'--out',build/'reports')
+    run('tools/source_first_reports.py','--manifests',linked.parent,
+        '--compile-report',build/'automatic/recovery-report.json','--compile-commands',commands,
+        '--semantic-index',build/'reports/semantic-index.sqlite','--out',build/'reports')
     run('tools/source_first_boot_audit.py','--entry','app_main','--probe','enginePreInit','--source-root',source,
-        '--manifest-root',linked.parent,'--fast-current-only','--out',build/'boot-audit.json')
+        '--compile-commands',commands,'--manifest-root',linked.parent,'--fast-current-only','--out',build/'boot-audit.json')
     # Incomplete source/runtime closure must never publish a placeholder HTML.
     # Candidate packaging and gameplay evidence remain separately required by
     # this gate; success cannot follow merely from the compiler's export count.

@@ -119,7 +119,13 @@ def pipeline_inputs(commands_path, source_root):
         ROOT/'tools/source_variadic_runtime.mjs',
         ROOT/'tools/source_first_global_link.py', ROOT/'tools/source_first_automate.py']
     paths.extend(sorted((ROOT/'runtime').rglob('*.mjs')))
-    if commands_path is not None:paths.append(commands_path)
+    paths.extend([ROOT/'tools/source_anonymous_records.py', ROOT/'tools/source_explicit_member_operators.py',
+                  ROOT/'tools/source_cpp_types.py', ROOT/'tools/source_standard_heap_contract.py'])
+    if commands_path is not None:
+        paths.append(commands_path)
+        from source_standard_heap_contract import contract_path
+        proof=contract_path(commands_path)
+        if proof.is_file():paths.append(proof)
     # Header content is part of the source-language semantics. A source-only
     # fingerprint would incorrectly reuse output after header modifications.
     for p in sorted(source_root.rglob('*')):

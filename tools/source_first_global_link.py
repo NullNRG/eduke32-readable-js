@@ -389,6 +389,9 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True,com
              ROOT/'tools/source_byte_records.py',
              ROOT/'tools/source_trivial_assignment.py',ROOT/'tools/source_cpp_lifetime.py',ROOT/'tools/source_cpp_lifetime_runtime.mjs',ROOT/'tools/source_header_records.py',ROOT/'tools/source_cpp_references.py',
              ROOT/'tools/source_cpp_heap.py',ROOT/'tools/source_cpp_heap_runtime.mjs',
+             ROOT/'tools/source_anonymous_records.py',ROOT/'tools/source_explicit_member_operators.py',
+             ROOT/'tools/source_standard_heap_contract.py',
+             ROOT/'tools/source_cpp_types.py',
              ROOT/'tools/source_scalar_types.py',
              ROOT/'tools/source_ast_events.py',ROOT/'tools/source_coroutine_cfg.py',
              ROOT/'tools/source_process_runtime.mjs',
@@ -424,7 +427,11 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True,com
             with path.open('rb') as stream:
                 for chunk in iter(lambda:stream.read(1024*1024),b''):digest.update(chunk)
         commands=Path(compile_commands) if compile_commands is not None else ROOT/'factory-output/compile_commands.json'
-        if commands.is_file():digest.update(commands.read_bytes())
+        if commands.is_file():
+            digest.update(commands.read_bytes())
+            from source_standard_heap_contract import contract_path
+            proof=contract_path(commands)
+            if proof.is_file():digest.update(proof.read_bytes())
     return digest.hexdigest()
 
 

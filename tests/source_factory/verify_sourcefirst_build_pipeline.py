@@ -7,10 +7,12 @@ import sys
 import tempfile
 ROOT=Path(__file__).resolve().parents[2]
 package=json.loads((ROOT/'package.json').read_text())
-assert 'source_first_autonomous.py build' in package['scripts']['compile:game']
-controller=(ROOT/'tools/source_first_autonomous.py').read_text()
-assert "'--manifest-root',str(linked)" in controller
-assert "'--priority-file',str(priority_path)" in controller
+assert 'tools/build_browser_classic.py' in package['scripts']['compile:game']
+controller=(ROOT/'tools/build_browser_classic.py').read_text()
+assert "'--manifest-root',linked.parent" in controller
+assert "'--priority-file',build/'priorities.json'" in controller
+assert "'--compile-commands',commands" in controller
+assert "'--semantic-index',build/'reports/semantic-index.sqlite'" in controller
 with tempfile.TemporaryDirectory(prefix='sourcefirst_pipeline_gate_') as folder:
     root=Path(folder)
     (root/'globally-linked').mkdir();(root/'automatic').mkdir()

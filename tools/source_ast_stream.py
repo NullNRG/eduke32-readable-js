@@ -8,6 +8,7 @@ No source ownership heuristic filters original or system declarations/bodies.
 """
 from decimal import Decimal
 from contextlib import contextmanager
+from source_explicit_member_operators import explicit_operator
 import os
 from pathlib import Path
 import re
@@ -196,7 +197,12 @@ def parse_ast_file(stream, *, retain_ranges=False):
                 for frame in stack[:-1]))
             macro_declaration=(stack[-1][0].get('kind') in ('FunctionDecl','VarDecl')
                 and bool(stack[-1][0].get('loc',{}).get('expansionLoc')))
-            semantic_barrier=(stack[-1][0].get('kind')=='GCCAsmStmt' or
+            # MemberExpr precedes its selected declaration signature in a
+            # filtered AST. Preserve the callsite range so a complete same-TU
+            # query can prove exact explicit operator selection, including
+            # overloads. JSON places `name` after `range`, so retain this node
+            # kind rather than guessing from a field not decoded yet.
+            semantic_barrier=(stack[-1][0].get('kind') in ('GCCAsmStmt','MemberExpr') or
                 stack[-1][0].get('kind')=='CompoundStmt' and any(
                     isinstance(frame[0],dict) and frame[0].get('kind')=='FunctionDecl'
                     and frame[0].get('loc',{}).get('expansionLoc') for frame in stack[:-1]))
@@ -216,6 +222,14 @@ def parse_ast_file(stream, *, retain_ranges=False):
             if not stack:raise ValueError('Clang AST closes an unopened container')
             node,_,parent,slot=stack.pop()
             if event=='end_map' and node:
+                # A MemberExpr's name follows its range in Clang JSON. Once
+                # decoded, discard ordinary field/method spans as before;
+                # only explicit operators need a same-callsite selection proof.
+                if (not retain_ranges and node.get('kind')=='MemberExpr' and
+                        'range' in node and not explicit_operator(node)):
+                    node.pop('range')
+                    stats['semantic_barrier_ranges_retained']-=1
+                    stats['ranges_omitted']+=1
                 keys=node.keys()
                 if keys<=_TYPE_KEYS and all(isinstance(item,str) for item in node.values()):
                     identity=tuple(node.items());canonical=types.setdefault(identity,node)
