@@ -307,6 +307,17 @@ def main(argv=None):
     for key, count in result['counts'].items(): print(f'  {key}: {count}')
     for entry in result['shared_helper_opportunities'][:8]:
         print(f'  helper {entry["family"]}: {entry["files"]} files, {entry["occurrences"]} occurrences')
+    for section in ('exact_functions', 'same_layout_functions', 'near_duplicate_functions'):
+        print(f'Top {section}:')
+        for match in result[section][:8]:
+            where = ' <> '.join(f'{loc["file"]}:{loc["line"]} ({loc["name"]})'
+                                for loc in match['locations'][:2])
+            print(f'  {where} [tokens={match["tokens"]}, similarity={match.get("similarity", "n/a")}]')
+    for family in result['shared_helper_opportunities']:
+        samples = [x for x in family['samples'] if x['file'].startswith('tools/')][:3]
+        if samples:
+            print(f'  helper example {family["family"]}: ' +
+                  ', '.join(f'{x["file"]}:{x["line"]}' for x in samples))
     print(f'Report: {dest}')
     return 0
 
