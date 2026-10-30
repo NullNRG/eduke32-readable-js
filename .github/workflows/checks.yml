@@ -20,13 +20,18 @@ jobs:
       - run: npm ci
       - run: python -m compileall -q tools
       - run: python -m unittest discover -s tests -p test_source_emitted_runtime_dedup.py -v
+      - run: node --test tests/source_factory/emitted_ast_dedup.test.mjs
+      - name: Audit actual historical transpiled helpers with AST dependencies
+        run: node tools/dedup_emitted_ast.mjs --root factory-output/source-first/oct20-engine-preinit-browser --report reports/transpiled-ast-sharing.json
       - name: Measure sharing opportunities in checked-in transpiler output
         run: python tools/source_emitted_runtime_dedup.py --root factory-output/source-first/oct20-engine-preinit-browser --report reports/transpiled-helper-sharing.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: transpiled-helper-sharing
-          path: reports/transpiled-helper-sharing.json
+          path: |
+            reports/transpiled-helper-sharing.json
+            reports/transpiled-ast-sharing.json
           if-no-files-found: ignore
       - run: python tests/source_factory/verify_sourcefirst_public_package.py
       - run: node --test tests/source_factory/runtime.test.mjs tests/source_factory/portability.test.mjs
