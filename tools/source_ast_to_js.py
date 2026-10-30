@@ -4229,7 +4229,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     not location.get('includedFrom') and isinstance(location.get('offset'),int)):
                 location['file']=source_rel
     header_records,header_record_proofs=demanded_header_records(ast,candidates,global_storage_records,aliases,
-        normalized_record_name,aggregate_type_schema,source_root,Unsupported)
+        normalized_record_name,aggregate_type_schema,source_root,Unsupported,record_layouts=record_layouts)
     header_record_factories=set(header_record_proofs)
     header_trivial_assignments={}
     for evidence in trivial_assignments.values():
@@ -5856,6 +5856,28 @@ def main():
                 source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
         if previous==[(row['name'],row['status'],row.get('reason')) for row in report]:
             break
+    # Even a register-only header aggregate needs its exact target layout when
+    # another TU may own the shared prototype. Do not infer that layout from
+    # scalar field names or from whichever methods happened to instantiate.
+    known_layouts={**layouts,**specialization_layouts(ast,layouts)}
+    prototype_layout_closure={'requested':sorted({row['source_name'] for row in report
+        if row.get('header_record_factory') and row['name'] not in known_layouts
+        and row.get('source_name') not in known_layouts}),'queried':False,'status':'not-required'}
+    if prototype_layout_closure['requested']:
+        prototype_layout_closure['queried']=True
+        try:
+            query=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
+                '-fsyntax-only',*args,opt.source],cwd=root,capture_output=True,text=True,timeout=45)
+            discovered=parse_clang_record_layouts(query.stdout+'\n'+query.stderr) if query.returncode==0 else {}
+            prototype_layout_closure['status']='extracted' if discovered else 'unavailable'
+            if discovered:
+                layouts.update(discovered)
+                if layout_cache:layout_cache.write_text(json.dumps(layouts,sort_keys=True),encoding='utf-8')
+                emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
+                    project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
+                    source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
+        except (subprocess.TimeoutExpired,OSError):
+            prototype_layout_closure['status']='unavailable'
     outfile=opt.out_dir/Path(opt.source+'.mjs');outfile.parent.mkdir(parents=True,exist_ok=True)
     body='\n\n'.join(emitted)
     used_imports=sorted({dep for item in report if item['status']=='source-first' for dep in item.get('external_imports',[])})
@@ -5970,6 +5992,7 @@ const cStackAlloc = amount => {
     result['native_pointer_abi']=NATIVE_POINTER_ABI
     result['c_allocator_declarations']=c_allocator_declarations
     result['template_destructor_closure']=template_destructor_closure
+    result['prototype_layout_closure']=prototype_layout_closure
     if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}

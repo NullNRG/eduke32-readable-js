@@ -124,7 +124,7 @@ def _source_header_index(root_string):
     return index
 
 
-def header_proof(node,source_root):
+def header_proof(node,source_root,record_layout=None):
     if not source_root:return None
     loc=node.get('loc',{})
     offset=loc.get('offset')
@@ -172,11 +172,66 @@ def header_proof(node,source_root):
         return value
     evidence={'header_sha256':hashlib.sha256(data).hexdigest(),
               'record':stable(node),'traits':traits(node.get('definitionData',{}))}
-    return {'source_header':path.relative_to(root).as_posix(),'source_offset':offset,
+    proof={'source_header':path.relative_to(root).as_posix(),'source_offset':offset,
             'enclosing_record':node.get('_source_record_name',name),
             'type':node.get('_source_record_name',name),
             'semantic_sha256':hashlib.sha256(json.dumps(evidence,sort_keys=True).encode()).hexdigest(),
             'prototype_factory_abi':'source-header-record-factory/1'}
+    # Clang instantiates template methods on demand. A leaf aggregate can have
+    # different method subsets in two TUs without being a different C++ type.
+    # Permit a superset owner only for source-proven scalar, trivial aggregates
+    # whose methods access their own fields/parameters and no external state.
+    # Constructors, callbacks, local statics and other records stay under the
+    # existing exact whole-record proof; they are never merged by name.
+    definition=node.get('definitionData',{})
+    members=[child for child in node.get('inner',[]) if child and not child.get('isImplicit')]
+    fields=[child for child in members if child.get('kind')=='FieldDecl']
+    methods=[child for child in members if child.get('kind')=='CXXMethodDecl']
+    scalar=re.compile(r'(?:unsigned |signed )?(?:char|short|int|long|long long|bool|float|double)')
+    typ=lambda value:value.get('type',{}).get('desugaredQualType') or value.get('type',{}).get('qualType','')
+    leaf=(record_layout is not None and definition.get('isAggregate') is True and definition.get('isStandardLayout') is True
+        and definition.get('isTriviallyCopyable') is True and definition.get('dtor',{}).get('trivial') is True
+        and definition.get('defaultCtor',{}).get('trivial') is True
+        and not node.get('bases') and node.get('tagUsed')!='union' and bool(fields)
+        and all(field.get('name') and not field.get('isBitfield') and not field.get('init') and not field.get('hasInClassInitializer')
+                and scalar.fullmatch(typ(field)) for field in fields)
+        and not any(child.get('kind') in ('CXXConstructorDecl','CXXDestructorDecl','VarDecl') for child in members)
+        and not any(method.get('storageClass')=='static' or method.get('virtual') or method.get('pure') for method in methods))
+    field_ids={field.get('id') for field in fields}
+    bodies={};signatures=[]
+    for method in methods:
+        key=json.dumps([method.get('loc',{}).get('offset'),method.get('name'),typ(method)],separators=(',',':'))
+        # Keep every original declaration/attribute/parameter, independently of
+        # whether Clang supplied its instantiated CompoundStmt in this TU.
+        signature=stable(method)
+        signature['inner']=[stable(child) for child in method.get('inner',[]) if child and child.get('kind')!='CompoundStmt']
+        signatures.append((key,signature))
+        body=next((child for child in method.get('inner',[]) if child.get('kind')=='CompoundStmt'),None)
+        if body is None:continue
+        parameters={child.get('id') for child in method.get('inner',[]) if child.get('kind')=='ParmVarDecl'}
+        self_types={node.get('_source_record_name'),node.get('_source_record_qualified_name'),node.get('name')}
+        for part in walk(body):
+            kind=part.get('kind')
+            if (kind in ('CallExpr','CXXMemberCallExpr','CXXOperatorCallExpr','CXXNewExpr','CXXDeleteExpr',
+                         'LambdaExpr','GCCAsmStmt','MSAsmStmt','CXXThrowExpr','CXXTypeidExpr')
+                or (kind=='DeclRefExpr' and (part.get('referencedDecl',{}).get('kind')!='ParmVarDecl'
+                    or part.get('referencedDecl',{}).get('id') not in parameters))
+                or (kind=='MemberExpr' and part.get('referencedMemberDecl') not in field_ids)
+                or (kind in ('CXXConstructExpr','CXXTemporaryObjectExpr') and typ(part).removeprefix('const ') not in self_types)):
+                leaf=False
+        if key in bodies:leaf=False
+        bodies[key]=hashlib.sha256(json.dumps(stable(body),sort_keys=True).encode()).hexdigest()
+    if leaf:
+        base=stable(node)
+        base['inner']=[stable(child) for child in members if child.get('kind')!='CXXMethodDecl']
+        base['method_declarations']=sorted(signatures)
+        base['header_sha256']=evidence['header_sha256']
+        base['target_layout']=record_layout
+        base['mutable_fields']=[field.get('name') for field in fields if field.get('isMutable')]
+        proof['leaf_prototype']={'format':'source-leaf-record-prototype/1',
+            'storage_and_declarations_sha256':hashlib.sha256(json.dumps(base,sort_keys=True).encode()).hexdigest(),
+            'method_bodies':bodies}
+    return proof
 
 def safe_scalar_default_member_record(node):
     """A Clang-proven implicit default constructor with scalar DMI fields.
@@ -274,7 +329,7 @@ def eligible_record(node):
             for child in node.get('inner',[])))
     return ordinary or authored_scalar or safe_scalar_default_member_record(node) or safe_zero_default_member_record(node)
 
-def demanded_header_records(ast,candidates,storage_records,aliases,normalize,schema,source_root,unsupported_error=ValueError):
+def demanded_header_records(ast,candidates,storage_records,aliases,normalize,schema,source_root,unsupported_error=ValueError,record_layouts=None):
     needed=set()
     static_owners={}
     for root in ast:
@@ -325,7 +380,7 @@ def demanded_header_records(ast,candidates,storage_records,aliases,normalize,sch
         for node in walk(root):
             name=node.get('name')
             if name not in needed or not eligible_record(node):continue
-            proof=header_proof(node,source_root)
+            proof=header_proof(node,source_root,(record_layouts or {}).get(name))
             if not proof:continue
             if name in proofs and proofs[name]!=proof:conflicts.add(name)
             else:records[name]=node;proofs[name]=proof

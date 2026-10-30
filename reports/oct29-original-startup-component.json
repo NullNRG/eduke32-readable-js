@@ -1,0 +1,199 @@
+{
+  "format": "source-first-project/1",
+  "source_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\source-tree\\eduke32-master",
+  "compile_commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+  "canonical_header_odr_owners": {
+    "__cxx_record_vec2_2150e186aab2ebda": "source/build/src/clip.cpp"
+  },
+  "selected_units": 7,
+  "attempted_units": 7,
+  "compiler_passes": 10,
+  "reused_empty_external_index_probes": [
+    "source/build/src/smmalloc_generic.cpp",
+    "source/build/src/crc32.cpp",
+    "source/build/src/baselayer.cpp",
+    "source/build/src/pragmas.cpp"
+  ],
+  "reused_unaffected_external_index_probes": [
+    "source/build/src/smmalloc_generic.cpp",
+    "source/build/src/crc32.cpp",
+    "source/build/src/baselayer.cpp",
+    "source/build/src/pragmas.cpp"
+  ],
+  "relowered_with_external_index": [
+    "source/build/src/compat.cpp",
+    "source/build/src/engine.cpp",
+    "source/build/src/clip.cpp"
+  ],
+  "source_definitions_emitted": 82,
+  "source_definitions_blocked": 7,
+  "linked_imports": 10,
+  "structured_goto_definitions_recognized": 0,
+  "structured_goto_edges_recognized": 0,
+  "invalid_imports": [],
+  "units": [
+    {
+      "source": "source/build/src/smmalloc_generic.cpp",
+      "emitted": 19,
+      "blocked": 1,
+      "imports": [],
+      "blocked_reasons": [
+        {
+          "name": "Header",
+          "reason": "class pointer/reference field requires ownership/alias lowering"
+        }
+      ]
+    },
+    {
+      "source": "source/build/src/compat.cpp",
+      "emitted": 22,
+      "blocked": 1,
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Create__cxx_static_b7202f8c9d4230a6",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "blocked_reasons": [
+        {
+          "name": "<anonymous>",
+          "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+        }
+      ]
+    },
+    {
+      "source": "source/build/src/engine.cpp",
+      "emitted": 21,
+      "blocked": 3,
+      "imports": [
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "blocked_reasons": [
+        {
+          "name": "<anonymous>",
+          "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+        },
+        {
+          "name": "<anonymous>",
+          "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+        },
+        {
+          "name": "enginePreInit",
+          "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox"
+        }
+      ]
+    },
+    {
+      "source": "source/build/src/crc32.cpp",
+      "emitted": 2,
+      "blocked": 0,
+      "imports": [],
+      "blocked_reasons": []
+    },
+    {
+      "source": "source/build/src/clip.cpp",
+      "emitted": 13,
+      "blocked": 1,
+      "imports": [
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "blocked_reasons": [
+        {
+          "name": "engineInitClipMaps",
+          "reason": "unlinked identifiers: numsectors, numwalls"
+        }
+      ]
+    },
+    {
+      "source": "source/build/src/baselayer.cpp",
+      "emitted": 1,
+      "blocked": 0,
+      "imports": [],
+      "blocked_reasons": []
+    },
+    {
+      "source": "source/build/src/pragmas.cpp",
+      "emitted": 4,
+      "blocked": 1,
+      "imports": [],
+      "blocked_reasons": [
+        {
+          "name": "initdivtables",
+          "reason": "unlinked identifiers: libdivide_s32_branchfree_gen, libdivide_s32_gen, libdivide_s64_branchfree_gen, libdivide_s64_gen"
+        }
+      ]
+    }
+  ],
+  "generated_from": "Clang source AST",
+  "llvm_fallback": false,
+  "playable_game": false,
+  "whole_game_link_verified": false,
+  "original_engine_preinit_executed": false,
+  "artifact_sha256": {
+    "factory-output/source-first/oct29-browser-startup-leaf-project/project-build.json": "f97d5f4fde3a72e9c59eb6ae90543719d44c92aadafa57e37381a2b8a54d6b81",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/baselayer.cpp.manifest.json": "866127b2833b97ef403de74ca18d41f31d12583519591a4cb2e6b54526112b1a",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/baselayer.cpp.mjs": "4985c278868e5715b27af13b1c0a6682a95d272c363a3afa9196d6cf48e8e996",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/clip.cpp.manifest.json": "060d47a1c6b6cdf5c8e3659141a207554cee84fc3e527b3263bdd66ecc4831c9",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/clip.cpp.mjs": "52bd93ced3f4fe503688f8c71c3b0788213ee8868efdd7b8948130d7ff621e32",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/compat.cpp.manifest.json": "3e2e48fb5fde172ace48f2e91bc80bc91915862acd6c3358d7af38ae7c9da05f",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/compat.cpp.mjs": "eb5a82e3f5f6fbc9503ec4445cf320bb4d94df778c6ab918b6450d7b581c72e1",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/crc32.cpp.manifest.json": "9203ba60bc960e170d5baeddd3081a88ca609cc301c3d945ec2cece0eb58bec4",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/crc32.cpp.mjs": "6e214706262c82f9aa1c67bf630aa9ee001669b4aa77fbda2d13a1f142985e69",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/engine.cpp.manifest.json": "1c7347b0c41269415a2c52151030acfb1e633892f8ff626b40354959dad5539d",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/engine.cpp.mjs": "b4a2747c4d59ebc451673d7d64629184954a9b5e8ecc6b2d6ec9f98b6edb72d3",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/pragmas.cpp.manifest.json": "3d8b9600b7d42972518eea3778fdc3ab7c0aa1503062ad2043ea6679ccfd0c6d",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/pragmas.cpp.mjs": "7402c043a362cbc36f417557a40533182ac0d333d67811b5e3be78665307597f",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/smmalloc_generic.cpp.manifest.json": "0073749182a64c135ce5cb2c64880fdcd6308f33785266cfece36c7b8b2f1985",
+    "factory-output/source-first/oct29-browser-startup-leaf-project/source/build/src/smmalloc_generic.cpp.mjs": "e462f1e8a63d92410b20865a8952c4477bd508f61ad3d69ce308537b0233f996"
+  }
+}

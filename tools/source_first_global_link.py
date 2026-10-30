@@ -195,7 +195,7 @@ def canonical_header_inline_owner(units,name,sources):
     normalized Clang AST digest in ALL candidates. If any evidence disagrees,
     preserve the ambiguity instead of pretending one definition is valid.
     """
-    evidence=[]
+    evidence=[];records={}
     for source in sources:
         rows=[d for d in units[source]['manifest']['definitions']
               if d['name']==name and (d['status']=='source-first' or
@@ -206,7 +206,30 @@ def canonical_header_inline_owner(units,name,sources):
                 'source_header','source_offset','enclosing_record','type','semantic_sha256')):
             return None
         evidence.append(json.dumps(record,sort_keys=True))
-    return sorted(sources)[0] if len(set(evidence))==1 else None
+        records[source]=(rows[0],record)
+    if len(set(evidence))==1:return sorted(sources)[0]
+    # A selected template specialization can instantiate fewer leaf methods
+    # in one TU. Choose a real emitted superset, never union unrelated classes
+    # or invent an owner for a method absent from every emitted provider.
+    common=None;required={}
+    for source,(row,record) in records.items():
+        leaf=record.get('leaf_prototype',{})
+        anchor=tuple(record.get(key) for key in ('source_header','source_offset','enclosing_record','type','prototype_factory_abi'))
+        base=(anchor,leaf.get('storage_and_declarations_sha256'))
+        methods=leaf.get('method_bodies')
+        if (row.get('status')!='source-first' or row.get('header_record_factory') is not True
+            or record.get('prototype_factory_abi')!='source-header-record-factory/1'
+            or leaf.get('format')!='source-leaf-record-prototype/1'
+            or not base[1] or not isinstance(methods,dict)):return None
+        if common is not None and common!=base:return None
+        common=base
+        for identity,digest in methods.items():
+            if not isinstance(identity,str) or not isinstance(digest,str) or not re.fullmatch(r'[0-9a-f]{64}',digest):return None
+            if identity in required and required[identity]!=digest:return None
+            required[identity]=digest
+    supersets=[source for source,(_,record) in records.items()
+              if all(record['leaf_prototype']['method_bodies'].get(key)==digest for key,digest in required.items())]
+    return sorted(supersets)[0] if supersets else None
 
 @lru_cache(maxsize=512)
 def original_source_lines(path,mtime_ns,size):

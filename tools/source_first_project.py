@@ -82,6 +82,7 @@ def main():
  if ambiguities:
   (out/'ambiguous-symbols.json').write_text(json.dumps(ambiguities,indent=2))
   raise SystemExit(f'{len(ambiguities)} ambiguous global JavaScript symbols; see ambiguous-symbols.json')
+ (out/'ambiguous-symbols.json').unlink(missing_ok=True)
  index={name:next(iter(owners)) for name,owners in declarations.items()}
  # Each compiler invocation gets only the other units' known names. Neither
  # a self-import nor a guessed external linker declaration can slip in.

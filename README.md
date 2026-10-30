@@ -6,12 +6,15 @@ There is no verified playable `dist/index.html` and no JavaScript gameplay scree
 The project continues the existing Clang-based C/C++ source compiler, source-owned
 storage, readable ES modules, cross-unit linker and browser platform adapters.
 The intended release uses the original classic software renderer and single-player
-gameplay, without WebAssembly or emulation. Earlier map reconstructions and LLVM
+gameplay in readable JavaScript. Native WebAssembly is permitted for SDL2,
+platform/audio/timing services and low-level utilities; the game and Build
+renderer must remain readable JavaScript. No emulation is permitted. Earlier map reconstructions and LLVM
 execution diagnostics are not the target and are not playable release artifacts.
 
 Read [CURRENT_PORT_STATUS.md](CURRENT_PORT_STATUS.md) and
 [CONTINUE_HERE.md](CONTINUE_HERE.md) for the latest limitations and resume commands.
-The latest console frontier is `OSD_SetTextMode -> OSD_ResizeDisplay`.
+Native SDL2 services now pass real Chromium subsystem checks. Original console,
+hash-table, platform initialization and global-storage dependencies still block boot.
 The original checksum, gamma and selected memory/math behavior have scoped native
 and Chromium verification. These subsystem tests do not establish game boot.
 
@@ -28,10 +31,12 @@ npm run test:recovery
 ```
 
 The strict game build currently fails incomplete-game acceptance. The active
-browser profile selects 113 original Make units and excludes desktop dialogs,
+browser profile selects 111 original Make units and excludes desktop dialogs,
 GTK, enhanced renderers, multiplayer, mimalloc, optional external codecs and ALSA.
 GNU Make is required for source selection. Compilation and recovery share this
-configuration; original engine startup and playable output remain unfinished.
+configuration and select the original GenericAllocator backend. Read
+[BROWSER_SERVICES.md](BROWSER_SERVICES.md) for the pinned native-services SDK.
+Original engine startup and playable output remain unfinished.
 The root launcher provides local build, test, acceptance and packaging actions.
 
 ## Assets and publication

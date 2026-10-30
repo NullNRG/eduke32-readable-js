@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-10-30T04:22:42.735863+00:00",
+  "updated_utc": "2026-10-30T04:55:06.762124+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "e78338436b32580bba13e50eb47a23a6b6c91081e4ad755bc37f2a21240c5313",
+  "compiler_frontend_sha256": "b0786f8cf6e5861bf7a630a83d3bd64823a40024d905504abb75381ace6a9ec9",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -149,7 +149,7 @@
     "completed_tests": 180,
     "all_passed": true,
     "regression_inputs_unchanged": true,
-    "revision_matches_current_inputs": true,
+    "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
   "original_allocator": {
@@ -257,21 +257,210 @@
     {
       "name": "enginePreInit",
       "status": "blocked",
-      "reason": "unlinked identifiers: baselayer_init, engineInitClipMaps, initcrc32table, initdivtables, initprintf, initsystem, makeasmwriteable, videoGetModes, wm_msgbox",
+      "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox",
       "unresolved_references": [
         "baselayer_init",
-        "engineInitClipMaps",
-        "initcrc32table",
-        "initdivtables",
         "initprintf",
         "initsystem",
-        "makeasmwriteable",
         "videoGetModes",
         "wm_msgbox"
       ]
     }
   ],
-  "startup_component_build": {},
+  "startup_component_build": {
+    "format": "source-first-project/1",
+    "source_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\source-tree\\eduke32-master",
+    "compile_commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+    "canonical_header_odr_owners": {
+      "__cxx_record_vec2_2150e186aab2ebda": "source/build/src/clip.cpp"
+    },
+    "selected_units": 7,
+    "attempted_units": 7,
+    "compiler_passes": 10,
+    "reused_empty_external_index_probes": [
+      "source/build/src/smmalloc_generic.cpp",
+      "source/build/src/crc32.cpp",
+      "source/build/src/baselayer.cpp",
+      "source/build/src/pragmas.cpp"
+    ],
+    "reused_unaffected_external_index_probes": [
+      "source/build/src/smmalloc_generic.cpp",
+      "source/build/src/crc32.cpp",
+      "source/build/src/baselayer.cpp",
+      "source/build/src/pragmas.cpp"
+    ],
+    "relowered_with_external_index": [
+      "source/build/src/compat.cpp",
+      "source/build/src/engine.cpp",
+      "source/build/src/clip.cpp"
+    ],
+    "source_definitions_emitted": 82,
+    "source_definitions_blocked": 7,
+    "linked_imports": 10,
+    "structured_goto_definitions_recognized": 0,
+    "structured_goto_edges_recognized": 0,
+    "invalid_imports": [],
+    "units": [
+      {
+        "source": "source/build/src/smmalloc_generic.cpp",
+        "emitted": 19,
+        "blocked": 1,
+        "imports": [],
+        "blocked_reasons": [
+          {
+            "name": "Header",
+            "reason": "class pointer/reference field requires ownership/alias lowering"
+          }
+        ]
+      },
+      {
+        "source": "source/build/src/compat.cpp",
+        "emitted": 22,
+        "blocked": 1,
+        "imports": [
+          {
+            "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "Create__cxx_static_b7202f8c9d4230a6",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "Destroy__cxx_static_777d0ae31c789182",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "Realloc__cxx_static_478d5da25b6b3923",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          }
+        ],
+        "blocked_reasons": [
+          {
+            "name": "<anonymous>",
+            "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+          }
+        ]
+      },
+      {
+        "source": "source/build/src/engine.cpp",
+        "emitted": 21,
+        "blocked": 3,
+        "imports": [
+          {
+            "name": "Destroy__cxx_static_777d0ae31c789182",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "__cxx_record_vec2_2150e186aab2ebda",
+            "from": "source/build/src/clip.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "g_sm_heap",
+            "from": "source/build/src/compat.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2",
+            "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+            "abi": "source-global-cell/2",
+            "original_type": "void *"
+          }
+        ],
+        "blocked_reasons": [
+          {
+            "name": "<anonymous>",
+            "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+          },
+          {
+            "name": "<anonymous>",
+            "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+          },
+          {
+            "name": "enginePreInit",
+            "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox"
+          }
+        ]
+      },
+      {
+        "source": "source/build/src/crc32.cpp",
+        "emitted": 2,
+        "blocked": 0,
+        "imports": [],
+        "blocked_reasons": []
+      },
+      {
+        "source": "source/build/src/clip.cpp",
+        "emitted": 13,
+        "blocked": 1,
+        "imports": [
+          {
+            "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+            "from": "source/build/src/smmalloc_generic.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2"
+          },
+          {
+            "name": "g_sm_heap",
+            "from": "source/build/src/compat.cpp",
+            "native_pointer_abi": "source-lp64-addresses/2",
+            "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+            "abi": "source-global-cell/2",
+            "original_type": "void *"
+          }
+        ],
+        "blocked_reasons": [
+          {
+            "name": "engineInitClipMaps",
+            "reason": "unlinked identifiers: numsectors, numwalls"
+          }
+        ]
+      },
+      {
+        "source": "source/build/src/baselayer.cpp",
+        "emitted": 1,
+        "blocked": 0,
+        "imports": [],
+        "blocked_reasons": []
+      },
+      {
+        "source": "source/build/src/pragmas.cpp",
+        "emitted": 4,
+        "blocked": 1,
+        "imports": [],
+        "blocked_reasons": [
+          {
+            "name": "initdivtables",
+            "reason": "unlinked identifiers: libdivide_s32_branchfree_gen, libdivide_s32_gen, libdivide_s64_branchfree_gen, libdivide_s64_gen"
+          }
+        ]
+      }
+    ],
+    "generated_from": "Clang source AST",
+    "llvm_fallback": false,
+    "playable_game": false
+  },
+  "startup_component_warning": "Diagnostic seven-unit component only. Five direct missing names are not the full boot closure: candidate clip/division providers remain blocked too.",
+  "latest_header_prototype_regression": {
+    "report": "reports/oct29-header-prototype-stable-regression.json",
+    "complete": true,
+    "counts": {
+      "passed": 22,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "all_passed": true,
+    "regression_inputs_unchanged": true,
+    "revision_matches_current_inputs": true
+  },
   "logging_cutoff_probe": [
     {
       "name": "g_stderr_verbosity",
@@ -315,6 +504,33 @@
     "lossless_all_tables": true,
     "fingerprint_matches_current_index": true,
     "restore_command": "python work/portable_semantic_checkpoint.py restore --input reports/semantic-browser-checkpoint/index.jsonl.gz --output factory-output/source-first/browser-classic/reports/semantic-index.sqlite"
+  },
+  "portable_semantic_payload_verification": {
+    "format": "semantic-continuation-payload-verification/1",
+    "passed": true,
+    "payload": "reports/semantic-browser-checkpoint/index.jsonl.gz",
+    "payload_sha256": "3cbba3d72ec37ef6530156bf7abbe5aa45b72811d0a9eca38fbf303a3ed66394",
+    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "selected_units": 111,
+    "table_rows": {
+      "declarations": 262449,
+      "meta": 1,
+      "observations": 1252341,
+      "reference_observations": 1830941,
+      "refs": 1030050,
+      "units": 111
+    },
+    "logical_table_sha256": {
+      "declarations": "0da7884daea153bc5821a44a023b50bf1a2302768a63bafa60d8aa51f008e027",
+      "meta": "44b4af47b60824ffcb0f2f0de6cb8700da28083131bbee0c3eaa8dbfef1a27dc",
+      "observations": "477b0d61f1ceba597985dabd7f46cafc7eae6369184a4035f5f21638cdfeeeda",
+      "reference_observations": "8104530bfc88ebb43ecd865b1e8844dd3391421be4db5b6b44f8ce1addf18b2a",
+      "refs": "cdb3583240fe66b491c6d6ff033888bf4a981a47d1f5b2e3f4b3dc0df157bb16",
+      "units": "6815024c49aef5db9e6abf348bb4a4a4d7080f4bd30536ab60733b810389d8c0"
+    },
+    "all_rows_verified": true,
+    "new_sqlite_restoration_tested": false,
+    "gameplay_verified": false
   },
   "remaining_acceptance_failures": [
     "Original console/hash/header/logging dependency closure",
