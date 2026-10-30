@@ -26,6 +26,8 @@ def main():
     parser.add_argument('--probe',action='append',default=[],help='also cold-recheck this source symbol')
     parser.add_argument('--source-root',type=Path,default=ROOT/'factory-output/source-tree/eduke32-master')
     parser.add_argument('--manifest-root',type=Path,default=ROOT/'factory-output/source-first/globally-linked')
+    parser.add_argument('--historical-manifest-root',type=Path,
+        help='Explicit diagnostic ownership index only; never imported as current executable code')
     parser.add_argument('--compile-commands',type=Path,default=ROOT/'factory-output/compile_commands.json',
                         help='Selected build profile used for inventory and every cold probe')
     parser.add_argument('--out',type=Path,default=ROOT/'factory-output/source-first/boot-audit.json')
@@ -55,7 +57,7 @@ def main():
     # The *current* partial build may not contain the boot entry yet. Locate
     # its original source via the older complete inventory, but do NOT import
     # old manifests into current build coverage or mark them linked/emitted.
-    complete_manifests=ROOT/'factory-output/source-first/globally-linked'
+    complete_manifests=(args.historical_manifest_root or manifest_root).resolve()
     previous={}
     if manifest_root!=complete_manifests.resolve():
         for path in sorted(complete_manifests.rglob('*.manifest.json')):

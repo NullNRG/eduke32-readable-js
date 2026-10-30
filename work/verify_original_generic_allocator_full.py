@@ -1,9 +1,13 @@
 """Execute all eight original GenericAllocator methods against native C++."""
-import asyncio,base64,hashlib,json,os,subprocess,tempfile
+import argparse,asyncio,base64,hashlib,json,os,subprocess,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'factory-output/browser-classic/source-tree/eduke32-master'
-MODULE=ROOT/'factory-output/source-first/oct29-browser-generic-allocator-addresses/source/build/src/smmalloc_generic.cpp.mjs'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--module',type=Path,default=ROOT/'factory-output/source-first/oct29-browser-generic-allocator-addresses/source/build/src/smmalloc_generic.cpp.mjs')
+parser.add_argument('--report',type=Path,default=ROOT/'reports/oct29-original-generic-allocator-full-parity.json')
+args=parser.parse_args()
+MODULE=args.module.resolve()
 MANIFEST=json.loads(MODULE.with_suffix('.manifest.json').read_text())
 METHODS={r['source_name']:r for r in MANIFEST['definitions'] if r.get('original_static_member')}
 assert len(METHODS)==8 and all(r['status']=='source-first' for r in METHODS.values()),METHODS
@@ -88,7 +92,7 @@ int main(){auto instance=sm::GenericAllocator::Create();
  sm::GenericAllocator::Destroy(instance);
 }
 ''')
-    flags=['-funsigned-char','-std=gnu++14','-DNOASM','-DNDEBUG','-DSDL_TARGET=2','-DRENDERTYPESDL=1','-DNETCODE_DISABLE']
+    flags=['-funsigned-char','-std=gnu++14','-DNOASM','-DNDEBUG','-DSDL_TARGET=2','-DRENDERTYPESDL=1','-DNETCODE_DISABLE','-DEDUKE32_BROWSER=1']
     flags+=['-I'+str(SOURCE/p) for p in ('source/build/include','source/audiolib/include','platform/Windows/include','platform/Windows/include/SDL2')]
     run(['clang++',*flags,str(driver),'-o',str(exe)],ROOT)
     expected=run([str(exe)],directory).splitlines()
@@ -112,6 +116,6 @@ int main(){auto instance=sm::GenericAllocator::Create();
                   'allocation failure preserves original allocation','allocation addresses exceed original pool low-address sentinel range',
                   'zero outstanding source C heap allocations'],
         'expected_rows':expected,'gameplay_verified':False,'engine_boot_verified':False}
-    output=ROOT/'reports/oct29-original-generic-allocator-full-parity.json'
+    output=args.report.resolve()
     output.write_text(json.dumps(report,indent=2)+'\n')
     print('PASS 257 native/Node/Chromium cases for all eight original GenericAllocator methods; no engine/gameplay claim')

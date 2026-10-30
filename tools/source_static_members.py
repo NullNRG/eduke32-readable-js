@@ -4,9 +4,10 @@ Clang's owning class, previous declaration and ABI mangling prove the join.
 No runtime class object or invented class provider is needed for a static call.
 Inline header methods keep their existing class lowering.
 """
-import hashlib
+import hashlib,json
 from pathlib import Path
 import re
+from source_explicit_member_operators import _position, _semantic
 
 
 def walk(node):
@@ -19,6 +20,57 @@ def method_symbol(method):
     name=method.get('name','');mangled=method.get('mangledName','')
     if not re.fullmatch(r'[A-Za-z_]\w*',name) or not re.fullmatch(r'_Z[A-Za-z0-9_]+',mangled):return None
     return name+'__cxx_static_'+hashlib.sha256(mangled.encode()).hexdigest()[:16]
+
+def rebind_static_references(filtered,complete):
+    """Join exact original callsites, never IDs from independent Clang parses.
+
+    The full same-TU AST proves both static membership and a redeclaration path
+    to the owning class. Type roots from that very AST are retained by the
+    caller; their declaration IDs can then replace incomplete filtered refs.
+    Header bytes/mangling are still checked by recover(), not inferred here.
+    """
+    declarations={node.get('id'):node for tree in complete for node in walk(tree)
+                  if node.get('kind')=='CXXMethodDecl' and node.get('id')}
+    canonical={member['id']:member for tree in complete for record in walk(tree)
+        if record.get('kind') in ('CXXRecordDecl','ClassTemplateSpecializationDecl') and record.get('completeDefinition')
+        for member in record.get('inner',[]) if member.get('kind')=='CXXMethodDecl'
+        and member.get('storageClass')=='static' and member.get('id') and method_symbol(member)}
+    for _ in range(len(declarations)+1):
+        additions={identity:canonical[node['previousDecl']] for identity,node in declarations.items()
+            if identity not in canonical and node.get('previousDecl') in canonical
+            and node.get('mangledName')==canonical[node['previousDecl']].get('mangledName')}
+        if not additions:break
+        canonical.update(additions)
+    def sites(ast):
+        for tree in ast:
+            for owner in walk(tree):
+                if owner.get('kind') not in ('FunctionDecl','CXXMethodDecl','VarDecl'):continue
+                offset=owner.get('loc',{}).get('offset');mangled=owner.get('mangledName')
+                if not isinstance(offset,int) or not mangled or not owner.get('name'):continue
+                prefix=(owner['kind'],owner['name'],mangled,owner.get('type',{}).get('qualType'),offset)
+                for child in owner.get('inner',[]):
+                    if owner['kind']!='VarDecl' and child.get('kind')!='CompoundStmt':continue
+                    for reference in walk(child):
+                        if reference.get('kind')!='DeclRefExpr' or reference.get('referencedDecl',{}).get('kind')!='CXXMethodDecl':continue
+                        position=_position(reference)
+                        if position is None:continue
+                        stable=json.dumps(_semantic(reference),sort_keys=True,separators=(',',':'))
+                        yield (*prefix,position,hashlib.sha256(stable.encode()).hexdigest()),reference
+    originals={}
+    for key,reference in sites(complete):
+        selected=reference.get('referencedDecl',{});declaration=canonical.get(selected.get('id'))
+        if declaration and declaration.get('name')==selected.get('name'):
+            originals.setdefault(key,[]).append(declaration)
+    count=0
+    for key,reference in sites(filtered):
+        choices=originals.get(key,[])
+        if len(choices)!=1:continue
+        declaration=choices[0]
+        reference['_source_static_selection']={'abi':'same-tu-static-member-selection/1',
+            'mangled_name':declaration['mangledName'],'callsite_sha256':key[-1]}
+        reference['referencedDecl']={k:declaration[k] for k in ('id','kind','name','type','mangledName') if k in declaration}
+        count+=1
+    return count
 
 
 def constant_members(ast,source_root,prove_header,resolve_type,integer_type):

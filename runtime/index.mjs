@@ -13,7 +13,7 @@ import { SymbolLinker } from './linker.mjs';
  * No claim that EDuke32's renderer/gameplay is already linked.
  */
 export class NativeRuntime {
-  constructor({ canvas = null, THREE = null, renderer = 'auto', memoryBytes = 1 << 20, callIndirect = null, homeDirectory = '/home/browser', applicationDirectory = '/' } = {}) {
+  constructor({ canvas = null, THREE = null, renderer = 'auto', memoryBytes = 1 << 20, callIndirect = null, homeDirectory = '/home/browser', applicationDirectory = '/', nativeServices = null } = {}) {
     this.heap = new ABIHeap(memoryBytes);
     this.fs = new VirtualFS();
     const stdlib = createStdlib({ heap: this.heap, fs: this.fs, callIndirect });
@@ -26,6 +26,12 @@ export class NativeRuntime {
     // not an SDL2 WASM binary or fake symbol stubs.
     this.sdl = createSDLBrowser({ heap: this.heap, canvas, callIndirect,
       framePresenter: this.renderer?.backend === 'webgl2' ? this.renderer : null });
+    this.nativeServices=nativeServices;
+    if(nativeServices){
+      if(nativeServices.backend!=='sdl2-wasm32'||typeof nativeServices.bindSDL!=='function')
+        throw new TypeError('Verified SDL2 native service instance required');
+      this.sdl=Object.freeze({...this.sdl,symbols:nativeServices.bindSDL(this.heap,this.sdl.symbols)});
+    }
     this.engineHost = createEngineBrowserPlatform({heap:this.heap,sdl:this.sdl.symbols,canvas});
     this.dukePaths = createDukeBrowserPaths({fs:this.fs,addsearchpath_user:browserDirs.addsearchpath_user,applicationDirectory});
     this.library = { ...stdlib, symbols: Object.freeze({ ...stdlib.symbols, ...browserDirs, ...this.engineHost.symbols, ...this.dukePaths }) };
@@ -39,7 +45,7 @@ export class NativeRuntime {
   }
   bindSourceMemory() { return bindSourceCHeap(this.heap); }
   start() { this.platform.attach(); }
-  close() { this.sdl.symbols.SDL_Quit(); this.platform.destroy(); this.renderer?.destroy(); }
-  manifest() { return { backend: this.renderer?.backend || null, exports: this.linker.manifest() }; }
+  close() { this.sdl.symbols.SDL_Quit(); this.nativeServices?.close(); this.platform.destroy(); this.renderer?.destroy(); }
+  manifest() { return { backend: this.renderer?.backend || null, nativeServices:this.nativeServices?.backend??null, exports: this.linker.manifest() }; }
 }
 export { createDukeBrowserPaths, createBuildBrowserPlatform, createEngineBrowserPlatform, bindSourceFreeAllocator, bindSourceCHeap, ABIHeap, VirtualFS, BrowserPlatform, createRenderer, createSDLBrowser, createStdlib, SymbolLinker };

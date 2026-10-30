@@ -9,22 +9,25 @@
           "2143f2a8fb6f621c93e56307d40659951ad2a62bef43299e965d8f2c49381162"
         ],
         "selected_not_attempted": [],
-        "selected_units": 113,
-        "unexpected_attempted": []
+        "selected_units": 111,
+        "unexpected_attempted": [
+          "source/build/src/smmalloc.cpp",
+          "source/build/src/smmalloc_tls.cpp"
+        ]
       },
       "evidence": [
         "compile_report"
       ],
-      "finding": "All selected translation units attempted under one compiler revision",
+      "finding": "The selected source set or uniform compiler revision is incomplete.",
       "id": "uniform_selected_unit_attempts",
       "required": true,
-      "status": "passed"
+      "status": "failed"
     },
     {
       "criterion": "Every archived original file is catalogued and excluded translation candidates have explicit reasons",
       "details": {
         "archived_source_files_examined": 1410,
-        "catalogued_excluded_translation_candidates": 230,
+        "catalogued_excluded_translation_candidates": 232,
         "catalogued_original_archive_entries": 1410,
         "headers_are_indirectly_selected_and_not_claimed_as_excluded_translation_units": true
       },
@@ -39,7 +42,7 @@
     {
       "criterion": "Canonical source-wide semantic extraction includes complete calls and initialization dependencies",
       "details": {
-        "attempted_units": 113,
+        "attempted_units": 111,
         "limitations": [
           "No complete indirect-call or callback target dataflow",
           "Global read/write classification not yet implemented",
@@ -47,7 +50,7 @@
           "Clang JSON emitter does not yet attach these USRs automatically"
         ],
         "unit_statuses": {
-          "parsed": 113
+          "parsed": 111
         }
       },
       "evidence": [
@@ -178,7 +181,7 @@
       "status": "unverified"
     },
     {
-      "criterion": "dist/index.html runs the original game offline with no WebAssembly, emulation or remote dependencies",
+      "criterion": "dist/index.html runs the readable original game offline; only audited service WASM is allowed, with no emulation or remote dependencies",
       "details": {
         "dist_index_present": false,
         "html_sha256": null,
@@ -243,6 +246,7 @@
     }
   },
   "failed_checks": [
+    "uniform_selected_unit_attempts",
     "complete_source_semantics",
     "startup_dependency_closure",
     "linked_javascript_integrity",
@@ -250,7 +254,7 @@
     "self_contained_offline_game"
   ],
   "format": "source-first-original-port-acceptance/1",
-  "generated_utc": "2026-10-29T20:29:40.220891+00:00",
+  "generated_utc": "2026-10-30T04:05:57.819814+00:00",
   "inputs": {
     "all_blockers": {
       "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\all-blockers.json",
@@ -315,12 +319,12 @@
     "semantic_index": {
       "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\semantic-index.summary.json",
       "present": true,
-      "sha256": "e81206f011a710e173db949490c389e49b1658de5dc2be6507ec16cdf9f4a4ce"
+      "sha256": "c5499fd7fceedb40feffe7b0af5badde428d509c9df00af92721a70c143d39de"
     },
     "source_inventory": {
       "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\source-files-current.json",
       "present": true,
-      "sha256": "438a1f0326b323c6cd761b8f13a914c6ec3a0c30566e708b43d99c47ce086555"
+      "sha256": "8a3b0a2faaa57a4e6d7e5b3daf7d7f300fc719a2557601b05c9b1a98d0b2665d"
     }
   },
   "original_game_playable_verified": false,
@@ -333,6 +337,7 @@
   "resume_commands_do_not_claim_missing_engine_semantics_are_automatically_implemented": true,
   "resume_prerequisite": "Use the explicit LP64 toolchain/sysroot environment documented in BUILD_PORTABILITY.md.",
   "unsatisfied_checks": [
+    "uniform_selected_unit_attempts",
     "complete_source_semantics",
     "startup_dependency_closure",
     "linked_javascript_integrity",

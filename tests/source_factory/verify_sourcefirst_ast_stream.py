@@ -33,6 +33,10 @@ assert decoded==strip_ranges(baseline),(decoded,baseline)
 lossless,_=parse_ast_file(BytesIO(text.encode()),retain_ranges=True)
 assert lossless==baseline
 assert stats['ranges_omitted']==2 and stats['roots']==2,stats
+static_ref={'kind':'DeclRefExpr','range':{'begin':{'offset':20,'tokLen':4},'end':{'offset':26,'tokLen':3}},
+    'referencedDecl':{'id':'method','kind':'CXXMethodDecl','name':'run','type':{'qualType':'int (int)'}}}
+static_decoded,static_stats=parse_ast_file(BytesIO(json.dumps(static_ref).encode()))
+assert static_decoded==[static_ref] and static_stats['semantic_barrier_ranges_retained']==1,static_stats
 for invalid in (b'{"kind":',b'{"kind":"A"} garbage',b'{"kind":"A","inner":[}'): 
     try:parse_ast_file(BytesIO(invalid))
     except (ValueError,Exception) as error:assert error is not None

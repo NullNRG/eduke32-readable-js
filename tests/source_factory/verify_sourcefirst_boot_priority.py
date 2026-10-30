@@ -8,10 +8,15 @@ import tempfile
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools'))
-from source_first_autonomous import read_link,plan,BASE
+from source_first_autonomous import read_link,plan
+from source_historical_checkpoint import materialize
+history=materialize();historical_root=history.__enter__()
+import atexit
+atexit.register(lambda:history.__exit__(None,None,None))
+BASE=historical_root/'current-full-linkage-fix/global-recovery.json'
 
 historical=read_link(BASE)
-priority=plan(historical,156)
+priority=plan(historical,156,manifest_root=BASE.parent)
 ordered=[r['source'] for r in priority['priority_units']]
 assert 'source/duke3d/src/game.cpp' in ordered[:2], ordered[:5]
 assert priority['boot_source_depths']['source/duke3d/src/game.cpp']==0
@@ -26,7 +31,7 @@ with tempfile.TemporaryDirectory(prefix='eduke_boot_provenance_') as scratch:
     current.mkdir()
     report=directory/'boot.json'
     proc=subprocess.run([sys.executable,str(ROOT/'tools/source_first_boot_audit.py'),
-       '--manifest-root',str(current),'--out',str(report),'--depth','0',
+       '--manifest-root',str(current),'--historical-manifest-root',str(historical_root/'globally-linked'),'--out',str(report),'--depth','0',
        '--entry','app_main'],cwd=ROOT,capture_output=True,text=True,timeout=120)
     assert proc.returncode==2, (proc.returncode,proc.stderr[-1500:])
     result=json.loads(report.read_text())
@@ -44,7 +49,7 @@ with tempfile.TemporaryDirectory(prefix='eduke_boot_provenance_') as scratch:
 
     missing=directory/'missing.json'
     proc=subprocess.run([sys.executable,str(ROOT/'tools/source_first_boot_audit.py'),
-       '--manifest-root',str(current),'--out',str(missing),'--depth','0',
+       '--manifest-root',str(current),'--historical-manifest-root',str(historical_root/'globally-linked'),'--out',str(missing),'--depth','0',
        '--entry','nonexistent_cxx_function_zzzz'],cwd=ROOT,capture_output=True,text=True,timeout=120)
     assert proc.returncode==2
     result=json.loads(missing.read_text())

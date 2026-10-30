@@ -1,17 +1,73 @@
 """Prepare a byte-attested browser source overlay and original Make inventory.
 
-The only source adaptation excludes Linux ALSA from the platform driver table.
+The browser selects the original GenericAllocator, without the optional small
+block pool/thread caches, and excludes Linux ALSA from the driver table.
 Original game/mixer code and the archived source tree remain unchanged.
 """
 import argparse,hashlib,json,os,re,shlex,shutil,subprocess,zipfile
 from pathlib import Path,PurePosixPath
 ROOT=Path(__file__).resolve().parents[1]
 DRIVERS='source/audiolib/src/drivers.cpp'
+COMPAT='source/build/include/compat.h'
+COMPAT_SOURCE='source/build/src/compat.cpp'
+SMALLOC='source/build/include/smmalloc.h'
+POOL_UNITS={'source/build/src/smmalloc.cpp','source/build/src/smmalloc_tls.cpp'}
 def digest(data):return hashlib.sha256(data).hexdigest()
+def replace_once(data,before,after):
+    if data.count(before)!=1:raise ValueError('Original browser adaptation anchor changed: '+repr(before[:90]))
+    return data.replace(before,after,1)
+def adapted_bytes(data,adapt):
+    # Archive files use both LF and CRLF. Preserve each file's original format.
+    newline=b'\r\n' if b'\r\n' in data else b'\n'
+    normalized=data.replace(b'\r\n',b'\n')
+    if b'\r' in normalized or (newline==b'\r\n' and normalized.count(b'\n')!=data.count(b'\r\n')):
+        raise ValueError('Mixed original source newline convention')
+    return adapt(normalized).replace(b'\n',newline)
 def browser_drivers(data):
     guard=b'#ifdef __linux__'
     if data.count(guard)!=2:raise ValueError('Original ALSA platform guards changed')
     return data.replace(guard,b'#if defined(__linux__) && !defined(EDUKE32_BROWSER)')
+def browser_allocator_compat(data):
+    start=data.index(b'extern sm_allocator g_sm_heap;')
+    end=data.index(b'\n#endif',data.index(b'static FORCE_INLINE void xaligned_free(',start))
+    original=data[start:end]
+    browser=replace_once(original,b'extern sm_allocator g_sm_heap;',
+        b'extern sm::GenericAllocator::TInstance g_sm_heap;')
+    browser=replace_once(browser,
+        b'    // 8 buckets of 2MB each--we don\'t really need to burn a lot of memory here for this thing to do its job\n'
+        b'    g_sm_heap = _sm_allocator_create(SMM_MAX_BUCKET_COUNT, 2097152);\n'
+        b'    _sm_allocator_thread_cache_create(g_sm_heap, sm::CACHE_HOT, { 20480, 32768, 32768, 1536, 4096, 8192, 128, 4096 });',
+        b'    // Browser profile: use the original generic allocator without native pool/TLS caches.\n'
+        b'    g_sm_heap = sm::GenericAllocator::Create();')
+    browser=replace_once(browser,
+        b'    _sm_allocator_thread_cache_destroy(g_sm_heap);\n    _sm_allocator_destroy(g_sm_heap);',
+        b'    sm::GenericAllocator::Destroy(g_sm_heap);')
+    calls={b'_sm_malloc(':b'sm::GenericAllocator::Alloc(',b'_sm_realloc(':b'sm::GenericAllocator::Realloc(',
+           b'_sm_free(':b'sm::GenericAllocator::Free('}
+    for before,after in calls.items():
+        if before not in browser:raise ValueError('Missing original allocator operation '+repr(before))
+        browser=browser.replace(before,after)
+    if re.search(rb'\b_sm_\w+\s*\(',browser):raise ValueError('Browser allocator still references the pool API')
+    return data[:start]+b'#if defined(EDUKE32_BROWSER)\n'+browser+b'\n#else\n'+original+b'\n#endif\n'+data[end:]
+def browser_allocator_storage(data):
+    return replace_once(data,b'sm_allocator g_sm_heap;',
+        b'#if defined(EDUKE32_BROWSER)\nsm::GenericAllocator::TInstance g_sm_heap;\n'
+        b'#else\nsm_allocator g_sm_heap;\n#endif')
+def browser_allocator_statistics(data):
+    return replace_once(data,b'#define SMMALLOC_STATS_SUPPORT',
+        b'#if !defined(EDUKE32_BROWSER)\n#define SMMALLOC_STATS_SUPPORT\n#endif')
+def browser_make(data):
+    return replace_once(data,b'engine_objs := \\\n',
+        b'# Browser allocations use smmalloc_generic.cpp; pool/TLS optimizations are excluded.\n'
+        b'ifeq ($(SUBPLATFORM),BROWSER)\n'
+        b'    engine_excl += smmalloc.cpp smmalloc_tls.cpp\nendif\n\nengine_objs := \\\n')
+ADAPTATIONS=(
+    (DRIVERS,browser_drivers,'Exclude ALSA backend; retain original SDL, OPL and mixer behavior'),
+    (COMPAT,browser_allocator_compat,'Select original GenericAllocator for browser allocation wrappers; preserve original error handling'),
+    (COMPAT_SOURCE,browser_allocator_storage,'Declare the browser allocator instance with its actual original GenericAllocator type'),
+    (SMALLOC,browser_allocator_statistics,'Exclude pool statistics when the browser profile does not use a pool'),
+    ('GNUmakefile',browser_make,'Exclude unused pool and thread-cache units from original Make browser selection'),
+)
 def restore_source_archive(archive,destination,expected_sha):
     if digest(archive.read_bytes())!=expected_sha:raise ValueError('Original source archive checksum mismatch')
     destination=destination.resolve()
@@ -47,8 +103,11 @@ def main():
     # This is a generated source overlay, never a second project or a reset of
     # emitted code. Preserve the input tree and record every differing byte.
     shutil.copytree(original,overlay,dirs_exist_ok=True)
-    before=(original/DRIVERS).read_bytes();after=browser_drivers(before)
-    (overlay/DRIVERS).write_bytes(after)
+    adaptations=[]
+    for relative,adapt,reason in ADAPTATIONS:
+        before=(original/relative).read_bytes();after=adapted_bytes(before,adapt)
+        (overlay/relative).write_bytes(after)
+        adaptations.append({'file':relative,'original_sha256':digest(before),'browser_sha256':digest(after),'reason':reason})
     flags=['PLATFORM=LINUX','SUBPLATFORM=BROWSER','NOASM=1','USE_OPENGL=0','POLYMER=0',
            'STARTUP_WINDOW=0','HAVE_GTK2=0','NETCODE=0','USE_MIMALLOC=0','HAVE_VORBIS=0','HAVE_FLAC=0',
            'HAVE_XMP=0','USE_LIBVPX=0','LTO=0','PRETTY_OUTPUT=0']
@@ -74,6 +133,8 @@ def main():
         rows[names[0]]={'directory':str(overlay),'file':names[0],'arguments':clean}
     if not rows or any('/mimalloc/' in n or '/libxmp-lite/' in n or n.endswith('driver_alsa.cpp') for n in rows):
         raise ValueError('Desktop backend leaked into browser selection')
+    if POOL_UNITS & rows.keys():raise ValueError('Unused pool allocator leaked into browser selection')
+    if 'source/build/src/smmalloc_generic.cpp' not in rows:raise ValueError('Original generic allocator missing from browser selection')
     captured={r['file'] for r in json.loads((ROOT/'factory-output/compile_commands.json').read_text())}
     payload=(json.dumps(list(rows.values()),indent=2)+'\n').encode()
     (folder/'compile_commands.json').write_bytes(payload)
@@ -81,9 +142,9 @@ def main():
         'command_database':'factory-output/browser-classic/compile_commands.json',
         'make_command':command,'make_returncode':run.returncode,'selected_units':len(rows),
         'selected_files':sorted(rows),'excluded_captured_units':sorted(captured-rows.keys()),
-        'commands_sha256':digest(payload),'source_adaptations':[{'file':DRIVERS,
-            'original_sha256':digest(before),'browser_sha256':digest(after),
-            'reason':'Exclude ALSA backend; retain original SDL, OPL and mixer behavior'}],
+        'commands_sha256':digest(payload),'source_adaptations':adaptations,
+        'allocator_backend':'original-sm-GenericAllocator',
+        'excluded_pool_units':sorted(POOL_UNITS),
         'source_compilation_verified':False,'gameplay_verified':False}
     (ROOT/'reports/browser-classic-preparation.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({k:v for k,v in report.items() if k not in ('selected_files','excluded_captured_units','make_command')},indent=2))

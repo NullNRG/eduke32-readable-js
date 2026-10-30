@@ -7,6 +7,8 @@
   "name": "eduke32-source-factory",
   "private": true,
   "scripts": {
+    "build:services": "node tools/run_python.mjs tools/build_browser_services.py",
+    "test:services": "node tools/run_python.mjs tests/source_factory/verify_native_sdl_services.py",
     "audit:all-files": "node tools/run_python.mjs tools/source_first_file_audit.py --out factory-output/source-first/all-files-audit.json --strict",
     "audit:auto": "node tools/run_python.mjs tools/source_first_automate.py --inventory-only",
     "audit:autonomous": "node tools/run_python.mjs tools/source_first_autonomous.py audit",

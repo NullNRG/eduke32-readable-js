@@ -41,9 +41,9 @@ with tempfile.TemporaryDirectory() as temp:
            for src in ('a.cpp','b.cpp','c.cpp','d.cpp')}
     order=rank_retry_units(units,['d.cpp','a.cpp','b.cpp'],{'a':'a.cpp','b':'b.cpp'},set())
     assert order[0]=='b.cpp',order
-root=Path(__file__).resolve().parents[2]
-real=root/'factory-output/source-first/globally-linked'
-if real.exists():
+from source_historical_checkpoint import materialize
+with materialize() as historical:
+    real=historical/'globally-linked'
     r=sweep(real,real/'global-recovery.json')
     assert r['historical_counts_match'],r
     assert r['audited_source_units']==156,r

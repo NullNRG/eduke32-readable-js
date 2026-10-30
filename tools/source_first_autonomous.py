@@ -105,7 +105,7 @@ def summarize(current,baseline,inventory_total=156, current_emitted=None, fresh_
         'strict_game_boot_not_established_by_compiler_recovery':True,
     }
 
-def boot_dependency_priorities(global_report, entry='app_main', probes=('enginePreInit',), depth_limit=2):
+def boot_dependency_priorities(global_report, entry='app_main', probes=('enginePreInit',), depth_limit=2, manifest_root=None):
     """Rank *original-source* owners from observed AST references, never guesses.
 
     Diagnostic records from the historical complete inventory are planning
@@ -116,7 +116,7 @@ def boot_dependency_priorities(global_report, entry='app_main', probes=('engineP
     owner_candidates = defaultdict(set)
     for row in global_report.get('remaining', []):
         owner_candidates[row['name']].add(row['source'])
-    base_dir = BASE.parent
+    base_dir = Path(manifest_root) if manifest_root is not None else BASE.parent
     for path in base_dir.rglob('*.manifest.json'):
         document = json.loads(path.read_text())
         source = document.get('source')
@@ -144,14 +144,14 @@ def boot_dependency_priorities(global_report, entry='app_main', probes=('engineP
                 if ref!=name and ref not in visited:queue.append((ref,depth+1))
     return by_source, sorted(missing)
 
-def plan(global_report, inventory_total, boot_entry='app_main'):
+def plan(global_report, inventory_total, boot_entry='app_main', manifest_root=None):
 
     """Rank families and affected TUs from proven unresolved output, not mocks."""
     rows=global_report['remaining']; failures=defaultdict(list)
     for row in rows:failures[row['source']].append(row)
     # Score by how many original C/C++ definitions are actually gated, with
     # priority for source/build and source/duke3d boot/gameplay code.
-    boot_depths, unowned_boot_refs = boot_dependency_priorities(global_report,boot_entry)
+    boot_depths, unowned_boot_refs = boot_dependency_priorities(global_report,boot_entry,manifest_root=manifest_root)
     priorities=[]
     for src,entries in failures.items():
         dist=Counter(family(x['reason']) for x in entries)

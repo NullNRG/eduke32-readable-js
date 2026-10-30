@@ -1,37 +1,104 @@
 {
-  "format": "sourcefactory-current-project/2",
-  "updated_utc": "2026-10-29T20:40:11.711286+00:00",
+  "format": "sourcefactory-current-project/3",
+  "updated_utc": "2026-10-30T04:22:42.735863+00:00",
+  "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
-  "current_full_profile_emission_verified": false,
-  "current_whole_program_linked": false,
   "original_entry_executed_current_profile": false,
+  "original_engine_preinit_executed": false,
+  "original_console_initialization_verified": false,
   "original_menu_rendered_in_javascript": false,
   "original_e1l1_rendered_in_javascript": false,
+  "current_full_profile_emission_verified": false,
+  "current_whole_program_linked": false,
   "project_launcher": "index.html",
   "launcher_command": "npm run serve:project",
   "build_command": "npm run compile:game",
-  "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "active_profile": "tools/browser_classic_profile.json",
   "integration_target": "factory-output/source-first/browser-classic",
   "migration_input": "factory-output/source-first/oct20-engine-preinit-browser",
+  "migration_policy": "Historical migration only. Reuse requires matching source/configuration/ABI/compiler/runtime fingerprints.",
   "continuation_artifact_roots": [
     "factory-output/source-first/browser-classic",
     "factory-output/source-first/oct20-engine-preinit-browser",
-    "factory-output/source-first/oct29-browser-generic-allocator-addresses",
-    "factory-output/source-first/oct29-browser-console-addresses",
-    "factory-output/source-first/oct29-browser-audio-table"
+    "factory-output/source-first/oct29-browser-allocation-chain",
+    "factory-output/source-first/oct29-browser-console-native-services-full",
+    "factory-output/source-first/oct29-browser-hash-providers",
+    "factory-output/source-first/oct29-browser-startup-native-services",
+    "factory-output/source-first/oct29-browser-startup-leaf-project",
+    "factory-output/source-first/oct29-browser-audio-table",
+    "factory-output/browser-services"
   ],
-  "migration_policy": "Historical integration only; do not reuse across different configuration/ABI/compiler/runtime fingerprints.",
-  "compiler_frontend_sha256": "8fb15b8231ed57b1e41158a35eb13d2b72592e469b0bbc9b015ee918eeb6337f",
+  "compiler_frontend_sha256": "e78338436b32580bba13e50eb47a23a6b6c91081e4ad755bc37f2a21240c5313",
   "native_pointer_abi": "source-lp64-addresses/2",
-  "native_pointer_abi_migration": "Recompile providers and consumers; the old 113-unit baseline and October 20 integration use incompatible pointer tokens.",
+  "native_service_pointer_bits": 32,
+  "native_service_separate_heap": true,
+  "execution_policy": {
+    "format": "readable-engine-native-services/1",
+    "engine_language": "readable-javascript",
+    "native_service_backend": "sdl2-wasm32",
+    "native_allowed_roles": [
+      "sdl2",
+      "platform",
+      "timing",
+      "audio-backend"
+    ],
+    "native_allowed_project_sources": [
+      "runtime/native_services/sdl_services.c"
+    ],
+    "original_game_or_build_engine_in_wasm": false,
+    "engine_abi": "source-lp64-addresses/2",
+    "service_pointer_bits": 32,
+    "shared_engine_memory": false,
+    "service_manifest": "factory-output/browser-services/build-manifest.json"
+  },
+  "source_preparation": {
+    "selected_units": 111,
+    "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+    "allocator_backend": "original-sm-GenericAllocator",
+    "excluded_pool_units": [
+      "source/build/src/smmalloc.cpp",
+      "source/build/src/smmalloc_tls.cpp"
+    ],
+    "source_adaptations": [
+      {
+        "file": "source/audiolib/src/drivers.cpp",
+        "original_sha256": "456136b76661e554d11800b06673bbfe4bd581fd19a1982591bde7ac2ae39a29",
+        "browser_sha256": "3f5d23a48f8511aeac9303768542bb7773a8fc5fc978d63c59fdac04f0165a3d",
+        "reason": "Exclude ALSA backend; retain original SDL, OPL and mixer behavior"
+      },
+      {
+        "file": "source/build/include/compat.h",
+        "original_sha256": "1a4fb470a00816a06552d788ad783b45566ae8b76858970ebb611582448fd79d",
+        "browser_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf",
+        "reason": "Select original GenericAllocator for browser allocation wrappers; preserve original error handling"
+      },
+      {
+        "file": "source/build/src/compat.cpp",
+        "original_sha256": "88763c53fff2af45a15c79260e4be2c01e741dd73b5ab2b0bc5014c32f4447bc",
+        "browser_sha256": "f99de913f994978af978fc6f126485dcb914cecd2d5a9c7c6a705aa0e0466120",
+        "reason": "Declare the browser allocator instance with its actual original GenericAllocator type"
+      },
+      {
+        "file": "source/build/include/smmalloc.h",
+        "original_sha256": "c1859ce1cb9546acd299f0c9c6613624f993919a29549d8571b46a50f3dc955b",
+        "browser_sha256": "356a989263bb7a15c32a9a7780f7d27525d31680e5b48df317ef0aef03f0019e",
+        "reason": "Exclude pool statistics when the browser profile does not use a pool"
+      },
+      {
+        "file": "GNUmakefile",
+        "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
+        "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
+        "reason": "Exclude unused pool and thread-cache units from original Make browser selection"
+      }
+    ]
+  },
   "semantic_index": {
-    "fingerprint": "fa17d16a5825de4dc49ce1217e21dd66e08bfdbee28945ed815752a6930fef63",
-    "selected_units": 113,
-    "attempted_units": 113,
+    "fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "selected_units": 111,
+    "attempted_units": 111,
     "unit_statuses": {
-      "parsed": 113
+      "parsed": 111
     },
     "all_selected_units_parsed_without_errors": true,
     "complete_semantic_extraction": false,
@@ -46,20 +113,12 @@
     "original_selected_units": 113,
     "attempted_units": 113,
     "verified_batch_units": 113,
-    "failed_batch_units": 0,
     "readable_definitions": 27415,
-    "blocked_definitions": 3986,
-    "invalid_imports": 0,
-    "uniform_compiler_revision_verified": true,
-    "compiler_revision_source_counts": {
-      "2143f2a8fb6f621c93e56307d40659951ad2a62bef43299e965d8f2c49381162": 113
-    }
+    "blocked_definitions": 3986
   },
-  "baseline_compilation_note": "This 113-unit pass precedes the October 29 semantic fixes. All selected units parsed and emitted manifests, but blocked definitions remain. It is not a complete current-revision compile or boot proof.",
+  "baseline_compilation_note": "Historical 113-unit initial emission predates current compiler, memory ABI and 111-unit generic-allocator profile. Not current emission or engine boot evidence.",
   "baseline_global_link": {
     "completed_source_units": 113,
-    "source_named_modules": 108,
-    "unique_exports": 2334,
     "ambiguous_export_names": {
       "__cxx_record_vec2_2150e186aab2ebda": [
         "source/build/src/clip.cpp",
@@ -74,517 +133,169 @@
       ]
     },
     "invalid_imports_or_syntax": [],
-    "total_blocked_definitions": 3986,
-    "ast_dependency_recovery_attempted": false,
-    "recovery_round_limit": 0,
     "full_game_linked": false
   },
-  "baseline_global_link_note": "Initial ownership/import audit only; zero recovery rounds. Fixed-point recovery with the latest compiler remains required.",
-  "current_blocker_reports": [
-    "factory-output/source-first/browser-classic/reports/all-blockers.json",
-    "factory-output/source-first/browser-classic/reports/all-blockers.csv",
-    "factory-output/source-first/browser-classic/reports/root-causes.json",
-    "factory-output/source-first/browser-classic/reports/dependency-graph.json",
-    "factory-output/source-first/browser-classic/reports/boot-blockers.json"
-  ],
-  "current_inventory": {
-    "audited_source_units": 113,
-    "all_selected_units_audited": true,
-    "raw_definition_observations": 31401,
-    "deduplicated_definition_records": 31028,
-    "blocked_definition_records": 3955,
-    "stable_declaration_identity_records": 5452,
-    "uniform_compiler_revision_verified": true
-  },
+  "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/oct29-memory-final-regression.json",
+    "report": "reports/oct29-services-final-regression.json",
     "complete": true,
     "counts": {
-      "passed": 175,
+      "passed": 180,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 175,
+    "selected_tests": 180,
+    "completed_tests": 180,
     "all_passed": true,
+    "regression_inputs_unchanged": true,
     "revision_matches_current_inputs": true,
-    "does_not_verify_original_gameplay": true,
-    "frontend_matches_full_suite": true
-  },
-  "latest_semantic_regression": {
-    "report": "reports/oct29-template-lifetime-regression.json",
-    "complete": true,
-    "all_passed": true,
-    "counts": {
-      "passed": 10,
-      "failed": 0,
-      "timeout": 0,
-      "launch-failed": 0
-    },
-    "regression_inputs_unchanged": true
-  },
-  "original_template_destructor_closure": {
-    "requested": [
-      "CircularQueue<char *, 1024, RF_INIT_AND_FREE>"
-    ],
-    "proven": [
-      {
-        "type": "CircularQueue<char *, 1024, RF_INIT_AND_FREE>",
-        "source_header": "source/build/include/lru.h",
-        "source_offset": 998,
-        "template_pattern_sha256": "7841038ae852b1a3bb2998af1c68ba2e944260ae27bff439d2761fbf2aa250f8",
-        "directive": "template CircularQueue<char *, 1024, RF_INIT_AND_FREE>::~CircularQueue();",
-        "ast_decode": {
-          "format": "source-ast-stream/1",
-          "backend": "yajl2_c",
-          "retained_source_ranges": false,
-          "roots": 1,
-          "objects": 2249,
-          "ranges_omitted": 803,
-          "allocator_body_ranges_retained": 0,
-          "macro_declaration_ranges_retained": 0,
-          "semantic_barrier_ranges_retained": 0,
-          "type_metadata_reuses": 651,
-          "include_metadata_reuses": 272,
-          "cache_storage": "gzip",
-          "cache_entry_bytes": 117674,
-          "cache_hit": true,
-          "json_bytes": 1196035,
-          "cache_policy_revision": "source-ast-disk-cache/2",
-          "cache_budget_bytes": 536870912,
-          "cache_retained": true,
-          "cache_retained_bytes": 79994044,
-          "cache_evicted_entries": 0,
-          "cache_evicted_bytes": 0,
-          "cache_retention_reason": "cache-hit"
-        },
-        "runtime_provider_fabricated": false
-      }
-    ],
-    "rejected": {}
-  },
-  "latest_pipeline_regression": {
-    "report": "reports/oct29-compressed-cache-regression.json",
-    "complete": true,
-    "all_passed": true,
-    "counts": {
-      "passed": 8,
-      "failed": 0,
-      "timeout": 0,
-      "launch-failed": 0
-    },
-    "regression_inputs_unchanged": true
-  },
-  "original_ast_cache_proof": {
-    "report": "reports/oct29-original-cache-proof.json",
-    "passed": true,
-    "readable_js_bytes_unchanged": true,
     "gameplay_verified": false
   },
-  "semantic_changes": [
-    "Clang-proven anonymous callback tables and empty C++ function prototype spellings",
-    "Exact explicit member operator selection across filtered Clang queries",
-    "Pointer/enum template argument identities and target layouts",
-    "Whole-selected-program standard new/delete ownership contract; original class-specific/placement operators remain source-owned",
-    "Shared browser command database propagated into blockers and boot audits; configured Clang dependency queries serial"
-  ],
-  "memory_changes": [
-    "Pointer fields and pointer/integer casts use one LP64 byte-address representation",
-    "Canonical ABIHeap C allocation, alignment, realloc, failure behavior, native low-address sentinel range and browser heap binding",
-    "Whole-selected-program C allocation ownership and exact Clang C linkage proof, including filtered declarations",
-    "Deferred static relocations preserve actual source storage and C++ delete releases retained registry buffers",
-    "Original out-of-line static methods and non-ODR integral class constants lower by Clang identity"
-  ],
+  "original_allocator": {
+    "report": "reports/oct29-browser-allocation-chain-parity.json",
+    "passed": true,
+    "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+    "component_selected_units": 111,
+    "whole_browser_profile_verified": false,
+    "engine_allocator_startup_verified": true,
+    "engine_preinit_verified": false,
+    "gameplay_verified": false
+  },
+  "native_browser_services": {
+    "report": "reports/oct29-native-sdl-browser-verification.json",
+    "manifest": "factory-output/browser-services/build-manifest.json",
+    "passed": true,
+    "browser_version": "155.0.4283.62",
+    "artifacts": {
+      "wasm": {
+        "path": "factory-output/browser-services/sdl-services.wasm",
+        "sha256": "1e84de82bc55206e1a61034b51a4fdada925fca078c1e622ac2e9727793734c3",
+        "bytes": 690608
+      },
+      "glue": {
+        "path": "factory-output/browser-services/sdl-services.mjs",
+        "sha256": "3919711c591513e7a510441592dc0a315e8dcd1260fd77a8293d0573a7a34bec",
+        "bytes": 201536
+      }
+    },
+    "original_engine_translation_units_in_wasm": [],
+    "original_entry_executed": false,
+    "original_gameplay_verified": false,
+    "integration": "NativeRuntime binds native timing and version. Original SDL surface/event/callback bridging remains incomplete."
+  },
   "original_console_frontier": [
+    {
+      "name": "OSD_RegisterCvar",
+      "status": "blocked",
+      "reason": "unlinked identifiers: hash_add",
+      "unresolved_references": [
+        "hash_add"
+      ]
+    },
     {
       "name": "OSD_Init",
       "status": "blocked",
-      "reason": "unlinked identifiers: OSD_RegisterCvar, OSD_RegisterFunction, _internal_clearbackground, _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, _internal_getcolumnwidth, _internal_getrowheight, _internal_gettime, _internal_onshowosd, default_callbacks, h_cvars"
+      "reason": "unlinked identifiers: OSD_RegisterCvar, _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, hash_init, mutex_init, osdcmd_cvar_set_osd, osdfunc_alias, osdfunc_echo, osdfunc_exec, osdfunc_fileinfo, osdfunc_help",
+      "unresolved_references": [
+        "OSD_RegisterCvar",
+        "_internal_drawosdchar",
+        "_internal_drawosdcursor",
+        "_internal_drawosdstr",
+        "hash_init",
+        "mutex_init",
+        "osdcmd_cvar_set_osd",
+        "osdfunc_alias",
+        "osdfunc_echo",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols",
+        "osdfunc_toggle",
+        "osdfunc_unalias"
+      ]
     },
     {
-      "name": "OSD_UpdateDrawBuffer",
+      "name": "OSD_RegisterFunction",
       "status": "blocked",
-      "reason": "unlinked identifiers: OSD_LineFeed, atoi_safe, isdigit, mutex_lock, mutex_unlock, osd, toupper"
+      "reason": "unlinked identifiers: OSD_Init",
+      "unresolved_references": [
+        "OSD_Init"
+      ]
     }
   ],
-  "latest_static_member_regression": {
-    "report": "reports/oct29-static-member-regression.json",
-    "complete": true,
-    "all_passed": true,
-    "counts": {
-      "passed": 9,
-      "failed": 0,
-      "timeout": 0,
-      "launch-failed": 0
-    },
-    "regression_inputs_unchanged": true
-  },
-  "original_generic_allocator_frontier": [
+  "original_hash_frontier": [
     {
-      "source_name": "Invalid",
-      "name": "Invalid__cxx_static_a4bf526f6eeaa6da",
-      "status": "source-first",
-      "reason": null
+      "name": "hash_findprime",
+      "status": "blocked",
+      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
+      "unresolved_references": [
+        "current_verbosity_cutoff",
+        "log"
+      ]
     },
     {
-      "source_name": "IsValid",
-      "name": "IsValid__cxx_static_37d38e4ea936ce3c",
-      "status": "source-first",
-      "reason": null
+      "name": "hash_init",
+      "status": "blocked",
+      "reason": "unlinked identifiers: hash_findprime, libdivide_u32_gen",
+      "unresolved_references": [
+        "hash_findprime",
+        "libdivide_u32_gen"
+      ]
     },
     {
-      "source_name": "Create",
-      "name": "Create__cxx_static_b7202f8c9d4230a6",
-      "status": "source-first",
-      "reason": null
-    },
-    {
-      "source_name": "Destroy",
-      "name": "Destroy__cxx_static_777d0ae31c789182",
-      "status": "source-first",
-      "reason": null
-    },
-    {
-      "source_name": "Alloc",
-      "name": "Alloc__cxx_static_e0036cfb06bcfe42",
-      "status": "source-first",
-      "reason": null
-    },
-    {
-      "source_name": "Free",
-      "name": "Free__cxx_static_0dfd3f42f0dc2c05",
-      "status": "source-first",
-      "reason": null
-    },
-    {
-      "source_name": "Realloc",
-      "name": "Realloc__cxx_static_478d5da25b6b3923",
-      "status": "source-first",
-      "reason": null
-    },
-    {
-      "source_name": "GetUsableSpace",
-      "name": "GetUsableSpace__cxx_static_e0d3307150ae81d4",
-      "status": "source-first",
-      "reason": null
+      "name": "hash_add",
+      "status": "blocked",
+      "reason": "unlinked identifiers: hash_getbucket__header_dad2442b070b",
+      "unresolved_references": [
+        "hash_getbucket__header_dad2442b070b"
+      ]
     }
   ],
-  "original_generic_allocator_partial_parity": {
-    "format": "original-generic-allocator-header-native-parity/1",
-    "passed": true,
-    "native_snapshots": 256,
-    "source_file": "source/build/src/smmalloc_generic.cpp",
-    "source_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
-    "module_sha256": "4efc2edbe3f84a3232bbb4e744c9af7bb7bfb8669a2b0b23862af17b4432521b",
-    "native_original_alloc_free_executed": true,
-    "javascript_original_header_lookup_compared": true,
-    "javascript_original_full_allocation_verified": false,
-    "address_conversion_still_blocked": true,
-    "gameplay_verified": false
-  },
-  "original_generic_allocator_full_parity": {
-    "format": "original-generic-allocator-full-native-parity/1",
-    "passed": true,
-    "native_node_chromium_cases": 257,
-    "original_methods": {
-      "Invalid": "Invalid__cxx_static_a4bf526f6eeaa6da",
-      "IsValid": "IsValid__cxx_static_37d38e4ea936ce3c",
-      "Create": "Create__cxx_static_b7202f8c9d4230a6",
-      "Destroy": "Destroy__cxx_static_777d0ae31c789182",
-      "Alloc": "Alloc__cxx_static_e0036cfb06bcfe42",
-      "Free": "Free__cxx_static_0dfd3f42f0dc2c05",
-      "Realloc": "Realloc__cxx_static_478d5da25b6b3923",
-      "GetUsableSpace": "GetUsableSpace__cxx_static_e0d3307150ae81d4"
+  "original_engine_preinit_frontier": [
+    {
+      "name": "enginePreInit",
+      "status": "blocked",
+      "reason": "unlinked identifiers: baselayer_init, engineInitClipMaps, initcrc32table, initdivtables, initprintf, initsystem, makeasmwriteable, videoGetModes, wm_msgbox",
+      "unresolved_references": [
+        "baselayer_init",
+        "engineInitClipMaps",
+        "initcrc32table",
+        "initdivtables",
+        "initprintf",
+        "initsystem",
+        "makeasmwriteable",
+        "videoGetModes",
+        "wm_msgbox"
+      ]
+    }
+  ],
+  "startup_component_build": {},
+  "logging_cutoff_probe": [
+    {
+      "name": "g_stderr_verbosity",
+      "status": "source-first",
+      "reason": null,
+      "unresolved_references": []
     },
-    "source_file": "source/build/src/smmalloc_generic.cpp",
-    "source_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
-    "module_sha256": "1cefd5f88ce8c7a76c34ce30ecf9441e2d79ed3a627b4424ccb335121992cb22",
-    "manifest_sha256": "91f5b1169af14499b648ab6b1193bb6e629ea49dc583d68766aaff13cc921787",
-    "native_pointer_abi": "source-lp64-addresses/2",
-    "browser": {
-      "passed": true,
-      "browser_version": "155.0.4283.62",
-      "page_errors": [],
-      "console": [],
-      "cases": 257
+    {
+      "name": "s_max_out_verbosity",
+      "status": "source-first",
+      "reason": null,
+      "unresolved_references": []
     },
-    "checks": [
-      "original instance methods",
-      "original allocation",
-      "native alignment 1..256 clamped to 16",
-      "header size",
-      "original reallocation copies data",
-      "original free",
-      "null free and usable size",
-      "allocation failure preserves original allocation",
-      "allocation addresses exceed original pool low-address sentinel range",
-      "zero outstanding source C heap allocations"
-    ],
-    "expected_rows": [
-      "0,53,0,0,0,1",
-      "37,90,0,0,4343,1",
-      "74,127,0,0,8893,1",
-      "111,164,0,0,13650,1",
-      "148,201,0,0,18358,1",
-      "185,238,0,0,23017,1",
-      "222,275,0,0,27883,1",
-      "259,312,0,0,32700,1",
-      "296,349,0,0,37724,1",
-      "333,386,0,0,42187,1",
-      "370,423,0,0,46601,1",
-      "407,460,0,0,51222,1",
-      "444,497,0,0,56050,1",
-      "481,534,0,0,60829,1",
-      "518,571,0,0,65559,1",
-      "555,608,0,0,70496,1",
-      "592,645,0,0,75384,1",
-      "629,682,0,0,80479,1",
-      "666,719,0,0,84757,1",
-      "703,756,0,0,89242,1",
-      "740,793,0,0,93934,1",
-      "777,830,0,0,98577,1",
-      "814,867,0,0,103171,1",
-      "851,904,0,0,107972,1",
-      "888,941,0,0,112980,1",
-      "925,978,0,0,117939,1",
-      "962,1015,0,0,122849,1",
-      "999,1052,0,0,127198,1",
-      "1036,1089,0,0,131754,1",
-      "1073,1126,0,0,136517,1",
-      "1110,1163,0,0,141231,1",
-      "1147,1200,0,0,145896,1",
-      "1184,1237,0,0,150768,1",
-      "1221,1274,0,0,155591,1",
-      "1258,1311,0,0,160621,1",
-      "1295,1348,0,0,165090,1",
-      "1332,1385,0,0,169510,1",
-      "1369,1422,0,0,174137,1",
-      "1406,1459,0,0,178971,1",
-      "1443,1496,0,0,183756,1",
-      "1480,1533,0,0,188492,1",
-      "1517,1570,0,0,193435,1",
-      "1554,1607,0,0,198329,1",
-      "1591,1644,0,0,203174,1",
-      "1628,1681,0,0,207458,1",
-      "1665,1718,0,0,211949,1",
-      "1702,1755,0,0,216647,1",
-      "1739,1792,0,0,221552,1",
-      "1776,1829,0,0,226152,1",
-      "1813,1866,0,0,230959,1",
-      "1850,1903,0,0,235973,1",
-      "1887,1940,0,0,240938,1",
-      "1924,1977,0,0,245598,1",
-      "1961,2014,0,0,249953,1",
-      "1998,2051,0,0,254515,1",
-      "2035,2088,0,0,259284,1",
-      "2072,2125,0,0,264004,1",
-      "2109,2162,0,0,268675,1",
-      "2146,2199,0,0,273553,1",
-      "2183,2236,0,0,278638,1",
-      "2220,2273,0,0,283418,1",
-      "2257,2310,0,0,287893,1",
-      "2294,2347,0,0,292319,1",
-      "2331,2384,0,0,296952,1",
-      "2368,2421,0,0,301792,1",
-      "2405,2458,0,0,306583,1",
-      "2442,2495,0,0,311325,1",
-      "2479,2532,0,0,316274,1",
-      "2516,2569,0,0,321174,1",
-      "2553,2606,0,0,325769,1",
-      "2590,2643,0,0,330315,1",
-      "2627,2680,0,0,334812,1",
-      "2664,2717,0,0,339516,1",
-      "2701,2754,0,0,344427,1",
-      "2738,2791,0,0,349033,1",
-      "2775,2828,0,0,353846,1",
-      "2812,2865,0,0,358866,1",
-      "2849,2902,0,0,363581,1",
-      "2886,2939,0,0,368247,1",
-      "2923,2976,0,0,372608,1",
-      "2960,3013,0,0,377176,1",
-      "2997,3050,0,0,381951,1",
-      "3034,3087,0,0,386933,1",
-      "3071,3124,0,0,391610,1",
-      "3108,3161,0,0,396494,1",
-      "3145,3198,0,0,401585,1",
-      "3182,3235,0,0,406115,1",
-      "3219,3272,0,0,410596,1",
-      "3256,3309,0,0,415028,1",
-      "3293,3346,0,0,419667,1",
-      "3330,3383,0,0,424513,1",
-      "3367,3420,0,0,429310,1",
-      "3404,3457,0,0,434058,1",
-      "3441,3494,0,0,439013,1",
-      "3478,3531,0,0,443919,1",
-      "3515,3568,0,0,448520,1",
-      "3552,3605,0,0,453072,1",
-      "3589,3642,0,0,457575,1",
-      "3626,3679,0,0,462285,1",
-      "3663,3716,0,0,467202,1",
-      "3700,3753,0,0,471814,1",
-      "3737,3790,0,0,476633,1",
-      "3774,3827,0,0,481659,1",
-      "3811,3864,0,0,486124,1",
-      "3848,3901,0,0,490796,1",
-      "3885,3938,0,0,495419,1",
-      "3922,3975,0,0,499993,1",
-      "3959,4012,0,0,504774,1",
-      "3996,4049,0,0,509762,1",
-      "4033,4086,0,0,514445,1",
-      "4070,4123,0,0,519335,1",
-      "10,63,0,0,1695,1",
-      "47,100,0,0,6261,1",
-      "84,137,0,0,10778,1",
-      "121,174,0,0,15246,1",
-      "158,211,0,0,19921,1",
-      "195,248,0,0,24803,1",
-      "232,285,0,0,29892,1",
-      "269,322,0,0,34676,1",
-      "306,359,0,0,39667,1",
-      "343,396,0,0,44097,1",
-      "380,433,0,0,48734,1",
-      "417,470,0,0,53322,1",
-      "454,507,0,0,57861,1",
-      "491,544,0,0,62607,1",
-      "528,581,0,0,67560,1",
-      "565,618,0,0,72208,1",
-      "602,655,0,0,77063,1",
-      "639,692,0,0,81869,1",
-      "676,729,0,0,86370,1",
-      "713,766,0,0,91078,1",
-      "750,803,0,0,95737,1",
-      "787,840,0,0,100347,1",
-      "824,877,0,0,105164,1",
-      "861,914,0,0,110188,1",
-      "898,951,0,0,114907,1",
-      "935,988,0,0,119833,1",
-      "972,1025,0,0,124198,1",
-      "1009,1062,0,0,128770,1",
-      "1046,1099,0,0,133293,1",
-      "1083,1136,0,0,138023,1",
-      "1120,1173,0,0,142704,1",
-      "1157,1210,0,0,147592,1",
-      "1194,1247,0,0,152687,1",
-      "1231,1284,0,0,157477,1",
-      "1268,1321,0,0,162218,1",
-      "1305,1358,0,0,166654,1",
-      "1342,1395,0,0,171297,1",
-      "1379,1432,0,0,175891,1",
-      "1416,1469,0,0,180436,1",
-      "1453,1506,0,0,185188,1",
-      "1490,1543,0,0,190147,1",
-      "1527,1580,0,0,195057,1",
-      "1564,1617,0,0,199918,1",
-      "1601,1654,0,0,204474,1",
-      "1638,1691,0,0,208981,1",
-      "1675,1728,0,0,213695,1",
-      "1712,1765,0,0,218360,1",
-      "1749,1802,0,0,222976,1",
-      "1786,1839,0,0,227799,1",
-      "1823,1876,0,0,232829,1",
-      "1860,1913,0,0,237554,1",
-      "1897,1950,0,0,242230,1",
-      "1934,1987,0,0,246857,1",
-      "1971,2024,0,0,251435,1",
-      "2008,2061,0,0,255964,1",
-      "2045,2098,0,0,260700,1",
-      "2082,2135,0,0,265387,1",
-      "2119,2172,0,0,270281,1",
-      "2156,2209,0,0,275382,1",
-      "2193,2246,0,0,280178,1",
-      "2230,2283,0,0,284669,1",
-      "2267,2320,0,0,289111,1",
-      "2304,2357,0,0,293760,1",
-      "2341,2394,0,0,298360,1",
-      "2378,2431,0,0,303167,1",
-      "2415,2468,0,0,307925,1",
-      "2452,2505,0,0,312890,1",
-      "2489,2542,0,0,317806,1",
-      "2526,2579,0,0,322417,1",
-      "2563,2616,0,0,326979,1",
-      "2600,2653,0,0,331492,1",
-      "2637,2690,0,0,336212,1",
-      "2674,2727,0,0,340883,1",
-      "2711,2764,0,0,345505,1",
-      "2748,2801,0,0,350334,1",
-      "2785,2838,0,0,355370,1",
-      "2822,2875,0,0,360357,1",
-      "2859,2912,0,0,364783,1",
-      "2896,2949,0,0,369416,1",
-      "2933,2986,0,0,374000,1",
-      "2970,3023,0,0,378535,1",
-      "3007,3060,0,0,383277,1",
-      "3044,3097,0,0,387970,1",
-      "3081,3134,0,0,392870,1",
-      "3118,3171,0,0,397977,1",
-      "3155,3208,0,0,402523,1",
-      "3192,3245,0,0,407020,1",
-      "3229,3282,0,0,411724,1",
-      "3266,3319,0,0,416379,1",
-      "3303,3356,0,0,420985,1",
-      "3340,3393,0,0,425798,1",
-      "3377,3430,0,0,430562,1",
-      "3414,3467,0,0,435533,1",
-      "3451,3504,0,0,440455,1",
-      "3488,3541,0,0,444816,1",
-      "3525,3578,0,0,449384,1",
-      "3562,3615,0,0,453903,1",
-      "3599,3652,0,0,458629,1",
-      "3636,3689,0,0,463306,1",
-      "3673,3726,0,0,468190,1",
-      "3710,3763,0,0,473025,1",
-      "3747,3800,0,0,478067,1",
-      "3784,3837,0,0,482804,1",
-      "3821,3874,0,0,487236,1",
-      "3858,3911,0,0,491875,1",
-      "3895,3948,0,0,496465,1",
-      "3932,3985,0,0,501006,1",
-      "3969,4022,0,0,505754,1",
-      "4006,4059,0,0,510453,1",
-      "4043,4096,0,0,515359,1",
-      "4080,4133,0,0,520472,1",
-      "20,73,0,0,2558,1",
-      "57,110,0,0,7091,1",
-      "94,147,0,0,11831,1",
-      "131,184,0,0,16522,1",
-      "168,221,0,0,21164,1",
-      "205,258,0,0,26013,1",
-      "242,295,0,0,30813,1",
-      "279,332,0,0,35820,1",
-      "316,369,0,0,40266,1",
-      "353,406,0,0,44663,1",
-      "390,443,0,0,49267,1",
-      "427,480,0,0,54078,1",
-      "464,517,0,0,58840,1",
-      "501,554,0,0,63553,1",
-      "538,591,0,0,68473,1",
-      "575,628,0,0,73344,1",
-      "612,665,0,0,78422,1",
-      "649,702,0,0,82683,1",
-      "686,739,0,0,87151,1",
-      "723,776,0,0,91826,1",
-      "760,813,0,0,96452,1",
-      "797,850,0,0,101029,1",
-      "834,887,0,0,105813,1",
-      "871,924,0,0,110804,1",
-      "908,961,0,0,115746,1",
-      "945,998,0,0,120639,1",
-      "982,1035,0,0,124971,1",
-      "1019,1072,0,0,129510,1",
-      "1056,1109,0,0,134256,1",
-      "1093,1146,0,0,138953,1",
-      "1130,1183,0,0,143601,1",
-      "1167,1220,0,0,148456,1",
-      "1204,1257,0,0,153262,1",
-      "1241,1294,0,0,158275,1",
-      "68,14484"
-    ],
-    "gameplay_verified": false,
-    "engine_boot_verified": false
-  },
+    {
+      "name": "current_verbosity_cutoff",
+      "status": "source-first",
+      "reason": null,
+      "unresolved_references": []
+    }
+  ],
   "strict_acceptance": {
     "all_acceptance_criteria_passed": false,
     "failed_checks": [
+      "uniform_selected_unit_attempts",
       "complete_source_semantics",
       "startup_dependency_closure",
       "linked_javascript_integrity",
@@ -598,59 +309,32 @@
       "reproducible_one_command_build"
     ]
   },
-  "latest_memory_regression": {
-    "report": "reports/oct29-memory-corrected-regression.json",
-    "complete": true,
-    "all_passed": true,
-    "counts": {
-      "passed": 9,
-      "failed": 0,
-      "timeout": 0,
-      "launch-failed": 0
-    },
-    "regression_inputs_unchanged": true
-  },
   "portable_semantic_checkpoint": {
     "data": "reports/semantic-browser-checkpoint/index.jsonl.gz",
     "metadata": "reports/semantic-browser-checkpoint/index.jsonl.json",
     "lossless_all_tables": true,
-    "restore_command": "python work/portable_semantic_checkpoint.py restore --input reports/semantic-browser-checkpoint/index.jsonl.gz --output factory-output/source-first/browser-classic/reports/semantic-index.sqlite",
-    "note": "Restore only if the destination database is absent; resume also requires matching source/commands/toolchain fingerprints."
+    "fingerprint_matches_current_index": true,
+    "restore_command": "python work/portable_semantic_checkpoint.py restore --input reports/semantic-browser-checkpoint/index.jsonl.gz --output factory-output/source-first/browser-classic/reports/semantic-index.sqlite"
   },
-  "original_audio_frontier": [
-    {
-      "name": "SoundDrivers",
-      "status": "blocked",
-      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr int (*)()"
-    },
-    {
-      "name": "SoundDriver_IsPCMSupported",
-      "status": "blocked",
-      "reason": "unlinked identifiers: SoundDrivers"
-    }
-  ],
-  "original_console_initialization_verified": false,
-  "original_allocator_verified": false,
-  "original_generic_allocator_verified": true,
-  "owned_lifetime_emitter_enabled": false,
-  "native_template_instantiation_experiment": "reports/oct29-template-instantiation-probe.log",
-  "template_experiment_limitation": "Demanded template destructor recovery is implemented with original template/macro-context and declaration-binding proofs. Original CircularQueue destruction and C allocation/free lowering pass; the class still needs original xfree through the small-pool allocator. This is source lowering, not executed console/game initialization.",
-  "unrepresented_original_methods_note": "The 113-unit baseline predates out-of-line static lowering and omits 8 GenericAllocator methods. The latest isolated compile emits all 8 with exact Clang ownership and native/Node/Chromium allocation parity. Seven original small-allocator instance methods/constructors remain unrepresented by the baseline. The baseline blocked count is not a complete definition inventory.",
   "remaining_acceptance_failures": [
-    "Original app_main and enginePreInit boot closure",
-    "Original allocator and console initialization",
-    "Canonical cross-unit template prototypes and remaining dependencies",
-    "Browser platform integration under the new profile",
-    "Real rendered menu and E1L1",
-    "60-second gameplay/input/audio/collision/save/load verification",
-    "Standalone offline dist/index.html"
+    "Original console/hash/header/logging dependency closure",
+    "Current selected-unit emission and verified fixed-point global linkage",
+    "Original app_main and enginePreInit execution",
+    "Complete SDL/browser-service integration",
+    "Original rendered menu and E1L1",
+    "60-second gameplay, audio, collision and save/load verification",
+    "Verified standalone offline dist/index.html"
   ],
   "resume_commands": [
     ". work/session-env.ps1",
     "npm run compile:game"
   ],
-  "developer_probe_commands": [
-    "python work/probe_template_instantiation.py"
+  "subsystem_verification_commands": [
+    "python tools/build_browser_services.py",
+    "python tests/source_factory/verify_native_sdl_services.py",
+    "python work/verify_browser_allocator_chain.py"
   ],
-  "no_wasm_or_emulation_introduced": true
+  "no_emulation_introduced": true,
+  "original_game_or_build_engine_in_wasm": false,
+  "wasm_policy_note": "Latest user allows SDL2/platform/audio/timing/native utilities in WASM. Game, Build renderer, CON, game loop and asset/storage code remain readable JS."
 }

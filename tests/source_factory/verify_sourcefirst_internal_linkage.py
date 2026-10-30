@@ -14,11 +14,11 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools'))
 from source_first_global_link import (ownership,declared_ownership,internal_definition,
                                      gather_batches,relink,settle_proposals)
+from source_historical_checkpoint import recorded_units
 
 SRCROOT=ROOT/'factory-output/source-tree/eduke32-master'
-UNIT_ROOT=ROOT/'factory-output/source-first/current-full-check/automatic'
 # Exercise the COMPLETE historical inventory, not only synthetic objects.
-_, recorded=gather_batches(UNIT_ROOT)
+recorded=recorded_units()
 external,ambiguities=ownership(recorded,SRCROOT)
 for token in ('ErrorCode','NET_75_CHECK','fx','tempbuf','xlat_fx'):
     assert token not in ambiguities,(token,ambiguities.get(token))

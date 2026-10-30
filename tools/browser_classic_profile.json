@@ -30,7 +30,24 @@
     "CON",
     "ANM"
   ],
-  "inventory_policy": "Default preparation uses original Make with the classic feature switches and SUBPLATFORM=BROWSER; the generated source overlay excludes ALSA driver registration while retaining original SDL/OPL/mixer code. Captured-command derivation is diagnostic only.",
+  "inventory_policy": "Original Make selects the classic SUBPLATFORM=BROWSER profile. Byte-attested adaptations exclude ALSA and native small-pool/TLS allocation optimizations. Browser allocation wrappers call the original GenericAllocator bodies; original SDL/OPL/mixer and game behavior remain selected. Excluded pool units are not recovered definitions. Captured-command derivation is diagnostic only.",
+  "allocator_backend": "original-sm-GenericAllocator",
+  "execution_policy": {
+    "format": "readable-engine-native-services/1",
+    "engine_language": "readable-javascript",
+    "native_service_backend": "sdl2-wasm32",
+    "native_allowed_roles": ["sdl2", "platform", "timing", "audio-backend"],
+    "native_allowed_project_sources": ["runtime/native_services/sdl_services.c"],
+    "original_game_or_build_engine_in_wasm": false,
+    "engine_abi": "source-lp64-addresses/2",
+    "service_pointer_bits": 32,
+    "shared_engine_memory": false,
+    "service_manifest": "factory-output/browser-services/build-manifest.json"
+  },
+  "excluded_allocator_units": [
+    "source/build/src/smmalloc.cpp",
+    "source/build/src/smmalloc_tls.cpp"
+  ],
   "gameplay_verified": false,
   "preparation_tool": "tools/prepare_browser_classic.py",
   "prepared_source_root": "factory-output/browser-classic/source-tree/eduke32-master",

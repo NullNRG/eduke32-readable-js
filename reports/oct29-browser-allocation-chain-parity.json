@@ -1,0 +1,881 @@
+{
+  "format": "original-browser-allocation-chain-parity/1",
+  "passed": true,
+  "native_node_chromium_cases": 130,
+  "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+  "source_allocator_backend": "original-sm-GenericAllocator",
+  "component_selected_units": 111,
+  "whole_browser_profile_verified": false,
+  "source_adaptations": [
+    {
+      "file": "source/audiolib/src/drivers.cpp",
+      "original_sha256": "456136b76661e554d11800b06673bbfe4bd581fd19a1982591bde7ac2ae39a29",
+      "browser_sha256": "3f5d23a48f8511aeac9303768542bb7773a8fc5fc978d63c59fdac04f0165a3d",
+      "reason": "Exclude ALSA backend; retain original SDL, OPL and mixer behavior"
+    },
+    {
+      "file": "source/build/include/compat.h",
+      "original_sha256": "1a4fb470a00816a06552d788ad783b45566ae8b76858970ebb611582448fd79d",
+      "browser_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf",
+      "reason": "Select original GenericAllocator for browser allocation wrappers; preserve original error handling"
+    },
+    {
+      "file": "source/build/src/compat.cpp",
+      "original_sha256": "88763c53fff2af45a15c79260e4be2c01e741dd73b5ab2b0bc5014c32f4447bc",
+      "browser_sha256": "f99de913f994978af978fc6f126485dcb914cecd2d5a9c7c6a705aa0e0466120",
+      "reason": "Declare the browser allocator instance with its actual original GenericAllocator type"
+    },
+    {
+      "file": "source/build/include/smmalloc.h",
+      "original_sha256": "c1859ce1cb9546acd299f0c9c6613624f993919a29549d8571b46a50f3dc955b",
+      "browser_sha256": "356a989263bb7a15c32a9a7780f7d27525d31680e5b48df317ef0aef03f0019e",
+      "reason": "Exclude pool statistics when the browser profile does not use a pool"
+    },
+    {
+      "file": "GNUmakefile",
+      "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
+      "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
+      "reason": "Exclude unused pool and thread-cache units from original Make browser selection"
+    }
+  ],
+  "modules": {
+    "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.manifest.json": "5981bc810d6e2a2a3e61f83ec0ff6d1b544a61265fbe030d6f10cf9e534c577b",
+    "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.manifest.json": "124ae8766c6e375e064fa7a57880e0b40c7fe7fad57155cad191db45b35b78f0",
+    "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs": "eb5a82e3f5f6fbc9503ec4445cf320bb4d94df778c6ab918b6450d7b581c72e1",
+    "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs": "e462f1e8a63d92410b20865a8952c4477bd508f61ad3d69ce308537b0233f996"
+  },
+  "original_functions": {
+    "engineCreateAllocator": "engineCreateAllocator",
+    "engineDestroyAllocator": "engineDestroyAllocator",
+    "xmalloc": "xmalloc",
+    "xcalloc": "xcalloc",
+    "xrealloc": "xrealloc",
+    "xfree": "xfree",
+    "xaligned_alloc": "xaligned_alloc",
+    "xaligned_calloc": "xaligned_calloc",
+    "xaligned_free": "xaligned_free",
+    "xstrdup": "xstrdup",
+    "handle_memerr": "handle_memerr",
+    "set_memerr_handler": "set_memerr_handler",
+    "_xmalloc": "_xmalloc",
+    "_xcalloc": "_xcalloc",
+    "_xrealloc": "_xrealloc",
+    "_xfree": "_xfree",
+    "_xaligned_alloc": "_xaligned_alloc",
+    "_xaligned_calloc": "_xaligned_calloc",
+    "_xaligned_free": "_xaligned_free",
+    "_xstrdup": "_xstrdup"
+  },
+  "native_failure": {
+    "returncode": 1,
+    "stdout": [
+      "oom:0:0"
+    ],
+    "source_fragment_sha256": "de7e62e17117b38bf566125a6339bd08defded995ac6a85d8ae6ccc545bd1d6b"
+  },
+  "node": {
+    "rows": [
+      "0,0,0,63,0,0",
+      "29,0,2871,92,0,0",
+      "58,0,6311,121,0,0",
+      "87,0,10064,150,0,0",
+      "116,0,14130,179,0,0",
+      "145,0,18253,208,0,0",
+      "174,0,21409,237,0,0",
+      "203,0,24878,266,0,0",
+      "232,0,28660,295,0,0",
+      "261,0,32755,324,0,0",
+      "290,0,36907,353,0,0",
+      "319,0,39836,382,0,0",
+      "348,0,43334,411,0,0",
+      "377,0,47145,440,0,0",
+      "406,0,51525,469,0,0",
+      "435,0,55450,498,0,0",
+      "464,0,58408,527,0,0",
+      "493,0,61935,556,0,0",
+      "522,0,65775,585,0,0",
+      "551,0,69928,614,0,0",
+      "580,0,73882,643,0,0",
+      "609,0,77125,672,0,0",
+      "638,0,80425,701,0,0",
+      "667,0,84294,730,0,0",
+      "696,0,88732,759,0,0",
+      "725,0,92459,788,0,0",
+      "754,0,95475,817,0,0",
+      "783,0,99060,846,0,0",
+      "812,0,102958,875,0,0",
+      "841,0,107169,904,0,0",
+      "870,0,110925,933,0,0",
+      "899,0,114226,962,0,0",
+      "928,0,117584,991,0,0",
+      "957,0,121511,1020,0,0",
+      "986,0,125751,1049,0,0",
+      "1015,0,129536,1078,0,0",
+      "1044,0,132610,1107,0,0",
+      "1073,0,136253,1136,0,0",
+      "1102,0,140209,1165,0,0",
+      "1131,0,144478,1194,0,0",
+      "1160,0,147780,1223,0,0",
+      "1189,0,151139,1252,0,0",
+      "1218,0,154811,1281,0,0",
+      "1247,0,158796,1310,0,0",
+      "1276,0,163094,1339,0,0",
+      "1305,0,166425,1368,0,0",
+      "1334,0,169557,1397,0,0",
+      "1363,0,173258,1426,0,0",
+      "1392,0,177272,1455,0,0",
+      "1421,0,181855,1484,0,0",
+      "1450,0,184959,1513,0,0",
+      "1479,0,188120,1542,0,0",
+      "1508,0,191850,1571,0,0",
+      "1537,0,195893,1600,0,0",
+      "1566,0,200249,1629,0,0",
+      "1595,0,203382,1658,0,0",
+      "1624,0,206828,1687,0,0",
+      "1653,0,210331,1716,0,0",
+      "1682,0,214403,1745,0,0",
+      "1711,0,219044,1774,0,0",
+      "1740,0,221950,1803,0,0",
+      "1769,0,225169,1832,0,0",
+      "1798,0,228957,1861,0,0",
+      "1827,0,233058,1890,0,0",
+      "1856,0,237472,1919,0,0",
+      "1885,0,240407,1948,0,0",
+      "1914,0,243911,1977,0,0",
+      "1943,0,247472,2006,0,0",
+      "1972,0,251602,2035,0,0",
+      "2001,0,255789,2064,0,0",
+      "2030,0,259009,2093,0,0",
+      "10,0,1025,73,0,0",
+      "39,0,4923,102,0,0",
+      "68,0,9134,131,0,0",
+      "97,0,12890,160,0,0",
+      "126,0,15935,189,0,0",
+      "155,0,19549,218,0,0",
+      "184,0,23476,247,0,0",
+      "213,0,27716,276,0,0",
+      "242,0,31501,305,0,0",
+      "271,0,34575,334,0,0",
+      "300,0,37962,363,0,0",
+      "329,0,41918,392,0,0",
+      "358,0,46187,421,0,0",
+      "387,0,50001,450,0,0",
+      "416,0,53104,479,0,0",
+      "445,0,56520,508,0,0",
+      "474,0,60505,537,0,0",
+      "503,0,64803,566,0,0",
+      "532,0,68390,595,0,0",
+      "561,0,71522,624,0,0",
+      "590,0,75223,653,0,0",
+      "619,0,78981,682,0,0",
+      "648,0,83308,711,0,0",
+      "677,0,86924,740,0,0",
+      "706,0,90085,769,0,0",
+      "735,0,93559,798,0,0",
+      "764,0,97602,827,0,0",
+      "793,0,101958,856,0,0",
+      "822,0,105347,885,0,0",
+      "851,0,108537,914,0,0",
+      "880,0,112296,943,0,0",
+      "909,0,116112,972,0,0",
+      "938,0,120497,1001,0,0",
+      "967,0,123659,1030,0,0",
+      "996,0,127134,1059,0,0",
+      "1025,0,130666,1088,0,0",
+      "1054,0,134767,1117,0,0",
+      "1083,0,139181,1146,0,0",
+      "1112,0,142116,1175,0,0",
+      "1141,0,145364,1204,0,0",
+      "1170,0,149181,1233,0,0",
+      "1199,0,153311,1262,0,0",
+      "1228,0,157754,1291,0,0",
+      "1257,0,160718,1320,0,0",
+      "1286,0,163995,1349,0,0",
+      "1315,0,167585,1378,0,0",
+      "1344,0,171744,1407,0,0",
+      "1373,0,176216,1436,0,0",
+      "1402,0,179209,1465,0,0",
+      "1431,0,182515,1494,0,0",
+      "1460,0,186134,1523,0,0",
+      "1489,0,190322,1552,0,0",
+      "1518,0,194567,1581,0,0",
+      "1547,0,197589,1610,0,0",
+      "1576,0,200924,1639,0,0",
+      "1605,0,204828,1668,0,0",
+      "1634,0,208789,1697,0,0",
+      "68,117,107,101,32,78,117,107,101,109,32,51,68,0",
+      "0,219"
+    ],
+    "failure": {
+      "name": "CProcessExit",
+      "status": 1
+    },
+    "callback": [
+      "oom:0:0"
+    ],
+    "preserved": 14484
+  },
+  "chromium": {
+    "passed": true,
+    "browser_version": "155.0.4283.62",
+    "page_errors": [],
+    "console": [],
+    "actual": {
+      "rows": [
+        "0,0,0,63,0,0",
+        "29,0,2871,92,0,0",
+        "58,0,6311,121,0,0",
+        "87,0,10064,150,0,0",
+        "116,0,14130,179,0,0",
+        "145,0,18253,208,0,0",
+        "174,0,21409,237,0,0",
+        "203,0,24878,266,0,0",
+        "232,0,28660,295,0,0",
+        "261,0,32755,324,0,0",
+        "290,0,36907,353,0,0",
+        "319,0,39836,382,0,0",
+        "348,0,43334,411,0,0",
+        "377,0,47145,440,0,0",
+        "406,0,51525,469,0,0",
+        "435,0,55450,498,0,0",
+        "464,0,58408,527,0,0",
+        "493,0,61935,556,0,0",
+        "522,0,65775,585,0,0",
+        "551,0,69928,614,0,0",
+        "580,0,73882,643,0,0",
+        "609,0,77125,672,0,0",
+        "638,0,80425,701,0,0",
+        "667,0,84294,730,0,0",
+        "696,0,88732,759,0,0",
+        "725,0,92459,788,0,0",
+        "754,0,95475,817,0,0",
+        "783,0,99060,846,0,0",
+        "812,0,102958,875,0,0",
+        "841,0,107169,904,0,0",
+        "870,0,110925,933,0,0",
+        "899,0,114226,962,0,0",
+        "928,0,117584,991,0,0",
+        "957,0,121511,1020,0,0",
+        "986,0,125751,1049,0,0",
+        "1015,0,129536,1078,0,0",
+        "1044,0,132610,1107,0,0",
+        "1073,0,136253,1136,0,0",
+        "1102,0,140209,1165,0,0",
+        "1131,0,144478,1194,0,0",
+        "1160,0,147780,1223,0,0",
+        "1189,0,151139,1252,0,0",
+        "1218,0,154811,1281,0,0",
+        "1247,0,158796,1310,0,0",
+        "1276,0,163094,1339,0,0",
+        "1305,0,166425,1368,0,0",
+        "1334,0,169557,1397,0,0",
+        "1363,0,173258,1426,0,0",
+        "1392,0,177272,1455,0,0",
+        "1421,0,181855,1484,0,0",
+        "1450,0,184959,1513,0,0",
+        "1479,0,188120,1542,0,0",
+        "1508,0,191850,1571,0,0",
+        "1537,0,195893,1600,0,0",
+        "1566,0,200249,1629,0,0",
+        "1595,0,203382,1658,0,0",
+        "1624,0,206828,1687,0,0",
+        "1653,0,210331,1716,0,0",
+        "1682,0,214403,1745,0,0",
+        "1711,0,219044,1774,0,0",
+        "1740,0,221950,1803,0,0",
+        "1769,0,225169,1832,0,0",
+        "1798,0,228957,1861,0,0",
+        "1827,0,233058,1890,0,0",
+        "1856,0,237472,1919,0,0",
+        "1885,0,240407,1948,0,0",
+        "1914,0,243911,1977,0,0",
+        "1943,0,247472,2006,0,0",
+        "1972,0,251602,2035,0,0",
+        "2001,0,255789,2064,0,0",
+        "2030,0,259009,2093,0,0",
+        "10,0,1025,73,0,0",
+        "39,0,4923,102,0,0",
+        "68,0,9134,131,0,0",
+        "97,0,12890,160,0,0",
+        "126,0,15935,189,0,0",
+        "155,0,19549,218,0,0",
+        "184,0,23476,247,0,0",
+        "213,0,27716,276,0,0",
+        "242,0,31501,305,0,0",
+        "271,0,34575,334,0,0",
+        "300,0,37962,363,0,0",
+        "329,0,41918,392,0,0",
+        "358,0,46187,421,0,0",
+        "387,0,50001,450,0,0",
+        "416,0,53104,479,0,0",
+        "445,0,56520,508,0,0",
+        "474,0,60505,537,0,0",
+        "503,0,64803,566,0,0",
+        "532,0,68390,595,0,0",
+        "561,0,71522,624,0,0",
+        "590,0,75223,653,0,0",
+        "619,0,78981,682,0,0",
+        "648,0,83308,711,0,0",
+        "677,0,86924,740,0,0",
+        "706,0,90085,769,0,0",
+        "735,0,93559,798,0,0",
+        "764,0,97602,827,0,0",
+        "793,0,101958,856,0,0",
+        "822,0,105347,885,0,0",
+        "851,0,108537,914,0,0",
+        "880,0,112296,943,0,0",
+        "909,0,116112,972,0,0",
+        "938,0,120497,1001,0,0",
+        "967,0,123659,1030,0,0",
+        "996,0,127134,1059,0,0",
+        "1025,0,130666,1088,0,0",
+        "1054,0,134767,1117,0,0",
+        "1083,0,139181,1146,0,0",
+        "1112,0,142116,1175,0,0",
+        "1141,0,145364,1204,0,0",
+        "1170,0,149181,1233,0,0",
+        "1199,0,153311,1262,0,0",
+        "1228,0,157754,1291,0,0",
+        "1257,0,160718,1320,0,0",
+        "1286,0,163995,1349,0,0",
+        "1315,0,167585,1378,0,0",
+        "1344,0,171744,1407,0,0",
+        "1373,0,176216,1436,0,0",
+        "1402,0,179209,1465,0,0",
+        "1431,0,182515,1494,0,0",
+        "1460,0,186134,1523,0,0",
+        "1489,0,190322,1552,0,0",
+        "1518,0,194567,1581,0,0",
+        "1547,0,197589,1610,0,0",
+        "1576,0,200924,1639,0,0",
+        "1605,0,204828,1668,0,0",
+        "1634,0,208789,1697,0,0",
+        "68,117,107,101,32,78,117,107,101,109,32,51,68,0",
+        "0,219"
+      ],
+      "failure": {
+        "name": "CProcessExit",
+        "status": 1
+      },
+      "callback": [
+        "oom:0:0"
+      ],
+      "preserved": 14484
+    },
+    "executed_source_functions": [
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "cPointer",
+        "calls": 6
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "cTypedPointer",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "cPointerOffset",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "cDeref",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "set value",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "cPointerCompare",
+        "calls": 649
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "extent",
+        "calls": 262
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "cstring",
+        "calls": 4
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "terminator",
+        "calls": 4
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "pair",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "memset",
+        "calls": 258
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "strlen",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "strcpy",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "exit",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "i32",
+        "calls": 5
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "u32",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "u64",
+        "calls": 656
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "engineCreateAllocator",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "engineDestroyAllocator",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xmalloc",
+        "calls": 130
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xcalloc",
+        "calls": 129
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xstrdup",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xrealloc",
+        "calls": 130
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xmalloc",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xfree",
+        "calls": 263
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xcalloc",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xaligned_alloc",
+        "calls": 129
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xrealloc",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xaligned_calloc",
+        "calls": 129
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xaligned_alloc",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xaligned_free",
+        "calls": 259
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xaligned_calloc",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "xstrdup",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xfree",
+        "calls": 4
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "_xaligned_free",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "handle_memerr",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/compat.cpp.mjs",
+        "name": "set_memerr_handler",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "heap",
+        "calls": 16464
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "regionFor",
+        "calls": 4017
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "liveBounds",
+        "calls": 8556
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "canonical",
+        "calls": 2694
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "encode",
+        "calls": 2072
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "decode",
+        "calls": 1296
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "assert",
+        "calls": 5188
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "forgetHeap",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "registerHeap",
+        "calls": 1945
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "ABIHeap",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "#refresh",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "align",
+        "calls": 694
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "ensure",
+        "calls": 46
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "malloc",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 9669
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "free",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "check",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "borrow",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 777
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "get",
+        "calls": 1945
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "count",
+        "calls": 649
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "allocate",
+        "calls": 649
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "base",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "release",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "free",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cPointer",
+        "calls": 4662
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cTypedPointer",
+        "calls": 1554
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cPointerOffset",
+        "calls": 1554
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cPointerCompare",
+        "calls": 649
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cRecordObject",
+        "calls": 2202
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cRef",
+        "calls": 259
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "get value",
+        "calls": 387
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cMarkAggregate",
+        "calls": 100
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "get",
+        "calls": 1554
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "set",
+        "calls": 100
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cInitByteRecord",
+        "calls": 100
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "get",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "set",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "get",
+        "calls": 258
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "set",
+        "calls": 648
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "deref",
+        "calls": 2202
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "cRecordPointer",
+        "calls": 1554
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "extent",
+        "calls": 258
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "pair",
+        "calls": 129
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "memmove",
+        "calls": 129
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "i32",
+        "calls": 7
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "u32",
+        "calls": 8
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "u64",
+        "calls": 8284
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "Create__cxx_static_b7202f8c9d4230a6",
+        "calls": 1
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "Destroy__cxx_static_777d0ae31c789182",
+        "calls": 2
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+        "calls": 649
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+        "calls": 651
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "Realloc__cxx_static_478d5da25b6b3923",
+        "calls": 130
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 129
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "",
+        "calls": 258
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "GetUsableSpace__cxx_static_e0d3307150ae81d4",
+        "calls": 258
+      },
+      {
+        "module": "factory-output/source-first/oct29-browser-allocation-chain/source/build/src/smmalloc_generic.cpp.mjs",
+        "name": "min__template_c237f4424e2bda8a",
+        "calls": 129
+      }
+    ]
+  },
+  "engine_allocator_startup_verified": true,
+  "engine_preinit_verified": false,
+  "gameplay_verified": false
+}

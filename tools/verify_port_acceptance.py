@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 from source_recovery_compare import read_json, snapshot_json, sha256, write_json
+from browser_service_contract import offline_runtime_verified
 
 ROOT = Path(__file__).resolve().parents[1]
 STAGES = ('app_main', 'engine-initialization', 'game-data-loading', 'menus',
@@ -198,12 +199,12 @@ def evaluate(root, reports_root=None, build_root=None):
     offline = data['offline_audit']
     offline_verified = (bool(html_hash) and offline.get('entry_html_sha256') == html_hash
                         and offline.get('runtime_kind') == 'readable-original-source-javascript'
-                        and offline.get('wasm_or_emulation_runtime_detected') is False
+                        and offline_runtime_verified(root,offline)
                         and offline.get('remote_runtime_dependencies') == []
                         and offline.get('local_file_offline_execution_verified') is True
                         and offline.get('all_resources_embedded') is True
                         and artifact_verified((offline.get('artifacts') or {}).get('browser_network_log'), root))
-    add('self_contained_offline_game', 'dist/index.html runs the original game offline with no WebAssembly, emulation or remote dependencies',
+    add('self_contained_offline_game', 'dist/index.html runs the readable original game offline; only audited service WASM is allowed, with no emulation or remote dependencies',
         offline_verified and verified_browser, ['offline_audit','browser_gameplay'],
         'A verified self-contained offline original-game HTML artifact is not available.',
         missing=html.is_file() and not offline, details={'dist_index_present': html.is_file(),

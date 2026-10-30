@@ -41,6 +41,8 @@ def regression_inputs():
         for path in sorted((ROOT/directory).rglob('*')):
             if path.is_file() and '__pycache__' not in path.parts and path.suffix in ('.py','.mjs','.json','.cpp','.c','.h','.hpp','.ps1'):
                 rows[path.relative_to(ROOT).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+    history=ROOT/'reports/history/original-source-manifests-20261014.zip'
+    if history.is_file():rows[history.relative_to(ROOT).as_posix()]=hashlib.sha256(history.read_bytes()).hexdigest()
     return rows
 
 

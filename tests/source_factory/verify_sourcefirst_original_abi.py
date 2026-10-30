@@ -8,7 +8,8 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE='source/build/src/lz4.c'
 ORIGINAL=ROOT/'factory-output/source-tree/eduke32-master'
-BASELINE=ROOT/'factory-output/source-first/globally-linked/global-recovery.json'
+sys.path.insert(0,str(ROOT/'tools'))
+from source_historical_checkpoint import report as historical_report
 NAMES=('LZ4_sizeofState','LZ4_sizeofStreamState')
 
 def execute(args,cwd,timeout=120):
@@ -16,7 +17,7 @@ def execute(args,cwd,timeout=120):
     assert p.returncode==0,(args,p.stdout[-1500:],p.stderr[-1800:])
     return p.stdout.strip()
 
-baseline=json.loads(BASELINE.read_text())
+baseline=historical_report('globally-linked/global-recovery.json')
 blocked={(item['source'],item['name']) for item in baseline['remaining']}
 assert all((SOURCE,name) in blocked for name in NAMES), 'historical baseline does not match blocked original symbols'
 with tempfile.TemporaryDirectory(prefix='eduke-original-abi-') as tmp:

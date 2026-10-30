@@ -43,6 +43,65 @@ def anonymous_location(spelling):
     found = re.search(r'\((?:anonymous|unnamed)(?: (?:struct|class|union))? at (.+)\)', spelling)
     return found.group(1).replace('\\', '/') if found else None
 
+def typedef_record_layouts(ast,layouts,source_root):
+    """Prove sizeof/alignof aliases independently of object-storage support.
+
+    Nontrivial members do not make an enclosing sizeof unknown. Join only a
+    direct Clang-owned anonymous tag, its original physical tokens, and an
+    actual target layout. This never fabricates a constructor or field schema.
+    """
+    if not source_root:return {}
+    root=Path(source_root).resolve();records={};typedefs=[];files={};locations=[]
+    def visit(node,scope=()):
+        if node.get('kind')=='NamespaceDecl' and node.get('name'):scope=(*scope,node['name'])
+        if node.get('kind') in ('RecordDecl','CXXRecordDecl') and node.get('completeDefinition'):
+            records[node.get('id')]=node
+        if node.get('kind')=='TypedefDecl' and node.get('name'):
+            for child in children(node):
+                owner=child.get('ownedTagDecl',{})
+                if not owner and child.get('kind')=='RecordType' and child.get('isTagOwned') is True:owner=child.get('decl',{})
+                if owner.get('id'):typedefs.append((node,owner['id'],scope))
+        for child in children(node):visit(child,scope)
+    for tree in ast:visit(tree)
+    for name,layout in layouts.items():
+        physical=anonymous_location(name);match=re.fullmatch(r'(.+):(\d+):(\d+)',physical or '')
+        if not match:continue
+        path=Path(match[1]);path=(path if path.is_absolute() else root/path).resolve()
+        if not path.is_relative_to(root) or not path.is_file():continue
+        if path not in files:files[path]=path.read_bytes()
+        lines=files[path].splitlines(keepends=True);line,col=int(match[2]),int(match[3])
+        if 1<=line<=len(lines) and 1<=col<=len(lines[line-1]):
+            locations.append((path,sum(map(len,lines[:line-1]))+col-1,layout))
+    aliases={};alias_owners={};ambiguous=set()
+    for declaration,identity,scope in typedefs:
+        record=records.get(identity)
+        if not record or record.get('name'):continue
+        tag_location=record.get('loc',{});alias_location=declaration.get('loc',{})
+        offset=tag_location.get('offset');alias_offset=alias_location.get('offset');name=declaration['name']
+        token=record.get('tagUsed','').encode()
+        if not isinstance(offset,int) or not isinstance(alias_offset,int) or not token:continue
+        matches={}
+        for path,position,layout in locations:
+            if position!=offset:continue
+            data=files[path]
+            if data[offset:offset+len(token)]!=token or data[alias_offset:alias_offset+len(name)]!=name.encode():continue
+            physical=tag_location.get('file') or alias_location.get('file')
+            if physical:
+                actual=Path(physical);actual=(actual if actual.is_absolute() else root/actual).resolve()
+                if actual!=path:continue
+            key=(path,position)
+            if key in matches and matches[key]!=layout:matches[key]=None
+            else:matches[key]=layout
+        if len(matches)!=1 or next(iter(matches.values())) is None:continue
+        layout=next(iter(matches.values()))
+        physical_owner=(*next(iter(matches)),alias_offset)
+        for alias in {name,'::'.join((*scope,name))}:
+            if alias in alias_owners and alias_owners[alias]!=physical_owner:ambiguous.add(alias)
+            elif alias in aliases and aliases[alias]!=layout:ambiguous.add(alias)
+            elif alias in layouts and layouts[alias]!=layout:ambiguous.add(alias)
+            else:aliases[alias]=layout;alias_owners[alias]=physical_owner
+    return {name:layout for name,layout in aliases.items() if name not in ambiguous}
+
 
 def owned_anonymous_record_members(node,source_root=None):
     """Join a member's exact anonymous type location to its lexical child tag."""

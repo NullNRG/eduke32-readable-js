@@ -13,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
-from source_byte_records import recover_byte_records, clean_type as clean_record_type, owned_anonymous_record_members
+from source_byte_records import recover_byte_records, clean_type as clean_record_type, owned_anonymous_record_members, typedef_record_layouts
 from source_trivial_assignment import recover_trivial_assignment_methods
 from source_cpp_lifetime import recover_lifetime_classes
 from source_cpp_references import REFERENCE_ABI, function_type_parts, lvalue_referent, const_referent
@@ -23,12 +23,13 @@ from source_standard_heap_contract import validate as validate_standard_heap_con
 from source_header_records import normalize_specializations, specialization_aliases, specialization_layouts, demanded_header_records, header_proof, eligible_record, safe_scalar_default_member_record, safe_zero_default_member_record
 from source_first_toolchain import frontend_config, target_attestation, fingerprint_toolchain
 from source_ast_stream import run_clang_ast
+from source_ast_cache_paths import source_ast_input_fingerprint
 from source_scalar_types import scalar_info, is_integer
 from source_private_record_schema import private_record_schema_compatible
 from source_empty_asm import prove_empty_asm
 from source_anonymous_records import blocked_anonymous_global_arrays
 from source_template_destructors import complete as complete_template_destructors
-from source_static_members import recover as recover_out_of_line_static_members, constant_members
+from source_static_members import recover as recover_out_of_line_static_members, constant_members, rebind_static_references
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 
@@ -4098,6 +4099,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     aliases=recover_type_aliases(ast)
     aliases.update(lifetime_aliases)
     record_layouts=dict(record_layouts or {})
+    record_layouts.update(typedef_record_layouts(ast,record_layouts,source_root))
     record_layouts.update(specialization_layouts(ast,record_layouts))
     record_layouts.update(recover_typedef_record_layouts(ast, record_layouts))
     byte_records=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,layout_aliases=record_layouts)
@@ -4992,7 +4994,7 @@ def main():
         command=[frontend,*language,'-Xclang','-ast-dump=json','-Xclang','-ast-dump-filter='+name,'-fsyntax-only',*args,opt.source]
         cache=None
         if opt.ast_cache_dir:
-            identity=json.dumps([str(root),command,toolchain,hashlib.sha256(src.read_bytes()).hexdigest()],sort_keys=True)
+            identity=json.dumps([str(root),command,toolchain,ast_cache_inputs],sort_keys=True)
             cache=opt.ast_cache_dir/(hashlib.sha256(identity.encode()).hexdigest()+'.json')
         declarations,decode=run_clang_ast(command,cwd=root,cache_path=cache)
         ast_decode.append(decode);return declarations
@@ -5023,6 +5025,8 @@ def main():
     args+=['-Iplatform/Windows/include','-Iplatform/Windows/include/SDL2','-Wno-unknown-warning-option']
     args+=opt.extra
     args+=target_args
+    ast_cache_inputs=(source_ast_input_fingerprint(root,frontend,language,args,opt.source)
+                      if opt.ast_cache_dir else None)
     cmd=[frontend,*language,'-Xclang','-ast-dump=json']
     if opt.filter:cmd+=['-Xclang','-ast-dump-filter='+opt.filter]
     cmd+=['-fsyntax-only',*args,opt.source]
@@ -5033,13 +5037,13 @@ def main():
         if filter_name:one+=['-Xclang','-ast-dump-filter='+filter_name]
         one+=['-fsyntax-only',*args,opt.source]
         # Clang source AST is identical on the project discovery/link passes.
-        # Cache within ONE build invocation only; never reuse across changed
-        # headers, compiler options or source revisions between builds.
+        # Persistent reuse requires the current preprocessor dependency graph,
+        # exact input bytes, toolchain and options, independent of emitter edits.
         cache_path=None
         if opt.ast_cache_dir:
             opt.ast_cache_dir.mkdir(parents=True,exist_ok=True)
             cache_key=hashlib.sha256(json.dumps([str(root),one,toolchain,
-                hashlib.sha256(src.read_bytes()).hexdigest()],separators=(',',':'),sort_keys=True).encode()).hexdigest()
+                ast_cache_inputs],separators=(',',':'),sort_keys=True).encode()).hexdigest()
             cache_path=opt.ast_cache_dir/(cache_key+'.json')
         try:
             decoded,decode_report=run_clang_ast(one,cwd=root,cache_path=cache_path)
@@ -5057,7 +5061,7 @@ def main():
                 '-Xclang','-ast-dump-filter='+name,'-fsyntax-only',*args,opt.source]
             cache=None
             if opt.ast_cache_dir:
-                identity=json.dumps([str(root),command,toolchain,hashlib.sha256(src.read_bytes()).hexdigest()],sort_keys=True)
+                identity=json.dumps([str(root),command,toolchain,ast_cache_inputs],sort_keys=True)
                 cache=opt.ast_cache_dir/(hashlib.sha256(identity.encode()).hexdigest()+'.json')
             declarations,decode=run_clang_ast(command,cwd=root,cache_path=cache)
             ast.extend(declarations);ast_decode.append(decode)
@@ -5231,7 +5235,7 @@ def main():
     layout_cache=None
     if opt.ast_cache_dir:
         layout_cache=opt.ast_cache_dir/('layouts-'+hashlib.sha256(json.dumps([str(root),cmd,toolchain,
-            hashlib.sha256(src.read_bytes()).hexdigest()],sort_keys=True).encode()).hexdigest()+'.json')
+            ast_cache_inputs],sort_keys=True).encode()).hexdigest()+'.json')
     layouts=json.loads(layout_cache.read_text()) if layout_cache and layout_cache.exists() else {}
     if opt.require_record_layouts:
         layout_result=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
@@ -5412,21 +5416,19 @@ def main():
         # parse; no anonymous shape or layout is inferred from a nearby name.
         anonymous_arrays=blocked_anonymous_global_arrays(report)
         explicit_members=has_unresolved_explicit_operators(ast)
+        static_members=any(row.get('reason','').startswith('method reference lacks exact static class owner:') for row in report)
         heap_types=any(row.get('reason','').startswith('C++ heap object needs complete original class construction/destruction:') for row in report)
-        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or heap_types) and not full_type_closure['attempted']:
+        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or static_members or heap_types) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
             full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
             full_cache=None
             if opt.ast_cache_dir:
-                key=hashlib.sha256(json.dumps([str(root),full_command],sort_keys=True).encode())
-                fingerprint_toolchain(key)
-                for path in sorted(root.rglob('*')):
-                    if path.is_file() and (path==src or path.suffix.lower() in ('.h','.hpp','.hh','.hxx','.inc','.inl')):
-                        key.update(path.relative_to(root).as_posix().encode());key.update(path.read_bytes())
+                key=hashlib.sha256(json.dumps([str(root),full_command,ast_cache_inputs],sort_keys=True).encode())
                 full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
                 full_type_closure['explicit_member_calls_rebound']=rebind_explicit_operators(ast,complete)
+                full_type_closure['static_member_references_rebound']=rebind_static_references(ast,complete)
                 # Complete EnumDecls prove implicit successors as well as
                 # explicit constants. Reconnect only uniquely valued names
                 # actually referenced by the filtered source; retain this
@@ -5973,6 +5975,7 @@ const cStackAlloc = amount => {
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}
     if opt.import_root:result['module_fragment']={'import_root':str(opt.import_root.resolve()),'provider_exports_and_storage_abi_verified':True}
     result['full_type_closure']=full_type_closure
+    result['ast_cache_inputs']=ast_cache_inputs
     result['ast_decode']=ast_decode
     result['storage_exports']=[{'name':item['name'],**item['global_storage']} for item in report
                                if item['status']=='source-first' and item.get('global_storage')]

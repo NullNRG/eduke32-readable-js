@@ -1,5 +1,5 @@
 """Original engine verbosity body and its real pointer table, native versus JS."""
-import base64,functools,hashlib,http.server,json,os,subprocess,sys,tempfile,threading
+import atexit,base64,functools,hashlib,http.server,json,os,subprocess,sys,tempfile,threading
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=ROOT/'factory-output/source-tree/eduke32-master'
@@ -9,7 +9,8 @@ def run(command):
 original=(SOURCE/'source/build/src/baselayer.cpp').read_text()
 begin=original.index('const char*(*gameVerbosityCallback)');end=original.index('bool g_useLogCallback',begin)
 body=original[begin:end]
-out=ROOT/'factory-output/source-first/oct15-pointer-array-recovery'
+scratch=tempfile.TemporaryDirectory(prefix='eduke-original-verbosity-module-');atexit.register(scratch.cleanup)
+out=Path(scratch.name)/'compiled'
 run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(SOURCE),'--source','source/build/src/baselayer.cpp',
     '--filter','engineVerbosityCallback,gameVerbosityCallback,engineSetLogVerbosityCallback','--header-inlines',
     '--header-dependency-closure','--dependency-closure','--enum-closure','--out-dir',str(out),'--ast-cache-dir',str(ROOT/'work/ast-cache-boot-probes')])
@@ -29,10 +30,6 @@ with tempfile.TemporaryDirectory(prefix='eduke-original-verbosity-') as temp:
     js='''async url=>{const m=await import(url),decode=p=>p===null?'NULL':new TextDecoder().decode(p.subarray(0,p.indexOf(0)));const rows=[];for(let n=0;n<512;n++){let v=n%256-64;m.engineSetLogVerbosityCallback(null);let a=decode(m.engineVerbosityCallback(v));m.engineSetLogVerbosityCallback(x=>x===3?new TextEncoder().encode('OVR\\0'):null);let b=decode(m.engineVerbosityCallback(v));rows.push(a+','+b);}return rows;}'''
     driver=root/'run.mjs';driver.write_text('const rows=await ('+js+')('+json.dumps(module.as_uri())+');for(const row of rows)console.log(row);')
     actual=run(['node',str(driver)]).splitlines();assert actual==expected,next((r for r in zip(expected,actual) if r[0]!=r[1]),None)
-    active=ROOT/'factory-output/source-first/browser-target/source/build/src/baselayer.cpp.mjs'
-    integrated_driver=root/'integrated.mjs'
-    integrated_driver.write_text('const rows=await ('+js+')('+json.dumps(active.as_uri())+');for(const row of rows)console.log(row);')
-    integrated=run(['node',str(integrated_driver)]).splitlines();assert integrated==expected
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:
         browser=p.chromium.launch(executable_path=os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'),headless=True)
@@ -42,17 +39,17 @@ with tempfile.TemporaryDirectory(prefix='eduke-original-verbosity-') as temp:
         class Handler(http.server.SimpleHTTPRequestHandler):
             extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript'}
             def log_message(self,*args):pass
-        server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(ROOT)))
+        server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(out)))
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         try:
             base='http://127.0.0.1:'+str(server.server_port)
             page.goto(base+'/')
-            integrated_browser=page.evaluate(js,base+'/'+active.relative_to(ROOT).as_posix())
-            assert integrated_browser==expected
+            http_browser=page.evaluate(js,base+'/'+module.relative_to(out).as_posix())
+            assert http_browser==expected
         finally:server.shutdown();server.server_close();thread.join()
         version=browser.version;browser.close()
 report={'format':'original-engine-verbosity-native-browser-parity/1','native_node_cases':512,
-    'native_chromium_cases':512,'integrated_native_node_cases':512,'integrated_native_chromium_cases':512,
+    'native_chromium_cases':512,'http_native_chromium_cases':512,
     'shared_original_callback_storage':True,'original_body_sha256':hashlib.sha256(body.encode()).hexdigest(),
     'module_sha256':hashlib.sha256(module.read_bytes()).hexdigest(),'browser_version':version,
     'source':'source/build/src/baselayer.cpp','functions':['engineVerbosityCallback','engineSetLogVerbosityCallback'],

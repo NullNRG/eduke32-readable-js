@@ -19,18 +19,19 @@ def selected(root,public=False):
     for relative in ('tools','runtime','tests','licenses','input-source','factory-output/source-tree','factory-output/browser-classic'):
         tree(relative)
     for name in ('.gitignore','.gitattributes','README.md','README_SOURCE_FACTORY.md','CURRENT_PORT_STATUS.md',
-                 'CONTINUE_HERE.md','LLM_CONTINUATION_PROMPT.md','HANDOFF_SNAPSHOT.json','BUILD_PORTABILITY.md',
+                 'CONTINUE_HERE.md','LLM_CONTINUATION_PROMPT.md','HANDOFF_SNAPSHOT.json','BUILD_PORTABILITY.md','BROWSER_SERVICES.md',
                  'package.json','package-lock.json','dev-requirements.txt','eslint.config.mjs','index.html',
                  'launch-project.cmd','launch-project.ps1'):
         add(root/name)
     add(root/'input-data/DUKE3D.GRP');add(root/'factory-output/compile_commands.json')
+    add(root/'reports/history/original-source-manifests-20261014.zip')
     profile=json.loads((root/'tools/browser_classic_profile.json').read_text())
     state=json.loads((root/'reports/project-current-status.json').read_text())
     roots={profile['build_root'],profile['migration_input'],*state.get('continuation_artifact_roots',[])}
     for relative in roots:
         folder=package_tool.safe_path(root,relative)
         for path in folder.rglob('*'):
-            if path.suffix in ('.mjs','.json','.csv','.md') and path.is_file() and path.stat().st_size<80_000_000:add(path)
+            if path.suffix in ('.mjs','.json','.csv','.md','.wasm','.symbols') and path.is_file() and path.stat().st_size<80_000_000:add(path)
     # Retain any actual source imports outside these roots, not every obsolete
     # build epoch. Every imported module stays under the canonical project.
     pending=[p for p in chosen if p.suffix=='.mjs' and

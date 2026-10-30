@@ -1,0 +1,52 @@
+{
+  "root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\source-tree\\eduke32-master",
+  "compile_commands": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\compile_commands.json",
+  "units": [
+    {
+      "source": "source/build/src/smmalloc_generic.cpp",
+      "header_dependency_closure": true
+    },
+    {
+      "source": "source/build/src/compat.cpp",
+      "filter": "engineCreateAllocator,engineDestroyAllocator,xmalloc,xcalloc,xrealloc,xfree,xaligned_alloc,xaligned_calloc,xaligned_free,xstrdup,handle_memerr,set_memerr_handler,_xmalloc,_xcalloc,_xrealloc,_xfree,_xaligned_alloc,_xaligned_calloc,_xaligned_free,_xstrdup,g_sm_heap,g_MemErrHandler",
+      "header_inlines": true,
+      "header_dependency_closure": true,
+      "dependency_closure": true
+    },
+    {
+      "source": "source/build/src/engine.cpp",
+      "filter": "enginePreInit",
+      "dependency_closure": true,
+      "header_dependency_closure": true,
+      "header_inlines": true
+    },
+    {
+      "source": "source/build/src/crc32.cpp",
+      "filter": "initcrc32table",
+      "dependency_closure": true,
+      "header_dependency_closure": true,
+      "header_inlines": true
+    },
+    {
+      "source": "source/build/src/clip.cpp",
+      "filter": "engineInitClipMaps",
+      "dependency_closure": true,
+      "header_dependency_closure": true,
+      "header_inlines": true
+    },
+    {
+      "source": "source/build/src/baselayer.cpp",
+      "filter": "makeasmwriteable",
+      "dependency_closure": true,
+      "header_dependency_closure": true,
+      "header_inlines": true
+    },
+    {
+      "source": "source/build/src/pragmas.cpp",
+      "filter": "initdivtables",
+      "dependency_closure": true,
+      "header_dependency_closure": true,
+      "header_inlines": true
+    }
+  ]
+}

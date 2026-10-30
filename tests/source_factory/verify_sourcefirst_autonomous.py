@@ -4,7 +4,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools'))
 from source_first_autonomous import summarize,plan,read_link,family
-old=read_link(ROOT/'factory-output/source-first/globally-linked/global-recovery.json')
+from source_historical_checkpoint import report as historical_report
+old=historical_report('globally-linked/global-recovery.json')
 assert len(old['remaining'])==5065
 same=summarize(old,old,156)
 assert same['verified_net_recovery_lower_bound'] is None and not same['ninety_percent_goal_met']

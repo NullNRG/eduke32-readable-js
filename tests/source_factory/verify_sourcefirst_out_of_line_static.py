@@ -1,5 +1,5 @@
 """Out-of-line static method identities link across units without class stubs."""
-import json
+import copy,json
 import os
 from pathlib import Path
 import subprocess
@@ -7,6 +7,29 @@ import sys
 import tempfile
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'tools'))
+from source_static_members import rebind_static_references
+
+# Mismatching or ambiguous callsites may never become static method providers.
+method={'kind':'CXXMethodDecl','id':'full-method','name':'run','storageClass':'static',
+        'mangledName':'_ZN4Left3runEi','type':{'qualType':'int (int)'}}
+reference={'kind':'DeclRefExpr','type':{'qualType':'int (int)'},
+    'referencedDecl':{k:method[k] for k in ('kind','id','name','type')},
+    'range':{'begin':{'offset':20,'tokLen':4},'end':{'offset':26,'tokLen':3}}}
+owner={'kind':'FunctionDecl','name':'api','mangledName':'_Z3apii','loc':{'offset':3},
+       'type':{'qualType':'int (int)'},'inner':[{'kind':'CompoundStmt','inner':[reference]}]}
+complete=[{'kind':'CXXRecordDecl','name':'Left','completeDefinition':True,'inner':[method]},owner]
+filtered=[copy.deepcopy(owner)];filtered[0]['inner'][0]['inner'][0]['referencedDecl']['id']='filtered-method'
+assert rebind_static_references(copy.deepcopy(filtered),complete)==1
+for variant in ('nonstatic','type','owner','duplicate'):
+    changed=copy.deepcopy(complete)
+    if variant=='nonstatic':changed[0]['inner'][0].pop('storageClass')
+    elif variant=='type':changed[1]['inner'][0]['inner'][0]['type']['qualType']='void ()'
+    elif variant=='owner':changed[1]['loc']['offset']+=1
+    else:changed.append(copy.deepcopy(changed[1]))
+    unresolved=copy.deepcopy(filtered)
+    assert rebind_static_references(unresolved,changed)==0,variant
+    assert unresolved==filtered,variant
 
 
 def run(args,cwd):
@@ -43,10 +66,11 @@ int main(){for(int n=-512;n<512;n++)printf("%d\\n",api_static(n));}
     run(['clang++','-std=c++14','provider.cpp','caller.cpp','driver.cpp','-o',str(executable)],root)
     expected=run([str(executable)],root).splitlines()
     out=root/'out'
-    def emit(name,index=None):
+    def emit(name,index=None,filters=None):
         command=[sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(root),
                  '--source',name,'--out-dir',str(out)]
         if index:command+=['--project-symbols',str(index)]
+        if filters:command+=['--filter',filters,'--dependency-closure','--header-dependency-closure']
         run(command,ROOT)
         return json.loads((out/(name+'.manifest.json')).read_text())
     provider=emit('provider.cpp')
@@ -72,8 +96,19 @@ int main(){for(int n=-512;n<512;n++)printf("%d\\n",api_static(n));}
     runner.write_text('import {api_static} from '+json.dumps((out/'caller.cpp.mjs').as_uri())+';\n'
                      'for(let n=-512;n<512;n++)console.log(api_static(n));\n')
     assert run(['node',str(runner)],root).splitlines()==expected
+    # Filtered dumps omit the classes and cannot share declaration IDs with a
+    # second Clang parse. Exact same-source callsites must recover their owners.
+    filtered=emit('caller.cpp',filters='api_static')
+    row=next(r for r in filtered['definitions'] if r['name']=='api_static')
+    assert row['status']=='blocked' and row['reason'].startswith('unlinked identifiers:'),row
+    assert all('__cxx_static_' in name for name in row['unresolved_references']),row
+    filtered=emit('caller.cpp',index,filters='api_static')
+    row=next(r for r in filtered['definitions'] if r['name']=='api_static')
+    assert row['status']=='source-first',row
+    assert filtered['full_type_closure']['static_member_references_rebound']>=2,filtered['full_type_closure']
+    assert run(['node',str(runner)],root).splitlines()==expected
     (root/'address.cpp').write_text('#include "methods.hpp"\nconst int*constant_address(){return &left::Math::scale;}\n')
     address=emit('address.cpp')
     row=next(r for r in address['definitions'] if r['name']=='constant_address')
     assert row['status']=='blocked' and 'scale' in row['reason'],row
-print('PASS 1024 native/JavaScript values: source-owned static methods, namespace/overload identities, callbacks and cross-unit linking')
+print('PASS 2048 native/JavaScript values: full and filtered static calls, exact namespace/overload identities, callbacks and cross-unit linking')
