@@ -8,7 +8,10 @@ def run(*args):return subprocess.run([sys.executable,*map(str,args)],cwd=ROOT).r
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--max-units',type=int,default=0,help='Diagnostic partial run; zero selects every browser unit')
-    p.add_argument('--timeout',type=int,default=240);a=p.parse_args()
+    p.add_argument('--timeout',type=int,default=240)
+    p.add_argument('--share-emitted-helpers',action='store_true',help='deduplicate exact canonical ABI snippets after linking')
+    p.add_argument('--share-generated-ast',action='store_true',help='deduplicate legacy generated helpers with AST dependency evidence')
+    a=p.parse_args()
     if a.max_units<0:p.error('--max-units must be nonnegative')
     code=run('tools/prepare_browser_classic.py')
     if code:return code
@@ -44,7 +47,9 @@ def main():
     if not (build/'automatic/recovery-report.json').is_file():return compile_code or 2
     link_code=run('tools/source_first_global_link.py','--directory',build/'automatic','--out',build/'globally-linked',
         '--source-root',source,'--compile-commands',commands,'--jobs',1,'--timeout',a.timeout,
-        '--resume','--persistent-ast-cache','--rounds',24,'--retry-budget',12)
+        '--resume','--persistent-ast-cache','--rounds',24,'--retry-budget',12,
+        *(['--share-emitted-helpers'] if a.share_emitted_helpers else []),
+        *(['--share-generated-ast'] if a.share_generated_ast else []))
     linked=build/'globally-linked/global-recovery.json'
     if not linked.is_file():return link_code or 2
     write(build/'source-build-attestation.json',{'linked_manifest_sha256':hashlib.sha256(linked.read_bytes()).hexdigest(),
