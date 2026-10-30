@@ -28,7 +28,7 @@ test('identical transpiled helpers become shared runtime modules without merging
     const dry=execute(dir);
     assert.equal(dry.modules_rewritten,2);
     assert.ok(dry.shared_helper_variants>=4);
-    assert.ok(dry.net_bytes_saved>0);
+    assert.ok(dry.gross_bytes_removed>0);
     assert.equal(readFileSync(a,'utf8'),original);
     const applied=execute(dir,true);
     assert.equal(applied.modules_rewritten,2);
