@@ -730,9 +730,23 @@ def main():
                         help='memory-bounded concurrent Clang AST retry workers')
     parser.add_argument('--share-emitted-helpers',action='store_true',
                         help='deduplicate exact source-emitted ABI helpers after verified linking')
+    parser.add_argument('--share-generated-ast',action='store_true',
+                        help='share identical dependency-closed historical emitter helper declarations (requires npm ci)')
     args=parser.parse_args()
     if args.retry_budget<0:parser.error('--retry-budget must be nonnegative')
     summary=relink(args.directory.resolve(),args.out.resolve(),args.source_root.resolve(),args.rounds,args.timeout,args.jobs,args.retry_budget,args.resume,args.persistent_ast_cache,args.compile_commands,share_emitted_helpers=args.share_emitted_helpers)
+    if args.share_generated_ast and not summary['invalid_imports_or_syntax']:
+        output=args.out.resolve()
+        report=output/'source-generated-ast-sharing.json'
+        cmd=['node',str(ROOT/'tools/dedup_emitted_ast.mjs'),'--root',str(output),
+             '--apply','--report',str(report)]
+        check=subprocess.run(cmd,capture_output=True,text=True,timeout=180)
+        if check.returncode:
+            raise RuntimeError('Source helper AST dedup rejected output: '+check.stderr[-2000:])
+        result=json.loads(report.read_text())
+        summary['generated_ast_helper_sharing']={key:result[key] for key in
+             ('shared_helper_variants','modules_rewritten','net_bytes_saved')}
+        write_json(output/'global-recovery.json',summary)
     print(json.dumps({k:v for k,v in summary.items() if k not in ('remaining','recovery_attempts')},indent=2))
     return 2 if summary['invalid_imports_or_syntax'] else 0
 
