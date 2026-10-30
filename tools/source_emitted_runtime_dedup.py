@@ -104,7 +104,7 @@ def atomic_write(path, value):
     finally:
         temporary.unlink(missing_ok=True)
 
-def transform(source, file, root, catalog):
+def transform(source, file, root, catalog, *, strict=False):
     """Rewrite only exact canonical emission blocks, never arbitrary lookalikes."""
     if not source.startswith(MARKER) or '/_source_shared/' in file.as_posix():
         return None
@@ -123,12 +123,21 @@ def transform(source, file, root, catalog):
         ranges.append((start, start + len(snippet), name))
     if not matched:
         return None
-    # Do not introduce unsupported references to an absent canonical runtime.
+    # Historic generated modules can mix revisions. Preserve any exact helper
+    # whose lexical dependencies do not have a compatible exact implementation.
+    # In particular do not transplant cAssignAggregate without its original
+    # cCopyAggregate implementation. Strict mode exposes the mismatch.
     chosen = set(matched)
-    for name in matched:
-        for dep, _ in catalog[name]['deps']:
-            if dep not in chosen:
-                raise ValueError(f'{file}: {name} missing required embedded {dep}')
+    while True:
+        unsafe = [(name, dep) for name in chosen
+                  for dep, _ in catalog[name]['deps'] if dep not in chosen]
+        if not unsafe: break
+        name, dep = sorted(unsafe)[0]
+        if strict:
+            raise ValueError(f'{file}: {name} missing required embedded {dep}')
+        chosen.remove(name)
+    ranges = [r for r in ranges if r[2] in chosen]
+    if not ranges: return None
     ranges.sort()
     for current, following in zip(ranges, ranges[1:]):
         if current[1] > following[0]:
@@ -154,7 +163,7 @@ def transform(source, file, root, catalog):
         raise ValueError(f'{file}: invalid shared-helper rewrite')
     return new, matched
 
-def optimize(root, *, apply=False, verify=False, repo=REPO):
+def optimize(root, *, apply=False, verify=False, strict=False, repo=REPO):
     root = root.resolve()
     if not root.is_dir():
         raise FileNotFoundError(root)
@@ -168,7 +177,7 @@ def optimize(root, *, apply=False, verify=False, repo=REPO):
         original = path.read_text(encoding='utf-8')
         # Module imports were generated from source-root-relative paths, so a
         # staged copy must preserve the entire ES module directory structure.
-        candidate = transform(original, path, root, catalog)
+        candidate = transform(original, path, root, catalog, strict=strict)
         if candidate is None:
             continue
         converted, names = candidate
@@ -231,9 +240,10 @@ def main(argv=None):
     ap.add_argument('--root', type=Path, required=True, help='completed transpiler/linker output tree')
     ap.add_argument('--apply', action='store_true', help='rewrite exact helpers in place; dry run otherwise')
     ap.add_argument('--verify-node', action='store_true', help='verify rewritten ES module syntax with Node')
+    ap.add_argument('--strict-dependencies', action='store_true', help='fail on incompatible legacy helper combinations')
     ap.add_argument('--report', type=Path, help='optional JSON report destination')
     args = ap.parse_args(argv)
-    result = optimize(args.root, apply=args.apply, verify=args.verify_node)
+    result = optimize(args.root, apply=args.apply, verify=args.verify_node, strict=args.strict_dependencies)
     if args.report:
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
