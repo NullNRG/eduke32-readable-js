@@ -8,7 +8,7 @@ not permission to rewrite code or proof of equivalent behavior.
 from __future__ import annotations
 import argparse
 import ast
-from collections import defaultdict
+from collections import defaultdict, deque
 import copy
 from difflib import SequenceMatcher
 import hashlib
@@ -70,12 +70,15 @@ def lex(source, suffix):
         except (tokenize.TokenError, IndentationError):
             pass
     out = []
+    line, previous = 1, 0
     for m in LEX.finditer(source):
+        line += source.count('\n', previous, m.start())
+        previous = m.start()
         val = m.group()
         if val.startswith(('//', '/*', '#')):
             continue
         kind = 'name' if re.fullmatch(r'[A-Za-z_$][\w$]*', val) else 'number' if val[0].isdigit() else 'str' if val.startswith(('"', "'", chr(96))) else 'op'
-        out.append((val, source.count('\n', 0, m.start()) + 1, kind))
+        out.append((val, line, kind))
     return out
 
 def shape(tokens):
@@ -195,6 +198,11 @@ def near_functions(funcs, min_tokens, cutoff=0.84):
     return sorted(found, key=lambda x: (-x['similarity'] * x['tokens'], x['locations'][0]['file']))
 
 def clone_windows(sources, min_tokens, stride=10):
+    """Cross-file token-window clones, using shift-invariant winnowing.
+
+    Winnowing retains the smallest fingerprint in each sliding group, so
+    inserted tokens at the start of a file do not hide otherwise shared code.
+    """
     windows = defaultdict(list)
     width = max(35, min_tokens)
     for file, content in sources.items():
@@ -202,14 +210,27 @@ def clone_windows(sources, min_tokens, stride=10):
         if len(raw) < width: continue
         layout = shape(raw)
         raw_values = [x[0] for x in raw]
-        for pos in range(0, len(raw) - width + 1, stride):
-            seq = layout[pos:pos+width]
-            if len(set(seq)) < 9: continue
-            start, end = raw[pos][1], raw[pos+width-1][1]
-            if end - start < 3: continue
-            for mode, values in (('literal', raw_values), ('layout', layout)):
-                key = (mode, digest('\x1f'.join(values[pos:pos+width])))
-                windows[key].append({'file': file, 'line': start, 'end': end})
+        for mode, values in (('literal', raw_values), ('layout', layout)):
+            fingerprints = []
+            for pos in range(len(raw) - width + 1):
+                seq = layout[pos:pos+width]
+                if len(set(seq)) < 9: continue
+                start, end = raw[pos][1], raw[pos+width-1][1]
+                if end - start < 3: continue
+                fingerprints.append((pos, digest('\x1f'.join(values[pos:pos+width]))))
+            queue = deque()
+            last_index = None
+            for i, (pos, fp) in enumerate(fingerprints):
+                while queue and queue[-1][1] >= fp: queue.pop()
+                queue.append((i, fp))
+                while queue and queue[0][0] <= i - stride: queue.popleft()
+                if i < stride - 1: continue
+                selected = queue[0][0]
+                if selected == last_index: continue
+                last_index = selected
+                p, key = fingerprints[selected]
+                windows[(mode, key)].append({'file': file, 'line': raw[p][1],
+                                             'end': raw[p+width-1][1]})
     found = []
     for (mode, _key), entries in windows.items():
         if len({x['file'] for x in entries}) < 2: continue
@@ -218,7 +239,8 @@ def clone_windows(sources, min_tokens, stride=10):
             if not chosen or chosen[-1]['file'] != loc['file'] or loc['line'] > chosen[-1]['end']:
                 chosen.append(loc)
         if len({x['file'] for x in chosen}) < 2: continue
-        found.append({'mode': mode, 'tokens': width, 'occurrences': len(chosen), 'locations': chosen[:6],
+        found.append({'mode': mode, 'tokens': width, 'occurrences': len(chosen),
+                      'locations': chosen[:6],
                       'confidence': 'strong-syntactic' if mode == 'literal' else 'review-required'})
     return sorted(found, key=lambda r: (-r['occurrences'], r['mode'], r['locations'][0]['file']))
 
