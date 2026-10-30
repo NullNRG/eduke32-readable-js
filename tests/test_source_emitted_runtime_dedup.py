@@ -69,8 +69,9 @@ class EmittedHelperSharingTest(unittest.TestCase):
     def test_refuses_missing_lexical_dependencies(self):
         source = self.emit('source/bad.cpp.mjs', ['aggregate'], BODY)
         previous = source.read_bytes()
+        self.assertEqual(D.optimize(self.root, apply=True)['modules_rewritten'], 0)
         with self.assertRaisesRegex(ValueError, 'missing required embedded address'):
-            D.optimize(self.root, apply=True)
+            D.optimize(self.root, strict=True)
         self.assertEqual(source.read_bytes(), previous)
 
     def test_no_helper_or_non_generated_source_is_mangled(self):
