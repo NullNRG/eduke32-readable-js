@@ -161,7 +161,7 @@ def transform(source, file, root, catalog, *, strict=False):
     new = remaining[:marker_end] + ''.join(line + '\n' for line in imports) + remaining[marker_end:]
     if new == source or not new.startswith(MARKER):
         raise ValueError(f'{file}: invalid shared-helper rewrite')
-    return new, matched
+    return new, expected
 
 def optimize(root, *, apply=False, verify=False, strict=False, repo=REPO):
     root = root.resolve()
