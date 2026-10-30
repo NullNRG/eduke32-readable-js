@@ -55,7 +55,7 @@ class EmittedHelperSharingTest(unittest.TestCase):
         self.assertEqual(applied['modules_rewritten'], 2)
         self.assertEqual(untouched.read_bytes(), previous)
         self.assertNotIn('const cPointer =', first.read_text())
-        self.assertIn('import { cPointer', first.read_text())
+        self.assertRegex(first.read_text(), r'import \{ [^\n}]*cPointer[^\n}]* \} from')
         self.assertTrue((self.root / D.SHARED_DIR).is_dir())
         script = (f"const a=await import({json.dumps(first.as_uri())});\n"
                   f"const b=await import({json.dumps(second.as_uri())});\n"
@@ -88,7 +88,7 @@ class EmittedHelperSharingTest(unittest.TestCase):
         self.assertEqual(report['canonical_helper_kinds'], len(keys))
         self.assertEqual(len(report['canonical_implementations']), len(keys))
         code = p.read_text()
-        self.assertLess(code.index('import { cSourceAddresses'), code.index('import { cPointer'))
+        self.assertLess(code.index('address-'), code.index('pointer-'))
         subprocess.run(['node','--input-type=module','-e',
                         f'const m=await import({json.dumps(p.as_uri())});'
                         'if(m.shared()!=="source-lp64-addresses/2")throw new Error("ABI drift")'],
