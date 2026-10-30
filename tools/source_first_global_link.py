@@ -484,7 +484,7 @@ def write_link_checkpoint(out,units,initial_units,fingerprint,round_number):
                                             'verified':verified})
 
 
-def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budget=0,resume=False,persistent_ast_cache=False,compile_commands=None):
+def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budget=0,resume=False,persistent_ast_cache=False,compile_commands=None,share_emitted_helpers=False):
     report,units=gather_batches(directory)
     out.mkdir(parents=True,exist_ok=True)
     initial_units={src:{'manifest':unit['manifest'],'module':unit['module']}
@@ -700,6 +700,16 @@ def relink(directory,out,source_root,round_limit=8,timeout=65,jobs=2,retry_budge
         'full_catalog':'dependency-frontier.json',
         'verified_gameplay':False,
     }
+    if share_emitted_helpers:
+        # Original-source identity and linker checks run BEFORE generated-code sharing.
+        if invalid:
+            summary['emitted_helper_sharing']={'status':'skipped-invalid-source-modules'}
+        else:
+            from source_emitted_runtime_dedup import optimize
+            sharing=optimize(out,apply=True,verify=True)
+            summary['emitted_helper_sharing']={key:sharing[key] for key in
+                ('modules_rewritten','helper_occurrences_removed','estimated_net_bytes_saved')}
+            write_json(out/'source-emitted-helper-sharing.json',sharing)
     write_json(out/'global-recovery.json',summary)
     if ast_cache_owner is not None:ast_cache_owner.cleanup()
     return summary
@@ -718,9 +728,11 @@ def main():
                         help='max AST source retry jobs per link round; 0=all candidates')
     parser.add_argument('--jobs',type=int,choices=(1,2),default=2,
                         help='memory-bounded concurrent Clang AST retry workers')
+    parser.add_argument('--share-emitted-helpers',action='store_true',
+                        help='deduplicate exact source-emitted ABI helpers after verified linking')
     args=parser.parse_args()
     if args.retry_budget<0:parser.error('--retry-budget must be nonnegative')
-    summary=relink(args.directory.resolve(),args.out.resolve(),args.source_root.resolve(),args.rounds,args.timeout,args.jobs,args.retry_budget,args.resume,args.persistent_ast_cache,args.compile_commands)
+    summary=relink(args.directory.resolve(),args.out.resolve(),args.source_root.resolve(),args.rounds,args.timeout,args.jobs,args.retry_budget,args.resume,args.persistent_ast_cache,args.compile_commands,share_emitted_helpers=args.share_emitted_helpers)
     print(json.dumps({k:v for k,v in summary.items() if k not in ('remaining','recovery_attempts')},indent=2))
     return 2 if summary['invalid_imports_or_syntax'] else 0
 
