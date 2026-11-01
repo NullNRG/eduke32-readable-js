@@ -437,6 +437,91 @@
       "external_reference_imports": [],
       "external_storage_imports": [
         {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f4829d62b637a7e07f0c4164",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "struct mapinfo_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "numsectors": {
+                "offset": 0,
+                "native": "Int16Array",
+                "size": 2
+              },
+              "numwalls": {
+                "offset": 2,
+                "native": "Int16Array",
+                "size": 2
+              },
+              "sector": {
+                "offset": 8,
+                "pointer": true,
+                "size": 8
+              },
+              "wall": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": false
+          },
+          "name": "clipmapinfo",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e294f0cffcd2011dd0c1f90e",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "usectortype *",
+          "name": "loadsector",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_41e4fa070a0f95f448e441a0",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uspritetype *",
+          "name": "loadsprite",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e674a507ed0dfb7131f5a12a",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uwalltype *",
+          "name": "loadwall",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_82ff90ff2035d3a5d25a58f8",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uwalltype *",
+          "name": "loadwallinv",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6de88d0220636c0d278cf585",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int",
+          "name": "numclipmaps",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1962575eca7da77b7889e5f2",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int",
+          "name": "numclipsects",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
           "name": "numsectors",
           "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
           "abi": "source-global-cell/2",
@@ -447,13 +532,62 @@
           "binding": "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
           "abi": "source-global-cell/2",
           "original_type": "short"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0b512b0edb21b3d1c60abb62",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t[30720]",
+          "scalar_array": {
+            "array": "Int16Array",
+            "dims": [
+              30720
+            ]
+          },
+          "name": "pictoidx",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_766fd1e403d55ca6e080b2a8",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "name": "sectoidx",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ff100be733c4310d0190bb7",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "name": "sectq",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_37a3831bb27146574bdca01b",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "name": "tempictoidx",
+          "consumer_source": "source/build/src/clip.cpp"
         }
       ],
       "status": "source-first",
       "external_imports": [
+        "clipmapinfo",
+        "loadsector",
+        "loadsprite",
+        "loadwall",
+        "loadwallinv",
         "memset",
+        "numclipmaps",
+        "numclipsects",
         "numsectors",
-        "numwalls"
+        "numwalls",
+        "pictoidx",
+        "sectoidx",
+        "sectq",
+        "tempictoidx"
       ],
       "unresolved_references": []
     }
@@ -760,6 +894,202 @@
   ],
   "module_fragments": [
     {
+      "module": "source/build/src/_source_legacy_clip_cpp_06cfae3de65b.mjs",
+      "sha256": "06cfae3de65bd0a016c0fbba3daa5ea5ce2e60a622ed4a6ebd009250af022419",
+      "original_source": "source/build/src/clip.cpp",
+      "exports": [
+        "engineInitClipMaps"
+      ],
+      "reexports": [
+        "engineInitClipMaps"
+      ],
+      "imports": [
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "clipmapinfo",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f4829d62b637a7e07f0c4164",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "struct mapinfo_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "numsectors": {
+                "offset": 0,
+                "native": "Int16Array",
+                "size": 2
+              },
+              "numwalls": {
+                "offset": 2,
+                "native": "Int16Array",
+                "size": 2
+              },
+              "sector": {
+                "offset": 8,
+                "pointer": true,
+                "size": 8
+              },
+              "wall": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": false
+          },
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "loadsector",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e294f0cffcd2011dd0c1f90e",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "usectortype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "loadsprite",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_41e4fa070a0f95f448e441a0",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uspritetype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "loadwall",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e674a507ed0dfb7131f5a12a",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uwalltype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "loadwallinv",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_82ff90ff2035d3a5d25a58f8",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uwalltype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numclipmaps",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6de88d0220636c0d278cf585",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "numclipsects",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1962575eca7da77b7889e5f2",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "numsectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "numwalls",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "pictoidx",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0b512b0edb21b3d1c60abb62",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t[30720]",
+          "scalar_array": {
+            "array": "Int16Array",
+            "dims": [
+              30720
+            ]
+          },
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "sectoidx",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_766fd1e403d55ca6e080b2a8",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "sectq",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ff100be733c4310d0190bb7",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "tempictoidx",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_37a3831bb27146574bdca01b",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "consumer_source": "source/build/src/clip.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "317c9480a10baeaa264a7f3a0cc21c21e9a90cd064218779c781f52fe266dad9"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
       "module": "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs",
       "sha256": "fceaaafd351f21dbe7e4ae1c4e02f4458b18944d5a4cb4afa6713587e3a1ae73",
       "original_source": "source/build/src/clip.cpp",
@@ -807,6 +1137,200 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "12aba677aeb287669feb5ed15896aa0559696c87faf4403a19ec3adbe0a8b2e1"
+    },
+    {
+      "module": "source/build/src/_source_legacy_clip_cpp_61fd1e41b501.mjs",
+      "sha256": "61fd1e41b501f8f30ffc08e26fcefe737e2191fb1628573a60f3485b8431282c",
+      "original_source": "source/build/src/clip.cpp",
+      "exports": [
+        "engineInitClipMaps"
+      ],
+      "reexports": [
+        "engineInitClipMaps"
+      ],
+      "imports": [
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "clipmapinfo",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f4829d62b637a7e07f0c4164",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "struct mapinfo_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "numsectors": {
+                "offset": 0,
+                "native": "Int16Array",
+                "size": 2
+              },
+              "numwalls": {
+                "offset": 2,
+                "native": "Int16Array",
+                "size": 2
+              },
+              "sector": {
+                "offset": 8,
+                "pointer": true,
+                "size": 8
+              },
+              "wall": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": false
+          },
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "loadsector",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e294f0cffcd2011dd0c1f90e",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "usectortype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "loadsprite",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_41e4fa070a0f95f448e441a0",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uspritetype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "loadwall",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e674a507ed0dfb7131f5a12a",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uwalltype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "loadwallinv",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_82ff90ff2035d3a5d25a58f8",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "uwalltype *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numclipmaps",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6de88d0220636c0d278cf585",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "numclipsects",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1962575eca7da77b7889e5f2",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "numsectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "numwalls",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "pictoidx",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0b512b0edb21b3d1c60abb62",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t[30720]",
+          "scalar_array": {
+            "array": "Int16Array",
+            "dims": [
+              30720
+            ]
+          },
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "sectoidx",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_766fd1e403d55ca6e080b2a8",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "sectq",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ff100be733c4310d0190bb7",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "consumer_source": "source/build/src/clip.cpp"
+        },
+        {
+          "name": "tempictoidx",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_37a3831bb27146574bdca01b",
+          "owner_source": "source/build/src/clip.cpp",
+          "original_type": "int16_t *",
+          "consumer_source": "source/build/src/clip.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "f70a69f5a57815df5d7a97d1f251202c88d09dca2e6d6d0960a6fe89486d21da"
     }
   ]
 }

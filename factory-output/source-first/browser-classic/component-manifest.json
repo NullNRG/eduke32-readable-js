@@ -7,7 +7,7 @@
     "files": 790
   },
   "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
-  "compiler_frontend_sha256": "490093821c3022ddd1b10434c2555ca23500542b3baf482bd4d77b3dc098780e",
+  "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
   "runtime_and_lowering_helpers": {
     "runtime/abi.mjs": "37baa3ea755d4cf31c476c81092a50a4695d91adab3e82422ff4feb42e08599e",
     "runtime/browser_loguru.mjs": "51b7dbde961211550734116f7c02e10555a429780bdfd90ad9480a2642e35d88",
@@ -51,7 +51,7 @@
     "runtime/sdl_wasm_services.mjs": "a34a059e94f02e856c28bed545e6c058d395f285b154233d6961e16dc892a08d",
     "runtime/source_bytes.mjs": "e63b23e9ad8273ec1ab966b2d3b264bf0d8df1e21280735aaaa03323022a1425",
     "runtime/source_memory.mjs": "c1641705e888d6e86c209cb543b18dafd7d1d74769ad4e90e7d97230b4f7565f",
-    "runtime/stdlib.mjs": "ed2b0714a423b3a57b277bcbc25db79817b5e329e9b57d80851f3381abbdfa88",
+    "runtime/stdlib.mjs": "4e7cf4cfd1bd29ca12646d5c1a2f33c808fb6bbdabb8e94f0a51c1841c77b4d4",
     "runtime/xxhash_source.mjs": "64fb68029eea82d4795fc0c108dc83720a4e3a469912460c74ed30d4963d2039",
     "tools/source_address_runtime.mjs": "fff8369298b45372bd0369bbcd718e5e492cf9ecb58f8f6842da8bb60b822664",
     "tools/source_aggregate_assignment_runtime.mjs": "e979b052f086e9b32fa6b6e3a1152b4342bf7bf626c4c51e079e497adcf9c84b",
@@ -69,7 +69,7 @@
     "tools/source_ast_cache_paths.py": "b82ed86d6db6cb6ed4256bb8191f8c82761b8efa0853a897d799abe59214aed0",
     "tools/source_ast_events.py": "0cccf7a3e951942d87dd4302679f060e06c068a47c3f37c9f9f1c8b665ae6c19",
     "tools/source_ast_stream.py": "4c32fba039a18f6483075bbe06afacdecb774198ce7db97252da002a3dc632e8",
-    "tools/source_ast_to_js.py": "490093821c3022ddd1b10434c2555ca23500542b3baf482bd4d77b3dc098780e",
+    "tools/source_ast_to_js.py": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
     "tools/source_byte_records.py": "7431481c42dfa35498da81625adfdbe38fac133691534c4522486c49911a2115",
     "tools/source_c_allocators.py": "84a4f1a6f1ab153a27aa58f66cd16c214253fa99f3122e47f6b7c61c14da7791",
     "tools/source_c_function_bindings.py": "5020c4192ccbb4a4751dbb7578b8c876ef82838707169cd9e0269504641498c6",
@@ -102,7 +102,7 @@
     "tools/source_first_toolchain.py": "eda2ee0812b56e176effc4fe488918875753e286e90b2b07c0e4c4a5ca9b7a1e",
     "tools/source_fragment_storage.py": "65527ac301656b9eeb65437540131e3410364956329dbff5e7e90844e0280209",
     "tools/source_header_definitions.py": "995ada113485ec0fbf8841d9db7a30b26bfbd464fab4478dfefae0ea767d9b40",
-    "tools/source_header_records.py": "4a98f7826f76bb70da9f1c964c39128031e5193ca199e6e519bca8e806b621fd",
+    "tools/source_header_records.py": "39491a1e10bd1cf5bc6d6826203a7e662861ba8b0009897ca54e50e97bf5596e",
     "tools/source_historical_checkpoint.py": "02ecf36c3b49a88739baa488e4e2c684ca20890e310215ff585cc6fb600e55ba",
     "tools/source_private_record_schema.py": "915ab9172bf433b0d79107d5d1c45219e2b8f30f0dcedd6b44a651ced56306d1",
     "tools/source_record_init_recovery.py": "aeda6efde28c983d4790121aef8d69133151232e7dbb9ef2c29b62bef3869d87",
@@ -350,55 +350,6 @@
   },
   "storage_ownership_conflicts": [
     {
-      "source": "source/build/src/clip.cpp",
-      "duplicate_storage": {
-        "clipmapinfo": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "numclipmaps": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "numclipsects": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "sectoidx": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "sectq": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "pictoidx": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "tempictoidx": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "loadsector": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "loadwall": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "loadwallinv": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ],
-        "loadsprite": [
-          "source/build/src/clip.cpp.mjs",
-          "source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs"
-        ]
-      }
-    },
-    {
       "source": "source/build/src/engine.cpp",
       "duplicate_storage": {
         "pow2char__header_global_712730224f5e2862": [
@@ -494,6 +445,8 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_a3c80f3ff5ac.mjs": "a3c80f3ff5ac6fa22fedf3d59c618b2060756ec1ffd4d62bfe2b6b62300841af",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_e8d3457f94a7.mjs": "e8d3457f94a7d310d5f08fe6ea7557454bcb534488337575cc862f03bc09534f",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_f6516d492fe8.mjs": "f6516d492fe8436ff00d1c57733e128a4cbdb3d740b723e6748e743b047ef1f5",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_06cfae3de65b.mjs": "06cfae3de65bd0a016c0fbba3daa5ea5ce2e60a622ed4a6ebd009250af022419",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_61fd1e41b501.mjs": "61fd1e41b501f8f30ffc08e26fcefe737e2191fb1628573a60f3485b8431282c",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs": "fceaaafd351f21dbe7e4ae1c4e02f4458b18944d5a4cb4afa6713587e3a1ae73",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a4d1d4a355bb.mjs": "a4d1d4a355bb61a403de7ec85c8fcd12ca5f7686f4723d6d27128d2e2d34429e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a7a030d3c6b8.mjs": "a7a030d3c6b8d742580152bdc3bfe852090c465d27569e80a5ec113743f7e899",
@@ -524,8 +477,8 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/a-c.cpp.mjs": "d5c1d5f5451145c1fb8022dac4681d400f5c467b51bb3aca142ad11f3bb2f32d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/baselayer.cpp.manifest.json": "97c3219fd05e25ce97d980f5bae277de26995d881c7b53ae22fd756bb600fad1",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/baselayer.cpp.mjs": "0fa401c30e340436d0dc2453b45bf236815986b13650ca141ddbc71dd469f09a",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.manifest.json": "a6455cd72bab57b7d92e3a4865779f000de24bd6d3113ff415f47a129b0af20a",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.mjs": "2e643fc9e6184003c01142dbebde2ef6f64c266fbb02f51abe635ae7b8ba0040",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.manifest.json": "79b331c2b0cff81642b88f5ce553255fcd294620ddb268498df0e2733b9d1da3",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.mjs": "bb5e2be018ee18553f32dd2289afce507cb4d81f8b8a2f4826524cff14c0cd3c",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.manifest.json": "5470178c74d7a7d0385601fee4b8223d21f29c3603c606bea35536262bf712da",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "aa38692e9e73bd8994f8de6f941f1a576781208226ae5899a276ddc3ca1d466e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.manifest.json": "97929501feed93ec6971ccf7087708296d579c9d9f40ae080e77a14c9bca3fbf",
@@ -609,7 +562,7 @@
     "runtime/sdl_wasm_services.mjs": "a34a059e94f02e856c28bed545e6c058d395f285b154233d6961e16dc892a08d",
     "runtime/source_bytes.mjs": "e63b23e9ad8273ec1ab966b2d3b264bf0d8df1e21280735aaaa03323022a1425",
     "runtime/source_memory.mjs": "c1641705e888d6e86c209cb543b18dafd7d1d74769ad4e90e7d97230b4f7565f",
-    "runtime/stdlib.mjs": "ed2b0714a423b3a57b277bcbc25db79817b5e329e9b57d80851f3381abbdfa88",
+    "runtime/stdlib.mjs": "4e7cf4cfd1bd29ca12646d5c1a2f33c808fb6bbdabb8e94f0a51c1841c77b4d4",
     "runtime/xxhash_source.mjs": "64fb68029eea82d4795fc0c108dc83720a4e3a469912460c74ed30d4963d2039",
     "tools/source_address_runtime.mjs": "fff8369298b45372bd0369bbcd718e5e492cf9ecb58f8f6842da8bb60b822664"
   },

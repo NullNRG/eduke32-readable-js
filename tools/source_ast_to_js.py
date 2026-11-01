@@ -1381,6 +1381,16 @@ class Emit:
                     address=getattr(self,'global_address_cells',{}).get(identity)
                     if address:
                         if identity in self.external_global_cells:self.used_global_cells.add(address['name'])
+                        # &array and &record address the aggregate's actual
+                        # bytes. A scalar/pointer variable's address remains
+                        # its lvalue slot; unwrapping that slot would confuse
+                        # char** with the char* allocation stored inside it.
+                        shape=aggregate_type_schema(qual(node),self.global_storage_records,
+                            self.type_aliases,self.record_layouts,allow_pointer_storage=True,
+                            enum_types=self.enum_types)
+                        if shape and ('byteRecord' in shape or 'pointerArray' in shape or
+                                'array' in shape and len(shape.get('dims',[]))==1):
+                            return self.expr(node)
                         return address['binding']+'()'
                     declaration=node.get('referencedDecl',{})
                     if (declaration.get('kind')=='VarDecl' and
@@ -4508,7 +4518,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     previous_class_prototypes=set()
     for n in candidates:
         key=(kind(n),n.get('name'),n.get('loc',{}).get('offset'),qual(n),
-             template_arguments_key(n) if id(n) in header_templates else None)
+             template_arguments_key(n) if id(n) in header_templates or
+                kind(n)=='FunctionDecl' and any(kind(arg)=='TemplateArgument' for arg in kids(n)) else None)
         if key not in seen:unique.append(n);seen.add(key)
     # Type/layout closure can introduce a complete TU after the initial name
     # filter. Its declarations remain useful evidence, but an extension must
@@ -4781,6 +4792,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         symbol=symbols.get(id(n))
         row={'name':symbol or name,'source_name':n.get('_source_record_name',name),'kind':kind(n),
              'line':n.get('loc',{}).get('line'),'original_type':qual(n)}
+        if kind(n)=='FunctionDecl' and any(kind(arg)=='TemplateArgument' for arg in kids(n)):
+            row['clang_template_mangled_name']=n.get('mangledName')
         if n.get('_source_static_member'):
             row['source_name']=n['_source_static_member']['name']
             row['original_static_member']=n['_source_static_member']

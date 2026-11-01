@@ -36,10 +36,11 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
     if(count<0n||count>0xffffffffffffffffn)throw RangeError('Invalid LP64 allocation size_t');
     return count;
   };
-  const allocate=(size,pointer=null)=>{
+  const allocate=(size,pointer,resize=false)=>{
+    const address=resize?sourceHeapAddress(pointer,heap):null;
     const count=allocationCount(size);
     if(count>BigInt(heap.maxBytes)){heap.write(errnoLocation(),'i32',12);return 0;}
-    try{return pointer===null?heap.malloc(Number(count)):heap.realloc(sourceHeapAddress(pointer,heap),Number(count));}
+    try{return resize?heap.realloc(address,Number(count)):heap.malloc(Number(count));}
     catch(error){
       if(error instanceof RangeError&&error.message==='C heap capacity exceeded'){
         heap.write(errnoLocation(),'i32',12);return 0;
@@ -106,7 +107,7 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
     },
     // Source C++ nullptr lowers to null; the numeric host heap represents it
     // as address zero. Undefined and invalid non-null pointers still fail.
-    realloc: (ptr, size) => allocate(size,ptr),
+    realloc: (ptr, size) => allocate(size,ptr,true),
     free: ptr => heap.free(sourceHeapAddress(ptr,heap)),
     memcpy: (dst, src, n) => heap.memcpy(dst, src, n),
     memmove: (dst, src, n) => heap.memmove(dst, src, n),

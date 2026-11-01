@@ -31,10 +31,14 @@ def selected(root,public=False):
     for relative in roots:
         folder=package_tool.safe_path(root,relative)
         for path in folder.rglob('*'):
-            if any(part in ('boot-probes','byte-debug','owner-history') for part in path.relative_to(folder).parts):continue
+            if any(part in ('boot-probes','byte-debug','owner-history','owner-rebuilds') for part in path.relative_to(folder).parts):continue
             if path.suffix in ('.mjs','.json','.csv','.md','.wasm','.symbols') and path.is_file() and path.stat().st_size<80_000_000:add(path)
     # Retain any actual source imports outside these roots, not every obsolete
     # build epoch. Every imported module stays under the canonical project.
+    # Owner recompilation leaves immutable historical fragments on disk.
+    # Retain only fragments referenced by actual current facades/providers.
+    legacy={p for p in chosen if p.name.startswith('_source_legacy_') and p.suffix=='.mjs'}
+    chosen.difference_update(legacy)
     pending=[p for p in chosen if p.suffix=='.mjs' and
         (p.is_relative_to(root/'runtime') or p.is_relative_to(root/'factory-output/source-first'))];seen=set()
     pattern=re.compile(r'(?m)^\s*(?:import|export)\b[^;\n]*?\bfrom\s*[\'\"](\.{1,2}/[^\'\"]+)[\'\"]')

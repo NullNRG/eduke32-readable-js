@@ -54,5 +54,5 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
         extracted_browser_component_passed=True,browser_version=proof['browser_version'],
         trace=proof['trace'],startup_verifier_expected_failure_preserved=True,
         archive_sha256=hashlib.file_digest(archive.open('rb'),'sha256').hexdigest())
-(ROOT/'reports/oct31-continuation-extraction-proof.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/'reports/nov01-continuation-extraction-proof.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

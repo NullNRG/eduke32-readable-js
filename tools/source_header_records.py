@@ -4,6 +4,43 @@ from functools import lru_cache
 import json
 from pathlib import Path
 import re
+_ATTRIBUTE_PREFIX=re.compile(rb'(?:__attribute__|__attribute|__declspec|alignas)\s*\(')
+_RECORD_IDENTIFIER=re.compile(rb'[A-Za-z_]\w*')
+
+def _record_name_after(data,position):
+    """Find the name token after a record keyword and native attributes.
+
+    Attributes prove no layout here. Target Clang still supplies every size,
+    offset and C++ trait; this only joins repeated physical declarations.
+    """
+    while True:
+        while position<len(data) and data[position:position+1] in b' \t\r\n':position+=1
+        attribute=_ATTRIBUTE_PREFIX.match(data,position)
+        if attribute:
+            cursor=attribute.end()-1;depth=0;quote=None
+            while cursor<len(data):
+                ch=data[cursor]
+                if quote is not None:
+                    if ch==92:cursor+=2;continue
+                    if ch==quote:quote=None
+                elif ch in (34,39):quote=ch
+                elif ch==40:depth+=1
+                elif ch==41:
+                    depth-=1
+                    if depth==0:break
+                cursor+=1
+            if depth or quote is not None:return None
+            position=cursor+1;continue
+        if data[position:position+2]==b'[[':
+            end=data.find(b']]',position+2)
+            if end<0:return None
+            position=end+2;continue
+        return position if _RECORD_IDENTIFIER.match(data,position) else None
+
+def _record_name_origin(data,offset):
+    start=max(0,offset-2048)
+    return any(_record_name_after(data,start+match.end())==offset for match in
+        re.finditer(rb'\b(?:struct|class|union)\b',data[start:offset]))
 
 def walk(node):
     yield node
@@ -109,17 +146,16 @@ def _source_header_index(root_string):
     """
     root=Path(root_string)
     index={}
-    pattern=re.compile(rb'(?:struct|class|union)\s*([A-Za-z_]\w*)')
+    pattern=re.compile(rb'\b(?:struct|class|union)\b')
     for path in sorted(root.rglob('*')):
         if not path.is_file() or path.suffix.lower() not in ('.h','.hpp','.hh','.hxx'):
             continue
         data=path.read_bytes()
         for found in pattern.finditer(data):
-            offset=found.start(1)
-            # Preserve the original 32-byte-before-offset proof restriction.
-            if not re.search(rb'(?:struct|class|union)\s*$',data[max(0,offset-32):offset]):
-                continue
-            key=(offset,found.group(1))
+            offset=_record_name_after(data,found.end())
+            if offset is None:continue
+            name=_RECORD_IDENTIFIER.match(data,offset)[0]
+            key=(offset,name)
             index.setdefault(key,[]).append((path,data))
     return index
 
@@ -143,7 +179,7 @@ def header_proof(node,source_root,record_layout=None):
     for path,data in pairs:
         if path.suffix.lower() not in ('.h','.hpp','.hh','.hxx'):continue
         if data[offset:offset+len(name)]!=name.encode():continue
-        if not re.search(rb'(?:struct|class|union)\s*$',data[max(0,offset-32):offset]):continue
+        if not _record_name_origin(data,offset):continue
         matches.append((path,data))
         if len(matches)>1:return None
     if len(matches)!=1:return None

@@ -22,17 +22,17 @@ int exercise(int n){int (*f)(int)=&First::same;return f(n)+Second::same(n)+Local
 int unavailable(int n){return Missing::same(n);}
 int ambiguous(int n){return Overloaded::same(n);}
 ''')
-    (root/'main.cpp').write_text('#include "types.h"\n#include <cstdio>\nint exercise(int); int Missing::same(int n){return n;} int main(){for(int n=0;n<256;n++)printf("%d\\n",exercise(n));}')
+    (root/'main.cpp').write_text('#include "types.h"\n#include <cstdio>\nint exercise(int);int ambiguous(int); int Missing::same(int n){return n;} int main(){for(int n=0;n<256;n++)printf("%d,%d\\n",exercise(n),ambiguous(n));}')
     native=root/('native.exe' if os.name=='nt' else 'native')
     run(['clang++','unit.cpp','main.cpp','-o',str(native)],root)
     expected=run([str(native)],root).splitlines()
     out=root/'out'
     run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(root),'--source','unit.cpp','--out-dir',str(out),'--header-dependency-closure'],ROOT)
     rows={r['name']:r for r in json.loads((out/'unit.cpp.manifest.json').read_text())['definitions']}
-    for name in ('initial','exercise'):assert rows[name]['status']=='source-first',rows[name]
-    for name in ('unavailable','ambiguous'):assert rows[name]['status']=='blocked',rows[name]
+    for name in ('initial','exercise','ambiguous'):assert rows[name]['status']=='source-first',rows[name]
+    assert rows['unavailable']['status']=='blocked',rows['unavailable']
     assert {'First','Second'}<=set(rows['exercise']['source_references']),rows['exercise']
-    evaluate='async url=>{const m=await import(url);return Array.from({length:256},(_,i)=>String(m.exercise(i)));}'
+    evaluate='async url=>{const m=await import(url);return Array.from({length:256},(_,i)=>`${m.exercise(i)},${m.ambiguous(i)}`);}'
     (root/'run.mjs').write_text('console.log((await ('+evaluate+')('+json.dumps((out/'unit.cpp.mjs').as_uri())+')).join("\\n"));')
     assert run(['node',str(root/'run.mjs')],ROOT).splitlines()==expected
     (root/'fixture.html').write_text('<!doctype html><title>Static class methods</title>')
@@ -50,6 +50,6 @@ int ambiguous(int n){return Overloaded::same(n);}
             version=browser.version;browser.close()
     finally:server.shutdown();server.server_close();thread.join()
     report={'passed':True,'native_node_values':256,'native_chromium_values':256,'browser_version':version,
-        'checks':['Same method name in distinct classes','Static method function address','Header factory returning original record','Transitive static class dependency','Local class static method','Unimplemented and overloaded methods remain blocked'],'gameplay_verified':False}
+        'checks':['Same method name in distinct classes','Static method function address','Header factory returning original record','Transitive static class dependency','Local class static method','Unimplemented methods remain blocked','Overloaded static methods preserve the native Clang selection'],'gameplay_verified':False}
     (ROOT/'reports/oct21-static-methods.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))

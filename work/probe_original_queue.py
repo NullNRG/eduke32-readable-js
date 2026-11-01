@@ -1,5 +1,5 @@
 """Native differential probe for original CircularQueue, using current services."""
-import json,os,subprocess,sys,tempfile
+import functools,hashlib,http.server,json,os,subprocess,sys,tempfile,threading
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];PROFILE=json.loads((ROOT/'tools/browser_classic_profile.json').read_text())
 SOURCE=ROOT/PROFILE['prepared_source_root'];MODULES=ROOT/PROFILE['boot_module_root']
@@ -35,4 +35,34 @@ const release=(await import(base+'/browser-abi/libc_provider.mjs')).bindBrowserC
 (await import(base+'/source/build/src/baselayer.cpp.mjs')).engineSetupAllocator();
 const m=await import('''+json.dumps(module.as_uri())+''');try{for(let n=-128;n<128;n++)console.log(m.exercise(n));}finally{release();r.close();}''')
     actual=run(['node',driver]).splitlines();assert actual==expected,next(((i,a,b)for i,(a,b)in enumerate(zip(actual,expected))if a!=b),None)
-    print('PASS 256 original CircularQueue native/Node comparisons')
+    class Quiet(http.server.SimpleHTTPRequestHandler):
+        extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript'}
+        def log_message(self,*args):pass
+    class Server(http.server.HTTPServer):request_queue_size=128
+    server=Server(('127.0.0.1',0),functools.partial(Quiet,directory=str(ROOT)))
+    threading.Thread(target=server.serve_forever,daemon=True).start()
+    html=root/'probe.html';html.write_text('<!doctype html><title>Original source queue parity diagnostic</title><link rel="icon" href="data:,">')
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as pw:
+            browser=pw.chromium.launch(executable_path=os.environ['EDUKE_CHROMIUM_EXECUTABLE'],headless=True)
+            page=browser.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            base='http://127.0.0.1:'+str(server.server_port)
+            page.goto(base+'/'+html.relative_to(ROOT).as_posix())
+            got=page.evaluate('''async ({code,origin,base})=>{
+              const rows=[],previous=console.log;
+              const url=URL.createObjectURL(new Blob([code.replaceAll(origin,base)],{type:'text/javascript'}));
+              console.log=(...values)=>rows.push(values.join(' '));
+              try{await import(url);return rows;}finally{console.log=previous;URL.revokeObjectURL(url);}
+            }''',{'code':driver.read_text(),'origin':ROOT.as_uri(),'base':base})
+            assert got==expected and not errors,(got[:5],expected[:5],errors)
+            version=browser.version;browser.close()
+    finally:server.shutdown();server.server_close()
+    report={'format':'original-circular-queue-native-parity/1','passed':True,
+        'native_node_chromium_cases':256,'browser_version':version,'page_errors':errors,
+        'header':'source/build/include/lru.h','header_sha256':hashlib.sha256((SOURCE/'source/build/include/lru.h').read_bytes()).hexdigest(),
+        'fixture_sha256':hashlib.sha256(cpp.read_bytes()).hexdigest(),
+        'compiler_frontend_sha256':hashlib.sha256((ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest(),
+        'console_initialization_verified':False,'gameplay_verified':False}
+    (ROOT/'reports/nov01-original-queue-parity.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps(report,indent=2))
