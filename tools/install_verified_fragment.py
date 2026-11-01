@@ -70,7 +70,7 @@ def main():
         provider=target/(dep['from']+'.mjs');binding=dep.get('binding',dep['name'])
         if not provider.resolve().is_relative_to(target) or binding not in active_exports(provider):
             raise ValueError('Missing fragment provider '+binding)
-        if dep.get('native_pointer_abi') or dep.get('binding') or dep.get('abi') in ('source-pointer-array/1','source-byte-record-array/1'):
+        if dep.get('native_pointer_abi') or dep.get('binding') or dep.get('abi') in ('source-pointer-array/1','source-byte-record-array/1','source-native-array/1'):
             doc=json.loads(provider.with_suffix('.manifest.json').read_text())
             error=storage_import_error(dep,{dep['from']:{'manifest':doc,'module':provider}})
             if error:raise ValueError('Fragment storage ABI rejected: '+error)

@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-01T15:51:33.793376+00:00",
+  "updated_utc": "2026-11-01T23:43:55.524001+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
+  "compiler_frontend_sha256": "1fe10fb26c62e7c53de650992797d82e2cd49579bc23a9803470d9b815de0ca6",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -137,20 +137,20 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/nov01-integration-full-regression.json",
-    "complete": true,
+    "report": "reports/nov01-vfs-corrected-full-regression.json",
+    "complete": false,
     "counts": {
-      "passed": 199,
+      "passed": 24,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 199,
-    "completed_tests": 199,
-    "all_passed": true,
-    "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
-    "revision_matches_current_inputs": true,
+    "selected_tests": 207,
+    "completed_tests": 24,
+    "all_passed": false,
+    "regression_inputs_unchanged": null,
+    "compiler_frontend_sha256": "1fe10fb26c62e7c53de650992797d82e2cd49579bc23a9803470d9b815de0ca6",
+    "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
   "original_allocator": {
@@ -205,41 +205,101 @@
       "OSD_RegisterFunction",
       "OSD_Puts"
     ],
-    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\b384b6c7e113\\source\\build\\src\\osd.cpp.manifest.json",
+    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\c0da9606d3d8\\source\\build\\src\\osd.cpp.manifest.json",
     "blocked": [
       {
         "name": "OSD_RegisterCvar",
-        "reason": "record pointer member requires original byte layout: osdmain_t",
-        "dependencies": []
-      },
-      {
-        "name": "OSD_Init",
-        "reason": "record pointer member requires original byte layout: osdmain_t",
-        "dependencies": []
-      },
-      {
-        "name": "OSD_Puts",
-        "reason": "record pointer member requires original byte layout: osdmain_t",
-        "dependencies": []
-      },
-      {
-        "name": "OSD_RegisterFunction",
-        "reason": "unlinked identifiers: OSD_Init, osd_addsymbol, osd_findexactsymbol",
+        "reason": "unlinked identifiers: OSD_Init, OSD_RegisterFunction",
         "dependencies": [
           "OSD_Init",
-          "osd_addsymbol",
-          "osd_findexactsymbol"
+          "OSD_RegisterFunction"
         ]
       },
       {
-        "name": "osd_addsymbol",
-        "reason": "record pointer member requires original byte layout: osdmain_t",
+        "name": "OSD_Exec",
+        "reason": "unlinked identifiers: OSD_Dispatch",
+        "dependencies": [
+          "OSD_Dispatch"
+        ]
+      },
+      {
+        "name": "osdfunc_exec",
+        "reason": "unlinked identifiers: OSD_Exec",
+        "dependencies": [
+          "OSD_Exec"
+        ]
+      },
+      {
+        "name": "osdfunc_fileinfo",
+        "reason": "unlinked identifiers: OSD_Printf",
+        "dependencies": [
+          "OSD_Printf"
+        ]
+      },
+      {
+        "name": "osdfunc_alias",
+        "reason": "unlinked identifiers: OSD_RegisterFunction",
+        "dependencies": [
+          "OSD_RegisterFunction"
+        ]
+      },
+      {
+        "name": "osdfunc_listsymbols",
+        "reason": "unlinked identifiers: OSD_Printf",
+        "dependencies": [
+          "OSD_Printf"
+        ]
+      },
+      {
+        "name": "osdfunc_help",
+        "reason": "unlinked identifiers: OSD_Printf",
+        "dependencies": [
+          "OSD_Printf"
+        ]
+      },
+      {
+        "name": "osdfunc_history",
+        "reason": "unlinked identifiers: OSD_Printf",
+        "dependencies": [
+          "OSD_Printf"
+        ]
+      },
+      {
+        "name": "OSD_Init",
+        "reason": "unlinked identifiers: osdfunc_exec, osdfunc_fileinfo, osdfunc_help, osdfunc_history, osdfunc_listsymbols",
+        "dependencies": [
+          "osdfunc_exec",
+          "osdfunc_fileinfo",
+          "osdfunc_help",
+          "osdfunc_history",
+          "osdfunc_listsymbols"
+        ]
+      },
+      {
+        "name": "OSD_Printf",
+        "reason": "unlinked identifiers: OSD_Puts",
+        "dependencies": [
+          "OSD_Puts"
+        ]
+      },
+      {
+        "name": "OSD_Puts",
+        "reason": "nontrivial byte-view method requires original class prototype: __cxx_record_AtomicSList64_3dd2cc0244e476fc::push",
         "dependencies": []
       },
       {
-        "name": "osd_findexactsymbol",
-        "reason": "record pointer member requires original byte layout: osdmain_t",
-        "dependencies": []
+        "name": "OSD_Dispatch",
+        "reason": "unlinked identifiers: OSD_Printf",
+        "dependencies": [
+          "OSD_Printf"
+        ]
+      },
+      {
+        "name": "OSD_RegisterFunction",
+        "reason": "unlinked identifiers: OSD_Init",
+        "dependencies": [
+          "OSD_Init"
+        ]
       },
       {
         "name": "AtomicLogString",
@@ -261,7 +321,6 @@
     "immediate_shared_blocker": "Original osdmain_t byte storage contains AtomicSList64/std::atomic; inherited storage and atomic class methods remain incomplete. Original CircularQueue destruction now has source-proven template recovery.",
     "additional_dependencies": [
       "original console registration and callbacks",
-      "original file access",
       "logging",
       "remaining engine services"
     ]
@@ -269,7 +328,7 @@
   "startup_component_build": {
     "source_units_with_partial_modules": 22,
     "selected_source_units": 111,
-    "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
+    "compiler_frontend_sha256": "1fe10fb26c62e7c53de650992797d82e2cd49579bc23a9803470d9b815de0ca6",
     "whole_selected_program_compiled_under_current_revision": false,
     "entry_exports": {
       "enginePreInit": false,
@@ -280,7 +339,7 @@
     "original_engine_startup_verified": false,
     "manifest": "factory-output/source-first/browser-classic/component-manifest.json",
     "invalid_import_count": 0,
-    "ambiguous_export_group_count": 56,
+    "ambiguous_export_group_count": 57,
     "original_storage_ownership_verified": false,
     "storage_ownership_conflicts": [
       {
@@ -440,7 +499,7 @@
     "gameplay_verified": false
   },
   "remaining_acceptance_failures": [
-    "Original console C++ object storage/lifetime, registration, logging and file-access closure",
+    "Original console C++ object storage/lifetime, registration and logging closure",
     "Remaining actual duplicate source storage in legacy fragments",
     "Current uniform selected-unit emission and verified fixed-point global linkage",
     "Original app_main and enginePreInit execution",
@@ -458,6 +517,7 @@
     "npm run compile:game"
   ],
   "subsystem_verification_commands": [
+    "python work/verify_original_vfs.py",
     "python tests/source_factory/verify_original_xxh32_component.py",
     "python work/verify_original_softsurface.py",
     "python work/verify_original_clip_component.py",
@@ -478,10 +538,21 @@
     "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
   },
   "latest_targeted_regression": {
-    "report": "reports/nov01-aggregate-address-regression.json",
-    "passed": 9,
+    "report": "reports/nov01-archive-compiler-regression.json",
     "complete": true,
-    "frozen_inputs": true
+    "counts": {
+      "passed": 16,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "selected_tests": 16,
+    "completed_tests": 16,
+    "all_passed": true,
+    "regression_inputs_unchanged": true,
+    "compiler_frontend_sha256": "d6e13ee34c4ba8dc835146b7831e4a4fd9bfcef0a4dcde7982798d0d2243225d",
+    "revision_matches_current_inputs": false,
+    "note": "Earlier focused 16-test pass; subsequent fixes and current complete regression are recorded separately."
   },
   "source_header_definitions": {
     "contract": "factory-output/browser-classic/compile_commands.header-definitions.json",
@@ -532,5 +603,32 @@
     "template_record_native_node_cases": 1024,
     "source_storage_audit": "tools/source_fragment_storage.py",
     "source_storage_policy": "Actual hidden fragment VarDecls are audited, independently of selected re-exports. Known legacy conflicts are not verified source ownership."
+  },
+  "original_resource_io": {
+    "report": "reports/nov01-original-vfs-parity.json",
+    "passed": true,
+    "native_node_chromium_match": true,
+    "archive_length": 44356548,
+    "directory_entries": 456,
+    "original_directory_bytes_verified": 7756,
+    "native_parity_sample_bytes": 2176,
+    "original_grp_index_executed": true,
+    "original_engine_startup_verified": false,
+    "gameplay_verified": false,
+    "resource_names": [
+      "E1L1.MAP",
+      "PALETTE.DAT",
+      "GAME.CON",
+      "TILES000.ART"
+    ],
+    "raw_archive_only_mounted": true,
+    "game_state_prepopulated": false
+  },
+  "prior_frozen_full_regression": {
+    "report": "reports/nov01-integration-full-regression.json",
+    "passed": 199,
+    "complete": true,
+    "frozen_inputs": true,
+    "revision_matches_current_inputs": false
   }
 }

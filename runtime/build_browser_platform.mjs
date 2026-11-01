@@ -98,6 +98,7 @@ export function createBuildBrowserPlatform({ heap, symbols, fs, homeDirectory = 
   // original dot/dotdot/trailing-slash behavior are preserved. This routine
   // edits the ORIGINAL caller's buffer; it is not a no-op linker symbol.
   const Bcorrectfilename=(filename,removefn) => {
+    filename=sourceByteView(filename)??filename;
     let original, commit;
     if(filename instanceof Uint8Array){
       const n=filename.indexOf(0);
@@ -151,6 +152,7 @@ export function createBuildBrowserPlatform({ heap, symbols, fs, homeDirectory = 
       throw new RangeError('Invalid original Bstrncpyz length');
     if(!length)return dst;
     const view=(value,need,writable)=>{
+      value=sourceByteView(value)??value;
       if(value instanceof Uint8Array){
         if(need>value.length)throw new RangeError('Bstrncpyz buffer extent is too short');
         return value;

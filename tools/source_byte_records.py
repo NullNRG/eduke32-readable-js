@@ -3,8 +3,10 @@
 No offset is computed here: every subobject offset and total extent must be
 present in the same target's Clang record-layout dump. Borrowed pointer slots
 retain identity in the checked LP64 representation. Reference,
-inheritance, and nontrivial-lifetime C++ records remain unsupported. C records
-have no constructors or destructors; their fields still need exact Clang layouts.
+inheritance, and nontrivial-lifetime C++ value operations remain unsupported.
+Separate field-only projections can borrow existing nontrivial standard-layout
+objects; they never authorize construction, assignment, copying or destruction.
+C records have no constructors or destructors; fields still need Clang layouts.
 """
 import re
 from pathlib import Path
@@ -37,7 +39,12 @@ def cpp_layout_type(spelling):
     this equivalence for old-style C function declarations. No parameter or
     return type, calling convention, pointer layer or qualifier is inferred.
     """
-    return re.sub(r'\(\s*void\s*\)', '()', clean_type(spelling))
+    spelling=clean_type(spelling)
+    # Layout dumps retain elaborated tags inside template arguments while
+    # the C++ AST omits them. These are the same C++ type spelling; preserve
+    # all namespace, specialization arguments and pointer/reference layers.
+    spelling=re.sub(r'([<,]\s*)(?:struct|class|union|enum)\s+',r'\1',spelling)
+    return re.sub(r'\(\s*void\s*\)', '()', spelling)
 
 
 def anonymous_location(spelling):
@@ -138,7 +145,7 @@ def owned_anonymous_record_members(node,source_root=None):
     return result
 
 
-def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases=None):
+def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases=None, *, storage_views=False, source_rel=None):
     """Return records and exact anonymous FieldDecl-ID -> JS-property bindings.
 
     Spellings are accepted only when they identify one physical declaration.
@@ -279,6 +286,12 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         for identity,record in records.items():
             name=record.get('_source_template_name') or record.get('name')
             loc=record.get('loc',{});offset=loc.get('offset');filename=loc.get('file')
+            # Clang elides the primary input's filename between declarations.
+            # A header retains includedFrom. The caller's exact primary input
+            # plus the original name token proves this source-owned location;
+            # never search other files for a similar record.
+            if not filename and not loc.get('includedFrom') and source_rel:
+                filename=source_rel
             if not name or not isinstance(offset,int) or not filename:continue
             path=Path(filename);path=(path if path.is_absolute() else source/path).resolve()
             if not path.is_relative_to(source) or not path.is_file():continue
@@ -347,6 +360,9 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
     }
     active = set()
     cached = {}
+    normalized_layouts={}
+    for name,layout in layouts.items():
+        normalized_layouts.setdefault(cpp_layout_type(name),{})[repr(layout)]=layout
 
     def build(identity):
         if identity in cached:
@@ -365,6 +381,13 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                  traits.get('isAggregate') is True and
                  traits.get('defaultCtor', {}).get('trivial') is True and
                  traits.get('dtor', {}).get('trivial') is True)) and not record.get('bases'))
+        if storage_views:
+            # Reading an existing object's proven fields does not construct,
+            # copy, assign or destroy that C++ object. Keep this separate from
+            # the trivial aggregate schemas consumed by value lowering.
+            valid=(c_record or traits.get('isStandardLayout') is True) and not record.get('bases')
+            if record.get('tagUsed')=='union' and not c_record and not traits.get('isTriviallyCopyable'):valid=False
+            if any(member.get('virtual') or member.get('pure') for member in children(record)):valid=False
         methods = [child for child in children(record)
                    if child.get('kind') in ('CXXMethodDecl','CXXConversionDecl')
                    and not child.get('isImplicit') and
@@ -376,8 +399,13 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if methods and (not record.get('name') or
                         any(child.get('virtual') or child.get('pure') for child in methods)):
             valid = False
-        evidence = [layouts[name] for name in by_id_names.get(identity, [])
-                    if name in layouts and 'fields' in layouts[name]]
+        evidence=[]
+        for name in by_id_names.get(identity,[]):
+            candidates=({repr(layouts[name]):layouts[name]} if name in layouts else
+                        normalized_layouts.get(cpp_layout_type(name),{}) if not c_record else {})
+            if len(candidates)==1:
+                candidate=next(iter(candidates.values()))
+                if 'fields' in candidate:evidence.append(candidate)
         # Anonymous physical names have a different enclosing scope spelling
         # in the AST and layout dump, but the exact file:line:column is shared.
         physical = {anonymous_location(name) for name in record_spellings.get(identity, [])}
@@ -413,7 +441,8 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         result = {'size': layout['size'], 'align': layout['align'],
                   'union': record.get('tagUsed') == 'union', 'fields': {},
                   'arrayAlign': 1}
-        if methods:result['prototype']=record['name']
+        if storage_views:result['projection']=True
+        elif methods:result['prototype']=record['name']
         overlaps = result['union']
         for field, offset in zip(fields, layout['fields']):
             name = field.get('name') or field_names.get(field.get('id'))
@@ -444,7 +473,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                         layout_type(layout_field) != layout_type(resolved)):
                     valid = False
                     break
-            if field.get('mutable') or field.get('hasInClassInitializer'):
+            if not storage_views and (field.get('mutable') or field.get('hasInClassInitializer')):
                 valid = False
                 break
             typ = clean_type(typ)
@@ -503,6 +532,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 # wins over an intentionally ambiguous global name lookup.
                 child_schema = build(field_records.get(field.get('id')) or unique[base])
                 if not child_schema:
+                    if storage_views:continue
                     valid = False
                     break
                 item = {'recordArray':child_schema,'dims':dims} if dims else {'byteRecord':child_schema}
@@ -520,6 +550,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 result['arrayAlign'] = max(result['arrayAlign'],child_schema['arrayAlign'])
                 overlaps = overlaps or child_schema['overlaps']
             else:
+                if storage_views:continue
                 valid = False
                 break
             if offset['offset'] < 0 or offset['offset'] + size > layout['size']:
@@ -562,8 +593,8 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if schema:
             original=records[identity]
             traits=original.get('definitionData',{})
-            recovered[name] = {'byte_schema': schema, 'copyable': True,
-                               'moveable': True, 'union': schema['union'],
+            recovered[name] = {'byte_schema': schema, 'copyable': not storage_views,
+                               'moveable': not storage_views, 'storage_view_only':storage_views,'union': schema['union'],
                                'anonymous_typedef':not original.get('name'),
                                'trivial_default_constructor':original.get('kind')=='RecordDecl' or traits.get('defaultCtor',{}).get('trivial') is True,
                                'trivial_destructor':original.get('kind')=='RecordDecl' or traits.get('dtor',{}).get('trivial') is True,

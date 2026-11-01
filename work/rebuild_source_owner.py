@@ -42,7 +42,20 @@ def main():
         result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=900)
     assert result.returncode==0,'Source compilation failed: '+str(log)
     candidate=stage/(args.source+'.mjs');current=json.loads(candidate.with_suffix('.manifest.json').read_text())
-    assert current['blocked']==0,current['definitions']
+    # Type-closure queries can retain a data-only declaration whose optional
+    # JS class wrapper has never been implemented or exported. It is not a
+    # required executable provider when all live code uses verified byte
+    # views instead. Preserve the blocker explicitly; never waive a function,
+    # initializer, old export, or type referenced by emitted code.
+    live_references={name for row in current['definitions'] if row['status']=='source-first'
+                     for name in row.get('source_references',[])}
+    unused_types=[row for row in current['definitions'] if row['status']=='blocked'
+                  and row['kind'] in ('CXXRecordDecl','RecordDecl')
+                  and row['name'] not in old_exports|live_references]
+    assert current['blocked']==len(unused_types),[row for row in current['definitions']
+        if row['status']=='blocked' and row not in unused_types]
+    current['unreferenced_type_wrapper_blockers']=[{'name':row['name'],'reason':row.get('reason')}
+                                                 for row in unused_types]
     assert old_exports<=active_exports(candidate),'Original public/storage interface was lost'
     new_definitions={row['name']:row for row in current['definitions'] if row['status']=='source-first'}
     for row in definitions:

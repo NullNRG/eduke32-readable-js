@@ -1,5 +1,5 @@
 import { ABIHeap } from './abi.mjs';
-import { sourceHeapAddress } from './source_bytes.mjs';
+import { sourceHeapAddress, sourceCString, sourceSizedBytes } from './source_bytes.mjs';
 import { VirtualFS } from './filesystem.mjs';
 import { createCPrintf } from './c_printf.mjs';
 import { createCIntegerParse } from './c_integer_parse.mjs';
@@ -48,7 +48,7 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
       throw error;
     }
   };
-  const getHandle = fd => { const h = handles.get(fd); if (!h) throw new Error('EBADF: ' + fd); return h; };
+  const getHandle = fd => { const h = handles.get(sourceHeapAddress(fd,heap)); if (!h) throw new Error('EBADF: ' + fd); return h; };
   const posix=createPosixVFS({heap,fs,errnoLocation,streams});
   function registerFile(fd,mode,name,existingPtr=0){
     const ptr=existingPtr||heap.malloc(8);
@@ -65,7 +65,7 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
   }
   function openCFile(namePtr,modePtr,existingPtr=0){
     if(!namePtr||!modePtr)return 0;
-    const name=heap.readCString(namePtr),mode=heap.readCString(modePtr);
+    const name=sourceCString(namePtr,heap),mode=sourceCString(modePtr,heap);
     if(!/^[rwa]\+?b?$|^[rwa]b\+?$/.test(mode))return 0;
     const access=mode.includes('+')?2:mode[0]==='r'?0:1;
     const flag=access+(mode[0]==='w'?(64|512):mode[0]==='a'?(64|1024):0);
@@ -254,31 +254,35 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
     // offset. This avoids a second independent virtual-filesystem cursor.
     fopen: (namePtr, modePtr) => openCFile(namePtr,modePtr),
     fdopen: (fd, modePtr) => {
-      const mode=heap.readCString(modePtr);
+      const mode=sourceCString(modePtr,heap);
       const flags=posix.fcntl(fd,3);
       if(flags<0 || !mode || !/^[rwa]\+?b?$|^[rwa]b\+?$/.test(mode))return 0;
       const access=flags&3;
       if((mode.includes('+')&&access!==2)||(mode[0]==='r'&&access===1)||(mode[0]!=='r'&&access===0))return 0;
       return registerFile(fd,mode,'',0);
     },
-    fileno: file => handles.has(Number(file))?handles.get(Number(file)).fd:-1,
+    fileno: file => handles.get(sourceHeapAddress(file,heap))?.fd??-1,
     freopen: (namePtr,modePtr,file) => {
-      const current=handles.get(Number(file));if(!current)return 0;
+      file=sourceHeapAddress(file,heap);
+      const current=handles.get(file);if(!current)return 0;
       const original=current.name;
       streams.delete(Number(file));handles.delete(Number(file));
       posix.close(current.fd);
-      const name=namePtr?heap.readCString(namePtr):original;
+      const name=namePtr?sourceCString(namePtr,heap):original;
       if(!name){heap.free(Number(file));return 0;}
-      const next=openCFile(heap.writeCString(name),modePtr,Number(file));
-      if(!next)heap.free(Number(file));
-      return next;
+      const path=heap.writeCString(name);
+      try{
+        const next=openCFile(path,modePtr,file);
+        if(!next)heap.free(file);
+        return next;
+      }finally{heap.free(path);}
     },
     fgetc: file => {
       const h=getHandle(file),ptr=heap.malloc(1);
       try{const n=posix.read(h.fd,ptr,1);if(n<=0n){h.eof=true;return -1;}h.eof=false;return heap.read(ptr,'u8');}
       finally{heap.free(ptr);}
     },
-    ferror: file => streams.has(Number(file))?0:+!!getHandle(file).error,
+    ferror: file => streams.has(sourceHeapAddress(file,heap))?0:+!!getHandle(file).error,
     fread: (ptr, size, count, file) => {
       size=Number(size);count=Number(count);
       if(size===0||count===0)return 0;
@@ -292,8 +296,8 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
       size=Number(size);count=Number(count);
       if(size===0||count===0)return 0;
       if(!Number.isSafeInteger(size*count)||size<0||count<0)throw RangeError('fwrite overflow');
-      const sink=streams.get(Number(file));
-      if(sink){sink(heap.bytes(Number(ptr),size*count));return count;}
+      const sink=streams.get(sourceHeapAddress(file,heap));
+      if(sink){sink(sourceSizedBytes(ptr,size*count,heap).slice());return count;}
       const h=getHandle(file),n=posix.write(h.fd,ptr,size*count);
       if(n<0n){h.error=true;return 0;}return Math.floor(Number(n)/size);
     },
@@ -306,7 +310,8 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
       if(pos<0n){h.error=true;return -1;}return Number(pos);
     },
     fclose: file => {
-      const h=handles.get(Number(file));if(!h)return -1;
+      file=sourceHeapAddress(file,heap);
+      const h=handles.get(file);if(!h)return -1;
       handles.delete(Number(file));streams.delete(Number(file));
       heap.free(Number(file));return posix.close(h.fd);
     },

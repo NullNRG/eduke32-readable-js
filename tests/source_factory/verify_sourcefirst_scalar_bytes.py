@@ -25,14 +25,22 @@ extern "C" long long scalar_bytes(long long key,int index){
  return local^(long long)h^sum;
 }
 extern "C" int uninitialized_bytes(){int x;return *(unsigned char*)&x;}
+extern "C" void fill_output(void *destination,unsigned value){
+ unsigned char *bytes=(unsigned char*)destination;
+ for(int i=0;i<4;i++)bytes[i]=(unsigned char)(value>>(i*8));
+}
+extern "C" unsigned initialized_by_callee(unsigned input){
+ unsigned value;fill_output(&value,input);value^=0x1a42u;return value;
+}
 '''.replace('unsigned char *bytes=(unsigned char const *)&key;','unsigned char *bytes=(unsigned char*)&key;')
     (p/'unit.cpp').write_text(code)
     (p/'main.cpp').write_text('''#include <cstdio>
 #include <cstdint>
 extern "C" long long scalar_bytes(long long,int);
+extern "C" unsigned initialized_by_callee(unsigned);
 int main(){uint64_t state=0x75abf14a;
  for(int i=0;i<256;i++){state=state*6364136223846793005ULL+1442695040888963407ULL;
- printf("%lld %lld\\n",(long long)state,scalar_bytes((long long)state,i));}}
+ printf("%lld %lld %u\\n",(long long)state,scalar_bytes((long long)state,i),initialized_by_callee((unsigned)state));}}
 ''')
     exe=p/('native.exe' if os.name=='nt' else 'native')
     run(['clang++','-std=c++14','-O1',str(p/'unit.cpp'),str(p/'main.cpp'),'-o',str(exe)])
@@ -40,21 +48,23 @@ int main(){uint64_t state=0x75abf14a;
     run([sys.executable,'tools/source_ast_to_js.py','--root',str(p),'--source','unit.cpp','--out-dir',str(p/'out')])
     module=p/'out/unit.cpp.mjs';manifest=json.loads(module.with_suffix('.manifest.json').read_text())
     rows={row['name']:row for row in manifest['definitions']}
-    assert rows['scalar_bytes']['status']=='source-first' and rows['mutate_ref']['status']=='source-first',rows
+    assert all(rows[name]['status']=='source-first' for name in ('scalar_bytes','mutate_ref','initialized_by_callee','fill_output')),rows
     assert rows['uninitialized_bytes']['status']=='blocked' and 'initialization' in rows['uninitialized_bytes']['reason'],rows
-    js='''async ({module,cases})=>{const m=await import(module);return cases.map((row,index)=>String(m.scalar_bytes(BigInt(row[0]),index)));}'''
+    js='''async ({module,cases})=>{const m=await import(module);return cases.map((row,index)=>{
+      const input=Number(BigInt.asUintN(32,BigInt(row[0])));
+      return String(m.scalar_bytes(BigInt(row[0]),index))+' '+m.initialized_by_callee(input);});}'''
     (p/'check.mjs').write_text('console.log(JSON.stringify(await ('+js+')('+json.dumps({'module':module.as_uri(),'cases':expected})+')));')
     actual=json.loads(run(['node',str(p/'check.mjs')]))
-    assert actual==[row[1] for row in expected],[(i,a,e) for i,(a,e) in enumerate(zip(actual,expected)) if a!=e[1]][:5]
+    assert actual==[' '.join(row[1:]) for row in expected],[(i,a,e) for i,(a,e) in enumerate(zip(actual,expected)) if a!=' '.join(e[1:])][:5]
     report={'passed':True,'native_node_cases':256,'parameter_local_reference_and_byte_aliases_verified':True,
-        'uninitialized_byte_storage_rejected':True,'gameplay_verified':False}
+        'uninitialized_byte_reads_rejected':True,'original_mutable_callee_output_storage_verified':True,'gameplay_verified':False}
     if os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'):
         from playwright.sync_api import sync_playwright
         with sync_playwright() as playwright:
             browser=playwright.chromium.launch(executable_path=os.environ['EDUKE_CHROMIUM_EXECUTABLE'],headless=True)
             page=browser.new_page();errors=[];page.on('pageerror',lambda error:errors.append(str(error)))
             actual=page.evaluate(js,{'module':'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode(),'cases':expected})
-            assert actual==[row[1] for row in expected] and not errors,(actual[:5],errors)
+            assert actual==[' '.join(row[1:]) for row in expected] and not errors,(actual[:5],errors)
             report.update(chromium_cases=256,browser_version=browser.version);browser.close()
     (ROOT/'reports/oct26-scalar-bytes-parity.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))

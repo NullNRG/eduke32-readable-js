@@ -2,13 +2,14 @@
  * that contains game resources. No claim of host-disk, networking or process access.
  * Linux x86-64 struct stat/dirent64 byte layouts are explicit.
  */
+import { sourceCString, sourceSizedBytes } from './source_bytes.mjs';
 export function createPosixVFS({heap,fs,errnoLocation,streams=new Map()}={}){
   if(!heap||!fs||typeof errnoLocation!=='function')throw TypeError('POSIX VFS needs heap/fs/errno');
   const E={EPERM:1,ENOENT:2,EBADF:9,EEXIST:17,ENOTDIR:20,EISDIR:21,EINVAL:22,ENOSPC:28,EROFS:30,ERANGE:34};
   const fail=(e)=>{heap.write(errnoLocation(),'i32',E[e]??E.EINVAL);return -1;};
   const dirs=new Set(['']);let cwd='';let nextFD=3;
   const fds=new Map(),directoryHandles=new Map(),closeOnExec=new Map();
-  const bytesName=p=>{if(!p)return null;return heap.readCString(p);};
+  const bytesName=p=>{if(!p)return null;return sourceCString(p,heap);};
   const canonical=(p)=>{
     if(typeof p!=='string')throw TypeError('Invalid path');
     const base=p.startsWith('/')?'':cwd;
@@ -29,11 +30,12 @@ export function createPosixVFS({heap,fs,errnoLocation,streams=new Map()}={}){
     return [...sub].map(([name,type])=>({name,type}));
   };
   const fileStat=(ptr,{size=0,dir=false}={})=>{
-    heap.check(ptr,144);heap.memset(ptr,0,144);
-    heap.write(ptr,'u64',1n);heap.write(ptr+8,'u64',1n);heap.write(ptr+16,'u64',1n);
-    heap.write(ptr+24,'u32',dir?0o040755:0o100644);
-    heap.write(ptr+48,'i64',BigInt(size));heap.write(ptr+56,'i64',4096n);
-    heap.write(ptr+64,'i64',BigInt(Math.ceil(size/512)));
+    const bytes=sourceSizedBytes(ptr,144,heap);bytes.fill(0);
+    const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+    view.setBigUint64(0,1n,true);view.setBigUint64(8,1n,true);view.setBigUint64(16,1n,true);
+    view.setUint32(24,dir?0o040755:0o100644,true);
+    view.setBigInt64(48,BigInt(size),true);view.setBigInt64(56,4096n,true);
+    view.setBigInt64(64,BigInt(Math.ceil(size/512)),true);
   };
   const fileInfo=k=>fs.exists(k)?{size:fs.size(k)}:isDirectory(k)?{size:0,dir:true}:null;
   const symbols={
@@ -72,16 +74,16 @@ export function createPosixVFS({heap,fs,errnoLocation,streams=new Map()}={}){
     read:(fd,ptr,count)=>{
       const h=fds.get(Number(fd));if(!h||!h.read)return fail('EBADF');
       count=Number(count);if(!Number.isSafeInteger(count)||count<0)return fail('EINVAL');
-      heap.check(ptr,count);
-      const n=fs.readInto(h.path,h.pos,heap.u8,ptr,count);
+      const bytes=sourceSizedBytes(ptr,count,heap);
+      const n=fs.readInto(h.path,h.pos,bytes,0,count);
       h.pos+=n;return BigInt(n);
     },
     write:(fd,ptr,count)=>{
       const h=fds.get(Number(fd)),sink=streams.get(Number(fd));
       if(!h&&!sink)return fail('EBADF');
       count=Number(count);if(!Number.isSafeInteger(count)||count<0)return fail('EINVAL');
-      const bytes=heap.bytes(ptr,count);
-      if(sink){sink(bytes);return BigInt(count);}
+      const bytes=sourceSizedBytes(ptr,count,heap);
+      if(sink){sink(bytes.slice());return BigInt(count);}
       if(!h.write)return fail('EBADF');
       const old=fs.readFile(h.path);if(h.append)h.pos=old.length;
       const data=new Uint8Array(Math.max(old.length,h.pos+count));data.set(old);data.set(bytes,h.pos);
@@ -119,15 +121,15 @@ export function createPosixVFS({heap,fs,errnoLocation,streams=new Map()}={}){
       // POSIX realpath caller must provide PATH_MAX bytes when out != NULL;
       // the C library's maximum depends on target ABI, here 4096 bytes.
       if(encoded.length>=4096){fail('EINVAL');return 0;}
-      const ptr=out||heap.malloc(encoded.length+1);heap.check(ptr,encoded.length+1);
-      heap.u8.set(encoded,ptr);heap.write(ptr+encoded.length,'u8',0);return ptr;
+      const ptr=out||heap.malloc(encoded.length+1),bytes=sourceSizedBytes(ptr,encoded.length+1,heap);
+      bytes.set(encoded);bytes[encoded.length]=0;return ptr;
     },
     chdir:path=>{let k;try{k=canonical(bytesName(path));}catch{return fail('EINVAL');}
       if(!isDirectory(k))return fail(fs.exists(k)?'ENOTDIR':'ENOENT');cwd=k;return 0;},
     getcwd:(buffer,size)=>{
       const name='/'+cwd,encoded=new TextEncoder().encode(name);size=Number(size);
       if(!buffer||!Number.isSafeInteger(size)||size<=encoded.length){fail('ERANGE');return 0;}
-      heap.check(buffer,size);heap.u8.set(encoded,buffer);heap.u8[buffer+encoded.length]=0;return buffer;
+      const bytes=sourceSizedBytes(buffer,size,heap);bytes.set(encoded);bytes[encoded.length]=0;return buffer;
     },
     opendir:path=>{
       let names;try{names=dirContents(canonical(bytesName(path)));}catch{return 0;}

@@ -23,6 +23,33 @@ const cByteRecordNative = {
   Float32Array:[Float32Array,'Float32'], Float64Array:[Float64Array,'Float64'],
   BigInt64Array:[BigInt64Array,'BigInt64'], BigUint64Array:[BigUint64Array,'BigUint64']
 };
+// A native multidimensional array has ONE allocation. Each readable JS row
+// is a typed view into that allocation, so host byte operations and row
+// pointers observe exactly the same C storage and original row strides.
+const cNativeArray = (type,dims,initializers=[]) => {
+  const C=cByteRecordNative[type]?.[0];
+  if(!C||!Array.isArray(dims)||!dims.length||dims.length>8||
+      dims.some(n=>!Number.isSafeInteger(n)||n<0||n>1000000)||
+      dims.reduce((a,b)=>a*b,1)>1000000)
+    throw new TypeError('Native C array requires verified dimensions and scalar width');
+  const bytes=new Uint8Array(dims.reduce((a,b)=>a*b,1)*C.BYTES_PER_ELEMENT);
+  let offset=0;
+  const build=(depth,values)=>{
+    const length=dims[depth],start=offset;
+    if(!(Array.isArray(values)||depth===dims.length-1&&values instanceof C)||values.length>length)
+      throw new TypeError('Native C array initializer differs from original dimensions');
+    if(depth===dims.length-1){
+      const row=new C(bytes.buffer,offset,length);row.set(values);offset+=row.byteLength;return row;
+    }
+    const rows=Array.from({length},(_,i)=>build(depth+1,values[i]??[]));
+    Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),
+      {value:bytes.subarray(start,offset)});
+    Object.defineProperty(rows,Symbol.for('source-first.native-array-layout/1'),
+      {value:JSON.stringify({array:type,dims:dims.slice(depth)})});
+    return rows;
+  };
+  return build(0,initializers);
+};
 // Pointer fields and uintptr_t share the verified LP64 source address space.
 const cByteRecordPointers = cSourceAddresses;
 // Contiguous LP64 slots preserve pointer identity and native byte copies.
@@ -89,6 +116,9 @@ const cByteArrayMember = (field,bytes,prototypes,values=[]) => {
   return rows;
 };
 const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
+  if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
+      !values || Object.keys(values).length || schema.prototype))
+    throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
   if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>1048576 ||
       !schema.fields || typeof schema.fields!=='object')
     throw new TypeError('Unverified Clang byte-record schema');
@@ -212,6 +242,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
 // strides, and overlapping-union aliasing between consecutive C records.
 const cByteRecordArrayStorage = Symbol.for('source-first.clang-byte-record-array/1');
 const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if (!Number.isSafeInteger(count) || count < 1 || count > 1000000 ||
       !Number.isSafeInteger(schema?.size) || schema.size < 1 ||
       schema.size > 1048576 || count * schema.size > 268435456)
@@ -257,6 +289,7 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       initialize();
       const i = indexOf(key);
       if (i < 0) throw new RangeError('C record array index outside original extent');
+      if(schema.projection)throw new TypeError('Nontrivial C++ array assignment requires original operator');
       const source = cByteRecordStorage.get(value);
       if (!source || source.schema !== signature)
         throw new TypeError('C record array assignment requires identical Clang byte layout');
@@ -270,6 +303,8 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
 
 // Every row and element in a multidimensional C array shares one allocation.
 const cByteRecordNDArray = (schema,dims,prototypes={},initializers=[],storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if(!Array.isArray(dims)||dims.length<1||dims.length>8||
       dims.some(n=>!Number.isSafeInteger(n)||n<1||n>1000000)||
       !Number.isSafeInteger(schema?.size)||schema.size<1||
@@ -335,6 +370,7 @@ const cRecordPointerViews = (()=>{
       if(!Number.isSafeInteger(offset))throw new RangeError('Record-pointer index is not exactly representable');
       const item={...pointer,offset},record=api.deref(item);
       return {get value(){return record;},set value(next){
+        if(pointer.recordSchema.projection)throw new TypeError('Nontrivial C++ record assignment requires original operator');
         const source=cByteRecordStorage.get(next),destination=cByteRecordStorage.get(record);
         if(!source||source.schema!==destination.schema)throw new TypeError('Record-pointer assignment requires identical Clang layout');
         destination.bytes.set(source.bytes);
@@ -358,7 +394,7 @@ const cRecordPointer = (source,schema,prototypes={}) => {
   // example libdivide). Preserve the SAME object rather than serialize a
   // detached copy. Byte casts/copies and pointer arithmetic still require
   // native storage; this facade never acquires a fabricated heap address.
-  if(!bytes && source && typeof source==='object' &&
+  if(!schema.projection && !bytes && source && typeof source==='object' &&
       (Object.getPrototypeOf(source)===Object.prototype||Object.getPrototypeOf(source)===null) &&
       source.__cPointer!==true && !schema.union &&
       Object.entries(schema.fields).every(([name,field])=>
@@ -370,6 +406,7 @@ const cRecordPointer = (source,schema,prototypes={}) => {
   // Keep that original owner and stride; do not reinterpret those slots as
   // heap bytes or detach their fields by constructing a new record view.
   if(pointer.array){
+    if(schema.projection)throw new TypeError('Nontrivial C++ field view requires original byte storage');
     const owned=Array.isArray(source)
       ? {...pointer,upper:source.length*schema.size,stride:schema.size} : pointer;
     if(owned.stride!==schema.size || owned.lower%owned.stride || owned.offset%owned.stride ||
@@ -391,6 +428,8 @@ const cRecordPointer = (source,schema,prototypes={}) => {
 // Readable JS representation of Clang-proven pointer-free C/C++ POD copies.
 // Fail closed if external storage has not been materialized in the agreed type.
 const cCopyAggregate = (value, schema) => {
+  if(schema.byteRecord?.projection || schema.recordArray?.projection)
+    throw new TypeError('Nontrivial C++ copy requires original constructor');
   if(schema.recordArray){
     const bytes=value?.[cByteRecordArrayStorage];
     if(!bytes||value[Symbol.for('source-first.byte-record-array-layout/1')]!==JSON.stringify({schema:schema.recordArray,dims:schema.dims}))
@@ -473,8 +512,7 @@ const cZeroAggregate = (schema, prototypes={}) => {
         schema.dims.reduce((a,b) => a*b, 1) > 1000000)
       throw new TypeError('Unverified C aggregate zero-array extent');
     if (schema.dims.length === 1) return new C(schema.dims[0]);
-    return Array.from({length:schema.dims[0]}, () =>
-      cZeroAggregate({array:schema.array,dims:schema.dims.slice(1)}));
+    return cNativeArray(schema.array,schema.dims);
   }
   if (Object.hasOwn(schema, 'record')) {
     const result = cMarkAggregate({});

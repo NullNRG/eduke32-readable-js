@@ -35,19 +35,33 @@ state['original_hash_frontier']={'original_hash_initializers_linked':True,
 state['original_engine_preinit_frontier']={
     'linked':False,'executed':False,
     'immediate_shared_blocker':'Original osdmain_t byte storage contains AtomicSList64/std::atomic; inherited storage and atomic class methods remain incomplete. Original CircularQueue destruction now has source-proven template recovery.',
-    'additional_dependencies':['original console registration and callbacks','original file access','logging','remaining engine services']}
+    'additional_dependencies':['original console registration and callbacks','logging','remaining engine services']}
 state['regression_baseline']={'report':'reports/oct30-startup-verified-regression.json',
     'passed':186,'complete':True,'frozen_inputs':True,
     'note':'Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes.'}
-regression_report='reports/nov01-integration-full-regression.json'
+regression_report='reports/nov01-vfs-corrected-full-regression.json'
 report=read(regression_report)
 keys=('complete','counts','selected_tests','completed_tests','all_passed','regression_inputs_unchanged','compiler_frontend_sha256')
 state['regression']={'report':regression_report,**{k:report.get(k) for k in keys},
     'revision_matches_current_inputs':bool(report['complete'] and report['regression_inputs_unchanged'] and
         report['regression_inputs']==regression_inputs()),
     'gameplay_verified':False}
-state['latest_targeted_regression']={'report':'reports/nov01-aggregate-address-regression.json',
-    'passed':9,'complete':True,'frozen_inputs':True}
+targeted_report='reports/nov01-archive-compiler-regression.json'
+targeted=read(targeted_report)
+state['latest_targeted_regression']={'report':targeted_report,
+    **{key:targeted.get(key) for key in keys},
+    'revision_matches_current_inputs':targeted.get('regression_inputs')==regression_inputs(),
+    'note':'Earlier focused 16-test pass; subsequent fixes and current complete regression are recorded separately.'}
+vfs=read('reports/nov01-original-vfs-parity.json')
+state['original_resource_io']={'report':'reports/nov01-original-vfs-parity.json',
+    'passed':vfs['passed'],'native_node_chromium_match':vfs['native_node_chromium_match'],
+    **{key:vfs['result'][key] for key in ('archive_length','directory_entries',
+        'original_directory_bytes_verified','native_parity_sample_bytes')},
+    'original_grp_index_executed':True,'original_engine_startup_verified':False,
+    'gameplay_verified':False,'resource_names':['E1L1.MAP','PALETTE.DAT','GAME.CON','TILES000.ART'],
+    'raw_archive_only_mounted':True,'game_state_prepopulated':False}
+state['prior_frozen_full_regression']={'report':'reports/nov01-integration-full-regression.json',
+    'passed':199,'complete':True,'frozen_inputs':True,'revision_matches_current_inputs':False}
 state['november_source_recovery']={
     'software_surface_parity_report':'reports/nov01-original-softsurface-parity.json',
     'software_surface_native_node_chromium_compared_bytes':1062912,
@@ -76,7 +90,7 @@ state['known_correctness_gaps']=[
 if component.get('storage_ownership_conflicts'):
     state['known_correctness_gaps'].insert(0,'Legacy source fragments still duplicate some original globals. The component manifest enumerates the actual active conflicts; zero missing imports does not prove shared storage correctness.')
 state['remaining_acceptance_failures']=[
-    'Original console C++ object storage/lifetime, registration, logging and file-access closure',
+    'Original console C++ object storage/lifetime, registration and logging closure',
     'Remaining actual duplicate source storage in legacy fragments',
     'Current uniform selected-unit emission and verified fixed-point global linkage',
     'Original app_main and enginePreInit execution',
@@ -94,6 +108,7 @@ state['resume_commands']=[
     'npm run compile:game'
 ]
 state['subsystem_verification_commands']=[
+    'python work/verify_original_vfs.py',
     'python tests/source_factory/verify_original_xxh32_component.py',
     'python work/verify_original_softsurface.py',
     'python work/verify_original_clip_component.py',

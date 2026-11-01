@@ -12,6 +12,7 @@ from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
+from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
 from source_byte_records import recover_byte_records, clean_type as clean_record_type, owned_anonymous_record_members, typedef_record_layouts
 from source_trivial_assignment import recover_trivial_assignment_methods
@@ -696,13 +697,15 @@ def typed_pointer(t):
     # C pointers to plain numeric elements become bounded native TypedArray views.
     # Opaque, function, record, and multi-level pointers still require explicit handling.
     if '*' not in t or t.count('*')!=1 or '(*)' in t:return None
-    base=re.sub(r'\b(const|volatile|restrict|__restrict)\b','',t.split('*')[0]).strip()
+    base=' '.join(re.sub(r'\b(const|volatile|restrict|__restrict|__restrict__)\b','',t.split('*')[0]).split())
     if base.startswith('signed ') and base!='signed char':base=base.removeprefix('signed ')
     return {'bool':'Uint8Array','_Bool':'Uint8Array','char':'Uint8Array','signed char':'Int8Array', 'unsigned char':'Uint8Array','uint8_t':'Uint8Array','int8_t':'Int8Array',
             'short':'Int16Array','unsigned short':'Uint16Array','int16_t':'Int16Array','uint16_t':'Uint16Array',
             'int':'Int32Array','unsigned int':'Uint32Array','int32_t':'Int32Array','uint32_t':'Uint32Array',
             'float':'Float32Array','double':'Float64Array',
             'int64_t':'BigInt64Array','uint64_t':'BigUint64Array',
+            'intptr_t':'BigInt64Array','uintptr_t':'BigUint64Array',
+            'ptrdiff_t':'BigInt64Array','size_t':'BigUint64Array',
             'long':'BigInt64Array','unsigned long':'BigUint64Array',
             'long long':'BigInt64Array','unsigned long long':'BigUint64Array'}.get(base)
 
@@ -873,7 +876,7 @@ class Emit:
         binding=getattr(self,'local_reference_cells',{}).get(node.get('id'))
         if not binding:return ''
         native=getattr(self,'byte_scalar_cells',{}).get(node.get('id'))
-        if native:return binding+' = cScalarStorage('+native+', '+name+')'
+        if native:return binding+' = cScalarStorage('+native+(', '+name if kind(node)=='ParmVarDecl' or kids(node) else '')+')'
         assigned=self.expression_temp()
         return binding+' = cRef(() => '+name+', '+assigned+' => { '+name+' = '+js_cast(assigned,qual(node))+'; })'
     def plan_byte_scalar_cells(self,function):
@@ -885,6 +888,7 @@ class Emit:
         """
         declarations={node.get('id'):node for node in descendants(function)
             if kind(node) in ('VarDecl','ParmVarDecl') and node.get('id')}
+        parents={id(child):node for node in descendants(function) for child in kids(node)}
         selected={}
         casts={'CStyleCastExpr','CXXReinterpretCastExpr','CXXStaticCastExpr','ImplicitCastExpr'}
         for node in descendants(function):
@@ -904,7 +908,21 @@ class Emit:
                 if declaration.get('storageClass')=='static':
                     raise Unsupported('static scalar byte alias requires original persistent storage')
                 if kind(declaration)=='VarDecl' and not kids(declaration):
-                    raise Unsupported('uninitialized scalar byte alias requires tracked object initialization')
+                    # `read(fd,&value,sizeof value)` needs storage before the
+                    # call writes it. This allocates bytes, not a fabricated
+                    # source initializer. Keep arbitrary uninitialized byte
+                    # reads/escaping aliases blocked. Every selected address
+                    # must be passed directly to a mutable pointer parameter.
+                    current=operation;parent=parents.get(id(current))
+                    while parent and kind(parent) in WRAPPERS|casts:
+                        current=parent;parent=parents.get(id(current))
+                    arguments=kids(parent)[1:] if parent and kind(parent) in ('CallExpr','CXXMemberCallExpr') else []
+                    position=next((i for i,arg in enumerate(arguments) if arg is current),None)
+                    signature=function_type_parts(self.call_type(parent)) if parent and position is not None else None
+                    parameter=signature[1][position] if signature and position<len(signature[1]) else ''
+                    parameter=re.sub(r'\b(?:restrict|__restrict|__restrict__)\b','',parameter).strip()
+                    if not parameter.endswith('*') or re.search(r'\bconst\b',parameter.rsplit('*',1)[0]):
+                        raise Unsupported('uninitialized scalar byte alias requires tracked object initialization')
                 selected[identity]=native
         if selected and (needs_cfg(function) or any(kind(node)=='GotoStmt' for node in descendants(function))):
             raise Unsupported('scalar byte alias across goto requires proven storage lifetime')
@@ -947,10 +965,30 @@ class Emit:
             shape={'byteRecord':storage['byte_schema']}
             return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(storage['byte_schema'],sort_keys=True)+', '+self.byte_record_prototypes(shape)+'))'
         if base not in getattr(self,'managed_record_names',set()):
+            view=getattr(self,'record_storage_views',{}).get(base,{})
+            if view.get('byte_schema'):
+                return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(view['byte_schema'],sort_keys=True)+'))'
             raise Unsupported('record pointer member requires original byte layout: '+str(base))
         return f'cRecordObject({expression})'
+    def raw_record_receiver(self,expression,arrow):
+        spelling=qual(expression).strip()
+        if arrow:
+            name=normalized_record_name(spelling.rstrip('*').strip(),self.type_aliases)
+            return (name in getattr(self,'record_storage_views',{}) and not self.global_storage_records.get(name,{}).get('byte_schema')
+                    and name not in getattr(self,'managed_record_names',set()))
+        while kind(expression) in WRAPPERS and len(kids(expression))==1:expression=kids(expression)[0]
+        if kind(expression)=='UnaryOperator' and expression.get('opcode')=='*' and kids(expression):
+            return self.raw_record_receiver(kids(expression)[0],True)
+        if kind(expression)=='MemberExpr' and kids(expression) and not has_outer_indirection(qual(expression)):
+            return self.raw_record_receiver(kids(expression)[0],expression.get('isArrow',False))
+        return False
     def expr(self,n):
         k=kind(n); a=kids(n)
+        if k=='SourceResumeCondition':
+            selector=n['selector']
+            selected=' || '.join(selector+' === '+json.dumps(name) for name in n['labels'])
+            original=self.expr(a[0]) if a else 'true'
+            return '(('+selected+') || (!'+selector+' && ('+original+')))' if selected else '(!'+selector+' && ('+original+'))'
         if k in ('ImplicitCastExpr','CStyleCastExpr','CXXStaticCastExpr','CXXFunctionalCastExpr','CXXReinterpretCastExpr') and n.get('castKind')=='NullToPointer':
             if len(a)!=1:raise Unsupported('null-pointer cast operand shape')
             zero=a[0]
@@ -1172,6 +1210,14 @@ class Emit:
         if k=='MemberExpr':
             if not a:raise Unsupported('member without receiver')
             name=n.get('name','')
+            if self.raw_record_receiver(a[0],n.get('isArrow',False)):
+                owner=normalized_record_name(qual(a[0]).rstrip(' *&'),self.type_aliases)
+                view=getattr(self,'record_storage_views',{}).get(owner,{})
+                selected=n.get('_source_member_declaration') or getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{})
+                if selected.get('kind') in ('CXXMethodDecl','CXXConversionDecl'):
+                    raise Unsupported('nontrivial byte-view method requires original class prototype: '+str(owner)+'::'+name)
+                if name and name not in view.get('byte_schema',{}).get('fields',{}):
+                    raise Unsupported('record field requires verified native storage: '+str(owner)+'::'+name)
             if not name and any(n.get('referencedMemberDecl') in record.get('flattened_anonymous_members',()) or
                     clean_record_type(qual(n)) in record.get('flattened_anonymous_types',())
                     for record in self.global_storage_records.values()):
@@ -1240,10 +1286,10 @@ class Emit:
         if k=='ArraySubscriptExpr':
             base=a[0]
             while kind(base) in WRAPPERS and kids(base):base=kids(base)[0]
-            pointer_type=self.pointer_type(qual(a[0])) if kind(base)!='ArraySubscriptExpr' else None
+            pointer_type=self.pointer_type(qual(a[0]))
             if pointer_type:
                 return f'(cDeref(cPointerOffset({self.expr(a[0])}, {self.expr(a[1])}, {pointer_type}.BYTES_PER_ELEMENT), {pointer_type}).value)'
-            if '*' in qual(a[0]) and kind(base)!='ArraySubscriptExpr':
+            if '*' in qual(a[0]):
                 return f'(cPointerElementRef({self.expr(a[0])}, {self.expr(a[1])}).value)'
             return f'{self.expr(a[0])}[{self.expr(a[1])}]'
         if k in ('BinaryOperator','CompoundAssignOperator'):
@@ -1276,7 +1322,12 @@ class Emit:
                     if stride is None:raise Unsupported('pointer compound assignment requires bounded element layout: '+t)
                     offset=rhs if op=='+=' else f'-({rhs})'
                     return assignment(f'cPointerOffset({lhs}, {offset}, {stride})')
-                if op=='=':return f'({lhs} = {js_cast(rhs,t)})'
+                if op=='=':
+                    shape=aggregate_type_schema(t,self.global_storage_records,self.type_aliases,
+                        self.record_layouts,allow_pointer_storage=True,enum_types=self.enum_types)
+                    if shape and 'byteRecord' in shape:
+                        return f'cAssignAggregate({lhs}, {rhs}, {json.dumps(shape,sort_keys=True)})'
+                    return f'({lhs} = {js_cast(rhs,t)})'
                 # JS bitwise ops already coerce to i32, arithmetic requires C-width conversion.
                 sym=op[:-1]
                 if is_wide_integer(t):
@@ -1389,7 +1440,7 @@ class Emit:
                             self.type_aliases,self.record_layouts,allow_pointer_storage=True,
                             enum_types=self.enum_types)
                         if shape and ('byteRecord' in shape or 'pointerArray' in shape or
-                                'array' in shape and len(shape.get('dims',[]))==1):
+                                'array' in shape):
                             return self.expr(node)
                         return address['binding']+'()'
                     declaration=node.get('referencedDecl',{})
@@ -1400,6 +1451,13 @@ class Emit:
                         raise Unsupported('external object address requires a verified owner identity ABI: '+
                             str(declaration.get('name'))+' '+qual(node))
                     target=self.expr(node)
+                    shape=aggregate_type_schema(qual(node),self.global_storage_records,
+                        self.type_aliases,self.record_layouts,allow_pointer_storage=True,
+                        enum_types=self.enum_types)
+                    if identity in getattr(self,'lexical_local_ids',set()) and shape and (
+                            'byteRecord' in shape or 'pointerArray' in shape or
+                            'array' in shape):
+                        return target
                     if is_record_pointee(qual(n)):
                         return target
                     assigned=self.expression_temp()
@@ -1749,14 +1807,15 @@ class Emit:
                     raise Unsupported('aggregate copy requires verified pointer-free field shape: '+str(name))
                 return f'cCopyAggregate({self.expr(a[0])}, {json.dumps(schema,sort_keys=True)})'
             cname=normalized_record_name(qual(n),self.type_aliases)
-            # An anonymous typedef-owned POD has no source class name or
-            # authored constructor to export. Its exact Clang tag and target
-            # layout establish the storage directly. Never use this for an
-            # authored constructor, nontrivial lifetime, or inferred layout.
+            # A proven trivial default constructor needs storage, not a
+            # runtime class binding. This includes named header PODs such as
+            # checksum states. Methods still require their original prototype;
+            # authored construction/lifetime cannot use this path.
             if (not a and ctor in ('void ()','void () noexcept') and record
-                    and record.get('anonymous_typedef') and not record.get('union')
+                    and not record.get('union')
                     and record.get('trivial_default_constructor')
-                    and record.get('trivial_destructor') and record.get('byte_schema')):
+                    and record.get('trivial_destructor') and record.get('byte_schema')
+                    and not record['byte_schema'].get('prototype')):
                 self.storage_constructor_nodes=getattr(self,'storage_constructor_nodes',set())|{id(n)}
                 return self.zero_aggregate({'byteRecord':record['byte_schema']})
             if not cname or not re.fullmatch(r'[A-Za-z_]\w*',cname):
@@ -1769,6 +1828,13 @@ class Emit:
                 self.used_class_constructors=getattr(self,'used_class_constructors',set())|{js_ident(cname)}
                 target=(f'({js_ident(cname)}())' if cname in getattr(self,'header_record_factories',set()) else js_ident(cname))
                 return f'{target}.{symbol}({self.constructor_arguments(n)})'
+            if not record and class_fields is None:
+                # An identifier match is not constructor evidence. C APIs can
+                # legally share a spelling with a record tag (for example a
+                # metadata query and its output record). Demand the actual
+                # selected record before using any imported JS binding.
+                raise Unsupported('constructor requires complete original record: '+qual(n),
+                    required_records=(qual(n),))
             self.used_class_constructors=getattr(self,'used_class_constructors',set())|{js_ident(cname)}
             target=(f'({js_ident(cname)}())' if cname in getattr(self,'header_record_factories',set()) else js_ident(cname))
             return f'new {target}({self.constructor_arguments(n)})'
@@ -2221,9 +2287,9 @@ class Emit:
         if k=='ArraySubscriptExpr':
             base=a[0]
             while kind(base) in WRAPPERS and kids(base):base=kids(base)[0]
-            typ=self.pointer_type(qual(a[0])) if kind(base)!='ArraySubscriptExpr' else None
+            typ=self.pointer_type(qual(a[0]))
             if typ:return f'cDeref(cPointerOffset({self.expr(a[0])}, {self.expr(a[1])}, {typ}.BYTES_PER_ELEMENT), {typ})'
-            if '*' in qual(a[0]) and kind(base)!='ArraySubscriptExpr':return f'cPointerElementRef({self.expr(a[0])}, {self.expr(a[1])})'
+            if '*' in qual(a[0]):return f'cPointerElementRef({self.expr(a[0])}, {self.expr(a[1])})'
             return f'cArrayRef({self.expr(a[0])}, {self.expr(a[1])})'
         if k=='MemberExpr' and re.fullmatch(r'[A-Za-z_$][\w$]*',n.get('name','')):
             receiver=self.expr(a[0])
@@ -2240,7 +2306,23 @@ class Emit:
         if kind(n)=='DeclRefExpr' and n.get('referencedDecl',{}).get('id') in getattr(self,'external_aggregate_globals',set()):
             raise Unsupported('external aggregate assignment requires verified copy/storage ABI')
     def statements(self,n,level=1):
+        guard=n.get('_source_resume_guard')
+        if guard and kind(n) not in ('CompoundStmt','DeclStmt','VarDecl','CaseStmt','DefaultStmt'):
+            pad='  '*level
+            return pad+'if ('+resume_allowed_expression(guard['selector'],guard['labels'])+') {\n'+self._statements(n,level+1)+'\n'+pad+'}'
+        return self._statements(n,level)
+    def _statements(self,n,level=1):
         k=kind(n);a=kids(n);pad='  '*level
+        if k=='SourceResumeDispatchStmt':
+            arms=[]
+            for arm in n['arms']:
+                label='default' if arm['condition'] is None else 'case '+self.expr(arm['condition'])
+                arms.append(pad+'  '+label+': '+n['selector']+' = '+json.dumps(arm['label'])+'; break;')
+            return pad+'switch ('+self.expr(n['condition'])+') {\n'+'\n'.join(arms)+'\n'+pad+'}'
+        if k=='SourceResumeLabelStmt':
+            return (pad+'// Original resume label: '+n['name']+'\n'+pad+'if ('+
+                resume_allowed_expression(n['selector'],[n['name']])+') {\n'+pad+'  '+n['selector']+' = null;\n'+
+                '\n'.join(self.statements(child,level+1) for child in a)+'\n'+pad+'}')
         control=self.goto_plan.control_prefix(n) if self.goto_plan else ''
         if k=='CompoundStmt':
             owned=[node for child in a for node in (kids(child) if kind(child)=='DeclStmt' else [child])
@@ -2428,6 +2510,14 @@ class Emit:
                         raise Unsupported('C local array needs verified scalar element storage: '+t)
                     value=self.zero_aggregate(schema)
                 value=aligned_storage_expression(n,value,self.type_aliases)
+                return pad+(f'{name} = {value};' if self.goto_plan else f'let {name} = {value};')
+            # A C record without an initializer still owns native storage.
+            # Its fields remain indeterminate in the source until written;
+            # an empty JS binding cannot receive the original memset(&local).
+            schema=aggregate_type_schema(t,self.global_storage_records,self.type_aliases,
+                self.record_layouts,allow_pointer_storage=True,enum_types=self.enum_types)
+            if schema and 'byteRecord' in schema:
+                value=self.zero_aggregate(schema)
                 return pad+(f'{name} = {value};' if self.goto_plan else f'let {name} = {value};')
             # Uninitialized scalar locals: JS undefined, never invented zero.
             reference=self.local_reference_declaration(n,name)
@@ -2860,6 +2950,10 @@ class Emit:
         for i,p in enumerate(params):
             argnames.append(js_ident(p.get('name') or 'arg'+str(i)))
         self.goto_plan=None;self.last_flow_report=None
+        resume=None
+        if any(kind(v)=='GotoStmt' for v in descendants(bodies[-1])):
+            resume=recover_resume_dispatch(bodies[-1],self.expression_temp())
+            if resume:bodies=[resume['body']]
         if needs_cfg(bodies[-1]):
             try:
                 lowering=CoroutineCFG(bodies[-1],self)
@@ -2883,6 +2977,10 @@ class Emit:
                 text=(('  let '+', '.join(self.goto_plan.hoisted_locals)+';\n' if self.goto_plan.hoisted_locals else '')+self.goto_plan.emit(self)) if self.goto_plan else self.statements(bodies[-1])
             finally:
                 self.goto_plan=None
+        if resume:
+            text='  let '+resume['selector']+' = null;\n'+text
+            self.last_flow_report={**(self.last_flow_report or {}),'strategy':resume['strategy'],
+                'original_resume_labels':resume['labels']}
         if self.c_variadic:argnames.append('...__cxx_varargs')
         prefix=[]
         for param in params:
@@ -3573,7 +3671,9 @@ def global_initializer(n, enum_values=None, record_layouts=None, aggregate_recor
                 while len(values)<length:values.append(build(dim+1,None))
                 return '['+', '.join(values)+']'
             return f'Array.from({{ length: {length} }}, () => {build(dim+1,None)})'
-        return build(0,initializer)
+        built=build(0,initializer)
+        return ('cNativeArray('+json.dumps(typ)+', '+json.dumps(dims)+', '+built+')'
+                if typ and len(dims)>1 else built)
     init=next((v for v in kids(n) if kind(v) not in ('FullComment','DeprecatedAttr')),None)
     if init:
         record_schema=aggregate_type_schema(t,aggregate_records or {},type_aliases or {},record_layouts or {},allow_pointer_storage=True,enum_types=enum_types)
@@ -3800,7 +3900,7 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
     return added,proofs
 
 
-def recover_referenced_header_functions(ast, candidates, source_root):
+def recover_referenced_header_functions(ast, candidates, source_root, requested_templates=()):
     """Demand-driven closure of Clang-referenced, original header inline bodies.
 
     Clang elides repeated header filenames in its AST. For such entries,
@@ -3892,6 +3992,27 @@ def recover_referenced_header_functions(ast, candidates, source_root):
             else:by_signature[signature]=n
             known_by_id[identifier]=n
     added=[];odr_origins={};selected={n.get('id') for n in candidates};queue=list(candidates)
+    # A whole-owner rebuild can explicitly request a previously exported
+    # specialization even when none of its remaining functions calls it.
+    # Select only actual concrete Clang instances in proven original/target
+    # headers; dependent patterns are not implementations. Keep the same
+    # native mangling, original body and target-header provenance.
+    for n in known_by_id.values():
+        if (id(n) not in template_ids or n.get('name') not in requested_templates or
+                not n.get('mangledName') or not any(kind(arg)=='TemplateArgument' for arg in kids(n)) or
+                n.get('id') in selected):continue
+        origin=verified_header(n)
+        if origin is None:continue
+        if sysroot and origin.is_relative_to(sysroot) and not origin.is_relative_to(root):
+            n['_source_toolchain_header']={'source_header':'@sysroot/'+origin.relative_to(sysroot).as_posix(),
+                'source_offset':n['loc'].get('offset',n['loc'].get('expansionLoc',{}).get('offset')),
+                'header_sha256':hashlib.sha256(origin.read_bytes()).hexdigest(),
+                'physical_origin_proof':'unique-target-sysroot-identifier-byte-offset',
+                'target_abi':'x86_64-linux-lp64-le'}
+        selected.add(n['id']);added.append(n);queue.append(n)
+        if n.get('storageClass')!='static':
+            odr_origins[id(n)]=(origin.relative_to(root).as_posix() if origin.is_relative_to(root)
+                               else n['_source_toolchain_header']['source_header'])
     while queue:
         caller=queue.pop(0)
         for expr in descendants(caller):
@@ -4213,7 +4334,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     record_layouts.update(typedef_record_layouts(ast,record_layouts,source_root))
     record_layouts.update(specialization_layouts(ast,record_layouts))
     record_layouts.update(recover_typedef_record_layouts(ast, record_layouts))
-    byte_records=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,layout_aliases=record_layouts)
+    byte_records=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,layout_aliases=record_layouts,source_rel=source_rel)
+    record_storage_views=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,storage_views=True,source_rel=source_rel)
     for record_name,record in byte_records.items():
         # Preserve the older, explicitly opaque copy-only ABI for wrappers
         # that were already proven to use exact-size byte buffers.
@@ -4381,7 +4503,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     header_global_internal={id(node) for node in header_globals
         if header_global_proofs[id(node)]['linkage']=='internal'}
     candidates.extend(header_globals)
-    header_helpers,header_odr,header_templates=(recover_referenced_header_functions(ast,candidates,source_root)
+    header_helpers,header_odr,header_templates=(recover_referenced_header_functions(ast,candidates,source_root,
+                    requested_templates=set(filters.split(',')) if filters and include_header_inlines else ())
                     if header_dependency_closure else ([],{},set()))
     header_helper_ids={id(n) for n in header_helpers if id(n) not in header_odr}
     candidates.extend(header_helpers)
@@ -4710,9 +4833,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     def private_scalar_array(node):
         schema=aggregate_type_schema(qual(node),global_storage_records,aliases,record_layouts,
             allow_pointer_storage=True,enum_types=enum_types)
-        # Only one-dimensional, native TypedArray storage. Nested JS arrays,
-        # record arrays and pointer slots require their separate layout ABIs.
-        return schema if schema and 'array' in schema and len(schema.get('dims',[]))==1 else None
+        # Scalar rows are views into one contiguous original allocation.
+        # Record arrays and pointer slots retain their separate layout ABIs.
+        return schema if schema and 'array' in schema else None
     def private_byte_record(node):
         schema=aggregate_type_schema(qual(node),global_storage_records,aliases,record_layouts,
             allow_pointer_storage=True,enum_types=enum_types)
@@ -4726,6 +4849,10 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         probe=re.sub(r'\[\s*\]','[1]',typ) if incomplete else typ
         schema=aggregate_type_schema(probe,global_storage_records,aliases,record_layouts,
             allow_pointer_storage=True,enum_types=enum_types)
+        if schema and 'array' in schema and len(schema.get('dims',[]))>1:
+            return {'name':name,'abi':'source-native-array/1','array':schema['array'],
+                'dimensions':[None if incomplete and i==0 else n for i,n in enumerate(schema['dims'])],
+                'original_type':typ}
         if schema and 'recordArray' in schema:
             return {'name':name,'abi':'source-byte-record-array/1','stride':schema['recordArray']['size'],
                 'dimensions':[None if incomplete and i==0 else extent for i,extent in enumerate(schema['dims'])],
@@ -4867,6 +4994,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         em=Emit();em.lifetime_classes=lifetime_classes;em.header_record_factories=header_record_factories;em.header_trivial_assignments=header_trivial_assignments;em.allowed_static_prototypes=set(previous_class_prototypes)|header_record_factories;em.trivial_assignment_methods=trivial_assignments;em.implicit_byte_assignable=implicit_byte_assignable;em.enum_values=enum_values;em.record_layouts=record_layouts
         em.all_declarations=all_declarations
         em.managed_record_names=managed_record_names
+        em.record_storage_views=record_storage_views
         em.member_method_symbols=member_method_symbols;em.overloaded_member_names=overloaded_member_names
         em.non_odr_static_values=non_odr_static_values
         em.empty_asm_barriers=empty_asm_barriers
@@ -4933,7 +5061,13 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     if array or record:em.external_aggregate_globals.add(refid)
                     continue
                 array_metadata=pointer_array_metadata(decl,refname)
-                if array_metadata:external_pointer_arrays[refname]=array_metadata
+                existing=(existing_source_storage or {}).get(refname,{})
+                if existing.get('linkage')=='internal' and '[' in qual(decl) and not array_metadata:
+                    element=re.sub(r'(?:\s*\[\s*\d*\s*\])+\s*$','',qual(decl)).strip()
+                    if existing.get('object_storage',{}).get('abi')=='source-byte-record-array/1':
+                        raise Unsupported('sizeof/alignof record layout: '+element)
+                    raise Unsupported('private array storage requires verified owner ABI: '+refname)
+                if array_metadata:external_pointer_arrays[refname]={**array_metadata,'consumer_source':source_rel}
                 record_address=addressable_record_global(decl,global_storage_records,aliases,record_layouts,enum_types,addressable_classes)
                 if mutable_scalar_global(decl,aliases,enum_types) or record_address:
                     em.external_global_cells[refid]=storage_metadata(decl,refname)
@@ -4983,11 +5117,17 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             resolved_references={ref.rsplit('::',1)[-1]
                 if ref in scoped_record_types and ref.rsplit('::',1)[-1] in verified_scoped_trivial_records
                 else ref for ref in resolved_references}
+            local_value_ids={part.get('id') for part in descendants(n) if part is not n
+                and kind(part) in ('VarDecl','ParmVarDecl')}
+            value_dependencies={resolve(part['referencedDecl']) for part in descendants(n)
+                if kind(part)=='DeclRefExpr' and part.get('referencedDecl',{}).get('kind') in ('FunctionDecl','VarDecl')
+                and part['referencedDecl'].get('id') not in local_value_ids}
             resolved_references={ref for ref in resolved_references
                 if not (ref in verified_scoped_trivial_records
                     and ref in aggregate_records
                     and not aggregate_records[ref].get('prototype')
-                    and ref not in getattr(em,'used_aggregate_prototypes',set()))}
+                    and ref not in getattr(em,'used_aggregate_prototypes',set())
+                    and ref not in value_dependencies)}
             # A canonical C declaration may resolve to a width-checked JS
             # builtin. Its helper is emitted in this very module, so it is
             # not an external source dependency. Only helpers actually used
@@ -5193,7 +5333,8 @@ def main():
             if owner.get('source')==opt.source:
                 for definition in owner.get('definitions',[]):
                     if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('kind')=='VarDecl'
-                            and (definition.get('private_storage') or definition.get('global_storage'))):
+                            and (definition.get('physical_source',opt.source)==opt.source or
+                                 definition.get('private_storage') or definition.get('global_storage'))):
                         existing_source_storage[definition['name']]=definition
                     if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('linkage')=='internal'
                             and definition.get('private_storage')):
@@ -5552,6 +5693,8 @@ def main():
             # through the same source type closure as aggregate initialization.
             layout_type=re.fullmatch(r'(?:sizeof/alignof record layout|record copy/move requires Clang-proven trivial semantics|record pointer member requires original byte layout): (?:struct |class |union )?([A-Za-z_]\w*)',reason)
             if layout_type:unresolved_types.add(layout_type.group(1))
+            field_owner=re.fullmatch(r'record field requires verified native storage: ([A-Za-z_]\w*)::[A-Za-z_]\w*',reason)
+            if field_owner:unresolved_types.add(field_owner.group(1))
             # Filtered function ASTs can retain an implicit copy/move
             # assignment call while omitting the record that proves it is
             # trivial. Query the exact Clang-reported owner; lowering still
@@ -5672,7 +5815,8 @@ def main():
         # A named POD query can prove fields while omitting its namespace.
         # Keep the original same-TU declaration context before joining its
         # qualified target layout; never join merely by a matching short name.
-        unresolved_record_views=any(row.get('reason','').startswith('record pointer member requires original byte layout:') for row in report)
+        unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
+            'record field requires verified native storage:')) for row in report)
         ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
         if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or ordinary_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
@@ -5760,6 +5904,7 @@ def main():
                               'external object address requires a verified owner identity ABI'))
                           or r.get('reason','').startswith('global aggregate array requires verified storage shape:')
                           or r.get('reason','').startswith('record pointer member requires original byte layout:')
+                          or r.get('reason','').startswith('record field requires verified native storage:')
                           or r.get('reason','').startswith('unsupported global array element type ')
                           for r in report):
         layout_cmd=[frontend,*language,'-Xclang','-fdump-record-layouts-complete',
@@ -6035,6 +6180,7 @@ def main():
             'C++ global class address requires exact Clang layout:',
             'external object address requires a verified owner identity ABI',
             'record pointer member requires original byte layout:',
+            'record field requires verified native storage:',
             'C aggregate list requires verified storage shape:', 'nonidentifier member',
             'aggregate copy requires verified pointer-free field shape:',
             'anonymous record fields require exact Clang byte layout',
@@ -6081,7 +6227,7 @@ def main():
                         # declaration before its ABI offsets became available.
                         # Reuse that evidence rather than add a second Clang
                         # query-local identity for the same named record.
-                        proven_bytes=recover_byte_records(ast,layouts,recover_type_aliases(ast),source_root=root)
+                        proven_bytes=recover_byte_records(ast,layouts,recover_type_aliases(ast),source_root=root,source_rel=opt.source)
                         needed-=set(proven_bytes)
                         newly=[]
                         for typename in sorted(needed-queried_abi)[:16] if opt.filter else []:
@@ -6126,6 +6272,7 @@ def main():
     # in the SAME original function. Alternate the shared closure passes until
     # no declaration/status changes, rather than stranding a POD schema behind
     # an enum expression that happened to be visited first by the AST emitter.
+    dependency_layout_closure={'attempted':False,'records_added':0}
     for _semantic_round in range(24):
         previous=[(row['name'],row['status'],row.get('reason')) for row in report]
         retry_enum_closure()
@@ -6135,6 +6282,29 @@ def main():
         # emitter on the first pass. Revisit actual source dependencies too;
         # the shared query set keeps failed/ambiguous declarations bounded.
         retry_dependency_closure()
+        # A newly discovered function can be the first to dereference a
+        # record, after the earlier ABI pass has already run. Complete the
+        # same fixed point over layouts as well as declarations; never strand
+        # those dependencies merely because the first requested function did
+        # not itself require a byte layout.
+        if not layouts and not dependency_layout_closure['attempted'] and any(
+                row.get('reason','').startswith(('record pointer member requires original byte layout:',
+                    'record field requires verified native storage:', 'sizeof/alignof record layout:'))
+                for row in report):
+            dependency_layout_closure['attempted']=True
+            try:
+                query=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
+                    '-fsyntax-only',*args,opt.source],cwd=root,capture_output=True,text=True,timeout=45)
+                if query.returncode:raise ValueError(query.stderr[-1500:])
+                discovered=parse_clang_record_layouts(query.stdout+'\n'+query.stderr)
+                dependency_layout_closure['records_added']=len(discovered)
+                layouts.update(discovered)
+                if discovered:
+                    emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
+                        project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
+                        source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
+            except (subprocess.TimeoutExpired,OSError,ValueError) as exc:
+                dependency_layout_closure['error']=str(exc)
         if retry_implicit_member_closure():
             emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
                 project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
@@ -6289,7 +6459,7 @@ const cStackAlloc = amount => {
                       +'const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });\n'
                       +'const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });\n') if any(helper in body for helper in ('cRef(', 'cArrayRef(', 'cRecordObject(', 'cObjectFieldRef(', 'cStaticReference(')) else ''
     span_helpers=(HERE/'tools/source_pointer_span_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cxxPointerSpan(' in body else ''
-    aggregate_helpers=(HERE/'tools/source_aggregate_runtime.mjs').read_text(encoding='utf-8')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(')) else ''
+    aggregate_helpers=(HERE/'tools/source_aggregate_runtime.mjs').read_text(encoding='utf-8')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(', 'cNativeArray(')) else ''
     # Embedded helpers have dependencies too: record references call
     # cPointerElementRef, and aggregate record views call cPointer. Selecting
     # helpers from original function bodies alone stranded those bindings.
@@ -6335,6 +6505,7 @@ const cStackAlloc = amount => {
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}
     if opt.import_root:result['module_fragment']={'import_root':str(opt.import_root.resolve()),'provider_exports_and_storage_abi_verified':True}
     result['full_type_closure']=full_type_closure
+    result['dependency_layout_closure']=dependency_layout_closure
     result['ast_cache_inputs']=ast_cache_inputs
     result['ast_decode']=ast_decode
     result['storage_exports']=[{'name':item['name'],**item['global_storage']} for item in report

@@ -88,6 +88,12 @@ const cTypedPointer = (source, Type) => {
   return pointer;
 };
 const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
+  if(source?.__cDeferredReference===true)source=source.resolve();
+  if(source?.__cReference===true&&source.__cPointer!==true&&
+      !source.value?.[Symbol.for('source-first.original-byte-record-storage/1')]){
+    if((delta===0||delta===0n)&&Number.isSafeInteger(stride)&&stride>0)return source;
+    throw new RangeError('C scalar reference arithmetic requires original byte storage');
+  }
   const initial=cPointer(source);
   const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
@@ -132,7 +138,9 @@ const cDeref = (source, Type) => {
 // An address-reinterpreted scalar has one native byte allocation. Reads via
 // its source identifier and all typed/byte aliases share the same DataView.
 const cScalarStorage = (Type, initial) => {
-  const array=new Type([initial]),pointer=cPointer(array),reference=cDeref(pointer,Type);
+  // An output-only automatic object owns bytes before its original callee
+  // writes them. Omitting initial does not emit a C/C++ zero initializer.
+  const array=initial===undefined?new Type(1):new Type([initial]),pointer=cPointer(array),reference=cDeref(pointer,Type);
   return {...pointer,__cReference:true,
     get value(){return reference.value;},set value(value){reference.value=value;}};
 };

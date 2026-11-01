@@ -53,3 +53,27 @@ export function sourceHeapAddress(value, heap) {
   if(!bytes||bytes.buffer!==heap.buffer)throw TypeError('C allocation service requires storage from its own heap');
   heap.check(bytes.byteOffset,0);return bytes.byteOffset;
 }
+
+/** Borrow a bounded host I/O span, without converting source stack storage
+ * into a heap address or allocating a detached output buffer. */
+export function sourceSizedBytes(value, count, heap) {
+  count=Number(count);
+  if(!Number.isSafeInteger(count)||count<0)throw RangeError('Invalid source byte count');
+  const bytes=sourceByteView(value);
+  if(!bytes){
+    const address=sourceHeapAddress(value,heap);heap.check(address,count);
+    return heap.u8.subarray(address,address+count);
+  }
+  if(count>bytes.length)throw RangeError('Host I/O exceeds original source byte bounds');
+  return bytes.subarray(0,count);
+}
+
+export function sourceCString(value, heap) {
+  const bytes=sourceByteView(value);
+  if(!bytes)return heap.readCString(sourceHeapAddress(value,heap));
+  const end=bytes.indexOf(0);
+  if(end<0)throw RangeError('Source string is not NUL-terminated within original byte bounds');
+  // Browser TextDecoder rejects resizable-heap views. Only the immutable
+  // string input is copied; writable I/O spans still alias original storage.
+  return new TextDecoder().decode(bytes.slice(0,end));
+}

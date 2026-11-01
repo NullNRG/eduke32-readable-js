@@ -101,11 +101,29 @@ def storage_import_error(dependency,units):
         if not provider.get('module') or dependency['binding'] not in exported_names(provider['module']):
             return 'private storage address absent from actual provider JavaScript'
         return None
+    if dependency.get('abi')=='source-native-array/1':
+        name=dependency['name'];provider=units.get(dependency['from'])
+        if not provider:return 'native array storage provider missing'
+        rows=[row for row in provider['manifest']['definitions'] if row['name']==name and row['status']=='source-first']
+        if len(rows)!=1:return 'native array original definition unproven'
+        if rows[0].get('linkage')=='internal' and dependency.get('consumer_source')!=dependency['from']:
+            return 'private native array cannot cross original translation-unit ownership'
+        metadata=rows[0].get('object_storage',{})
+        if metadata.get('abi')!='source-native-array/1' or metadata.get('array')!=dependency.get('array'):
+            return 'native array provider lacks identical contiguous scalar storage'
+        dimensions=dependency.get('dimensions',[]);actual=metadata.get('dimensions',[])
+        if len(dimensions)!=len(actual) or any(a is not None and a!=b for a,b in zip(dimensions,actual)):
+            return 'native array dimensions differ across translation units'
+        if not provider.get('module') or js_ident(name) not in exported_names(provider['module']):
+            return 'native array absent from actual provider JavaScript'
+        return None
     if dependency.get('abi')=='source-byte-record-array/1':
         name=dependency['name'];provider=units.get(dependency['from'])
         if not provider:return 'record array storage provider missing'
         rows=[row for row in provider['manifest']['definitions'] if row['name']==name and row['status']=='source-first']
         if len(rows)!=1:return 'record array original definition unproven'
+        if rows[0].get('linkage')=='internal' and dependency.get('consumer_source')!=dependency['from']:
+            return 'private record array cannot cross original translation-unit ownership'
         metadata=rows[0].get('object_storage',{})
         if metadata.get('abi')!='source-byte-record-array/1' or any(dependency.get(key)!=metadata.get(key) for key in ('stride','schema_sha256')):
             return 'record array provider lacks identical contiguous Clang storage'
@@ -121,6 +139,8 @@ def storage_import_error(dependency,units):
         rows=[row for row in provider['manifest']['definitions']
             if row['name']==name and row['status']=='source-first']
         if len(rows)!=1:return 'pointer array original definition unproven'
+        if rows[0].get('linkage')=='internal' and dependency.get('consumer_source')!=dependency['from']:
+            return 'private pointer array cannot cross original translation-unit ownership'
         metadata=rows[0].get('object_storage',{})
         if metadata.get('abi')!='source-pointer-array/1' or metadata.get('stride')!=8:
             return 'pointer array provider lacks contiguous LP64 pointer storage'

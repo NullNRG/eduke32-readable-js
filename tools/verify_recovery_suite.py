@@ -61,7 +61,7 @@ def main():
     semantic=ROOT/'tests/source_factory/verify_semantic_index.py'
     tests.append(([sys.executable,str(semantic)],semantic.name))
     tests += [(['node','--test',str(ROOT/'tests/source_factory'/name)],name)
-              for name in ('runtime.test.mjs','portability.test.mjs')]
+              for name in ('runtime.test.mjs','portability.test.mjs','source_file_io.test.mjs')]
     if args.match: tests=[item for item in tests if any(text in item[1] for text in args.match)]
     if not tests: parser.error('no matching tests')
     initial_inputs=regression_inputs()

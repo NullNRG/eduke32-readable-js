@@ -28,13 +28,15 @@ npm run test:services
 npm run compile:game
 ```
 
-Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/nov01-integration-full-regression.json for the current 199-test run. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
+Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/nov01-vfs-corrected-full-regression.json for the current 207-test run; verify complete/all_passed and input fingerprints. The earlier 199-test run is a historical baseline. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
+
+Original GRP/file I/O now passes native/Node/Chromium comparison: run `python work/verify_original_vfs.py`. Original code indexes the raw GRP's 456 entries, and opens/seeks/reads E1L1.MAP, PALETTE.DAT, GAME.CON and TILES000.ART. The platform does not pre-index the archive. Directory validation covers 7,756 bytes; sampled native-parity reads cover 2,176 bytes. See reports/nov01-original-vfs-parity.json. This does not execute the game or verify ZIP decompression.
 
 The original software surface passes 1,062,912 native/Node/Chromium byte comparisons; see reports/nov01-original-softsurface-parity.json. Original CircularQueue has 256 native/Node/Chromium cases. Original engineInitClipMaps mutates 61,464 actual owning bytes in Chromium. These are subsystem proofs, not gameplay. Template destructor recovery, typed ordinary member overloads and native aggregate addresses at libc boundaries now exist.
 
 Inspect storage_ownership_conflicts in the component manifest. The actual source audit finds legacy hidden copies of globals beyond selected re-export lists. Surface/hash/clipping ownership is repaired; engine/console copies require verified recompilation. tools/install_verified_fragment.py rejects new duplicates; work/rebuild_source_owner.py requires an exact owner hash and preserves the full interface, activating only in a fresh runtime.
 
-Complete console storage/lifetimes/callbacks/logging/file access, original engine startup and game clock initialization, source SDL integration, frame yielding, menu/E1L1 and gameplay. The host timerInit alone does not initialize original timer.cpp globals. The public compile:game command still needs candidate construction/verification/promotion wired to this incremental tree.
+The latest console retry gets past file APIs and checksum-state storage. Its callback dependencies converge on OSD_Printf/OSD_Dispatch and OSD_Puts; source atomic-list method prototypes and inherited AtomicLogString storage/lifetimes remain the shared frontier. Complete those, original console/engine startup, game clock initialization, source SDL integration, frame yielding, menu/E1L1 and gameplay. The host timerInit alone does not initialize original timer.cpp globals. The public compile:game command still needs candidate construction/verification/promotion wired to this incremental tree.
 
 Read BUILD_PORTABILITY.md and BROWSER_SERVICES.md for toolchain setup on another host. Revalidate source/header/ABI/compiler/runtime/configuration fingerprints. The source ABI is source-lp64-addresses/2. Lossless semantic data is in reports/semantic-browser-checkpoint/index.jsonl.gz; restore with work/portable_semantic_checkpoint.py. Raw AST caches and downloaded SDKs are deliberately omitted from compact ZIPs.
 

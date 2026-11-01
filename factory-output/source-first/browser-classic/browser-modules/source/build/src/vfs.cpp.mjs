@@ -8,7 +8,6 @@ import { Free__cxx_static_0dfd3f42f0dc2c05 } from "./smmalloc_generic.cpp.mjs";
 import { fstat } from "../../../browser-abi/libc_provider.mjs";
 import { __cxx_global_cell_11016d3c7177543e564ab46c } from "./compat.cpp.mjs";
 import { handle_memerr } from "./compat.cpp.mjs";
-import { stat } from "../../../browser-abi/libc_provider.mjs";
 import { strcpy } from "../../../browser-abi/libc_provider.mjs";
 import { strlen } from "../../../browser-abi/libc_provider.mjs";
 
@@ -48,6 +47,12 @@ const cSourceAddresses = (() => {
     if(cpp&&!cpp.live)throw new RangeError('C pointer addresses deleted C++ storage');
     const native=heap();
     if(native?.buffer===buffer){
+      // An address can be both one-past one allocation and the beginning
+      // of its neighbour. A raw malloc address must select its live owner.
+      if(native.allocations.has(offset)){
+        const size=native.allocations.get(offset);
+        if(width<=size)return {lower:offset,upper:offset+size};
+      }
       for(const [base,size] of native.allocations){
         if(offset>=base&&offset+width<=base+size)return {lower:base,upper:base+size};
       }
@@ -107,6 +112,9 @@ const cSourceAddresses = (() => {
         throw new TypeError('C integer address must be exactly representable');
       const bits=BigInt.asUintN(64,BigInt(value));
       if(bits===0n)return null;
+      // The browser may bind its heap before the first compiled module loads.
+      // Register that real address region before decoding a malloc result.
+      const native=heap();if(native)regionFor(native.buffer);
       if(byBits.has(bits)){
         const value=byBits.get(bits),allocation=globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
         if(allocation&&!allocation.live)throw new RangeError('C address refers to a destroyed C++ object');
@@ -150,12 +158,14 @@ const cSourceAddresses = (() => {
   globalThis[key]=api;return api;
 })();
 
+
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
+  if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
   if (source && source.__cPointer === true) {
-    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset);
+    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.__cAddressOnly?source.lower:source.offset);
     return source;
   }
   if(source?.__cReference===true&&source.value?.[Symbol.for('source-first.original-byte-record-storage/1')])
@@ -227,7 +237,7 @@ const cPointerElementRef = (source,index) => {
 };
 const cTypedPointer = (source, Type) => {
   if (!Type || !Number.isSafeInteger(Type.BYTES_PER_ELEMENT)) throw new TypeError('Unsupported pointer element type');
-  if (source===null) return null;
+  if (source===null||source===0||source===0n) return null;
   const pointerBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
   if(pointerBytes)return cPointer(pointerBytes);
   if (Array.isArray(source)) return { ...cPointer(source), upper:source.length*Type.BYTES_PER_ELEMENT, stride:Type.BYTES_PER_ELEMENT };
@@ -238,19 +248,20 @@ const cTypedPointer = (source, Type) => {
   }
   return pointer;
 };
-const cPointerOffset = (source, delta, stride=1) => {
+const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
   const initial=cPointer(source);
   const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
-  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || next<p.lower || next>p.upper)
+  const outside=next<p.lower||next>p.upper;
+  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || outside&&!addressOnly)
     throw new RangeError('C pointer escapes original array bounds');
   if(p.__cPointer===true&&p.__cReference===true){
     if(next===p.offset)return p;
     return {__cPointer:true,buffer:p.buffer,array:p.array,lower:p.lower,upper:p.upper,offset:next,
-      ...(p.array?{stride:p.stride}: {})};
+      ...(p.array?{stride:p.stride}: {}),...(outside?{__cAddressOnly:true}: {})};
   }
-  const result={...p,offset:next};
+  const result={...p,offset:next,__cAddressOnly:outside};
   return result;
 };
 const cDeref = (source, Type) => {
@@ -258,14 +269,14 @@ const cDeref = (source, Type) => {
       typeof source==='object' && 'value' in source) return source;
   const p=cPointer(source);
   if (p.array) {
-    if (p.offset>=p.upper) throw new RangeError('C array pointer dereferences one-past-end');
+    if (p.offset<p.lower||p.offset>=p.upper) throw new RangeError('C array pointer dereferences outside its original bounds');
     if (Type.BYTES_PER_ELEMENT!==p.stride || p.offset%p.stride!==0)
       throw new TypeError('Array element type does not match original pointer stride');
     const index=p.offset/p.stride;
     return {get value(){return p.buffer[index];}, set value(value){p.buffer[index]=value;}};
   }
   const width=Type?.BYTES_PER_ELEMENT;
-  if (!Number.isSafeInteger(width) || width<=0 || p.offset+width>p.upper)
+  if (!Number.isSafeInteger(width) || width<=0 || p.offset<p.lower || p.offset+width>p.upper)
     throw new RangeError('C typed pointer dereference out of bounds');
   const access=new Map([
     [Uint8Array,['getUint8','setUint8']], [Int8Array,['getInt8','setInt8']],
@@ -287,6 +298,8 @@ const cScalarStorage = (Type, initial) => {
     get value(){return reference.value;},set value(value){reference.value=value;}};
 };
 const cPointerCompare = (left,right,op) => {
+  if(left===0||left===0n)left=null;
+  if(right===0||right===0n)right=null;
   if (left?.__cDeferredReference===true) left=left.resolve();
   if (right?.__cDeferredReference===true) right=right.resolve();
   if(left?.__cReference===true&&left.__cPointer!==true&&left.value?.[Symbol.for('source-first.original-byte-record-storage/1')])left=left.value;
@@ -383,6 +396,33 @@ const cByteRecordNative = {
   Float32Array:[Float32Array,'Float32'], Float64Array:[Float64Array,'Float64'],
   BigInt64Array:[BigInt64Array,'BigInt64'], BigUint64Array:[BigUint64Array,'BigUint64']
 };
+// A native multidimensional array has ONE allocation. Each readable JS row
+// is a typed view into that allocation, so host byte operations and row
+// pointers observe exactly the same C storage and original row strides.
+const cNativeArray = (type,dims,initializers=[]) => {
+  const C=cByteRecordNative[type]?.[0];
+  if(!C||!Array.isArray(dims)||!dims.length||dims.length>8||
+      dims.some(n=>!Number.isSafeInteger(n)||n<0||n>1000000)||
+      dims.reduce((a,b)=>a*b,1)>1000000)
+    throw new TypeError('Native C array requires verified dimensions and scalar width');
+  const bytes=new Uint8Array(dims.reduce((a,b)=>a*b,1)*C.BYTES_PER_ELEMENT);
+  let offset=0;
+  const build=(depth,values)=>{
+    const length=dims[depth],start=offset;
+    if(!(Array.isArray(values)||depth===dims.length-1&&values instanceof C)||values.length>length)
+      throw new TypeError('Native C array initializer differs from original dimensions');
+    if(depth===dims.length-1){
+      const row=new C(bytes.buffer,offset,length);row.set(values);offset+=row.byteLength;return row;
+    }
+    const rows=Array.from({length},(_,i)=>build(depth+1,values[i]??[]));
+    Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),
+      {value:bytes.subarray(start,offset)});
+    Object.defineProperty(rows,Symbol.for('source-first.native-array-layout/1'),
+      {value:JSON.stringify({array:type,dims:dims.slice(depth)})});
+    return rows;
+  };
+  return build(0,initializers);
+};
 // Pointer fields and uintptr_t share the verified LP64 source address space.
 const cByteRecordPointers = cSourceAddresses;
 // Contiguous LP64 slots preserve pointer identity and native byte copies.
@@ -449,6 +489,9 @@ const cByteArrayMember = (field,bytes,prototypes,values=[]) => {
   return rows;
 };
 const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
+  if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
+      !values || Object.keys(values).length || schema.prototype))
+    throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
   if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>1048576 ||
       !schema.fields || typeof schema.fields!=='object')
     throw new TypeError('Unverified Clang byte-record schema');
@@ -572,6 +615,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
 // strides, and overlapping-union aliasing between consecutive C records.
 const cByteRecordArrayStorage = Symbol.for('source-first.clang-byte-record-array/1');
 const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if (!Number.isSafeInteger(count) || count < 1 || count > 1000000 ||
       !Number.isSafeInteger(schema?.size) || schema.size < 1 ||
       schema.size > 1048576 || count * schema.size > 268435456)
@@ -617,6 +662,7 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       initialize();
       const i = indexOf(key);
       if (i < 0) throw new RangeError('C record array index outside original extent');
+      if(schema.projection)throw new TypeError('Nontrivial C++ array assignment requires original operator');
       const source = cByteRecordStorage.get(value);
       if (!source || source.schema !== signature)
         throw new TypeError('C record array assignment requires identical Clang byte layout');
@@ -630,6 +676,8 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
 
 // Every row and element in a multidimensional C array shares one allocation.
 const cByteRecordNDArray = (schema,dims,prototypes={},initializers=[],storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if(!Array.isArray(dims)||dims.length<1||dims.length>8||
       dims.some(n=>!Number.isSafeInteger(n)||n<1||n>1000000)||
       !Number.isSafeInteger(schema?.size)||schema.size<1||
@@ -695,6 +743,7 @@ const cRecordPointerViews = (()=>{
       if(!Number.isSafeInteger(offset))throw new RangeError('Record-pointer index is not exactly representable');
       const item={...pointer,offset},record=api.deref(item);
       return {get value(){return record;},set value(next){
+        if(pointer.recordSchema.projection)throw new TypeError('Nontrivial C++ record assignment requires original operator');
         const source=cByteRecordStorage.get(next),destination=cByteRecordStorage.get(record);
         if(!source||source.schema!==destination.schema)throw new TypeError('Record-pointer assignment requires identical Clang layout');
         destination.bytes.set(source.bytes);
@@ -704,14 +753,45 @@ const cRecordPointerViews = (()=>{
   Object.defineProperty(globalThis,key,{value:api});return api;
 })();
 const cRecordPointer = (source,schema,prototypes={}) => {
-  if(source===null)return null;
+  if(!Number.isSafeInteger(schema?.size)||schema.size<1||!schema.fields||
+      !Number.isSafeInteger(schema.align)||schema.align<1)
+    throw new TypeError('Record pointer requires an original Clang schema');
+  if(source===null||source===0||source===0n)return null;
   if(source?.__cDeferredPointer||source?.__cDeferredReference)return cRecordPointer(source.resolve(),schema,prototypes);
   if(source?.__cReference&&source.__cPointer!==true)return cRecordPointer(source.value,schema,prototypes);
   const owner=source?.[Symbol.for('source-first.record-field-owner/1')],owned=owner&&cByteRecordStorage.get(owner);
   if(owned&&source.offset===owned.bytes.byteOffset&&JSON.stringify(schema)===owned.schema)
     return cRecordPointer(owner,schema,prototypes);
   const bytes=cByteRecordStorage.get(source)?.bytes||source?.[cByteRecordArrayStorage];
+  // A host may borrow a flat readable record for field-only C APIs (for
+  // example libdivide). Preserve the SAME object rather than serialize a
+  // detached copy. Byte casts/copies and pointer arithmetic still require
+  // native storage; this facade never acquires a fabricated heap address.
+  if(!schema.projection && !bytes && source && typeof source==='object' &&
+      (Object.getPrototypeOf(source)===Object.prototype||Object.getPrototypeOf(source)===null) &&
+      source.__cPointer!==true && !schema.union &&
+      Object.entries(schema.fields).every(([name,field])=>
+        (field.pointer||field.native&&!Object.hasOwn(field,'length')) &&
+        Object.hasOwn(Object.getOwnPropertyDescriptor(source,name)||{},'value')))
+    return {__cReference:true,get value(){return source;}};
   const pointer=cPointer(bytes||source);
+  // Source arrays can retain object slots instead of a serialized POD layout.
+  // Keep that original owner and stride; do not reinterpret those slots as
+  // heap bytes or detach their fields by constructing a new record view.
+  if(pointer.array){
+    if(schema.projection)throw new TypeError('Nontrivial C++ field view requires original byte storage');
+    const owned=Array.isArray(source)
+      ? {...pointer,upper:source.length*schema.size,stride:schema.size} : pointer;
+    if(owned.stride!==schema.size || owned.lower%owned.stride || owned.offset%owned.stride ||
+        owned.upper%owned.stride || !Array.isArray(owned.buffer))
+      throw new TypeError('Record pointer differs from original object-array stride');
+    if(owned.offset<owned.lower || owned.offset>=owned.upper)
+      throw new RangeError('Record pointer dereferences outside original object slots');
+    const value=owned.buffer[owned.offset/owned.stride];
+    if(value===null || typeof value!=='object' || ArrayBuffer.isView(value))
+      throw new TypeError('Record pointer requires original record object slots');
+    return owned;
+  }
   if(pointer.array||!Number.isSafeInteger(schema?.size)||schema.size<1||
       !Number.isSafeInteger(schema.align)||schema.align<1||pointer.offset%schema.align)
     throw new TypeError('Record pointer requires aligned Clang-proven original bytes');
@@ -721,6 +801,8 @@ const cRecordPointer = (source,schema,prototypes={}) => {
 // Readable JS representation of Clang-proven pointer-free C/C++ POD copies.
 // Fail closed if external storage has not been materialized in the agreed type.
 const cCopyAggregate = (value, schema) => {
+  if(schema.byteRecord?.projection || schema.recordArray?.projection)
+    throw new TypeError('Nontrivial C++ copy requires original constructor');
   if(schema.recordArray){
     const bytes=value?.[cByteRecordArrayStorage];
     if(!bytes||value[Symbol.for('source-first.byte-record-array-layout/1')]!==JSON.stringify({schema:schema.recordArray,dims:schema.dims}))
@@ -803,8 +885,7 @@ const cZeroAggregate = (schema, prototypes={}) => {
         schema.dims.reduce((a,b) => a*b, 1) > 1000000)
       throw new TypeError('Unverified C aggregate zero-array extent');
     if (schema.dims.length === 1) return new C(schema.dims[0]);
-    return Array.from({length:schema.dims[0]}, () =>
-      cZeroAggregate({array:schema.array,dims:schema.dims.slice(1)}));
+    return cNativeArray(schema.array,schema.dims);
   }
   if (Object.hasOwn(schema, 'record')) {
     const result = cMarkAggregate({});
@@ -879,6 +960,17 @@ function __cxx_static_address_bd28db781fd61f721b55fb90() {
 }
 export function __cxx_private_cell_bd28db781fd61f721b55fb90() { return __cxx_static_address_bd28db781fd61f721b55fb90(); }
 
+// C/C++ source: source/build/include/vfs.h:105
+export function buildvfs_length(fd) {
+  let st = cZeroAggregate({"byteRecord": {"align": 8, "arrayAlign": 8, "fields": {"__glibc_reserved": {"length": 3, "native": "BigInt64Array", "offset": 120, "size": 24}, "__pad0": {"native": "Int32Array", "offset": 36, "size": 4}, "st_atim": {"byteRecord": {"align": 8, "arrayAlign": 1, "fields": {"tv_nsec": {"native": "BigInt64Array", "offset": 8, "size": 8}, "tv_sec": {"native": "BigInt64Array", "offset": 0, "size": 8}}, "overlaps": false, "size": 16, "union": false}, "offset": 72}, "st_blksize": {"native": "BigInt64Array", "offset": 56, "size": 8}, "st_blocks": {"native": "BigInt64Array", "offset": 64, "size": 8}, "st_ctim": {"byteRecord": {"align": 8, "arrayAlign": 1, "fields": {"tv_nsec": {"native": "BigInt64Array", "offset": 8, "size": 8}, "tv_sec": {"native": "BigInt64Array", "offset": 0, "size": 8}}, "overlaps": false, "size": 16, "union": false}, "offset": 104}, "st_dev": {"native": "BigUint64Array", "offset": 0, "size": 8}, "st_gid": {"native": "Uint32Array", "offset": 32, "size": 4}, "st_ino": {"native": "BigUint64Array", "offset": 8, "size": 8}, "st_mode": {"native": "Uint32Array", "offset": 24, "size": 4}, "st_mtim": {"byteRecord": {"align": 8, "arrayAlign": 1, "fields": {"tv_nsec": {"native": "BigInt64Array", "offset": 8, "size": 8}, "tv_sec": {"native": "BigInt64Array", "offset": 0, "size": 8}}, "overlaps": false, "size": 16, "union": false}, "offset": 88}, "st_nlink": {"native": "BigUint64Array", "offset": 16, "size": 8}, "st_rdev": {"native": "BigUint64Array", "offset": 40, "size": 8}, "st_size": {"native": "BigInt64Array", "offset": 48, "size": 8}, "st_uid": {"native": "Uint32Array", "offset": 28, "size": 4}}, "overlaps": false, "size": 144, "union": false}}, {});
+  return i64(((fstat(fd, st) < 0) ? i64((-1)) : st.st_size));
+}
+
+// C/C++ source: source/build/include/compat.h:1367
+export function engineDestroyAllocator() {
+  Destroy__cxx_static_777d0ae31c789182(__cxx_global_cell_11016d3c7177543e564ab46c().value);
+}
+
 // C/C++ source: source/build/src/vfs.cpp:131
 export let pathsearchmode = i32(0);
 export function __cxx_global_cell_787e3556986da6109d0447e0() {
@@ -897,11 +989,6 @@ export function __cxx_global_cell_92d90c06123336f9a13fd848() {
     get value() { return numgroupfiles; },
     set value(__cxx_lvalue_0) { numgroupfiles = i32(__cxx_lvalue_0); }
   });
-}
-
-// C/C++ source: source/build/include/compat.h:1367
-export function engineDestroyAllocator() {
-  Destroy__cxx_static_777d0ae31c789182(__cxx_global_cell_11016d3c7177543e564ab46c().value);
 }
 
 // C/C++ source: source/build/src/vfs.cpp:454
@@ -990,11 +1077,6 @@ function __cxx_static_address_0e6a8863bdc69dd261cf550b() {
 }
 export function __cxx_private_cell_0e6a8863bdc69dd261cf550b() { return __cxx_static_address_0e6a8863bdc69dd261cf550b(); }
 
-// C/C++ source: source/build/include/compat.h:1449
-export function xfree(ptr) {
-  Free__cxx_static_0dfd3f42f0dc2c05(__cxx_global_cell_11016d3c7177543e564ab46c().value, ptr);
-}
-
 // C/C++ source: source/build/src/vfs.cpp:464
 export let filehan = new BigInt64Array([BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1))), BigInt(i64((-1)))]);
 function __cxx_static_address_e58f38ca23a4c7031f169daa() {
@@ -1006,14 +1088,8 @@ function __cxx_static_address_e58f38ca23a4c7031f169daa() {
 }
 export function __cxx_private_cell_e58f38ca23a4c7031f169daa() { return __cxx_static_address_e58f38ca23a4c7031f169daa(); }
 
-// C/C++ source: source/build/include/vfs.h:105
-export function buildvfs_length(fd) {
-  let st = new stat();
-  return i64(((fstat(fd, st) < 0) ? i64((-1)) : st.st_size));
-}
-
 // C/C++ source: source/build/src/vfs.cpp:473
-export let filenamsav = Array.from({ length: 64 }, () => new Uint8Array(260));
+export let filenamsav = cNativeArray("Uint8Array", [64, 260], Array.from({ length: 64 }, () => new Uint8Array(260)));
 function __cxx_static_address_e0923db928126267627d131f() {
   return __cxx_static_address_e0923db928126267627d131f.reference || (__cxx_static_address_e0923db928126267627d131f.reference = {
     __cReference: true,
@@ -1021,17 +1097,12 @@ function __cxx_static_address_e0923db928126267627d131f() {
     set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
   });
 }
+export function __cxx_private_cell_e0923db928126267627d131f() { return __cxx_static_address_e0923db928126267627d131f(); }
 
-// C/C++ source: source/build/src/vfs.cpp:474
-export let kzcurhand = i32((-1));
-function __cxx_static_address_c51318c3fc474f17943c1125() {
-  return __cxx_static_address_c51318c3fc474f17943c1125.reference || (__cxx_static_address_c51318c3fc474f17943c1125.reference = {
-    __cReference: true,
-    get value() { return kzcurhand; },
-    set value(__cxx_lvalue_0) { kzcurhand = i32(__cxx_lvalue_0); }
-  });
+// C/C++ source: source/build/include/compat.h:1449
+export function xfree(ptr) {
+  Free__cxx_static_0dfd3f42f0dc2c05(__cxx_global_cell_11016d3c7177543e564ab46c().value, ptr);
 }
-export function __cxx_private_cell_c51318c3fc474f17943c1125() { return __cxx_static_address_c51318c3fc474f17943c1125(); }
 
 // C/C++ source: source/build/include/compat.h:1392
 export function xmalloc(size) {
@@ -1056,9 +1127,20 @@ export function xstrdup(s) {
   __builtin_unreachable();
 }
 
-// C/C++ source: @sysroot/usr/include/c++/12/bits/stl_algobase.h:230
-export function min__template_774131ccff66371d(__a, __b) {
-  if ((__b.value < __a.value)) {
+// C/C++ source: source/build/src/vfs.cpp:474
+export let kzcurhand = i32((-1));
+function __cxx_static_address_c51318c3fc474f17943c1125() {
+  return __cxx_static_address_c51318c3fc474f17943c1125.reference || (__cxx_static_address_c51318c3fc474f17943c1125.reference = {
+    __cReference: true,
+    get value() { return kzcurhand; },
+    set value(__cxx_lvalue_0) { kzcurhand = i32(__cxx_lvalue_0); }
+  });
+}
+export function __cxx_private_cell_c51318c3fc474f17943c1125() { return __cxx_static_address_c51318c3fc474f17943c1125(); }
+
+// C/C++ source: @sysroot/usr/include/c++/12/bits/stl_algobase.h:254
+export function max__template_552cd67f7e360847(__a, __b) {
+  if ((__a.value < __b.value)) {
     return __b;
   }
   return __a;
@@ -1071,3 +1153,45 @@ export function max__template_b1cfaf2244c73238(__a, __b) {
   }
   return __a;
 }
+
+// C/C++ source: @sysroot/usr/include/c++/12/bits/stl_algobase.h:230
+export function min__template_774131ccff66371d(__a, __b) {
+  if ((__b.value < __a.value)) {
+    return __b;
+  }
+  return __a;
+}
+
+// C/C++ source: @sysroot/usr/include/c++/12/bits/stl_algobase.h:230
+export function min__template_c5ffcfb092321e6b(__a, __b) {
+  if ((__b.value < __a.value)) {
+    return __b;
+  }
+  return __a;
+}
+
+// C/C++ source: @sysroot/usr/include/c++/12/bits/stl_algobase.h:230
+export function min__template_c237f4424e2bda8a(__a, __b) {
+  if ((__b.value < __a.value)) {
+    return __b;
+  }
+  return __a;
+}
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { kclose, kclose_internal, kfilelength, kfilelength_internal, klseek, klseek_internal, kzclose, kzfilelength, kzipopen, kztell } from "./_source_legacy_vfs_cpp_d45275ce8696.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { findfrompath } from "./_source_legacy_vfs_cpp_7b640839461d.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { kopen4load, kopen_internal, openfrompath_internal } from "./_source_legacy_vfs_cpp_61843d175adc.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { kread, kread_internal, ktell, ktell_internal } from "./_source_legacy_vfs_cpp_5ceca3b782e5.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { B_PASS32__header_416cc10abcf4, groupname, kclose_grp, klseek_grp, kread_grp } from "./_source_legacy_vfs_cpp_c7885d09bde0.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { initgroupfile } from "./_source_legacy_vfs_cpp_98fe73439933.mjs";

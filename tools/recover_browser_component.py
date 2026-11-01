@@ -92,7 +92,7 @@ def main():
  cmd=[sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(SOURCE),'--source',a.source,
       '--compile-commands',str(COMMANDS),'--out-dir',str(stage),'--project-symbols',str(index),
       '--import-root',str(OUT),'--dependency-closure','--header-dependency-closure','--header-inlines',
-      '--enum-closure','--ast-cache-dir',str(CACHE)]
+      '--enum-closure','--require-record-layouts','--ast-cache-dir',str(CACHE)]
  if not a.full:cmd+=['--filter',','.join(pending),'--exact-filter']
  log=BASE/'reports'/('boot-'+a.source.replace('/','_')+'.log')
  print('Compile original '+a.source+' ['+','.join(pending)+']',flush=True)

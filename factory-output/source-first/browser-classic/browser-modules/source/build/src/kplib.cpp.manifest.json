@@ -2,28 +2,9 @@
   "source": "source/build/src/kplib.cpp",
   "dependency_closure": {
     "enabled": true,
-    "additional_ast_filters": [
-      "B_PASS16",
-      "B_PASS32",
-      "B_UNBUF16",
-      "B_UNBUF32",
-      "buildvfs_flength",
-      "gslidew",
-      "initpngtables",
-      "kzcheckhash",
-      "kzdirnamhead",
-      "kzhashbuf",
-      "pnginited",
-      "abstab10",
-      "buildvfs_length",
-      "filnamcmp",
-      "hxbit",
-      "kzcalchash",
-      "kzhashead",
-      "ARRAY_SIZE"
-    ],
-    "additional_ast_roots": 18,
-    "rounds": 3,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0,
     "query_limit": 256,
     "budget_exhausted": false,
     "unqueried_references": []
@@ -61,11 +42,13 @@
   },
   "header_ctor_closure": {
     "queried": [
-      "kzfilestate"
+      "kzfilestate",
+      "stat"
     ],
     "proven": [],
     "rejected": {
-      "kzfilestate": "missing/ambiguous source-proven constructor class"
+      "kzfilestate": "missing/ambiguous source-proven constructor class",
+      "stat": "missing/ambiguous source-proven constructor class"
     }
   },
   "member_operator_closure": {
@@ -85,9 +68,9 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\kplib.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 22,
-  "emitted": 21,
-  "blocked": 1,
+  "found": 69,
+  "emitted": 69,
+  "blocked": 0,
   "definitions": [
     {
       "name": "kzfs",
@@ -102,7 +85,8 @@
       "global_storage": {
         "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
         "abi": "source-global-cell/2",
-        "original_type": "struct kzfilestate"
+        "original_type": "struct kzfilestate",
+        "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
       },
       "external_storage_imports": [],
       "status": "source-first",
@@ -140,6 +124,59 @@
       "physical_source": "source/build/src/kplib.cpp",
       "source_references": [],
       "external_reference_imports": [],
+      "object_storage": {
+        "name": "hxbit",
+        "abi": "source-native-array/1",
+        "array": "Int32Array",
+        "dimensions": [
+          59,
+          2
+        ],
+        "original_type": "int32_t[59][2]"
+      },
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_44e9d131024042d9f1569617",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[59][2]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            59,
+            2
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_UNBUF16",
+      "source_name": "B_UNBUF16",
+      "kind": "FunctionDecl",
+      "line": 1035,
+      "original_type": "uint16_t (const void *const)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_UNBUF32",
+      "source_name": "B_UNBUF32",
+      "kind": "FunctionDecl",
+      "line": 1036,
+      "original_type": "uint32_t (const void *const)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
@@ -164,6 +201,69 @@
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildvfs_flength",
+      "source_name": "buildvfs_flength",
+      "kind": "FunctionDecl",
+      "line": 131,
+      "original_type": "int64_t (FILE *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/vfs.h",
+      "source_references": [
+        "buildvfs_length",
+        "fileno"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "fileno"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildvfs_length",
+      "source_name": "buildvfs_length",
+      "kind": "FunctionDecl",
+      "line": 105,
+      "original_type": "int64_t (int)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/vfs.h",
+      "source_references": [
+        "fstat",
+        "stat"
+      ],
+      "external_reference_imports": [],
+      "emitted_constructor_providers": [
+        "stat"
+      ],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "fstat",
+        "stat"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "filnamcmp",
+      "source_name": "filnamcmp",
+      "kind": "FunctionDecl",
+      "line": 56,
+      "original_type": "int32_t (const char *, const char *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/kplib.h",
+      "source_references": [
+        "toupperlookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "toupperlookup"
+      ],
       "unresolved_references": []
     },
     {
@@ -230,56 +330,6 @@
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "B_UNBUF16",
-      "source_name": "B_UNBUF16",
-      "kind": "FunctionDecl",
-      "line": 1035,
-      "original_type": "uint16_t (const void *const)",
-      "linkage": "internal",
-      "physical_source": "source/build/include/compat.h",
-      "source_references": [],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "B_UNBUF32",
-      "source_name": "B_UNBUF32",
-      "kind": "FunctionDecl",
-      "line": 1036,
-      "original_type": "uint32_t (const void *const)",
-      "linkage": "internal",
-      "physical_source": "source/build/include/compat.h",
-      "source_references": [],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "buildvfs_flength",
-      "source_name": "buildvfs_flength",
-      "kind": "FunctionDecl",
-      "line": 131,
-      "original_type": "int64_t (FILE *)",
-      "linkage": "internal",
-      "physical_source": "source/build/include/vfs.h",
-      "source_references": [
-        "buildvfs_length",
-        "fileno"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [
-        "fileno"
-      ],
       "unresolved_references": []
     },
     {
@@ -373,49 +423,6 @@
       "unresolved_references": []
     },
     {
-      "name": "buildvfs_length",
-      "source_name": "buildvfs_length",
-      "kind": "FunctionDecl",
-      "line": 105,
-      "original_type": "int64_t (int)",
-      "linkage": "internal",
-      "physical_source": "source/build/include/vfs.h",
-      "source_references": [
-        "fstat",
-        "stat"
-      ],
-      "external_reference_imports": [],
-      "emitted_constructor_providers": [
-        "stat"
-      ],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [
-        "fstat",
-        "stat"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "filnamcmp",
-      "source_name": "filnamcmp",
-      "kind": "FunctionDecl",
-      "line": 56,
-      "original_type": "int32_t (const char *, const char *)",
-      "linkage": "internal",
-      "physical_source": "source/build/include/kplib.h",
-      "source_references": [
-        "toupperlookup"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [
-        "toupperlookup"
-      ],
-      "unresolved_references": []
-    },
-    {
       "name": "kzopen",
       "source_name": "kzopen",
       "kind": "FunctionDecl",
@@ -461,6 +468,475 @@
       "unresolved_references": []
     },
     {
+      "name": "kzseek",
+      "source_name": "kzseek",
+      "kind": "FunctionDecl",
+      "line": 3023,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "kzfs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_5684d083f66c",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "size_t (const int (&)[256]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIiLm256EEmRAT0__KT_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS16__header_c2d8d3cb4508",
+      "source_name": "B_PASS16",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "take_sign_t<int16_t, int> (int)",
+      "clang_template_mangled_name": "_ZL8B_PASS16IiENSt11conditionalIXsr9is_signedIT_EE5valueEstE4typeES1_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS16__header_15ea0d7111ad",
+      "source_name": "B_PASS16",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "take_sign_t<int16_t, unsigned short> (unsigned short)",
+      "clang_template_mangled_name": "_ZL8B_PASS16ItENSt11conditionalIXsr9is_signedIT_EE5valueEstE4typeES1_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS16__header_7269365a3bec",
+      "source_name": "B_PASS16",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "take_sign_t<int16_t, unsigned int> (unsigned int)",
+      "clang_template_mangled_name": "_ZL8B_PASS16IjENSt11conditionalIXsr9is_signedIT_EE5valueEstE4typeES1_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS32__header_08503142e865",
+      "source_name": "B_PASS32",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "take_sign_t<int32_t, int> (int)",
+      "clang_template_mangled_name": "_ZL8B_PASS32IiENSt11conditionalIXsr9is_signedIT_EE5valueEijE4typeES1_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS32__header_8a7178a88765",
+      "source_name": "B_PASS32",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "take_sign_t<int32_t, unsigned int> (unsigned int)",
+      "clang_template_mangled_name": "_ZL8B_PASS32IjENSt11conditionalIXsr9is_signedIT_EE5valueEijE4typeES1_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_BUF32",
+      "source_name": "B_BUF32",
+      "kind": "FunctionDecl",
+      "line": 1032,
+      "original_type": "void (void *const, const uint32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_SWAP32__header_86d0d39cb98e",
+      "source_name": "B_SWAP32",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "take_sign_t<int32_t, unsigned int> (unsigned int)",
+      "clang_template_mangled_name": "_ZL8B_SWAP32IjENSt11conditionalIXsr9is_signedIT_EE5valueEijE4typeES1_",
+      "linkage": "internal",
+      "source_references": [
+        "B_SWAP32_impl"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_SWAP32_impl",
+      "source_name": "B_SWAP32_impl",
+      "kind": "FunctionDecl",
+      "line": 948,
+      "original_type": "uint32_t (uint32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitpos",
+      "source_name": "bitpos",
+      "kind": "VarDecl",
+      "line": 126,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_b26e6394b97f66d1fd62bd8c",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitrev",
+      "source_name": "bitrev",
+      "kind": "FunctionDecl",
+      "line": 172,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ccind",
+      "source_name": "ccind",
+      "kind": "VarDecl",
+      "line": 129,
+      "original_type": "int32_t[19]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_258736156e619bfc312178fd",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[19]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            19
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "cclen",
+      "source_name": "cclen",
+      "kind": "VarDecl",
+      "line": 126,
+      "original_type": "int32_t[19]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_73f971a45117b405bae691bf",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[19]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            19
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clen",
+      "source_name": "clen",
+      "kind": "VarDecl",
+      "line": 126,
+      "original_type": "int32_t[320]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_439d0ebacabacbc4bb46f782",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[320]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            320
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fakebuf",
+      "source_name": "fakebuf",
+      "kind": "VarDecl",
+      "line": 181,
+      "original_type": "uint8_t[8]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_e0bf579ec89757a16ed9f5aa",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "uint8_t[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "filptr",
+      "source_name": "filptr",
+      "kind": "VarDecl",
+      "line": 131,
+      "original_type": "const uint8_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_3dab0cd39cd715da7cf79ad8",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "const uint8_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "getbits",
+      "source_name": "getbits",
+      "kind": "FunctionDecl",
+      "line": 219,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "peekbits",
+        "suckbits"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "gslider",
+      "source_name": "gslider",
+      "kind": "VarDecl",
+      "line": 124,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_57a5d28f57b8e3415c7b14e5",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "gzbufptr",
+      "source_name": "gzbufptr",
+      "kind": "VarDecl",
+      "line": 2809,
+      "original_type": "char *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_bb1f28aaaf1422ad38efa78a",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "char *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "hufgencode",
+      "source_name": "hufgencode",
+      "kind": "FunctionDecl",
+      "line": 289,
+      "original_type": "void (const int32_t *, int32_t, int32_t *, int32_t *)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "hufgetsym",
+      "source_name": "hufgetsym",
+      "kind": "FunctionDecl",
+      "line": 221,
+      "original_type": "int32_t (int32_t *, const int32_t *)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "getbits"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ibuf0",
+      "source_name": "ibuf0",
+      "kind": "VarDecl",
+      "line": 130,
+      "original_type": "int32_t[288]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_5156c579fa7a8389c264632c",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[288]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            288
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ibuf1",
+      "source_name": "ibuf1",
+      "kind": "VarDecl",
+      "line": 130,
+      "original_type": "int32_t[32]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_3927a84e1afc8dfb325bad43",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
       "name": "kzread",
       "source_name": "kzread",
       "kind": "FunctionDecl",
@@ -486,8 +962,8 @@
         "ibuf0",
         "ibuf1",
         "kzfs",
-        "max",
-        "min",
+        "max__template_b1cfaf2244c73238",
+        "min__template_774131ccff66371d",
         "nbuf0",
         "nbuf1",
         "olinbuf",
@@ -502,19 +978,345 @@
         "suckbits",
         "zipfilmode"
       ],
-      "status": "blocked",
-      "reason": "source control flow: goto enters a different lexical scope"
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_19fba13327f490e0c98ebd37",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "gslidew",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_44e9d131024042d9f1569617",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[59][2]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              59,
+              2
+            ]
+          },
+          "name": "hxbit",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 1,
+          "forward_goto": 3,
+          "shadowed_locals_renamed": 0,
+          "locals_checked": 7,
+          "exit_blocks": 1,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "readable-original-resume-guards",
+        "original_resume_labels": [
+          "kzreadplc0",
+          "kzreadplc1",
+          "kzreadplc2",
+          "kzreadplc3"
+        ]
+      },
+      "external_imports": [
+        "fread",
+        "fseek",
+        "gslidew",
+        "hxbit",
+        "kzfs"
+      ],
+      "unresolved_references": []
     },
     {
-      "name": "kzseek",
-      "source_name": "kzseek",
+      "name": "max__template_b1cfaf2244c73238",
+      "source_name": "max",
       "kind": "FunctionDecl",
-      "line": 3023,
-      "original_type": "int32_t (int32_t, int32_t)",
+      "line": 254,
+      "original_type": "const int &(const int &, const int &)",
+      "clang_template_mangled_name": "_ZSt3maxIiERKT_S2_S2_",
       "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "96fd0e5e38df2311540efc8318b5f3f26ff6461f446d4d1f5dc09a201c8590d4"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_774131ccff66371d",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const int &(const int &, const int &)",
+      "clang_template_mangled_name": "_ZSt3minIiERKT_S2_S2_",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "827cd33afddd28371f9c9f66a8a152fff75298a0687de7e950037779fe554e49"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_c5ffcfb092321e6b",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned int &(const unsigned int &, const unsigned int &)",
+      "clang_template_mangled_name": "_ZSt3minIjERKT_S2_S2_",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const unsigned int &(const unsigned int &, const unsigned int &)",
+        "semantic_sha256": "7ec0cb65721c03eeca306a1bc87a2a32ba17e8ee6bbb6d944e30527d3d98256b"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned int",
+            "const": true
+          }
+        ],
+        "result": "unsigned int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "nbitpos",
+      "source_name": "nbitpos",
+      "kind": "VarDecl",
+      "line": 183,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_f5e103d64e5ebff54019b0d0",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "nbuf0",
+      "source_name": "nbuf0",
+      "kind": "VarDecl",
+      "line": 130,
+      "original_type": "int32_t[32]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_2a654032177c315b4aec897b",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "nbuf1",
+      "source_name": "nbuf1",
+      "kind": "VarDecl",
+      "line": 130,
+      "original_type": "int32_t[32]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_00edfc6e9ac95cacc45ca40e",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "nfilptr",
+      "source_name": "nfilptr",
+      "kind": "VarDecl",
+      "line": 182,
+      "original_type": "const uint8_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_c0d33cac26996e1d4a46f3d9",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "const uint8_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "olinbuf",
+      "source_name": "olinbuf",
+      "kind": "VarDecl",
+      "line": 134,
+      "original_type": "uint8_t[131072]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_cb0af6faa2121464215cdde3",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "uint8_t[131072]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            131072
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "peekbits",
+      "source_name": "peekbits",
+      "kind": "FunctionDecl",
+      "line": 217,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
       "physical_source": "source/build/src/kplib.cpp",
       "source_references": [
-        "kzfs"
+        "B_PASS32__header_8a7178a88765",
+        "B_UNBUF32",
+        "bitpos",
+        "filptr",
+        "pow2mask"
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
@@ -523,13 +1325,122 @@
       "unresolved_references": []
     },
     {
-      "name": "B_PASS32__header_8a7178a88765",
-      "source_name": "B_PASS32",
-      "kind": "FunctionDecl",
-      "line": null,
-      "original_type": "take_sign_t<int32_t, unsigned int> (unsigned int)",
+      "name": "pow2mask",
+      "source_name": "pow2mask",
+      "kind": "VarDecl",
+      "line": 60,
+      "original_type": "const const int32_t[32]",
       "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
       "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_db77747fd97e714584d2217b",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "const const int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "putbuf4zip",
+      "source_name": "putbuf4zip",
+      "kind": "FunctionDecl",
+      "line": 2810,
+      "original_type": "void (const uint8_t *, int32_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "gzbufptr",
+        "kzfs",
+        "max__template_b1cfaf2244c73238",
+        "memcpy",
+        "min__template_774131ccff66371d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "kzfs",
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "qhufbit0",
+      "source_name": "qhufbit0",
+      "kind": "VarDecl",
+      "line": 141,
+      "original_type": "uint8_t[512]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_efafaac33827fb77a02fa134",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "uint8_t[512]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            512
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "qhufbit1",
+      "source_name": "qhufbit1",
+      "kind": "VarDecl",
+      "line": 141,
+      "original_type": "uint8_t[64]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_f4b438f749a364d46c61198d",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "uint8_t[64]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            64
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "qhufgencode",
+      "source_name": "qhufgencode",
+      "kind": "FunctionDecl",
+      "line": 241,
+      "original_type": "void (const int32_t *, const int32_t *, int32_t *, uint8_t *, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "bitrev",
+        "pow2mask"
+      ],
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
@@ -537,13 +1448,98 @@
       "unresolved_references": []
     },
     {
-      "name": "B_PASS16__header_15ea0d7111ad",
-      "source_name": "B_PASS16",
-      "kind": "FunctionDecl",
-      "line": null,
-      "original_type": "take_sign_t<int16_t, unsigned short> (unsigned short)",
+      "name": "qhufval0",
+      "source_name": "qhufval0",
+      "kind": "VarDecl",
+      "line": 140,
+      "original_type": "int32_t[512]",
       "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
       "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_23f9e1083f5f338d4e2b34d7",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[512]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            512
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "qhufval1",
+      "source_name": "qhufval1",
+      "kind": "VarDecl",
+      "line": 140,
+      "original_type": "int32_t[64]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_a53b89e0c4766998f8de8a84",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int32_t[64]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            64
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "slidebuf",
+      "source_name": "slidebuf",
+      "kind": "VarDecl",
+      "line": 132,
+      "original_type": "uint8_t[32768]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_fd8146c0023b762cfb4928be",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "uint8_t[32768]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            32768
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "suckbits",
+      "source_name": "suckbits",
+      "kind": "FunctionDecl",
+      "line": 218,
+      "original_type": "void (int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "bitpos",
+        "suckbitsnextblock"
+      ],
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
@@ -551,17 +1547,318 @@
       "unresolved_references": []
     },
     {
-      "name": "ARRAY_SIZE__header_5684d083f66c",
-      "source_name": "ARRAY_SIZE",
+      "name": "suckbitsnextblock",
+      "source_name": "suckbitsnextblock",
       "kind": "FunctionDecl",
-      "line": null,
-      "original_type": "size_t (const int (&)[256]) noexcept",
+      "line": 184,
+      "original_type": "void ()",
       "linkage": "internal",
-      "source_references": [],
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "B_BUF32",
+        "B_PASS32__header_8a7178a88765",
+        "B_SWAP32__header_86d0d39cb98e",
+        "B_UNBUF32",
+        "bitpos",
+        "fakebuf",
+        "filptr",
+        "fread",
+        "kzfs",
+        "min__template_c5ffcfb092321e6b",
+        "nbitpos",
+        "nfilptr",
+        "olinbuf",
+        "zipfilmode"
+      ],
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
+      "external_imports": [
+        "fread",
+        "kzfs"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "zipfilmode",
+      "source_name": "zipfilmode",
+      "kind": "VarDecl",
+      "line": 86,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_84b58697e1377ebb6589640f",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
       "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzaddstack",
+      "source_name": "kzaddstack",
+      "kind": "FunctionDecl",
+      "line": 2445,
+      "original_type": "int32_t (const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "B_BUF32",
+        "B_PASS16__header_15ea0d7111ad",
+        "B_PASS32__header_08503142e865",
+        "B_PASS32__header_8a7178a88765",
+        "B_UNBUF16",
+        "B_UNBUF32",
+        "buildvfs_flength",
+        "fclose",
+        "fopen",
+        "fread",
+        "fseek",
+        "kzcalchash",
+        "kzcheckhashsiz",
+        "kzdirnamhead",
+        "kzhashbuf",
+        "kzhashead",
+        "kzhashpos",
+        "kzlastfnam",
+        "strcpy",
+        "strlen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3061051e41549ca97da073af",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "kzdirnamhead",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b157606d4f95106080f2a466",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "char *",
+          "name": "kzhashbuf",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2360a9b21e071c889545420f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[256]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              256
+            ]
+          },
+          "name": "kzhashead",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "fclose",
+        "fopen",
+        "fread",
+        "fseek",
+        "kzdirnamhead",
+        "kzhashbuf",
+        "kzhashead",
+        "strcpy",
+        "strlen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzcheckhashsiz",
+      "source_name": "kzcheckhashsiz",
+      "kind": "FunctionDecl",
+      "line": 2391,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "kzdirnamhead",
+        "kzhashbuf",
+        "kzhashead",
+        "kzhashpos",
+        "kzhashsiz",
+        "kzlastfnam",
+        "memset",
+        "xmalloc",
+        "xrealloc"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3061051e41549ca97da073af",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "kzdirnamhead",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b157606d4f95106080f2a466",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "char *",
+          "name": "kzhashbuf",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2360a9b21e071c889545420f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[256]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              256
+            ]
+          },
+          "name": "kzhashead",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "kzdirnamhead",
+        "kzhashbuf",
+        "kzhashead",
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzhashpos",
+      "source_name": "kzhashpos",
+      "kind": "VarDecl",
+      "line": 2389,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_b818bdd96ac5a54d23ef8d71",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzhashsiz",
+      "source_name": "kzhashsiz",
+      "kind": "VarDecl",
+      "line": 2389,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_18a15d7d0a28f837f71b69ed",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzlastfnam",
+      "source_name": "kzlastfnam",
+      "kind": "VarDecl",
+      "line": 2389,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_68d23d870c89fbf375ec9ee7",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xmalloc",
+      "source_name": "xmalloc",
+      "kind": "FunctionDecl",
+      "line": 1392,
+      "original_type": "void *(const bsize_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xrealloc",
+      "source_name": "xrealloc",
+      "kind": "FunctionDecl",
+      "line": 1413,
+      "original_type": "void *(void *const, const bsize_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
       "unresolved_references": []
     }
   ],
@@ -653,6 +1950,10 @@
   },
   "initial_declaration_selection": "exact",
   "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "605a438d969a9492d276f4796c7a1e57ce6905523230b983c4eda42ca57edd92",
+    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e"
+  },
   "c_allocator_declarations": {
     "queried": [],
     "proven": [],
@@ -676,9 +1977,9 @@
     "original_c_allocators_absent": true
   },
   "record_layout_extraction": {
-    "explicitly_required": false,
-    "records": 0,
-    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    "explicitly_required": true,
+    "records": 3916,
+    "sha256": "e8828b61f0cfa4927acea20ad0cb582cc89be51bc1e002f17aadbd5c02a31f1e"
   },
   "module_fragment": {
     "import_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules",
@@ -687,6 +1988,10 @@
   "full_type_closure": {
     "attempted": false,
     "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
   },
   "ast_cache_inputs": {
     "format": "source-ast-clang-dependencies/1",
@@ -700,128 +2005,24 @@
       "format": "source-ast-stream/1",
       "backend": "yajl2_c",
       "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 2002,
-      "ranges_omitted": 554,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 577,
-      "include_metadata_reuses": 30,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 88297,
-      "cache_storage": "json",
-      "cache_entry_bytes": 894446,
-      "cache_hit": false,
-      "json_bytes": 894446,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 465939228,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 4278,
-      "ranges_omitted": 1238,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 1417,
-      "include_metadata_reuses": 9,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 168551,
-      "cache_storage": "gzip",
-      "cache_entry_bytes": 168551,
-      "cache_hit": false,
-      "json_bytes": 1983848,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466107779,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "compressed-retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 272,
-      "ranges_omitted": 80,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 77,
-      "include_metadata_reuses": 2,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 10761,
-      "cache_storage": "json",
-      "cache_entry_bytes": 82512,
-      "cache_hit": false,
-      "json_bytes": 82512,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466190291,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 10,
-      "ranges_omitted": 3,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 2,
-      "include_metadata_reuses": 0,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 757,
-      "cache_storage": "json",
-      "cache_entry_bytes": 2035,
-      "cache_hit": false,
-      "json_bytes": 2035,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466192326,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 82,
+      "roots": 1,
+      "objects": 56,
       "ranges_omitted": 19,
       "allocator_body_ranges_retained": 0,
       "macro_declaration_ranges_retained": 0,
       "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 10,
-      "include_metadata_reuses": 17,
+      "type_metadata_reuses": 5,
+      "include_metadata_reuses": 9,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 2453,
+      "capture_stored_bytes": 2880,
       "cache_storage": "json",
-      "cache_entry_bytes": 16873,
+      "cache_entry_bytes": 17059,
       "cache_hit": false,
-      "json_bytes": 16873,
+      "json_bytes": 17059,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466209199,
+      "cache_retained_bytes": 132564390,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -839,15 +2040,15 @@
       "type_metadata_reuses": 19,
       "include_metadata_reuses": 17,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 4706,
+      "capture_stored_bytes": 4710,
       "cache_storage": "json",
       "cache_entry_bytes": 38111,
       "cache_hit": false,
       "json_bytes": 38111,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466247310,
+      "cache_retained_bytes": 132602501,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -865,15 +2066,15 @@
       "type_metadata_reuses": 12,
       "include_metadata_reuses": 13,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 3594,
+      "capture_stored_bytes": 3617,
       "cache_storage": "json",
       "cache_entry_bytes": 26146,
       "cache_hit": false,
       "json_bytes": 26146,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466273456,
+      "cache_retained_bytes": 132628647,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -897,9 +2098,9 @@
       "cache_hit": false,
       "json_bytes": 10005,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466283461,
+      "cache_retained_bytes": 132638652,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -917,197 +2118,15 @@
       "type_metadata_reuses": 2,
       "include_metadata_reuses": 3,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 2119,
+      "capture_stored_bytes": 2118,
       "cache_storage": "json",
       "cache_entry_bytes": 10001,
       "cache_hit": false,
       "json_bytes": 10001,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466293462,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 1,
-      "objects": 49,
-      "ranges_omitted": 14,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 5,
-      "include_metadata_reuses": 7,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 2391,
-      "cache_storage": "json",
-      "cache_entry_bytes": 13409,
-      "cache_hit": false,
-      "json_bytes": 13409,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466306871,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 1,
-      "objects": 5,
-      "ranges_omitted": 2,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 0,
-      "include_metadata_reuses": 0,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 516,
-      "cache_storage": "json",
-      "cache_entry_bytes": 992,
-      "cache_hit": false,
-      "json_bytes": 992,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466307863,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 1,
-      "objects": 609,
-      "ranges_omitted": 196,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 229,
-      "include_metadata_reuses": 0,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 23076,
-      "cache_storage": "json",
-      "cache_entry_bytes": 197112,
-      "cache_hit": false,
-      "json_bytes": 197112,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466504975,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 802,
-      "ranges_omitted": 253,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 259,
-      "include_metadata_reuses": 5,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 32236,
-      "cache_storage": "json",
-      "cache_entry_bytes": 275861,
-      "cache_hit": false,
-      "json_bytes": 275861,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466780836,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 1,
-      "objects": 7,
-      "ranges_omitted": 3,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 1,
-      "include_metadata_reuses": 0,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 686,
-      "cache_storage": "json",
-      "cache_entry_bytes": 1546,
-      "cache_hit": false,
-      "json_bytes": 1546,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466782382,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 1,
-      "objects": 7,
-      "ranges_omitted": 3,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 1,
-      "include_metadata_reuses": 0,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 620,
-      "cache_storage": "json",
-      "cache_entry_bytes": 1459,
-      "cache_hit": false,
-      "json_bytes": 1459,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466783841,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 1,
-      "objects": 7,
-      "ranges_omitted": 3,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 1,
-      "include_metadata_reuses": 0,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 688,
-      "cache_storage": "json",
-      "cache_entry_bytes": 1624,
-      "cache_hit": false,
-      "json_bytes": 1624,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 466785465,
+      "cache_retained_bytes": 132648653,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1131,9 +2150,35 @@
       "cache_hit": false,
       "json_bytes": 1381,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466786846,
+      "cache_retained_bytes": 132650034,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 49,
+      "ranges_omitted": 14,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 5,
+      "include_metadata_reuses": 7,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 2386,
+      "cache_storage": "json",
+      "cache_entry_bytes": 13409,
+      "cache_hit": false,
+      "json_bytes": 13409,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 132663443,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1151,15 +2196,15 @@
       "type_metadata_reuses": 16,
       "include_metadata_reuses": 12,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 3976,
+      "capture_stored_bytes": 3940,
       "cache_storage": "json",
       "cache_entry_bytes": 26437,
       "cache_hit": false,
       "json_bytes": 26437,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466813283,
+      "cache_retained_bytes": 132689880,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1183,9 +2228,35 @@
       "cache_hit": false,
       "json_bytes": 81153,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466894436,
+      "cache_retained_bytes": 132771033,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 5,
+      "ranges_omitted": 2,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 516,
+      "cache_storage": "json",
+      "cache_entry_bytes": 992,
+      "cache_hit": false,
+      "json_bytes": 992,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 132772025,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1209,9 +2280,35 @@
       "cache_hit": false,
       "json_bytes": 492,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466894928,
+      "cache_retained_bytes": 132772517,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 609,
+      "ranges_omitted": 196,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 229,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 23080,
+      "cache_storage": "json",
+      "cache_entry_bytes": 197112,
+      "cache_hit": false,
+      "json_bytes": 197112,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 132969629,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1229,15 +2326,119 @@
       "type_metadata_reuses": 53,
       "include_metadata_reuses": 0,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 7686,
+      "capture_stored_bytes": 7697,
       "cache_storage": "json",
       "cache_entry_bytes": 57479,
       "cache_hit": false,
       "json_bytes": 57479,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466952407,
+      "cache_retained_bytes": 133027108,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 802,
+      "ranges_omitted": 253,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 259,
+      "include_metadata_reuses": 5,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 32143,
+      "cache_storage": "json",
+      "cache_entry_bytes": 275861,
+      "cache_hit": false,
+      "json_bytes": 275861,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 133302969,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 7,
+      "ranges_omitted": 3,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 686,
+      "cache_storage": "json",
+      "cache_entry_bytes": 1546,
+      "cache_hit": false,
+      "json_bytes": 1546,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 133304515,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 10,
+      "ranges_omitted": 3,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 2,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 754,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2035,
+      "cache_hit": false,
+      "json_bytes": 2035,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 133306550,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 7,
+      "ranges_omitted": 3,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 620,
+      "cache_storage": "json",
+      "cache_entry_bytes": 1459,
+      "cache_hit": false,
+      "json_bytes": 1459,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 133308009,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1261,9 +2462,9 @@
       "cache_hit": false,
       "json_bytes": 502,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466952909,
+      "cache_retained_bytes": 133308511,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1272,24 +2473,102 @@
       "format": "source-ast-stream/1",
       "backend": "yajl2_c",
       "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 2002,
+      "ranges_omitted": 554,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 577,
+      "include_metadata_reuses": 30,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 88524,
+      "cache_storage": "json",
+      "cache_entry_bytes": 894446,
+      "cache_hit": false,
+      "json_bytes": 894446,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 134202957,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 272,
+      "ranges_omitted": 80,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 77,
+      "include_metadata_reuses": 2,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 10752,
+      "cache_storage": "json",
+      "cache_entry_bytes": 82512,
+      "cache_hit": false,
+      "json_bytes": 82512,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 134090812,
+      "cache_evicted_entries": 1,
+      "cache_evicted_bytes": 194657,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
       "roots": 1,
-      "objects": 56,
+      "objects": 7,
+      "ranges_omitted": 3,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 686,
+      "cache_storage": "json",
+      "cache_entry_bytes": 1624,
+      "cache_hit": false,
+      "json_bytes": 1624,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 134092436,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 82,
       "ranges_omitted": 19,
       "allocator_body_ranges_retained": 0,
       "macro_declaration_ranges_retained": 0,
       "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 5,
-      "include_metadata_reuses": 9,
+      "type_metadata_reuses": 10,
+      "include_metadata_reuses": 17,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 2872,
+      "capture_stored_bytes": 2458,
       "cache_storage": "json",
-      "cache_entry_bytes": 17059,
+      "cache_entry_bytes": 16873,
       "cache_hit": false,
-      "json_bytes": 17059,
+      "json_bytes": 16873,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 466969968,
+      "cache_retained_bytes": 134109309,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
       "cache_retention_reason": "retained"
@@ -1300,7 +2579,8 @@
       "name": "kzfs",
       "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
       "abi": "source-global-cell/2",
-      "original_type": "struct kzfilestate"
+      "original_type": "struct kzfilestate",
+      "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
     }
   ],
   "private_storage_exports": [
@@ -1310,6 +2590,20 @@
       "binding": "__cxx_private_cell_19fba13327f490e0c98ebd37",
       "owner_source": "source/build/src/kplib.cpp",
       "original_type": "int"
+    },
+    {
+      "name": "hxbit",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_44e9d131024042d9f1569617",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[59][2]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          59,
+          2
+        ]
+      }
     },
     {
       "name": "pnginited",
@@ -1357,6 +2651,578 @@
       "binding": "__cxx_private_cell_3061051e41549ca97da073af",
       "owner_source": "source/build/src/kplib.cpp",
       "original_type": "int"
+    },
+    {
+      "name": "pow2mask",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_db77747fd97e714584d2217b",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "const const int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "zipfilmode",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_84b58697e1377ebb6589640f",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "gslider",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_57a5d28f57b8e3415c7b14e5",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "clen",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_439d0ebacabacbc4bb46f782",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[320]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          320
+        ]
+      }
+    },
+    {
+      "name": "cclen",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_73f971a45117b405bae691bf",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[19]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          19
+        ]
+      }
+    },
+    {
+      "name": "bitpos",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_b26e6394b97f66d1fd62bd8c",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "ccind",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_258736156e619bfc312178fd",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[19]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          19
+        ]
+      }
+    },
+    {
+      "name": "ibuf0",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_5156c579fa7a8389c264632c",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[288]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          288
+        ]
+      }
+    },
+    {
+      "name": "nbuf0",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_2a654032177c315b4aec897b",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "ibuf1",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_3927a84e1afc8dfb325bad43",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "nbuf1",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_00edfc6e9ac95cacc45ca40e",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "filptr",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_3dab0cd39cd715da7cf79ad8",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "const uint8_t *"
+    },
+    {
+      "name": "slidebuf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_fd8146c0023b762cfb4928be",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "uint8_t[32768]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          32768
+        ]
+      }
+    },
+    {
+      "name": "olinbuf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_cb0af6faa2121464215cdde3",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "uint8_t[131072]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          131072
+        ]
+      }
+    },
+    {
+      "name": "qhufval0",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_23f9e1083f5f338d4e2b34d7",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[512]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          512
+        ]
+      }
+    },
+    {
+      "name": "qhufval1",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_a53b89e0c4766998f8de8a84",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int32_t[64]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          64
+        ]
+      }
+    },
+    {
+      "name": "qhufbit0",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_efafaac33827fb77a02fa134",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "uint8_t[512]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          512
+        ]
+      }
+    },
+    {
+      "name": "qhufbit1",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_f4b438f749a364d46c61198d",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "uint8_t[64]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          64
+        ]
+      }
+    },
+    {
+      "name": "fakebuf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_e0bf579ec89757a16ed9f5aa",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "uint8_t[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "nfilptr",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_c0d33cac26996e1d4a46f3d9",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "const uint8_t *"
+    },
+    {
+      "name": "nbitpos",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_f5e103d64e5ebff54019b0d0",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "gzbufptr",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_bb1f28aaaf1422ad38efa78a",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "char *"
+    },
+    {
+      "name": "kzhashpos",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_b818bdd96ac5a54d23ef8d71",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "kzlastfnam",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_68d23d870c89fbf375ec9ee7",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "kzhashsiz",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_18a15d7d0a28f837f71b69ed",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
+    }
+  ],
+  "unreferenced_type_wrapper_blockers": [],
+  "recompiled_owner_sha256": "f13dfe03508b820a6ac2c4304ac8ee5619952641a2bbb1e1a6048c1898ae4a04",
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration.",
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_kplib_cpp_f613bc7f3a84.mjs",
+      "sha256": "f613bc7f3a844a8c081475773af3edc89143b7a906521afb95e398884bce3458",
+      "original_source": "source/build/src/kplib.cpp",
+      "exports": [
+        "B_BUF32",
+        "B_SWAP32__header_86d0d39cb98e",
+        "B_SWAP32_impl",
+        "bitpos",
+        "bitrev",
+        "ccind",
+        "cclen",
+        "clen",
+        "fakebuf",
+        "filptr",
+        "getbits",
+        "gslider",
+        "gzbufptr",
+        "hufgencode",
+        "hufgetsym",
+        "ibuf0",
+        "ibuf1",
+        "kzread",
+        "max__template_b1cfaf2244c73238",
+        "min__template_774131ccff66371d",
+        "min__template_c5ffcfb092321e6b",
+        "nbitpos",
+        "nbuf0",
+        "nbuf1",
+        "nfilptr",
+        "olinbuf",
+        "peekbits",
+        "pow2mask",
+        "putbuf4zip",
+        "qhufbit0",
+        "qhufbit1",
+        "qhufgencode",
+        "qhufval0",
+        "qhufval1",
+        "slidebuf",
+        "suckbits",
+        "suckbitsnextblock",
+        "zipfilmode"
+      ],
+      "reexports": [
+        "B_BUF32",
+        "B_SWAP32__header_86d0d39cb98e",
+        "B_SWAP32_impl",
+        "bitpos",
+        "bitrev",
+        "ccind",
+        "cclen",
+        "clen",
+        "fakebuf",
+        "filptr",
+        "getbits",
+        "gslider",
+        "gzbufptr",
+        "hufgencode",
+        "hufgetsym",
+        "ibuf0",
+        "ibuf1",
+        "kzread",
+        "max__template_b1cfaf2244c73238",
+        "min__template_774131ccff66371d",
+        "min__template_c5ffcfb092321e6b",
+        "nbitpos",
+        "nbuf0",
+        "nbuf1",
+        "nfilptr",
+        "olinbuf",
+        "peekbits",
+        "pow2mask",
+        "putbuf4zip",
+        "qhufbit0",
+        "qhufbit1",
+        "qhufgencode",
+        "qhufval0",
+        "qhufval1",
+        "slidebuf",
+        "suckbits",
+        "suckbitsnextblock",
+        "zipfilmode",
+        "__cxx_private_cell_b26e6394b97f66d1fd62bd8c",
+        "__cxx_private_cell_258736156e619bfc312178fd",
+        "__cxx_private_cell_73f971a45117b405bae691bf",
+        "__cxx_private_cell_439d0ebacabacbc4bb46f782",
+        "__cxx_private_cell_e0bf579ec89757a16ed9f5aa",
+        "__cxx_private_cell_3dab0cd39cd715da7cf79ad8",
+        "__cxx_private_cell_57a5d28f57b8e3415c7b14e5",
+        "__cxx_private_cell_bb1f28aaaf1422ad38efa78a",
+        "__cxx_private_cell_5156c579fa7a8389c264632c",
+        "__cxx_private_cell_3927a84e1afc8dfb325bad43",
+        "__cxx_private_cell_f5e103d64e5ebff54019b0d0",
+        "__cxx_private_cell_2a654032177c315b4aec897b",
+        "__cxx_private_cell_00edfc6e9ac95cacc45ca40e",
+        "__cxx_private_cell_c0d33cac26996e1d4a46f3d9",
+        "__cxx_private_cell_cb0af6faa2121464215cdde3",
+        "__cxx_private_cell_db77747fd97e714584d2217b",
+        "__cxx_private_cell_efafaac33827fb77a02fa134",
+        "__cxx_private_cell_f4b438f749a364d46c61198d",
+        "__cxx_private_cell_23f9e1083f5f338d4e2b34d7",
+        "__cxx_private_cell_a53b89e0c4766998f8de8a84",
+        "__cxx_private_cell_fd8146c0023b762cfb4928be",
+        "__cxx_private_cell_84b58697e1377ebb6589640f"
+      ],
+      "imports": [
+        {
+          "name": "fread",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fseek",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "gslidew",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_19fba13327f490e0c98ebd37",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hxbit",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_44e9d131024042d9f1569617",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[59][2]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              59,
+              2
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kzfs",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "2f21cef3c9b27feebd0bbe696a5058faf6c6a0b9f44849625927d00ef31f3ad9"
+    },
+    {
+      "module": "source/build/src/_source_legacy_kplib_cpp_d256ef8f507e.mjs",
+      "sha256": "d256ef8f507e059a00788d1c0a40a175517ea658813b353726083e7a0832d036",
+      "original_source": "source/build/src/kplib.cpp",
+      "exports": [
+        "kzaddstack",
+        "kzcheckhashsiz",
+        "kzhashpos",
+        "kzhashsiz",
+        "kzlastfnam",
+        "xmalloc",
+        "xrealloc"
+      ],
+      "reexports": [
+        "kzaddstack",
+        "kzcheckhashsiz",
+        "kzhashpos",
+        "kzhashsiz",
+        "kzlastfnam",
+        "xmalloc",
+        "xrealloc",
+        "__cxx_private_cell_b818bdd96ac5a54d23ef8d71",
+        "__cxx_private_cell_18a15d7d0a28f837f71b69ed",
+        "__cxx_private_cell_68d23d870c89fbf375ec9ee7"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fclose",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fileno",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fread",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fseek",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fstat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzdirnamhead",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3061051e41549ca97da073af",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kzhashbuf",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b157606d4f95106080f2a466",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "char *",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kzhashead",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2360a9b21e071c889545420f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[256]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "toupperlookup",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "2b64f4d267f57bbf5c2880b74b4a83d48413789f692eb2f94128c383d43ec24b"
     }
   ]
 }
