@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-01T04:44:47.578961+00:00",
+  "updated_utc": "2026-11-01T09:08:39.752967+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
+  "compiler_frontend_sha256": "916dfb0f6acd2e83c54d32d4e9ffc8896471b28fd72083f76cfcfc8e40870673",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -140,16 +140,16 @@
     "report": "reports/oct31-current-full-regression.json",
     "complete": false,
     "counts": {
-      "passed": 18,
+      "passed": 95,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 191,
-    "completed_tests": 18,
+    "selected_tests": 193,
+    "completed_tests": 95,
     "all_passed": false,
     "regression_inputs_unchanged": null,
-    "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
+    "compiler_frontend_sha256": "916dfb0f6acd2e83c54d32d4e9ffc8896471b28fd72083f76cfcfc8e40870673",
     "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
@@ -274,13 +274,13 @@
   "startup_component_build": {
     "source_units_with_partial_modules": 22,
     "selected_source_units": 111,
-    "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
+    "compiler_frontend_sha256": "916dfb0f6acd2e83c54d32d4e9ffc8896471b28fd72083f76cfcfc8e40870673",
     "whole_selected_program_compiled_under_current_revision": false,
     "entry_exports": {
       "enginePreInit": false,
       "app_main": false
     },
-    "execution_evidence_matches_modules": true,
+    "execution_evidence_matches_modules": false,
     "execution_report": "reports/oct30-original-browser-component.json",
     "original_engine_startup_verified": false,
     "manifest": "factory-output/source-first/browser-classic/component-manifest.json",
@@ -407,8 +407,8 @@
     "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
   },
   "latest_targeted_regression": {
-    "report": "reports/oct31-strict-memory-fixed-regression.json",
-    "passed": 8,
+    "report": "reports/oct31-layout-final-regression.json",
+    "passed": 16,
     "complete": true,
     "frozen_inputs": true
   },
@@ -426,5 +426,26 @@
     "Source SDL surface/event/audio callback adaptation is incomplete; the component currently uses the JS SDL adapter.",
     "compile:game does not yet construct and verify a playable candidate from the incremental component.",
     "The complete selected-unit emission and fixed-point link have not been repeated under the current compiler."
-  ]
+  ],
+  "earlier_full_regression": {
+    "report": "reports/oct31-first-full-regression.json",
+    "passed": 185,
+    "failed": 6,
+    "selected_tests": 191,
+    "frozen_inputs": true,
+    "note": "Earlier strict-layout revision. Subsequent shared fixes pass all 16 affected regressions; current full run is separate."
+  },
+  "shared_layout_recovery": {
+    "native_c_records_node_chromium_cases": 512,
+    "original_menu_header_native_cases": 1280,
+    "cross_unit_record_owner_native_cases": 512,
+    "compiler_features": [
+      "Clang C RecordDecl layouts",
+      "one typed record path for reads/addresses/compound updates",
+      "same-TU field selection by mangled owner/body/ordinal",
+      "source-proven template record deduplication",
+      "native byte storage at original global owners"
+    ],
+    "original_menu_rendering_verified": false
+  }
 }

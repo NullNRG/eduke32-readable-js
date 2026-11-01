@@ -33,6 +33,7 @@ from source_static_members import recover as recover_out_of_line_static_members,
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
+from source_field_bindings import index as index_source_fields, rebind as rebind_source_fields
 from source_header_definitions import load as load_header_definitions, match as match_header_definition
 
 HERE=Path(__file__).resolve().parents[1]
@@ -935,6 +936,16 @@ class Emit:
         return width
     def record_pointer_expr(self,t,expression):
         if self.record_pointer_stride(t) is None:return None
+        return self.record_object_expr(t,expression)
+    def record_object_expr(self,pointer_type,expression):
+        """Use the same original storage for field reads, addresses and updates."""
+        base=normalized_record_name(pointer_type.rstrip().rstrip('*').strip(),self.type_aliases)
+        storage=self.global_storage_records.get(base,{})
+        if storage.get('byte_schema'):
+            shape={'byteRecord':storage['byte_schema']}
+            return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(storage['byte_schema'],sort_keys=True)+', '+self.byte_record_prototypes(shape)+'))'
+        if base not in getattr(self,'managed_record_names',set()):
+            raise Unsupported('record pointer member requires original byte layout: '+str(base))
         return f'cRecordObject({expression})'
     def expr(self,n):
         k=kind(n); a=kids(n)
@@ -1212,14 +1223,7 @@ class Emit:
             # pointer representation: it may be a reference, array relocation,
             # or original class object. Resolve through the common ABI.
             if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
-                base=normalized_record_name(qual(a[0]).rstrip().rstrip('*').strip(),self.type_aliases)
-                storage=self.global_storage_records.get(base,{})
-                if storage.get('byte_schema'):
-                    shape={'byteRecord':storage['byte_schema']}
-                    receiver='cRecordObject(cRecordPointer('+receiver+', '+json.dumps(storage['byte_schema'],sort_keys=True)+', '+self.byte_record_prototypes(shape)+'))'
-                elif base not in getattr(self,'managed_record_names',set()):
-                    raise Unsupported('record pointer member requires original byte layout: '+str(base))
-                else:receiver=f'cRecordObject({receiver})'
+                receiver=self.record_object_expr(qual(a[0]),receiver)
             member=receiver+'.'+name
             declaration=getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{})
             return member+'.value' if self.scalar_reference(qual(declaration)) else member
@@ -2202,7 +2206,7 @@ class Emit:
         if k=='MemberExpr' and re.fullmatch(r'[A-Za-z_$][\w$]*',n.get('name','')):
             receiver=self.expr(a[0])
             if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
-                receiver=f'cRecordObject({receiver})'
+                receiver=self.record_object_expr(qual(a[0]),receiver)
             declaration=getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{})
             if self.scalar_reference(qual(declaration)):return receiver+'.'+n['name']
             return f'cObjectFieldRef({receiver}, {json.dumps(n["name"])})'
@@ -4562,7 +4566,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     source_owned_names={n.get('name') for n in candidates if n.get('name')}
     managed_record_names={record.get('name') for tree in ast for record in descendants(tree)
         if kind(record)=='CXXRecordDecl' and record.get('completeDefinition') and any(
-            kind(member) in ('CXXConstructorDecl','CXXMethodDecl','CXXDestructorDecl') and not member.get('isImplicit')
+            kind(member) in ('CXXConstructorDecl','CXXDestructorDecl') and not member.get('isImplicit')
             and any(kind(body)=='CompoundStmt' for body in kids(member)) for member in kids(record))}
     all_declarations={node.get('id'):node for top in ast for node in descendants(top) if node.get('id')}
     def libc_adapter(decl):
@@ -5115,6 +5119,7 @@ def main():
     c_allocator_declarations={'queried':[],'proven':[],'rejected':{}}
     c_allocator_query_cache={}
     static_reference_context=[]
+    field_selection_index={}
     full_enum_values={}
     standard_c_heap_runtime=bool(standard_heap_contract and standard_heap_contract.get('original_c_allocators_absent')) or comp is None
     def allocator_query(name,timeout=45):
@@ -5142,6 +5147,9 @@ def main():
             rebind_static_references(args[0],static_reference_context)
             rebind_explicit_operators(args[0],static_reference_context)
             rebind_c_function_references(args[0],static_reference_context)
+        if field_selection_index:
+            count=rebind_source_fields(args[0],field_selection_index)
+            full_type_closure['field_references_rebound']=full_type_closure.get('field_references_rebound',0)+count
         if standard_c_heap_runtime:
             complete_c_allocator_declarations(args[0],allocator_query,verified_libc_byte_symbol,
                 c_allocator_query_cache,c_allocator_declarations)
@@ -5552,8 +5560,8 @@ def main():
                 pod_record_closure['rejected'][name]='no unambiguous trivial POD/byte record declaration';continue
             # Keep only the needed typedef and its exact Clang-tag record,
             # never filtered function bodies or unrelated globals.
-            additions=[n for n in roots if kind(n) in ('TypedefDecl','CXXRecordDecl')
-                       and (n.get('name')==name or kind(n)=='CXXRecordDecl' and
+            additions=[n for n in roots if kind(n) in ('TypedefDecl','RecordDecl','CXXRecordDecl')
+                       and (n.get('name')==name or kind(n) in ('RecordDecl','CXXRecordDecl') and
                             not n.get('name') and n.get('completeDefinition'))]
             if not additions:
                 pod_record_closure['rejected'][name]='missing corresponding original record';continue
@@ -5569,7 +5577,11 @@ def main():
         heap_types=any(row.get('reason','').startswith('C++ heap object needs complete original class construction/destruction:') for row in report)
         c_overloads=any('ambiguous C++ overload call:' in row.get('reason','') for row in report)
         unresolved_enums=bool(enum_closure['rejected'])
-        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or static_members or heap_types or c_overloads or unresolved_enums) and not full_type_closure['attempted']:
+        # A named POD query can prove fields while omitting its namespace.
+        # Keep the original same-TU declaration context before joining its
+        # qualified target layout; never join merely by a matching short name.
+        unresolved_record_views=any(row.get('reason','').startswith('record pointer member requires original byte layout:') for row in report)
+        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
             full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
             full_cache=None
@@ -5615,6 +5627,8 @@ def main():
                     children=[kept for child in kids(node) if (kept:=types_only(child)) is not None]
                     return {**node,'inner':children} if children else None
                 additions=[kept for node in complete if (kept:=types_only(node)) is not None]
+                field_selection_index.update(index_source_fields(complete,additions))
+                full_type_closure['field_selection_sites']=len(field_selection_index)
                 retained_ids={id(node) for tree in additions for node in descendants(tree)}
                 # Later dependency rounds can add another original header
                 # wrapper that calls a static method or explicit operator. Retain its exact
@@ -5926,6 +5940,7 @@ def main():
             'empty aggregate initializer requires layout:',
             'C++ global class address requires exact Clang layout:',
             'external object address requires a verified owner identity ABI',
+            'record pointer member requires original byte layout:',
             'C aggregate list requires verified storage shape:', 'nonidentifier member',
             'aggregate copy requires verified pointer-free field shape:',
             'anonymous record fields require exact Clang byte layout',
@@ -6044,11 +6059,23 @@ def main():
     # layout before choosing a plain register aggregate representation that
     # a later translation unit could never address correctly.
     array_layouts=set();storage_aliases=recover_type_aliases(ast)
+    pod_storage=recover_trivial_aggregate_records(ast,static_storage=True,source_root=root)
     for row in report:
         if row.get('kind')!='VarDecl' or row.get('status')!='source-first':continue
         if row.get('object_storage',{}).get('abi')=='source-byte-record-array/1':continue
         element=re.fullmatch(r'(.+?)(?:\s*\[\s*\d+\s*\])+',row.get('original_type',''))
-        if not element:continue
+        if not element:
+            base=normalized_record_name(row.get('original_type',''),storage_aliases)
+            record=pod_storage.get(base,{})
+            # A later TU can take &record even if this owner only initializes
+            # named fields. Materialize native bytes at the ORIGINAL owner;
+            # never replace that storage in the consumer or weaken its audit.
+            if (record and not record.get('pointer_aliases') and
+                not any(token in row.get('original_type','') for token in ('*','&','(')) and
+                not row.get('global_storage',{}).get('byte_record_schema_sha256') and
+                not row.get('private_storage',{}).get('byte_record_schema_sha256')):
+                array_layouts.add(base)
+            continue
         base=resolve_scalar_storage_alias(element.group(1).strip(),storage_aliases)
         if '*' not in base and scalar_size(base) is None:array_layouts.add(base)
     prototype_layout_closure['requested']=sorted(set(prototype_layout_closure['requested'])|array_layouts)

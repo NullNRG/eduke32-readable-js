@@ -1,12 +1,12 @@
 # Current EDuke32 continuation status
 
-Updated October 31, 2026. The original JavaScript game is **not bootable or playable**. Original `enginePreInit` and `app_main` have not executed. There is no verified game menu, E1L1 screenshot, playable `dist/index.html` or deployed player.
+Updated November 1, 2026. The original JavaScript game is **not bootable or playable**. Original `enginePreInit` and `app_main` have not executed. There is no verified game menu, E1L1 screenshot, playable `dist/index.html` or deployed player.
 
 The canonical project is this directory. The approved release keeps original Build rendering, game logic, CON, actors, weapons, menus and simulation in readable JavaScript. SDL2/platform/audio/timing may use the isolated native WASM services; no original game or Build translation unit is in that WASM module. Classic single-player is selected; desktop features, enhanced rendering and multiplayer are excluded.
 
 ## Actual execution
 
-`reports/oct30-original-browser-component.json` records original `engineSetupAllocator`, `initdivtables`, `initsystem` and `videoGetModes` executing in Chromium. It verifies 65,532 original divider records and two modes sorted by the original comparator. The latest component manifest matches the actual executed module/runtime bytes. These component calls do not establish engine startup.
+`reports/oct30-original-browser-component.json` records original `engineSetupAllocator`, `initdivtables`, `initsystem` and `videoGetModes` executing in Chromium. It verifies 65,532 original divider records and two modes sorted by the original comparator. The current component manifest separately checks whether these recorded module/runtime bytes still match; re-run the probe after changing them. These component calls do not establish engine startup.
 
 `reports/oct31-original-xxh32-parity.json` verifies 272 native/Node/Chromium streaming checksum cases through original allocation, reset, chunked updates, digest and free. The comparison exposed and corrected numeric heap pointers reaching record fields without Clang-proven typed views, an enum-comment parsing error and adjacent-allocation address decoding. Ordinary dereferences remain bounded.
 
@@ -24,7 +24,9 @@ Shared changes include dependency recovery to a bounded fixed point, stable same
 
 ## Regression evidence
 
-`reports/oct30-startup-verified-regression.json` is a complete frozen **186/186** baseline before the later changes. `reports/oct31-strict-memory-fixed-regression.json` passes all **8/8** affected regressions, including filtered record aliasing across modules. The complete current **191-test** run is `reports/oct31-current-full-regression.json`: inspect `complete`, `counts`, `all_passed` and `regression_inputs_unchanged` before treating it as passing evidence. Targeted fixture success and a browser framebuffer do not verify gameplay.
+`reports/oct30-startup-verified-regression.json` is a complete frozen **186/186** baseline before the later changes. `reports/oct31-strict-memory-fixed-regression.json` passes all **8/8** affected regressions, including filtered record aliasing across modules. The complete current **193-test** run is `reports/oct31-current-full-regression.json`: inspect `complete`, `counts`, `all_passed` and `regression_inputs_unchanged` before treating it as passing evidence. Targeted fixture success and a browser framebuffer do not verify gameplay.
+
+The later shared layout fixes pass **16/16** affected regressions in `reports/oct31-layout-final-regression.json`. They add Clang C record support, one typed field path for reads/addresses/updates, exact same-TU foreign-field bindings, template identity reconciliation and native global storage at the original owner. Native checks cover 512 C-record cases in Node/Chromium, 512 cross-unit global-address cases and 1,280 original menu-header calculations. These are storage and function comparisons, not a rendered menu. The rebuilt scalar libdivide utility now explicitly compiles the bundled header's original C11 interface.
 
 ## Immediate boot blocker
 

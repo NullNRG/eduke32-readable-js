@@ -66,8 +66,8 @@ test('source nullptr and object references cross the allocator host boundary', (
     assert.equal(runtime.heap.allocations.has(address), false);
     oldPointer.value.Free(null);
     assert.throws(() => oldPointer.value.Free(address), /double free/);
-    assert.throws(() => libc.free(undefined), /invalid allocation/);
-    assert.throws(() => libc.realloc(undefined, 8), /invalid pointer/);
+    assert.throws(() => libc.free(undefined), /requires storage from its own heap/);
+    assert.throws(() => libc.realloc(undefined, 8), /requires storage from its own heap/);
     assert.equal(oldPointer.value.Alloc, undefined);
   } finally {
     release();runtime.close();

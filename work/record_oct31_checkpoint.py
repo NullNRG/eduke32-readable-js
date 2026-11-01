@@ -40,8 +40,10 @@ keys=('complete','counts','selected_tests','completed_tests','all_passed','regre
 state['regression']={'report':'reports/oct31-current-full-regression.json',**{k:report[k] for k in keys},
     'revision_matches_current_inputs':bool(report['complete'] and report['regression_inputs_unchanged'] and report['compiler_frontend_sha256']==state['compiler_frontend_sha256']),
     'gameplay_verified':False}
-state['latest_targeted_regression']={'report':'reports/oct31-strict-memory-fixed-regression.json',
-    'passed':8,'complete':True,'frozen_inputs':True}
+state['latest_targeted_regression']={'report':'reports/oct31-layout-final-regression.json',
+    'passed':16,'complete':True,'frozen_inputs':True}
+state['earlier_full_regression']={'report':'reports/oct31-first-full-regression.json','passed':185,'failed':6,'selected_tests':191,'frozen_inputs':True,'note':'Earlier strict-layout revision. Subsequent shared fixes pass all 16 affected regressions; current full run is separate.'}
+state['shared_layout_recovery']={'native_c_records_node_chromium_cases':512,'original_menu_header_native_cases':1280,'cross_unit_record_owner_native_cases':512,'compiler_features':['Clang C RecordDecl layouts','one typed record path for reads/addresses/compound updates','same-TU field selection by mangled owner/body/ordinal','source-proven template record deduplication','native byte storage at original global owners'],'original_menu_rendering_verified':False}
 state['source_header_definitions']={'contract':'factory-output/browser-classic/compile_commands.header-definitions.json',
     'witness':'factory-output/browser-classic/compile_commands.header-definitions.witness.json',
     'audited_units':111,'uniquely_owned_external_c_header_functions':237,

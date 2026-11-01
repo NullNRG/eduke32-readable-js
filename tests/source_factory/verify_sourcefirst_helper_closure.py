@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory(prefix='helper-closure-') as temp:
     run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(root),'--source','unit.c','--out-dir',str(out)],ROOT)
     module=out/'unit.c.mjs'
     (root/'run.mjs').write_text('import {read} from '+json.dumps(module.as_uri())+';\n'
-        'for(let i=0;i<256;i++)console.log(read({__cPointer:true,buffer:[{value:i*7-19}],lower:0,upper:1,offset:0,array:true,stride:1}));')
+        'for(let i=0;i<256;i++)console.log(read({__cPointer:true,buffer:[{value:i*7-19}],lower:0,upper:4,offset:0,array:true,stride:4}));')
     assert run(['node',str(root/'run.mjs')],ROOT).splitlines()==expected
     report={'passed':True,'native_node_values':256,'gameplay_verified':False,'check':'Original record reader accepts a bounded source pointer with transitive helper bindings present'}
     (ROOT/'reports/oct21-helper-closure.json').write_text(json.dumps(report,indent=2)+'\n')

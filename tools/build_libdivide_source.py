@@ -15,8 +15,15 @@ def build(destination):
     source=ROOT/'factory-output/source-tree/eduke32-master'
     with tempfile.TemporaryDirectory(prefix='libdivide-source-') as directory:
         output=Path(directory)
+        # This provider deliberately selects the header's ORIGINAL C interface.
+        # A .h suffix otherwise defaults to C++, bringing namespace/class-only
+        # declarations into a scalar utility build that does not use them.
+        commands=output/'compile_commands.json'
+        commands.write_text(json.dumps([{'directory':str(source),'file':HEADER,
+            'arguments':['clang','-x','c','-std=gnu11','-funsigned-char','-c',HEADER]}]))
         command=[sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(source),
             '--source',HEADER,'--filter',','.join(EXPORTS),'--out-dir',str(output),
+            '--compile-commands',str(commands),'--exact-filter',
             '--dependency-closure','--header-dependency-closure','--enum-closure']
         result=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=120)
         if result.returncode:raise RuntimeError(result.stdout+'\n'+result.stderr)
@@ -33,7 +40,7 @@ def build(destination):
         'compiler_frontend_sha256':digest(ROOT/'tools/source_ast_to_js.py'),
         'source_scalar_types_sha256':digest(ROOT/'tools/source_scalar_types.py'),
         'exports':list(EXPORTS),'all_original_dependency_definitions':sorted(exports),
-        'source_mode':'Original C-compatible header definitions; C++ namespace is compile-time only',
+        'source_mode':'Original C11 header definitions selected through explicit Clang C language configuration',
         'native_parity_required':True,'gameplay_verified':False}
     destination.with_suffix('.provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     return provenance

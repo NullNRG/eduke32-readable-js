@@ -3,7 +3,8 @@
 No offset is computed here: every subobject offset and total extent must be
 present in the same target's Clang record-layout dump. Borrowed pointer slots
 retain identity in the checked LP64 representation. Reference,
-inheritance, and nontrivial-lifetime records remain unsupported.
+inheritance, and nontrivial-lifetime C++ records remain unsupported. C records
+have no constructors or destructors; their fields still need exact Clang layouts.
 """
 import re
 from pathlib import Path
@@ -106,7 +107,7 @@ def typedef_record_layouts(ast,layouts,source_root):
 def owned_anonymous_record_members(node,source_root=None):
     """Join a member's exact anonymous type location to its lexical child tag."""
     fields=[item for item in children(node) if item.get('kind')=='FieldDecl']
-    nested=[item for item in children(node) if item.get('kind')=='CXXRecordDecl'
+    nested=[item for item in children(node) if item.get('kind') in ('RecordDecl','CXXRecordDecl')
             and item.get('completeDefinition') and not item.get('name')]
     result={}
     source=Path(source_root).resolve() if source_root else None
@@ -164,7 +165,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
     def visit(node, parents=(), template_scope=None):
         if node.get('kind')=='NamespaceDecl' and node.get('name'):
             parents=(*parents,node['name'])
-        if node.get('kind') == 'CXXRecordDecl' and node.get('completeDefinition'):
+        if node.get('kind') in ('RecordDecl','CXXRecordDecl') and node.get('completeDefinition'):
             name = node.get('name')
             own_names = [name, '::'.join((*parents, name))] if name else []
             # Concrete template records are normalized to stable JS names by
@@ -177,7 +178,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             template_scopes[node.get('id')]=template_scope
             register(node, own_names)
             fields = [x for x in children(node) if x.get('kind') == 'FieldDecl']
-            nested = [x for x in children(node) if x.get('kind') == 'CXXRecordDecl'
+            nested = [x for x in children(node) if x.get('kind') in ('RecordDecl','CXXRecordDecl')
                       and x.get('completeDefinition') and not x.get('name')]
             members=owned_anonymous_record_members(node,source_root)
             for field in fields:
@@ -254,13 +255,17 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 physical_proofs[identity]=next(iter(physicals))
                 for spelling in matched:register(record,[spelling])
 
+    field_bindings={}
     def declaration_shape(value):
         # Clang query-local IDs and use markers differ between independent
         # dumps of the SAME declaration. Keep every semantic field, attribute,
         # constructor, initializer and trait; never deduplicate by field names.
+        # TemplateInstantiationPattern is another query-local declaration ID.
+        # Physical template ownership, arguments and complete semantic shape
+        # below still have to match before any declarations can be joined.
         if isinstance(value,dict):
-            return {key:declaration_shape(item) for key,item in value.items()
-                    if key not in ('id','loc','range','typeAliasDeclId','previousDecl',
+            return {key:(field_bindings[item] if key=='referencedMemberDecl' and isinstance(item,str) and item in field_bindings else declaration_shape(item)) for key,item in value.items()
+                    if key not in ('id','loc','range','typeAliasDeclId','previousDecl','TemplateInstantiationPattern','_source_field_declaration',
                                    'parentDeclContextId','isReferenced','isUsed')}
         if isinstance(value,list):return [declaration_shape(item) for item in value]
         return value
@@ -286,6 +291,28 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             name=record.get('_source_template_name') or record.get('name')
             origins=named_origins.get((name,record.get('loc',{}).get('offset'),record.get('tagUsed')),set())
             if len(origins)==1:physical_proofs[identity]=next(iter(origins))
+    # MemberExpr stores its field ID as a string, rather than a nested `id`.
+    # Join it only to an actual field token within the proven original record.
+    # This preserves authored member bindings while removing query-local IDs
+    # from implicit copy bodies and ordinary original header methods alike.
+    ambiguous_fields=set()
+    for identity,record in records.items():
+        proof=physical_proofs.get(identity)
+        if isinstance(proof,tuple) and isinstance(proof[0],Path):path=proof[0]
+        elif isinstance(proof,str) and (location:=re.fullmatch(r'(.+):(\d+):(\d+)',proof)):
+            path=Path(location[1]);path=(path if path.is_absolute() else source/path).resolve()
+            if not source or not path.is_relative_to(source) or not path.is_file():continue
+        else:continue
+        if path not in raw_contents:raw_contents[path]=path.read_bytes()
+        for field in children(record):
+            name=field.get('name');offset=field.get('loc',{}).get('offset');key=field.get('id')
+            if field.get('kind')!='FieldDecl' or not name or not isinstance(offset,int) or not key:continue
+            if raw_contents[path][offset:offset+len(name)]!=name.encode():continue
+            binding={'original_record':repr(proof),'field':name,'source_offset':offset,
+                     'type':declaration_shape(field.get('type',{}))}
+            if key in field_bindings and field_bindings[key]!=binding:ambiguous_fields.add(key)
+            else:field_bindings[key]=binding
+    for identity in ambiguous_fields:field_bindings.pop(identity,None)
     unique = {}
     for name,ids in names.items():
         ordered=sorted(ids)
@@ -329,11 +356,15 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         active.add(identity)
         record = records[identity]
         traits = record.get('definitionData', {})
-        valid = (traits.get('isStandardLayout') is True and
+        c_record=record.get('kind')=='RecordDecl'
+        # RecordDecl is Clang's C tag, not an incomplete C++ traits report.
+        # C has no class lifetime hooks or inheritance. This authorizes only
+        # the language's trivial storage; field offsets/types remain checked.
+        valid = ((c_record or (traits.get('isStandardLayout') is True and
                  traits.get('isTriviallyCopyable') is True and
-                 traits.get('isAggregate') is True and not record.get('bases') and
+                 traits.get('isAggregate') is True and
                  traits.get('defaultCtor', {}).get('trivial') is True and
-                 traits.get('dtor', {}).get('trivial') is True)
+                 traits.get('dtor', {}).get('trivial') is True)) and not record.get('bases'))
         methods = [child for child in children(record)
                    if child.get('kind') in ('CXXMethodDecl','CXXConversionDecl')
                    and not child.get('isImplicit') and
@@ -401,15 +432,16 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 break
             same_anonymous = (anonymous_location(layout_field) is not None and
                               anonymous_location(layout_field) == anonymous_location(declared))
-            if cpp_layout_type(layout_field) != cpp_layout_type(declared) and not same_anonymous:
+            layout_type=clean_type if c_record else cpp_layout_type
+            if layout_type(layout_field) != layout_type(declared) and not same_anonymous:
                 # Clang's layout dump desugars integral typedefs.
                 resolved = declared
                 seen = set()
                 while resolved in aliases and resolved not in seen:
                     seen.add(resolved)
                     resolved = clean_type(aliases[resolved])
-                if (cpp_layout_type(layout_field) != cpp_layout_type(typ) and
-                        cpp_layout_type(layout_field) != cpp_layout_type(resolved)):
+                if (layout_type(layout_field) != layout_type(typ) and
+                        layout_type(layout_field) != layout_type(resolved)):
                     valid = False
                     break
             if field.get('mutable') or field.get('hasInClassInitializer'):
@@ -533,8 +565,8 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             recovered[name] = {'byte_schema': schema, 'copyable': True,
                                'moveable': True, 'union': schema['union'],
                                'anonymous_typedef':not original.get('name'),
-                               'trivial_default_constructor':traits.get('defaultCtor',{}).get('trivial') is True,
-                               'trivial_destructor':traits.get('dtor',{}).get('trivial') is True,
+                               'trivial_default_constructor':original.get('kind')=='RecordDecl' or traits.get('defaultCtor',{}).get('trivial') is True,
+                               'trivial_destructor':original.get('kind')=='RecordDecl' or traits.get('dtor',{}).get('trivial') is True,
                                'anonymous_members': field_names,
                                'anonymous_member_types':anonymous_types}
     return recovered

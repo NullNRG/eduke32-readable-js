@@ -64,7 +64,7 @@ def selected(root,public=False):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--out',type=Path,default=ROOT/'handoffs/EDuke32_JS_Continuation_2026-10-31.zip')
+    parser.add_argument('--out',type=Path,default=ROOT/'handoffs/EDuke32_JS_Continuation_2026-11-01.zip')
     parser.add_argument('--list-only',action='store_true')
     args=parser.parse_args()
     if args.list_only:

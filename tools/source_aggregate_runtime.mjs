@@ -344,6 +344,9 @@ const cRecordPointerViews = (()=>{
   Object.defineProperty(globalThis,key,{value:api});return api;
 })();
 const cRecordPointer = (source,schema,prototypes={}) => {
+  if(!Number.isSafeInteger(schema?.size)||schema.size<1||!schema.fields||
+      !Number.isSafeInteger(schema.align)||schema.align<1)
+    throw new TypeError('Record pointer requires an original Clang schema');
   if(source===null||source===0||source===0n)return null;
   if(source?.__cDeferredPointer||source?.__cDeferredReference)return cRecordPointer(source.resolve(),schema,prototypes);
   if(source?.__cReference&&source.__cPointer!==true)return cRecordPointer(source.value,schema,prototypes);
@@ -351,6 +354,17 @@ const cRecordPointer = (source,schema,prototypes={}) => {
   if(owned&&source.offset===owned.bytes.byteOffset&&JSON.stringify(schema)===owned.schema)
     return cRecordPointer(owner,schema,prototypes);
   const bytes=cByteRecordStorage.get(source)?.bytes||source?.[cByteRecordArrayStorage];
+  // A host may borrow a flat readable record for field-only C APIs (for
+  // example libdivide). Preserve the SAME object rather than serialize a
+  // detached copy. Byte casts/copies and pointer arithmetic still require
+  // native storage; this facade never acquires a fabricated heap address.
+  if(!bytes && source && typeof source==='object' &&
+      (Object.getPrototypeOf(source)===Object.prototype||Object.getPrototypeOf(source)===null) &&
+      source.__cPointer!==true && !schema.union &&
+      Object.entries(schema.fields).every(([name,field])=>
+        (field.pointer||field.native&&!Object.hasOwn(field,'length')) &&
+        Object.hasOwn(Object.getOwnPropertyDescriptor(source,name)||{},'value')))
+    return {__cReference:true,get value(){return source;}};
   const pointer=cPointer(bytes||source);
   // Source arrays can retain object slots instead of a serialized POD layout.
   // Keep that original owner and stride; do not reinterpret those slots as

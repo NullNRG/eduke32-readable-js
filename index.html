@@ -22,7 +22,7 @@ async function refresh(){
  try{
   const state=await request('/api/status');token=state.token;busy=state.job?.status==='running';
   $('state').textContent=state.message;$('badge').textContent=state.gameplay_verified?'Gameplay verified':state.game_present?'Unverified build':'Implementation incomplete';$('badge').classList.toggle('good',state.gameplay_verified);
-  $('play').hidden=!state.game_present;$('no-game').hidden=state.game_present;if(state.game_url)$('play').href=state.game_url;
+  $('play').hidden=!state.gameplay_verified;$('no-game').hidden=state.gameplay_verified;if(state.game_url)$('play').href=state.game_url;
   document.querySelectorAll('.action').forEach(b=>b.disabled=busy);$('preview').disabled=busy;
   list($('checks'),[...state.failed_checks.map(s=>'Failed: '+s.replaceAll('_',' ')),...state.unverified_checks.map(s=>'Unverified: '+s.replaceAll('_',' '))]);
   if(state.handoff?.url){const a=document.createElement('a');a.href=state.handoff.url;a.textContent='Download latest handoff ('+size(state.handoff.bytes)+')';a.download='';$('handoff').replaceChildren(a);}

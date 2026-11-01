@@ -28,7 +28,7 @@ npm run test:services
 npm run compile:game
 ```
 
-Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/oct31-current-full-regression.json for the current 191-test run; the previous complete 186/186 proof predates later fixes. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
+Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/oct31-current-full-regression.json for the current 193-test run; the previous complete 186/186 proof predates later fixes. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
 
 Complete console storage/lifetimes/callbacks/logging/file access, original engine startup and game clock initialization, source SDL integration, frame yielding, menu/E1L1 and gameplay. The host timerInit alone does not initialize original timer.cpp globals. The public compile:game command still needs candidate construction/verification/promotion wired to this incremental tree.
 

@@ -10,7 +10,7 @@ JOBS = {
     'build': ('Compile original game', ['tools/build_browser_classic.py']),
     'test': ('Compiler and runtime regression tests', ['tools/verify_recovery_suite.py','--jobs','1','--timeout','240','--report','reports/project-regression.json']),
     'acceptance': ('Original game acceptance checks', ['tools/verify_port_acceptance.py','--strict']),
-    'handoff': ('Create continuation ZIP', ['tools/project_workspace.py','package']),
+    'handoff': ('Create compact continuation ZIP', ['work/package_current_continuation.py']),
     'cleanup': ('Remove listed obsolete caches', ['tools/project_workspace.py','clean']),
 }
 
@@ -48,7 +48,7 @@ class Project:
         html=self.root/'dist/index.html'; exists=html.is_file()
         attested=acceptance.get('deliverables',{}).get('offline_html',{})
         verified=bool(exists and acceptance.get('original_game_playable_verified') and attested.get('sha256')==sha(html))
-        result={'game_present':exists,'gameplay_verified':verified,'game_url':'/dist/index.html' if exists else None,
+        result={'game_present':exists,'gameplay_verified':verified,'game_url':'/dist/index.html' if verified else None,
             'message':'Original gameplay verified' if verified else 'Game build exists; gameplay is unverified' if exists else 'Original game is blocked; no playable dist/index.html yet',
             'failed_checks':acceptance.get('failed_checks',[]),'unverified_checks':acceptance.get('unverified_checks',[]),
             'handoff':read('reports/project-handoff.json'),'cleanup':read('reports/project-cleanup.json'),
