@@ -2,6 +2,11 @@
 // Original translation unit: source/build/src/pragmas.cpp
 // Status: partial STRICT semantic conversion, not a full engine module.
 // Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.
+import { libdivide_s32_branchfree_gen } from "../../../browser-abi/libdivide_provider.mjs";
+import { libdivide_s32_gen } from "../../../browser-abi/libdivide_provider.mjs";
+import { libdivide_s64_branchfree_gen } from "../../../browser-abi/libdivide_provider.mjs";
+import { libdivide_s64_gen } from "../../../browser-abi/libdivide_provider.mjs";
+
 // LP64 source object addresses over native JavaScript storage. No instructions
 // or virtual machine are executed. Pointer slots and uintptr_t use these SAME
 // bits; arithmetic remains ordinary generated JavaScript/BigInt arithmetic.
@@ -38,6 +43,12 @@ const cSourceAddresses = (() => {
     if(cpp&&!cpp.live)throw new RangeError('C pointer addresses deleted C++ storage');
     const native=heap();
     if(native?.buffer===buffer){
+      // An address can be both one-past one allocation and the beginning
+      // of its neighbour. A raw malloc address must select its live owner.
+      if(native.allocations.has(offset)){
+        const size=native.allocations.get(offset);
+        if(width<=size)return {lower:offset,upper:offset+size};
+      }
       for(const [base,size] of native.allocations){
         if(offset>=base&&offset+width<=base+size)return {lower:base,upper:base+size};
       }
@@ -97,6 +108,9 @@ const cSourceAddresses = (() => {
         throw new TypeError('C integer address must be exactly representable');
       const bits=BigInt.asUintN(64,BigInt(value));
       if(bits===0n)return null;
+      // The browser may bind its heap before the first compiled module loads.
+      // Register that real address region before decoding a malloc result.
+      const native=heap();if(native)regionFor(native.buffer);
       if(byBits.has(bits)){
         const value=byBits.get(bits),allocation=globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
         if(allocation&&!allocation.live)throw new RangeError('C address refers to a destroyed C++ object');
@@ -140,12 +154,14 @@ const cSourceAddresses = (() => {
   globalThis[key]=api;return api;
 })();
 
+
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
+  if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
   if (source && source.__cPointer === true) {
-    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset);
+    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.__cAddressOnly?source.lower:source.offset);
     return source;
   }
   if(source?.__cReference===true&&source.value?.[Symbol.for('source-first.original-byte-record-storage/1')])
@@ -217,7 +233,7 @@ const cPointerElementRef = (source,index) => {
 };
 const cTypedPointer = (source, Type) => {
   if (!Type || !Number.isSafeInteger(Type.BYTES_PER_ELEMENT)) throw new TypeError('Unsupported pointer element type');
-  if (source===null) return null;
+  if (source===null||source===0||source===0n) return null;
   const pointerBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
   if(pointerBytes)return cPointer(pointerBytes);
   if (Array.isArray(source)) return { ...cPointer(source), upper:source.length*Type.BYTES_PER_ELEMENT, stride:Type.BYTES_PER_ELEMENT };
@@ -228,19 +244,20 @@ const cTypedPointer = (source, Type) => {
   }
   return pointer;
 };
-const cPointerOffset = (source, delta, stride=1) => {
+const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
   const initial=cPointer(source);
   const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
-  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || next<p.lower || next>p.upper)
+  const outside=next<p.lower||next>p.upper;
+  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || outside&&!addressOnly)
     throw new RangeError('C pointer escapes original array bounds');
   if(p.__cPointer===true&&p.__cReference===true){
     if(next===p.offset)return p;
     return {__cPointer:true,buffer:p.buffer,array:p.array,lower:p.lower,upper:p.upper,offset:next,
-      ...(p.array?{stride:p.stride}: {})};
+      ...(p.array?{stride:p.stride}: {}),...(outside?{__cAddressOnly:true}: {})};
   }
-  const result={...p,offset:next};
+  const result={...p,offset:next,__cAddressOnly:outside};
   return result;
 };
 const cDeref = (source, Type) => {
@@ -248,14 +265,14 @@ const cDeref = (source, Type) => {
       typeof source==='object' && 'value' in source) return source;
   const p=cPointer(source);
   if (p.array) {
-    if (p.offset>=p.upper) throw new RangeError('C array pointer dereferences one-past-end');
+    if (p.offset<p.lower||p.offset>=p.upper) throw new RangeError('C array pointer dereferences outside its original bounds');
     if (Type.BYTES_PER_ELEMENT!==p.stride || p.offset%p.stride!==0)
       throw new TypeError('Array element type does not match original pointer stride');
     const index=p.offset/p.stride;
     return {get value(){return p.buffer[index];}, set value(value){p.buffer[index]=value;}};
   }
   const width=Type?.BYTES_PER_ELEMENT;
-  if (!Number.isSafeInteger(width) || width<=0 || p.offset+width>p.upper)
+  if (!Number.isSafeInteger(width) || width<=0 || p.offset<p.lower || p.offset+width>p.upper)
     throw new RangeError('C typed pointer dereference out of bounds');
   const access=new Map([
     [Uint8Array,['getUint8','setUint8']], [Int8Array,['getInt8','setInt8']],
@@ -277,6 +294,8 @@ const cScalarStorage = (Type, initial) => {
     get value(){return reference.value;},set value(value){reference.value=value;}};
 };
 const cPointerCompare = (left,right,op) => {
+  if(left===0||left===0n)left=null;
+  if(right===0||right===0n)right=null;
   if (left?.__cDeferredReference===true) left=left.resolve();
   if (right?.__cDeferredReference===true) right=right.resolve();
   if(left?.__cReference===true&&left.__cPointer!==true&&left.value?.[Symbol.for('source-first.original-byte-record-storage/1')])left=left.value;
@@ -348,11 +367,29 @@ const cAlignedStorage = (storage, alignment) => {
   return storage;
 };
 
+const cRecordObject = source => {
+  if (source?.__cDeferredPointer === true || source?.__cDeferredReference === true) return cRecordObject(source.resolve());
+  if (source?.__cReference === true) return source.value;
+  if (Array.isArray(source)) { if (!source.length) throw new RangeError("C record pointer dereferences empty array"); return source[0]; }
+  if (source?.__cRecordPointer === true) return globalThis[Symbol.for("source-first.record-pointer-views/1")].deref(source);
+  if (source?.__cPointer === true) {
+    if (!source.array) throw new TypeError("C record pointer requires source-backed object slots");
+    return cPointerElementRef(source,0).value;
+  }
+  return source;
+};
+const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });
+const cObjectFieldRef = (owner, field) => { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); };
+const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });
+const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });
 // Numeric POD records use original Clang field offsets and shared byte storage.
 // Overlapping union alternatives are views of the SAME bytes, never independent
 // JS properties. This target's ABI has verified little-endian object storage.
 const cAggregateRecordTag = Symbol.for('source-first.original-record-storage/1');
 const cMarkAggregate = value => { Object.defineProperty(value,cAggregateRecordTag,{value:true}); return value; };
+// Evaluate source values in declaration order. Resolve only their verified
+// static address relocations after the neighboring storage bindings exist.
+const cStaticInitializerValues = values => () => values;
 // Independently generated ES modules must recognize the SAME original
 // provider-owned byte storage. Symbol metadata is non-enumerable and cannot
 // collide with original fields; schema equality remains mandatory for copy.
@@ -449,8 +486,19 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
     prototype=prototypes[schema.prototype]();
     if (!prototype || typeof prototype!=='object') throw new TypeError('Invalid original byte-record prototype');
   }
-  const result=cMarkAggregate(Object.create(prototype)), view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
-  cByteRecordStorage.set(result,{bytes,schema:JSON.stringify(schema),prototypes});
+  let pending=typeof values==='function'?values:null,initializing=false;
+  const initialize=()=>{
+    if(!pending||initializing)return;
+    initializing=true;
+    try{apply(pending());pending=null;}finally{initializing=false;}
+  };
+  const target=cMarkAggregate(Object.create(prototype));
+  const result=pending?new Proxy(target,{
+    get:(object,key,receiver)=>{if(key!==cByteRecordStorageTag&&key!==cAggregateRecordTag)initialize();return Reflect.get(object,key,receiver);},
+    set:(object,key,value,receiver)=>{initialize();return Reflect.set(object,key,value,receiver);}
+  }):target;
+  const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+  cByteRecordStorage.set(result,{get bytes(){initialize();return bytes;},schema:JSON.stringify(schema),prototypes});
   for (const [name,field] of Object.entries(schema.fields)) {
     if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name) ||
         ['__proto__','constructor','prototype'].includes(name) ||
@@ -508,7 +556,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
       }
     }
   }
-  for (const [name,value] of Object.entries(values)) {
+  function apply(initialValues){
+  for (const [name,value] of Object.entries(initialValues)) {
     const field=schema.fields[name];
     if (!field) throw new TypeError('Initializer is not a Clang record field');
     if(field.recordArray||field.pointerArray||field.nativeArray){
@@ -518,6 +567,12 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
         if(!source||source.length!==field.size||value[Symbol.for('source-first.byte-record-array-layout/1')]!==
             JSON.stringify({schema:field.recordArray,dims:field.dims}))throw new TypeError('Member record-array initializer differs from Clang schema');
         dest.set(source);
+      }else if(field.pointerArray){
+        const populate=(array,dims,items)=>{
+          if(!Array.isArray(items)||items.length>dims[0])throw RangeError('Pointer member initializer exceeds original extent');
+          for(let i=0;i<items.length;i++)if(dims.length===1)array[i]=items[i];else populate(array[i],dims.slice(1),items[i]);
+        };
+        populate(result[name],field.dims,value);
       }else cByteArrayMember(field,bytes.subarray(field.offset,field.offset+field.size),prototypes,value);
     } else if (field.byteRecord) {
       const source=cByteRecordStorage.get(value),dest=cByteRecordStorage.get(result[name]);
@@ -530,6 +585,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
       result[name].set(value);
     } else result[name]=value;
   }
+  }
+  if(!pending)apply(values);
   return result;
 };
 
@@ -543,11 +600,22 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       !Number.isSafeInteger(schema?.size) || schema.size < 1 ||
       schema.size > 1048576 || count * schema.size > 268435456)
     throw new RangeError('C record array exceeds proven bounded storage');
-  if(!Array.isArray(initializers)||initializers.length>count)throw new RangeError('C record initializer exceeds array extent');
+  if(typeof initializers!=='function'&&(!Array.isArray(initializers)||initializers.length>count))throw new RangeError('C record initializer exceeds array extent');
   const bytes = storage || new Uint8Array(count * schema.size);
   if(!(bytes instanceof Uint8Array)||bytes.length!==count*schema.size)
     throw new TypeError('C record array backing store differs from Clang extent');
   const records = new Array(count).fill(null), signature = JSON.stringify(schema);
+  let pending=typeof initializers==='function'?initializers:null,initializing=false;
+  const initialize=()=>{
+    if(!pending||initializing)return;
+    initializing=true;
+    try{
+      const values=pending();
+      if(!Array.isArray(values)||values.length>count)throw RangeError('C record initializer exceeds array extent');
+      for(let i=0;i<values.length;i++)result[i]=values[i];
+      pending=null;
+    }finally{initializing=false;}
+  };
   const indexOf = key => {
     if (typeof key !== 'string' || !/^(0|[1-9][0-9]*)$/.test(key)) return -1;
     const i = Number(key);
@@ -563,12 +631,14 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
   Object.defineProperty(records,Symbol.for('source-first.byte-record-array-prototypes/1'),{value:prototypes});
   const result=new Proxy(records, {
     get(target, key, receiver) {
+      initialize();
       if (key === cByteRecordArrayStorage) return bytes;
       const i = indexOf(key);
       if (i >= 0) return getRecord(i);
       return Reflect.get(target, key, receiver);
     },
     set(target, key, value) {
+      initialize();
       const i = indexOf(key);
       if (i < 0) throw new RangeError('C record array index outside original extent');
       const source = cByteRecordStorage.get(value);
@@ -578,7 +648,7 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       return true;
     }
   });
-  for(let i=0;i<initializers.length;i++)result[i]=initializers[i];
+  if(!pending)for(let i=0;i<initializers.length;i++)result[i]=initializers[i];
   return result;
 };
 
@@ -590,13 +660,25 @@ const cByteRecordNDArray = (schema,dims,prototypes={},initializers=[],storage=nu
       dims.reduce((a,b)=>a*b,1)*schema.size>268435456)
     throw new RangeError('Invalid Clang record array dimensions');
   if(dims.length===1)return cByteRecordArray(schema,dims[0],prototypes,initializers,storage);
-  if(!Array.isArray(initializers)||initializers.length>dims[0])throw new RangeError('C record row initializer exceeds extent');
+  if(typeof initializers!=='function'&&(!Array.isArray(initializers)||initializers.length>dims[0]))throw new RangeError('C record row initializer exceeds extent');
   const stride=dims.slice(1).reduce((a,b)=>a*b,1)*schema.size;
   const bytes=storage||new Uint8Array(dims[0]*stride);
   if(!(bytes instanceof Uint8Array)||bytes.length!==dims[0]*stride)throw new TypeError('Invalid record row storage');
+  let resolved=null;
+  const values=()=>{
+    if(resolved===null){
+      resolved=initializers();
+      if(!Array.isArray(resolved)||resolved.length>dims[0])throw RangeError('C record row initializer exceeds extent');
+    }
+    return resolved;
+  };
   const rows=Array.from({length:dims[0]},(_,i)=>cByteRecordNDArray(schema,dims.slice(1),prototypes,
-    initializers[i]||[],bytes.subarray(i*stride,(i+1)*stride)));
-  Object.defineProperty(rows,cByteRecordArrayStorage,{value:bytes});
+    typeof initializers==='function'?()=>values()[i]||[]:initializers[i]||[],bytes.subarray(i*stride,(i+1)*stride)));
+  let resolving=false;
+  Object.defineProperty(rows,cByteRecordArrayStorage,{get(){
+    if(!resolving){resolving=true;try{for(const row of rows)row[cByteRecordArrayStorage];}finally{resolving=false;}}
+    return bytes;
+  }});
   Object.defineProperty(rows,Symbol.for('source-first.byte-record-array-layout/1'),{value:JSON.stringify({schema,dims})});
   Object.defineProperty(rows,Symbol.for('source-first.byte-record-array-prototypes/1'),{value:prototypes});
   return rows;
@@ -646,14 +728,44 @@ const cRecordPointerViews = (()=>{
   Object.defineProperty(globalThis,key,{value:api});return api;
 })();
 const cRecordPointer = (source,schema,prototypes={}) => {
-  if(source===null)return null;
+  if(!Number.isSafeInteger(schema?.size)||schema.size<1||!schema.fields||
+      !Number.isSafeInteger(schema.align)||schema.align<1)
+    throw new TypeError('Record pointer requires an original Clang schema');
+  if(source===null||source===0||source===0n)return null;
   if(source?.__cDeferredPointer||source?.__cDeferredReference)return cRecordPointer(source.resolve(),schema,prototypes);
   if(source?.__cReference&&source.__cPointer!==true)return cRecordPointer(source.value,schema,prototypes);
   const owner=source?.[Symbol.for('source-first.record-field-owner/1')],owned=owner&&cByteRecordStorage.get(owner);
   if(owned&&source.offset===owned.bytes.byteOffset&&JSON.stringify(schema)===owned.schema)
     return cRecordPointer(owner,schema,prototypes);
   const bytes=cByteRecordStorage.get(source)?.bytes||source?.[cByteRecordArrayStorage];
+  // A host may borrow a flat readable record for field-only C APIs (for
+  // example libdivide). Preserve the SAME object rather than serialize a
+  // detached copy. Byte casts/copies and pointer arithmetic still require
+  // native storage; this facade never acquires a fabricated heap address.
+  if(!bytes && source && typeof source==='object' &&
+      (Object.getPrototypeOf(source)===Object.prototype||Object.getPrototypeOf(source)===null) &&
+      source.__cPointer!==true && !schema.union &&
+      Object.entries(schema.fields).every(([name,field])=>
+        (field.pointer||field.native&&!Object.hasOwn(field,'length')) &&
+        Object.hasOwn(Object.getOwnPropertyDescriptor(source,name)||{},'value')))
+    return {__cReference:true,get value(){return source;}};
   const pointer=cPointer(bytes||source);
+  // Source arrays can retain object slots instead of a serialized POD layout.
+  // Keep that original owner and stride; do not reinterpret those slots as
+  // heap bytes or detach their fields by constructing a new record view.
+  if(pointer.array){
+    const owned=Array.isArray(source)
+      ? {...pointer,upper:source.length*schema.size,stride:schema.size} : pointer;
+    if(owned.stride!==schema.size || owned.lower%owned.stride || owned.offset%owned.stride ||
+        owned.upper%owned.stride || !Array.isArray(owned.buffer))
+      throw new TypeError('Record pointer differs from original object-array stride');
+    if(owned.offset<owned.lower || owned.offset>=owned.upper)
+      throw new RangeError('Record pointer dereferences outside original object slots');
+    const value=owned.buffer[owned.offset/owned.stride];
+    if(value===null || typeof value!=='object' || ArrayBuffer.isView(value))
+      throw new TypeError('Record pointer requires original record object slots');
+    return owned;
+  }
   if(pointer.array||!Number.isSafeInteger(schema?.size)||schema.size<1||
       !Number.isSafeInteger(schema.align)||schema.align<1||pointer.offset%schema.align)
     throw new TypeError('Record pointer requires aligned Clang-proven original bytes');
@@ -778,9 +890,36 @@ const cZeroAggregate = (schema, prototypes={}) => {
   throw new TypeError('C zero aggregate requires nonoverlapping proven field layout');
 };
 
+// Implicit trivial C++ assignment changes destination storage in place. Existing
+// references to its fields, arrays and overlapping union views retain identity.
+// cCopyAggregate validates exact Clang storage schemas and snapshots the source
+// before any mutation, including self-assignment or overlapping storage.
+const cAssignAggregate = (destination, source, schema) => {
+  const snapshot = cCopyAggregate(source, schema);
+  cCopyAggregate(destination, schema);
+  const commit = (target, value, shape) => {
+    if (Object.hasOwn(shape, 'byteRecord')) {
+      cByteRecordStorage.get(target).bytes.set(cByteRecordStorage.get(value).bytes);
+    } else if (Object.hasOwn(shape,'pointerArray')) {
+      target[Symbol.for('source-first.clang-byte-record-array/1')].set(value[Symbol.for('source-first.clang-byte-record-array/1')]);
+    } else if (Object.hasOwn(shape, 'bytes') || Object.hasOwn(shape, 'array')) {
+      target.set(value);
+    } else if (Object.hasOwn(shape, 'record')) {
+      for (const [name, field] of Object.entries(shape.record)) {
+        if (Object.hasOwn(field, 'scalar') || Object.hasOwn(field, 'pointer')) target[name] = value[name];
+        else commit(target[name], value[name], field);
+      }
+    } else throw new TypeError('C++ assignment requires original aggregate storage');
+  };
+  commit(destination, snapshot, schema);
+  return destination;
+};
+
+const i32 = value => typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0;
+const i64 = value => BigInt.asIntN(64, BigInt(value));
 
 // C/C++ source: source/build/src/pragmas.cpp:13
-export let divtable64 = Array.from({length:16384}, () => cZeroAggregate({"record": {"magic": {"scalar": "long"}, "more": {"scalar": "unsigned char"}}}));
+export let divtable64 = cByteRecordNDArray({"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}, [16384], {}, cStaticInitializerValues([]));
 function __cxx_static_address_81eed4639f61e5339260348f() {
   return __cxx_static_address_81eed4639f61e5339260348f.reference || (__cxx_static_address_81eed4639f61e5339260348f.reference = {
     __cReference: true,
@@ -790,7 +929,7 @@ function __cxx_static_address_81eed4639f61e5339260348f() {
 }
 
 // C/C++ source: source/build/src/pragmas.cpp:14
-export let divtable32 = Array.from({length:16384}, () => cZeroAggregate({"record": {"magic": {"scalar": "int"}, "more": {"scalar": "unsigned char"}}}));
+export let divtable32 = cByteRecordNDArray({"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "Int32Array", "offset": 0, "size": 4}, "more": {"native": "Uint8Array", "offset": 4, "size": 1}}, "overlaps": false, "size": 5, "union": false}, [16384], {}, cStaticInitializerValues([]));
 function __cxx_static_address_0531c283fbd591d127eb0cc6() {
   return __cxx_static_address_0531c283fbd591d127eb0cc6.reference || (__cxx_static_address_0531c283fbd591d127eb0cc6.reference = {
     __cReference: true,
@@ -800,7 +939,7 @@ function __cxx_static_address_0531c283fbd591d127eb0cc6() {
 }
 
 // C/C++ source: source/build/src/pragmas.cpp:15
-export let bfdivtable64 = Array.from({length:16384}, () => cZeroAggregate({"record": {"magic": {"scalar": "long"}, "more": {"scalar": "unsigned char"}}}));
+export let bfdivtable64 = cByteRecordNDArray({"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}, [16384], {}, cStaticInitializerValues([]));
 function __cxx_static_address_655dd661bcc2a5560e3fc75d() {
   return __cxx_static_address_655dd661bcc2a5560e3fc75d.reference || (__cxx_static_address_655dd661bcc2a5560e3fc75d.reference = {
     __cReference: true,
@@ -810,7 +949,7 @@ function __cxx_static_address_655dd661bcc2a5560e3fc75d() {
 }
 
 // C/C++ source: source/build/src/pragmas.cpp:16
-export let bfdivtable32 = Array.from({length:16384}, () => cZeroAggregate({"record": {"magic": {"scalar": "int"}, "more": {"scalar": "unsigned char"}}}));
+export let bfdivtable32 = cByteRecordNDArray({"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "Int32Array", "offset": 0, "size": 4}, "more": {"native": "Uint8Array", "offset": 4, "size": 1}}, "overlaps": false, "size": 5, "union": false}, [16384], {}, cStaticInitializerValues([]));
 function __cxx_static_address_c7588768b32b40bbc6ab3ec5() {
   return __cxx_static_address_c7588768b32b40bbc6ab3ec5.reference || (__cxx_static_address_c7588768b32b40bbc6ab3ec5.reference = {
     __cReference: true,
@@ -819,5 +958,53 @@ function __cxx_static_address_c7588768b32b40bbc6ab3ec5() {
   });
 }
 
-// Original Clang-generated fragment; imports existing owner storage.
-export { initdivtables } from "./_source_legacy_pragmas_cpp_7140ad416c7a.mjs";
+// C/C++ source: source/build/src/pragmas.cpp:28
+export let lastd_s64 = 0n;
+export function __cxx_global_cell_f8287b2e627d0e3f51b90c55() {
+  return __cxx_global_cell_f8287b2e627d0e3f51b90c55.reference || (__cxx_global_cell_f8287b2e627d0e3f51b90c55.reference = {
+    __cReference: true,
+    get value() { return lastd_s64; },
+    set value(__cxx_lvalue_0) { lastd_s64 = i64(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/pragmas.cpp:29
+export let lastd_s64_b = 0n;
+export function __cxx_global_cell_bb3de2e29ec4bffc85e65aa8() {
+  return __cxx_global_cell_bb3de2e29ec4bffc85e65aa8.reference || (__cxx_global_cell_bb3de2e29ec4bffc85e65aa8.reference = {
+    __cReference: true,
+    get value() { return lastd_s64_b; },
+    set value(__cxx_lvalue_0) { lastd_s64_b = i64(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/pragmas.cpp:31
+export let lastd_s32 = 0;
+export function __cxx_global_cell_a6e3cfd4eba13fb9886cb240() {
+  return __cxx_global_cell_a6e3cfd4eba13fb9886cb240.reference || (__cxx_global_cell_a6e3cfd4eba13fb9886cb240.reference = {
+    __cReference: true,
+    get value() { return lastd_s32; },
+    set value(__cxx_lvalue_0) { lastd_s32 = i32(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/pragmas.cpp:32
+export let lastd_s32_b = 0;
+export function __cxx_global_cell_b6db0759e33cdbb028a91dc6() {
+  return __cxx_global_cell_b6db0759e33cdbb028a91dc6.reference || (__cxx_global_cell_b6db0759e33cdbb028a91dc6.reference = {
+    __cReference: true,
+    get value() { return lastd_s32_b; },
+    set value(__cxx_lvalue_0) { lastd_s32_b = i32(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/pragmas.cpp:34
+export function initdivtables() {
+
+  for (let i = i32(1); (i < 16384); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return next; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
+    cAssignAggregate((cPointerElementRef(divtable64, i).value), libdivide_s64_gen(i64(i)), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}});
+    cAssignAggregate((cPointerElementRef(divtable32, i).value), libdivide_s32_gen(i), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "Int32Array", "offset": 0, "size": 4}, "more": {"native": "Uint8Array", "offset": 4, "size": 1}}, "overlaps": false, "size": 5, "union": false}});
+    cAssignAggregate((cPointerElementRef(bfdivtable64, i).value), libdivide_s64_branchfree_gen(i64(i)), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}});
+    cAssignAggregate((cPointerElementRef(bfdivtable32, i).value), libdivide_s32_branchfree_gen(i), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "Int32Array", "offset": 0, "size": 4}, "more": {"native": "Uint8Array", "offset": 4, "size": 1}}, "overlaps": false, "size": 5, "union": false}});
+  }
+}

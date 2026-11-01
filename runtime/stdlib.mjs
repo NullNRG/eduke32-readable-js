@@ -29,6 +29,24 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
   const handles = new Map(); let nextHandle = 3;
   let errnoPtr=null;
   const errnoLocation=()=>{if(errnoPtr===null){errnoPtr=heap.malloc(4);heap.write(errnoPtr,'i32',0);}return errnoPtr;};
+  const allocationCount=value=>{
+    if(typeof value!=='bigint'&&!(typeof value==='number'&&Number.isSafeInteger(value)))
+      throw TypeError('C allocation size_t must be an exact integer');
+    const count=BigInt(value);
+    if(count<0n||count>0xffffffffffffffffn)throw RangeError('Invalid LP64 allocation size_t');
+    return count;
+  };
+  const allocate=(size,pointer=null)=>{
+    const count=allocationCount(size);
+    if(count>BigInt(heap.maxBytes)){heap.write(errnoLocation(),'i32',12);return 0;}
+    try{return pointer===null?heap.malloc(Number(count)):heap.realloc(sourceHeapAddress(pointer,heap),Number(count));}
+    catch(error){
+      if(error instanceof RangeError&&error.message==='C heap capacity exceeded'){
+        heap.write(errnoLocation(),'i32',12);return 0;
+      }
+      throw error;
+    }
+  };
   const getHandle = fd => { const h = handles.get(fd); if (!h) throw new Error('EBADF: ' + fd); return h; };
   const posix=createPosixVFS({heap,fs,errnoLocation,streams});
   function registerFile(fd,mode,name,existingPtr=0){
@@ -78,11 +96,17 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
     ...(cxxLocaleIds?createCxxLocaleABI({heap,...cxxLocaleIds}):{}),
     ...createCStrftime({heap}),
     ...(callIndirect?createFLACABI({heap,callIndirect}):{}),
-    malloc: n => heap.malloc(n),
-    calloc: (n, size) => heap.calloc(n, size),
+    malloc: n => allocate(n),
+    calloc: (n, size) => {
+      const total=allocationCount(n)*allocationCount(size);
+      if(total>0xffffffffffffffffn){heap.write(errnoLocation(),'i32',12);return 0;}
+      const pointer=allocate(total);
+      if(pointer)heap.u8.fill(0,pointer,pointer+Number(total));
+      return pointer;
+    },
     // Source C++ nullptr lowers to null; the numeric host heap represents it
     // as address zero. Undefined and invalid non-null pointers still fail.
-    realloc: (ptr, size) => heap.realloc(sourceHeapAddress(ptr,heap), size),
+    realloc: (ptr, size) => allocate(size,ptr),
     free: ptr => heap.free(sourceHeapAddress(ptr,heap)),
     memcpy: (dst, src, n) => heap.memcpy(dst, src, n),
     memmove: (dst, src, n) => heap.memmove(dst, src, n),

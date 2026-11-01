@@ -12,17 +12,19 @@ with tempfile.TemporaryDirectory() as temp:
     run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(ROOT),'--source',SRC,'--out-dir',str(path)])
     mod=path/(SRC+'.mjs'); data=json.loads(mod.with_suffix('.manifest.json').read_text())
     defs={d['source_name']:d for d in data['definitions']}
-    for name in ('by_value_host','copy_twice'):
+    # This historical fixture name predates the byte-backed pointer ABI. A
+    # trivial pointer-record copy must preserve its alias, never deep-copy it.
+    for name in ('by_value_host','copy_twice','pointer_alias_must_block'):
         assert defs[name]['status']=='source-first',defs[name]
-    for name in ('pointer_alias_must_block','custom_copy_must_block'):
+    for name in ('custom_copy_must_block',):
         assert defs[name]['status']=='blocked',defs[name]
     run(['node','--check',str(mod)])
-    (path/'js.mjs').write_text('import {by_value_host,copy_twice} from '+json.dumps(mod.as_uri())+';\n'
-        'for(let i=-256;i<256;i++)console.log(by_value_host(i)+","+copy_twice(i));\n')
+    (path/'js.mjs').write_text('import {by_value_host,copy_twice,pointer_alias_must_block} from '+json.dumps(mod.as_uri())+';\n'
+        'for(let i=-256;i<256;i++)console.log(by_value_host(i)+","+copy_twice(i)+","+pointer_alias_must_block(i));\n')
     observed=run(['node',str(path/'js.mjs')]).splitlines()
-    (path/'main.cpp').write_text('#include <cstdio>\nextern "C" int by_value_host(int),copy_twice(int);\n'
-        'int main(){for(int i=-256;i<256;i++)printf("%d,%d\\n",by_value_host(i),copy_twice(i));}\n')
+    (path/'main.cpp').write_text('#include <cstdio>\nextern "C" int by_value_host(int),copy_twice(int),pointer_alias_must_block(int);\n'
+        'int main(){for(int i=-256;i<256;i++)printf("%d,%d,%d\\n",by_value_host(i),copy_twice(i),pointer_alias_must_block(i));}\n')
     run(['clang++','-std=c++14',str(ROOT/SRC),str(path/'main.cpp'),'-o',str(path/'native')])
     expected=run([str(path/'native')]).splitlines()
     assert expected==observed,next(((i,a,b) for i,(a,b) in enumerate(zip(expected,observed)) if a!=b),None)
-    print('PASS: 1,024 native C++/JS comparisons, nested POD copies and array isolation; pointer and custom copies blocked')
+    print('PASS: 1,536 native C++/JS comparisons, nested POD copies, array isolation and shallow pointer aliases; custom copy constructors remain blocked')

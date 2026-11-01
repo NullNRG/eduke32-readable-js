@@ -8,3 +8,4 @@ if (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'dependencies/browser-python
 $env:EDUKE_CHROMIUM_EXECUTABLE='C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
 $env:EDUKE32_LIBCLANG_RESOURCE_DIR=Join-Path $PSScriptRoot 'dependencies/libclang-resources/usr/lib/llvm-18/lib/clang/18'
 $env:PYTHONUTF8='1'
+if (-not $env:EDUKE32_AST_CACHE_MAX_BYTES) { $env:EDUKE32_AST_CACHE_MAX_BYTES='134217728' }

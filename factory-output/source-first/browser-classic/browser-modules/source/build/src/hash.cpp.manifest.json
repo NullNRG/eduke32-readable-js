@@ -13694,6 +13694,89 @@
   ],
   "module_fragments": [
     {
+      "module": "source/build/src/_source_legacy_hash_cpp_c37bf9ec397e.mjs",
+      "sha256": "c37bf9ec397ea590fe55ab33558f9a5a40fd3ee14a7eeb4eccec77f3239d84ab",
+      "original_source": "source/build/src/hash.cpp",
+      "exports": [
+        "hash_init",
+        "inthash_init"
+      ],
+      "reexports": [
+        "hash_init",
+        "inthash_init"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_free",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_free",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_u32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "primes",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5451a0c317910f37598642c6",
+          "owner_source": "source/build/src/hash.cpp",
+          "original_type": "const uint64_t[188]",
+          "scalar_array": {
+            "array": "BigUint64Array",
+            "dims": [
+              188
+            ]
+          },
+          "consumer_source": "source/build/src/hash.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "b98a48de5e7b3ab66fe098b22d78ff287a2bd9223ed39396418fb8379ac812d9"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
       "module": "source/build/src/_source_legacy_hash_cpp_0d878a6edc39.mjs",
       "sha256": "0d878a6edc3948043ae34dd4c8644d1eeee735536f3145aa0a2e62d676ef336d",
       "original_source": "source/build/src/hash.cpp",

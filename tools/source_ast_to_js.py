@@ -726,7 +726,9 @@ def js_cast(expr,t):
     return expr
 
 class Unsupported(Exception):
-    def __init__(self,feature):super().__init__(feature)
+    def __init__(self,feature,*,required_records=()):
+        super().__init__(feature)
+        self.required_records=tuple(name for name in required_records if isinstance(name,str) and name)
 
 def declared_array_alignment(node,type_aliases=None):
     attrs=[v for v in kids(node) if kind(v)=='AlignedAttr']
@@ -1219,6 +1221,14 @@ class Emit:
                 else:raise Unsupported('nonidentifier member')
             receiver=self.expr(a[0])
             # Clang's arrow MemberExpr already proves record-member access.
+            if not name.startswith('operator'):
+                cls=normalized_record_name(re.sub(r'[&*]+\s*$','',qual(a[0])).strip(),self.type_aliases)
+                if (cls,name) in getattr(self,'overloaded_member_names',set()):
+                    selected=n.get('_source_member_declaration') or getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{})
+                    resolved=getattr(self,'member_method_symbols',{}).get((cls,name,qual(selected)))
+                    if selected.get('kind')!='CXXMethodDecl' or not resolved:
+                        raise Unsupported('overloaded member requires exact Clang-selected source method: '+str((cls,name)))
+                    name=resolved
             # Typedef spelling and a filtered-out layout do not determine the
             # pointer representation: it may be a reference, array relocation,
             # or original class object. Resolve through the common ABI.
@@ -1466,7 +1476,8 @@ class Emit:
                     return f'cAssignAggregate({self.expr(a[1])}, {self.expr(a[2])}, {json.dumps(schema,sort_keys=True)})'
                 method=self.member_operators.get(key)
                 if not method:
-                    raise Unsupported('C++ member operator requires source-defined class/method ABI: '+str(key))
+                    raise Unsupported('C++ member operator requires source-defined class/method ABI: '+str(key),
+                        required_records=(cls,) if name=='operator=' else ())
                 return self.call_expression(n,self.expr(a[1])+'.'+method,argument_nodes=a[2:])
             if decl.get('kind')!='FunctionDecl' or not re.fullmatch(r'operator(?:\[\]|\(\)|[+*/%\-=&|^!<>~]+)', name) is not None:
                 raise Unsupported('C++ operator has no Clang-resolved free function')
@@ -1695,7 +1706,7 @@ class Emit:
                 if ctor not in lifetime['constructors']:
                     raise Unsupported('C++ lifetime constructor requires original source body: '+str(name)+' '+ctor)
                 if not name or not re.fullmatch(r'[A-Za-z_]\w*',name):
-                    raise Unsupported('constructor requires Clang-identified record type: '+qual(n))
+                    raise Unsupported('constructor requires Clang-identified record type: '+qual(n),required_records=(qual(n),))
                 factory=self.constructor_factories.get(name)
                 if factory:
                     symbol=factory.get(ctor)
@@ -1721,7 +1732,8 @@ class Emit:
                     self.used_aggregate_prototypes=getattr(self,'used_aggregate_prototypes',set())|{js_ident(name)}
                     return f'cCopyTrivialClass({self.expr(a[0])}, {target}, {json.dumps(class_fields)})'
                 if not record or not record['moveable' if is_move else 'copyable']:
-                    raise Unsupported('record copy/move requires Clang-proven trivial semantics: '+str(name))
+                    raise Unsupported('record copy/move requires Clang-proven trivial semantics: '+str(name),
+                        required_records=(n.get('type',{}).get('desugaredQualType') or qual(n),))
                 schema=aggregate_type_schema(qual(n),self.aggregate_records,self.type_aliases,self.record_layouts,enum_types=self.enum_types)
                 if schema is None:
                     raise Unsupported('aggregate copy requires verified pointer-free field shape: '+str(name))
@@ -1738,7 +1750,7 @@ class Emit:
                 self.storage_constructor_nodes=getattr(self,'storage_constructor_nodes',set())|{id(n)}
                 return self.zero_aggregate({'byteRecord':record['byte_schema']})
             if not cname or not re.fullmatch(r'[A-Za-z_]\w*',cname):
-                raise Unsupported('constructor requires Clang-identified record type: '+qual(n))
+                raise Unsupported('constructor requires Clang-identified record type: '+qual(n),required_records=(qual(n),))
             factory=self.constructor_factories.get(cname)
             if factory:
                 symbol=factory.get(ctor)
@@ -3021,8 +3033,9 @@ class Emit:
             msymbol=(self.member_conversions.get(method.get('id')) if kind(method)=='CXXConversionDecl' else self.member_operators.get((n.get('name'),mname,qual(method)))) if mname.startswith('operator') else None
             if mname.startswith('operator') and not msymbol:
                 raise Unsupported('member operator lacks verified declaration: '+mname)
-            if not mname.startswith('operator') and len([v for v in methods if v.get('name')==mname])>1:
-                raise Unsupported('overloaded non-operator methods require type-selected calls')
+            if (n.get('name'),mname) in getattr(self,'overloaded_member_names',set()):
+                msymbol=self.member_method_symbols.get((n.get('name'),mname,qual(method)))
+                if not msymbol:raise Unsupported('overloaded method lacks unique original signature: '+mname)
             m=self.function(method,True,symbol=msymbol)
             prefix='static ' if method.get('storageClass')=='static' else ''
             body.append('  '+prefix+m.replace('\n','\n  '))
@@ -4070,7 +4083,7 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
         except OSError:continue
     return matches[0] if len(matches)==1 else None
 
-def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None):
+def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None):
     normalize_specializations(ast)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
     static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
@@ -4148,6 +4161,22 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     if key in member_operators and member_operators[key]!=symbol:raise Unsupported('ambiguous operator class method')
                     member_operators[key]=symbol
     member_conversions={}
+    member_method_symbols={};overloaded_member_names=set()
+    for root in ast:
+        for record in descendants(root):
+            if kind(record)!='CXXRecordDecl' or not record.get('completeDefinition'):continue
+            cls=record.get('name');groups={}
+            for method in kids(record):
+                if kind(method)=='CXXMethodDecl' and not method.get('isImplicit') and not method.get('name','').startswith('operator'):
+                    groups.setdefault(method['name'],set()).add(qual(method))
+            for method_name,signatures in groups.items():
+                if len(signatures)<2:continue
+                overloaded_member_names.add((cls,method_name))
+                for method in kids(record):
+                    if (kind(method)=='CXXMethodDecl' and method.get('name')==method_name and
+                            any(kind(body)=='CompoundStmt' for body in kids(method))):
+                        signature=qual(method)
+                        member_method_symbols[(cls,method_name,signature)]=js_ident(method_name)+'__cxx_method_'+hashlib.sha256(signature.encode()).hexdigest()[:16]
     member_conversion_names={}
     ambiguous_conversion_ids=set();ambiguous_conversion_names=set()
     for root in ast:
@@ -4229,8 +4258,30 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             except Unsupported:supported=False
             if supported:addressable_classes.add(name)
     project_symbols=project_symbols or {}
+    template_source_bytes=None
     def scan(node,file_scope=False):
+        nonlocal template_source_bytes
         k=kind(node)
+        if k=='FunctionTemplateDecl':
+            # Concrete free-function specializations live under their template
+            # declaration even when authored in this .cpp rather than a header.
+            # Require the original source token and native mangled instance;
+            # the dependent primary template is never a callable definition.
+            loc=node.get('loc',{});physical=loc.get('file','');offset=loc.get('offset');name=node.get('name','')
+            own=(physical==source_rel or physical.endswith('/'+source_rel) or
+                 not physical and not loc.get('includedFrom'))
+            if not own:return
+            if template_source_bytes is None:
+                try:template_source_bytes=Path(source).read_bytes()
+                except OSError:template_source_bytes=b''
+            original=template_source_bytes
+            if (own and name and isinstance(offset,int) and original[offset:offset+len(name)]==name.encode()):
+                for child in kids(node):
+                    if (kind(child)=='FunctionDecl' and child.get('mangledName') and
+                        any(kind(arg)=='TemplateArgument' for arg in kids(child)) and
+                        any(kind(body)=='CompoundStmt' for body in kids(child))):
+                        scan(child,file_scope)
+            return
         if k in ('FunctionDecl','CXXRecordDecl','VarDecl'):
             # Revisions/declarations from headers are not the body authored by this file.
             loc=node.get('loc',{});file=loc.get('file','')
@@ -4459,7 +4510,13 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         key=(kind(n),n.get('name'),n.get('loc',{}).get('offset'),qual(n),
              template_arguments_key(n) if id(n) in header_templates else None)
         if key not in seen:unique.append(n);seen.add(key)
-    candidates=unique
+    # Type/layout closure can introduce a complete TU after the initial name
+    # filter. Its declarations remain useful evidence, but an extension must
+    # never allocate a second instance of already-owned source storage.
+    candidates=[node for node in unique if not (kind(node)=='VarDecl' and
+        node.get('name') in (existing_source_storage or {}) and
+        qual(node)==existing_source_storage[node['name']]['original_type'] and
+        project_symbols.get(node['name'])==source_rel)]
     # AST filter order is an extraction detail. C/C++ source declarations keep
     # their physical order, especially array constants used by later globals.
     original_positions=[]
@@ -4700,7 +4757,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if not owner:continue
         for member in kids(record):
             if kind(member)=='CXXMethodDecl' and member.get('storageClass')=='static' and member.get('id'):
-                static_method_owners[member['id']]=(js_ident(owner),js_ident(member['name']))
+                static_method_owners[member['id']]=(js_ident(owner),member_method_symbols.get((owner,member['name'],qual(member)),js_ident(member['name'])))
     # Definitions outside the class can refer back to the class declaration.
     for declaration in all_declarations.values():
         previous=declaration.get('previousDecl')
@@ -4797,6 +4854,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         em=Emit();em.lifetime_classes=lifetime_classes;em.header_record_factories=header_record_factories;em.header_trivial_assignments=header_trivial_assignments;em.allowed_static_prototypes=set(previous_class_prototypes)|header_record_factories;em.trivial_assignment_methods=trivial_assignments;em.implicit_byte_assignable=implicit_byte_assignable;em.enum_values=enum_values;em.record_layouts=record_layouts
         em.all_declarations=all_declarations
         em.managed_record_names=managed_record_names
+        em.member_method_symbols=member_method_symbols;em.overloaded_member_names=overloaded_member_names
         em.non_odr_static_values=non_odr_static_values
         em.empty_asm_barriers=empty_asm_barriers
         barriers=[empty_asm_barriers[id(part)] for part in descendants(n) if id(part) in empty_asm_barriers]
@@ -5002,6 +5060,11 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if em.last_flow_report:row['control_flow']=em.last_flow_report
             source.append((n,code,row))
         except Unsupported as e:
+            if e.required_records:row['required_record_types']=sorted(set(e.required_records))
+            if kind(n)=='CXXRecordDecl' and n.get('_source_record_qualified_name') and any(
+                    kind(member)=='CXXDestructorDecl' and not member.get('isImplicit') and
+                    not any(kind(body)=='CompoundStmt' for body in kids(member)) for member in kids(n)):
+                row['required_original_destructor']=n['_source_record_qualified_name']
             row.update(status='blocked',reason=str(e));source.append((n,None,row))
     available={row['name'] for _,_,row in source if row['status']=='source-first'}
     while True:
@@ -5085,6 +5148,7 @@ def main():
     parser.add_argument('--extra',nargs='*',default=[])
     parser.add_argument('--project-symbols',type=Path,help='verified symbol-to-source index for exact ES imports')
     parser.add_argument('--import-root',type=Path,help='verified existing provider root for a separate source-module fragment')
+    parser.add_argument('--rebuild-owner-sha256',help='Exact existing owner hash; rebuild all original storage for a fresh runtime instead of importing it')
     parser.add_argument('--ast-cache-dir',type=Path,help='ephemeral shared Clang AST cache for repeated project link passes')
     parser.add_argument('--header-inlines',action='store_true',help='lower selected static inline header definitions as source JS')
     parser.add_argument('--exact-filter',action='store_true',help='select exact initial declaration names; dependency closure still follows original references')
@@ -5101,14 +5165,24 @@ def main():
     if not src.is_file():parser.error('missing source '+str(src))
     commands=json.loads(opt.compile_commands.read_text()) if opt.compile_commands.exists() else []
     comp=next((v for v in commands if v['file']==opt.source),None)
-    private_source_storage={}
+    private_source_storage={};existing_source_storage={}
+    if opt.rebuild_owner_sha256 and not opt.import_root:
+        parser.error('--rebuild-owner-sha256 requires an existing import root')
     if opt.import_root:
         owner_manifest=opt.import_root/(opt.source+'.manifest.json')
+        if opt.rebuild_owner_sha256:
+            owner_module=opt.import_root/(opt.source+'.mjs')
+            if (not re.fullmatch(r'[a-f0-9]{64}',opt.rebuild_owner_sha256) or not owner_module.is_file() or
+                    hashlib.sha256(owner_module.read_bytes()).hexdigest()!=opt.rebuild_owner_sha256):
+                parser.error('Existing owner does not match --rebuild-owner-sha256')
         if owner_manifest.is_file():
             owner=json.loads(owner_manifest.read_text())
             if owner.get('source')==opt.source:
                 for definition in owner.get('definitions',[]):
-                    if (definition.get('status')=='source-first' and definition.get('linkage')=='internal'
+                    if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('kind')=='VarDecl'
+                            and (definition.get('private_storage') or definition.get('global_storage'))):
+                        existing_source_storage[definition['name']]=definition
+                    if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('linkage')=='internal'
                             and definition.get('private_storage')):
                         private_source_storage[definition['name']]=definition['private_storage']
     # A captured multi-unit program can replace global new/delete in another
@@ -5155,7 +5229,7 @@ def main():
                 c_allocator_query_cache,c_allocator_declarations)
         return produce(*args,**kwargs,standard_heap_runtime=bool(standard_heap_contract) or (comp is None and opt.project_symbols is None),
                        standard_c_heap_runtime=standard_c_heap_runtime,
-                       private_source_storage=private_source_storage,header_definition_owners=header_definition_owners)
+                       private_source_storage=private_source_storage,header_definition_owners=header_definition_owners,existing_source_storage=existing_source_storage)
     args=[]
     # Preserve the original compilation *language*, not the filename suffix.
     # EDuke32 builds several .c units with g++ and -std=gnu++14.
@@ -5382,6 +5456,10 @@ def main():
         return len(implicit_member_closure['proven'])!=before
     retry_implicit_member_closure()
     index=json.loads(opt.project_symbols.read_text()) if opt.project_symbols else {}
+    for name in existing_source_storage:
+        # TU-private names are intentionally absent from the global export
+        # index. They enter only this exact original unit's fragment map.
+        index[name]=opt.source
     # Only known, uniquely owned source-first *emitted* definitions may link.
     for name,owner in index.items():
         if not isinstance(owner,str) or (owner==opt.source and not opt.import_root) or not re.fullmatch(r'[A-Za-z_$][\w$]*',name):
@@ -5449,12 +5527,13 @@ def main():
                   'queried':[],'proven_values':{},'rejected':{},'rounds':0}
     pod_record_closure={'queried':[],'proven':[],'rejected':{}}
     full_type_closure={'attempted':False,'retained_type_roots':0}
-    def retry_pod_record_closure():
+    def retry_pod_record_closure(required_types=()):
         nonlocal emitted, report, static_reference_context
         if not opt.filter:return
-        unresolved_types=set()
+        unresolved_types=set(required_types)
         for row in report:
             reason=row.get('reason','')
+            unresolved_types.update(row.get('required_record_types',()))
             # A layout dump proves offsets, but not the declarations of nested
             # record fields omitted by a filtered AST. Route such failures
             # through the same source type closure as aggregate initialization.
@@ -5581,7 +5660,8 @@ def main():
         # Keep the original same-TU declaration context before joining its
         # qualified target layout; never join merely by a matching short name.
         unresolved_record_views=any(row.get('reason','').startswith('record pointer member requires original byte layout:') for row in report)
-        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
+        ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
+        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or ordinary_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
             full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
             full_cache=None
@@ -5683,8 +5763,9 @@ def main():
         nonlocal emitted,report
         if not compile_as_cpp:return
         prefix='C++ heap object needs complete original class construction/destruction: '
-        pending=[row for row in report if row.get('reason','').startswith(prefix)
-                 and row['reason'][len(prefix):] not in template_destructor_closure['requested']]
+        pending=[row for row in report if (row.get('required_original_destructor') or
+                 row.get('reason','').startswith(prefix)) and
+                 row.get('required_original_destructor',row.get('reason','')[len(prefix):]) not in template_destructor_closure['requested']]
         if not pending:return
         recovered=complete_template_destructors(ast,pending,root=root,source=src,
             frontend=frontend,language=language,arguments=args,aliases=recover_type_aliases(ast),
@@ -6105,6 +6186,10 @@ def main():
             if discovered:
                 layouts.update(discovered)
                 if layout_cache:layout_cache.write_text(json.dumps(layouts,sort_keys=True),encoding='utf-8')
+                # A layout cannot reconnect a detached namespace declaration.
+                # Prove the original type context before replacing a register
+                # facade with the owner's native contiguous record storage.
+                retry_pod_record_closure(array_layouts)
                 emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
                     project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
                     source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)

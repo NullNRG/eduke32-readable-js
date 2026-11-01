@@ -113,6 +113,7 @@ def complete(ast,report,*,root,source,frontend,language,arguments,aliases,normal
     evidence={'requested':[],'proven':[],'rejected':{}}
     prefix='C++ heap object needs complete original class construction/destruction: '
     demanded={row['reason'][len(prefix):] for row in report if row.get('reason','').startswith(prefix)}
+    demanded.update(row['required_original_destructor'] for row in report if row.get('required_original_destructor'))
     root=Path(root).resolve();source=Path(source).resolve()
     for spelling in sorted(demanded)[:4]:
         name=normalize(spelling,aliases)
@@ -134,6 +135,15 @@ def complete(ast,report,*,root,source,frontend,language,arguments,aliases,normal
         # declarators can enter the auxiliary instantiation directive.
         if not re.fullmatch(r'[A-Za-z_][A-Za-z_0-9 :*,<>+\-]*',spelling):continue
         selected=spelling
+        # Clang's TemplateArgument stores an enum argument as the integer 3,
+        # but `Queue<T, 3>` is ill-formed when that parameter is an enum.
+        # The specialization's actual CXXThisExpr carries its native typed
+        # spelling (e.g. RF_INIT_AND_FREE). Use only an alias already proven
+        # to denote this exact same Clang specialization, never infer a cast.
+        self_spellings=[value for value in record.get('_source_self_type_spellings',[])
+            if re.fullmatch(r'[A-Za-z_][A-Za-z_0-9 :*,<>+\-]*',value)
+            and normalize(value,aliases)==name]
+        if self_spellings:selected=sorted(self_spellings)[0]
         namespace=record.get('_source_namespace','')
         if namespace and not selected.startswith(namespace+'::'):selected=namespace+'::'+selected
         directive='template '+selected+'::~'+short+'();'

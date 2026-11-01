@@ -49,13 +49,22 @@ def main():
       const pragmas=await enter('import original division initializer',()=>import(base+'/source/build/src/pragmas.cpp.mjs'));
       await enter('initdivtables',()=>pragmas.initdivtables());
       const divide=await import(base+'/browser-abi/libdivide_provider.mjs');let records=0;
+      for(const [name,stride] of [['divtable32',5],['divtable64',9],['bfdivtable32',5],['bfdivtable64',9]]){
+        const table=pragmas[name],bytes=table[Symbol.for('source-first.clang-byte-record-array/1')];
+        if(!(bytes instanceof Uint8Array)||bytes.byteLength!==16384*stride)throw Error('Original divider array lacks contiguous native bytes: '+name);
+        for(const index of [0,1,16383]){
+          const record=table[index][Symbol.for('source-first.original-byte-record-storage/1')];
+          if(!record||record.bytes.buffer!==bytes.buffer||record.bytes.byteOffset!==bytes.byteOffset+index*stride)
+            throw Error('Divider record is detached from original table storage: '+name+'['+index+']');
+        }
+      }
       for(let i=1;i<16384;i++)for(const [table,generator,big] of [
         ['divtable32','libdivide_s32_gen',false],['divtable64','libdivide_s64_gen',true],
         ['bfdivtable32','libdivide_s32_branchfree_gen',false],['bfdivtable64','libdivide_s64_branchfree_gen',true]]){
         const want=divide[generator](big?BigInt(i):i),got=pragmas[table][i];
         if(got.magic!==want.magic||got.more!==want.more)throw Error('Original divider table differs: '+table+'['+i+']');records++;
       }
-      trace.push({name:'original divider storage verified',records});
+      trace.push({name:'original divider storage verified',records,contiguous_native_bytes:true});
       const platform=await enter('import original platform startup',()=>import(base+'/source/build/src/sdlayer.cpp.mjs'));
       if(typeof platform.initsystem==='function')await enter('initsystem',()=>platform.initsystem());
       else trace.push({name:'initsystem',transition:'blocked',reason:'original function has not linked'});

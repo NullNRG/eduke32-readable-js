@@ -53,7 +53,7 @@ def selected(root,public=False):
     for path in (root/'reports').rglob('*'):
         if not path.is_file():continue
         relative=path.relative_to(root/'reports')
-        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','project-current-status'))
+        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','nov01-','project-current-status'))
                 or relative.parts[0] in ('native-oracle','semantic-continuation')):
             if path.suffix in ('.json','.gz','.log','.md','.png'):add(path)
     add(root/'reports/historical-latest/dependency-graph.json')
@@ -73,4 +73,9 @@ if __name__=='__main__':
             'gameplay_verified':False},indent=2))
     else:
         package_tool.package_files=selected
-        print(json.dumps(package_tool.package(ROOT,args.out.resolve()),indent=2))
+        # The archive and incremental compiler share one component lock. This
+        # prevents a fragment/owner replacement from splitting a saved graph.
+        from source_ast_stream import _cache_lock
+        profile=json.loads((ROOT/'tools/browser_classic_profile.json').read_text())
+        with _cache_lock(ROOT/profile['build_root']/'component-build-lock'):
+            print(json.dumps(package_tool.package(ROOT,args.out.resolve()),indent=2))

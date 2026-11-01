@@ -19,7 +19,7 @@ def index(complete,types):
     # Restrict targets to the actual retained type declarations. Do not retain
     # full function ASTs or manufacture a field from receiver/name spelling.
     declarations={node['id']:{key:node[key] for key in ('id','kind','name','type','loc') if key in node}
-        for root in types for node in walk(root) if node.get('kind')=='FieldDecl' and node.get('id')}
+        for root in types for node in walk(root) if node.get('kind') in ('FieldDecl','CXXMethodDecl') and node.get('id')}
     result={}
     for key,member in sites(complete):
         target=declarations.get(member.get('referencedMemberDecl'))
@@ -28,7 +28,7 @@ def index(complete,types):
     return result
 
 def rebind(filtered,proofs):
-    known={node.get('id') for root in filtered for node in walk(root) if node.get('kind')=='FieldDecl'}
+    known={node.get('id') for root in filtered for node in walk(root) if node.get('kind') in ('FieldDecl','CXXMethodDecl')}
     count=0
     for key,member in sites(filtered):
         if member.get('referencedMemberDecl') in known:continue
@@ -37,6 +37,6 @@ def rebind(filtered,proofs):
         target=next(iter(choices.values()))
         if target.get('name')!=member.get('name'):continue
         member['referencedMemberDecl']=target['id']
-        member['_source_field_declaration']=target
+        member['_source_field_declaration' if target['kind']=='FieldDecl' else '_source_member_declaration']=target
         count+=1
     return count

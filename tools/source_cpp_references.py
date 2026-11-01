@@ -30,7 +30,8 @@ def function_type_parts(spelling):
     if end is None: return None
     result = spelling[:opening].strip()
     # A source function pointer/reference has a separate declarator group.
-    if re.fullmatch(r'[\s*&]*(?:const\s*)?', spelling[opening+1:end]):
+    declarator=spelling[opening+1:end]
+    if ('*' in declarator or '&' in declarator) and re.fullmatch(r'[\s*&]*(?:const\s*)?', declarator):
         following = end + 1
         while following < len(spelling) and spelling[following].isspace(): following += 1
         if following == len(spelling) or spelling[following] != '(': return None

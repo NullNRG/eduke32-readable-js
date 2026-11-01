@@ -5,6 +5,21 @@ import {VirtualFS} from '../../runtime/filesystem.mjs';
 import {createStdlib} from '../../runtime/stdlib.mjs';
 import {bindSourceCHeap} from '../../runtime/source_memory.mjs';
 import {sourceAddressSpace} from '../../tools/source_address_runtime.mjs';
+
+test('LP64 allocator arguments preserve zeroing, failure and realloc ownership',()=>{
+ const heap=new ABIHeap(1024,4096),library=createStdlib({heap,fs:new VirtualFS()}).symbols;
+ const p=library.calloc(17n,8n);
+ assert.deepEqual([...heap.u8.subarray(p,p+136)],Array(136).fill(0));
+ heap.u8.fill(211,p,p+136);
+ assert.equal(library.realloc(p,1n<<62n),0);
+ assert.ok(heap.allocations.has(p));assert.equal(heap.u8[p+135],211);
+ assert.equal(heap.read(library.__errno_location(),'i32'),12);
+ assert.equal(library.calloc(1n<<63n,4n),0);
+ const q=library.realloc(p,201n);assert.equal(heap.u8[q+135],211);
+ library.free(q);
+ assert.throws(()=>library.calloc(1.25,8n),TypeError);
+ assert.throws(()=>library.malloc(-1n),RangeError);
+});
 test('free/realloc retain ownership of actual typed source pointer storage',()=>{
  const heap=new ABIHeap(),library=createStdlib({heap,fs:new VirtualFS()}).symbols;
  const address=library.malloc(24),pointer={__cPointer:true,buffer:heap.buffer,lower:address,upper:address+24,offset:address,array:false};

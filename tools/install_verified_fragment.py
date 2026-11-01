@@ -25,6 +25,14 @@ def main():
         raise ValueError('Fragment native-pointer ABI differs from original owner; recompile the owner and consumers')
     code_path=Path(manifest['output']).resolve();code=code_path.read_text()
     names=active_exports(code_path);active=active_exports(original)
+    # Audit EVERY emitted definition, not only the requested re-exports.
+    # An unexported duplicate global still captures separate state in the
+    # fragment's original functions and cannot pass an ownership proof.
+    owned_storage={row['name']:row for row in owner.get('definitions',[])
+        if row.get('status')=='source-first' and row.get('kind')=='VarDecl'}
+    for row in manifest.get('definitions',[]):
+        if row.get('status')=='source-first' and row.get('kind')=='VarDecl' and row['name'] in owned_storage:
+            raise ValueError('Fragment duplicates existing original storage: '+row['name'])
     replacing=None;old_export=None
     if a.replace_fragment_sha256:
         if not re.fullmatch(r'[a-f0-9]{64}',a.replace_fragment_sha256):raise ValueError('Invalid expected fragment hash')

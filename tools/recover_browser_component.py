@@ -19,6 +19,7 @@ def stateless_function_owner(module,manifest):
  if re.search(r'(?m)^let\s+__static_|^export\s+(?:let|var)\b',module.read_text()):
   raise ValueError('Whole-owner replacement would reset original static storage')
 def checkpoint():
+ from source_fragment_storage import audit as storage_ownership_audit
  from source_first_global_link import storage_import_error
  from browser_target_closure import emitted_owners
  artifacts={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
@@ -42,12 +43,15 @@ def checkpoint():
  runtime_artifacts={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in [*sorted((ROOT/'runtime').rglob('*.mjs')),ROOT/'tools/source_address_runtime.mjs']}
  matches=execution.get('artifacts')==actual_modules and execution.get('runtime_artifacts')==runtime_artifacts
  contract=json.loads(COMMANDS.with_suffix('.standard-heap.json').read_text())
+ storage_conflicts=storage_ownership_audit(OUT)
  report={'format':'canonical-browser-component-checkpoint/1','profile':PROFILE['name'],'module_root':OUT.relative_to(ROOT).as_posix(),
   'source_inventory':contract['source_inventory'],'commands_sha256':hashlib.sha256(COMMANDS.read_bytes()).hexdigest(),
   'compiler_frontend_sha256':hashlib.sha256((ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest(),
   'runtime_and_lowering_helpers':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for pattern in ['runtime/*.mjs','tools/source_*.mjs','tools/source_*.py'] for p in sorted(ROOT.glob(pattern))},
   'source_units_with_partial_modules':len(units),'selected_source_units':len(json.loads(COMMANDS.read_text())),
   'whole_selected_program_compiled_under_current_revision':False,'invalid_imports':errors,'ambiguous_export_groups':ambiguous,
+  'storage_ownership_conflicts':storage_conflicts,
+  'original_storage_ownership_verified':not storage_conflicts,
   'entry_exports':{name:name in unique for name in ('enginePreInit','app_main')},'artifacts':artifacts,'runtime_artifacts':runtime_artifacts,
   'execution_report':proof.relative_to(ROOT).as_posix(),'execution_evidence_matches_modules':matches,
   'original_engine_startup_verified':bool(matches and execution.get('original_engine_startup_verified')),

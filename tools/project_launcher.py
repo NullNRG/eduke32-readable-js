@@ -89,7 +89,16 @@ class Handler(SimpleHTTPRequestHandler):
         return self.json(405,{'error':'Use GET'})
     def do_POST(self):
         origin=self.headers.get('Origin'); expected='http://'+self.headers.get('Host','')
-        if not self.valid_host() or origin!=expected or self.headers.get('X-Project-Token')!=self.server.project.token:return self.json(403,{'error':'Open the local project launcher to run jobs'})
+        if not self.valid_host() or origin!=expected or self.headers.get('X-Project-Token')!=self.server.project.token:
+            # Closing a Windows socket with an unread request body can reset
+            # the connection before the client receives the rejection. Drain
+            # only the same small bounded payload accepted by this endpoint.
+            try:
+                length=int(self.headers.get('Content-Length','0'))
+                if 0<length<=1024:
+                    self.connection.settimeout(2);self.rfile.read(length)
+            except (ValueError,OSError):pass
+            return self.json(403,{'error':'Open the local project launcher to run jobs'})
         if self.path!='/api/jobs':return self.json(404,{'error':'Unknown endpoint'})
         try:
             length=int(self.headers.get('Content-Length','0'))
