@@ -1,0 +1,792 @@
+{
+  "source": "source/build/src/smmalloc_generic.cpp",
+  "dependency_closure": {
+    "enabled": false,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0
+  },
+  "enum_closure": {
+    "enabled": false,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\smmalloc_generic.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 20,
+  "emitted": 19,
+  "blocked": 1,
+  "definitions": [
+    {
+      "name": "fix16_rad_to_deg_mult__header_global_bca826222307bcea",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6d6810",
+        "redeclaration_chain": [
+          "0x197fb6d6810"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_deg_to_rad_mult__header_global_c5ebf0efba7b5f3e",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6d6cb8",
+        "redeclaration_chain": [
+          "0x197fb6d6cb8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "GenericAllocator",
+      "source_name": "GenericAllocator",
+      "kind": "CXXRecordDecl",
+      "line": 149,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/smmalloc.h",
+        "source_offset": 4162,
+        "enclosing_record": "GenericAllocator",
+        "type": "GenericAllocator",
+        "semantic_sha256": "c5e6af4d792f785e6184e835c35a506fc86975e7dfeb74dfc7d101271423fc3a",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/smmalloc.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05"
+      ],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_16d601b4cbf717ae",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6c6fd8",
+        "redeclaration_chain": [
+          "0x197fb6c6fd8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_f175835541c70837",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6c70f0",
+        "redeclaration_chain": [
+          "0x197fb6c70f0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_132678a436a8db7e",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6c7220",
+        "redeclaration_chain": [
+          "0x197fb6c7220"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_ca5d9fe7e194dc0e",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6c7350",
+        "redeclaration_chain": [
+          "0x197fb6c7350"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_09cf1c44e1b4eed8",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6c7460",
+        "redeclaration_chain": [
+          "0x197fb6c7460"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_04a96816081e7d8c",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fb6c7570",
+        "redeclaration_chain": [
+          "0x197fb6c7570"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Header",
+      "source_name": "Header",
+      "kind": "CXXRecordDecl",
+      "line": 34,
+      "original_type": "",
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "status": "blocked",
+      "reason": "class pointer/reference field requires ownership/alias lowering"
+    },
+    {
+      "name": "Invalid__cxx_static_a4bf526f6eeaa6da",
+      "source_name": "Invalid",
+      "kind": "FunctionDecl",
+      "line": 41,
+      "original_type": "sm::GenericAllocator::TInstance ()",
+      "original_static_member": {
+        "name": "Invalid",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator7InvalidEv",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 1431,
+        "declaration_type": {
+          "qualType": "TInstance ()"
+        },
+        "definition_type": {
+          "qualType": "sm::GenericAllocator::TInstance ()"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "IsValid__cxx_static_37d38e4ea936ce3c",
+      "source_name": "IsValid",
+      "kind": "FunctionDecl",
+      "line": 43,
+      "original_type": "bool (TInstance)",
+      "original_static_member": {
+        "name": "IsValid",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator7IsValidEPv",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 1489,
+        "declaration_type": {
+          "qualType": "bool (TInstance)"
+        },
+        "definition_type": {
+          "qualType": "bool (TInstance)"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Create__cxx_static_b7202f8c9d4230a6",
+      "source_name": "Create",
+      "kind": "FunctionDecl",
+      "line": 49,
+      "original_type": "sm::GenericAllocator::TInstance ()",
+      "original_static_member": {
+        "name": "Create",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator6CreateEv",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 1624,
+        "declaration_type": {
+          "qualType": "TInstance ()"
+        },
+        "definition_type": {
+          "qualType": "sm::GenericAllocator::TInstance ()"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Destroy__cxx_static_777d0ae31c789182",
+      "source_name": "Destroy",
+      "kind": "FunctionDecl",
+      "line": 51,
+      "original_type": "void (sm::GenericAllocator::TInstance)",
+      "original_static_member": {
+        "name": "Destroy",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator7DestroyEPv",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 1681,
+        "declaration_type": {
+          "qualType": "void (TInstance)"
+        },
+        "definition_type": {
+          "qualType": "void (sm::GenericAllocator::TInstance)"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+      "source_name": "Alloc",
+      "kind": "FunctionDecl",
+      "line": 53,
+      "original_type": "void *(sm::GenericAllocator::TInstance, size_t, size_t)",
+      "original_static_member": {
+        "name": "Alloc",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator5AllocEPvmm",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 1791,
+        "declaration_type": {
+          "qualType": "void *(TInstance, size_t, size_t)"
+        },
+        "definition_type": {
+          "qualType": "void *(sm::GenericAllocator::TInstance, size_t, size_t)"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "non_odr_static_constants": [
+        {
+          "value": 16,
+          "type": "unsigned long",
+          "name": "kMinValidAlignment",
+          "source_header": "source/build/include/smmalloc.h",
+          "class_offset": 4945,
+          "member_offset": 4991
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+      "source_name": "Free",
+      "kind": "FunctionDecl",
+      "line": 79,
+      "original_type": "void (sm::GenericAllocator::TInstance, void *)",
+      "original_static_member": {
+        "name": "Free",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator4FreeEPvS1_",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 2537,
+        "declaration_type": {
+          "qualType": "void (TInstance, void *)"
+        },
+        "definition_type": {
+          "qualType": "void (sm::GenericAllocator::TInstance, void *)"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Realloc__cxx_static_478d5da25b6b3923",
+      "source_name": "Realloc",
+      "kind": "FunctionDecl",
+      "line": 94,
+      "original_type": "void *(sm::GenericAllocator::TInstance, void *, size_t, size_t)",
+      "original_static_member": {
+        "name": "Realloc",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator7ReallocEPvS1_mm",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 2862,
+        "declaration_type": {
+          "qualType": "void *(TInstance, void *, size_t, size_t)"
+        },
+        "definition_type": {
+          "qualType": "void *(sm::GenericAllocator::TInstance, void *, size_t, size_t)"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "GetUsableSpace__cxx_static_e0d3307150ae81d4",
+        "min__template_c237f4424e2bda8a"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "GetUsableSpace__cxx_static_e0d3307150ae81d4",
+      "source_name": "GetUsableSpace",
+      "kind": "FunctionDecl",
+      "line": 120,
+      "original_type": "size_t (sm::GenericAllocator::TInstance, void *)",
+      "original_static_member": {
+        "name": "GetUsableSpace",
+        "owner_spelling": "sm::GenericAllocator",
+        "mangled_name": "_ZN2sm16GenericAllocator14GetUsableSpaceEPvS1_",
+        "class_header": "source/build/include/smmalloc.h",
+        "class_offset": 4162,
+        "source_offset": 3576,
+        "declaration_type": {
+          "qualType": "size_t (TInstance, void *)"
+        },
+        "definition_type": {
+          "qualType": "size_t (sm::GenericAllocator::TInstance, void *)"
+        },
+        "source_file_sha256": "38bbe8fea9631bddd7c3bb7746664bd58feca71c9d807adf1727e02730b4f826",
+        "abi": "source-static-member-function/1"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/smmalloc_generic.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_b02bea993f070697",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/smmalloc_generic.cpp",
+        "clang_decl_id": "0x197fae726e8",
+        "redeclaration_chain": [
+          "0x197fae726e8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_6c53bc81cb19227c487fbd4f",
+        "owner_source": "source/build/src/smmalloc_generic.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_c237f4424e2bda8a",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+        "semantic_sha256": "b2ba4051075f861baa40ef4b9eed798d4d55955361462e0c0bafdbb28207c344"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned long",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned long",
+            "const": true
+          }
+        ],
+        "result": "unsigned long"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [
+      "GenericAllocator"
+    ],
+    "queried": true,
+    "status": "extracted"
+  },
+  "standard_heap_contract": {
+    "contract_sha256": "23dccd6e1d870b82edd82f5b5c5ed06b10957df9a519fce1a6199081c4e0fc5b",
+    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": false,
+    "records": 2848,
+    "sha256": "eebb9c53720a43cfe28ba3897e29f581e41e4c3fd0ba12e16e5cab6bbe228735"
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "afa55d606f17ade793deaced5b4436a8cdb2c7d0f4f4f3e677e285fe2435a439",
+    "dependency_count": 261,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 453592,
+      "ranges_omitted": 108771,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1765,
+      "semantic_barrier_ranges_retained": 234,
+      "type_metadata_reuses": 94874,
+      "include_metadata_reuses": 81338,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 18400472,
+      "cache_hit": true,
+      "json_bytes": 212401333,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 315713083,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    }
+  ],
+  "storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "pow2char__header_global_b02bea993f070697",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_6c53bc81cb19227c487fbd4f",
+      "owner_source": "source/build/src/smmalloc_generic.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    }
+  ]
+}

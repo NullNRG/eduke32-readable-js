@@ -1,0 +1,1531 @@
+{
+  "source": "source/build/src/sdlayer.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\sdlayer.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 27,
+  "emitted": 27,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "startwin_open",
+      "source_name": "startwin_open",
+      "kind": "FunctionDecl",
+      "line": 63,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startwin_close",
+      "source_name": "startwin_close",
+      "kind": "FunctionDecl",
+      "line": 64,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startwin_puts",
+      "source_name": "startwin_puts",
+      "kind": "FunctionDecl",
+      "line": 65,
+      "original_type": "int32_t (const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startwin_idle",
+      "source_name": "startwin_idle",
+      "kind": "FunctionDecl",
+      "line": 66,
+      "original_type": "int32_t (void *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startwin_settitle",
+      "source_name": "startwin_settitle",
+      "kind": "FunctionDecl",
+      "line": 67,
+      "original_type": "int32_t (const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startwin_run",
+      "source_name": "startwin_run",
+      "kind": "FunctionDecl",
+      "line": 68,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startwin_isopen",
+      "source_name": "startwin_isopen",
+      "kind": "FunctionDecl",
+      "line": 69,
+      "original_type": "bool ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "frameplace",
+      "source_name": "frameplace",
+      "kind": "VarDecl",
+      "line": 100,
+      "original_type": "long",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+        "abi": "source-global-cell/2",
+        "original_type": "long"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "initsystem",
+      "source_name": "initsystem",
+      "kind": "FunctionDecl",
+      "line": 694,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "SDL_GetCurrentVideoDriver",
+        "SDL_GetError",
+        "SDL_GetNumVideoDisplays",
+        "SDL_InitSubSystem",
+        "SDL_SetThreadPriority",
+        "SDL_StopTextInput",
+        "SDL_WasInit",
+        "apptitle",
+        "current_verbosity_cutoff",
+        "frameplace",
+        "g_numdisplays",
+        "lockcount",
+        "loguru_log",
+        "m_initprintf",
+        "mutex_init",
+        "novideo",
+        "sdlayer_checkversion",
+        "sysReadCPUID",
+        "timerInit",
+        "wm_setapptitle"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_numdisplays",
+          "binding": "__cxx_global_cell_9fad9f5c6a95d4e89a1de80a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "SDL_GetCurrentVideoDriver",
+        "SDL_GetError",
+        "SDL_GetNumVideoDisplays",
+        "SDL_InitSubSystem",
+        "SDL_SetThreadPriority",
+        "SDL_StopTextInput",
+        "SDL_WasInit",
+        "apptitle",
+        "current_verbosity_cutoff",
+        "g_numdisplays",
+        "loguru_log",
+        "mutex_init",
+        "sdlayer_checkversion",
+        "sysReadCPUID",
+        "timerInit",
+        "wm_setapptitle"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "lockcount",
+      "source_name": "lockcount",
+      "kind": "VarDecl",
+      "line": 101,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "m_initprintf",
+      "source_name": "m_initprintf",
+      "kind": "VarDecl",
+      "line": 125,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_9d6af81b93470456d23952cd",
+        "owner_source": "source/build/src/sdlayer.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "novideo",
+      "source_name": "novideo",
+      "kind": "VarDecl",
+      "line": 82,
+      "original_type": "char",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_468c46341ac515257fedfe76",
+        "abi": "source-global-cell/2",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wm_msgbox",
+      "source_name": "wm_msgbox",
+      "kind": "FunctionDecl",
+      "line": 162,
+      "original_type": "int32_t (const char *, const char *, ...)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "SDL_ShowSimpleMessageBox",
+        "vsnprintf"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "SDL_ShowSimpleMessageBox",
+        "vsnprintf"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_a19ca09ee2b13510",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/build/src/sdlayer.cpp",
+        "clang_decl_id": "0x1aecf3bd7f8",
+        "redeclaration_chain": [
+          "0x1aecf3bd7f8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_a19ca09ee2b13510",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "0b4ac5bb65f1a001ecfc6adbe40655837304669bb85384b269243c02c374d1ca",
+        "original_type": "const vec2_t[25]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "maxrefreshfreq",
+      "source_name": "maxrefreshfreq",
+      "kind": "VarDecl",
+      "line": 97,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_bbb4a9ec7fb6f0c4ded01621",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "modeschecked",
+      "source_name": "modeschecked",
+      "kind": "VarDecl",
+      "line": 1370,
+      "original_type": "char",
+      "linkage": "internal",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_3c52322206130a3fcc904774",
+        "owner_source": "source/build/src/sdlayer.cpp",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "sortmodes",
+      "source_name": "sortmodes",
+      "kind": "FunctionDecl",
+      "line": 1355,
+      "original_type": "int (const void *, const void *)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoGetDisplayName",
+      "source_name": "videoGetDisplayName",
+      "kind": "FunctionDecl",
+      "line": 1504,
+      "original_type": "const char *(int)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "SDL_GetDisplayName"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "SDL_GetDisplayName"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoGetModes",
+      "source_name": "videoGetModes",
+      "kind": "FunctionDecl",
+      "line": 1373,
+      "original_type": "void (int)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "Bstrtoken",
+        "SDL_GetDisplayMode",
+        "SDL_GetNumDisplayModes",
+        "SDL_GetNumVideoDisplays",
+        "current_verbosity_cutoff",
+        "g_defaultVideoModes__header_global_a19ca09ee2b13510",
+        "g_numdisplays",
+        "initprintf",
+        "loguru_log",
+        "maxrefreshfreq",
+        "modeschecked",
+        "novideo",
+        "qsort",
+        "r_displayindex",
+        "sortmodes",
+        "validmode",
+        "validmodecnt",
+        "videoGetDisplayName",
+        "xfree",
+        "xstrdup"
+      ],
+      "storage_constructor_count": 1,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_numdisplays",
+          "binding": "__cxx_global_cell_9fad9f5c6a95d4e89a1de80a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "novideo",
+          "binding": "__cxx_global_cell_468c46341ac515257fedfe76",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "r_displayindex",
+          "binding": "__cxx_global_cell_a69b3d47547d48eac82bcf95",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "validmodecnt",
+          "binding": "__cxx_global_cell_959ecb0f89b58217d69a30a7",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Bstrtoken",
+        "SDL_GetDisplayMode",
+        "SDL_GetNumDisplayModes",
+        "SDL_GetNumVideoDisplays",
+        "current_verbosity_cutoff",
+        "g_numdisplays",
+        "initprintf",
+        "loguru_log",
+        "novideo",
+        "qsort",
+        "r_displayindex",
+        "validmode",
+        "validmodecnt"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xfree",
+      "source_name": "xfree",
+      "kind": "FunctionDecl",
+      "line": 1449,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xstrdup",
+      "source_name": "xstrdup",
+      "kind": "FunctionDecl",
+      "line": 1378,
+      "original_type": "char *(const char *)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "strcpy",
+        "strlen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "strcpy",
+        "strlen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "bpp",
+      "source_name": "bpp",
+      "kind": "VarDecl",
+      "line": 98,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_b3926346e92cac557f00175c",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bytesperline",
+      "source_name": "bytesperline",
+      "kind": "VarDecl",
+      "line": 98,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_56606cfee73eb8d6c7d57541",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "modechange",
+      "source_name": "modechange",
+      "kind": "VarDecl",
+      "line": 102,
+      "original_type": "char",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_1fc8813e2419d4023365727f",
+        "abi": "source-global-cell/2",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "offscreenrendering",
+      "source_name": "offscreenrendering",
+      "kind": "VarDecl",
+      "line": 103,
+      "original_type": "char",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_93d7c17084d3a8832fd9f6c6",
+        "abi": "source-global-cell/2",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoEndDrawing",
+      "source_name": "videoEndDrawing",
+      "kind": "FunctionDecl",
+      "line": 2027,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "bpp",
+        "frameplace",
+        "lockcount",
+        "offscreenrendering"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "frameplace",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "lockcount",
+          "binding": "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "frameplace",
+        "lockcount"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoBeginDrawing",
+      "source_name": "videoBeginDrawing",
+      "kind": "FunctionDecl",
+      "line": 1955,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "bpp",
+        "bytesperline",
+        "calc_ylookup",
+        "frameplace",
+        "inpreparemirror",
+        "lockcount",
+        "mirrorBuffer",
+        "modechange",
+        "offscreenrendering",
+        "softsurface_getBuffer",
+        "xdim",
+        "ydim"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "bpp",
+          "binding": "__cxx_global_cell_b3926346e92cac557f00175c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "bytesperline",
+          "binding": "__cxx_global_cell_56606cfee73eb8d6c7d57541",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "frameplace",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "inpreparemirror",
+          "binding": "__cxx_global_cell_9541123d8c6d2c52896ac26a",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "lockcount",
+          "binding": "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "mirrorBuffer",
+          "binding": "__cxx_global_cell_96cc27380f17556df4ccc300",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "modechange",
+          "binding": "__cxx_global_cell_1fc8813e2419d4023365727f",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "offscreenrendering",
+          "binding": "__cxx_global_cell_93d7c17084d3a8832fd9f6c6",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "xdim",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ydim",
+          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "bpp",
+        "bytesperline",
+        "calc_ylookup",
+        "frameplace",
+        "inpreparemirror",
+        "lockcount",
+        "mirrorBuffer",
+        "modechange",
+        "offscreenrendering",
+        "softsurface_getBuffer",
+        "xdim",
+        "ydim"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "standard_heap_contract": {
+    "contract_sha256": "23dccd6e1d870b82edd82f5b5c5ed06b10957df9a519fce1a6199081c4e0fc5b",
+    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": false,
+    "records": 0,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "module_fragment": {
+    "import_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules",
+    "provider_exports_and_storage_abi_verified": true
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "7043228a65f3f9eb8e33d9340059ce77ab39e2d2b2f032c80eabb4aaddb98121",
+    "dependency_count": 381,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 12,
+      "ranges_omitted": 6,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2685,
+      "cache_hit": false,
+      "json_bytes": 2685,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397214821,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 49,
+      "ranges_omitted": 14,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 10,
+      "include_metadata_reuses": 1,
+      "cache_storage": "json",
+      "cache_entry_bytes": 13678,
+      "cache_hit": false,
+      "json_bytes": 13678,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397228499,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 12,
+      "ranges_omitted": 6,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2712,
+      "cache_hit": false,
+      "json_bytes": 2712,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397231211,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 12,
+      "ranges_omitted": 6,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2716,
+      "cache_hit": false,
+      "json_bytes": 2716,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397233927,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 49,
+      "ranges_omitted": 14,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 10,
+      "include_metadata_reuses": 1,
+      "cache_storage": "json",
+      "cache_entry_bytes": 13730,
+      "cache_hit": false,
+      "json_bytes": 13730,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397247657,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 49,
+      "ranges_omitted": 14,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 10,
+      "include_metadata_reuses": 1,
+      "cache_storage": "json",
+      "cache_entry_bytes": 13642,
+      "cache_hit": false,
+      "json_bytes": 13642,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397261299,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 12,
+      "ranges_omitted": 6,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2672,
+      "cache_hit": false,
+      "json_bytes": 2672,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 397263971,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    }
+  ],
+  "storage_exports": [
+    {
+      "name": "novideo",
+      "binding": "__cxx_global_cell_468c46341ac515257fedfe76",
+      "abi": "source-global-cell/2",
+      "original_type": "char"
+    },
+    {
+      "name": "frameplace",
+      "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+      "abi": "source-global-cell/2",
+      "original_type": "long"
+    },
+    {
+      "name": "lockcount",
+      "binding": "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "maxrefreshfreq",
+      "binding": "__cxx_global_cell_bbb4a9ec7fb6f0c4ded01621",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "bpp",
+      "binding": "__cxx_global_cell_b3926346e92cac557f00175c",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "bytesperline",
+      "binding": "__cxx_global_cell_56606cfee73eb8d6c7d57541",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "modechange",
+      "binding": "__cxx_global_cell_1fc8813e2419d4023365727f",
+      "abi": "source-global-cell/2",
+      "original_type": "char"
+    },
+    {
+      "name": "offscreenrendering",
+      "binding": "__cxx_global_cell_93d7c17084d3a8832fd9f6c6",
+      "abi": "source-global-cell/2",
+      "original_type": "char"
+    }
+  ],
+  "private_storage_exports": [
+    {
+      "name": "m_initprintf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_9d6af81b93470456d23952cd",
+      "owner_source": "source/build/src/sdlayer.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "modeschecked",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_3c52322206130a3fcc904774",
+      "owner_source": "source/build/src/sdlayer.cpp",
+      "original_type": "char"
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_sdlayer_cpp_129bd76e9bc2.mjs",
+      "sha256": "129bd76e9bc276672c7d65c3165cbf5645139b5cb877018bd331f7657b0b8a15",
+      "original_source": "source/build/src/sdlayer.cpp",
+      "exports": [
+        "frameplace",
+        "initsystem",
+        "lockcount",
+        "m_initprintf",
+        "novideo",
+        "wm_msgbox"
+      ],
+      "reexports": [
+        "frameplace",
+        "initsystem",
+        "lockcount",
+        "m_initprintf",
+        "novideo",
+        "wm_msgbox",
+        "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+        "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+        "__cxx_private_cell_9d6af81b93470456d23952cd",
+        "__cxx_global_cell_468c46341ac515257fedfe76"
+      ],
+      "imports": [
+        {
+          "name": "SDL_GetCurrentVideoDriver",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_GetError",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_GetNumVideoDisplays",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_InitSubSystem",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_SetThreadPriority",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_ShowSimpleMessageBox",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_StopTextInput",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_WasInit",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "apptitle",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_numdisplays",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9fad9f5c6a95d4e89a1de80a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mutex_init",
+          "from": "source/build/src/mutex.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sdlayer_checkversion",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sysReadCPUID",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerInit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vsnprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wm_setapptitle",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "6a76471df6080b4491620946aedab0aab7cb15f48537738dfebe6251a5ce959d"
+    },
+    {
+      "module": "source/build/src/_source_legacy_sdlayer_cpp_b79d97dcee59.mjs",
+      "sha256": "b79d97dcee59311d3acb1a756400b6371546da306d00938a77d37248e4b87ff2",
+      "original_source": "source/build/src/sdlayer.cpp",
+      "exports": [
+        "g_defaultVideoModes__header_global_a19ca09ee2b13510",
+        "maxrefreshfreq",
+        "modeschecked",
+        "sortmodes",
+        "videoGetDisplayName",
+        "videoGetModes",
+        "xfree",
+        "xstrdup"
+      ],
+      "reexports": [
+        "g_defaultVideoModes__header_global_a19ca09ee2b13510",
+        "maxrefreshfreq",
+        "modeschecked",
+        "sortmodes",
+        "videoGetDisplayName",
+        "videoGetModes",
+        "xfree",
+        "xstrdup",
+        "__cxx_global_cell_bbb4a9ec7fb6f0c4ded01621",
+        "__cxx_private_cell_3c52322206130a3fcc904774"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtoken",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_GetDisplayMode",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_GetDisplayName",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_GetNumDisplayModes",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_GetNumVideoDisplays",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_numdisplays",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9fad9f5c6a95d4e89a1de80a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initprintf",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "novideo",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_468c46341ac515257fedfe76",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "qsort",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "r_displayindex",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a69b3d47547d48eac82bcf95",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "validmode",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "validmodecnt",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_959ecb0f89b58217d69a30a7",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "ab0860a9e96d33245978db6ecb4b77ca8d5ce6a53c4dce80c9ff4625d129cf8e"
+    },
+    {
+      "module": "source/build/src/_source_legacy_sdlayer_cpp_5618fe6b8180.mjs",
+      "sha256": "5618fe6b81809c723b34ee422265a8070d15f8475ce9c5e59cafa70b76cc2dc8",
+      "original_source": "source/build/src/sdlayer.cpp",
+      "exports": [
+        "bpp",
+        "bytesperline",
+        "modechange",
+        "offscreenrendering",
+        "videoEndDrawing"
+      ],
+      "reexports": [
+        "bpp",
+        "bytesperline",
+        "modechange",
+        "offscreenrendering",
+        "videoEndDrawing",
+        "__cxx_global_cell_b3926346e92cac557f00175c",
+        "__cxx_global_cell_56606cfee73eb8d6c7d57541",
+        "__cxx_global_cell_1fc8813e2419d4023365727f",
+        "__cxx_global_cell_93d7c17084d3a8832fd9f6c6"
+      ],
+      "imports": [
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "lockcount",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "5c715ec295eafb7b66f5cd4f16b80c8cb6fad0edbba7e5201b40691eb2aa7519"
+    },
+    {
+      "module": "source/build/src/_source_legacy_sdlayer_cpp_351c1c6c6ef4.mjs",
+      "sha256": "351c1c6c6ef4fcef1c8647eb0083ee7c017f7b05d68de400628f61b84f06d0a3",
+      "original_source": "source/build/src/sdlayer.cpp",
+      "exports": [
+        "videoBeginDrawing"
+      ],
+      "reexports": [
+        "videoBeginDrawing"
+      ],
+      "imports": [
+        {
+          "name": "bpp",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b3926346e92cac557f00175c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "bytesperline",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_56606cfee73eb8d6c7d57541",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "calc_ylookup",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "inpreparemirror",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9541123d8c6d2c52896ac26a",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "lockcount",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_82b1d07c07b2d44b437f8e68",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "mirrorBuffer",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_96cc27380f17556df4ccc300",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "modechange",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1fc8813e2419d4023365727f",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "offscreenrendering",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_93d7c17084d3a8832fd9f6c6",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "softsurface_getBuffer",
+          "from": "source/build/src/softsurface.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ydim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "f2ce20b061840745e511314b31b9df9c31687e6d6d6adcd438b59c21a58bef18"
+    }
+  ]
+}

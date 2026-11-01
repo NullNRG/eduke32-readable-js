@@ -1,3 +1,4 @@
+import {sourceByteView,sourceByteOffset} from './source_bytes.mjs';
 /** POSIX/C host-backed calls for a single-threaded, x86-64 SysV ABI heap.
  * A clock domain that the host cannot supply is an explicit error (never fake time).
  */
@@ -120,23 +121,36 @@ export function createPosixRuntime({heap, errnoLocation, callIndirect,
     }
   }
   function qsort(base,count,width,compare){
-    count=Number(count);width=Number(width);compare=Number(compare);
+    count=Number(count);width=Number(width);
     if(!Number.isSafeInteger(count)||count<0||!Number.isSafeInteger(width)||width<1 ||
       !Number.isSafeInteger(count*width)||count*width>heap.maxBytes)throw RangeError('Invalid qsort element extent');
     if(count<2)return;
-    if(typeof callIndirect!=='function')throw Error('qsort comparator dispatch not connected');
-    heap.check(base,count*width);
+    const direct=typeof compare==='function';
+    if(!direct&&typeof callIndirect!=='function')throw Error('qsort comparator dispatch not connected');
+    const source=sourceByteView(base);
+    if(source&&source.byteLength<count*width)throw RangeError('qsort exceeds original source allocation');
+    if(!source)heap.check(base,count*width);
+    const bytes=source?source.subarray(0,count*width):heap.u8.subarray(base,base+count*width);
+    const recordLayout=base?.[Symbol.for('source-first.byte-record-array-layout/1')];
+    const original=recordLayout?JSON.parse(recordLayout):null;
+    const typed=original?.dims?.length===1&&original.schema?.size===width;
+    const address=i=>{
+      const pointer=source?sourceByteOffset(base,i*width):base+i*width;
+      // Keep the actual Clang layout attached when a C void* comparator
+      // receives an element of a source record array. Its bytes and bounds
+      // remain the same allocation; callbacks never receive detached copies.
+      return typed?{...pointer,__cRecordPointer:true,recordSchema:original.schema,
+        recordPrototypes:base[Symbol.for('source-first.byte-record-array-prototypes/1')]||{}}:pointer;
+    };
     const swap=(i,j)=>{
       if(i===j)return;
-      const a=base+i*width,b=base+j*width;
       // Temporary bytes, not a JS object-array sort: the original comparator
       // receives valid addresses of actual contiguous elements in the C heap.
-      const temp=heap.bytes(a,width);
-      heap.memcpy(a,b,width);
-      heap.u8.set(temp,b);
+      const a=i*width,b=j*width,temp=bytes.slice(a,a+width);
+      bytes.copyWithin(a,b,b+width);bytes.set(temp,b);
     };
     const cmp=(i,j)=>{
-      const out=callIndirect(compare,[base+i*width,base+j*width]);
+      const out=direct?compare(address(i),address(j)):callIndirect(Number(compare),[address(i),address(j)]);
       if(!Number.isFinite(Number(out)))throw Error('Invalid C qsort comparator result');
       return Number(out);
     };

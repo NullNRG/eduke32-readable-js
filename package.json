@@ -7,6 +7,9 @@
   "name": "eduke32-source-factory",
   "private": true,
   "scripts": {
+    "compile:component": "node tools/run_python.mjs tools/recover_browser_component.py",
+    "status:component": "node tools/run_python.mjs tools/recover_browser_component.py --snapshot",
+    "verify:engine-startup": "node tools/run_python.mjs tools/verify_browser_engine_component.py",
     "build:services": "node tools/run_python.mjs tools/build_browser_services.py",
     "test:services": "node tools/run_python.mjs tests/source_factory/verify_native_sdl_services.py",
     "audit:all-files": "node tools/run_python.mjs tools/source_first_file_audit.py --out factory-output/source-first/all-files-audit.json --strict",

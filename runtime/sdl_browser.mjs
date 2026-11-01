@@ -225,6 +225,24 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
   };
   const getCanvas2D=()=>{const ctx=canvas?.getContext?.('2d');return ctx&&typeof ctx.putImageData==='function'?ctx:null;};
   const makeMode=(dst,w,h,refresh=0)=>{
+    if(dst?.__cReference===true){
+      const mode=dst.value;
+      const storage=mode?.[Symbol.for('source-first.original-byte-record-storage/1')];
+      if(storage)dst=storage.bytes;
+      else {
+        if(!mode||!['format','w','h','refresh_rate','driverdata'].every(name=>Object.hasOwn(mode,name)))
+          throw TypeError('SDL display-mode reference lacks its original declared fields');
+        mode.format=0x16762004;mode.w=w;mode.h=h;mode.refresh_rate=refresh;mode.driverdata=null;return;
+      }
+    }
+    const bytes=sourceByteView(dst);
+    if(bytes){
+      if(bytes.byteLength<24)throw RangeError('SDL_DisplayMode exceeds original LP64 source storage');
+      bytes.subarray(0,24).fill(0);
+      const data=new DataView(bytes.buffer,bytes.byteOffset,24);
+      data.setUint32(0,0x16762004,true);data.setInt32(4,w,true);
+      data.setInt32(8,h,true);data.setInt32(12,refresh,true);return;
+    }
     if(!dst)return;heap.check(dst,24);heap.memset(dst,0,24);
     // SDL_PIXELFORMAT_RGBA32 is RGBA8888 in native little-endian bytes;
     // SDL_PIXELFORMAT_ABGR8888 (0x16762004) is RGBA byte order on LE.
@@ -327,7 +345,23 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     if(got)writeAudioSpec(got,entry.spec);
     return id;
   };
+  const spinlock=value=>{
+    if(value?.__cReference===true)return {load:()=>value.value,compareExchange:(before,after)=>{
+      const previous=value.value;if(previous===before)value.value=after;return previous;},store:next=>{value.value=next;}};
+    const view=sourceByteView(value);
+    const address=view?view.byteOffset:Number(value),buffer=view?view.buffer:heap.u8.buffer;
+    if(view){if(view.length<4)throw new RangeError('SDL spinlock exceeds original storage');}
+    else heap.check(address,4);
+    if(!Number.isSafeInteger(address)||address%4)throw new RangeError('SDL spinlock requires aligned int storage');
+    const data=new Int32Array(buffer,address,1);
+    if(typeof SharedArrayBuffer!=='undefined'&&buffer instanceof SharedArrayBuffer)
+      return {load:()=>Atomics.load(data,0),compareExchange:(before,after)=>Atomics.compareExchange(data,0,before,after),store:next=>Atomics.store(data,0,next)};
+    // Source/game callbacks execute on this browser event thread. A regular
+    // ArrayBuffer has no concurrent worker writers; keep the same lock word.
+    return {load:()=>data[0],compareExchange:(before,after)=>{const previous=data[0];if(previous===before)data[0]=after;return previous;},store:next=>{data[0]=next;}};
+  };
   const symbols={
+    SDL_AtomicTryLock:lock=>+(spinlock(lock).compareExchange(0,1)===0),
     SDL_Init:begin,
     SDL_InitSubSystem:begin,
     SDL_WasInit:flags=> (flags===0?initialized:(initialized & (flags>>>0)))>>>0,
@@ -422,11 +456,8 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
       if(typeof canvas.setAttribute==='function')canvas.setAttribute('aria-label',win.title);
     },
     SDL_GetNumVideoDisplays:()=> initialized&VIDEO?1:setError('SDL video subsystem is not initialized'),
-    SDL_AtomicLock:ptr=>{
-      heap.check(ptr,4);if(heap.read(ptr,'u32')!==0)throw Error('SDL spinlock contention cannot be serviced synchronously on browser main thread');
-      heap.write(ptr,'u32',1);
-    },
-    SDL_AtomicUnlock:ptr=>{heap.check(ptr,4);if(heap.read(ptr,'u32')!==1)throw Error('Unlock of non-held SDL spinlock');heap.write(ptr,'u32',0);},
+    SDL_AtomicLock:lock=>{if(spinlock(lock).compareExchange(0,1)!==0)throw new Error('SDL spinlock contention cannot be serviced synchronously on browser main thread');},
+    SDL_AtomicUnlock:lock=>{const cell=spinlock(lock);if(cell.load()!==1)throw new Error('Unlock of non-held SDL spinlock');cell.store(0);},
     SDL_GetKeyboardFocus:()=>{
       const win=[...windows.keys()][0]??0;
       return canvas?.ownerDocument?.activeElement===canvas?win:0;

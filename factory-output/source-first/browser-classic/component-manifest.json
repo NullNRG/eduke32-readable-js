@@ -1,0 +1,493 @@
+{
+  "format": "canonical-browser-component-checkpoint/1",
+  "profile": "browser-classic-single-player",
+  "module_root": "factory-output/source-first/browser-classic/browser-modules",
+  "source_inventory": {
+    "sha256": "ddb189639d8dfcbd428a4c8f2323a34a76917a9b861d3be2d039e9cae32bf8ef",
+    "files": 790
+  },
+  "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+  "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
+  "runtime_and_lowering_helpers": {
+    "runtime/abi.mjs": "37baa3ea755d4cf31c476c81092a50a4695d91adab3e82422ff4feb42e08599e",
+    "runtime/browser_loguru.mjs": "51b7dbde961211550734116f7c02e10555a429780bdfd90ad9480a2642e35d88",
+    "runtime/build_browser_platform.mjs": "e312c0ba5001220312806a122894c87913d6781e284ea8ad81bcb4fbe183ec3d",
+    "runtime/c_integer_parse.mjs": "a21306adf7f0210a4f3fc8db2e96762cc33e0533501062613bccb5805e7fd9e7",
+    "runtime/c_locale_abi.mjs": "cf4b87d76d12912f53a9335d5e22f91fc605e4a959c02d800d872a7a42c8486d",
+    "runtime/c_numeric_extra.mjs": "36783ddbd0b6791b38595b3878015563625d8a406e306dc7d3f86c3a43a62bef",
+    "runtime/c_posix.mjs": "307d79a1038b40ae0c5531ad04333f6883d89dc5e239b77e74b27d884d866689",
+    "runtime/c_printf.mjs": "5eb5df8e74e4fa31b2834c0b84208c225427f9f02ddd63cb3bf610d3f3bc94a2",
+    "runtime/c_pthreads.mjs": "ff39d4023d1a57bf565a4c9d0e7c5f0098cf8848bbf5046595c1ec98a1096910",
+    "runtime/c_scanf.mjs": "faa1fc45eb8ef2c06d3487063fe3d83ec847633b476b4107a786d35b884adc15",
+    "runtime/c_source_search.mjs": "17020d643daa0305218ca83b51a84b067118d0c62e21cdfc46ab88b7e600a4b6",
+    "runtime/c_strftime.mjs": "0595e39efe4ece6e71e3b0e8923f9087cebfcc4895d8e7b6cbbbbe2c9bc990aa",
+    "runtime/c_time_locale.mjs": "b4fa6db30ec67b0b74a23d6d4cd00bd1999e1b4b67d58ce4e1630a60ed0e41fd",
+    "runtime/cxx_demangle_abi.mjs": "de4b80de7ae351e388ba335d2ffdcd289113312c8acf08bd61bee48ab058faf9",
+    "runtime/cxx_failure_abi.mjs": "69e4733ef8fccb44749e1974ace91ab7330fca2c48c456d01cccae6c17716d7b",
+    "runtime/cxx_hashtable_abi.mjs": "7632e5ee953790348348c9f6a771a252da1a9b1b929b39af0c87686caa02e8ea",
+    "runtime/cxx_locale_abi.mjs": "a1e69d7baa03f75574105905d8df8e6936ebafe89b8313ded6e28a215980f8ca",
+    "runtime/cxx_rbtree_abi.mjs": "6a2bc7039839df10b7dbdebf28b4285f68d3210232057fce668af37a781469e6",
+    "runtime/cxx_string_abi.mjs": "67d8245ae64a1244a2703d036bbcd893a6efa68159570a3ca33da67b9dbcf288",
+    "runtime/dlfcn_self.mjs": "dd92121492f3cd0cb7086720889eb6fd8c7c9c637d1a52b8668f24a5a3401c42",
+    "runtime/duke_browser_paths.mjs": "d6e4eafd3436a0502ddec18956000b29d7c3e76e03e53efe368f413870b93d8b",
+    "runtime/engine_browser_platform.mjs": "6cdc8b907597a17462de4a9411496929a58b51f7ca6e43ddbdbdc143267d0e9d",
+    "runtime/filesystem.mjs": "8300591a90865a429c2a45076ec1455db05c280973e8eabc69eb8d025da16c64",
+    "runtime/flac_abi.mjs": "8a247d77566df2efbb3544011616d294c86fe342d6ac4d7c3fa8d9a045683fcd",
+    "runtime/generated_demangles.mjs": "9912b84e4f8bcbc3847c3070896d2a2ed253e12ab0debc8ddea29a07e0acdffa",
+    "runtime/ieee_fma.mjs": "768a889a2214ae4e78633bd1e36f7c99b3e3850e5ea80f480f3ffca4639e94fc",
+    "runtime/index.mjs": "d8e73b16f62070fa0bc8d3b92d43ac3563d7b3183c10a1055eb082256b156612",
+    "runtime/libdivide_abi.mjs": "da6139fee29c9366bec973c2ea1b1a4945a10e3fc0363fc32faff764ada8388e",
+    "runtime/libdivide_division_source.mjs": "c77b723064f7952bbd4cd7d7ec8a6c913c581968f8f7e0d198010c6fc113afc7",
+    "runtime/linker.mjs": "82b6cd537462fce8d278da4f0bcb98defe052210a576d1999c07068dc57c244c",
+    "runtime/linux_syscalls.mjs": "ab842a3471eed88ca16800651f7dce88c3d05a85c030ed3f6217f562ccb39a53",
+    "runtime/llvm_context.mjs": "6a920787b92bd640478c3caa17a1da9af12a5253e42a3d4a0380604ac25ede08",
+    "runtime/platform.mjs": "ae2a0288c3346fe182c7a1a1e84d80f7afca9b5457113687fe41f1fdc5b1741d",
+    "runtime/posix_memory.mjs": "7ca67b420a964e423597a88636017637ee8b0066146ebf8155bb671c3c48644a",
+    "runtime/posix_name_service.mjs": "45a86b61c07c30fbfd4f41cfc093f40a0740a4567ed0c99e5e4a9851a93278c8",
+    "runtime/posix_process_services.mjs": "d06939237f58885f4c86d209c5dc17b47703e16b0ad2e607c140ddfa343eb71e",
+    "runtime/posix_vfs.mjs": "630bb182d6197ee5d9c6d6be56221234416bc1211c9c386d7022cba7af9ac341",
+    "runtime/renderers.mjs": "f0cad1f0b48111008712eb359bc5d1243f26688a667ca52056cc54ba6c3a9322",
+    "runtime/sdl_browser.mjs": "6667e302f92139d88856ff1565944099f77d5a91746d8a4fd120f3f6d60fb11a",
+    "runtime/sdl_wasm_services.mjs": "a34a059e94f02e856c28bed545e6c058d395f285b154233d6961e16dc892a08d",
+    "runtime/source_bytes.mjs": "e63b23e9ad8273ec1ab966b2d3b264bf0d8df1e21280735aaaa03323022a1425",
+    "runtime/source_memory.mjs": "c1641705e888d6e86c209cb543b18dafd7d1d74769ad4e90e7d97230b4f7565f",
+    "runtime/stdlib.mjs": "7baecac63b5ea1ce4580bb95cb060939e599e82699f40a995f8c87bae127bf93",
+    "runtime/xxhash_source.mjs": "64fb68029eea82d4795fc0c108dc83720a4e3a469912460c74ed30d4963d2039",
+    "tools/source_address_runtime.mjs": "fff8369298b45372bd0369bbcd718e5e492cf9ecb58f8f6842da8bb60b822664",
+    "tools/source_aggregate_assignment_runtime.mjs": "e979b052f086e9b32fa6b6e3a1152b4342bf7bf626c4c51e079e497adcf9c84b",
+    "tools/source_aggregate_runtime.mjs": "992206939f07a2d989b3af9cb7fe5278cfb598f13982a4241118668679bdd5ad",
+    "tools/source_atomic_runtime.mjs": "769dee44cbc0ba8713ef69e2bbfbff36f6a2f6a71f02ef1d56cca0faef5837b5",
+    "tools/source_byte_memory_runtime.mjs": "b3e5e1d76423da8e1a1b4322ab1e67143bf05ab91cc315ded29cc688ba71589f",
+    "tools/source_c_heap_runtime.mjs": "87f7a7365fa346c75bd2aed5ce604440c6658da5c04301b889bf9119f810ad96",
+    "tools/source_cpp_heap_runtime.mjs": "f858476bdd4cbe6e46cbdb9de63bd95c6d3502caef1d32dfb2385a57716f4c5b",
+    "tools/source_cpp_lifetime_runtime.mjs": "774b9ca82859f7ef5effa203b00ec4863c74f0dc6c03d848b0d2d97a96c022d4",
+    "tools/source_pointer_runtime.mjs": "e85f50391ac1d27d55a6096e92cf6eaec11861ebf974ede96e6916f99bce4cf8",
+    "tools/source_pointer_span_runtime.mjs": "5d92e880fbeb9fb4d1286e844fb78c4347a526bbce93d6cdfa31414b0ea3edb0",
+    "tools/source_process_runtime.mjs": "16dcc49698857f2ab11b1b2c4ef2c243cfda38a9804a0a1c19ed8987ac9ed135",
+    "tools/source_variadic_runtime.mjs": "f495e1870f44e469eb869f8d350a77e55aba2e93fc028300e31466cec5fe2216",
+    "tools/source_anonymous_records.py": "43a3857c521468ef8f6859c78880196b6f0b8d5511b83845b476ade6873ce182",
+    "tools/source_ast_cache_paths.py": "b82ed86d6db6cb6ed4256bb8191f8c82761b8efa0853a897d799abe59214aed0",
+    "tools/source_ast_events.py": "0cccf7a3e951942d87dd4302679f060e06c068a47c3f37c9f9f1c8b665ae6c19",
+    "tools/source_ast_stream.py": "4c32fba039a18f6483075bbe06afacdecb774198ce7db97252da002a3dc632e8",
+    "tools/source_ast_to_js.py": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
+    "tools/source_byte_records.py": "fbd8d5ec3268b4ee1b2ff3ffd1d66fba3e72d1a5006c19f1d8051a42b510cd35",
+    "tools/source_c_allocators.py": "84a4f1a6f1ab153a27aa58f66cd16c214253fa99f3122e47f6b7c61c14da7791",
+    "tools/source_c_function_bindings.py": "5020c4192ccbb4a4751dbb7578b8c876ef82838707169cd9e0269504641498c6",
+    "tools/source_control_flow.py": "3938e2faaf59102f08b73992ce12715fff26d6f282e58798e8908b6179ecf25e",
+    "tools/source_coroutine_cfg.py": "71e76c30a110227d6a27e3ae0cc0b3836173495b3bb76bb0d1edcfcab56891fd",
+    "tools/source_cpp_heap.py": "8bb303a8b67532556d240634085a2caefce7183946739a6fa8b6b10354572915",
+    "tools/source_cpp_lifetime.py": "0e968a18260b4e43f46c446aebe549d794f5d68ed2f44df6de64f89dc6bb1584",
+    "tools/source_cpp_references.py": "2553c2ab54698aed1fc5172c7b884744ba2fd980bd67e81025c21e2adc2f60fb",
+    "tools/source_cpp_types.py": "629f5369b6aa226599df1a8871055177d0313fe957fc1764980ffdfa220f2ed6",
+    "tools/source_empty_asm.py": "3bb2b8f215d3d23a885c26786c18495278601963e8dc5fd04781ea76ed74a758",
+    "tools/source_explicit_member_operators.py": "588ad7c1fa6109e47f93ecd1747e256485ca712f1af164e8b934180a27f18fc6",
+    "tools/source_factory.py": "af19014802aba0714f9e06e566a16c8c0ed9d610507aa1256ac3cc0bbd47fb67",
+    "tools/source_first_automate.py": "25988785608e72f85a50c82bc67b2abf37cc5e98e5818acb1f31d4fac4c9a47c",
+    "tools/source_first_autonomous.py": "4353da05f746455b21835a2a19a0d613ed7bf8aada65e07c245fa0b47def199f",
+    "tools/source_first_boot_audit.py": "f95758435df5d7aae8ec36ee931784b81f7a6f55b396c86793b4d070da87ccb6",
+    "tools/source_first_boot_frontier.py": "ed09ce96d262908d52e1a6747854f470dc56c5994858e0a6b08558852dc1152d",
+    "tools/source_first_coverage_gate.py": "617fcec8175c1364c5543a1c4e0307b7a3dba3729a94efbcbf2703ee79a4ec4a",
+    "tools/source_first_file_audit.py": "afe48fd3e1bf1c9e9a4da5403e045fe245792e623c52a027d997ef315a0a1655",
+    "tools/source_first_game_gate.py": "d96522846f036f42105f084140ce82b25943698403584c8e5ffa6a9988526f55",
+    "tools/source_first_generated.py": "aac2d6700ae31db0fedb904ff38834a9a022c5cafb380ac824167b6e712116ae",
+    "tools/source_first_global_audit.py": "06e959cb988277ce76ba4ae76f8fd590e162bd8a9c15f4b25e09c7a5a68dae69",
+    "tools/source_first_global_link.py": "07b25d3ec500b2df5e54d5902dbba77004d828d5589dad83f0bb72ee4dcd2143",
+    "tools/source_first_inventory.py": "d26136d878af0c583d2062fc55b33ad009a4d276de4e3ece30e00a458b4a8734",
+    "tools/source_first_missing_map.py": "3adbf9910be87afe3d87d3e1fc5372d09c99957c373704549b153628dd0ed8b4",
+    "tools/source_first_module_audit.py": "cb0240e1d97cc5eca7ff3118ed18474bb1a2764f6d9f5952190f4f19bfe097f3",
+    "tools/source_first_project.py": "1a8edab1f5bb60538e7890abf62a5534413d0a43324f0caf95a362640d32c937",
+    "tools/source_first_recover_module_initializers.py": "9355f0b6a81b55c0a44ea8d6d5494c432c77f054b3e89f066642fce5e34e113a",
+    "tools/source_first_reports.py": "e4748406381a59f360dbd396689f68f68d64bd97c42a2f918dae5c67057c2630",
+    "tools/source_first_toolchain.py": "eda2ee0812b56e176effc4fe488918875753e286e90b2b07c0e4c4a5ca9b7a1e",
+    "tools/source_header_definitions.py": "995ada113485ec0fbf8841d9db7a30b26bfbd464fab4478dfefae0ea767d9b40",
+    "tools/source_header_records.py": "4a98f7826f76bb70da9f1c964c39128031e5193ca199e6e519bca8e806b621fd",
+    "tools/source_historical_checkpoint.py": "02ecf36c3b49a88739baa488e4e2c684ca20890e310215ff585cc6fb600e55ba",
+    "tools/source_private_record_schema.py": "915ab9172bf433b0d79107d5d1c45219e2b8f30f0dcedd6b44a651ced56306d1",
+    "tools/source_record_init_recovery.py": "aeda6efde28c983d4790121aef8d69133151232e7dbb9ef2c29b62bef3869d87",
+    "tools/source_recovery_compare.py": "f35725a4d11c7e854c1165ae086cce668133b5e83921086145a141ea9fe3d3a8",
+    "tools/source_scalar_types.py": "d56ddbaeb7d923237351da372770f7166957722672e6e5156d39f1c5473f13a9",
+    "tools/source_semantic_index.py": "ae574a4d9d1bc8b744f66e7f44fd66ea9c34a97d9784bed200ccb90152db08d5",
+    "tools/source_standard_heap_contract.py": "ac758b8285844dbe706a9a8bcd4449c2f3575837b7ea296f44385db99f04da4f",
+    "tools/source_static_members.py": "0c82354326f572e011f83d3e51057f69cd028d9ca2e82f083a147907351fdd9f",
+    "tools/source_template_destructors.py": "3ec5971090275dfdbb3c3857cf084322e1f613895b04ab04cb5ad2c9fa41c479",
+    "tools/source_trivial_assignment.py": "e0e7e38527219074c7c813386025919311583332ac03c81552226decb8bfa9da"
+  },
+  "source_units_with_partial_modules": 22,
+  "selected_source_units": 111,
+  "whole_selected_program_compiled_under_current_revision": false,
+  "invalid_imports": [],
+  "ambiguous_export_groups": {
+    "max__template_b1cfaf2244c73238": [
+      "source/build/src/baselayer.cpp",
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp",
+      "source/build/src/vfs.cpp"
+    ],
+    "iscanonical__cxx_a3dce400c4f1": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "iscanonical__cxx_262aebf77d93": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_e3394d618576": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_543ad98a7693": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_725e18ad9d9e": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_0a44b83009ba": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_6ac9c70ccc53": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_e5265ced1fd8": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_9725a00dea2c": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_1f836a5706ff": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__size_to_integer__cxx_3bf6d42a3086": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__lg__cxx_5d561eceadad": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__lg__cxx_bff60accdd0c": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__lg__cxx_cfcbf570c404": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__lg__cxx_a6d660286b2d": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__lg__cxx_2827038c92bd": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__lg__cxx_42192ce3e0c3": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "operator_new___ZnwmPv": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "operator_new_array___ZnamPv": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "operator_delete___ZdlPvS_": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "operator_delete_array___ZdaPvS_": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_test_and_set_explicit__cxx_a39490b838d7": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_test_and_set_explicit__cxx_952567d4aa99": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_clear_explicit__cxx_ea63028b83e9": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_clear_explicit__cxx_007242ccac28": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_test_and_set__cxx_85534dc05179": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_test_and_set__cxx_d645fe1f44da": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_clear__cxx_db2efd6de9ef": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "atomic_flag_clear__cxx_f43bec967889": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "align": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "wcschr": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "wcspbrk": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "wcsrchr": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "wcsstr": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "wmemchr": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__exchange_and_add_single": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__atomic_add_single": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "swap__cxx_7c777213a9e6": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "__rethrow_if_nested_impl": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "declare_reachable": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "declare_no_pointers": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "undeclare_no_pointers": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "get_pointer_safety": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "IsAligned": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "Align": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "_sm_allocator_thread_cache_destroy": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "_sm_malloc": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "_sm_free": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "_sm_realloc": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "_sm_msize": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "_sm_mbucket": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "buildprintpiece": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ],
+    "min__template_c237f4424e2bda8a": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp",
+      "source/build/src/smmalloc_generic.cpp"
+    ],
+    "min__template_774131ccff66371d": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp",
+      "source/build/src/vfs.cpp"
+    ],
+    "__cxx_operator_761c63d1e16e183f": [
+      "source/build/src/hash.cpp",
+      "source/build/src/osd.cpp"
+    ]
+  },
+  "entry_exports": {
+    "enginePreInit": false,
+    "app_main": false
+  },
+  "artifacts": {
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/c_printf.mjs": "5eb5df8e74e4fa31b2834c0b84208c225427f9f02ddd63cb3bf610d3f3bc94a2",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/libc_provider.manifest.json": "b5e5f3c19553631f92063ce57db67a495da4f2718ffd53ad214ae321ebe5031b",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/libc_provider.mjs": "da744f593d6713d687ce5bc7401e4bb2933e143856c9c10e17d6f968f70c5504",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/libdivide_provider.manifest.json": "bf3fe98a51f1dc9d6749314f941657000cccacf9534a6250938e3b96fbfdfc79",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/libdivide_provider.mjs": "da6139fee29c9366bec973c2ea1b1a4945a10e3fc0363fc32faff764ada8388e",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/libdivide_source.manifest.json": "24750da0008598e4132a3fbd955ad6e061d41e77fb64cdfdabf8e88147cd369d",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/libdivide_source.mjs": "c77b723064f7952bbd4cd7d7ec8a6c913c581968f8f7e0d198010c6fc113afc7",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/loguru_provider.manifest.json": "86f969c7e6d14c54d647fede452cc19ec6c1d35bc96c2c046e8e5a0baac82674",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/loguru_provider.mjs": "51b7dbde961211550734116f7c02e10555a429780bdfd90ad9480a2642e35d88",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/sdl_provider.manifest.json": "b335687394a4aba4865e1a664cfba02a79c0652d8b76c84d4957ee95bf055408",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/sdl_provider.mjs": "26d7f5eb10dc126360480cf437df7e4a57bd4a68c0ba4e6a2907988491a73311",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/source_bytes.mjs": "e63b23e9ad8273ec1ab966b2d3b264bf0d8df1e21280735aaaa03323022a1425",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/xxhash_source.manifest.json": "0f6380d720f79128a19cfdc8bf0eb846594f2e65b44dc38d5f93956f3f766a70",
+    "factory-output/source-first/browser-classic/browser-modules/browser-abi/xxhash_source.mjs": "64fb68029eea82d4795fc0c108dc83720a4e3a469912460c74ed30d4963d2039",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_081ec869f4a0.mjs": "081ec869f4a081f71771a36d9051ef895399c66dd83a78efcf52188243220a35",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_68c7170cdcbb.mjs": "68c7170cdcbb40dc1850a24c2614a45912e3977862105c976f0dfc725ea1afa5",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_7dc8e1b73292.mjs": "7dc8e1b73292679bc096355a22023e50eeda62a34bad02625a67cf77086ca5e2",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_a3c80f3ff5ac.mjs": "a3c80f3ff5ac6fa22fedf3d59c618b2060756ec1ffd4d62bfe2b6b62300841af",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_e8d3457f94a7.mjs": "e8d3457f94a7d310d5f08fe6ea7557454bcb534488337575cc862f03bc09534f",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_f6516d492fe8.mjs": "f6516d492fe8436ff00d1c57733e128a4cbdb3d740b723e6748e743b047ef1f5",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs": "fceaaafd351f21dbe7e4ae1c4e02f4458b18944d5a4cb4afa6713587e3a1ae73",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a4d1d4a355bb.mjs": "a4d1d4a355bb61a403de7ec85c8fcd12ca5f7686f4723d6d27128d2e2d34429e",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a7a030d3c6b8.mjs": "a7a030d3c6b8d742580152bdc3bfe852090c465d27569e80a5ec113743f7e899",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_crc32_cpp_ed944f00483a.mjs": "ed944f00483a06f076dd76c2430f9134a9ac0abb460a6157dd387c2e8b7693c3",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_1d09f9e916b9.mjs": "1d09f9e916b94519273e68c6037aea9fac811369401a53c7d41838ae67b76a61",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_452bc810b4b3.mjs": "452bc810b4b34fd5920b48a10d3f919fc7b03ebd9e0a874d8d939e44e9d3aa1e",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_86be2c79c4c0.mjs": "86be2c79c4c011a8fe51353abf44574930ad7cbdaf58416daea0f1e429389dad",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_871b318f6522.mjs": "871b318f6522cfe8dc61cdd56d806c9829fd38317d483870f857beb9d5cf767b",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_b109dbbe1c92.mjs": "b109dbbe1c929ae64f9c876b68a78d3aca562b835f672388d7658c3053724fa9",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_bb4ab6fdc107.mjs": "bb4ab6fdc1075f3760a09c89e60ab4d4623b73533166c84e8a40f14eaa75c74d",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_dc856c60c172.mjs": "dc856c60c172cfbe01a0e55817352252af8e2b971a409eed8c7a69958c3e6250",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_0d878a6edc39.mjs": "0d878a6edc3948043ae34dd4c8644d1eeee735536f3145aa0a2e62d676ef336d",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs": "2255541e03088ffaa59c2412947470a0751b9e815e89692e76652b30833f9bdf",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs": "3c8185980f0a79077fffd126bfb241e9da2443cd9eb4d462d52c1ff747b9d287",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs": "af7584467b87c9a111567cdd964e1fb7a35d670e5c02d6c433baf8d7c961f98c",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs": "ea55377351f363ef2b49b0bf764ea8fe089ec80332f2b8d5420e96de32c9af8b",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_7140ad416c7a.mjs": "7140ad416c7ad671f2ad08104e3885c5f6553d25c9a10f2e1a3c8f2004cc2a58",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_129bd76e9bc2.mjs": "129bd76e9bc276672c7d65c3165cbf5645139b5cb877018bd331f7657b0b8a15",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_351c1c6c6ef4.mjs": "351c1c6c6ef4fcef1c8647eb0083ee7c017f7b05d68de400628f61b84f06d0a3",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_5618fe6b8180.mjs": "5618fe6b81809c723b34ee422265a8070d15f8475ce9c5e59cafa70b76cc2dc8",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_b79d97dcee59.mjs": "b79d97dcee59311d3acb1a756400b6371546da306d00938a77d37248e4b87ff2",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/a-c.cpp.manifest.json": "734af69db095563b519983c77c3e87895696cf42eed024edc22f6f922408461f",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/a-c.cpp.mjs": "d5c1d5f5451145c1fb8022dac4681d400f5c467b51bb3aca142ad11f3bb2f32d",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/baselayer.cpp.manifest.json": "97c3219fd05e25ce97d980f5bae277de26995d881c7b53ae22fd756bb600fad1",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/baselayer.cpp.mjs": "0fa401c30e340436d0dc2453b45bf236815986b13650ca141ddbc71dd469f09a",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.manifest.json": "a6455cd72bab57b7d92e3a4865779f000de24bd6d3113ff415f47a129b0af20a",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.mjs": "2e643fc9e6184003c01142dbebde2ef6f64c266fbb02f51abe635ae7b8ba0040",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.manifest.json": "5470178c74d7a7d0385601fee4b8223d21f29c3603c606bea35536262bf712da",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "aa38692e9e73bd8994f8de6f941f1a576781208226ae5899a276ddc3ca1d466e",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.manifest.json": "97929501feed93ec6971ccf7087708296d579c9d9f40ae080e77a14c9bca3fbf",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.mjs": "4824ffa65fe53a44640f921c3affd3c30106aaa9f9fd31c924352f929398e858",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.manifest.json": "3fa2156b4254585c159c5fa867de4f62bcbac1fd47f3838f0d94f008810552fa",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "cccda6aec7f5b77fc4c4b08b3d7623571af2ffe0db7f6d0e592ed85bccd80c81",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.manifest.json": "bcd16921bc5be066429bb0bce83779e6665801d43b96155ae8d450090cee031d",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.mjs": "83973e1739a976163dca4ae7ee07152f8603f641cbb82aff6aef8999c1271daf",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/kplib.cpp.manifest.json": "f6cf9a9a53ab39bca6677d79d30758d2aaaebc3fad3cc288eb93abfaff82d3ab",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/kplib.cpp.mjs": "f13dfe03508b820a6ac2c4304ac8ee5619952641a2bbb1e1a6048c1898ae4a04",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/loguru.cpp.manifest.json": "aff94a8b12b8d94d02cfe4e7c373341a7c53b7bd7b98d1ae7cecde7a2158f324",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/loguru.cpp.mjs": "8a5799e556da00fceae71e77fe97c51596394cf2186beab96914ec931c24d8d6",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/mutex.cpp.manifest.json": "4404ff2f897d9bb5ee97def8796b984c465629d6cd031bbc20b93b8093a1c519",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/mutex.cpp.mjs": "4fecbb752a9fec79f6b49bc640f73c3adcc40735ccfc239db201b0d84beae091",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/osd.cpp.manifest.json": "e37dffa381d03a4a3b0e046a044b85cb4eed419123b38842ad47852958a6bc67",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/osd.cpp.mjs": "5bd733ace44b1dc86f8196a41f0007a08929c5536fef45a4485c64791919a690",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/palette.cpp.manifest.json": "111c04c77aac90a3b8d7ae0aeebc7737c29a72bd6c9a38e6474bcbc4a75ec7f6",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/palette.cpp.mjs": "c95033d0aba4641b421e6496c985799d53f319d1bc0114dc8d89315b14c796de",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.manifest.json": "2b34c1814254dce249fa7352d14c198821984457d58e10b1bd882f75f247ff03",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.mjs": "360bcd29c492e4ddd48dec0cebbd284d38b12664f148ffe5365b1eb57b1678a5",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/sdlayer.cpp.manifest.json": "c1be0509a21bca8ab6ae186307de64258da2d784500d5e0d61c2f6af0a602213",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/sdlayer.cpp.mjs": "a297ca837f993636d50dd22e42b12f3f5ab8af3209228c7924e20a1fd3afba5b",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/smalltextfont.cpp.manifest.json": "9491fe71d456b04359e1be3477c3fd745a72ab0665152eb5423bf15277cfa6d6",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/smalltextfont.cpp.mjs": "199a4a2c7753efa610029818a7a8ac7a38380cbbfce00d2fea583055630e9680",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/smmalloc_generic.cpp.manifest.json": "0073749182a64c135ce5cb2c64880fdcd6308f33785266cfece36c7b8b2f1985",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/smmalloc_generic.cpp.mjs": "e462f1e8a63d92410b20865a8952c4477bd508f61ad3d69ce308537b0233f996",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/softsurface.cpp.manifest.json": "d64337d0c3f69124a408b4e59ee0e1a31abcf2d73c3b90de36f47c7a817f2e9e",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/softsurface.cpp.mjs": "2f6578d99b044702062279d3571e8e0e6f834bdca3a0353159d504ac8cfede89",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/textfont.cpp.manifest.json": "416ab43c33502566cb7061d144465030576c3b8c5b369844ce23296fa3d05bef",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/textfont.cpp.mjs": "a93391abe32c44d299cfb9e22830ebaa4451b267fb54b8597afa4288ca09e672",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/timer.cpp.manifest.json": "a0408d16e200f809e81501d375977d0d72d3c4a7b5c6ddd4e899fb8802356617",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/timer.cpp.mjs": "eaf117b0daf48ca86e3398bb2d4522fa0f7b491152b753b526f1c4bc859e527b",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/vfs.cpp.manifest.json": "2f48082dadfe81de97b9a801c70004535a53d2999294fb03c2d327791aea266f",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/vfs.cpp.mjs": "5ec3648495790b39d92c66ee912162eda62dbdf2be14136c5bdc7046bcb86447",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/xxhash.c.manifest.json": "a2d0970a4d3b69a7d3c1f43d9165790813ec4a0072a9666e343c0faa3f719494",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/xxhash.c.mjs": "4cf04e218381b276e2a49f91fc1d13168de022d4f1460fac33c122be23b7ed9f",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.manifest.json": "cc17172d1c871e09df60ca8d88d021146893a1eaa52b44c74ccb898d5114732f",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.mjs": "2ce888e016b376b4403d263e0b05364d202b158f4cac991126af0165d4f3290b"
+  },
+  "runtime_artifacts": {
+    "runtime/abi.mjs": "37baa3ea755d4cf31c476c81092a50a4695d91adab3e82422ff4feb42e08599e",
+    "runtime/browser_loguru.mjs": "51b7dbde961211550734116f7c02e10555a429780bdfd90ad9480a2642e35d88",
+    "runtime/build_browser_platform.mjs": "e312c0ba5001220312806a122894c87913d6781e284ea8ad81bcb4fbe183ec3d",
+    "runtime/c_integer_parse.mjs": "a21306adf7f0210a4f3fc8db2e96762cc33e0533501062613bccb5805e7fd9e7",
+    "runtime/c_locale_abi.mjs": "cf4b87d76d12912f53a9335d5e22f91fc605e4a959c02d800d872a7a42c8486d",
+    "runtime/c_numeric_extra.mjs": "36783ddbd0b6791b38595b3878015563625d8a406e306dc7d3f86c3a43a62bef",
+    "runtime/c_posix.mjs": "307d79a1038b40ae0c5531ad04333f6883d89dc5e239b77e74b27d884d866689",
+    "runtime/c_printf.mjs": "5eb5df8e74e4fa31b2834c0b84208c225427f9f02ddd63cb3bf610d3f3bc94a2",
+    "runtime/c_pthreads.mjs": "ff39d4023d1a57bf565a4c9d0e7c5f0098cf8848bbf5046595c1ec98a1096910",
+    "runtime/c_scanf.mjs": "faa1fc45eb8ef2c06d3487063fe3d83ec847633b476b4107a786d35b884adc15",
+    "runtime/c_source_search.mjs": "17020d643daa0305218ca83b51a84b067118d0c62e21cdfc46ab88b7e600a4b6",
+    "runtime/c_strftime.mjs": "0595e39efe4ece6e71e3b0e8923f9087cebfcc4895d8e7b6cbbbbe2c9bc990aa",
+    "runtime/c_time_locale.mjs": "b4fa6db30ec67b0b74a23d6d4cd00bd1999e1b4b67d58ce4e1630a60ed0e41fd",
+    "runtime/cxx_demangle_abi.mjs": "de4b80de7ae351e388ba335d2ffdcd289113312c8acf08bd61bee48ab058faf9",
+    "runtime/cxx_failure_abi.mjs": "69e4733ef8fccb44749e1974ace91ab7330fca2c48c456d01cccae6c17716d7b",
+    "runtime/cxx_hashtable_abi.mjs": "7632e5ee953790348348c9f6a771a252da1a9b1b929b39af0c87686caa02e8ea",
+    "runtime/cxx_locale_abi.mjs": "a1e69d7baa03f75574105905d8df8e6936ebafe89b8313ded6e28a215980f8ca",
+    "runtime/cxx_rbtree_abi.mjs": "6a2bc7039839df10b7dbdebf28b4285f68d3210232057fce668af37a781469e6",
+    "runtime/cxx_string_abi.mjs": "67d8245ae64a1244a2703d036bbcd893a6efa68159570a3ca33da67b9dbcf288",
+    "runtime/dlfcn_self.mjs": "dd92121492f3cd0cb7086720889eb6fd8c7c9c637d1a52b8668f24a5a3401c42",
+    "runtime/duke_browser_paths.mjs": "d6e4eafd3436a0502ddec18956000b29d7c3e76e03e53efe368f413870b93d8b",
+    "runtime/engine_browser_platform.mjs": "6cdc8b907597a17462de4a9411496929a58b51f7ca6e43ddbdbdc143267d0e9d",
+    "runtime/filesystem.mjs": "8300591a90865a429c2a45076ec1455db05c280973e8eabc69eb8d025da16c64",
+    "runtime/flac_abi.mjs": "8a247d77566df2efbb3544011616d294c86fe342d6ac4d7c3fa8d9a045683fcd",
+    "runtime/generated_demangles.mjs": "9912b84e4f8bcbc3847c3070896d2a2ed253e12ab0debc8ddea29a07e0acdffa",
+    "runtime/ieee_fma.mjs": "768a889a2214ae4e78633bd1e36f7c99b3e3850e5ea80f480f3ffca4639e94fc",
+    "runtime/index.mjs": "d8e73b16f62070fa0bc8d3b92d43ac3563d7b3183c10a1055eb082256b156612",
+    "runtime/libdivide_abi.mjs": "da6139fee29c9366bec973c2ea1b1a4945a10e3fc0363fc32faff764ada8388e",
+    "runtime/libdivide_division_source.mjs": "c77b723064f7952bbd4cd7d7ec8a6c913c581968f8f7e0d198010c6fc113afc7",
+    "runtime/linker.mjs": "82b6cd537462fce8d278da4f0bcb98defe052210a576d1999c07068dc57c244c",
+    "runtime/linux_syscalls.mjs": "ab842a3471eed88ca16800651f7dce88c3d05a85c030ed3f6217f562ccb39a53",
+    "runtime/llvm_context.mjs": "6a920787b92bd640478c3caa17a1da9af12a5253e42a3d4a0380604ac25ede08",
+    "runtime/platform.mjs": "ae2a0288c3346fe182c7a1a1e84d80f7afca9b5457113687fe41f1fdc5b1741d",
+    "runtime/platform_drivers/alsa_browser.mjs": "1ef808c20e075b5126eb6623db0ed8d5c2513cb933d5d19f65da1dbd90d749c8",
+    "runtime/posix_memory.mjs": "7ca67b420a964e423597a88636017637ee8b0066146ebf8155bb671c3c48644a",
+    "runtime/posix_name_service.mjs": "45a86b61c07c30fbfd4f41cfc093f40a0740a4567ed0c99e5e4a9851a93278c8",
+    "runtime/posix_process_services.mjs": "d06939237f58885f4c86d209c5dc17b47703e16b0ad2e607c140ddfa343eb71e",
+    "runtime/posix_vfs.mjs": "630bb182d6197ee5d9c6d6be56221234416bc1211c9c386d7022cba7af9ac341",
+    "runtime/renderers.mjs": "f0cad1f0b48111008712eb359bc5d1243f26688a667ca52056cc54ba6c3a9322",
+    "runtime/sdl_browser.mjs": "6667e302f92139d88856ff1565944099f77d5a91746d8a4fd120f3f6d60fb11a",
+    "runtime/sdl_wasm_services.mjs": "a34a059e94f02e856c28bed545e6c058d395f285b154233d6961e16dc892a08d",
+    "runtime/source_bytes.mjs": "e63b23e9ad8273ec1ab966b2d3b264bf0d8df1e21280735aaaa03323022a1425",
+    "runtime/source_memory.mjs": "c1641705e888d6e86c209cb543b18dafd7d1d74769ad4e90e7d97230b4f7565f",
+    "runtime/stdlib.mjs": "7baecac63b5ea1ce4580bb95cb060939e599e82699f40a995f8c87bae127bf93",
+    "runtime/xxhash_source.mjs": "64fb68029eea82d4795fc0c108dc83720a4e3a469912460c74ed30d4963d2039",
+    "tools/source_address_runtime.mjs": "fff8369298b45372bd0369bbcd718e5e492cf9ecb58f8f6842da8bb60b822664"
+  },
+  "execution_report": "reports/oct30-original-browser-component.json",
+  "execution_evidence_matches_modules": true,
+  "original_engine_startup_verified": false,
+  "gameplay_verified": false,
+  "standalone_player_verified": false
+}

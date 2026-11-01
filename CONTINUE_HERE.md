@@ -1,39 +1,42 @@
-# Continue the canonical project
+# Continue the canonical EDuke32 project
 
-This is a continuation of the existing EDuke32 SourceFactory project. The original JavaScript game has not booted. Read `CURRENT_PORT_STATUS.md`, `HANDOFF_SNAPSHOT.json` and `reports/project-current-status.json` before changing code. Historical prompts and reports do not establish current execution success.
+Read CURRENT_PORT_STATUS.md and HANDOFF_SNAPSHOT.json first. The original game has not booted; there is no verified menu, E1L1 rendering or playable dist/index.html. Preserve this codebase and the original sources. Historical prompts are context, not current execution evidence.
 
-The authoritative configuration is `tools/browser_classic_profile.json`. It now selects 111 original units for classic software rendering, NOASM and single-player browser services, using the original GenericAllocator backend. Native small-pool/thread caches and their statistics are explicitly excluded; their implementations are not counted as recovered. The October 20 integration is a preserved migration input. It is not the active build output and cannot be mixed with the new pointer ABI.
+The authoritative profile is tools/browser_classic_profile.json. Original Make selects 111 classic single-player units with NOASM and the original GenericAllocator. Game/Build behavior must remain readable JavaScript. Native WASM is allowed only for isolated SDL2/platform/audio/timing/low-level services. No emulation, replacement engine or fabricated success functions.
+
+The active incremental module tree is the profile's boot_module_root, with 22 partial units. Its component-manifest.json binds exact modules, runtime fingerprints, import audits and execution evidence. The October 20 tree is historical migration input. Current whole-program compilation/linking are incomplete.
 
 On this host:
 
 ```powershell
 . work/session-env.ps1
+npm run status:component
+npm run compile:component -- source/build/src/osd.cpp OSD_Init,OSD_RegisterCvar,OSD_RegisterFunction,OSD_Puts
+npm run verify:engine-startup
+```
+
+The immediate shared blocker is original osdmain_t byte storage with nested C++ atomic/queue objects and inherited logging nodes. The stricter memory model intentionally rejects formerly emitted but unverified numeric-pointer field accesses. Inspect factory-output/source-first/browser-classic/reports/frontier-source_build_src_osd.cpp.json. Original hash initialization, divider setup and streaming XXH32 have already advanced; do not reimplement them from stale reports.
+
+Original allocator setup, initdivtables, initsystem and videoGetModes execute in Chromium; enginePreInit/app_main do not. The checksum passes 272 native/Node/Chromium streaming cases. The source-selected GenericAllocator and allocator startup/error chain have separate parity proofs. Native SDL tests verify services only. No game screenshot exists.
+
+Run affected native comparisons after shared changes and complete regressions at integration checkpoints:
+
+```powershell
+python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json
+python tests/source_factory/verify_original_xxh32_component.py
+npm run test:services
 npm run compile:game
 ```
 
-The build uses `tools/build_browser_classic.py` and `factory-output/source-first/browser-classic`. Original source preparation, profile inventory, semantic extraction, C/C++ allocator ownership proofs, emission, linking, blocker reports and strict acceptance use this configuration. Browser candidate construction and real gameplay remain unfinished; the acceptance gate must continue failing until original startup and gameplay pass.
+Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/oct31-current-full-regression.json for the current 191-test run; the previous complete 186/186 proof predates later fixes. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
 
-The 113-unit semantic index and initial uniform emission pass are preserved. That emission pass predates the newest compiler changes. The new source memory ABI is `source-lp64-addresses/2`; old modules use incompatible pointer tokens. Recompile providers and consumers after this ABI change. Raw Clang AST reuse remains independently fingerprinted and does not imply valid JavaScript artifact reuse.
+Complete console storage/lifetimes/callbacks/logging/file access, original engine startup and game clock initialization, source SDL integration, frame yielding, menu/E1L1 and gameplay. The host timerInit alone does not initialize original timer.cpp globals. The public compile:game command still needs candidate construction/verification/promotion wired to this incremental tree.
 
-Latest memory work is documented in `tools/SOURCE_MEMORY_ABI.md`. Standard C allocation reuses the project's ABIHeap. All eight original GenericAllocator methods passed 257 native/Node/Chromium cases under the preceding configuration. The browser source overlay now routes original xmalloc/xcalloc/xrealloc/xfree wrappers directly to those original methods. Refresh the ownership proof, recompile and execute this chain under the current configuration before claiming startup. Owned C++ subobjects and console boot closure remain incomplete.
-
-Latest original probes:
-
-- `factory-output/source-first/oct29-browser-generic-allocator-addresses`
-- `factory-output/source-first/oct29-browser-console-addresses`
-- `reports/oct29-original-generic-allocator-full-parity.json`
-- `reports/oct29-memory-full-regression.json` (check complete/all_passed and input fingerprints)
-
-Keep heavy original Clang jobs serial. To repeat the allocator execution comparison after regenerating its module, run `python work/verify_original_generic_allocator_full.py`. The fixture regression is `python tests/source_factory/verify_sourcefirst_native_addresses.py`.
+Read BUILD_PORTABILITY.md and BROWSER_SERVICES.md for toolchain setup on another host. Revalidate source/header/ABI/compiler/runtime/configuration fingerprints. The source ABI is source-lp64-addresses/2. Lossless semantic data is in reports/semantic-browser-checkpoint/index.jsonl.gz; restore with work/portable_semantic_checkpoint.py. Raw AST caches and downloaded SDKs are deliberately omitted from compact ZIPs.
 
 ```powershell
+python work/package_current_continuation.py
 npm run serve:project
-python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json
-python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --reports factory-output/source-first/browser-classic/reports --out reports/port-acceptance.json --strict
 ```
 
-Preserve original source inputs, license notices, supplied GRP and verified implementation work. `dist/original-entry-attempt.html` is an old failed diagnostic. There is no verified playable dist/index.html, original JavaScript menu or E1L1 screenshot. The latest user explicitly allows SDL2/platform/audio/timing in WASM; original game and Build engine code must remain readable JS. No emulator, replacement engine or success stubs are permitted. Follow `BROWSER_SERVICES.md` for the pinned SDK, explicit wasm32/LP64 bridge and native-service tests.
-
-The fresh 111-unit semantic index and ownership contract are complete for the extractor's documented scope. `reports/oct29-browser-allocation-chain-parity.json` verifies actual original allocator startup/error paths in Chromium. `reports/oct29-native-sdl-browser-verification.json` verifies the SDL2 WASM service module, not game boot. Current osd/hash probes are in `factory-output/source-first/oct29-browser-console-native-services-full`. The full original game still needs current emission, fixed-point linking, browser ABI integration and frame yielding.
-
-For another host, follow BUILD_PORTABILITY.md and adapt the saved host paths. Revalidate source, commands, toolchain/sysroot, ABI, compiler and runtime fingerprints. Do not restore old browser snapshots over current implementation work.
+The root index.html is the developer launcher, not the game. The continuation ZIP includes the supplied GRP and is private. Public Git must remain asset-free. Original gameplay acceptance, standalone offline HTML and the public playable release remain incomplete.

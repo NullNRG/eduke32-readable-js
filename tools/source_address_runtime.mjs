@@ -34,6 +34,12 @@ const cSourceAddresses = (() => {
     if(cpp&&!cpp.live)throw new RangeError('C pointer addresses deleted C++ storage');
     const native=heap();
     if(native?.buffer===buffer){
+      // An address can be both one-past one allocation and the beginning
+      // of its neighbour. A raw malloc address must select its live owner.
+      if(native.allocations.has(offset)){
+        const size=native.allocations.get(offset);
+        if(width<=size)return {lower:offset,upper:offset+size};
+      }
       for(const [base,size] of native.allocations){
         if(offset>=base&&offset+width<=base+size)return {lower:base,upper:base+size};
       }
@@ -93,6 +99,9 @@ const cSourceAddresses = (() => {
         throw new TypeError('C integer address must be exactly representable');
       const bits=BigInt.asUintN(64,BigInt(value));
       if(bits===0n)return null;
+      // The browser may bind its heap before the first compiled module loads.
+      // Register that real address region before decoding a malloc result.
+      const native=heap();if(native)regionFor(native.buffer);
       if(byBits.has(bits)){
         const value=byBits.get(bits),allocation=globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
         if(allocation&&!allocation.live)throw new RangeError('C address refers to a destroyed C++ object');
@@ -135,3 +144,4 @@ const cSourceAddresses = (() => {
   };
   globalThis[key]=api;return api;
 })();
+export { cSourceAddresses as sourceAddressSpace };

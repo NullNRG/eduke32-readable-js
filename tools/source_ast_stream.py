@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 
 
@@ -118,8 +119,57 @@ def _evict(directory,budget):
     return used,count,removed
 
 
+class _CompressedCapture:
+    """Seekable original JSON backed only by a compressed temporary file."""
+    def __init__(self,raw):
+        self.raw=raw;raw.seek(0);self.stream=gzip.GzipFile(fileobj=raw,mode='rb')
+    def read(self,*args):return self.stream.read(*args)
+    def readinto(self,*args):return self.stream.readinto(*args)
+    def seek(self,*args):return self.stream.seek(*args)
+    def tell(self):return self.stream.tell()
+    def close(self):
+        self.stream.close();self.raw.close()
+
+
+def _capture_compressed_command(command,cwd,timeout,directory):
+    raw=tempfile.TemporaryFile(mode='w+b',dir=directory)
+    try:
+        # stderr has an independent spool: neither pipe can deadlock the
+        # compiler while stdout is compressed, and wait retains its timeout.
+        with tempfile.TemporaryFile(mode='w+b',dir=directory) as errors:
+            child=subprocess.Popen(command,cwd=cwd,stdout=subprocess.PIPE,stderr=errors)
+            failures=[]
+            def pump():
+                try:
+                    with gzip.GzipFile(fileobj=raw,mode='wb',compresslevel=1,mtime=0,filename='') as compressed:
+                        shutil.copyfileobj(child.stdout,compressed,length=1024*1024)
+                except BaseException as error:
+                    failures.append(error);child.kill()
+                finally:child.stdout.close()
+            thread=threading.Thread(target=pump,daemon=True);thread.start()
+            try:status=child.wait(timeout=timeout)
+            except BaseException:
+                child.kill();child.wait();thread.join();raise
+            thread.join()
+            if failures:raise failures[0]
+            if status:
+                errors.seek(0)
+                raise RuntimeError('Clang AST generation failed:\n'+errors.read().decode('utf-8',errors='replace')[-12000:])
+        output=_CompressedCapture(raw)
+        ast,stats=parse_ast_file(output);size=output.tell()
+        stats['capture_storage']='streamed-gzip'
+        stats['capture_stored_bytes']=os.fstat(raw.fileno()).st_size
+        return output,ast,stats,size
+    except BaseException:
+        raw.close();raise
+
+
 def _decode_command(command,cwd,timeout,directory=None):
     """Return an open auto-deleted spool, eliminating abandoned huge .partials."""
+    capture=os.environ.get('EDUKE32_AST_CAPTURE_GZIP')
+    low_disk=('-ast-dump=json' in command and shutil.disk_usage(directory or cwd).free<2*1024**3)
+    if capture=='1' or capture!='0' and low_disk:
+        return _capture_compressed_command(command,cwd,timeout,directory)
     output=tempfile.TemporaryFile(mode='w+b',dir=directory)
     try:
         result=subprocess.run(command,cwd=cwd,stdout=output,stderr=subprocess.PIPE,timeout=timeout)
@@ -170,6 +220,13 @@ def parse_ast_file(stream, *, retain_ranges=False):
            'ranges_omitted':0,'allocator_body_ranges_retained':0,'macro_declaration_ranges_retained':0,
            'semantic_barrier_ranges_retained':0,
            'type_metadata_reuses':0,'include_metadata_reuses':0}
+    # Clang returns an empty stdout for a name filter with no matching
+    # declaration. That is a complete empty query, not truncated JSON.
+    start=stream.tell()
+    if stream.read(1)==b'':
+        stats['empty_filtered_dump']=True
+        return roots,stats
+    stream.seek(start)
 
     def attach(value):
         if not stack:
@@ -300,7 +357,10 @@ def run_clang_ast(command, *, cwd, cache_path=None, timeout=None):
         try:
             try:
                 payload=output
-                if budget and size>=COMPRESS_ABOVE_BYTES:
+                if budget and size>=COMPRESS_ABOVE_BYTES and isinstance(output,_CompressedCapture):
+                    payload=output.raw;stored_size=os.fstat(payload.fileno()).st_size
+                    target=compressed_cache;reason='compressed-retained' if stored_size<=budget else 'oversized'
+                elif budget and size>=COMPRESS_ABOVE_BYTES:
                     compressed=tempfile.TemporaryFile(mode='w+b',dir=cache.parent)
                     output.seek(0)
                     with gzip.GzipFile(fileobj=compressed,mode='wb',compresslevel=1,mtime=0,filename='') as stream:

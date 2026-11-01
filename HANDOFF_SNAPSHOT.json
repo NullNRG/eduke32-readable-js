@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-10-30T04:55:06.762124+00:00",
+  "updated_utc": "2026-11-01T04:44:47.578961+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "b0786f8cf6e5861bf7a630a83d3bd64823a40024d905504abb75381ace6a9ec9",
+  "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -137,18 +137,19 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/oct29-services-final-regression.json",
-    "complete": true,
+    "report": "reports/oct31-current-full-regression.json",
+    "complete": false,
     "counts": {
-      "passed": 180,
+      "passed": 18,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 180,
-    "completed_tests": 180,
-    "all_passed": true,
-    "regression_inputs_unchanged": true,
+    "selected_tests": 191,
+    "completed_tests": 18,
+    "all_passed": false,
+    "regression_inputs_unchanged": null,
+    "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
     "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
@@ -184,270 +185,109 @@
     "original_gameplay_verified": false,
     "integration": "NativeRuntime binds native timing and version. Original SDL surface/event/callback bridging remains incomplete."
   },
-  "original_console_frontier": [
-    {
-      "name": "OSD_RegisterCvar",
-      "status": "blocked",
-      "reason": "unlinked identifiers: hash_add",
-      "unresolved_references": [
-        "hash_add"
-      ]
-    },
-    {
-      "name": "OSD_Init",
-      "status": "blocked",
-      "reason": "unlinked identifiers: OSD_RegisterCvar, _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, hash_init, mutex_init, osdcmd_cvar_set_osd, osdfunc_alias, osdfunc_echo, osdfunc_exec, osdfunc_fileinfo, osdfunc_help",
-      "unresolved_references": [
-        "OSD_RegisterCvar",
-        "_internal_drawosdchar",
-        "_internal_drawosdcursor",
-        "_internal_drawosdstr",
-        "hash_init",
-        "mutex_init",
-        "osdcmd_cvar_set_osd",
-        "osdfunc_alias",
-        "osdfunc_echo",
-        "osdfunc_exec",
-        "osdfunc_fileinfo",
-        "osdfunc_help",
-        "osdfunc_history",
-        "osdfunc_listsymbols",
-        "osdfunc_toggle",
-        "osdfunc_unalias"
-      ]
-    },
-    {
-      "name": "OSD_RegisterFunction",
-      "status": "blocked",
-      "reason": "unlinked identifiers: OSD_Init",
-      "unresolved_references": [
-        "OSD_Init"
-      ]
-    }
-  ],
-  "original_hash_frontier": [
-    {
-      "name": "hash_findprime",
-      "status": "blocked",
-      "reason": "unlinked identifiers: current_verbosity_cutoff, log",
-      "unresolved_references": [
-        "current_verbosity_cutoff",
-        "log"
-      ]
-    },
-    {
-      "name": "hash_init",
-      "status": "blocked",
-      "reason": "unlinked identifiers: hash_findprime, libdivide_u32_gen",
-      "unresolved_references": [
-        "hash_findprime",
-        "libdivide_u32_gen"
-      ]
-    },
-    {
-      "name": "hash_add",
-      "status": "blocked",
-      "reason": "unlinked identifiers: hash_getbucket__header_dad2442b070b",
-      "unresolved_references": [
-        "hash_getbucket__header_dad2442b070b"
-      ]
-    }
-  ],
-  "original_engine_preinit_frontier": [
-    {
-      "name": "enginePreInit",
-      "status": "blocked",
-      "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox",
-      "unresolved_references": [
-        "baselayer_init",
-        "initprintf",
-        "initsystem",
-        "videoGetModes",
-        "wm_msgbox"
-      ]
-    }
-  ],
-  "startup_component_build": {
-    "format": "source-first-project/1",
-    "source_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\source-tree\\eduke32-master",
-    "compile_commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
-    "canonical_header_odr_owners": {
-      "__cxx_record_vec2_2150e186aab2ebda": "source/build/src/clip.cpp"
-    },
-    "selected_units": 7,
-    "attempted_units": 7,
-    "compiler_passes": 10,
-    "reused_empty_external_index_probes": [
-      "source/build/src/smmalloc_generic.cpp",
-      "source/build/src/crc32.cpp",
-      "source/build/src/baselayer.cpp",
-      "source/build/src/pragmas.cpp"
+  "original_console_frontier": {
+    "source": "source/build/src/osd.cpp",
+    "requested": [
+      "OSD_Init",
+      "OSD_RegisterCvar",
+      "OSD_RegisterFunction",
+      "OSD_Puts"
     ],
-    "reused_unaffected_external_index_probes": [
-      "source/build/src/smmalloc_generic.cpp",
-      "source/build/src/crc32.cpp",
-      "source/build/src/baselayer.cpp",
-      "source/build/src/pragmas.cpp"
+    "requested_resolved": {
+      "OSD_Init": false,
+      "OSD_RegisterCvar": false,
+      "OSD_RegisterFunction": false,
+      "OSD_Puts": false
+    },
+    "requested_still_unlinked": [
+      "OSD_Init",
+      "OSD_RegisterCvar",
+      "OSD_RegisterFunction",
+      "OSD_Puts"
     ],
-    "relowered_with_external_index": [
-      "source/build/src/compat.cpp",
-      "source/build/src/engine.cpp",
-      "source/build/src/clip.cpp"
-    ],
-    "source_definitions_emitted": 82,
-    "source_definitions_blocked": 7,
-    "linked_imports": 10,
-    "structured_goto_definitions_recognized": 0,
-    "structured_goto_edges_recognized": 0,
-    "invalid_imports": [],
-    "units": [
+    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\d26699f52cba\\source\\build\\src\\osd.cpp.manifest.json",
+    "blocked": [
       {
-        "source": "source/build/src/smmalloc_generic.cpp",
-        "emitted": 19,
-        "blocked": 1,
-        "imports": [],
-        "blocked_reasons": [
-          {
-            "name": "Header",
-            "reason": "class pointer/reference field requires ownership/alias lowering"
-          }
+        "name": "OSD_RegisterCvar",
+        "reason": "record pointer member requires original byte layout: osdmain_t",
+        "dependencies": []
+      },
+      {
+        "name": "OSD_Init",
+        "reason": "record pointer member requires original byte layout: osdmain_t",
+        "dependencies": []
+      },
+      {
+        "name": "OSD_Puts",
+        "reason": "record pointer member requires original byte layout: osdmain_t",
+        "dependencies": []
+      },
+      {
+        "name": "OSD_RegisterFunction",
+        "reason": "unlinked identifiers: OSD_Init, osd_addsymbol, osd_findexactsymbol",
+        "dependencies": [
+          "OSD_Init",
+          "osd_addsymbol",
+          "osd_findexactsymbol"
         ]
       },
       {
-        "source": "source/build/src/compat.cpp",
-        "emitted": 22,
-        "blocked": 1,
-        "imports": [
-          {
-            "name": "Alloc__cxx_static_e0036cfb06bcfe42",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "Create__cxx_static_b7202f8c9d4230a6",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "Destroy__cxx_static_777d0ae31c789182",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "Free__cxx_static_0dfd3f42f0dc2c05",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "Realloc__cxx_static_478d5da25b6b3923",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          }
-        ],
-        "blocked_reasons": [
-          {
-            "name": "<anonymous>",
-            "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
-          }
-        ]
+        "name": "osd_addsymbol",
+        "reason": "record pointer member requires original byte layout: osdmain_t",
+        "dependencies": []
       },
       {
-        "source": "source/build/src/engine.cpp",
-        "emitted": 21,
-        "blocked": 3,
-        "imports": [
-          {
-            "name": "Destroy__cxx_static_777d0ae31c789182",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "__cxx_record_vec2_2150e186aab2ebda",
-            "from": "source/build/src/clip.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "g_sm_heap",
-            "from": "source/build/src/compat.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2",
-            "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
-            "abi": "source-global-cell/2",
-            "original_type": "void *"
-          }
-        ],
-        "blocked_reasons": [
-          {
-            "name": "<anonymous>",
-            "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
-          },
-          {
-            "name": "<anonymous>",
-            "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
-          },
-          {
-            "name": "enginePreInit",
-            "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox"
-          }
-        ]
+        "name": "osd_findexactsymbol",
+        "reason": "record pointer member requires original byte layout: osdmain_t",
+        "dependencies": []
       },
       {
-        "source": "source/build/src/crc32.cpp",
-        "emitted": 2,
-        "blocked": 0,
-        "imports": [],
-        "blocked_reasons": []
+        "name": "AtomicLogString",
+        "reason": "C++ inheritance requires a source-level inheritance lowering pass",
+        "dependencies": []
       },
       {
-        "source": "source/build/src/clip.cpp",
-        "emitted": 13,
-        "blocked": 1,
-        "imports": [
-          {
-            "name": "Free__cxx_static_0dfd3f42f0dc2c05",
-            "from": "source/build/src/smmalloc_generic.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2"
-          },
-          {
-            "name": "g_sm_heap",
-            "from": "source/build/src/compat.cpp",
-            "native_pointer_abi": "source-lp64-addresses/2",
-            "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
-            "abi": "source-global-cell/2",
-            "original_type": "void *"
-          }
-        ],
-        "blocked_reasons": [
-          {
-            "name": "engineInitClipMaps",
-            "reason": "unlinked identifiers: numsectors, numwalls"
-          }
-        ]
-      },
-      {
-        "source": "source/build/src/baselayer.cpp",
-        "emitted": 1,
-        "blocked": 0,
-        "imports": [],
-        "blocked_reasons": []
-      },
-      {
-        "source": "source/build/src/pragmas.cpp",
-        "emitted": 4,
-        "blocked": 1,
-        "imports": [],
-        "blocked_reasons": [
-          {
-            "name": "initdivtables",
-            "reason": "unlinked identifiers: libdivide_s32_branchfree_gen, libdivide_s32_gen, libdivide_s64_branchfree_gen, libdivide_s64_gen"
-          }
-        ]
+        "name": "__cxx_record_CircularQueue_72e67824d02fa6e1",
+        "reason": "class pointer/reference field requires ownership/alias lowering",
+        "dependencies": []
       }
     ],
-    "generated_from": "Clang source AST",
-    "llvm_fallback": false,
-    "playable_game": false
+    "original_gameplay_verified": false
   },
-  "startup_component_warning": "Diagnostic seven-unit component only. Five direct missing names are not the full boot closure: candidate clip/division providers remain blocked too.",
+  "original_hash_frontier": {
+    "original_hash_initializers_linked": true,
+    "original_xxh32_parity_report": "reports/oct31-original-xxh32-parity.json",
+    "original_xxh32_native_node_chromium_cases": 272,
+    "original_libdivide_execution_records": 65532
+  },
+  "original_engine_preinit_frontier": {
+    "linked": false,
+    "executed": false,
+    "immediate_shared_blocker": "Original osdmain_t byte storage contains AtomicSList64/std::atomic; inheritance and queue lifetime lowering remain incomplete.",
+    "additional_dependencies": [
+      "original console registration and callbacks",
+      "original file access",
+      "logging",
+      "remaining engine services"
+    ]
+  },
+  "startup_component_build": {
+    "source_units_with_partial_modules": 22,
+    "selected_source_units": 111,
+    "compiler_frontend_sha256": "39038d0ab24764e644535081c5f9a01e44911ea0eb38c3e2a49cb323028580ed",
+    "whole_selected_program_compiled_under_current_revision": false,
+    "entry_exports": {
+      "enginePreInit": false,
+      "app_main": false
+    },
+    "execution_evidence_matches_modules": true,
+    "execution_report": "reports/oct30-original-browser-component.json",
+    "original_engine_startup_verified": false,
+    "manifest": "factory-output/source-first/browser-classic/component-manifest.json",
+    "invalid_import_count": 0,
+    "ambiguous_export_group_count": 56
+  },
+  "startup_component_warning": "22 partial unit modules are incremental artifacts, not a uniform 111-unit game build. Executed allocator/division/system/video calls do not execute original enginePreInit or app_main. Per-module fingerprints retain their individual compiler revisions.",
   "latest_header_prototype_regression": {
     "report": "reports/oct29-header-prototype-stable-regression.json",
     "complete": true,
@@ -533,24 +373,58 @@
     "gameplay_verified": false
   },
   "remaining_acceptance_failures": [
-    "Original console/hash/header/logging dependency closure",
-    "Current selected-unit emission and verified fixed-point global linkage",
+    "Original console C++ object storage/lifetime, registration, logging and file-access closure",
+    "Current uniform selected-unit emission and verified fixed-point global linkage",
     "Original app_main and enginePreInit execution",
-    "Complete SDL/browser-service integration",
+    "Original game-clock state and complete SDL/browser service integration",
     "Original rendered menu and E1L1",
-    "60-second gameplay, audio, collision and save/load verification",
-    "Verified standalone offline dist/index.html"
+    "60-second gameplay, audio, collision, interaction, progression and save/load verification",
+    "Verified standalone offline dist/index.html and reproducible one-command playable build"
   ],
   "resume_commands": [
     ". work/session-env.ps1",
+    "npm run status:component",
+    "npm run compile:component -- source/build/src/osd.cpp OSD_Init,OSD_RegisterCvar,OSD_RegisterFunction,OSD_Puts",
+    "npm run verify:engine-startup",
+    "python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json",
     "npm run compile:game"
   ],
   "subsystem_verification_commands": [
-    "python tools/build_browser_services.py",
-    "python tests/source_factory/verify_native_sdl_services.py",
-    "python work/verify_browser_allocator_chain.py"
+    "python tests/source_factory/verify_original_xxh32_component.py",
+    "npm run test:services",
+    "node --test tests/source_factory/source_heap_addresses.test.mjs tests/source_factory/source_ctype_functions.test.mjs tests/source_factory/source_sdl_spinlock.test.mjs",
+    "python work/package_current_continuation.py"
   ],
   "no_emulation_introduced": true,
   "original_game_or_build_engine_in_wasm": false,
-  "wasm_policy_note": "Latest user allows SDL2/platform/audio/timing/native utilities in WASM. Game, Build renderer, CON, game loop and asset/storage code remain readable JS."
+  "wasm_policy_note": "Latest user allows SDL2/platform/audio/timing/native utilities in WASM. Game, Build renderer, CON, game loop and asset/storage code remain readable JS.",
+  "boot_module_root": "factory-output/source-first/browser-classic/browser-modules",
+  "regression_baseline": {
+    "report": "reports/oct30-startup-verified-regression.json",
+    "passed": 186,
+    "complete": true,
+    "frozen_inputs": true,
+    "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
+  },
+  "latest_targeted_regression": {
+    "report": "reports/oct31-strict-memory-fixed-regression.json",
+    "passed": 8,
+    "complete": true,
+    "frozen_inputs": true
+  },
+  "source_header_definitions": {
+    "contract": "factory-output/browser-classic/compile_commands.header-definitions.json",
+    "witness": "factory-output/browser-classic/compile_commands.header-definitions.witness.json",
+    "audited_units": 111,
+    "uniquely_owned_external_c_header_functions": 237,
+    "ambiguous_groups_excluded": 10,
+    "prototype_observation_does_not_prove_definition": true
+  },
+  "known_correctness_gaps": [
+    "Nontrivial heap-backed C++ record views, source constructors/destructors, std::atomic class methods and inherited storage are not fully implemented.",
+    "The existing host timerInit initializes host service state but not original timer.cpp globals. It cannot verify original game-clock initialization; recover original timer initialization before gameplay.",
+    "Source SDL surface/event/audio callback adaptation is incomplete; the component currently uses the JS SDL adapter.",
+    "compile:game does not yet construct and verify a playable candidate from the incremental component.",
+    "The complete selected-unit emission and fixed-point link have not been repeated under the current compiler."
+  ]
 }

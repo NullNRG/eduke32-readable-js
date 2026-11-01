@@ -96,7 +96,9 @@ extern "C" int api_explicit(int n){
  int result=c.operator[](0)*3+c.operator[](1)*5;
  return result+v.operator()(11)+c.operator()(2,3);
 }
-extern "C" int api_template(int n){
+int late_template(int);
+extern "C" int api_template(int n){return late_template(n);}
+int late_template(int n){
  Tagged<const int *,SelectedMode> t(n);
  t.operator[](1)+=9;
  return t.operator[](0)+t.third+3*t.second+9*sizeof(t);
@@ -117,7 +119,8 @@ int main(){for(int n=-512;n<512;n++)printf("%d,%d\\n",api_explicit(n),api_templa
     assert row['status'] == 'source-first', row
     row = next(row for row in manifest['definitions'] if row['name'] == 'api_template')
     assert row['status'] == 'source-first', row
-    assert manifest['full_type_closure']['explicit_member_calls_rebound'] == 8
+    assert manifest['full_type_closure']['explicit_member_calls_rebound'] == 6
+    assert 'late_template' in manifest['dependency_closure']['additional_ast_filters']
     module = root / 'out/unit.cpp.mjs'
     runner = root / 'run.mjs'
     runner.write_text('import * as m from ' + json.dumps(module.as_uri()) + ';\n'

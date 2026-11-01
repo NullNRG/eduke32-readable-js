@@ -34,7 +34,8 @@ def main():
         replacing=matches[0];old_path=(target/replacing['module']).resolve()
         if old_path.parent!=original.parent or hashlib.sha256(old_path.read_bytes()).hexdigest()!=a.replace_fragment_sha256:
             raise ValueError('Existing fragment path/content no longer matches expected original provider')
-        pattern=r'export\s*\{\s*'+r'\s*,\s*'.join(re.escape(name) for name in replacing['exports'])+r'\s*\}\s*from\s*["\']\./'+re.escape(old_path.name)+r'["\'];'
+        previous_names=replacing.get('reexports',replacing['exports'])
+        pattern=r'export\s*\{\s*'+r'\s*,\s*'.join(re.escape(name) for name in previous_names)+r'\s*\}\s*from\s*["\']\./'+re.escape(old_path.name)+r'["\'];'
         occurrences=list(re.finditer(pattern,before.decode()))
         if len(occurrences)!=1:raise ValueError('Existing source fragment has no unique owner re-export')
         old_export=occurrences[0].group(0)
@@ -45,6 +46,18 @@ def main():
         if name in active and not replacing:raise ValueError('Original export already exists; no silent replacement '+name)
         if replacing and name not in active:raise ValueError('Expected original fragment is not active '+name)
         selected.append(rows[0])
+    # Newly recovered globals must expose their exact address-cell bindings
+    # through the owning facade too. Exporting just their values strands later
+    # source fragments or encourages a second copy of the same C++ storage.
+    storage_bindings=[]
+    for row in selected:
+        for key in ('global_storage','private_storage'):
+            binding=row.get(key,{}).get('binding')
+            if not binding:continue
+            if binding not in names:raise ValueError('Missing original storage binding '+binding)
+            if binding in active and not replacing:raise ValueError('Storage binding already owned '+binding)
+            if binding not in storage_bindings:storage_bindings.append(binding)
+    reexports=list(dict.fromkeys([*a.exports,*storage_bindings]))
     for dep in manifest['imports']:
         provider=target/(dep['from']+'.mjs');binding=dep.get('binding',dep['name'])
         if not provider.resolve().is_relative_to(target) or binding not in active_exports(provider):
@@ -62,7 +75,7 @@ def main():
     digest=hashlib.sha256(code.encode()).hexdigest()
     fragment=original.parent/('_source_legacy_'+original.stem.replace('.','_')+'_'+digest[:12]+'.mjs')
     if fragment.exists():raise ValueError('Fragment path already exists')
-    declaration='export { '+', '.join(a.exports)+' } from '+json.dumps('./'+fragment.name)+';'
+    declaration='export { '+', '.join(reexports)+' } from '+json.dumps('./'+fragment.name)+';'
     rendered=(before.decode().replace(old_export,declaration,1) if replacing else
         before.decode()+'\n// Original Clang-generated fragment; imports existing owner storage.\n'+declaration+'\n')
     backup=ROOT/'work/fragment-integration-backup'/hashlib.sha256(before).hexdigest()[:16]
@@ -77,13 +90,19 @@ def main():
         if original.read_bytes()!=before or owner_manifest.read_bytes()!=before_manifest:raise RuntimeError('Owner changed during integration')
         for row in selected:
             owner['definitions']=[d for d in owner['definitions'] if d['name']!=row['name']]+[row]
+        for key in ('storage_exports','private_storage_exports'):
+            recovered=[row for row in manifest.get(key,[]) if row.get('name') in a.exports]
+            for row in recovered:
+                previous=[item for item in owner.get(key,[]) if item.get('name')==row['name']]
+                if previous and previous!=[row]:raise ValueError('Conflicting original storage metadata '+row['name'])
+                owner[key]=[item for item in owner.get(key,[]) if item.get('name')!=row['name']]+[row]
         owner['found']=len(owner['definitions']);owner['emitted']=sum(d['status']=='source-first' for d in owner['definitions'])
         owner['blocked']=sum(d['status']=='blocked' for d in owner['definitions'])
         if replacing:
             owner.setdefault('superseded_module_fragments',[]).append(replacing)
             owner['module_fragments'].remove(replacing)
         owner.setdefault('module_fragments',[]).append({'module':fragment.relative_to(target).as_posix(),
-            'sha256':digest,'original_source':source,'exports':a.exports,'imports':manifest['imports'],
+            'sha256':digest,'original_source':source,'exports':a.exports,'reexports':reexports,'imports':manifest['imports'],
             'native_pointer_abi':manifest.get('native_pointer_abi'),
             'source_manifest_sha256':hashlib.sha256(a.manifest.read_bytes()).hexdigest()})
         original.write_bytes(rendered.encode('utf-8'));owner_manifest.write_text(json.dumps(owner,indent=2)+'\n')

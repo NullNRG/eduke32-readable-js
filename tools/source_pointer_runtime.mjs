@@ -1,9 +1,10 @@
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
+  if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
   if (source && source.__cPointer === true) {
-    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset);
+    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.__cAddressOnly?source.lower:source.offset);
     return source;
   }
   if(source?.__cReference===true&&source.value?.[Symbol.for('source-first.original-byte-record-storage/1')])
@@ -75,7 +76,7 @@ const cPointerElementRef = (source,index) => {
 };
 const cTypedPointer = (source, Type) => {
   if (!Type || !Number.isSafeInteger(Type.BYTES_PER_ELEMENT)) throw new TypeError('Unsupported pointer element type');
-  if (source===null) return null;
+  if (source===null||source===0||source===0n) return null;
   const pointerBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
   if(pointerBytes)return cPointer(pointerBytes);
   if (Array.isArray(source)) return { ...cPointer(source), upper:source.length*Type.BYTES_PER_ELEMENT, stride:Type.BYTES_PER_ELEMENT };
@@ -86,19 +87,20 @@ const cTypedPointer = (source, Type) => {
   }
   return pointer;
 };
-const cPointerOffset = (source, delta, stride=1) => {
+const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
   const initial=cPointer(source);
   const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
-  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || next<p.lower || next>p.upper)
+  const outside=next<p.lower||next>p.upper;
+  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || outside&&!addressOnly)
     throw new RangeError('C pointer escapes original array bounds');
   if(p.__cPointer===true&&p.__cReference===true){
     if(next===p.offset)return p;
     return {__cPointer:true,buffer:p.buffer,array:p.array,lower:p.lower,upper:p.upper,offset:next,
-      ...(p.array?{stride:p.stride}: {})};
+      ...(p.array?{stride:p.stride}: {}),...(outside?{__cAddressOnly:true}: {})};
   }
-  const result={...p,offset:next};
+  const result={...p,offset:next,__cAddressOnly:outside};
   return result;
 };
 const cDeref = (source, Type) => {
@@ -106,14 +108,14 @@ const cDeref = (source, Type) => {
       typeof source==='object' && 'value' in source) return source;
   const p=cPointer(source);
   if (p.array) {
-    if (p.offset>=p.upper) throw new RangeError('C array pointer dereferences one-past-end');
+    if (p.offset<p.lower||p.offset>=p.upper) throw new RangeError('C array pointer dereferences outside its original bounds');
     if (Type.BYTES_PER_ELEMENT!==p.stride || p.offset%p.stride!==0)
       throw new TypeError('Array element type does not match original pointer stride');
     const index=p.offset/p.stride;
     return {get value(){return p.buffer[index];}, set value(value){p.buffer[index]=value;}};
   }
   const width=Type?.BYTES_PER_ELEMENT;
-  if (!Number.isSafeInteger(width) || width<=0 || p.offset+width>p.upper)
+  if (!Number.isSafeInteger(width) || width<=0 || p.offset<p.lower || p.offset+width>p.upper)
     throw new RangeError('C typed pointer dereference out of bounds');
   const access=new Map([
     [Uint8Array,['getUint8','setUint8']], [Int8Array,['getInt8','setInt8']],
@@ -135,6 +137,8 @@ const cScalarStorage = (Type, initial) => {
     get value(){return reference.value;},set value(value){reference.value=value;}};
 };
 const cPointerCompare = (left,right,op) => {
+  if(left===0||left===0n)left=null;
+  if(right===0||right===0n)right=null;
   if (left?.__cDeferredReference===true) left=left.resolve();
   if (right?.__cDeferredReference===true) right=right.resolve();
   if(left?.__cReference===true&&left.__cPointer!==true&&left.value?.[Symbol.for('source-first.original-byte-record-storage/1')])left=left.value;

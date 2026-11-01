@@ -1,0 +1,230 @@
+{
+  "source": "source/build/src/crc32.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "crc32table"
+    ],
+    "additional_ast_roots": 2,
+    "rounds": 1
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\crc32.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 3,
+  "emitted": 3,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "crc32table",
+      "source_name": "crc32table",
+      "kind": "VarDecl",
+      "line": 73,
+      "original_type": "uint32_t[8][256]",
+      "linkage": "external",
+      "physical_source": "source/build/src/crc32.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "initcrc32table",
+      "source_name": "initcrc32table",
+      "kind": "FunctionDecl",
+      "line": 78,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/crc32.cpp",
+      "source_references": [
+        "crc32table"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Bcrc32",
+      "source_name": "Bcrc32",
+      "kind": "FunctionDecl",
+      "line": 6,
+      "original_type": "uint32_t (const void *, int, uint32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/crc32.cpp",
+      "source_references": [
+        "crc32table"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "crc32table"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "standard_heap_contract": {
+    "contract_sha256": "23dccd6e1d870b82edd82f5b5c5ed06b10957df9a519fce1a6199081c4e0fc5b",
+    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": false,
+    "records": 0,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "9455c4201ef30e72afb2d69c2015fa65433f83d6ab8db9aa82e971c607a14a6f",
+    "dependency_count": 262,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 1047,
+      "ranges_omitted": 361,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 408,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 435765,
+      "cache_hit": true,
+      "json_bytes": 435765,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 315713083,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    }
+  ],
+  "storage_exports": [],
+  "private_storage_exports": [],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_crc32_cpp_ed944f00483a.mjs",
+      "sha256": "ed944f00483a06f076dd76c2430f9134a9ac0abb460a6157dd387c2e8b7693c3",
+      "original_source": "source/build/src/crc32.cpp",
+      "exports": [
+        "Bcrc32"
+      ],
+      "reexports": [
+        "Bcrc32"
+      ],
+      "imports": [
+        {
+          "name": "crc32table",
+          "from": "source/build/src/crc32.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "9254ad95788c628bd0245200be3b1e12224ca2efb42e40667e49a4add26b0c83"
+    }
+  ]
+}

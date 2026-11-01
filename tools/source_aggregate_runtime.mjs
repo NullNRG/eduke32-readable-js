@@ -3,6 +3,9 @@
 // JS properties. This target's ABI has verified little-endian object storage.
 const cAggregateRecordTag = Symbol.for('source-first.original-record-storage/1');
 const cMarkAggregate = value => { Object.defineProperty(value,cAggregateRecordTag,{value:true}); return value; };
+// Evaluate source values in declaration order. Resolve only their verified
+// static address relocations after the neighboring storage bindings exist.
+const cStaticInitializerValues = values => () => values;
 // Independently generated ES modules must recognize the SAME original
 // provider-owned byte storage. Symbol metadata is non-enumerable and cannot
 // collide with original fields; schema equality remains mandatory for copy.
@@ -99,8 +102,19 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
     prototype=prototypes[schema.prototype]();
     if (!prototype || typeof prototype!=='object') throw new TypeError('Invalid original byte-record prototype');
   }
-  const result=cMarkAggregate(Object.create(prototype)), view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
-  cByteRecordStorage.set(result,{bytes,schema:JSON.stringify(schema),prototypes});
+  let pending=typeof values==='function'?values:null,initializing=false;
+  const initialize=()=>{
+    if(!pending||initializing)return;
+    initializing=true;
+    try{apply(pending());pending=null;}finally{initializing=false;}
+  };
+  const target=cMarkAggregate(Object.create(prototype));
+  const result=pending?new Proxy(target,{
+    get:(object,key,receiver)=>{if(key!==cByteRecordStorageTag&&key!==cAggregateRecordTag)initialize();return Reflect.get(object,key,receiver);},
+    set:(object,key,value,receiver)=>{initialize();return Reflect.set(object,key,value,receiver);}
+  }):target;
+  const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+  cByteRecordStorage.set(result,{get bytes(){initialize();return bytes;},schema:JSON.stringify(schema),prototypes});
   for (const [name,field] of Object.entries(schema.fields)) {
     if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name) ||
         ['__proto__','constructor','prototype'].includes(name) ||
@@ -158,7 +172,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
       }
     }
   }
-  for (const [name,value] of Object.entries(values)) {
+  function apply(initialValues){
+  for (const [name,value] of Object.entries(initialValues)) {
     const field=schema.fields[name];
     if (!field) throw new TypeError('Initializer is not a Clang record field');
     if(field.recordArray||field.pointerArray||field.nativeArray){
@@ -168,6 +183,12 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
         if(!source||source.length!==field.size||value[Symbol.for('source-first.byte-record-array-layout/1')]!==
             JSON.stringify({schema:field.recordArray,dims:field.dims}))throw new TypeError('Member record-array initializer differs from Clang schema');
         dest.set(source);
+      }else if(field.pointerArray){
+        const populate=(array,dims,items)=>{
+          if(!Array.isArray(items)||items.length>dims[0])throw RangeError('Pointer member initializer exceeds original extent');
+          for(let i=0;i<items.length;i++)if(dims.length===1)array[i]=items[i];else populate(array[i],dims.slice(1),items[i]);
+        };
+        populate(result[name],field.dims,value);
       }else cByteArrayMember(field,bytes.subarray(field.offset,field.offset+field.size),prototypes,value);
     } else if (field.byteRecord) {
       const source=cByteRecordStorage.get(value),dest=cByteRecordStorage.get(result[name]);
@@ -180,6 +201,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
       result[name].set(value);
     } else result[name]=value;
   }
+  }
+  if(!pending)apply(values);
   return result;
 };
 
@@ -193,11 +216,22 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       !Number.isSafeInteger(schema?.size) || schema.size < 1 ||
       schema.size > 1048576 || count * schema.size > 268435456)
     throw new RangeError('C record array exceeds proven bounded storage');
-  if(!Array.isArray(initializers)||initializers.length>count)throw new RangeError('C record initializer exceeds array extent');
+  if(typeof initializers!=='function'&&(!Array.isArray(initializers)||initializers.length>count))throw new RangeError('C record initializer exceeds array extent');
   const bytes = storage || new Uint8Array(count * schema.size);
   if(!(bytes instanceof Uint8Array)||bytes.length!==count*schema.size)
     throw new TypeError('C record array backing store differs from Clang extent');
   const records = new Array(count).fill(null), signature = JSON.stringify(schema);
+  let pending=typeof initializers==='function'?initializers:null,initializing=false;
+  const initialize=()=>{
+    if(!pending||initializing)return;
+    initializing=true;
+    try{
+      const values=pending();
+      if(!Array.isArray(values)||values.length>count)throw RangeError('C record initializer exceeds array extent');
+      for(let i=0;i<values.length;i++)result[i]=values[i];
+      pending=null;
+    }finally{initializing=false;}
+  };
   const indexOf = key => {
     if (typeof key !== 'string' || !/^(0|[1-9][0-9]*)$/.test(key)) return -1;
     const i = Number(key);
@@ -213,12 +247,14 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
   Object.defineProperty(records,Symbol.for('source-first.byte-record-array-prototypes/1'),{value:prototypes});
   const result=new Proxy(records, {
     get(target, key, receiver) {
+      initialize();
       if (key === cByteRecordArrayStorage) return bytes;
       const i = indexOf(key);
       if (i >= 0) return getRecord(i);
       return Reflect.get(target, key, receiver);
     },
     set(target, key, value) {
+      initialize();
       const i = indexOf(key);
       if (i < 0) throw new RangeError('C record array index outside original extent');
       const source = cByteRecordStorage.get(value);
@@ -228,7 +264,7 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       return true;
     }
   });
-  for(let i=0;i<initializers.length;i++)result[i]=initializers[i];
+  if(!pending)for(let i=0;i<initializers.length;i++)result[i]=initializers[i];
   return result;
 };
 
@@ -240,13 +276,25 @@ const cByteRecordNDArray = (schema,dims,prototypes={},initializers=[],storage=nu
       dims.reduce((a,b)=>a*b,1)*schema.size>268435456)
     throw new RangeError('Invalid Clang record array dimensions');
   if(dims.length===1)return cByteRecordArray(schema,dims[0],prototypes,initializers,storage);
-  if(!Array.isArray(initializers)||initializers.length>dims[0])throw new RangeError('C record row initializer exceeds extent');
+  if(typeof initializers!=='function'&&(!Array.isArray(initializers)||initializers.length>dims[0]))throw new RangeError('C record row initializer exceeds extent');
   const stride=dims.slice(1).reduce((a,b)=>a*b,1)*schema.size;
   const bytes=storage||new Uint8Array(dims[0]*stride);
   if(!(bytes instanceof Uint8Array)||bytes.length!==dims[0]*stride)throw new TypeError('Invalid record row storage');
+  let resolved=null;
+  const values=()=>{
+    if(resolved===null){
+      resolved=initializers();
+      if(!Array.isArray(resolved)||resolved.length>dims[0])throw RangeError('C record row initializer exceeds extent');
+    }
+    return resolved;
+  };
   const rows=Array.from({length:dims[0]},(_,i)=>cByteRecordNDArray(schema,dims.slice(1),prototypes,
-    initializers[i]||[],bytes.subarray(i*stride,(i+1)*stride)));
-  Object.defineProperty(rows,cByteRecordArrayStorage,{value:bytes});
+    typeof initializers==='function'?()=>values()[i]||[]:initializers[i]||[],bytes.subarray(i*stride,(i+1)*stride)));
+  let resolving=false;
+  Object.defineProperty(rows,cByteRecordArrayStorage,{get(){
+    if(!resolving){resolving=true;try{for(const row of rows)row[cByteRecordArrayStorage];}finally{resolving=false;}}
+    return bytes;
+  }});
   Object.defineProperty(rows,Symbol.for('source-first.byte-record-array-layout/1'),{value:JSON.stringify({schema,dims})});
   Object.defineProperty(rows,Symbol.for('source-first.byte-record-array-prototypes/1'),{value:prototypes});
   return rows;
@@ -296,7 +344,7 @@ const cRecordPointerViews = (()=>{
   Object.defineProperty(globalThis,key,{value:api});return api;
 })();
 const cRecordPointer = (source,schema,prototypes={}) => {
-  if(source===null)return null;
+  if(source===null||source===0||source===0n)return null;
   if(source?.__cDeferredPointer||source?.__cDeferredReference)return cRecordPointer(source.resolve(),schema,prototypes);
   if(source?.__cReference&&source.__cPointer!==true)return cRecordPointer(source.value,schema,prototypes);
   const owner=source?.[Symbol.for('source-first.record-field-owner/1')],owned=owner&&cByteRecordStorage.get(owner);
@@ -304,6 +352,22 @@ const cRecordPointer = (source,schema,prototypes={}) => {
     return cRecordPointer(owner,schema,prototypes);
   const bytes=cByteRecordStorage.get(source)?.bytes||source?.[cByteRecordArrayStorage];
   const pointer=cPointer(bytes||source);
+  // Source arrays can retain object slots instead of a serialized POD layout.
+  // Keep that original owner and stride; do not reinterpret those slots as
+  // heap bytes or detach their fields by constructing a new record view.
+  if(pointer.array){
+    const owned=Array.isArray(source)
+      ? {...pointer,upper:source.length*schema.size,stride:schema.size} : pointer;
+    if(owned.stride!==schema.size || owned.lower%owned.stride || owned.offset%owned.stride ||
+        owned.upper%owned.stride || !Array.isArray(owned.buffer))
+      throw new TypeError('Record pointer differs from original object-array stride');
+    if(owned.offset<owned.lower || owned.offset>=owned.upper)
+      throw new RangeError('Record pointer dereferences outside original object slots');
+    const value=owned.buffer[owned.offset/owned.stride];
+    if(value===null || typeof value!=='object' || ArrayBuffer.isView(value))
+      throw new TypeError('Record pointer requires original record object slots');
+    return owned;
+  }
   if(pointer.array||!Number.isSafeInteger(schema?.size)||schema.size<1||
       !Number.isSafeInteger(schema.align)||schema.align<1||pointer.offset%schema.align)
     throw new TypeError('Record pointer requires aligned Clang-proven original bytes');

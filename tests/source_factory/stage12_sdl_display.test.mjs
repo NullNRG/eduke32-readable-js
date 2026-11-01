@@ -1,5 +1,19 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {ABIHeap} from '../../runtime/abi.mjs';import {createSDLBrowser} from '../../runtime/sdl_browser.mjs';
+test('SDL display modes write through original source references and bounded LP64 byte views',()=>{
+ const heap=new ABIHeap(),canvas={width:640,height:480,getContext:()=>null,ownerDocument:{defaultView:{}}};
+ const s=createSDLBrowser({heap,canvas}).symbols;assert.equal(s.SDL_Init(0x20),0);
+ const mode={format:0,w:0,h:0,refresh_rate:0,driverdata:null};
+ const ref={__cReference:true,get value(){return mode;},set value(_v){throw Error('must preserve original record identity');}};
+ assert.equal(s.SDL_GetDisplayMode(0,0,ref),0);
+ assert.deepEqual(mode,{format:0x16762004,w:640,h:480,refresh_rate:0,driverdata:null});
+ const bytes=new Uint8Array(32).fill(0x7f),pointer={__cPointer:true,buffer:bytes.buffer,offset:8,lower:8,upper:32,array:false};
+ assert.equal(s.SDL_GetDesktopDisplayMode(0,pointer),0);
+ assert.equal(new DataView(bytes.buffer).getInt32(12,true),640);
+ assert.deepEqual([...bytes.subarray(0,8)],Array(8).fill(0x7f));
+ assert.equal(new DataView(bytes.buffer).getBigUint64(24,true),0n);
+ assert.throws(()=>s.SDL_GetDisplayMode(0,0,bytes.subarray(16)),/storage/);s.SDL_Quit();
+});
 test('SDL gamma ramp matches original Uint16 ABI and changes actual displayed RGB pixels',()=>{
  const heap=new ABIHeap(),captures=[];
  const gc={createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),putImageData:(frame)=>captures.push(frame.data.slice())};

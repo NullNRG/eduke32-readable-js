@@ -69,6 +69,7 @@ def emitted_owners(folder):
 def runtime_module(names):
     # Constructor source is actual existing runtime, not a synthesized service.
     content='''// Auto-generated from NativeRuntime's real, tested C ABI table.
+import {bindLoguruHeap} from './loguru_provider.mjs';
 let active=null;
 export const BROWSER_C_SYMBOLS=Object.freeze(LIST);
 export function bindBrowserC(runtime) {
@@ -77,9 +78,10 @@ export function bindBrowserC(runtime) {
   if (!symbols) throw new TypeError('NativeRuntime C services required');
   for (const name of BROWSER_C_SYMBOLS) if (typeof symbols[name]!=='function')
     throw new Error('Missing implemented browser C function: '+name);
+  const releaseLoguru=bindLoguruHeap(runtime.heap);
   active={symbols,heap:runtime.heap};
   let detached=false;
-  return ()=>{if (!detached){detached=true;if (active?.symbols===symbols)active=null;}};
+  return ()=>{if (!detached){detached=true;releaseLoguru();if (active?.symbols===symbols)active=null;}};
 }
 // C literals and stack arrays emitted by Clang are Uint8Array, while POSIX
 // routines use numeric pointers into the project's explicit C ABI heap.
@@ -204,9 +206,9 @@ def startup_graph(snapshot, index, entry='app_main'):
             'blockers_sample':details[:120],
             'note':'Static source references from historical manifests; graph reachability does not establish successful import linkage.'}
 
-def build(snapshot,out,report_path):
+def build(snapshot,out,report_path,entry_source='source/duke3d/src/game.cpp',entry_name='app_main'):
     out.mkdir(parents=True,exist_ok=True)
-    sdl_report=ROOT/'reports/browser-target/abi-provider.json'
+    sdl_report=report_path.parent/'abi-provider.json'
     sd=build_sdl(out,sdl_report)
     c=libc_symbols()
     file=out/(OWNER+'.mjs');file.parent.mkdir(parents=True,exist_ok=True)
@@ -246,11 +248,19 @@ def build(snapshot,out,report_path):
     # Keep its exact four signed generator implementations in one browser-native
     # service module. They are validated against the bundled C++ header over the
     # entire DIVTABLESIZE range; never manufacture missing engine providers.
-    math_names=('libdivide_s32_gen','libdivide_s32_branchfree_gen',
+    math_names=('libdivide_u32_gen','libdivide_u32_branchfree_gen','libdivide_s32_gen','libdivide_s32_branchfree_gen',
                 'libdivide_s64_gen','libdivide_s64_branchfree_gen')
     math_source=ROOT/'runtime/libdivide_abi.mjs'
     math_target=out/'browser-abi/libdivide_provider.mjs'
     if not math_source.is_file():raise FileNotFoundError(math_source)
+    unsigned_parity=json.loads((ROOT/'reports/oct30-unsigned-libdivide-parity.json').read_text())
+    original_header=ROOT/'factory-output/source-tree/eduke32-master/source/build/include/libdivide.h'
+    if (not unsigned_parity.get('passed')
+        or unsigned_parity.get('module_sha256')!=hashlib.sha256(math_source.read_bytes()).hexdigest()
+        or unsigned_parity.get('header_sha256')!=hashlib.sha256(original_header.read_bytes()).hexdigest()
+        or unsigned_parity.get('native_node_records',0)<32875
+        or unsigned_parity.get('native_node_records')!=unsigned_parity.get('native_chromium_records')):
+        raise RuntimeError('Unsigned libdivide source/parity evidence differs; rerun native/browser verification')
     math_target.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(math_source,math_target)
     for symbol in math_names:
@@ -312,6 +322,7 @@ def build(snapshot,out,report_path):
     shutil.copyfile(logger_source,logger_target)
     # The logger consumes actual source byte pointers through this shared helper.
     shutil.copyfile(ROOT/'runtime/source_bytes.mjs',out/'browser-abi/source_bytes.mjs')
+    shutil.copyfile(ROOT/'runtime/c_printf.mjs',out/'browser-abi/c_printf.mjs')
     if not re.search(r'^export function loguru_log\(',logger_target.read_text(),re.M):
         raise RuntimeError('No concrete browser Loguru implementation')
     host['loguru_log']='browser-abi/loguru_provider'
@@ -321,14 +332,27 @@ def build(snapshot,out,report_path):
     index=dict(source);index.update(host)
     path=out/'browser-combined-symbol-owners.json'
     path.write_text(json.dumps(index,sort_keys=True,indent=2)+'\n')
+    # Fragment installation checks the engine-side pointer ABI on host imports
+    # too. These are executable runtime adapters, never Clang game definitions.
+    for owner in sorted(set(host.values())):
+        module=out/(owner+'.mjs')
+        exports=sorted(name for name,provider in host.items() if provider==owner)
+        if not set(exports)<=active_exports(module):raise RuntimeError('Missing host export '+owner)
+        module.with_suffix('.manifest.json').write_text(json.dumps({
+            'format':'browser-host-provider/1','source':None,
+            'native_pointer_abi':'source-lp64-addresses/2','exports':exports,'definitions':[],
+            'module_sha256':hashlib.sha256(module.read_bytes()).hexdigest(),
+            'original_game_or_build_engine_implementation':False,
+            'role':'verified-runtime-library-adapter','gameplay_verified':False},indent=2)+'\n')
     # Compiler forbids claiming symbols owned by the same translation unit.
     for source_unit in ['source/audiolib/src/driver_sdl.cpp']:
         local=out/('symbols-'+source_unit.replace('/','_')+'.json')
         local.write_text(json.dumps({name:owner for name,owner in index.items() if owner!=source_unit},sort_keys=True,indent=2)+'\n')
-    entry=json.loads((snapshot/'source/duke3d/src/game.cpp.manifest.json').read_text())
-    main=next(d for d in entry['definitions'] if d.get('name')=='app_main')
+    entry=json.loads((snapshot/(entry_source+'.manifest.json')).read_text())
+    main=next(d for d in entry['definitions'] if d.get('name')==entry_name)
     refs=set(main.get('unresolved_references',[]))
     result={'format':'eduke32-browser-source-closure/1','manifest_snapshot':str(snapshot),
+        'entry_source':entry_source,'entry_name':entry_name,
         'browser_libc_symbols':len(c),'browser_sdl_symbols':len(sdl),
         'source_emitted_verified_owners':len(source),'ambiguous_original_owners':len(ambiguous),
         'browser_override_existing_emitted':overlap,
@@ -339,7 +363,7 @@ def build(snapshot,out,report_path):
         'app_main_direct_still_unprovided':sorted(refs-index.keys()),
         'app_main_source_emitted':False,'original_gameplay_verified':False,
         'symbols_index':str(path.relative_to(ROOT)),
-        'transitive_startup_dependency_audit':startup_graph(snapshot,index),
+        'transitive_startup_dependency_audit':startup_graph(snapshot,index,entry_name),
         'warnings':['Untranslated game symbols remain blocked','Source snapshot may not reflect newest compiler','Passing source ownership does not prove a fully executable transitive dependency graph']}
     report_path.parent.mkdir(parents=True,exist_ok=True)
     report_path.write_text(json.dumps(result,indent=2)+'\n')
@@ -348,8 +372,10 @@ def build(snapshot,out,report_path):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--snapshot',type=Path,default=ROOT/'factory-output/source-first/force-recovered')
+    p.add_argument('--entry-source',default='source/duke3d/src/game.cpp')
+    p.add_argument('--entry',default='app_main')
     p.add_argument('--out',type=Path,default=ROOT/'factory-output/source-first/browser-target')
     p.add_argument('--report',type=Path,default=ROOT/'reports/browser-target/combined-closure.json')
-    a=p.parse_args();r=build(a.snapshot.resolve(),a.out.resolve(),a.report.resolve())
+    a=p.parse_args();r=build(a.snapshot.resolve(),a.out.resolve(),a.report.resolve(),a.entry_source,a.entry)
     print(json.dumps({k:r[k] if k!='app_main_direct_with_verified_providers' else len(r[k]) for k in ['browser_libc_symbols','browser_sdl_symbols','source_emitted_verified_owners','combined_provider_count','app_main_direct_with_verified_providers']},indent=2))
 if __name__=='__main__':main()

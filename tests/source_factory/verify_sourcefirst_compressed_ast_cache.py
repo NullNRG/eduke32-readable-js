@@ -50,3 +50,23 @@ with tempfile.TemporaryDirectory(prefix='compressed-ast-') as temporary:
         assert decoded==[tree] and not full['cache_retained']
         assert full['cache_retention_reason']=='cache-write-error'
 print('PASS: lossless compressed AST, raw-byte identity, cache hit without frontend, stored-byte budget, full decode on overflow/disk failure')
+
+with tempfile.TemporaryDirectory(prefix='stream-capture-') as temporary:
+    root=Path(temporary)
+    producer=root/'emit.py';producer.write_text('import json;print(json.dumps({"kind":"StringLiteral","value":"x"*2097152}))')
+    with patch.dict(os.environ,{'EDUKE32_AST_CAPTURE_GZIP':'1','EDUKE32_AST_CACHE_MAX_BYTES':'32768'}):
+        cache=root/('b'*64+'.json')
+        decoded,stats=run_clang_ast([sys.executable,str(producer)],cwd=root,cache_path=cache)
+        assert decoded==[{'kind':'StringLiteral','value':'x'*2097152}],stats
+        assert stats['capture_storage']=='streamed-gzip' and stats['capture_stored_bytes']<32768
+        assert stats['json_bytes']>2097152 and stats['cache_retained'],stats
+        cached,hit=run_clang_ast(['__must_not_execute__'],cwd=root,cache_path=cache)
+        assert cached==decoded and hit['cache_hit']
+        try:run_clang_ast([sys.executable,'-c','print("{}");raise SystemExit(3)'],cwd=root)
+        except RuntimeError:pass
+        else:raise AssertionError('Nonzero Clang status accepted')
+        import subprocess
+        try:run_clang_ast([sys.executable,'-c','import time;time.sleep(10)'],cwd=root,timeout=.2)
+        except subprocess.TimeoutExpired:pass
+        else:raise AssertionError('Compressed compiler capture ignored timeout')
+print('PASS: cache miss streams through bounded gzip, full JSON retained, native failures and timeout rejected')

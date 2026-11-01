@@ -1,4 +1,8 @@
 import { ABIHeap } from './abi.mjs';
+// Initialize the authoritative ABI before legacy and incremental source
+// modules load their embedded compatibility copies. Every module shares the
+// same real address regions and allocation bounds in this browser isolate.
+import { sourceAddressSpace } from '../tools/source_address_runtime.mjs';
 
 /** Bind browser services and compiled C allocation to the same byte heap.
  * Call before importing compiled modules with dynamic/global initialization.

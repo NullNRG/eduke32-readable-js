@@ -14,8 +14,17 @@ test('Loguru browser provider renders original printf arguments and source prove
 });
 test('Loguru rejects mismatched C formats and nonterminated strings',()=>{
   assert.throws(()=>loguru_log(0,cstr('f'),2,cstr('%s'),Uint8Array.of(65)),/Unterminated/);
-  assert.throws(()=>loguru_log(0,cstr('f'),2,cstr('%n'),15),/Unsupported|Extra/);
+  assert.throws(()=>loguru_log(0,cstr('f'),2,cstr('%Q'),15),/Unsupported/);
   assert.throws(()=>loguru_log(0,cstr('f'),2,cstr('%s')),/Missing/);
+});
+
+test('Loguru retains LP64 integers, dynamic widths and percent signs inside strings',()=>{
+  const lines=[];const original=console.info;
+  try {
+    console.info=text=>lines.push(text);
+    loguru_log(0,cstr('unit.cpp'),7,cstr('%llu %ld [%*.*s] %s'),18446744073709551615n,-9223372036854775808n,6,3,cstr('abcdef'),cstr('100% done %s'));
+  } finally {console.info=original;}
+  assert.deepEqual(lines,['unit.cpp:7 18446744073709551615 -9223372036854775808 [   abc] 100% done %s']);
 });
 test('native math log remains numerically distinct from C++ Loguru logging',()=>{
   const rt=new NativeRuntime();

@@ -265,16 +265,35 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if isinstance(value,list):return [declaration_shape(item) for item in value]
         return value
 
+    # Reconcile named clones only through the original name token and exact
+    # declaration location, followed by the complete semantic-shape check.
+    # Omitted repeated filenames require a positively proven occurrence of
+    # that very declaration; similar fields alone never establish identity.
+    named_origins={};raw_contents={}
+    if source:
+        for identity,record in records.items():
+            name=record.get('_source_template_name') or record.get('name')
+            loc=record.get('loc',{});offset=loc.get('offset');filename=loc.get('file')
+            if not name or not isinstance(offset,int) or not filename:continue
+            path=Path(filename);path=(path if path.is_absolute() else source/path).resolve()
+            if not path.is_relative_to(source) or not path.is_file():continue
+            if path not in raw_contents:raw_contents[path]=path.read_bytes()
+            if raw_contents[path][offset:offset+len(name)]!=name.encode():continue
+            proof=(path,offset,record.get('tagUsed'));physical_proofs[identity]=proof
+            named_origins.setdefault((name,offset,record.get('tagUsed')),set()).add(proof)
+        for identity,record in records.items():
+            if identity in physical_proofs:continue
+            name=record.get('_source_template_name') or record.get('name')
+            origins=named_origins.get((name,record.get('loc',{}).get('offset'),record.get('tagUsed')),set())
+            if len(origins)==1:physical_proofs[identity]=next(iter(origins))
     unique = {}
     for name,ids in names.items():
         ordered=sorted(ids)
         if len(ordered)==1:
             unique[name]=ordered[0];continue
-        # Only anonymous tags with a source-byte-verified physical layout can
-        # be reconciled here. An ambiguous tag in another header, an unknown
-        # location, or a changed declaration remains unresolved.
-        if (all(not records[identity].get('name') for identity in ordered)
-                and all(identity in physical_proofs for identity in ordered)
+        # A different physical declaration, an unknown location, or changed
+        # semantic shape remains ambiguous, including across namespaces.
+        if (all(identity in physical_proofs for identity in ordered)
                 and len({physical_proofs[identity] for identity in ordered})==1
                 and all(declaration_shape(records[identity])==declaration_shape(records[ordered[0]])
                         for identity in ordered[1:])):

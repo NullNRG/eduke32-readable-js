@@ -1,0 +1,1732 @@
+{
+  "source": "source/build/src/engine.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "baselayer_init",
+      "engineDestroyAllocator",
+      "initcrc16",
+      "initprintf",
+      "initsystem",
+      "preinitcalled",
+      "sector",
+      "sector_s",
+      "sprite",
+      "sprite_s",
+      "spriteext",
+      "spriteext_s",
+      "crctab16",
+      "spritesmooth",
+      "spritesmooth_s",
+      "tsprite",
+      "tsprite_s",
+      "upscalefactor",
+      "validmodecnt",
+      "videoGetModes",
+      "wall",
+      "wall_s",
+      "wallext",
+      "wallext_s",
+      "wm_msgbox"
+    ],
+    "additional_ast_roots": 30,
+    "rounds": 4
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [
+      "sectortype",
+      "spriteext_t",
+      "spritesmooth_t",
+      "spritetype",
+      "tspritetype"
+    ],
+    "proven": [
+      "sectortype",
+      "spritesmooth_t"
+    ],
+    "rejected": {
+      "spriteext_t": "no unambiguous trivial POD/byte record declaration",
+      "spritetype": "no unambiguous trivial POD/byte record declaration",
+      "tspritetype": "no unambiguous trivial POD/byte record declaration"
+    }
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\engine.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 38,
+  "emitted": 35,
+  "blocked": 3,
+  "definitions": [
+    {
+      "name": "__cxx_record_vec2_8ca824f0ac397ec5",
+      "source_name": "vec2<short>",
+      "kind": "CXXRecordDecl",
+      "line": null,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/vec.h",
+        "source_offset": 116,
+        "enclosing_record": "vec2<short>",
+        "type": "vec2<short>",
+        "semantic_sha256": "0fc2ecf24391b123c5c97e89cb06a290402d387f798c84c795b328ac66523233",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "leaf_prototype": {
+          "format": "source-leaf-record-prototype/1",
+          "storage_and_declarations_sha256": "2a40edecb07c5f649497a782576bb3abf115589310733109a56319e170d735a5",
+          "method_bodies": {
+            "[232,\"operator!=\",\"bool (const vec2<short>)\"]": "ae3b9a21781c770c171a5c5213b6eb6b9a04f379d50e568780aa175f34386a20"
+          }
+        }
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/vec.h",
+      "source_references": [
+        "__cxx_record_vec2_8ca824f0ac397ec5"
+      ],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "<anonymous>",
+      "source_name": "<anonymous>",
+      "kind": "CXXRecordDecl",
+      "line": 113,
+      "original_type": "",
+      "linkage": "external",
+      "source_references": [],
+      "status": "blocked",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+    },
+    {
+      "name": "upscalefactor",
+      "source_name": "upscalefactor",
+      "kind": "VarDecl",
+      "line": 761,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21981,
+        "source_line": 761,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1f2a1bc6850",
+        "redeclaration_chain": [
+          "0x1f2a1bc6850"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "validmodecnt",
+      "source_name": "validmodecnt",
+      "kind": "VarDecl",
+      "line": 774,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 22258,
+        "source_line": 774,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1914a7f7dc8",
+        "redeclaration_chain": [
+          "0x1914a7f7dc8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_959ecb0f89b58217d69a30a7",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "initcrc16",
+      "source_name": "initcrc16",
+      "kind": "FunctionDecl",
+      "line": 286,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "crctab16"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineDestroyAllocator",
+      "source_name": "engineDestroyAllocator",
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "<anonymous>",
+      "source_name": "<anonymous>",
+      "kind": "CXXRecordDecl",
+      "line": 1534,
+      "original_type": "",
+      "linkage": "external",
+      "source_references": [],
+      "status": "blocked",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers"
+    },
+    {
+      "name": "preinitcalled",
+      "source_name": "preinitcalled",
+      "kind": "VarDecl",
+      "line": 9149,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_5127bf7d54074c32ac833da9",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "spriteext_s",
+      "source_name": "spriteext_s",
+      "kind": "VarDecl",
+      "line": 9152,
+      "original_type": "spriteext_t[16640]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "spriteext_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 64,
+        "dimensions": [
+          16640
+        ],
+        "schema_sha256": "c3ac4e177388548530dcb0412db3b7a746ab51fc7b2def4546de1d9bdedc51eb",
+        "original_type": "spriteext_t[16640]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "spritesmooth_s",
+      "source_name": "spritesmooth_s",
+      "kind": "VarDecl",
+      "line": 9153,
+      "original_type": "spritesmooth_t[16640]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "spritesmooth_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 10,
+        "dimensions": [
+          16640
+        ],
+        "schema_sha256": "818ae142caff084e95ae01d6d828f07b25e7da846f5b6800d651460e6ef6c642",
+        "original_type": "spritesmooth_t[16640]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "sector_s",
+      "source_name": "sector_s",
+      "kind": "VarDecl",
+      "line": 9154,
+      "original_type": "sectortype[4098]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "sector_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 40,
+        "dimensions": [
+          4098
+        ],
+        "schema_sha256": "5915ee0619c607321386fc9c28d9ca82dcebd55e28eef43a69244e98b8ebae92",
+        "original_type": "sectortype[4098]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wall_s",
+      "source_name": "wall_s",
+      "kind": "VarDecl",
+      "line": 9155,
+      "original_type": "walltype[16896]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "wall_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 32,
+        "dimensions": [
+          16896
+        ],
+        "schema_sha256": "c7fbf0084447f2b93b6b965337f8cbbbf9e1b9a5e0319292cb151c9df7b63d54",
+        "original_type": "walltype[16896]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "wallext_s",
+      "source_name": "wallext_s",
+      "kind": "VarDecl",
+      "line": 9157,
+      "original_type": "wallext_t[16384]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "wallext_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 1,
+        "dimensions": [
+          16384
+        ],
+        "schema_sha256": "27420cb3a06033626090ce39c428d84c7e2e1f6bcdfd77f6f618801ea64bcbd5",
+        "original_type": "wallext_t[16384]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "sprite_s",
+      "source_name": "sprite_s",
+      "kind": "VarDecl",
+      "line": 9159,
+      "original_type": "spritetype[16384]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "__cxx_record_vec2_8ca824f0ac397ec5"
+      ],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "sprite_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 44,
+        "dimensions": [
+          16384
+        ],
+        "schema_sha256": "9c505f1a849d4301423b852b783054d0f4f5a986715847a047719f0bb7e8e7d0",
+        "original_type": "spritetype[16384]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tsprite_s",
+      "source_name": "tsprite_s",
+      "kind": "VarDecl",
+      "line": 9160,
+      "original_type": "tspritetype[4096]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "__cxx_record_vec2_8ca824f0ac397ec5"
+      ],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "tsprite_s",
+        "abi": "source-byte-record-array/1",
+        "stride": 44,
+        "dimensions": [
+          4096
+        ],
+        "schema_sha256": "9c505f1a849d4301423b852b783054d0f4f5a986715847a047719f0bb7e8e7d0",
+        "original_type": "tspritetype[4096]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "enginePreInit",
+      "source_name": "enginePreInit",
+      "kind": "FunctionDecl",
+      "line": 9163,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "baselayer_init",
+        "engineDestroyAllocator",
+        "engineInitClipMaps",
+        "initcrc16",
+        "initcrc32table",
+        "initdivtables",
+        "initprintf",
+        "initsystem",
+        "makeasmwriteable",
+        "preinitcalled",
+        "sector",
+        "sector_s",
+        "sprite",
+        "sprite_s",
+        "spriteext",
+        "spriteext_s",
+        "spritesmooth",
+        "spritesmooth_s",
+        "tsprite",
+        "tsprite_s",
+        "upscalefactor",
+        "validmodecnt",
+        "videoGetModes",
+        "wall",
+        "wall_s",
+        "wallext",
+        "wallext_s",
+        "wm_msgbox"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox",
+      "unresolved_references": [
+        "baselayer_init",
+        "initprintf",
+        "initsystem",
+        "videoGetModes",
+        "wm_msgbox"
+      ]
+    },
+    {
+      "name": "sector",
+      "source_name": "sector",
+      "kind": "VarDecl",
+      "line": 619,
+      "original_type": "sectortype *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 17958,
+        "source_line": 619,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x24c6dfc4000",
+        "redeclaration_chain": [
+          "0x24c6dfc4000"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+        "abi": "source-global-cell/2",
+        "original_type": "sectortype *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "sprite",
+      "source_name": "sprite",
+      "kind": "VarDecl",
+      "line": 621,
+      "original_type": "spritetype *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 18008,
+        "source_line": 621,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x228220791e0",
+        "redeclaration_chain": [
+          "0x228220791e0"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+        "abi": "source-global-cell/2",
+        "original_type": "spritetype *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "spriteext",
+      "source_name": "spriteext",
+      "kind": "VarDecl",
+      "line": 613,
+      "original_type": "spriteext_t *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 17831,
+        "source_line": 613,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x256d4fc8cf0",
+        "redeclaration_chain": [
+          "0x256d4fc8cf0"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+        "abi": "source-global-cell/2",
+        "original_type": "spriteext_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "crctab16",
+      "source_name": "crctab16",
+      "kind": "VarDecl",
+      "line": 1102,
+      "original_type": "int32_t[256]",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 31618,
+        "source_line": 1102,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1141a7012f8",
+        "redeclaration_chain": [
+          "0x1141a7012f8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "spritesmooth",
+      "source_name": "spritesmooth",
+      "kind": "VarDecl",
+      "line": 614,
+      "original_type": "spritesmooth_t *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 17865,
+        "source_line": 614,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x23f5a2e5110",
+        "redeclaration_chain": [
+          "0x23f5a2e5110"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_2487f0a2e0979a5d48ff1cd7",
+        "abi": "source-global-cell/2",
+        "original_type": "spritesmooth_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tsprite",
+      "source_name": "tsprite",
+      "kind": "VarDecl",
+      "line": 622,
+      "original_type": "tspritetype *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 18036,
+        "source_line": 622,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x222c9dca260",
+        "redeclaration_chain": [
+          "0x222c9dca260"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4f8c0a98fe113810db905f6a",
+        "abi": "source-global-cell/2",
+        "original_type": "tspritetype *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wall",
+      "source_name": "wall",
+      "kind": "VarDecl",
+      "line": 620,
+      "original_type": "walltype *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 17983,
+        "source_line": 620,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x229b00e4100",
+        "redeclaration_chain": [
+          "0x229b00e4100"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+        "abi": "source-global-cell/2",
+        "original_type": "walltype *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wallext",
+      "source_name": "wallext",
+      "kind": "VarDecl",
+      "line": 616,
+      "original_type": "wallext_t *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 17921,
+        "source_line": 616,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1d65c16f220",
+        "redeclaration_chain": [
+          "0x1d65c16f220"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+        "abi": "source-global-cell/2",
+        "original_type": "wallext_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "apptitle",
+      "source_name": "apptitle",
+      "kind": "VarDecl",
+      "line": 1602,
+      "original_type": "char[256]",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "numsectors",
+      "source_name": "numsectors",
+      "kind": "VarDecl",
+      "line": 798,
+      "original_type": "short",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 23037,
+        "source_line": 798,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x181c94b4dd0",
+        "redeclaration_chain": [
+          "0x181c94b4dd0"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+        "abi": "source-global-cell/2",
+        "original_type": "short"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "numwalls",
+      "source_name": "numwalls",
+      "kind": "VarDecl",
+      "line": 798,
+      "original_type": "short",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 23049,
+        "source_line": 798,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x25526a9de60",
+        "redeclaration_chain": [
+          "0x25526a9de60"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
+        "abi": "source-global-cell/2",
+        "original_type": "short"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "r_displayindex",
+      "source_name": "r_displayindex",
+      "kind": "VarDecl",
+      "line": 134,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_a69b3d47547d48eac82bcf95",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "validmode",
+      "source_name": "validmode",
+      "kind": "VarDecl",
+      "line": 782,
+      "original_type": "struct validmode_t[256]",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 22457,
+        "source_line": 782,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1e7f7c680f8",
+        "redeclaration_chain": [
+          "0x1e7f7c680f8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "call",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "validmode",
+        "abi": "source-byte-record-array/1",
+        "stride": 16,
+        "dimensions": [
+          256
+        ],
+        "schema_sha256": "25fe317ed74831260dee414468917d87f8f6ced31de4f88725bac5ca38eddf8d",
+        "original_type": "struct validmode_t[256]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_712730224f5e2862",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x221a8c076e8",
+        "redeclaration_chain": [
+          "0x221a8c076e8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_3dbbd23dc4df226e70c52d7b",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "qsetmode",
+      "source_name": "qsetmode",
+      "kind": "VarDecl",
+      "line": 1528,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_6fba320e7d23de23519fe332",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xdim",
+      "source_name": "xdim",
+      "kind": "VarDecl",
+      "line": 761,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21959,
+        "source_line": 761,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1f6f5407d50",
+        "redeclaration_chain": [
+          "0x1f6f5407d50"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ydim",
+      "source_name": "ydim",
+      "kind": "VarDecl",
+      "line": 761,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21965,
+        "source_line": 761,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x28f55cafa40",
+        "redeclaration_chain": [
+          "0x28f55cafa40"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ylookup",
+      "source_name": "ylookup",
+      "kind": "VarDecl",
+      "line": 764,
+      "original_type": "intptr_t *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 22078,
+        "source_line": 764,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x2bb08aac9e8",
+        "redeclaration_chain": [
+          "0x2bb08aac9e8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+        "abi": "source-global-cell/2",
+        "original_type": "intptr_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "inpreparemirror",
+      "source_name": "inpreparemirror",
+      "kind": "VarDecl",
+      "line": 1585,
+      "original_type": "char",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9541123d8c6d2c52896ac26a",
+        "abi": "source-global-cell/2",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mirrorBuffer",
+      "source_name": "mirrorBuffer",
+      "kind": "VarDecl",
+      "line": 1473,
+      "original_type": "uint8_t *",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_96cc27380f17556df4ccc300",
+        "abi": "source-global-cell/2",
+        "original_type": "uint8_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "palookup",
+      "source_name": "palookup",
+      "kind": "VarDecl",
+      "line": 810,
+      "original_type": "char *[256]",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 23489,
+        "source_line": 810,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x218bb7c0068",
+        "redeclaration_chain": [
+          "0x218bb7c0068"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "palookup",
+        "abi": "source-pointer-array/1",
+        "stride": 8,
+        "extent": 256,
+        "element_declaration": "char *[]",
+        "original_type": "char *[256]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "printext256",
+      "source_name": "printext256",
+      "kind": "FunctionDecl",
+      "line": 14804,
+      "original_type": "void (int32_t, int32_t, int16_t, int16_t, const char *, char)",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "frameplace",
+        "isdigit",
+        "pow2char__header_global_712730224f5e2862",
+        "smalltextfont",
+        "strtol",
+        "textfont",
+        "videoBeginDrawing",
+        "videoEndDrawing",
+        "xdim",
+        "ylookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "frameplace",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "xdim",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "frameplace",
+        "isdigit",
+        "smalltextfont",
+        "strtol",
+        "textfont",
+        "videoBeginDrawing",
+        "videoEndDrawing",
+        "xdim",
+        "ylookup"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [
+    {
+      "name": "Destroy__cxx_static_777d0ae31c789182",
+      "from": "source/build/src/smmalloc_generic.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "__cxx_record_vec2_2150e186aab2ebda",
+      "from": "source/build/src/clip.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "g_sm_heap",
+      "from": "source/build/src/compat.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+      "abi": "source-global-cell/2",
+      "original_type": "void *"
+    }
+  ],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "c_allocator_declarations": {
+    "queried": [
+      "calloc",
+      "free"
+    ],
+    "proven": [
+      "calloc",
+      "free"
+    ],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "standard_heap_contract": {
+    "contract_sha256": "23dccd6e1d870b82edd82f5b5c5ed06b10957df9a519fce1a6199081c4e0fc5b",
+    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": false,
+    "records": 4372,
+    "sha256": "8cd5320cf4c01d7236cf056e0dbe1c377bc62b35994a671d58a74de25192dc7a"
+  },
+  "full_type_closure": {
+    "attempted": true,
+    "retained_type_roots": 1,
+    "explicit_member_calls_rebound": 0,
+    "static_member_references_rebound": 1,
+    "ast_decode": {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 1018194,
+      "ranges_omitted": 266943,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1768,
+      "semantic_barrier_ranges_retained": 304,
+      "type_metadata_reuses": 243755,
+      "include_metadata_reuses": 139426,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 40846549,
+      "cache_hit": true,
+      "json_bytes": 460649472,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 315713083,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    "reason": "anonymous or transitively aliased original record omitted by named filter"
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "19265929e217c08a567fa20484917225d3b12a7d214b0cf5bd778a78d6b9f597",
+    "dependency_count": 360,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 383,
+      "ranges_omitted": 109,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "type_metadata_reuses": 92,
+      "include_metadata_reuses": 7,
+      "cache_storage": "json",
+      "cache_entry_bytes": 138397,
+      "cache_hit": true,
+      "json_bytes": 138397,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 315713083,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 15,
+      "objects": 601,
+      "ranges_omitted": 149,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 2,
+      "type_metadata_reuses": 125,
+      "include_metadata_reuses": 102,
+      "cache_storage": "json",
+      "cache_entry_bytes": 191755,
+      "cache_hit": true,
+      "json_bytes": 191755,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 315713083,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 120,
+      "objects": 9535,
+      "ranges_omitted": 2595,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 6,
+      "type_metadata_reuses": 2361,
+      "include_metadata_reuses": 1571,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 380876,
+      "cache_hit": true,
+      "json_bytes": 3343570,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 536870912,
+      "cache_retained": true,
+      "cache_retained_bytes": 315713083,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    }
+  ],
+  "storage_exports": [
+    {
+      "name": "upscalefactor",
+      "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "validmodecnt",
+      "binding": "__cxx_global_cell_959ecb0f89b58217d69a30a7",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "sector",
+      "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+      "abi": "source-global-cell/2",
+      "original_type": "sectortype *"
+    },
+    {
+      "name": "sprite",
+      "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+      "abi": "source-global-cell/2",
+      "original_type": "spritetype *"
+    },
+    {
+      "name": "spriteext",
+      "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+      "abi": "source-global-cell/2",
+      "original_type": "spriteext_t *"
+    },
+    {
+      "name": "spritesmooth",
+      "binding": "__cxx_global_cell_2487f0a2e0979a5d48ff1cd7",
+      "abi": "source-global-cell/2",
+      "original_type": "spritesmooth_t *"
+    },
+    {
+      "name": "tsprite",
+      "binding": "__cxx_global_cell_4f8c0a98fe113810db905f6a",
+      "abi": "source-global-cell/2",
+      "original_type": "tspritetype *"
+    },
+    {
+      "name": "wall",
+      "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+      "abi": "source-global-cell/2",
+      "original_type": "walltype *"
+    },
+    {
+      "name": "wallext",
+      "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+      "abi": "source-global-cell/2",
+      "original_type": "wallext_t *"
+    },
+    {
+      "name": "r_displayindex",
+      "binding": "__cxx_global_cell_a69b3d47547d48eac82bcf95",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "numsectors",
+      "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+      "abi": "source-global-cell/2",
+      "original_type": "short"
+    },
+    {
+      "name": "numwalls",
+      "binding": "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
+      "abi": "source-global-cell/2",
+      "original_type": "short"
+    },
+    {
+      "name": "qsetmode",
+      "binding": "__cxx_global_cell_6fba320e7d23de23519fe332",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "xdim",
+      "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "ydim",
+      "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "ylookup",
+      "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+      "abi": "source-global-cell/2",
+      "original_type": "intptr_t *"
+    },
+    {
+      "name": "mirrorBuffer",
+      "binding": "__cxx_global_cell_96cc27380f17556df4ccc300",
+      "abi": "source-global-cell/2",
+      "original_type": "uint8_t *"
+    },
+    {
+      "name": "inpreparemirror",
+      "binding": "__cxx_global_cell_9541123d8c6d2c52896ac26a",
+      "abi": "source-global-cell/2",
+      "original_type": "char"
+    }
+  ],
+  "private_storage_exports": [
+    {
+      "name": "preinitcalled",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_5127bf7d54074c32ac833da9",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "pow2char__header_global_712730224f5e2862",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_3dbbd23dc4df226e70c52d7b",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_86be2c79c4c0.mjs",
+      "sha256": "86be2c79c4c011a8fe51353abf44574930ad7cbdaf58416daea0f1e429389dad",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "apptitle",
+        "numsectors",
+        "numwalls",
+        "r_displayindex",
+        "validmode"
+      ],
+      "reexports": [
+        "apptitle",
+        "numsectors",
+        "numwalls",
+        "r_displayindex",
+        "validmode",
+        "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+        "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
+        "__cxx_global_cell_a69b3d47547d48eac82bcf95"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "945a7b56c4ebee7cc1fe6515f29e6e2e51d58df6c40f224147eb532f58e17b10"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_b109dbbe1c92.mjs",
+      "sha256": "b109dbbe1c929ae64f9c876b68a78d3aca562b835f672388d7658c3053724fa9",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "pow2char__header_global_712730224f5e2862",
+        "qsetmode",
+        "xdim",
+        "ydim",
+        "ylookup"
+      ],
+      "reexports": [
+        "pow2char__header_global_712730224f5e2862",
+        "qsetmode",
+        "xdim",
+        "ydim",
+        "ylookup",
+        "__cxx_private_cell_3dbbd23dc4df226e70c52d7b",
+        "__cxx_global_cell_6fba320e7d23de23519fe332",
+        "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+        "__cxx_global_cell_ce636929c03d679219ea2982",
+        "__cxx_global_cell_6ef139bca6611fb821515c5d"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "519a658f193ccc0e1f5d0fc5fc769cbc468f9b439768d21875834acf143efc54"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_bb4ab6fdc107.mjs",
+      "sha256": "bb4ab6fdc1075f3760a09c89e60ab4d4623b73533166c84e8a40f14eaa75c74d",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "inpreparemirror",
+        "mirrorBuffer",
+        "palookup"
+      ],
+      "reexports": [
+        "inpreparemirror",
+        "mirrorBuffer",
+        "palookup",
+        "__cxx_global_cell_9541123d8c6d2c52896ac26a",
+        "__cxx_global_cell_96cc27380f17556df4ccc300"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "df44af67a11a71917ad5570ab5affd3fa6608f7b91f0797435a3e1df04bb6ec9"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_871b318f6522.mjs",
+      "sha256": "871b318f6522cfe8dc61cdd56d806c9829fd38317d483870f857beb9d5cf767b",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "printext256"
+      ],
+      "reexports": [
+        "printext256"
+      ],
+      "imports": [
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "smalltextfont",
+          "from": "source/build/src/smalltextfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "textfont",
+          "from": "source/build/src/textfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoBeginDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoEndDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "0c2ee6cf2d5b9d8eb40113a22da20b5f40fdb558c8222a7025231e061362770b"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_452bc810b4b3.mjs",
+      "sha256": "452bc810b4b34fd5920b48a10d3f919fc7b03ebd9e0a874d8d939e44e9d3aa1e",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "apptitle",
+        "numsectors",
+        "numwalls",
+        "r_displayindex",
+        "validmode"
+      ],
+      "reexports": [
+        "apptitle",
+        "numsectors",
+        "numwalls",
+        "r_displayindex",
+        "validmode",
+        "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+        "__cxx_global_cell_9fbed4c78bef6ce8bf955682",
+        "__cxx_global_cell_a69b3d47547d48eac82bcf95"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "d5ce3ec0ea0a617f3eab2bc44519b2ab4300c5b371879d04902e425fe5cda663"
+    }
+  ]
+}

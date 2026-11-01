@@ -22,6 +22,8 @@ def main():
         'selected_units':prepared['selected_units'],'source_adaptations':prepared['source_adaptations'],
         'allocator_backend':prepared['allocator_backend'],'diagnostic_stop_after':a.stop_after,
         'execution_policy':profile.get('execution_policy'),
+        'boot_component_module_root':profile['boot_module_root'],
+        'boot_component_manifest':(build/'component-manifest.json').relative_to(ROOT).as_posix(),
         'source_root':source.relative_to(ROOT).as_posix(),'gameplay_verified':False})
     from source_first_file_audit import report as inventory_report
     audit=inventory_report(commands_path=commands)
@@ -42,6 +44,8 @@ def main():
     contract_path(commands).unlink(missing_ok=True)
     if not semantic_code and not a.max_units:
         create_heap_contract(source,commands,build/'reports/semantic-index.sqlite')
+        from source_header_definitions import create as create_header_contract
+        create_header_contract(source,commands,build/'reports/semantic-index.sqlite')
     if a.stop_after=='semantic':
         print('DIAGNOSTIC: source ownership checkpoint only; no engine/gameplay verification.')
         return semantic_code

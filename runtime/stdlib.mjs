@@ -1,4 +1,5 @@
 import { ABIHeap } from './abi.mjs';
+import { sourceHeapAddress } from './source_bytes.mjs';
 import { VirtualFS } from './filesystem.mjs';
 import { createCPrintf } from './c_printf.mjs';
 import { createCIntegerParse } from './c_integer_parse.mjs';
@@ -81,8 +82,8 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
     calloc: (n, size) => heap.calloc(n, size),
     // Source C++ nullptr lowers to null; the numeric host heap represents it
     // as address zero. Undefined and invalid non-null pointers still fail.
-    realloc: (ptr, size) => heap.realloc(ptr === null ? 0 : ptr, size),
-    free: ptr => heap.free(ptr === null ? 0 : ptr),
+    realloc: (ptr, size) => heap.realloc(sourceHeapAddress(ptr,heap), size),
+    free: ptr => heap.free(sourceHeapAddress(ptr,heap)),
     memcpy: (dst, src, n) => heap.memcpy(dst, src, n),
     memmove: (dst, src, n) => heap.memmove(dst, src, n),
     memset: (dst, value, n) => heap.memset(dst, value, n),
@@ -148,7 +149,6 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
       }
       return 0;
     },
-    ...createCSourceSearch({heap}),
     tolower: c => {c=Number(c);return c>=65&&c<=90?c+32:c;},
     toupper: c => {c=Number(c);return c>=97&&c<=122?c-32:c;},
     isalnum: c => {c=Number(c);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)?1:0;},
@@ -288,5 +288,9 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
     getenv: _namePtr => 0,
     clock_gettime_ms: () => globalThis.performance?.now?.() || Date.now()
   };
+  // One byte implementation handles both numeric heap addresses and bounded
+  // source views, including mixed calls. Preserve aliases instead of copying
+  // strings through temporary heap allocations at each browser boundary.
+  Object.assign(library,createCSourceSearch({heap}));
   return { heap, fs, symbols: Object.freeze(library) };
 }

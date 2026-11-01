@@ -86,6 +86,7 @@ def package_files(root=ROOT, public=False):
     # The declaration comparison's immutable baseline is a build input, even
     # though redundant historical report copies are otherwise excluded.
     add(root/'reports/historical-latest/dependency-graph.json')
+    add(root/'reports/history/original-source-manifests-20261014.zip')
     # Current source-wide evidence is required even when larger than the
     # optional diagnostic size cap below.
     for name in ('all-blockers.json', 'all-blockers.csv', 'root-causes.json',

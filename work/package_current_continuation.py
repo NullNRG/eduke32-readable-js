@@ -31,6 +31,7 @@ def selected(root,public=False):
     for relative in roots:
         folder=package_tool.safe_path(root,relative)
         for path in folder.rglob('*'):
+            if any(part in ('boot-probes','byte-debug','owner-history') for part in path.relative_to(folder).parts):continue
             if path.suffix in ('.mjs','.json','.csv','.md','.wasm','.symbols') and path.is_file() and path.stat().st_size<80_000_000:add(path)
     # Retain any actual source imports outside these roots, not every obsolete
     # build epoch. Every imported module stays under the canonical project.
@@ -44,7 +45,7 @@ def selected(root,public=False):
         for relative in pattern.findall(module.read_text(encoding='utf-8')):
             target=(module.parent/relative).resolve()
             if not target.is_relative_to(root):raise ValueError('Source import escapes continuation: '+str(module))
-            if not target.is_file():raise ValueError('Missing saved source import: '+str(target))
+            if not target.is_file():raise ValueError('Missing saved source import in '+str(module.relative_to(root))+': '+str(target))
             if target not in chosen:add(target);add(target.with_suffix('.manifest.json'));pending.append(target)
     for path in (root/'work').iterdir():
         if path.suffix in ('.py','.ps1','.mjs','.cjs','.sh','.md') and not path.name.endswith('_draft.py'):add(path)
@@ -52,16 +53,18 @@ def selected(root,public=False):
     for path in (root/'reports').rglob('*'):
         if not path.is_file():continue
         relative=path.relative_to(root/'reports')
-        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','project-current-status'))
+        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','project-current-status'))
                 or relative.parts[0] in ('native-oracle','semantic-continuation')):
             if path.suffix in ('.json','.gz','.log','.md','.png'):add(path)
     add(root/'reports/historical-latest/dependency-graph.json')
     add(root/'reports/port-acceptance.json')
+    for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):
+        add(root/'reports'/name)
     return sorted(chosen)
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--out',type=Path,default=ROOT/'handoffs/EDuke32_JS_Continuation_Memory_2026-10-29.zip')
+    parser.add_argument('--out',type=Path,default=ROOT/'handoffs/EDuke32_JS_Continuation_2026-10-31.zip')
     parser.add_argument('--list-only',action='store_true')
     args=parser.parse_args()
     if args.list_only:

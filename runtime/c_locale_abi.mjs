@@ -31,5 +31,20 @@ export function createCLocaleABI({heap}={}){
   const locClasses=heap.malloc(8),locUpper=heap.malloc(8);
   heap.write(locClasses,'u64',BigInt(classes+128*2));
   heap.write(locUpper,'u64',BigInt(upper+128*4));
-  return Object.freeze({'__ctype_b_loc':()=>locClasses,'__ctype_toupper_loc':()=>locUpper});
+  const character=value=>{
+    const n=Number(value);
+    if(!Number.isInteger(n)||n< -128||n>255)throw new RangeError('C locale character outside byte/EOF domain');
+    return n;
+  };
+  const symbols={'__ctype_b_loc':()=>locClasses,'__ctype_toupper_loc':()=>locUpper};
+  // C++ can reference the actual C functions instead of expanding glibc's
+  // table macros. Both entry points must read the same selected locale data.
+  for(const [name,mask] of Object.entries(flags))
+    symbols['is'+name]=value=>heap.read(classes+(character(value)+128)*2,'u16')&mask;
+  symbols.toupper=value=>heap.read(upper+(character(value)+128)*4,'i32');
+  symbols.tolower=value=>{
+    const n=character(value),c=n< -1?n+256:n;
+    return c>=65&&c<=90?c+32:c;
+  };
+  return Object.freeze(symbols);
 }
