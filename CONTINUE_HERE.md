@@ -28,7 +28,11 @@ npm run test:services
 npm run compile:game
 ```
 
-Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/oct31-current-full-regression.json for the current 193-test run; the previous complete 186/186 proof predates later fixes. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
+Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/nov01-integration-full-regression.json for the current 199-test run. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
+
+The original software surface passes 1,062,912 native/Node/Chromium byte comparisons; see reports/nov01-original-softsurface-parity.json. Original CircularQueue has 256 native/Node/Chromium cases. Original engineInitClipMaps mutates 61,464 actual owning bytes in Chromium. These are subsystem proofs, not gameplay. Template destructor recovery, typed ordinary member overloads and native aggregate addresses at libc boundaries now exist.
+
+Inspect storage_ownership_conflicts in the component manifest. The actual source audit finds legacy hidden copies of globals beyond selected re-export lists. Surface/hash/clipping ownership is repaired; engine/console copies require verified recompilation. tools/install_verified_fragment.py rejects new duplicates; work/rebuild_source_owner.py requires an exact owner hash and preserves the full interface, activating only in a fresh runtime.
 
 Complete console storage/lifetimes/callbacks/logging/file access, original engine startup and game clock initialization, source SDL integration, frame yielding, menu/E1L1 and gameplay. The host timerInit alone does not initialize original timer.cpp globals. The public compile:game command still needs candidate construction/verification/promotion wired to this incremental tree.
 

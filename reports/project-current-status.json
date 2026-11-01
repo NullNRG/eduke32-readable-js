@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-01T09:08:39.752967+00:00",
+  "updated_utc": "2026-11-01T15:51:33.793376+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "916dfb0f6acd2e83c54d32d4e9ffc8896471b28fd72083f76cfcfc8e40870673",
+  "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -137,20 +137,20 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/oct31-current-full-regression.json",
-    "complete": false,
+    "report": "reports/nov01-integration-full-regression.json",
+    "complete": true,
     "counts": {
-      "passed": 95,
+      "passed": 199,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 193,
-    "completed_tests": 95,
-    "all_passed": false,
-    "regression_inputs_unchanged": null,
-    "compiler_frontend_sha256": "916dfb0f6acd2e83c54d32d4e9ffc8896471b28fd72083f76cfcfc8e40870673",
-    "revision_matches_current_inputs": false,
+    "selected_tests": 199,
+    "completed_tests": 199,
+    "all_passed": true,
+    "regression_inputs_unchanged": true,
+    "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
+    "revision_matches_current_inputs": true,
     "gameplay_verified": false
   },
   "original_allocator": {
@@ -205,7 +205,7 @@
       "OSD_RegisterFunction",
       "OSD_Puts"
     ],
-    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\d26699f52cba\\source\\build\\src\\osd.cpp.manifest.json",
+    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\b384b6c7e113\\source\\build\\src\\osd.cpp.manifest.json",
     "blocked": [
       {
         "name": "OSD_RegisterCvar",
@@ -245,11 +245,6 @@
         "name": "AtomicLogString",
         "reason": "C++ inheritance requires a source-level inheritance lowering pass",
         "dependencies": []
-      },
-      {
-        "name": "__cxx_record_CircularQueue_72e67824d02fa6e1",
-        "reason": "class pointer/reference field requires ownership/alias lowering",
-        "dependencies": []
       }
     ],
     "original_gameplay_verified": false
@@ -263,7 +258,7 @@
   "original_engine_preinit_frontier": {
     "linked": false,
     "executed": false,
-    "immediate_shared_blocker": "Original osdmain_t byte storage contains AtomicSList64/std::atomic; inheritance and queue lifetime lowering remain incomplete.",
+    "immediate_shared_blocker": "Original osdmain_t byte storage contains AtomicSList64/std::atomic; inherited storage and atomic class methods remain incomplete. Original CircularQueue destruction now has source-proven template recovery.",
     "additional_dependencies": [
       "original console registration and callbacks",
       "original file access",
@@ -274,18 +269,90 @@
   "startup_component_build": {
     "source_units_with_partial_modules": 22,
     "selected_source_units": 111,
-    "compiler_frontend_sha256": "916dfb0f6acd2e83c54d32d4e9ffc8896471b28fd72083f76cfcfc8e40870673",
+    "compiler_frontend_sha256": "382ca84cbde41b59c7fc9ca599b898c0f74986d7cb3f0fbb4068f72a0f308e2b",
     "whole_selected_program_compiled_under_current_revision": false,
     "entry_exports": {
       "enginePreInit": false,
       "app_main": false
     },
-    "execution_evidence_matches_modules": false,
+    "execution_evidence_matches_modules": true,
     "execution_report": "reports/oct30-original-browser-component.json",
     "original_engine_startup_verified": false,
     "manifest": "factory-output/source-first/browser-classic/component-manifest.json",
     "invalid_import_count": 0,
-    "ambiguous_export_group_count": 56
+    "ambiguous_export_group_count": 56,
+    "original_storage_ownership_verified": false,
+    "storage_ownership_conflicts": [
+      {
+        "source": "source/build/src/engine.cpp",
+        "duplicate_storage": {
+          "pow2char__header_global_712730224f5e2862": [
+            "source/build/src/_source_legacy_engine_cpp_b109dbbe1c92.mjs",
+            "source/build/src/_source_legacy_engine_cpp_bb4ab6fdc107.mjs",
+            "source/build/src/_source_legacy_engine_cpp_871b318f6522.mjs"
+          ]
+        }
+      },
+      {
+        "source": "source/build/src/osd.cpp",
+        "duplicate_storage": {
+          "whiteColorIdx": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ],
+          "osdrowscur": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ],
+          "osdmaxrows": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ],
+          "osdrows": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ],
+          "h_osd": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ],
+          "user_callbacks": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs"
+          ],
+          "default_callbacks": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ],
+          "h_cvars": [
+            "source/build/src/osd.cpp.mjs",
+            "source/build/src/_source_legacy_osd_cpp_ea55377351f3.mjs",
+            "source/build/src/_source_legacy_osd_cpp_af7584467b87.mjs",
+            "source/build/src/_source_legacy_osd_cpp_3c8185980f0a.mjs",
+            "source/build/src/_source_legacy_osd_cpp_2255541e0308.mjs"
+          ]
+        }
+      }
+    ]
   },
   "startup_component_warning": "22 partial unit modules are incremental artifacts, not a uniform 111-unit game build. Executed allocator/division/system/video calls do not execute original enginePreInit or app_main. Per-module fingerprints retain their individual compiler revisions.",
   "latest_header_prototype_regression": {
@@ -374,6 +441,7 @@
   },
   "remaining_acceptance_failures": [
     "Original console C++ object storage/lifetime, registration, logging and file-access closure",
+    "Remaining actual duplicate source storage in legacy fragments",
     "Current uniform selected-unit emission and verified fixed-point global linkage",
     "Original app_main and enginePreInit execution",
     "Original game-clock state and complete SDL/browser service integration",
@@ -391,6 +459,9 @@
   ],
   "subsystem_verification_commands": [
     "python tests/source_factory/verify_original_xxh32_component.py",
+    "python work/verify_original_softsurface.py",
+    "python work/verify_original_clip_component.py",
+    "python work/probe_original_queue.py",
     "npm run test:services",
     "node --test tests/source_factory/source_heap_addresses.test.mjs tests/source_factory/source_ctype_functions.test.mjs tests/source_factory/source_sdl_spinlock.test.mjs",
     "python work/package_current_continuation.py"
@@ -407,8 +478,8 @@
     "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
   },
   "latest_targeted_regression": {
-    "report": "reports/oct31-layout-final-regression.json",
-    "passed": 16,
+    "report": "reports/nov01-aggregate-address-regression.json",
+    "passed": 9,
     "complete": true,
     "frozen_inputs": true
   },
@@ -421,6 +492,7 @@
     "prototype_observation_does_not_prove_definition": true
   },
   "known_correctness_gaps": [
+    "Legacy source fragments still duplicate some original globals. The component manifest enumerates the actual active conflicts; zero missing imports does not prove shared storage correctness.",
     "Nontrivial heap-backed C++ record views, source constructors/destructors, std::atomic class methods and inherited storage are not fully implemented.",
     "The existing host timerInit initializes host service state but not original timer.cpp globals. It cannot verify original game-clock initialization; recover original timer initialization before gameplay.",
     "Source SDL surface/event/audio callback adaptation is incomplete; the component currently uses the JS SDL adapter.",
@@ -447,5 +519,18 @@
       "native byte storage at original global owners"
     ],
     "original_menu_rendering_verified": false
+  },
+  "november_source_recovery": {
+    "software_surface_parity_report": "reports/nov01-original-softsurface-parity.json",
+    "software_surface_native_node_chromium_compared_bytes": 1062912,
+    "original_world_rendering_verified": false,
+    "circular_queue_native_node_chromium_cases": 256,
+    "original_clipping_owner_bytes_verified_in_chromium": 61464,
+    "original_clipping_report": "reports/nov01-original-clip-storage.json",
+    "circular_queue_log": "reports/nov01-original-queue-parity.log",
+    "member_overload_native_node_cases": 1024,
+    "template_record_native_node_cases": 1024,
+    "source_storage_audit": "tools/source_fragment_storage.py",
+    "source_storage_policy": "Actual hidden fragment VarDecls are audited, independently of selected re-exports. Known legacy conflicts are not verified source ownership."
   }
 }

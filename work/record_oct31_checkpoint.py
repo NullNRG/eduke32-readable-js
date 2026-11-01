@@ -1,8 +1,10 @@
 """Record actual component execution separately from whole-game acceptance."""
-import hashlib,json
+import hashlib,json,sys
 from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'tools'))
+from verify_recovery_suite import regression_inputs
 def read(name):return json.loads((ROOT/name).read_text())
 def sha(name):return hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
 state=read('HANDOFF_SNAPSHOT.json')
@@ -21,7 +23,9 @@ state['startup_component_build']={key:component[key] for key in (
     'execution_evidence_matches_modules','execution_report','original_engine_startup_verified')}
 state['startup_component_build'].update(manifest='factory-output/source-first/browser-classic/component-manifest.json',
     invalid_import_count=len(component['invalid_imports']),
-    ambiguous_export_group_count=len(component['ambiguous_export_groups']))
+    ambiguous_export_group_count=len(component['ambiguous_export_groups']),
+    original_storage_ownership_verified=component.get('original_storage_ownership_verified',False),
+    storage_ownership_conflicts=component.get('storage_ownership_conflicts',[]))
 state['startup_component_warning']='22 partial unit modules are incremental artifacts, not a uniform 111-unit game build. Executed allocator/division/system/video calls do not execute original enginePreInit or app_main. Per-module fingerprints retain their individual compiler revisions.'
 state['original_console_frontier']=read('factory-output/source-first/browser-classic/reports/frontier-source_build_src_osd.cpp.json')
 state['original_hash_frontier']={'original_hash_initializers_linked':True,
@@ -30,18 +34,32 @@ state['original_hash_frontier']={'original_hash_initializers_linked':True,
     'original_libdivide_execution_records':65532}
 state['original_engine_preinit_frontier']={
     'linked':False,'executed':False,
-    'immediate_shared_blocker':'Original osdmain_t byte storage contains AtomicSList64/std::atomic; inheritance and queue lifetime lowering remain incomplete.',
+    'immediate_shared_blocker':'Original osdmain_t byte storage contains AtomicSList64/std::atomic; inherited storage and atomic class methods remain incomplete. Original CircularQueue destruction now has source-proven template recovery.',
     'additional_dependencies':['original console registration and callbacks','original file access','logging','remaining engine services']}
 state['regression_baseline']={'report':'reports/oct30-startup-verified-regression.json',
     'passed':186,'complete':True,'frozen_inputs':True,
     'note':'Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes.'}
-report=read('reports/oct31-current-full-regression.json')
+regression_report='reports/nov01-integration-full-regression.json'
+report=read(regression_report)
 keys=('complete','counts','selected_tests','completed_tests','all_passed','regression_inputs_unchanged','compiler_frontend_sha256')
-state['regression']={'report':'reports/oct31-current-full-regression.json',**{k:report[k] for k in keys},
-    'revision_matches_current_inputs':bool(report['complete'] and report['regression_inputs_unchanged'] and report['compiler_frontend_sha256']==state['compiler_frontend_sha256']),
+state['regression']={'report':regression_report,**{k:report.get(k) for k in keys},
+    'revision_matches_current_inputs':bool(report['complete'] and report['regression_inputs_unchanged'] and
+        report['regression_inputs']==regression_inputs()),
     'gameplay_verified':False}
-state['latest_targeted_regression']={'report':'reports/oct31-layout-final-regression.json',
-    'passed':16,'complete':True,'frozen_inputs':True}
+state['latest_targeted_regression']={'report':'reports/nov01-aggregate-address-regression.json',
+    'passed':9,'complete':True,'frozen_inputs':True}
+state['november_source_recovery']={
+    'software_surface_parity_report':'reports/nov01-original-softsurface-parity.json',
+    'software_surface_native_node_chromium_compared_bytes':1062912,
+    'original_world_rendering_verified':False,
+    'circular_queue_native_node_chromium_cases':256,
+    'original_clipping_owner_bytes_verified_in_chromium':61464,
+    'original_clipping_report':'reports/nov01-original-clip-storage.json',
+    'circular_queue_log':'reports/nov01-original-queue-parity.log',
+    'member_overload_native_node_cases':1024,
+    'template_record_native_node_cases':1024,
+    'source_storage_audit':'tools/source_fragment_storage.py',
+    'source_storage_policy':'Actual hidden fragment VarDecls are audited, independently of selected re-exports. Known legacy conflicts are not verified source ownership.'}
 state['earlier_full_regression']={'report':'reports/oct31-first-full-regression.json','passed':185,'failed':6,'selected_tests':191,'frozen_inputs':True,'note':'Earlier strict-layout revision. Subsequent shared fixes pass all 16 affected regressions; current full run is separate.'}
 state['shared_layout_recovery']={'native_c_records_node_chromium_cases':512,'original_menu_header_native_cases':1280,'cross_unit_record_owner_native_cases':512,'compiler_features':['Clang C RecordDecl layouts','one typed record path for reads/addresses/compound updates','same-TU field selection by mangled owner/body/ordinal','source-proven template record deduplication','native byte storage at original global owners'],'original_menu_rendering_verified':False}
 state['source_header_definitions']={'contract':'factory-output/browser-classic/compile_commands.header-definitions.json',
@@ -55,8 +73,11 @@ state['known_correctness_gaps']=[
     'compile:game does not yet construct and verify a playable candidate from the incremental component.',
     'The complete selected-unit emission and fixed-point link have not been repeated under the current compiler.'
 ]
+if component.get('storage_ownership_conflicts'):
+    state['known_correctness_gaps'].insert(0,'Legacy source fragments still duplicate some original globals. The component manifest enumerates the actual active conflicts; zero missing imports does not prove shared storage correctness.')
 state['remaining_acceptance_failures']=[
     'Original console C++ object storage/lifetime, registration, logging and file-access closure',
+    'Remaining actual duplicate source storage in legacy fragments',
     'Current uniform selected-unit emission and verified fixed-point global linkage',
     'Original app_main and enginePreInit execution',
     'Original game-clock state and complete SDL/browser service integration',
@@ -74,6 +95,9 @@ state['resume_commands']=[
 ]
 state['subsystem_verification_commands']=[
     'python tests/source_factory/verify_original_xxh32_component.py',
+    'python work/verify_original_softsurface.py',
+    'python work/verify_original_clip_component.py',
+    'python work/probe_original_queue.py',
     'npm run test:services',
     'node --test tests/source_factory/source_heap_addresses.test.mjs tests/source_factory/source_ctype_functions.test.mjs tests/source_factory/source_sdl_spinlock.test.mjs',
     'python work/package_current_continuation.py'
