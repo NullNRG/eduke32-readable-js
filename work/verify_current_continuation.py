@@ -20,12 +20,14 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
     assert all(name in rows for name in required),[name for name in required if name not in rows]
     profile=json.loads(saved.read('EDuke32_SourceFactory/tools/browser_classic_profile.json'))
     module_root=profile['boot_module_root']
+    state=json.loads(saved.read('EDuke32_SourceFactory/HANDOFF_SNAPSHOT.json'))
+    artifact_roots={module_root,*state.get('continuation_artifact_roots',[])}
     extracted=[]
     for name,row in rows.items():
         relative=PurePosixPath(name)
         assert not relative.is_absolute() and '..' not in relative.parts,name
         assert not any(part in ('toolchains','node_modules','__pycache__') for part in relative.parts),name
-        if (relative.parts[0] in ('tools','runtime','tests') or name.startswith(module_root+'/')
+        if (relative.parts[0] in ('tools','runtime','tests') or any(name.startswith(prefix+'/') for prefix in artifact_roots)
             or name in ('input-data/DUKE3D.GRP','work/probe_original_vfs.mjs','work/run_original_vfs.mjs')
             or name in ('package.json','HANDOFF_SNAPSHOT.json','CONTINUE_HERE.md',
                         'factory-output/source-first/browser-classic/component-manifest.json')):
@@ -54,7 +56,6 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
     assert browser.returncode==(0 if proof['original_engine_startup_verified'] else 1),browser.returncode
     # Preserve the saved checkpoint's actual acceptance state; a component
     # pass cannot upgrade it, and a future verified startup must not be refused.
-    state=json.loads((root/'HANDOFF_SNAPSHOT.json').read_text())
     expected_startup=bool(state.get('original_engine_preinit_executed',False))
     assert proof['original_engine_startup_verified'] is expected_startup
     report.update(extracted_files=len(extracted),required_inputs_present=True,

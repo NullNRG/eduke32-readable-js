@@ -29,8 +29,8 @@ int main(int argc,char **argv){if(argc!=2)return 2;setvbuf(stdout,nullptr,_IONBF
  const int offsets[]={0,12,16,4096,length-128};for(int offset:offsets)sample(h,offset,128);kclose(h);
  int group=initgroupfile(argv[1]);printf("%d\\n",group);if(group!=0)return 4;
  const char *names[]={"E1L1.MAP","PALETTE.DAT","GAME.CON","TILES000.ART"};
- for(const char *name:names){h=kopen4load(name,1);if(h<0)return 5;
- int n=kfilelength(h);printf("%s:%d\\n",name,n);sample(h,0,128);sample(h,4096,128);sample(h,n-128,128);kclose(h);}
+ for(const char *name:names)for(int search=0;search<=1;search++){h=kopen4load(name,search);if(h<0)return 5;
+ int n=kfilelength(h);printf("%s:%d:%d\\n",name,n,search);sample(h,0,128);sample(h,4096,128);sample(h,n-128,128);kclose(h);}
 }
 ''')
     flags=['-funsigned-char','-std=gnu++14','-O2','-include','cstdlib','-DNOASM','-DNDEBUG',

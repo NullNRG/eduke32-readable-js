@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-01T23:43:55.524001+00:00",
+  "updated_utc": "2026-11-02T00:38:46.499157+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "1fe10fb26c62e7c53de650992797d82e2cd49579bc23a9803470d9b815de0ca6",
+  "compiler_frontend_sha256": "d7cfd668d2fcd9258196d667ec2f17c7f244c08e12fddff6f97bb807007e1468",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -137,20 +137,20 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/nov01-vfs-corrected-full-regression.json",
-    "complete": false,
+    "report": "reports/nov01-vfs-final-full-regression.json",
+    "complete": true,
     "counts": {
-      "passed": 24,
+      "passed": 207,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
     "selected_tests": 207,
-    "completed_tests": 24,
-    "all_passed": false,
-    "regression_inputs_unchanged": null,
-    "compiler_frontend_sha256": "1fe10fb26c62e7c53de650992797d82e2cd49579bc23a9803470d9b815de0ca6",
-    "revision_matches_current_inputs": false,
+    "completed_tests": 207,
+    "all_passed": true,
+    "regression_inputs_unchanged": true,
+    "compiler_frontend_sha256": "d7cfd668d2fcd9258196d667ec2f17c7f244c08e12fddff6f97bb807007e1468",
+    "revision_matches_current_inputs": true,
     "gameplay_verified": false
   },
   "original_allocator": {
@@ -328,7 +328,7 @@
   "startup_component_build": {
     "source_units_with_partial_modules": 22,
     "selected_source_units": 111,
-    "compiler_frontend_sha256": "1fe10fb26c62e7c53de650992797d82e2cd49579bc23a9803470d9b815de0ca6",
+    "compiler_frontend_sha256": "d7cfd668d2fcd9258196d667ec2f17c7f244c08e12fddff6f97bb807007e1468",
     "whole_selected_program_compiled_under_current_revision": false,
     "entry_exports": {
       "enginePreInit": false,
@@ -448,16 +448,18 @@
     }
   ],
   "strict_acceptance": {
+    "report": "reports/nov01-port-acceptance.json",
     "all_acceptance_criteria_passed": false,
+    "original_game_playable_verified": false,
     "failed_checks": [
-      "uniform_selected_unit_attempts",
       "complete_source_semantics",
       "startup_dependency_closure",
-      "linked_javascript_integrity",
       "reachable_gameplay_recovery",
       "self_contained_offline_game"
     ],
     "unverified_checks": [
+      "uniform_selected_unit_attempts",
+      "linked_javascript_integrity",
       "historical_recovery_ninety_percent",
       "original_browser_gameplay",
       "native_engine_comparison",
@@ -611,7 +613,7 @@
     "archive_length": 44356548,
     "directory_entries": 456,
     "original_directory_bytes_verified": 7756,
-    "native_parity_sample_bytes": 2176,
+    "native_parity_sample_bytes": 3712,
     "original_grp_index_executed": true,
     "original_engine_startup_verified": false,
     "gameplay_verified": false,
@@ -630,5 +632,19 @@
     "complete": true,
     "frozen_inputs": true,
     "revision_matches_current_inputs": false
+  },
+  "source_implementation_commit": "53f71f5aab4516826c5f9818aa9de0e921152508",
+  "vfs_regression_corrections": {
+    "earlier_complete_report": "reports/nov01-vfs-corrected-full-regression.json",
+    "earlier_passed": 204,
+    "earlier_failed": 3,
+    "fixes": [
+      "Preserve a complete original class provider with no fields while rejecting a same-named C function as a constructor.",
+      "Retain the original allocation-operator dependency check when the console reaches its newer explicit atomic-list method blocker.",
+      "Rebuild the original libdivide provider after shared pointer helper changes."
+    ],
+    "division_parity_report": "reports/oct25-original-libdivide-parity.json",
+    "native_node_chromium_divisions": 3968,
+    "native_node_chromium_wide_arithmetic_cases": 256
   }
 }

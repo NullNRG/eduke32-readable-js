@@ -28,9 +28,9 @@ npm run test:services
 npm run compile:game
 ```
 
-Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. See reports/nov01-vfs-corrected-full-regression.json for the current 207-test run; verify complete/all_passed and input fingerprints. The earlier 199-test run is a historical baseline. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
+Keep tools/runtime/tests unchanged during a regression run; frozen-input checks invalidate mixed revisions. Keep heavy Clang jobs serial. reports/nov01-vfs-final-full-regression.json passes 207/207 with unchanged inputs matching the current compiler/runtime/tests. The earlier 199-test run is a historical baseline. Preserve current C++/pointer lifetime guards rather than counting unsupported functions as recovered.
 
-Original GRP/file I/O now passes native/Node/Chromium comparison: run `python work/verify_original_vfs.py`. Original code indexes the raw GRP's 456 entries, and opens/seeks/reads E1L1.MAP, PALETTE.DAT, GAME.CON and TILES000.ART. The platform does not pre-index the archive. Directory validation covers 7,756 bytes; sampled native-parity reads cover 2,176 bytes. See reports/nov01-original-vfs-parity.json. This does not execute the game or verify ZIP decompression.
+Original GRP/file I/O now passes native/Node/Chromium comparison: run `python work/verify_original_vfs.py`. Original code indexes the raw GRP's 456 entries, and opens/seeks/reads E1L1.MAP, PALETTE.DAT, GAME.CON and TILES000.ART through both normal fallback and GRP-first search. The platform does not pre-index the archive. Directory validation covers 7,756 bytes; sampled native-parity reads cover 3,712 bytes. See reports/nov01-original-vfs-parity.json. This does not execute the game or verify ZIP decompression.
 
 The original software surface passes 1,062,912 native/Node/Chromium byte comparisons; see reports/nov01-original-softsurface-parity.json. Original CircularQueue has 256 native/Node/Chromium cases. Original engineInitClipMaps mutates 61,464 actual owning bytes in Chromium. These are subsystem proofs, not gameplay. Template destructor recovery, typed ordinary member overloads and native aggregate addresses at libc boundaries now exist.
 

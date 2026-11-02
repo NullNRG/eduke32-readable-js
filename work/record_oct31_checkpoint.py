@@ -1,5 +1,5 @@
 """Record actual component execution separately from whole-game acceptance."""
-import hashlib,json,sys
+import hashlib,json,subprocess,sys
 from datetime import datetime,timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -8,6 +8,8 @@ from verify_recovery_suite import regression_inputs
 def read(name):return json.loads((ROOT/name).read_text())
 def sha(name):return hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
 state=read('HANDOFF_SNAPSHOT.json')
+try:state['source_implementation_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+except (OSError,subprocess.CalledProcessError):pass
 component=read('factory-output/source-first/browser-classic/component-manifest.json')
 state.update(updated_utc=datetime.now(timezone.utc).isoformat(),
     compiler_frontend_sha256=sha('tools/source_ast_to_js.py'),
@@ -69,6 +71,10 @@ state['vfs_regression_corrections']={'earlier_complete_report':'reports/nov01-vf
         'Rebuild the original libdivide provider after shared pointer helper changes.'],
     'division_parity_report':'reports/oct25-original-libdivide-parity.json',
     'native_node_chromium_divisions':3968,'native_node_chromium_wide_arithmetic_cases':256}
+acceptance=read('reports/nov01-port-acceptance.json')
+state['strict_acceptance']={'report':'reports/nov01-port-acceptance.json',
+    **{key:acceptance[key] for key in ('all_acceptance_criteria_passed','original_game_playable_verified',
+        'failed_checks','unverified_checks')}}
 state['november_source_recovery']={
     'software_surface_parity_report':'reports/nov01-original-softsurface-parity.json',
     'software_surface_native_node_chromium_compared_bytes':1062912,

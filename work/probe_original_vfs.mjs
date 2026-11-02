@@ -67,13 +67,15 @@ export async function probeOriginalVFS({base,bytes=null,traceHost=false}) {
       comparisons+=4;directoryBytes+=4;
       for(const name of ['E1L1.MAP','PALETTE.DAT','GAME.CON','TILES000.ART']){
         const entry=directory.find(row=>row.name.toUpperCase()===name);if(!entry)throw Error('Supplied archive lacks '+name);
-        const handle=invoke('kopen4load('+name+')',()=>vfs.kopen4load(runtime.heap.writeCString(name),1));
+        for(const search of [0,1]){
+        const handle=invoke('kopen4load('+name+', '+search+')',()=>vfs.kopen4load(runtime.heap.writeCString(name),search));
         const actualLength=handle<0?null:vfs.kfilelength(handle);
         if(handle<0||actualLength!==entry.length)throw Error('Original resource open/length differs: '+JSON.stringify({name,handle,actualLength,expectedLength:entry.length}));
-        oracleLines.push(name+':'+entry.length);
+        oracleLines.push(name+':'+entry.length+':'+search);
         for(const offset of [0,4096,entry.length-128])
           sample(handle,offset,bytes.subarray(entry.offset+offset,entry.offset+offset+128));
         invoke('kclose('+name+')',()=>vfs.kclose(handle));
+        }
       }
     }
     return {passed:true,archive_length:length,byte_comparisons:comparisons,
