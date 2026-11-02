@@ -34,7 +34,12 @@ extern "C" int exercise(Container*p,int n){
   result+=cursor->value;
   cursor=cursor->m_next;
  }
- return result+(cursor==nullptr?1009:0)+(p->pending.isEmpty()?0:2017);
+ result+=(cursor==nullptr?1009:0)+(p->pending.isEmpty()?0:2017);
+ for(int i=0;i<4;i++){
+  int index=(n+3-i)&3;Item*taken=p->pending.pop();
+  result+=(taken==&p->nodes[index]?503:0)+taken->value;
+ }
+ return result+(p->pending.isEmpty()?3001:0)+(p->pending.pop()==nullptr?4001:0);
 }
 ''')
     main=root/'main.cpp';main.write_text('''#include "fixture.hpp"
@@ -49,6 +54,11 @@ int main(){for(int n=0;n<256;n++){Container object{};
     flags=['-std=gnu++14','-funsigned-char','-DNOASM','-DNDEBUG','-DEDUKE32_BROWSER=1']
     flags+=['-I'+str(SOURCE/p) for p in ('source/build/include','source/audiolib/include','source/glad/include','platform/Windows/include','platform/Windows/include/SDL2')]
     oracle=root/'oracle.exe';run(['clang++','-O2',*flags,cpp,main,'-o',oracle]);cases=[line.split() for line in run([oracle]).splitlines()]
+    ir=root/'original-list-native.ll'
+    run(['clang++','-O1','-S','-emit-llvm',*flags,cpp,'-o',ir])
+    native_cmpxchg=[line.strip() for line in ir.read_text().splitlines() if 'cmpxchg' in line]
+    assert native_cmpxchg,native_cmpxchg
+    print(json.dumps({'native_gnupp14_original_cmpxchg':native_cmpxchg}),flush=True)
     source=cpp.name;out=root/'out';commands=root/'commands.json'
     commands.write_text(json.dumps([{'directory':str(root),'file':source,'arguments':['clang++',*flags,'-c',source,'-o','unused.o']}]))
     run([sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source',source,'--out-dir',out,
@@ -59,7 +69,7 @@ int main(){for(int n=0;n<256;n++){Container object{};
     assert row['status']=='source-first',[(r['name'],r['status'],r.get('reason')) for r in manifest['definitions']]
     methods=[row['original_byte_method'] for row in manifest['definitions'] if row.get('original_byte_method')]
     original=[row for row in methods if Path(row['source_header']).name=='atomiclist.h']
-    assert {'push','first','isEmpty'}<={row['original_name'] for row in original},original
+    assert {'push','pop','first','isEmpty'}<={row['original_name'] for row in original},original
     js='''async({url,cases})=>{const {exercise}=await import(url);return cases.map((row,n)=>{
  const bytes=Uint8Array.from(row[0].match(/../g),x=>parseInt(x,16));return String(exercise(bytes,n));});}'''
     runner=root/'run.mjs';runner.write_text('console.log(JSON.stringify(await ('+js+')('+json.dumps({'url':module.as_uri(),'cases':cases})+')));')
@@ -74,7 +84,7 @@ int main(){for(int n=0;n<256;n++){Container object{};
             version=browser.version
         finally:browser.close()
     report={'format':'original-atomic-list-native-parity/1','passed':True,'native_node_chromium_cases':256,
-        'browser_version':version,'page_errors':errors,'original_methods':['push','first','isEmpty'],
+        'browser_version':version,'page_errors':errors,'original_methods':['push','pop','first','isEmpty'],
         'source_header':'source/build/include/atomiclist.h',
         'header_sha256':hashlib.sha256((SOURCE/'source/build/include/atomiclist.h').read_bytes()).hexdigest(),
         'fixture_sha256':hashlib.sha256(cpp.read_bytes()).hexdigest(),
@@ -84,7 +94,8 @@ int main(){for(int n=0;n<256;n++){Container object{};
             for path in sorted((ROOT/'tools').glob('source_*')) if path.suffix in ('.py','.mjs')},
         'emitted_module_sha256':hashlib.sha256(module.read_bytes()).hexdigest(),
         'methods':methods,'original_cpp_lifetimes_executed_by_native_oracle':True,
-        'javascript_constructed_list_or_nodes':False,'pop_verified':False,
+        'javascript_constructed_list_or_nodes':False,'pop_verified':True,
+        'native_gnupp14_original_cmpxchg':native_cmpxchg,
         'console_initialization_verified':False,'gameplay_verified':False}
     (ROOT/'reports/nov02-original-atomic-list-parity.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({k:v for k,v in report.items() if k!='methods'},indent=2))

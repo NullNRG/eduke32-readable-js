@@ -28,13 +28,25 @@ extern "C" int pointer_probe(int x){
  int *old=__atomic_exchange_n(&head,&a,5);return first*1000+second*100+*old+*expected+*__atomic_load_n(&head,2);
 }
 extern "C" int load_probe(int *p,int order){return __atomic_load_n(p,order);}
+extern "C" void *pointer_load_guard(void **p,int order){return __atomic_load_n(p,order);}
+extern "C" int compare_guard(int*p,int*expected,int success,int failure){return __atomic_compare_exchange_n(p,expected,17,false,success,failure);}
+extern "C" int order_probe(int x,int success,int failure){
+ int value=x,expected=x;int first=__atomic_compare_exchange_n(&value,&expected,x+3,false,success,failure);
+ expected=x-1;int second=__atomic_compare_exchange_n(&value,&expected,x+7,true,success,failure);
+ return value+expected*7+first*101+second*1009;}
 '''
 jsrun='''const rows=[];for(let x=-128;x<128;x++)rows.push([m.integer_probe(x),m.unsigned_probe(x>>>0),m.byte_probe(x),m.pointer_probe(x)].join(','));
 for(const x of [0n,1n,-1n,9223372036854775800n,-9223372036854775807n,9007199254740993n])rows.push(String(m.wide_probe(x)));
+for(let x=-8;x<8;x++)for(let success=0;success<6;success++)for(const failure of [0,1,2,5])rows.push(String(m.order_probe(x,success,failure)));
 const shared=typeof SharedArrayBuffer==='function'?new Int32Array(new SharedArrayBuffer(4)):null;
 if(shared){let rejected=false;try{m.load_probe(shared,0);}catch(e){rejected=e instanceof TypeError;}if(!rejected)throw Error('shared atomic backend was not rejected');}
 let invalid=false;try{m.load_probe(new Int32Array([3]),3);}catch(e){invalid=e instanceof RangeError;}if(!invalid)throw Error('invalid load order accepted');
 let alignment=false;try{m.load_probe(new Uint8Array(new ArrayBuffer(8),1),0);}catch(e){alignment=e instanceof RangeError;}if(!alignment)throw Error('unaligned atomic accepted');
+let pointerAlignment=false;try{m.pointer_load_guard(new Uint8Array(new ArrayBuffer(16),1),0);}catch(e){pointerAlignment=e instanceof RangeError;}if(!pointerAlignment)throw Error('unaligned pointer atomic accepted');
+if(m.pointer_load_guard(new Uint8Array(8),0)!==null)throw Error('native null pointer slot changed');
+for(const failure of [-1,3,4,6]){const value=new Int32Array([9]),expected=new Int32Array([3]);let rejected=false;
+ try{m.compare_guard(value,expected,3,failure);}catch(e){rejected=e instanceof RangeError;}
+ if(!rejected||value[0]!==9||expected[0]!==3)throw Error('invalid failure order mutated source storage');}
 '''
 async def browser(module,expected):
  from playwright.async_api import async_playwright
@@ -56,10 +68,12 @@ with tempfile.TemporaryDirectory(prefix='source-atomic-parity-',dir=ROOT/'work')
  (d/'oracle.cpp').write_text('''#include <cstdio>
 #include <initializer_list>
 extern "C" int integer_probe(int),byte_probe(int),pointer_probe(int);extern "C" unsigned int unsigned_probe(unsigned int);extern "C" long long wide_probe(long long);
+extern "C" int order_probe(int,int,int);
 int main(){for(int x=-128;x<128;x++)printf("%d,%u,%d,%d\\n",integer_probe(x),unsigned_probe((unsigned int)x),byte_probe(x),pointer_probe(x));
-for(long long x: {0LL,1LL,-1LL,9223372036854775800LL,-9223372036854775807LL,9007199254740993LL})printf("%lld\\n",wide_probe(x));}
+for(long long x: {0LL,1LL,-1LL,9223372036854775800LL,-9223372036854775807LL,9007199254740993LL})printf("%lld\\n",wide_probe(x));
+for(int x=-8;x<8;x++)for(int success=0;success<6;success++)for(int failure:{0,1,2,5})printf("%d\\n",order_probe(x,success,failure));}
 ''')
- run(['clang++',d/'unit.cpp',d/'oracle.cpp','-o',d/'oracle.exe'])
+ run(['clang++','-std=gnu++14',d/'unit.cpp',d/'oracle.cpp','-o',d/'oracle.exe'])
  expected=run([d/'oracle.exe']).splitlines();assert observed==expected,(observed[:4],expected[:4])
  asyncio.run(browser(module,expected))
-print('PASS: 1030 native/Node/Chromium values; real atomic lvalues, expected-pointer updates, integer wrapping, widths and pointer identity; shared storage/orders/alignment gated')
+print('PASS: 1414 native/Node/Chromium values; all 24 Clang success/failure order pairs, real atomic lvalues, expected-pointer updates, widths and pointer identity; shared storage/invalid orders/integer and pointer alignment gated')

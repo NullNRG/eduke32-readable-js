@@ -58,7 +58,8 @@ if corrected_path.is_file():
         'revision_matches_current_inputs':corrected.get('regression_inputs')==current,
         'files_changed_since_complete_run':[name for name in sorted(set(before)|set(current)) if before.get(name)!=current.get(name)],
         'subsequent_full_pass_claimed':False}
-targeted_report=('reports/nov02-array-address-regression.json' if (ROOT/'reports/nov02-array-address-regression.json').is_file()
+targeted_report=('reports/nov02-atomic-pop-regression.json' if (ROOT/'reports/nov02-atomic-pop-regression.json').is_file()
+                 else 'reports/nov02-array-address-regression.json' if (ROOT/'reports/nov02-array-address-regression.json').is_file()
                  else 'reports/nov01-archive-compiler-regression.json')
 targeted=read(targeted_report)
 state['latest_targeted_regression']={'report':targeted_report,

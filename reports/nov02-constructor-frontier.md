@@ -20,9 +20,9 @@ through the expected-hash installer. No original global was duplicated.
 chain. See the canonical console frontier JSON for the remaining dependencies.
 
 `reports/nov02-original-atomic-list-parity.json` verifies original `push`,
-`first` and `isEmpty` in native C++, Node and Chromium. JavaScript consumes
+`pop`, `first` and `isEmpty` in native C++, Node and Chromium. JavaScript consumes
 native-constructed snapshots in this diagnostic; this does not verify JavaScript
-construction, `pop`, logging, console initialization or engine startup.
+construction, logging, console initialization or engine startup.
 
 The next implementation should preserve these boundaries:
 
@@ -47,8 +47,9 @@ The next implementation should preserve these boundaries:
    console initialization and `enginePreInit`; do not seed game state.
 
 `AtomicSList64::pop` uses a release/acquire compare-exchange pair. Its execution
-is unverified; check the selected C++ build's ordering contract against the
-source atomic runtime before declaring the consumer path recovered.
+now matches the selected native compiler. The adapter's older ordering table
+incorrectly rejected it; `reports/nov02-atomic-order-contract.md` records the
+native evidence and retained shared-buffer/alignment/invalid-order guards.
 
 Other acceptance work remains: engine initialization, original menus/world
 rendering, input/gameplay/audio/saves, a responsive original outer loop, and a

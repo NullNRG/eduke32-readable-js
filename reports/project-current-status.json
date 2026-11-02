@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-02T00:38:46.499157+00:00",
+  "updated_utc": "2026-11-02T15:47:55.839457+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "d7cfd668d2fcd9258196d667ec2f17c7f244c08e12fddff6f97bb807007e1468",
+  "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -137,20 +137,20 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/nov01-vfs-final-full-regression.json",
+    "report": "reports/nov02-method-full-regression.json",
     "complete": true,
     "counts": {
-      "passed": 207,
-      "failed": 0,
+      "passed": 210,
+      "failed": 1,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 207,
-    "completed_tests": 207,
-    "all_passed": true,
+    "selected_tests": 211,
+    "completed_tests": 211,
+    "all_passed": false,
     "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "d7cfd668d2fcd9258196d667ec2f17c7f244c08e12fddff6f97bb807007e1468",
-    "revision_matches_current_inputs": true,
+    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
   "original_allocator": {
@@ -230,6 +230,298 @@
         ]
       },
       {
+        "name": "_mm_add_epi16",
+        "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(8 * sizeof(unsigned short)))) unsigned short",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_add_epi32",
+        "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(4 * sizeof(unsigned int)))) unsigned int",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_add_epi64",
+        "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(2 * sizeof(unsigned long long)))) unsigned long long",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_adds_epu16",
+        "reason": "builtin __builtin_elementwise_add_sat",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_mulhi_epi16",
+        "reason": "builtin __builtin_ia32_pmulhw128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_mulhi_epu16",
+        "reason": "builtin __builtin_ia32_pmulhuw128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_mul_epu32",
+        "reason": "builtin __builtin_ia32_pmuludq128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_sub_epi16",
+        "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(8 * sizeof(unsigned short)))) unsigned short",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_sub_epi32",
+        "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(4 * sizeof(unsigned int)))) unsigned int",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_sub_epi64",
+        "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(2 * sizeof(unsigned long long)))) unsigned long long",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_subs_epu16",
+        "reason": "builtin __builtin_elementwise_sub_sat",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_srai_epi16",
+        "reason": "builtin __builtin_ia32_psrawi128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_srai_epi32",
+        "reason": "builtin __builtin_ia32_psradi128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_srli_epi16",
+        "reason": "builtin __builtin_ia32_psrlwi128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_srli_epi32",
+        "reason": "builtin __builtin_ia32_psrldi128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_srli_epi64",
+        "reason": "builtin __builtin_ia32_psrlqi128",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_set_epi64x",
+        "reason": "unary __extension__",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_set_epi32",
+        "reason": "unary __extension__",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_set_epi16",
+        "reason": "unary __extension__",
+        "dependencies": []
+      },
+      {
+        "name": "_mm_set1_epi64x",
+        "reason": "unlinked identifiers: _mm_set_epi64x",
+        "dependencies": [
+          "_mm_set_epi64x"
+        ]
+      },
+      {
+        "name": "_mm_set1_epi32",
+        "reason": "unlinked identifiers: _mm_set_epi32",
+        "dependencies": [
+          "_mm_set_epi32"
+        ]
+      },
+      {
+        "name": "_mm_set1_epi16",
+        "reason": "unlinked identifiers: _mm_set_epi16",
+        "dependencies": [
+          "_mm_set_epi16"
+        ]
+      },
+      {
+        "name": "__gthread_cond_broadcast",
+        "reason": "unlinked identifiers: pthread_cond_broadcast",
+        "dependencies": [
+          "pthread_cond_broadcast"
+        ]
+      },
+      {
+        "name": "__gthread_cond_wait",
+        "reason": "unlinked identifiers: pthread_cond_wait",
+        "dependencies": [
+          "pthread_cond_wait"
+        ]
+      },
+      {
+        "name": "__gthread_cond_wait_recursive",
+        "reason": "unlinked identifiers: __gthread_cond_wait",
+        "dependencies": [
+          "__gthread_cond_wait"
+        ]
+      },
+      {
+        "name": "__is_single_threaded",
+        "reason": "unlinked identifiers: __libc_single_threaded",
+        "dependencies": [
+          "__libc_single_threaded"
+        ]
+      },
+      {
+        "name": "__exchange_and_add_dispatch",
+        "reason": "unlinked identifiers: __is_single_threaded",
+        "dependencies": [
+          "__is_single_threaded"
+        ]
+      },
+      {
+        "name": "__atomic_add_dispatch",
+        "reason": "unlinked identifiers: __is_single_threaded",
+        "dependencies": [
+          "__is_single_threaded"
+        ]
+      },
+      {
+        "name": "__throw_concurrence_lock_error",
+        "reason": "builtin __builtin_abort",
+        "dependencies": []
+      },
+      {
+        "name": "__throw_concurrence_unlock_error",
+        "reason": "builtin __builtin_abort",
+        "dependencies": []
+      },
+      {
+        "name": "__throw_concurrence_broadcast_error",
+        "reason": "builtin __builtin_abort",
+        "dependencies": []
+      },
+      {
+        "name": "__throw_concurrence_wait_error",
+        "reason": "builtin __builtin_abort",
+        "dependencies": []
+      },
+      {
+        "name": "__throw_bad_weak_ptr",
+        "reason": "builtin __builtin_abort",
+        "dependencies": []
+      },
+      {
+        "name": "libdivide_64_div_32_to_32",
+        "reason": "inline assembly",
+        "dependencies": []
+      },
+      {
+        "name": "libdivide_128_div_64_to_64",
+        "reason": "inline assembly",
+        "dependencies": []
+      },
+      {
+        "name": "libdivide_internal_u16_gen",
+        "reason": "unlinked identifiers: stderr",
+        "dependencies": [
+          "stderr"
+        ]
+      },
+      {
+        "name": "libdivide_internal_u32_gen",
+        "reason": "unlinked identifiers: libdivide_64_div_32_to_32, stderr",
+        "dependencies": [
+          "libdivide_64_div_32_to_32",
+          "stderr"
+        ]
+      },
+      {
+        "name": "libdivide_internal_u64_gen",
+        "reason": "unlinked identifiers: libdivide_128_div_64_to_64, stderr",
+        "dependencies": [
+          "libdivide_128_div_64_to_64",
+          "stderr"
+        ]
+      },
+      {
+        "name": "libdivide_internal_s16_gen",
+        "reason": "unlinked identifiers: stderr",
+        "dependencies": [
+          "stderr"
+        ]
+      },
+      {
+        "name": "libdivide_internal_s32_gen",
+        "reason": "unlinked identifiers: libdivide_64_div_32_to_32, stderr",
+        "dependencies": [
+          "libdivide_64_div_32_to_32",
+          "stderr"
+        ]
+      },
+      {
+        "name": "libdivide_internal_s64_gen",
+        "reason": "unlinked identifiers: libdivide_128_div_64_to_64, stderr",
+        "dependencies": [
+          "libdivide_128_div_64_to_64",
+          "stderr"
+        ]
+      },
+      {
+        "name": "libdivide_s64_signbits_vec128",
+        "reason": "builtin __builtin_ia32_pshufd",
+        "dependencies": []
+      },
+      {
+        "name": "libdivide_s64_shift_right_vec128",
+        "reason": "unlinked identifiers: _mm_set1_epi64x, _mm_srli_epi64, _mm_sub_epi64",
+        "dependencies": [
+          "_mm_set1_epi64x",
+          "_mm_srli_epi64",
+          "_mm_sub_epi64"
+        ]
+      },
+      {
+        "name": "libdivide_mullhi_u32_vec128",
+        "reason": "unlinked identifiers: _mm_mul_epu32, _mm_set_epi32, _mm_srli_epi64",
+        "dependencies": [
+          "_mm_mul_epu32",
+          "_mm_set_epi32",
+          "_mm_srli_epi64"
+        ]
+      },
+      {
+        "name": "libdivide_mullhi_s32_vec128",
+        "reason": "unlinked identifiers: _mm_srai_epi32, _mm_sub_epi32, libdivide_mullhi_u32_vec128",
+        "dependencies": [
+          "_mm_srai_epi32",
+          "_mm_sub_epi32",
+          "libdivide_mullhi_u32_vec128"
+        ]
+      },
+      {
+        "name": "libdivide_mullhi_u64_vec128",
+        "reason": "builtin __builtin_ia32_pshufd",
+        "dependencies": []
+      },
+      {
+        "name": "libdivide_mullhi_s64_vec128",
+        "reason": "unlinked identifiers: _mm_sub_epi64, libdivide_mullhi_u64_vec128, libdivide_s64_signbits_vec128",
+        "dependencies": [
+          "_mm_sub_epi64",
+          "libdivide_mullhi_u64_vec128",
+          "libdivide_s64_signbits_vec128"
+        ]
+      },
+      {
+        "name": "__clp2",
+        "reason": "unlinked identifiers: __digits__header_630a4bdb591c",
+        "dependencies": [
+          "__digits__header_630a4bdb591c"
+        ]
+      },
+      {
         "name": "osdfunc_fileinfo",
         "reason": "unlinked identifiers: OSD_Printf",
         "dependencies": [
@@ -284,7 +576,7 @@
       },
       {
         "name": "OSD_Puts",
-        "reason": "nontrivial byte-view method requires original class prototype: __cxx_record_AtomicSList64_3dd2cc0244e476fc::push",
+        "reason": "C++ heap object needs complete original class construction/destruction: AtomicLogString",
         "dependencies": []
       },
       {
@@ -300,6 +592,11 @@
         "dependencies": [
           "OSD_Init"
         ]
+      },
+      {
+        "name": "__digits__header_630a4bdb591c",
+        "reason": "DependentScopeDeclRefExpr",
+        "dependencies": []
       },
       {
         "name": "AtomicLogString",
@@ -318,7 +615,7 @@
   "original_engine_preinit_frontier": {
     "linked": false,
     "executed": false,
-    "immediate_shared_blocker": "Original osdmain_t byte storage contains AtomicSList64/std::atomic; inherited storage and atomic class methods remain incomplete. Original CircularQueue destruction now has source-proven template recovery.",
+    "immediate_shared_blocker": "Original AtomicSList64 push/load/compare-exchange now link. OSD_Puts remains blocked by original AtomicLogString construction and inherited/member object lifetimes. Borrowed byte-field views do not establish construction.",
     "additional_dependencies": [
       "original console registration and callbacks",
       "logging",
@@ -328,7 +625,7 @@
   "startup_component_build": {
     "source_units_with_partial_modules": 22,
     "selected_source_units": 111,
-    "compiler_frontend_sha256": "d7cfd668d2fcd9258196d667ec2f17c7f244c08e12fddff6f97bb807007e1468",
+    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
     "whole_selected_program_compiled_under_current_revision": false,
     "entry_exports": {
       "enginePreInit": false,
@@ -540,21 +837,21 @@
     "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
   },
   "latest_targeted_regression": {
-    "report": "reports/nov01-archive-compiler-regression.json",
+    "report": "reports/nov02-atomic-pop-regression.json",
     "complete": true,
     "counts": {
-      "passed": 16,
+      "passed": 3,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 16,
-    "completed_tests": 16,
+    "selected_tests": 3,
+    "completed_tests": 3,
     "all_passed": true,
     "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "d6e13ee34c4ba8dc835146b7831e4a4fd9bfcef0a4dcde7982798d0d2243225d",
-    "revision_matches_current_inputs": false,
-    "note": "Earlier focused 16-test pass; subsequent fixes and current complete regression are recorded separately."
+    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "revision_matches_current_inputs": true,
+    "note": "Focused subset only; fingerprints and the current complete regression are recorded separately."
   },
   "source_header_definitions": {
     "contract": "factory-output/browser-classic/compile_commands.header-definitions.json",
@@ -633,7 +930,7 @@
     "frozen_inputs": true,
     "revision_matches_current_inputs": false
   },
-  "source_implementation_commit": "53f71f5aab4516826c5f9818aa9de0e921152508",
+  "source_implementation_commit": "f949b6cb6b8aad3443c8169942d9ac6d0736c3e2",
   "vfs_regression_corrections": {
     "earlier_complete_report": "reports/nov01-vfs-corrected-full-regression.json",
     "earlier_passed": 204,
@@ -646,5 +943,44 @@
     "division_parity_report": "reports/oct25-original-libdivide-parity.json",
     "native_node_chromium_divisions": 3968,
     "native_node_chromium_wide_arithmetic_cases": 256
+  },
+  "original_atomic_list_methods": {
+    "report": "reports/nov02-original-atomic-list-parity.json",
+    "passed": true,
+    "native_node_chromium_cases": 256,
+    "original_methods": [
+      "push",
+      "pop",
+      "first",
+      "isEmpty"
+    ],
+    "javascript_constructed_list_or_nodes": false,
+    "pop_verified": true,
+    "console_initialization_verified": false,
+    "gameplay_verified": false,
+    "frontier_note": "reports/nov02-constructor-frontier.md",
+    "compiler_and_runtime_helpers_match": true
+  },
+  "corrected_regression_tests": {
+    "report": "reports/nov02-corrected-stream-regression.json",
+    "complete": true,
+    "counts": {
+      "passed": 5,
+      "failed": 0,
+      "timeout": 0,
+      "launch-failed": 0
+    },
+    "selected_tests": 5,
+    "completed_tests": 5,
+    "all_passed": true,
+    "regression_inputs_unchanged": true,
+    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "revision_matches_current_inputs": false,
+    "files_changed_since_complete_run": [
+      "tests/source_factory/verify_sourcefirst_ast_stream.py",
+      "tests/source_factory/verify_sourcefirst_atomic_operations.py",
+      "tools/source_atomic_runtime.mjs"
+    ],
+    "subsequent_full_pass_claimed": false
   }
 }

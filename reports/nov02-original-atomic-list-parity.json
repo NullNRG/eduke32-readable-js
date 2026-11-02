@@ -6,12 +6,13 @@
   "page_errors": [],
   "original_methods": [
     "push",
+    "pop",
     "first",
     "isEmpty"
   ],
   "source_header": "source/build/include/atomiclist.h",
   "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
-  "fixture_sha256": "e14691835aff31af228878625f2ae2df1a6b444fcbe791c3327aa02dc196fa08",
+  "fixture_sha256": "e0e50b053a8d2605551a2d56c2a21e494f0ee7e8b41d0a77ab0a81e3ab8a1b25",
   "fixture_header_is_byte_identical_to_original": true,
   "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
   "compiler_and_runtime_helpers": {
@@ -23,7 +24,7 @@
     "tools/source_ast_events.py": "0cccf7a3e951942d87dd4302679f060e06c068a47c3f37c9f9f1c8b665ae6c19",
     "tools/source_ast_stream.py": "eb9b6f43efca3835b43d95aa78734ccba10b9b30e9ceabc16b80c0c1eadf4a97",
     "tools/source_ast_to_js.py": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
-    "tools/source_atomic_runtime.mjs": "769dee44cbc0ba8713ef69e2bbfbff36f6a2f6a71f02ef1d56cca0faef5837b5",
+    "tools/source_atomic_runtime.mjs": "146b1a9be21c9f2b13d9e3498d80d31e3173f49d65fc02d489eb62301ec76e43",
     "tools/source_byte_memory_runtime.mjs": "b3e5e1d76423da8e1a1b4322ab1e67143bf05ab91cc315ded29cc688ba71589f",
     "tools/source_byte_methods.py": "f531c2bd5bef7be6dc828854e11abbafe190405dfded2ac41fd6756398feec7a",
     "tools/source_byte_records.py": "2f9426c461ecb5bd22abb65d08592cea2016e1612a446e4a70039070207a2812",
@@ -78,7 +79,7 @@
     "tools/source_trivial_assignment.py": "e0e7e38527219074c7c813386025919311583332ac03c81552226decb8bfa9da",
     "tools/source_variadic_runtime.mjs": "f495e1870f44e469eb869f8d350a77e55aba2e93fc028300e31466cec5fe2216"
   },
-  "emitted_module_sha256": "b2734779f49dc6b2a08e5e973b0cc3d553fae123754cde5e4f07c673d8fc0b0b",
+  "emitted_module_sha256": "7bdeecacca53415147979186d56b827953a24205633552f6450c70e0c3c4e256",
   "methods": [
     {
       "source_header": "atomiclist.h",
@@ -246,6 +247,61 @@
       "method_type": "Item *() const"
     },
     {
+      "source_header": "atomiclist.h",
+      "source_offset": 1256,
+      "source_line": 44,
+      "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+      "mangled_name": "_ZN13AtomicSList64I4ItemE3popEv",
+      "original_type": "Item *()",
+      "original_name": "pop",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "m_head": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 8,
+              "align": 8,
+              "union": false,
+              "fields": {
+                "_M_b": {
+                  "offset": 0,
+                  "byteRecord": {
+                    "size": 8,
+                    "align": 8,
+                    "union": false,
+                    "fields": {
+                      "_M_p": {
+                        "offset": 0,
+                        "pointer": true,
+                        "size": 8
+                      }
+                    },
+                    "arrayAlign": 1,
+                    "projection": true,
+                    "overlaps": false
+                  }
+                }
+              },
+              "arrayAlign": 1,
+              "projection": true,
+              "overlaps": false
+            }
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+      "method_type": "Item *()"
+    },
+    {
       "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
       "source_offset": 15952,
       "source_line": 578,
@@ -285,35 +341,6 @@
         "overlaps": false
       },
       "receiver_schema_sha256": "80767976e1c63172da4685e2c8a556e6f5836e1f5ec74852c898f5f0d5395b5f",
-      "method_type": "Item * (memory_order) const noexcept"
-    },
-    {
-      "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
-      "source_offset": 24102,
-      "source_line": 813,
-      "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
-      "mangled_name": "_ZNKSt13__atomic_baseIP4ItemE4loadESt12memory_order",
-      "original_type": "__pointer_type (memory_order) const noexcept",
-      "original_name": "load",
-      "original_ast_kind": "CXXMethodDecl",
-      "translation_unit": "list.cpp",
-      "abi": "source-byte-instance-method/1",
-      "receiver_schema": {
-        "size": 8,
-        "align": 8,
-        "union": false,
-        "fields": {
-          "_M_p": {
-            "offset": 0,
-            "pointer": true,
-            "size": 8
-          }
-        },
-        "arrayAlign": 1,
-        "projection": true,
-        "overlaps": false
-      },
-      "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
       "method_type": "Item * (memory_order) const noexcept"
     },
     {
@@ -386,11 +413,45 @@
       },
       "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
       "method_type": "bool (Item * &, Item *, memory_order, memory_order) noexcept"
+    },
+    {
+      "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_offset": 24102,
+      "source_line": 813,
+      "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+      "mangled_name": "_ZNKSt13__atomic_baseIP4ItemE4loadESt12memory_order",
+      "original_type": "__pointer_type (memory_order) const noexcept",
+      "original_name": "load",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "_M_p": {
+            "offset": 0,
+            "pointer": true,
+            "size": 8
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
+      "method_type": "Item * (memory_order) const noexcept"
     }
   ],
   "original_cpp_lifetimes_executed_by_native_oracle": true,
   "javascript_constructed_list_or_nodes": false,
-  "pop_verified": false,
+  "pop_verified": true,
+  "native_gnupp14_original_cmpxchg": [
+    "%21 = cmpxchg weak ptr %0, ptr %20, ptr %17 release monotonic, align 8",
+    "%65 = cmpxchg weak ptr %0, ptr %63, ptr %64 release acquire, align 8",
+    "%88 = cmpxchg weak ptr %0, ptr %86, ptr %87 release acquire, align 8"
+  ],
   "console_initialization_verified": false,
   "gameplay_verified": false
 }

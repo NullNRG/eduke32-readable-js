@@ -18913,8 +18913,8 @@
       "source_manifest_sha256": "a2c1de73076cabfeb6104c1060101aa3f192f75943b200ccb014b840f4c52b88"
     },
     {
-      "module": "source/build/src/_source_legacy_osd_cpp_96454e4990d4.mjs",
-      "sha256": "96454e4990d46c8c405b3a4319483bfe734e855cc736c4fc200c4f4fb49fd572",
+      "module": "source/build/src/_source_legacy_osd_cpp_2d73f7fc3cf3.mjs",
+      "sha256": "2d73f7fc3cf3c49e82b51eef80a9b0df4a6412dff5e64f869ab03717a4f75305",
       "original_source": "source/build/src/osd.cpp",
       "exports": [
         "__atomic_add",
@@ -19809,6 +19809,454 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "b8eb0d933fd9a61101e262a3ac98eabb44071a7b20afbf0dc5a843dc42346365"
+    },
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_96454e4990d4.mjs",
+      "sha256": "96454e4990d46c8c405b3a4319483bfe734e855cc736c4fc200c4f4fb49fd572",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "__atomic_add",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__exchange_and_add",
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order",
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+        "__source_byte_method_load_8c900e6fe18ffce51024",
+        "__source_byte_method_load_d45fe9c1d1662fe18dae",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "min",
+        "tabledivide32"
+      ],
+      "reexports": [
+        "__atomic_add",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__exchange_and_add",
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order",
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+        "__source_byte_method_load_8c900e6fe18ffce51024",
+        "__source_byte_method_load_d45fe9c1d1662fe18dae",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "min",
+        "tabledivide32"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_GetShadePal",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_SetTextMode",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicLock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicUnlock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "calloc",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "curpalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            256
+          ],
+          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "original_type": "palette_t[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_75d6a502adeb2e09",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_7b9a68c01681fb34",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_924f794035c2c765",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "free",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "h_osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e29f56370946f18c1c4ce6f4",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdmaxrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6ccf77af1ebb35ce0896b7ab",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_118753c0135375278a2f5a8b",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrowscur",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "palookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "printext256",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "whiteColorIdx",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ea15dc1aa7360bcf15297a0",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "85c515257686d678eb6a14a66c4d78116cd86e3e5604e8074abb8907823fc9b8"
     }
   ]
 }

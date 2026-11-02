@@ -5,19 +5,23 @@ const cAtomic = (source, Type, operation, order, value=null, expected=null, fail
   const allowed={load:[0,1,2,5],store:[0,3,5],exchange:[0,1,2,3,4,5],compare:[0,1,2,3,4,5]};
   if(!(allowed[operation]??allowed.exchange).includes(Number(order)))throw new RangeError('Invalid source atomic memory order');
   if(operation==='compare'){
-    const failures={0:[0],1:[0,1],2:[0,1,2],3:[0],4:[0,1,2],5:[0,1,2,5]};
-    if(!failures[Number(order)].includes(Number(failure)))throw new RangeError('Invalid source atomic failure order');
+    // Match the selected Clang native contract: success and failure orders
+    // are independent. Failure only loads, so release/acq_rel are invalid.
+    // Original AtomicSList64::pop uses release/acquire even in gnu++14;
+    // Clang emits that exact pair. See WG21 P0418R2 and LLVM cmpxchg.
+    if(!allowed.load.includes(Number(failure)))throw new RangeError('Invalid source atomic failure order');
   }
   const pointer=Type===null;
   if(!pointer&&![Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,BigInt64Array,BigUint64Array].includes(Type))
     throw new TypeError('Source atomic requires a proven integral/pointer type');
   const rejectShared=address=>{
+    const width=pointer?8:Type.BYTES_PER_ELEMENT;
     const buffer=ArrayBuffer.isView(address)?address.buffer:address?.buffer;
     if(typeof SharedArrayBuffer==='function'&&buffer instanceof SharedArrayBuffer)
       throw new TypeError('Shared source atomics require a concurrent backend');
-    if(address?.__cPointer===true&&!address.array&&Type&&address.offset%Type.BYTES_PER_ELEMENT)
+    if(address?.__cPointer===true&&!address.array&&address.offset%width)
       throw new RangeError('Unaligned source atomic address');
-    if(ArrayBuffer.isView(address)&&Type&&address.byteOffset%Type.BYTES_PER_ELEMENT)
+    if(ArrayBuffer.isView(address)&&address.byteOffset%width)
       throw new RangeError('Unaligned source atomic address');
   };
   rejectShared(source);
