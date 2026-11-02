@@ -972,6 +972,12 @@ class Emit:
         return width
     def record_pointer_expr(self,t,expression):
         if self.record_pointer_stride(t) is None:return None
+        base=normalized_record_name(t.partition('*')[0],self.type_aliases)
+        storage=self.global_storage_records.get(base)
+        if base not in getattr(self,'native_byte_classes',set()) and (
+                base in getattr(self,'managed_record_names',set()) or
+                storage is not None and not storage.get('byte_schema')):
+            return expression
         return self.record_pointer_view(t,expression)
     def record_pointer_view(self,t,expression):
         """A recovered schema also proves a view when filtered layouts are absent."""
@@ -2158,9 +2164,9 @@ class Emit:
             if k=='UnaryOperator' and n.get('opcode')=='&' and len(a)==1:
                 if kind(a[0])=='DeclRefExpr' and a[0].get('referencedDecl',{}).get('kind')=='FunctionDecl':
                     return prove({'kind':'ImplicitCastExpr','castKind':'FunctionToPointerDecay','inner':a})
-                if owner_lvalue(a[0]):return 'array' if kind(a[0])=='ArraySubscriptExpr' and self.pointer_type(qual(n)) else 'object'
+                if owner_lvalue(a[0]):return 'array' if kind(a[0])=='ArraySubscriptExpr' and (self.pointer_type(qual(n)) or self.record_pointer_stride(qual(n))) else 'object'
             if k=='BinaryOperator' and n.get('opcode') in ('+','-') and len(a)==2:
-                if self.pointer_type(qual(n)) and prove(a[0])=='array' and constant_index(a[1]):return 'array'
+                if (self.pointer_type(qual(n)) or self.record_pointer_stride(qual(n))) and prove(a[0])=='array' and constant_index(a[1]):return 'array'
             return None
         proof=prove(node)
         if proof is None:raise Unsupported('static pointer initializer requires a proven original source address: '+kind(node)+' '+qual(node))
@@ -3020,6 +3026,8 @@ class Emit:
         record_schema=aggregate_type_schema(typ,self.global_storage_records,self.type_aliases,self.record_layouts,allow_pointer_storage=True,enum_types=self.enum_types)
         if record_schema and 'record' in record_schema:
             return f'export const {name} = {global_initializer(n,self.enum_values,self.record_layouts,self.global_storage_records,self.type_aliases,self.enum_types,self)};'
+        if '*' in typ:
+            return f'export const {name} = {global_initializer(n,self.enum_values,self.record_layouts,self.global_storage_records,self.type_aliases,self.enum_types,self)};'
         return f'export const {name} = {js_cast(self.expr(value),qual(n))};'
     def function(self,n,method=False,symbol=None):
         name=symbol or js_ident(n.get('name',''))
@@ -3779,7 +3787,12 @@ def global_initializer(n, enum_values=None, record_layouts=None, aggregate_recor
                 # memory object across calls, never a JS UTF-16 string.
                 blob=c_string_bytes(value.get('value',''))+b'\x00'
                 return 'Uint8Array.from('+json.dumps(list(blob))+')'
-        em=emitter or Emit();em.enum_values=enum_values;em.record_layouts=record_layouts;em.type_aliases=type_aliases or {};em.aggregate_records=aggregate_records or {};return js_cast(em.expr(init),t)
+        em=emitter or Emit();em.enum_values=enum_values;em.record_layouts=record_layouts;em.type_aliases=type_aliases or {};em.aggregate_records=aggregate_records or {}
+        if '*' in t:
+            try:return em.static_pointer_initializer(init)
+            except Unsupported as error:
+                if not str(error).startswith('static pointer initializer requires a proven original source address:'):raise
+        return js_cast(em.expr(init),t)
     if '*' in t:return 'null'
     if re.search(r'\b(bool|_Bool)\b',t):return 'false'
     if is_wide_integer(t):return '0n'

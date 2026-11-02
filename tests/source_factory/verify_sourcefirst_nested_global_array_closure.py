@@ -12,10 +12,14 @@ with tempfile.TemporaryDirectory(prefix='nested-global-array-',dir=ROOT/'work') 
 struct Input{uint32_t bits;int16_t fvel,svel;int32_t angle,horizon;uint32_t ext;};
 struct Player{Player*ps;Input input;int32_t adjust[1];uint64_t stamp;uint8_t name[16];uint32_t revision;};
 #pragma pack(pop)
-extern Player*const players;
-'''.replace('int32_t adjust[1]','int32_t adjust'))
-    (root/'unit.cpp').write_text('''#include "types.hpp"
+#ifdef UNIT_OWNER
 static Player storage[17];Player*const players=&storage[1];
+#else
+extern Player*const players;
+#endif
+'''.replace('int32_t adjust[1]','int32_t adjust'))
+    (root/'unit.cpp').write_text('''#define UNIT_OWNER
+#include "types.hpp"
 int mutate(int n){int slot=n%16;Player*p=&players[slot];
  p->input.bits=n*31u;p->input.fvel=n-129;p->adjust=n+5;p->stamp=(uint64_t)n*1009;
  p->ps=p;players[-1].revision=n+7;
@@ -33,6 +37,7 @@ int mutate(int);int main(){for(int n=0;n<256;n++)printf("%d\\n",mutate(n));}
     rows={row['source_name']:row for row in doc['definitions']}
     assert rows['players']['status']==rows['mutate']['status']=='source-first',doc['definitions']
     assert doc['full_type_closure']['attempted'],doc['full_type_closure']
+    assert 'export const '+rows['players']['name']+' = cStaticPointer(' in module.read_text()
     js='async url=>{const {mutate}=await import(url);return Array.from({length:256},(_,n)=>mutate(n));}'
     runner=root/'run.mjs';runner.write_text('console.log(JSON.stringify(await ('+js+')('+json.dumps(module.as_uri())+')));')
     actual=json.loads(run(['node',runner]));assert actual==expected,(actual[:3],expected[:3])

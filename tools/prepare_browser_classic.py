@@ -56,6 +56,18 @@ def browser_allocator_storage(data):
 def browser_allocator_statistics(data):
     return replace_once(data,b'#define SMMALLOC_STATS_SUPPORT',
         b'#if !defined(EDUKE32_BROWSER)\n#define SMMALLOC_STATS_SUPPORT\n#endif')
+
+def browser_display_controls(data):
+    # A browser canvas has no desktop output-monitor selector. Exclude only
+    # that console control; resolution changes and the original renderer stay.
+    begin=data.index(b'static int osdcmd_displayindex(')
+    end=data.index(b'static int osdcmd_cvar_set_baselayer(',begin)
+    original=data[begin:end]
+    data=data[:begin]+b'#if !defined(EDUKE32_BROWSER)\n'+original+b'#endif\n\n'+data[end:]
+    registration=(b'    static osdcvardata_t displayindex = { "r_displayindex","index of output display",(void*)&r_displayindex, CVAR_INT | CVAR_FUNCPTR, 0, 8 };\n'
+                  b'    OSD_RegisterCvar(&displayindex, osdcmd_displayindex);')
+    return replace_once(data,registration,
+        b'#if !defined(EDUKE32_BROWSER)\n'+registration+b'\n#endif')
 def browser_make(data):
     return replace_once(data,b'engine_objs := \\\n',
         b'# Browser allocations use smmalloc_generic.cpp; pool/TLS optimizations are excluded.\n'
@@ -66,6 +78,8 @@ ADAPTATIONS=(
     (COMPAT,browser_allocator_compat,'Select original GenericAllocator for browser allocation wrappers; preserve original error handling'),
     (COMPAT_SOURCE,browser_allocator_storage,'Declare the browser allocator instance with its actual original GenericAllocator type'),
     (SMALLOC,browser_allocator_statistics,'Exclude pool statistics when the browser profile does not use a pool'),
+    ('source/build/src/baselayer.cpp',browser_display_controls,
+     'Exclude desktop output-monitor selection from the browser console; retain original video mode and rendering paths'),
     ('GNUmakefile',browser_make,'Exclude unused pool and thread-cache units from original Make browser selection'),
 )
 def restore_source_archive(archive,destination,expected_sha):
