@@ -1,9 +1,10 @@
 """Extract and execute the actual saved runtime component without installed SDKs."""
-import argparse,hashlib,json,os,subprocess,sys,tempfile,zipfile
+import argparse,hashlib,json,os,posixpath,re,subprocess,sys,tempfile,zipfile
 from pathlib import Path,PurePosixPath
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('archive',type=Path)
+parser.add_argument('--report',type=Path,default=ROOT/'reports/nov01-continuation-extraction-proof.json')
 args=parser.parse_args();archive=args.archive.resolve()
 report={'archive':str(archive),'gameplay_verified':False,'original_engine_startup_verified':False}
 with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduke-continuation-check-') as temporary:
@@ -22,12 +23,30 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
     module_root=profile['boot_module_root']
     state=json.loads(saved.read('EDuke32_SourceFactory/HANDOFF_SNAPSHOT.json'))
     artifact_roots={module_root,*state.get('continuation_artifact_roots',[])}
+    # Start at every current browser module and follow its actual relative
+    # imports. Do not extract historical/automatic copies merely because they
+    # share the component's enclosing analysis directory.
+    executable_artifacts={name for name in rows if name.startswith(module_root+'/') and
+        (name.endswith('.mjs') or PurePosixPath(name).parent.as_posix()==module_root)}
+    pending=[name for name in executable_artifacts if name.endswith('.mjs')]
+    import_pattern=re.compile(r'''(?:\bfrom\s*|\bimport\s*\(\s*)['"](\.{1,2}/[^'"]+)['"]''')
+    while pending:
+        name=pending.pop()
+        for relative in import_pattern.findall(saved.read('EDuke32_SourceFactory/'+name).decode()):
+            target=posixpath.normpath(posixpath.join(posixpath.dirname(name),relative))
+            assert target in rows,(name,target)
+            if target not in executable_artifacts:
+                executable_artifacts.add(target)
+                if target.endswith('.mjs'):pending.append(target)
     extracted=[]
     for name,row in rows.items():
         relative=PurePosixPath(name)
         assert not relative.is_absolute() and '..' not in relative.parts,name
         assert not any(part in ('toolchains','node_modules','__pycache__') for part in relative.parts),name
-        if (relative.parts[0] in ('tools','runtime','tests') or any(name.startswith(prefix+'/') for prefix in artifact_roots)
+        # Execute the saved module graph, not duplicated analysis databases.
+        # The packager has already checksum-verified every archive payload.
+        executable_artifact=name in executable_artifacts
+        if (relative.parts[0] in ('tools','runtime','tests') or executable_artifact
             or name in ('input-data/DUKE3D.GRP','work/probe_original_vfs.mjs','work/run_original_vfs.mjs')
             or name in ('package.json','HANDOFF_SNAPSHOT.json','CONTINUE_HERE.md',
                         'factory-output/source-first/browser-classic/component-manifest.json')):
@@ -68,5 +87,5 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
         trace=proof['trace'],original_engine_startup_verified=expected_startup,
         startup_verifier_expected_failure_preserved=not expected_startup,
         archive_sha256=hashlib.file_digest(archive.open('rb'),'sha256').hexdigest())
-(ROOT/'reports/nov01-continuation-extraction-proof.json').write_text(json.dumps(report,indent=2)+'\n')
+args.report.resolve().write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

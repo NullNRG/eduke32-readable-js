@@ -836,3 +836,12 @@ function __cxx_static_address_6b40a5c7d992e38a673b4c6e() {
     set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
   });
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { basepalreset, clamp__header_7fdbead6febc, curbasepal, curbrightness, curpalettefaded, g_lastpalettesum, gammabrightness, palfadedelta, palfadergb, __cxx_global_cell_8c784fcd98ff8a6365ed10e5, __cxx_global_cell_780811cb53e28b659b6616eb, __cxx_global_cell_4e6755afec0ef38c6a67f61a, __cxx_global_cell_2e274c3f41eaa4a44d62a6ff, __cxx_global_cell_a8e62b4a4ba82cd2a9215fe2, __cxx_global_cell_fba044f5949b228db52cb0a4, __cxx_global_cell_226fe25bac1ac7d5f7db4e7a } from "./_source_legacy_palette_cpp_8bee4cb3c31d.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { basepaltable } from "./_source_legacy_palette_cpp_c3b40e10a5b8.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { paletteGetColor, paletteSetFade, videoSetPalette } from "./_source_legacy_palette_cpp_5e9a604d6d50.mjs";

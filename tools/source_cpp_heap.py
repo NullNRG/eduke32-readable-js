@@ -4,10 +4,29 @@ User replacements, class-specific operators, placement/nothrow/aligned forms
 remain explicit blockers. The runtime is a source-language allocation service,
 not a game function or an instruction interpreter.
 """
-import re
+import os,re
+from pathlib import Path
 
 def standard_allocation_operators(ast, source_root=None):
     records={};rejected=set()
+    # Clang elides a repeated header filename on sibling declarations. An
+    # inherited TU location cannot prove that the sized delete came from
+    # <new>. Join its exact original token/offset only to the configured SDK.
+    sysroot=os.environ.get('EDUKE32_SYSROOT')
+    new_headers=[(path.resolve(),path.read_bytes()) for path in
+        (Path(sysroot)/'usr/include/c++').glob('*/new')] if sysroot else []
+    def original_new_declaration(node,physical):
+        loc=node.get('loc',{});offset=loc.get('offset');name=node.get('name','')
+        if not isinstance(offset,int) or loc.get('expansionLoc'):return False
+        matches=[]
+        for path,data in new_headers:
+            explicit=loc.get('file')
+            if explicit and Path(explicit).resolve()!=path:continue
+            if data[offset:offset+len(name)]!=name.encode():continue
+            if loc.get('line') and data[:offset].count(b'\n')+1!=loc['line']:continue
+            if loc.get('col') and offset-data.rfind(b'\n',0,offset)!=loc['col']:continue
+            matches.append(path)
+        return len(matches)==1
     def walk(node,physical=None):
         physical=node.get('loc',{}).get('file') or physical
         name=node.get('name')
@@ -20,7 +39,7 @@ def standard_allocation_operators(ast, source_root=None):
             signature=(len(params)==1 and size(params[0]) if name.startswith('operator new') else
                        len(params) in (1,2) and params[0].get('type',{}).get('qualType')=='void *' and
                        (len(params)==1 or size(params[1])))
-            system_new=bool(physical and re.search(r'/include/c\+\+/[^/]+/new$',physical.replace('\\','/')))
+            system_new=original_new_declaration(node,physical)
             body=any(n.get('kind')=='CompoundStmt' for n in children)
             if signature and not body and (node.get('isImplicit') is True or system_new):records[key]=node.get('id')
             else:rejected.add(key)

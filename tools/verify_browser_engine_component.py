@@ -4,7 +4,7 @@ from pathlib import Path
 from http.server import SimpleHTTPRequestHandler,HTTPServer
 ROOT=Path(__file__).resolve().parents[1]
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--report',type=Path,default=ROOT/'reports/oct30-original-browser-component.json');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--report',type=Path,default=ROOT/'reports/oct30-original-browser-component.json');p.add_argument('--console-only',action='store_true',help='Execute original console/logging/dispatch diagnostics, not the engine acceptance gate');a=p.parse_args()
  profile=json.loads((ROOT/'tools/browser_classic_profile.json').read_text());modules=ROOT/profile['boot_module_root']
  sources=['source/build/src/pragmas.cpp','source/build/src/engine.cpp','source/build/src/sdlayer.cpp']
  if not (modules/'browser-combined-symbol-owners.json').is_file():
@@ -34,7 +34,7 @@ def main():
     if event.text.startswith('SOURCE_TRACE '):print(event.text,flush=True)
    page=browser.new_page();page.on('console',record_console);page.on('pageerror',lambda error:errors.append(str(error)))
    page.goto(f'http://127.0.0.1:{server.server_port}/__original_component_probe__.html')
-   result=page.evaluate('''async base=>{
+   result=page.evaluate(r'''async ({base,consoleOnly})=>{
     const trace=[];let runtime=null,releaseC=null,releaseSDL=null;
     const enter=async(name,fn)=>{trace.push({name,transition:'enter'});console.info('SOURCE_TRACE '+JSON.stringify(trace.at(-1)));const value=await fn();const scalar=value===undefined?null:(value===null||['number','string','boolean'].includes(typeof value))?value:typeof value;trace.push({name,transition:'return',value:scalar});console.info('SOURCE_TRACE '+JSON.stringify(trace.at(-1)));return value;};
     try{
@@ -46,6 +46,35 @@ def main():
       const engine=await enter('import original engine',()=>import(base+'/source/build/src/engine.cpp.mjs'));
       const baseLayer=await enter('import original base layer',()=>import(base+'/source/build/src/baselayer.cpp.mjs'));
       await enter('engineSetupAllocator',()=>baseLayer.engineSetupAllocator());
+      if(consoleOnly){
+        const osd=await enter('import original console',()=>import(base+'/source/build/src/osd.cpp.mjs'));
+        const {sourceCString,sourceByteView}=await import('/runtime/source_bytes.mjs');
+        const addresses=globalThis[Symbol.for('source-lp64-addresses/2')];
+        const text=value=>addresses.decode(runtime.heap.writeCString(value));
+        await enter('OSD_Init',()=>osd.OSD_Init());
+        await enter('OSD_Puts',()=>osd.OSD_Puts(text('Original console log-node execution\n')));
+        await enter('OSD_WritePendingLines',()=>osd.OSD_WritePendingLines());
+        await enter('OSD_Dispatch echo',()=>osd.OSD_Dispatch(text('echo original-command-dispatch')));
+        let callbacks=0;
+        // Register a new diagnostic command through the original public ABI.
+        // No original game implementation or existing callback is replaced.
+        const inspect=parameters=>{
+          if(parameters.numparms!==2)throw Error('Original command argument count differs');
+          const bytes=sourceByteView(parameters.parms),view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+          const words=[0,1].map(i=>sourceCString(addresses.decode(view.getBigUint64(i*8,true)),runtime.heap));
+          if(words.join(' ')!=='one two')throw Error('Original command tokenization differs: '+words);
+          callbacks++;return 0;
+        };
+        await enter('OSD_RegisterFunction diagnostic',()=>osd.OSD_RegisterFunction(text('__sourcefactory_probe'),text('Diagnostic ABI verification'),inspect));
+        await enter('OSD_Dispatch diagnostic',()=>osd.OSD_Dispatch(text('__sourcefactory_probe one two')));
+        if(callbacks!==1)throw Error('Original registered command callback did not execute');
+        await enter('OSD_Dispatch alias definition',()=>osd.OSD_Dispatch(text('alias __sourcefactory_alias "__sourcefactory_probe one two"')));
+        await enter('OSD_Dispatch alias',()=>osd.OSD_Dispatch(text('__sourcefactory_alias')));
+        if(callbacks!==2)throw Error('Original alias command did not execute');
+        await enter('OSD_WritePendingLines after commands',()=>osd.OSD_WritePendingLines());
+        return {component_passed:true,original_console_initialization_verified:true,original_console_command_callbacks:callbacks,
+          original_console_alias_verified:true,original_engine_startup_verified:false,trace,gameplay_verified:false};
+      }
       const pragmas=await enter('import original division initializer',()=>import(base+'/source/build/src/pragmas.cpp.mjs'));
       await enter('initdivtables',()=>pragmas.initdivtables());
       const divide=await import(base+'/browser-abi/libdivide_provider.mjs');let records=0;
@@ -79,15 +108,15 @@ def main():
       return {component_passed:true,original_engine_startup_verified:startup,trace,gameplay_verified:false};
     }catch(error){return {component_passed:false,trace,error:String(error),stack:error.stack,gameplay_verified:false};}
     finally{releaseSDL?.();releaseC?.();runtime?.close();}
-   }''','/'+modules.relative_to(ROOT).as_posix())
+   }''',{'base':'/'+modules.relative_to(ROOT).as_posix(),'consoleOnly':a.console_only})
    version=browser.version;browser.close()
  finally:server.shutdown();server.server_close()
- result.update({'format':'original-browser-engine-component/1','browser_version':version,'console':console,'page_errors':errors,
+ result.update({'format':'original-browser-console-component/1' if a.console_only else 'original-browser-engine-component/1','browser_version':version,'console':console,'page_errors':errors,
   'module_root':modules.relative_to(ROOT).as_posix(),'artifacts':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in modules.rglob('*.mjs')},
   'runtime_artifacts':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in [*sorted((ROOT/'runtime').rglob('*.mjs')),ROOT/'tools/source_address_runtime.mjs']},
   'menu_verified':False,'level_verified':False,'standalone_player_verified':False})
  a.report.parent.mkdir(parents=True,exist_ok=True);a.report.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='artifacts'},indent=2))
- return 0 if result.get('original_engine_startup_verified') else 1
+ return 0 if (result.get('original_console_initialization_verified') if a.console_only else result.get('original_engine_startup_verified')) else 1
 if __name__=='__main__':
  from recover_browser_component import component_lock
  with component_lock():raise SystemExit(main())

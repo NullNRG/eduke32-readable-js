@@ -453,6 +453,8 @@ def link_input_fingerprint(directory,source_root=None,include_toolchain=True,com
              ROOT/'tools/source_aggregate_runtime.mjs',
              ROOT/'tools/source_byte_memory_runtime.mjs',
              ROOT/'tools/source_variadic_runtime.mjs']
+    sources.extend(path for path in sorted((ROOT/'tools').glob('source_*'))
+        if path.suffix in ('.py','.mjs') and path not in sources)
     sources.extend(sorted((ROOT/'runtime').rglob('*.mjs')))
     for path in sources:
         if not path.is_file():raise FileNotFoundError(path)

@@ -17,7 +17,7 @@ def walk(node):
         if child:yield from walk(child)
 
 
-def recover(ast,candidates,views,aliases,normalize,source_root,source_rel,header_bytes):
+def recover(ast,candidates,views,aliases,normalize,source_root,source_rel,header_bytes,*,native_classes=()):
     """Only exact Clang member IDs can select a body; names never select one."""
     methods={}
     full_calls=set();full_methods=set()
@@ -30,7 +30,7 @@ def recover(ast,candidates,views,aliases,normalize,source_root,source_rel,header
         if record.get('kind')=='CXXRecordDecl' and record.get('completeDefinition') and any(
             member.get('kind') in ('CXXConstructorDecl','CXXDestructorDecl') and not member.get('isImplicit')
             and any(child.get('kind')=='CompoundStmt' for child in member.get('inner',[]))
-            for member in record.get('inner',[]))}
+            for member in record.get('inner',[]))}-set(native_classes)
     for root in ast:
         for record in walk(root):
             if record.get('kind')!='CXXRecordDecl' or not record.get('completeDefinition'):continue

@@ -1,7 +1,10 @@
 """Regenerate the exact console dependency fragment after shared helper fixes."""
-import hashlib,json,subprocess,sys
+import argparse,hashlib,json,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--compile-only',action='store_true',help='Inspect the original frontier without replacing verified fragments')
+options=parser.parse_args()
 profile=json.loads((ROOT/'tools/browser_classic_profile.json').read_text())
 modules=ROOT/profile['boot_module_root'];source='source/build/src/osd.cpp'
 owner=json.loads((modules/(source+'.manifest.json')).read_text())
@@ -23,6 +26,11 @@ subprocess.run(list(map(str,command)),cwd=ROOT,check=True)
 manifest=stage/'out'/(source+'.manifest.json');doc=json.loads(manifest.read_text())
 actual={row['name'] for row in doc['definitions'] if row['status']=='source-first'}
 assert set(exports)<=actual,{'required':exports,'missing':sorted(set(exports)-actual)}
+if options.compile_only:
+    print(json.dumps({'manifest':str(manifest),'definitions':[{k:r.get(k) for k in ('name','status','reason','source_references')}
+        for r in doc['definitions'] if r['name'] in ('OSD_Init','OSD_Puts','OSD_RegisterCvar','OSD_RegisterFunction')
+        or r.get('original_byte_constructor')]},indent=2))
+    sys.exit(0)
 subprocess.run(list(map(str,[sys.executable,ROOT/'tools/install_verified_fragment.py',
     '--manifest',manifest,'--target',modules,'--exports',*exports,
     '--replace-fragment-sha256',previous['sha256'],'--report',ROOT/'reports/nov02-original-atomic-fragment-refresh.json'])),cwd=ROOT,check=True)

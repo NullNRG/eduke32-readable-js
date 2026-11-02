@@ -3984,3 +3984,9 @@ export { _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, k
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { __atomic_add, __cxx_operator_e73606c6bb71dfa0, __exchange_and_add, __is_constant_evaluated, __is_valid_cmpexch_failure_order, __source_byte_method_compare_exchange_weak_1c47e055455677a6758c, __source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6, __source_byte_method_load_8c900e6fe18ffce51024, __source_byte_method_load_d45fe9c1d1662fe18dae, __source_byte_method_push_380753adf605bd3c3414, min, tabledivide32 } from "./_source_legacy_osd_cpp_2d73f7fc3cf3.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { OSD_Puts, OSD_WritePendingLines, __source_byte_ctor_0d0e3eda0a9f2dab1a82, __source_byte_ctor_316ccabdc96e443502d1, __source_byte_ctor_a04c21846848fa96b20f, __source_byte_ctor_bc80c846b5020f710e60, __source_byte_method_fetch_add_ea67e3a9f39df1edfb0b, __source_byte_method_first_e05d9928785c52e5cd72, __source_byte_method_isEmpty_e08944fded2a95bad7d5, __source_byte_method_pop_a015b2255a1ea89938e8 } from "./_source_legacy_osd_cpp_0063d2a8bc9e.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { OSD_Dispatch, OSD_Exec, OSD_Init, OSD_Printf, OSD_RegisterCvar, OSD_RegisterFunction, osdfunc_alias, osdfunc_exec, osdfunc_fileinfo, osdfunc_help, osdfunc_history, osdfunc_listsymbols } from "./_source_legacy_osd_cpp_4723966e2072.mjs";

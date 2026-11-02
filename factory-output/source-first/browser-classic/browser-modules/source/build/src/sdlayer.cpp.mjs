@@ -53,3 +53,9 @@ export { bpp, bytesperline, modechange, offscreenrendering, videoEndDrawing, __c
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { videoBeginDrawing } from "./_source_legacy_sdlayer_cpp_351c1c6c6ef4.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { SILENCE_UNUSED__header_6c4dd990742e, __atomic_add, __atomic_add_single, __cxx_operator_11a696315e969ab4, __cxx_operator_35d41574d9c68141, __cxx_operator_9d5bfff63c86ec9c, __exchange_and_add, __exchange_and_add_single, __gthread_active_p, __gthread_mutex_lock, __gthread_mutex_unlock, __gthread_recursive_mutex_lock, __gthread_recursive_mutex_unlock, __is_constant_evaluated, _mm_and_si128, _mm_or_si128, _mm_xor_si128, fix16_from_dbl, fix16_from_float, fix16_from_int, fix16_half__header_global_62cc3068420b56ba, fix16_mod, fix16_one__header_global_920416620894b39b, fix16_to_dbl, fix16_to_float, fix16_to_int, flt_f161r__header_global_7e8639f9b3f99b36, lastvidgcb, libdivide_128_div_128_to_64, libdivide_32_div_16_to_16, libdivide_count_leading_zeros16, libdivide_count_leading_zeros32, libdivide_count_leading_zeros64, libdivide_mullhi_s16, libdivide_mullhi_s32, libdivide_mullhi_s64, libdivide_mullhi_u16, libdivide_mullhi_u32, libdivide_mullhi_u64, max__template_9f711f2400ba566e, min, operator_delete___ZdlPv12ImNewWrapperS_, operator_delete___ZdlPvS_, operator_delete_array___ZdaPvS_, sdl_surface, sdl_window, tabledivide32, videoSetGamma, videoUpdatePalette, __cxx_private_cell_b7667aed095ebace4c73b0ae, __cxx_private_cell_36c1ac07e31aed8d3265cb02, __cxx_private_cell_1807b37dcb1d3a7c8be4b656 } from "./_source_legacy_sdlayer_cpp_899c72b357a7.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { videoResetMode, videomodereset, __cxx_global_cell_be076cccfa4a217ba3cad38e } from "./_source_legacy_sdlayer_cpp_ef62cc3b2d10.mjs";

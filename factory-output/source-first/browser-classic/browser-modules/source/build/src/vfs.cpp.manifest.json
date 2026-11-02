@@ -326,8 +326,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\vfs.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 51,
-  "emitted": 50,
+  "found": 52,
+  "emitted": 51,
   "blocked": 1,
   "definitions": [
     {
@@ -2531,6 +2531,26 @@
         "lseek"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "lz4CompressionLevel",
+      "source_name": "lz4CompressionLevel",
+      "kind": "VarDecl",
+      "line": 1446,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/vfs.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -3298,6 +3318,12 @@
     {
       "name": "numgroupfiles",
       "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "lz4CompressionLevel",
+      "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
       "abi": "source-global-cell/2",
       "original_type": "int"
     }
@@ -4579,6 +4605,21 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "06632f5eae27ee7d15a26b946f4485f3b8eb507ae89b045bf0b417666e9faf2e"
+    },
+    {
+      "module": "source/build/src/_source_legacy_vfs_cpp_96fb7ca449fc.mjs",
+      "sha256": "96fb7ca449fcd9da1a416cfc17e5bfe94024015a8d850fb3115edcd091664bcb",
+      "original_source": "source/build/src/vfs.cpp",
+      "exports": [
+        "lz4CompressionLevel"
+      ],
+      "reexports": [
+        "lz4CompressionLevel",
+        "__cxx_global_cell_2e953df8db08c3fc6f0c3e07"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "2569919cd4741358d85f0af40e1630e37076fbecc3236a46abaf2024f6e07c24"
     }
   ],
   "superseded_module_fragments": [

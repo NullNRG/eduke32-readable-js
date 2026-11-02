@@ -266,7 +266,7 @@ def parse_ast_file(stream, *, retain_ranges=False):
                 stack[-1][0].get('kind')=='CompoundStmt' and any(
                     isinstance(frame[0],dict) and frame[0].get('kind')=='FunctionDecl'
                     and frame[0].get('loc',{}).get('expansionLoc') for frame in stack[:-1]))
-            instance_method=stack[-1][0].get('kind') in ('CXXRecordDecl','ClassTemplateSpecializationDecl','CXXMethodDecl')
+            instance_method=stack[-1][0].get('kind') in ('CXXRecordDecl','ClassTemplateSpecializationDecl','CXXMethodDecl','CXXConstructorDecl')
             if allocator_body:stats['allocator_body_ranges_retained']+=1
             elif macro_declaration:stats['macro_declaration_ranges_retained']+=1
             elif semantic_barrier:stats['semantic_barrier_ranges_retained']+=1

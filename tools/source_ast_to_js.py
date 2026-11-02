@@ -37,6 +37,7 @@ from source_c_function_bindings import rebind as rebind_c_function_references, c
 from source_field_bindings import index as index_source_fields, rebind as rebind_source_fields
 from source_header_definitions import load as load_header_definitions, match as match_header_definition
 from source_byte_methods import recover as recover_byte_methods
+from source_byte_constructors import recover as recover_byte_constructors
 
 HERE=Path(__file__).resolve().parents[1]
 NATIVE_POINTER_ABI='source-lp64-addresses/2'
@@ -971,20 +972,23 @@ class Emit:
         return width
     def record_pointer_expr(self,t,expression):
         if self.record_pointer_stride(t) is None:return None
-        return self.record_object_expr(t,expression)
-    def record_object_expr(self,pointer_type,expression):
-        """Use the same original storage for field reads, addresses and updates."""
-        base=normalized_record_name(pointer_type.rstrip().rstrip('*').strip(),self.type_aliases)
+        return self.record_pointer_view(t,expression)
+    def record_pointer_view(self,t,expression):
+        """A recovered schema also proves a view when filtered layouts are absent."""
+        base=normalized_record_name(t.rstrip().rstrip('*').strip(),self.type_aliases)
         storage=self.global_storage_records.get(base,{})
         if storage.get('byte_schema'):
             shape={'byteRecord':storage['byte_schema']}
-            return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(storage['byte_schema'],sort_keys=True)+', '+self.byte_record_prototypes(shape)+'))'
-        if base not in getattr(self,'managed_record_names',set()):
+            return 'cRecordPointer('+expression+', '+json.dumps(storage['byte_schema'],sort_keys=True)+', '+self.byte_record_prototypes(shape)+')'
+        if base not in getattr(self,'managed_record_names',set()) or base in getattr(self,'native_byte_classes',set()):
             view=getattr(self,'record_storage_views',{}).get(base,{})
             if view.get('byte_schema'):
-                return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(view['byte_schema'],sort_keys=True)+'))'
+                return 'cRecordPointer('+expression+', '+json.dumps(view['byte_schema'],sort_keys=True)+')'
             raise Unsupported('record pointer member requires original byte layout: '+str(base))
-        return f'cRecordObject({expression})'
+        return expression
+    def record_object_expr(self,pointer_type,expression):
+        """Use the same original storage for field reads, addresses and updates."""
+        return 'cRecordObject('+self.record_pointer_view(pointer_type,expression)+')'
     def raw_record_receiver(self,expression,arrow):
         spelling=qual(expression).strip()
         stripped=expression
@@ -993,7 +997,7 @@ class Emit:
         if arrow:
             name=normalized_record_name(spelling.rstrip('*').strip(),self.type_aliases)
             return (name in getattr(self,'record_storage_views',{}) and not self.global_storage_records.get(name,{}).get('byte_schema')
-                    and name not in getattr(self,'managed_record_names',set()))
+                    and (name not in getattr(self,'managed_record_names',set()) or name in getattr(self,'native_byte_classes',set())))
         while kind(expression) in WRAPPERS and len(kids(expression))==1:expression=kids(expression)[0]
         if kind(expression)=='UnaryOperator' and expression.get('opcode')=='*' and kids(expression):
             return self.raw_record_receiver(kids(expression)[0],True)
@@ -1002,6 +1006,12 @@ class Emit:
         return False
     def expr(self,n):
         k=kind(n); a=kids(n)
+        if n.get('castKind')=='IntegralToPointer' and re.search(r'\(\s*\*\s*(?:const\s*)?\)',qual(n)):
+            if len(a)!=1:raise Unsupported('Integer/function pointer conversion requires original operand')
+            return 'cSourceAddresses.functionFromInteger('+self.expr(a[0])+')'
+        if k=='SourceByteConstructInPlaceExpr':
+            self.used_byte_methods=getattr(self,'used_byte_methods',set())|{n['helper']}
+            return n['helper']+'('+', '.join(self.expr(v) for v in a)+')'
         if k=='SourceResumeCondition':
             selector=n['selector']
             selected=' || '.join(selector+' === '+json.dumps(name) for name in n['labels'])
@@ -1018,6 +1028,20 @@ class Emit:
             target=resolve_scalar_storage_alias(qual(n),self.type_aliases)
             if not is_integer(target):raise Unsupported('pointer cast requires proven integer ABI: '+target)
             return js_cast('cSourceAddresses.encode('+self.expr(a[0])+')',target)
+        if k in ('ImplicitCastExpr','CXXStaticCastExpr') and n.get('castKind') in ('DerivedToBase','UncheckedDerivedToBase'):
+            if len(a)!=1:raise Unsupported('base pointer cast requires exact original operand')
+            source=normalized_record_name(qual(a[0]).rstrip(' *&'),self.type_aliases)
+            target=normalized_record_name(qual(n).rstrip(' *&'),self.type_aliases)
+            if self.raw_record_receiver(a[0],True):
+                current=source;seen=set()
+                while current!=target and current not in seen:
+                    seen.add(current)
+                    bases=getattr(self,'record_storage_views',{}).get(current,{}).get('byte_schema',{}).get('bases',[])
+                    if len(bases)!=1 or bases[0]['offset']!=0:break
+                    current=normalized_record_name(bases[0]['type'],self.type_aliases)
+                schema=getattr(self,'record_storage_views',{}).get(target,{}).get('byte_schema')
+                if current!=target or not schema:raise Unsupported('base cast requires proved zero-offset original subobject')
+                return 'cRecordPointer('+self.expr(a[0])+', '+json.dumps(schema,sort_keys=True)+')'
         if k=='CXXBindTemporaryExpr':
             evidence=self.lifetime_class(qual(n))
             if not evidence:
@@ -1308,6 +1332,9 @@ class Emit:
             if pointer_type:
                 return f'(cDeref(cPointerOffset({self.expr(a[0])}, {self.expr(a[1])}, {pointer_type}.BYTES_PER_ELEMENT), {pointer_type}).value)'
             if '*' in qual(a[0]):
+                record_pointer=self.record_pointer_expr(qual(a[0]),self.expr(a[0]))
+                if record_pointer:
+                    return f'(cPointerElementRef({record_pointer}, {self.expr(a[1])}).value)'
                 return f'(cPointerElementRef({self.expr(a[0])}, {self.expr(a[1])}).value)'
             return f'{self.expr(a[0])}[{self.expr(a[1])}]'
         if k in ('BinaryOperator','CompoundAssignOperator'):
@@ -1762,7 +1789,7 @@ class Emit:
                 identity='scalar:'+json.dumps(primitive,separators=(',',':'))
             else:
                 name=normalized_record_name(element,self.type_aliases)
-                if array or name not in getattr(self,'heap_classes',set()):
+                if array or name not in (getattr(self,'heap_classes',set())|getattr(self,'native_byte_classes',set())):
                     raise Unsupported('C++ heap object needs complete original class construction/destruction: '+element)
                 identity='class:'+name
             if k=='CXXDeleteExpr':
@@ -1788,6 +1815,14 @@ class Emit:
                         +json.dumps(identity)+', '+str(array).lower()+', '+initializer+')')
             if len(a)!=1 or kind(a[0])!='CXXConstructExpr':
                 raise Unsupported('C++ class new requires Clang-selected constructor')
+            byte_constructor=n.get('_source_byte_constructor_call')
+            if byte_constructor:
+                self.storage_constructor_nodes=getattr(self,'storage_constructor_nodes',set())|{id(a[0])}
+                self.used_byte_methods=getattr(self,'used_byte_methods',set())|{byte_constructor['name']}
+                arguments=self.constructor_arguments(a[0])
+                receiver='cRecordObject(cRecordPointer(__storage, '+json.dumps(byte_constructor['schema'],sort_keys=True)+'))'
+                return ('cxxHeap.record('+str(layout[0])+', '+str(layout[1])+', '+json.dumps(identity)+', '
+                    '__storage => '+byte_constructor['name']+'('+receiver+(', '+arguments if arguments else '')+'))')
             lifetime=self.lifetime_class(element)
             destructor=json.dumps(lifetime['destroy_symbol']) if lifetime else 'null'
             return ('cxxHeap.object('+str(layout[0])+', '+str(layout[1])+', '+json.dumps(identity)+', () => '
@@ -2321,7 +2356,9 @@ class Emit:
             while kind(base) in WRAPPERS and kids(base):base=kids(base)[0]
             typ=self.pointer_type(qual(a[0]))
             if typ:return f'cDeref(cPointerOffset({self.expr(a[0])}, {self.expr(a[1])}, {typ}.BYTES_PER_ELEMENT), {typ})'
-            if '*' in qual(a[0]):return f'cPointerElementRef({self.expr(a[0])}, {self.expr(a[1])})'
+            if '*' in qual(a[0]):
+                pointer=self.record_pointer_expr(qual(a[0]),self.expr(a[0])) or self.expr(a[0])
+                return f'cPointerElementRef({pointer}, {self.expr(a[1])})'
             return f'cArrayRef({self.expr(a[0])}, {self.expr(a[1])})'
         if k=='MemberExpr' and re.fullmatch(r'[A-Za-z_$][\w$]*',n.get('name','')):
             receiver=self.expr(a[0])
@@ -2604,6 +2641,19 @@ class Emit:
             if has_init:return prefix+output+'\n'+pad+'}'
             return output
         if k=='WhileStmt':
+            if n.get('hasVar'):
+                if len(a)!=3 or kind(a[0])!='DeclStmt' or len(kids(a[0]))!=1 or kind(kids(a[0])[0])!='VarDecl':
+                    raise Unsupported('while condition declaration requires exact Clang shape')
+                declaration=kids(a[0])[0]
+                typ=resolve_scalar_storage_alias(qual(declaration),self.type_aliases)
+                if not (has_outer_indirection(typ,tokens='*') or scalar_info(typ) or typ in self.enum_types) or '&' in typ:
+                    raise Unsupported('while condition object requires original per-iteration lifetime')
+                # C++ constructs a fresh condition variable before every test.
+                # Keep its scope through the body; continue must retest only
+                # after leaving this iteration's variable scope.
+                initial=self.statements(a[0],level+1)
+                return (pad+control+'while (true) {\n'+initial+'\n'+'  '*(level+1)
+                    +'if (!('+self.expr(a[1])+')) break;\n'+self.statements(a[2],level+1)+'\n'+pad+'}')
             if len(a)!=2:raise Unsupported('while shape')
             return pad+control+f'while ({self.expr(a[0])}) {{\n{self.statements(a[1],level+1)}\n{pad}}}'
         if k=='DoStmt':
@@ -3877,6 +3927,35 @@ def macro_header_origin(node,source_root,sysroot=None):
     return path
 
 
+def detached_file_storage(node,compile_as_cpp=True):
+    """A filtered root alone does not establish file scope.
+
+    Automatic locals have no native mangling; Itanium local statics begin
+    _ZZ. C static locals need the complete lexical context: Clang's JSON
+    mangling can be identical to a file-static variable's name.
+    """
+    if '_source_file_scope' in node:return node['_source_file_scope'] is True
+    mangled=node.get('mangledName','')
+    return bool(mangled and (not mangled.startswith('_ZZ') if compile_as_cpp else
+        node.get('storageClass')!='static' and mangled==node.get('name')))
+
+
+def storage_scope_key(node):
+    return node.get('name'),qual(node),node.get('loc',{}).get('offset'),node.get('mangledName')
+
+
+def lexical_storage_scopes(ast):
+    """Keep ambiguity rather than joining unrelated same-offset declarations."""
+    result={}
+    def visit(node,parent=None):
+        if kind(node)=='VarDecl':
+            result.setdefault(storage_scope_key(node),set()).add(parent in
+                ('TranslationUnitDecl','NamespaceDecl','LinkageSpecDecl'))
+        for child in kids(node):visit(child,kind(node))
+    for tree in ast:visit(tree)
+    return result
+
+
 def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp=True):
     """Inventory actual namespace-scope original-header storage in this TU.
 
@@ -3891,15 +3970,16 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
     declarations={node.get('id'):node for top in ast for node in descendants(top)
                   if node.get('id')}
     variables=[]
-    def visit(node,anonymous_namespace=False):
+    def visit(node,anonymous_namespace=False,file_scope=False):
         k=kind(node)
         if k in ('TranslationUnitDecl','NamespaceDecl','LinkageSpecDecl'):
             anonymous_namespace=anonymous_namespace or (k=='NamespaceDecl' and not node.get('name'))
-            for child in kids(node):visit(child,anonymous_namespace)
-        elif k=='VarDecl':variables.append((node,anonymous_namespace))
+            for child in kids(node):visit(child,anonymous_namespace,True)
+        elif k=='VarDecl' and (file_scope or detached_file_storage(node,compile_as_cpp)):
+            variables.append((node,anonymous_namespace,file_scope))
     for top in ast:visit(top)
     added=[];proofs={}
-    for node,anonymous_namespace in variables:
+    for node,anonymous_namespace,file_scope in variables:
         has_initializer=node.get('init') is not None
         alias_storage=any(kind(child) in ('AliasAttr','IFuncAttr') for child in kids(node))
         if node.get('storageClass')=='extern' and not has_initializer and not alias_storage:continue
@@ -3937,6 +4017,8 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
                'clang_decl_id':node['id'],'redeclaration_chain':chain,
                'linkage':'internal' if internal else 'external',
                'definition_rule':'extern-with-Clang-initializer' if node.get('storageClass')=='extern' else 'namespace-scope-non-extern-storage',
+               'scope_evidence':'enclosing-Clang-namespace' if file_scope else
+                   'complete-same-TU-lexical-context' if node.get('_source_file_scope') else 'nonlocal-native-mangling',
                'clang_initializer_kind':node.get('init'),
                'physical_origin_proof':'unique-original-header-identifier-byte-offset'}
         if node.get('inline'):
@@ -3949,7 +4031,7 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
     return added,proofs
 
 
-def recover_referenced_header_functions(ast, candidates, source_root, requested_templates=()):
+def recover_referenced_header_functions(ast, candidates, source_root, requested_templates=(),compile_as_cpp=True):
     """Demand-driven closure of Clang-referenced, original header inline bodies.
 
     Clang elides repeated header filenames in its AST. For such entries,
@@ -4001,24 +4083,25 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
         origins[identifier]=None;return None
 
     for top in ast:
-        stack=[top]
+        stack=[(top,False)]
         while stack:
-            n=stack.pop();k=kind(n)
+            n,file_scope=stack.pop();k=kind(n)
             if k in ('TranslationUnitDecl','NamespaceDecl','LinkageSpecDecl'):
-                stack.extend(reversed(kids(n)));continue
+                stack.extend((child,True) for child in reversed(kids(n)));continue
             if k=='FunctionTemplateDecl':
                 # Clang's monomorphized FunctionDecl bodies live UNDER the
                 # template node, not among ordinary namespace declarations.
                 for specialization in kids(n):
                     if kind(specialization)=='FunctionDecl':
                         template_ids.add(id(specialization))
-                        stack.append(specialization)
+                        stack.append((specialization,file_scope))
                 continue
             # Both source-defined callable helpers and TU-private header
             # constants participate in reference closure. Header static data
             # is never offered as an *external* cross-TU import.
             is_static_data=(k=='VarDecl' and n.get('storageClass')=='static'
                             and (kids(n) or n.get('constexpr')))
+            if is_static_data and not file_scope and not detached_file_storage(n,compile_as_cpp):continue
             if not is_static_data and (k!='FunctionDecl' or
                     not any(kind(x)=='CompoundStmt' for x in kids(n))):
                 continue
@@ -4064,10 +4147,13 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
                                else n['_source_toolchain_header']['source_header'])
     while queue:
         caller=queue.pop(0)
+        local_ids={node.get('id') for node in descendants(caller) if node is not caller
+                   and kind(node) in ('VarDecl','ParmVarDecl') and node.get('id')}
         for expr in descendants(caller):
             if kind(expr)!='DeclRefExpr':continue
             ref=expr.get('referencedDecl',{})
             if ref.get('kind') not in ('FunctionDecl','VarDecl'):continue
+            if ref.get('kind')=='VarDecl' and ref.get('id') in local_ids:continue
             n=known_by_id.get(ref.get('id'))
             signature=(ref.get('kind'),ref.get('name'),ref.get('type',{}).get('qualType'))
             if n is None and signature not in invalid:n=by_signature.get(signature)
@@ -4490,8 +4576,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     # declarations must never become file-scope JS storage.
                     # At a dump root require Clang's global mangling evidence;
                     # Itanium _ZZ... names belong to function-local statics.
-                    mangled=node.get('mangledName','')
-                    if not file_scope and (not mangled or mangled.startswith('_ZZ')):return
+                    if not file_scope and not detached_file_storage(node,compile_as_cpp):return
                     # An `extern T x;` is only a declaration, never a source
                     # definition. A later `T x = ...;` may be the actual owner.
                     # Recording both falsely creates a blocked definition and
@@ -4563,10 +4648,13 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         sysroot=os.environ.get('EDUKE32_SYSROOT')
         if sysroot:pairs=(*pairs,*toolchain_header_source_bytes(sysroot))
         return (*pairs,(source_path,source_path.read_bytes()))
+    byte_constructors,native_byte_classes=recover_byte_constructors(ast,candidates,record_storage_views,aliases,
+        normalized_record_name,source_root,source_rel,byte_method_sources)
+    candidates.extend(byte_constructors)
     candidates.extend(recover_byte_methods(ast,candidates,record_storage_views,aliases,normalized_record_name,
-        source_root,source_rel,byte_method_sources))
+        source_root,source_rel,byte_method_sources,native_classes=native_byte_classes))
     header_helpers,header_odr,header_templates=(recover_referenced_header_functions(ast,candidates,source_root,
-                    requested_templates=set(filters.split(',')) if filters and include_header_inlines else ())
+                    requested_templates=set(filters.split(',')) if filters and include_header_inlines else (),compile_as_cpp=compile_as_cpp)
                     if header_dependency_closure else ([],{},set()))
     header_helper_ids={id(n) for n in header_helpers if id(n) not in header_odr}
     candidates.extend(header_helpers)
@@ -4596,7 +4684,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     header_ids={id(record) for record in header_records}
     candidates=[record for record in header_records if record['name'] not in project_symbols]+[
         candidate for candidate in candidates if id(candidate) not in header_ids]
-    extra_helpers,extra_odr,extra_templates=(recover_referenced_header_functions(ast,candidates,source_root)
+    extra_helpers,extra_odr,extra_templates=(recover_referenced_header_functions(ast,candidates,source_root,compile_as_cpp=compile_as_cpp)
         if header_dependency_closure else ([],{},set()))
     existing_ids={node.get('id') for node in candidates}
     candidates.extend(node for node in extra_helpers if node.get('id') not in existing_ids)
@@ -5076,6 +5164,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if n.get('_source_toolchain_header'):
             row['toolchain_header_definition']=n['_source_toolchain_header']
             source_path=n['_source_toolchain_header']['source_header']
+        if n.get('_source_byte_constructor'):
+            row['original_byte_constructor']=n['_source_byte_constructor']
+            row['physical_source']=n['_source_byte_constructor']['source_header']
         if n.get('_source_macro_header'):
             row['macro_header_definition']=n['_source_macro_header']
             row['line']=n['_source_macro_header']['source_line']
@@ -5101,6 +5192,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         em.source_class_providers=source_class_providers
         em.managed_record_names=managed_record_names
         em.record_storage_views=record_storage_views
+        em.native_byte_classes=native_byte_classes
         em.member_method_symbols=member_method_symbols;em.overloaded_member_names=overloaded_member_names
         em.non_odr_static_values=non_odr_static_values
         em.empty_asm_barriers=empty_asm_barriers
@@ -5396,7 +5488,18 @@ def compile_source(source,source_rel,clang_args,filter_name=None):
     if p.returncode:raise RuntimeError('Clang AST frontend failed: '+' '.join(cmd)+'\n'+p.stderr[-4000:])
     return parse_json_stream(p.stdout)
 
+def compiler_runtime_revision():
+    digest=hashlib.sha256()
+    paths=[path for path in (HERE/'tools').glob('source_*') if path.suffix in ('.py','.mjs')]
+    paths.extend((HERE/'runtime').rglob('*.mjs'))
+    for path in sorted(paths):
+        digest.update(path.relative_to(HERE).as_posix().encode()+b'\0')
+        digest.update(hashlib.sha256(path.read_bytes()).digest())
+    return digest.hexdigest()
+
+
 def main():
+    compiler_revision=compiler_runtime_revision()
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root',type=Path,required=True,help='unpacked EDuke32 source root')
     parser.add_argument('--source',required=True,help='original translation-unit relative path')
@@ -5457,6 +5560,9 @@ def main():
     header_definition_owners,header_definition_contract=load_header_definitions(root,opt.compile_commands,standard_heap_contract) if comp is not None else ({},None)
     c_allocator_declarations={'queried':[],'proven':[],'rejected':{}}
     c_allocator_query_cache={}
+    cpp_allocator_queries=set()
+    c_storage_scopes=None
+    c_storage_scope_report={'attempted':False,'proven_file_scope':0,'local_or_ambiguous_roots_rejected':0}
     static_reference_context=[]
     field_selection_index={}
     full_enum_values={}
@@ -5470,6 +5576,33 @@ def main():
         declarations,decode=run_clang_ast(command,cwd=root,cache_path=cache,timeout=timeout)
         ast_decode.append(decode);return declarations
     def produce_current(*args,**kwargs):
+        nonlocal c_storage_scopes
+        detached=[node for node in args[0] if kind(node)=='VarDecl' and node.get('storageClass')=='static']
+        if opt.filter and not compile_as_cpp and detached:
+            if c_storage_scopes is None:
+                command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*compiler_arguments,opt.source]
+                cache=None
+                if opt.ast_cache_dir:
+                    digest=hashlib.sha256(json.dumps([str(root),command,toolchain,ast_cache_inputs],sort_keys=True).encode()).hexdigest()
+                    cache=opt.ast_cache_dir/('c-storage-scopes-'+digest+'.json')
+                complete,decoded=run_clang_ast(command,cwd=root,cache_path=cache,timeout=90)
+                ast_decode.append(decoded);c_storage_scopes=lexical_storage_scopes(complete)
+                c_storage_scope_report['attempted']=True
+            for node in detached:
+                node['_source_file_scope']=c_storage_scopes.get(storage_scope_key(node))=={True}
+            c_storage_scope_report['proven_file_scope']=sum(node['_source_file_scope'] for node in detached)
+            c_storage_scope_report['local_or_ambiguous_roots_rejected']=sum(not node['_source_file_scope'] for node in detached)
+        # Dependency closure can discover new/delete well after the initially
+        # selected roots. Resolve their actual declarations too; otherwise a
+        # transitive allocation is stranded despite a proved standard heap.
+        if opt.filter:
+            needed={decl['name'] for tree in args[0] for node in descendants(tree)
+                for decl in (node.get('operatorNewDecl'),node.get('operatorDeleteDecl'))
+                if decl and decl.get('kind')=='FunctionDecl'}
+            for name in sorted(needed-cpp_allocator_queries):
+                declarations=allocator_query(name)
+                args[0].extend(declarations)
+                cpp_allocator_queries.add(name)
         if full_enum_values:
             for tree in args[0]:
                 for reference in descendants(tree):
@@ -5515,6 +5648,7 @@ def main():
     args+=['-Iplatform/Windows/include','-Iplatform/Windows/include/SDL2','-Wno-unknown-warning-option']
     args+=opt.extra
     args+=target_args
+    compiler_arguments=tuple(args)
     ast_cache_inputs=(source_ast_input_fingerprint(root,frontend,language,args,opt.source)
                       if opt.ast_cache_dir else None)
     if (ast_cache_inputs and ast_cache_inputs.get('preprocessor_verified') is True
@@ -5561,6 +5695,7 @@ def main():
                 cache=opt.ast_cache_dir/(hashlib.sha256(identity.encode()).hexdigest()+'.json')
             declarations,decode=run_clang_ast(command,cwd=root,cache_path=cache)
             ast.extend(declarations);ast_decode.append(decode)
+            cpp_allocator_queries.add(name)
     # Demand-driven Clang closure for C++ pointer spans. A filtered AST may
     # contain the loop but omit the template class and its method bodies.
     # Query only class names actually referenced by range-for declarations.
@@ -5931,6 +6066,7 @@ def main():
         # qualified target layout; never join merely by a matching short name.
         unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
             'record field requires verified native storage:',
+            'global aggregate array requires verified storage shape:',
             'nontrivial byte-view method requires original class prototype:')) for row in report)
         ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
         if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or ordinary_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
@@ -6618,6 +6754,8 @@ const cStackAlloc = amount => {
            'u128':'const u128 = value => BigInt.asUintN(128, BigInt(value));\n'}
     casts_text=''.join(src for name,src in casts.items() if name+'(' in body)
     libm_text=''.join(src+'\n' for name,src in LIBM.items() if name+'(' in body)
+    if compiler_runtime_revision()!=compiler_revision:
+        raise SystemExit('Compiler/runtime inputs changed during source emission; previous output preserved. Retry under one frozen revision.')
     outfile.write_text('// Source-first C/C++ -> JavaScript (original identifiers/structured statements).\n'
                        +'// Original translation unit: '+opt.source+'\n'
                        +'// Status: partial STRICT semantic conversion, not a full engine module.\n'
@@ -6633,6 +6771,9 @@ const cStackAlloc = amount => {
     result['c_allocator_declarations']=c_allocator_declarations
     result['template_destructor_closure']=template_destructor_closure
     result['prototype_layout_closure']=prototype_layout_closure
+    result['filtered_c_storage_scope']=c_storage_scope_report
+    result['compiler_runtime_input_sha256']=compiler_revision
+    result['compiler_runtime_inputs_unchanged']=True
     if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}

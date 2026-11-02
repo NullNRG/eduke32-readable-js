@@ -10,7 +10,7 @@ const cSourceAddresses = (() => {
   globalThis[abiKey]=abi;
   const key=Symbol.for(abi);
   if(globalThis[key])return globalThis[key];
-  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map();
+  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map(),functionAddresses=new Map();
   let nextRegion=0x10000000000n,nextOpaque=0xffff000000000000n;
   const heapKey=Symbol.for('source-first.native-C-heap/2');
   const heap=()=>globalThis[heapKey];
@@ -81,6 +81,7 @@ const cSourceAddresses = (() => {
         seen.add(value);value=value.resolve();
       }
       if(value===null)return 0n;
+      if(value?.__cFunctionAddress===true&&functionAddresses.get(value.bits)===value)return value.bits;
       const item=canonical(value);
       if(item.buffer){
         const region=regionFor(item.buffer);liveBounds(item.buffer,item.offset);
@@ -111,10 +112,24 @@ const cSourceAddresses = (() => {
       for(const region of regions){
         const offset=bits-region.base;
         if(offset<0n||offset>BigInt(region.buffer.byteLength))continue;
-        const at=Number(offset),bounds=liveBounds(region.buffer,at);
+        const at=Number(offset);let bounds;
+        try{bounds=liveBounds(region.buffer,at);}
+        catch(error){if(functionAddresses.has(bits))return functionAddresses.get(bits);throw error;}
         return {__cPointer:true,buffer:region.buffer,offset:at,array:false,...bounds};
       }
+      if(functionAddresses.has(bits))return functionAddresses.get(bits);
       throw new TypeError('Unknown original C pointer address');
+    },
+    functionFromInteger(value){
+      if(typeof value!=='bigint'&&!(typeof value==='number'&&Number.isSafeInteger(value)))
+        throw new TypeError('Function address must be exactly representable');
+      const bits=BigInt.asUintN(64,BigInt(value));
+      if(bits===0n)return null;
+      if(typeof byBits.get(bits)==='function')return byBits.get(bits);
+      // Source-defined sentinel bits are values, not executable callbacks or
+      // allocations. They can be stored/compared/round-tripped, never invoked.
+      if(!functionAddresses.has(bits))functionAddresses.set(bits,Object.freeze({__cFunctionAddress:true,bits}));
+      return functionAddresses.get(bits);
     },
     assert(buffer,offset,width=0){liveBounds(buffer,offset,width);},
     forgetHeap(base,size){

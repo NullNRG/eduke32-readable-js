@@ -1,6 +1,7 @@
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
+  if(source?.__cFunctionAddress===true)throw new TypeError('Function address has no readable data storage');
   if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
   if (source && source.__cPointer === true) {
@@ -155,6 +156,11 @@ const cPointerCompare = (left,right,op) => {
   if (right?.__cDeferredReference===true) right=right.resolve();
   if(left?.__cReference===true&&left.__cPointer!==true&&left.value?.[Symbol.for('source-first.original-byte-record-storage/1')])left=left.value;
   if(right?.__cReference===true&&right.__cPointer!==true&&right.value?.[Symbol.for('source-first.original-byte-record-storage/1')])right=right.value;
+  if(left?.__cFunctionAddress===true||right?.__cFunctionAddress===true){
+    if(op!=='=='&&op!=='!=')throw new TypeError('Cannot order integer-derived function addresses');
+    const equal=cSourceAddresses.encode(left)===cSourceAddresses.encode(right);
+    return op==='=='?equal:!equal;
+  }
   if (left===null || right===null) {
     if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
     throw new TypeError('Cannot order a null C pointer');

@@ -126,6 +126,10 @@ def pipeline_inputs(commands_path, source_root):
     paths.append(ROOT/'tools/source_template_destructors.py')
     paths.append(ROOT/'tools/source_static_members.py')
     paths.append(ROOT/'tools/source_c_allocators.py')
+    # New lowering passes must participate without a hand-maintained import
+    # list silently allowing stale emitted modules after a helper-only fix.
+    paths.extend(path for path in sorted((ROOT/'tools').glob('source_*'))
+        if path.suffix in ('.py','.mjs') and path not in paths)
     if commands_path is not None:
         paths.append(commands_path)
         from source_standard_heap_contract import contract_path

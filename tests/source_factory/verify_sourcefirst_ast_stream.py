@@ -69,7 +69,7 @@ int run_original(int v){Box x(counter);return x.add(original_inline(v));}
     # Instance-method lowering needs the exact original class and method
     # spans. Verify these against the same native dump, independently of the
     # decoder's omission of unrelated ranges.
-    for node_kind,name in (('CXXRecordDecl','Box'),('CXXMethodDecl','add')):
+    for node_kind,name in (('CXXRecordDecl','Box'),('CXXMethodDecl','add'),('CXXConstructorDecl','Box')):
         expected=[node['range'] for node in walk(raw) if node.get('kind')==node_kind
                   and node.get('name')==name and 'range' in node]
         actual=[node['range'] for tree in new for node in walk(tree) if node.get('kind')==node_kind

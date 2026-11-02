@@ -46,6 +46,19 @@ const cxxHeap = (() => {
       state.objects.set(value,allocation);return value;
     }catch(error){release(allocation);throw error;}
   };
+  // Register native storage before original base/member construction. `this`
+  // may escape from a constructor, so all views must share this allocation.
+  // This ABI currently admits only Clang-trivial destruction.
+  const record=(size,align,type,construct)=>{
+    if(typeof construct!=='function')throw new TypeError('Original byte constructor required');
+    const allocation=reserve(1,size,align);
+    try{
+      const bytes=new Uint8Array(size);
+      Object.assign(allocation,{type,array:false,pointer:bytes,destroy:null});
+      state.buffers.set(bytes.buffer,allocation);
+      construct(bytes);return bytes;
+    }catch(error){release(allocation);throw error;}
+  };
   const destroy=(pointer,array,type)=>{
     if(pointer===null)return;
     if(pointer?.__cDeferredPointer===true||pointer?.__cDeferredReference===true)return destroy(pointer.resolve(),array,type);
@@ -61,5 +74,5 @@ const cxxHeap = (() => {
     try {if(allocation.destroy!==null&&allocation.destroy!==undefined)allocation.pointer[allocation.destroy]();}
     finally {release(allocation);}
   };
-  return Object.freeze({native,object,destroy});
+  return Object.freeze({native,object,record,destroy});
 })();

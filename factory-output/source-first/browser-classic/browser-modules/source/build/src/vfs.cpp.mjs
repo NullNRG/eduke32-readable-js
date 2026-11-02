@@ -1195,3 +1195,6 @@ export { B_PASS32__header_416cc10abcf4, groupname, kclose_grp, klseek_grp, kread
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { initgroupfile } from "./_source_legacy_vfs_cpp_98fe73439933.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { lz4CompressionLevel, __cxx_global_cell_2e953df8db08c3fc6f0c3e07 } from "./_source_legacy_vfs_cpp_96fb7ca449fc.mjs";

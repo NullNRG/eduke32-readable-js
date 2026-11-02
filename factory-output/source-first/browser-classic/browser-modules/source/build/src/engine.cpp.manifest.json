@@ -94,8 +94,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\engine.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 38,
-  "emitted": 35,
+  "found": 152,
+  "emitted": 149,
   "blocked": 3,
   "definitions": [
     {
@@ -1235,6 +1235,2428 @@
         "ylookup"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "__atomic_add",
+      "source_name": "__atomic_add",
+      "kind": "FunctionDecl",
+      "line": 70,
+      "original_type": "void (volatile _Atomic_word *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__atomic_add_single",
+      "source_name": "__atomic_add_single",
+      "kind": "FunctionDecl",
+      "line": 91,
+      "original_type": "void (_Atomic_word *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_11a696315e969ab4",
+      "source_name": "operator<",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "bool (const ClockTicks &, const ClockTicks &)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 4104,
+        "enclosing_record": "ClockTicks",
+        "type": "bool (const ClockTicks &, const ClockTicks &)",
+        "semantic_sha256": "a784b2b1e2c8bcccb2b185e8986102c9c104a65c6474b32715367092a74c0381"
+      },
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_35d41574d9c68141",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "bool (const ClockTicks &, const ClockTicks &)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_9d5bfff63c86ec9c",
+      "source_name": "operator>",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "bool (const ClockTicks &, const ClockTicks &)",
+      "linkage": "external",
+      "source_references": [
+        "__cxx_operator_11a696315e969ab4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__exchange_and_add",
+      "source_name": "__exchange_and_add",
+      "kind": "FunctionDecl",
+      "line": 65,
+      "original_type": "_Atomic_word (volatile _Atomic_word *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__exchange_and_add_single",
+      "source_name": "__exchange_and_add_single",
+      "kind": "FunctionDecl",
+      "line": 82,
+      "original_type": "_Atomic_word (_Atomic_word *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__gthread_active_p",
+      "source_name": "__gthread_active_p",
+      "kind": "FunctionDecl",
+      "line": 300,
+      "original_type": "int ()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__gthread_mutex_lock",
+      "source_name": "__gthread_mutex_lock",
+      "kind": "FunctionDecl",
+      "line": 746,
+      "original_type": "int (__gthread_mutex_t *)",
+      "linkage": "internal",
+      "source_references": [
+        "__gthread_active_p",
+        "pthread_mutex_lock"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "pthread_mutex_lock"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "__gthread_mutex_unlock",
+      "source_name": "__gthread_mutex_unlock",
+      "kind": "FunctionDecl",
+      "line": 776,
+      "original_type": "int (__gthread_mutex_t *)",
+      "linkage": "internal",
+      "source_references": [
+        "__gthread_active_p",
+        "pthread_mutex_unlock"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "pthread_mutex_unlock"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "__gthread_recursive_mutex_lock",
+      "source_name": "__gthread_recursive_mutex_lock",
+      "kind": "FunctionDecl",
+      "line": 809,
+      "original_type": "int (__gthread_recursive_mutex_t *)",
+      "linkage": "internal",
+      "source_references": [
+        "__gthread_mutex_lock"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__gthread_recursive_mutex_unlock",
+      "source_name": "__gthread_recursive_mutex_unlock",
+      "kind": "FunctionDecl",
+      "line": 830,
+      "original_type": "int (__gthread_recursive_mutex_t *)",
+      "linkage": "internal",
+      "source_references": [
+        "__gthread_mutex_unlock"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__is_constant_evaluated",
+      "source_name": "__is_constant_evaluated",
+      "kind": "FunctionDecl",
+      "line": 516,
+      "original_type": "bool () noexcept",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "_mm_and_si128",
+      "source_name": "_mm_and_si128",
+      "kind": "FunctionDecl",
+      "line": 2674,
+      "original_type": "__m128i (__m128i, __m128i)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "_mm_or_si128",
+      "source_name": "_mm_or_si128",
+      "kind": "FunctionDecl",
+      "line": 2709,
+      "original_type": "__m128i (__m128i, __m128i)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "_mm_xor_si128",
+      "source_name": "_mm_xor_si128",
+      "kind": "FunctionDecl",
+      "line": 2726,
+      "original_type": "__m128i (__m128i, __m128i)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_from_dbl",
+      "source_name": "fix16_from_dbl",
+      "kind": "FunctionDecl",
+      "line": 48,
+      "original_type": "fix16_t (double)",
+      "linkage": "internal",
+      "source_references": [
+        "fix16_one__header_global_1ff90da45b33318d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_from_float",
+      "source_name": "fix16_from_float",
+      "kind": "FunctionDecl",
+      "line": 47,
+      "original_type": "fix16_t (float)",
+      "linkage": "internal",
+      "source_references": [
+        "fix16_one__header_global_1ff90da45b33318d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_from_int",
+      "source_name": "fix16_from_int",
+      "kind": "FunctionDecl",
+      "line": 46,
+      "original_type": "fix16_t (int)",
+      "linkage": "internal",
+      "source_references": [
+        "fix16_one__header_global_1ff90da45b33318d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_32abdaf38138b574",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x2474d4194f0",
+        "redeclaration_chain": [
+          "0x2474d4194f0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_mod",
+      "source_name": "fix16_mod",
+      "kind": "FunctionDecl",
+      "line": 94,
+      "original_type": "fix16_t (fix16_t, fix16_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_1ff90da45b33318d",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1dad20315e0",
+        "redeclaration_chain": [
+          "0x1dad20315e0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_to_dbl",
+      "source_name": "fix16_to_dbl",
+      "kind": "FunctionDecl",
+      "line": 44,
+      "original_type": "double (fix16_t)",
+      "linkage": "internal",
+      "source_references": [
+        "flt_f161r__header_global_08ad66003e737fed"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_to_float",
+      "source_name": "fix16_to_float",
+      "kind": "FunctionDecl",
+      "line": 43,
+      "original_type": "float (fix16_t)",
+      "linkage": "internal",
+      "source_references": [
+        "flt_f161r__header_global_08ad66003e737fed"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_to_int",
+      "source_name": "fix16_to_int",
+      "kind": "FunctionDecl",
+      "line": 42,
+      "original_type": "int (fix16_t)",
+      "linkage": "internal",
+      "source_references": [
+        "fix16_half__header_global_32abdaf38138b574",
+        "fix16_one__header_global_1ff90da45b33318d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_08ad66003e737fed",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x163a7615600",
+        "redeclaration_chain": [
+          "0x163a7615600"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_128_div_128_to_64",
+      "source_name": "libdivide_128_div_128_to_64",
+      "kind": "FunctionDecl",
+      "line": 606,
+      "original_type": "uint64_t (uint64_t, uint64_t, uint64_t, uint64_t, uint64_t *, uint64_t *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_32_div_16_to_16",
+      "source_name": "libdivide_32_div_16_to_16",
+      "kind": "FunctionDecl",
+      "line": 462,
+      "original_type": "uint16_t (uint16_t, uint16_t, uint16_t, uint16_t *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_count_leading_zeros16",
+      "source_name": "libdivide_count_leading_zeros16",
+      "kind": "FunctionDecl",
+      "line": 382,
+      "original_type": "int16_t (uint16_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_count_leading_zeros32",
+      "source_name": "libdivide_count_leading_zeros32",
+      "kind": "FunctionDecl",
+      "line": 412,
+      "original_type": "int32_t (uint32_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_count_leading_zeros64",
+      "source_name": "libdivide_count_leading_zeros64",
+      "kind": "FunctionDecl",
+      "line": 441,
+      "original_type": "int32_t (uint64_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_s16",
+      "source_name": "libdivide_mullhi_s16",
+      "kind": "FunctionDecl",
+      "line": 314,
+      "original_type": "int16_t (int16_t, int16_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_s32",
+      "source_name": "libdivide_mullhi_s32",
+      "kind": "FunctionDecl",
+      "line": 327,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_s64",
+      "source_name": "libdivide_mullhi_s64",
+      "kind": "FunctionDecl",
+      "line": 360,
+      "original_type": "int64_t (int64_t, int64_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_u16",
+      "source_name": "libdivide_mullhi_u16",
+      "kind": "FunctionDecl",
+      "line": 308,
+      "original_type": "uint16_t (uint16_t, uint16_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_u32",
+      "source_name": "libdivide_mullhi_u32",
+      "kind": "FunctionDecl",
+      "line": 321,
+      "original_type": "uint32_t (uint32_t, uint32_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "libdivide_mullhi_u64",
+      "source_name": "libdivide_mullhi_u64",
+      "kind": "FunctionDecl",
+      "line": 334,
+      "original_type": "uint64_t (uint64_t, uint64_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+      "clang_template_mangled_name": "_ZSt3minImERKT_S2_S2_",
+      "linkage": "external",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned long",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned long",
+            "const": true
+          }
+        ],
+        "result": "unsigned long"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "operator_delete___ZdlPvS_",
+      "source_name": "operator delete",
+      "kind": "FunctionDecl",
+      "line": 180,
+      "original_type": "void (void *, void *) noexcept",
+      "linkage": "external",
+      "physical_source": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12/new",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "operator_delete_array___ZdaPvS_",
+      "source_name": "operator delete[]",
+      "kind": "FunctionDecl",
+      "line": 181,
+      "original_type": "void (void *, void *) noexcept",
+      "linkage": "external",
+      "physical_source": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12/new",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tabledivide32",
+      "source_name": "tabledivide32",
+      "kind": "FunctionDecl",
+      "line": 121,
+      "original_type": "int32_t (const int32_t, const int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "divtable32",
+        "lastd_s32",
+        "libdivide_s32_do",
+        "libdivide_s32_gen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s32",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "divtable32",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "divtable32",
+        "lastd_s32",
+        "libdivide_s32_do",
+        "libdivide_s32_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_videoContrast",
+      "source_name": "g_videoContrast",
+      "kind": "VarDecl",
+      "line": 140,
+      "original_type": "float",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_eb7ec64efb5dec6e758a65c7",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_videoGamma",
+      "source_name": "g_videoGamma",
+      "kind": "VarDecl",
+      "line": 139,
+      "original_type": "float",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_videoSaturation",
+      "source_name": "g_videoSaturation",
+      "kind": "VarDecl",
+      "line": 141,
+      "original_type": "float",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_a6f1e8c839618189cf2ebd7a",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "maxspritesonscreen",
+      "source_name": "maxspritesonscreen",
+      "kind": "VarDecl",
+      "line": 816,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 23684,
+        "source_line": 816,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x19cedb24cd0",
+        "redeclaration_chain": [
+          "0x19cedb24cd0"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "novoxmips",
+      "source_name": "novoxmips",
+      "kind": "VarDecl",
+      "line": 93,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_7e42dba8ea8f9a8bc3318fdc",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "r_borderless",
+      "source_name": "r_borderless",
+      "kind": "VarDecl",
+      "line": 135,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_67da6fc124c3ab1d5da4a606",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "r_fpgrouscan",
+      "source_name": "r_fpgrouscan",
+      "kind": "VarDecl",
+      "line": 133,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_d33e7d272649317fa29cc706",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "r_rotatespriteinterp",
+      "source_name": "r_rotatespriteinterp",
+      "kind": "VarDecl",
+      "line": 132,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_839b6dd579d4126718a101c3",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "r_screenxy",
+      "source_name": "r_screenxy",
+      "kind": "VarDecl",
+      "line": 130,
+      "original_type": "unsigned int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_585083e70b316eace630e342",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "britable",
+      "source_name": "britable",
+      "kind": "VarDecl",
+      "line": 176,
+      "original_type": "char[16][256]",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "britable",
+        "abi": "source-native-array/1",
+        "array": "Uint8Array",
+        "dimensions": [
+          16,
+          256
+        ],
+        "original_type": "char[16][256]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "palette",
+      "source_name": "palette",
+      "kind": "VarDecl",
+      "line": 808,
+      "original_type": "uint8_t[768]",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 23436,
+        "source_line": 808,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x21eb04538e8",
+        "redeclaration_chain": [
+          "0x21eb04538e8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_3fb05a303daa",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "size_t (const (unnamed struct at source/build/src/engine.cpp:11821:5) (&)[22]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIZL20videoAllocateBuffersvE3$_0Lm22EEmRAT0__KT_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bakdmost",
+      "source_name": "bakdmost",
+      "kind": "VarDecl",
+      "line": 1466,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_d3e9e18f891884c6c96f52fe",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bakumost",
+      "source_name": "bakumost",
+      "kind": "VarDecl",
+      "line": 1466,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_23bb7f67ca630bc65b4c93bd",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divscale",
+      "source_name": "divscale",
+      "kind": "FunctionDecl",
+      "line": 164,
+      "original_type": "int32_t (int32_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "tabledivide64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divscale16",
+      "source_name": "divscale16",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "divscale"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divscale32",
+      "source_name": "divscale32",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "divscale"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dmost",
+      "source_name": "dmost",
+      "kind": "VarDecl",
+      "line": 1466,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_8eaacff0c38c7a01c1b3d98a",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dotp1",
+      "source_name": "dotp1",
+      "kind": "VarDecl",
+      "line": 145,
+      "original_type": "int16_t **",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_c45848d776e78e3ad15aa19e",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t **"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dotp2",
+      "source_name": "dotp2",
+      "kind": "VarDecl",
+      "line": 145,
+      "original_type": "int16_t **",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_f680dc34f3f16b7605bd2076",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t **"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dplc",
+      "source_name": "dplc",
+      "kind": "VarDecl",
+      "line": 1467,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_030dea20292b8ccfb253f2f2",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dwall",
+      "source_name": "dwall",
+      "kind": "VarDecl",
+      "line": 1467,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_06af83b949965f384726a5d5",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fxdimen",
+      "source_name": "fxdimen",
+      "kind": "VarDecl",
+      "line": 1483,
+      "original_type": "float",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c332faf0c44a2245574f00c2",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "halfxdimen",
+      "source_name": "halfxdimen",
+      "kind": "VarDecl",
+      "line": 1482,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_7f82f1ce39a55e3695e486ff",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "horizlookup",
+      "source_name": "horizlookup",
+      "kind": "VarDecl",
+      "line": 1492,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_6ef572a4d918a9b697b4e317",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "horizlookup2",
+      "source_name": "horizlookup2",
+      "kind": "VarDecl",
+      "line": 1492,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_ef565da95f0d7e5345f8f6f7",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "horizycent",
+      "source_name": "horizycent",
+      "kind": "VarDecl",
+      "line": 1491,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_e991bfcab826047ea36d44dc",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kensmessage",
+      "source_name": "kensmessage",
+      "kind": "VarDecl",
+      "line": 180,
+      "original_type": "char[128]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_a0cf17e5040f768fecaa0eed",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "lastx",
+      "source_name": "lastx",
+      "kind": "VarDecl",
+      "line": 1530,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_ada883e80594d1c803381375",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "lookups",
+      "source_name": "lookups",
+      "kind": "VarDecl",
+      "line": 120,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_faaa894d8f96459328af7d1c",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "lplc",
+      "source_name": "lplc",
+      "kind": "VarDecl",
+      "line": 1468,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_01c16f662f9d8ebf17e1b4d9",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "lwall",
+      "source_name": "lwall",
+      "kind": "VarDecl",
+      "line": 1468,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_60e94246258c1e5f501cf23e",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "max__template_b1cfaf2244c73238",
+      "source_name": "max",
+      "kind": "FunctionDecl",
+      "line": 254,
+      "original_type": "const int &(const int &, const int &)",
+      "clang_template_mangled_name": "_ZSt3maxIiERKT_S2_S2_",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "96fd0e5e38df2311540efc8318b5f3f26ff6461f446d4d1f5dc09a201c8590d4"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__cxx_d283c7086cbc",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+      "clang_template_mangled_name": "_ZSt3minImERKT_S2_S2_",
+      "linkage": "external",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned long",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned long",
+            "const": true
+          }
+        ],
+        "result": "unsigned long"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_774131ccff66371d",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const int &(const int &, const int &)",
+      "clang_template_mangled_name": "_ZSt3minIiERKT_S2_S2_",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "827cd33afddd28371f9c9f66a8a152fff75298a0687de7e950037779fe554e49"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "newaspect_enable",
+      "source_name": "newaspect_enable",
+      "kind": "VarDecl",
+      "line": 129,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_86f16538d5c8fb71ab0764a7",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "nodesperline",
+      "source_name": "nodesperline",
+      "kind": "VarDecl",
+      "line": 1465,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_504ad5559007d6f33ec65ccc",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "oviewingrange",
+      "source_name": "oviewingrange",
+      "kind": "VarDecl",
+      "line": 125,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_2b8c40034bcea70c222db70e",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "oxdimen",
+      "source_name": "oxdimen",
+      "kind": "VarDecl",
+      "line": 125,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_e173003857febd280b59233f",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "oxyaspect",
+      "source_name": "oxyaspect",
+      "kind": "VarDecl",
+      "line": 126,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_1b985dff60433db520d1c28e",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "r_usenewaspect",
+      "source_name": "r_usenewaspect",
+      "kind": "VarDecl",
+      "line": 129,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_1719e7bd91d790092d913225",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "radarang2",
+      "source_name": "radarang2",
+      "kind": "VarDecl",
+      "line": 171,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_79c096bc46ac26f0340ef029",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "renderSetAspect",
+      "source_name": "renderSetAspect",
+      "kind": "FunctionDecl",
+      "line": 13797,
+      "original_type": "void (int32_t, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "divscale32",
+        "scale",
+        "viewingrange",
+        "viewingrangerecip",
+        "xdimen",
+        "xdimenscale",
+        "xdimscale",
+        "xyaspect",
+        "yxaspect"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "scale",
+      "source_name": "scale",
+      "kind": "FunctionDecl",
+      "line": 174,
+      "original_type": "int32_t (int32_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "tabledivide64"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "searchx",
+      "source_name": "searchx",
+      "kind": "VarDecl",
+      "line": 1573,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_853c2f0031b3fbadbddd90e9",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "searchy",
+      "source_name": "searchy",
+      "kind": "VarDecl",
+      "line": 1573,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_66460e3d31d56a66ad1ade0c",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "setaspect_new_use_dimen",
+      "source_name": "setaspect_new_use_dimen",
+      "kind": "VarDecl",
+      "line": 13715,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9fb8f07246a7e914e0b9d5d8",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "smost",
+      "source_name": "smost",
+      "kind": "VarDecl",
+      "line": 1466,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_17ebf087dc87d0c7c2704242",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startdmost",
+      "source_name": "startdmost",
+      "kind": "VarDecl",
+      "line": 833,
+      "original_type": "int16_t *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 24106,
+        "source_line": 833,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1e927701ef0",
+        "redeclaration_chain": [
+          "0x1e927701ef0"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_3be09651661a7974b1bb1434",
+        "abi": "source-global-cell/2",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "startumost",
+      "source_name": "startumost",
+      "kind": "VarDecl",
+      "line": 833,
+      "original_type": "int16_t *",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 24093,
+        "source_line": 833,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1d42df37908",
+        "redeclaration_chain": [
+          "0x1d42df37908"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_26d4b87c2e0d474be07ce565",
+        "abi": "source-global-cell/2",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "swall",
+      "source_name": "swall",
+      "kind": "VarDecl",
+      "line": 1468,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_096acb25228b09dae41dc959",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "swallf",
+      "source_name": "swallf",
+      "kind": "VarDecl",
+      "line": 1470,
+      "original_type": "float *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_efae0614594f44eeb6e58297",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "float *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "swplc",
+      "source_name": "swplc",
+      "kind": "VarDecl",
+      "line": 1468,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_14183efcf620ecfb8850097d",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tabledivide64",
+      "source_name": "tabledivide64",
+      "kind": "FunctionDecl",
+      "line": 111,
+      "original_type": "int64_t (const int64_t, const int64_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "divtable64",
+        "lastd_s64",
+        "libdivide_s64_do",
+        "libdivide_s64_gen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s64",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "divtable64",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "divtable64",
+        "lastd_s64",
+        "libdivide_s64_do",
+        "libdivide_s64_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "umost",
+      "source_name": "umost",
+      "kind": "VarDecl",
+      "line": 1466,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_cda2119587abc71704501e74",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "uplc",
+      "source_name": "uplc",
+      "kind": "VarDecl",
+      "line": 1467,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_80245ff0670b238fddf41674",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "uwall",
+      "source_name": "uwall",
+      "kind": "VarDecl",
+      "line": 1467,
+      "original_type": "int16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_8fac817ec1046bcc9af9d807",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoGetRenderMode",
+      "source_name": "videoGetRenderMode",
+      "kind": "FunctionDecl",
+      "line": 1079,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "viewingrange",
+      "source_name": "viewingrange",
+      "kind": "VarDecl",
+      "line": 762,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 22021,
+        "source_line": 762,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x256bab57c68",
+        "redeclaration_chain": [
+          "0x256bab57c68"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c84014786923d3572b20a599",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "viewingrangerecip",
+      "source_name": "viewingrangerecip",
+      "kind": "VarDecl",
+      "line": 1510,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_ad1b18ed8e716c2860429776",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wx1",
+      "source_name": "wx1",
+      "kind": "VarDecl",
+      "line": 760,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21924,
+        "source_line": 760,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x23c8ed6bab8",
+        "redeclaration_chain": [
+          "0x23c8ed6bab8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_5d3f7e3c255e1e4d3dba7fa2",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wx2",
+      "source_name": "wx2",
+      "kind": "VarDecl",
+      "line": 760,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21934,
+        "source_line": 760,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1f0d76cd788",
+        "redeclaration_chain": [
+          "0x1f0d76cd788"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_73872b378ae600f82ef1585d",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wy1",
+      "source_name": "wy1",
+      "kind": "VarDecl",
+      "line": 760,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21929,
+        "source_line": 760,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x2639d4786d8",
+        "redeclaration_chain": [
+          "0x2639d4786d8"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_94e67cd1b6471a084977e82f",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "wy2",
+      "source_name": "wy2",
+      "kind": "VarDecl",
+      "line": 760,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 21939,
+        "source_line": 760,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x19d03989f78",
+        "redeclaration_chain": [
+          "0x19d03989f78"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_8513acc4c7b23588d79953c0",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xdimen",
+      "source_name": "xdimen",
+      "kind": "VarDecl",
+      "line": 1482,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_1bb1070901d1e89087ee9441",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xdimenrecip",
+      "source_name": "xdimenrecip",
+      "kind": "VarDecl",
+      "line": 1482,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_dee358e91a1a7f2a6d37a5a5",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xdimenscale",
+      "source_name": "xdimenscale",
+      "kind": "VarDecl",
+      "line": 1482,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c52bd54e6d33290c61ff7d56",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xdimscale",
+      "source_name": "xdimscale",
+      "kind": "VarDecl",
+      "line": 1482,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_8237672c9966884eda00f429",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xrealloc",
+      "source_name": "xrealloc",
+      "kind": "FunctionDecl",
+      "line": 1413,
+      "original_type": "void *(void *const, const bsize_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xyaspect",
+      "source_name": "xyaspect",
+      "kind": "VarDecl",
+      "line": 1509,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_04e37a4474feb35e339a7e25",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ydimen",
+      "source_name": "ydimen",
+      "kind": "VarDecl",
+      "line": 1484,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_6314158c901ae0222f46040e",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ysavecnt",
+      "source_name": "ysavecnt",
+      "kind": "VarDecl",
+      "line": 1465,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_1489693e4d227075879c91f9",
+        "owner_source": "source/build/src/engine.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "yxaspect",
+      "source_name": "yxaspect",
+      "kind": "VarDecl",
+      "line": 762,
+      "original_type": "int",
+      "linkage": "external",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 22011,
+        "source_line": 762,
+        "translation_unit": "source/build/src/engine.cpp",
+        "clang_decl_id": "0x1772d0cd388",
+        "redeclaration_chain": [
+          "0x1772d0cd388"
+        ],
+        "linkage": "external",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9de9945f48c8bc47d005b6f8",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -1535,6 +3957,192 @@
       "binding": "__cxx_global_cell_9541123d8c6d2c52896ac26a",
       "abi": "source-global-cell/2",
       "original_type": "char"
+    },
+    {
+      "name": "novoxmips",
+      "binding": "__cxx_global_cell_7e42dba8ea8f9a8bc3318fdc",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "r_screenxy",
+      "binding": "__cxx_global_cell_585083e70b316eace630e342",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned int"
+    },
+    {
+      "name": "r_rotatespriteinterp",
+      "binding": "__cxx_global_cell_839b6dd579d4126718a101c3",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "r_fpgrouscan",
+      "binding": "__cxx_global_cell_d33e7d272649317fa29cc706",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "r_borderless",
+      "binding": "__cxx_global_cell_67da6fc124c3ab1d5da4a606",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "g_videoGamma",
+      "binding": "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "g_videoContrast",
+      "binding": "__cxx_global_cell_eb7ec64efb5dec6e758a65c7",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "g_videoSaturation",
+      "binding": "__cxx_global_cell_a6f1e8c839618189cf2ebd7a",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "maxspritesonscreen",
+      "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "oxyaspect",
+      "binding": "__cxx_global_cell_1b985dff60433db520d1c28e",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "r_usenewaspect",
+      "binding": "__cxx_global_cell_1719e7bd91d790092d913225",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "newaspect_enable",
+      "binding": "__cxx_global_cell_86f16538d5c8fb71ab0764a7",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "wx1",
+      "binding": "__cxx_global_cell_5d3f7e3c255e1e4d3dba7fa2",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "wx2",
+      "binding": "__cxx_global_cell_73872b378ae600f82ef1585d",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "wy1",
+      "binding": "__cxx_global_cell_94e67cd1b6471a084977e82f",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "wy2",
+      "binding": "__cxx_global_cell_8513acc4c7b23588d79953c0",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "viewingrange",
+      "binding": "__cxx_global_cell_c84014786923d3572b20a599",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "yxaspect",
+      "binding": "__cxx_global_cell_9de9945f48c8bc47d005b6f8",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "xdimen",
+      "binding": "__cxx_global_cell_1bb1070901d1e89087ee9441",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "xdimenrecip",
+      "binding": "__cxx_global_cell_dee358e91a1a7f2a6d37a5a5",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "halfxdimen",
+      "binding": "__cxx_global_cell_7f82f1ce39a55e3695e486ff",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "xdimenscale",
+      "binding": "__cxx_global_cell_c52bd54e6d33290c61ff7d56",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "xdimscale",
+      "binding": "__cxx_global_cell_8237672c9966884eda00f429",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "fxdimen",
+      "binding": "__cxx_global_cell_c332faf0c44a2245574f00c2",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "ydimen",
+      "binding": "__cxx_global_cell_6314158c901ae0222f46040e",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "xyaspect",
+      "binding": "__cxx_global_cell_04e37a4474feb35e339a7e25",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "searchx",
+      "binding": "__cxx_global_cell_853c2f0031b3fbadbddd90e9",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "searchy",
+      "binding": "__cxx_global_cell_66460e3d31d56a66ad1ade0c",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "setaspect_new_use_dimen",
+      "binding": "__cxx_global_cell_9fb8f07246a7e914e0b9d5d8",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "startdmost",
+      "binding": "__cxx_global_cell_3be09651661a7974b1bb1434",
+      "abi": "source-global-cell/2",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "startumost",
+      "binding": "__cxx_global_cell_26d4b87c2e0d474be07ce565",
+      "abi": "source-global-cell/2",
+      "original_type": "int16_t *"
     }
   ],
   "private_storage_exports": [
@@ -1557,6 +4165,208 @@
           8
         ]
       }
+    },
+    {
+      "name": "lookups",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_faaa894d8f96459328af7d1c",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "oxdimen",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_e173003857febd280b59233f",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "oviewingrange",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_2b8c40034bcea70c222db70e",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "dotp1",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_c45848d776e78e3ad15aa19e",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t **"
+    },
+    {
+      "name": "dotp2",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_f680dc34f3f16b7605bd2076",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t **"
+    },
+    {
+      "name": "radarang2",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_79c096bc46ac26f0340ef029",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "kensmessage",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_a0cf17e5040f768fecaa0eed",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "nodesperline",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_504ad5559007d6f33ec65ccc",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "ysavecnt",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_1489693e4d227075879c91f9",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "smost",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_17ebf087dc87d0c7c2704242",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "umost",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_cda2119587abc71704501e74",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "dmost",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_8eaacff0c38c7a01c1b3d98a",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "bakumost",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_23bb7f67ca630bc65b4c93bd",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "bakdmost",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_d3e9e18f891884c6c96f52fe",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "uplc",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_80245ff0670b238fddf41674",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "dplc",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_030dea20292b8ccfb253f2f2",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "uwall",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_8fac817ec1046bcc9af9d807",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "dwall",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_06af83b949965f384726a5d5",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int16_t *"
+    },
+    {
+      "name": "swplc",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_14183efcf620ecfb8850097d",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "lplc",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_01c16f662f9d8ebf17e1b4d9",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "swall",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_096acb25228b09dae41dc959",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "lwall",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_60e94246258c1e5f501cf23e",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "swallf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_efae0614594f44eeb6e58297",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "float *"
+    },
+    {
+      "name": "horizycent",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_e991bfcab826047ea36d44dc",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "horizlookup",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_6ef572a4d918a9b697b4e317",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "horizlookup2",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_ef565da95f0d7e5345f8f6f7",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "viewingrangerecip",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_ad1b18ed8e716c2860429776",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "lastx",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_ada883e80594d1c803381375",
+      "owner_source": "source/build/src/engine.cpp",
+      "original_type": "int32_t *"
     }
   ],
   "module_fragments": [
@@ -1700,6 +4510,502 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "0c2ee6cf2d5b9d8eb40113a22da20b5f40fdb558c8222a7025231e061362770b"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_8b5d59287bf2.mjs",
+      "sha256": "8b5d59287bf23f22db549d643a20f48fb64551a44a01f552ef594b5d302d4e40",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "__atomic_add",
+        "__atomic_add_single",
+        "__cxx_operator_11a696315e969ab4",
+        "__cxx_operator_35d41574d9c68141",
+        "__cxx_operator_9d5bfff63c86ec9c",
+        "__exchange_and_add",
+        "__exchange_and_add_single",
+        "__gthread_active_p",
+        "__gthread_mutex_lock",
+        "__gthread_mutex_unlock",
+        "__gthread_recursive_mutex_lock",
+        "__gthread_recursive_mutex_unlock",
+        "__is_constant_evaluated",
+        "_mm_and_si128",
+        "_mm_or_si128",
+        "_mm_xor_si128",
+        "fix16_from_dbl",
+        "fix16_from_float",
+        "fix16_from_int",
+        "fix16_half__header_global_32abdaf38138b574",
+        "fix16_mod",
+        "fix16_one__header_global_1ff90da45b33318d",
+        "fix16_to_dbl",
+        "fix16_to_float",
+        "fix16_to_int",
+        "flt_f161r__header_global_08ad66003e737fed",
+        "libdivide_128_div_128_to_64",
+        "libdivide_32_div_16_to_16",
+        "libdivide_count_leading_zeros16",
+        "libdivide_count_leading_zeros32",
+        "libdivide_count_leading_zeros64",
+        "libdivide_mullhi_s16",
+        "libdivide_mullhi_s32",
+        "libdivide_mullhi_s64",
+        "libdivide_mullhi_u16",
+        "libdivide_mullhi_u32",
+        "libdivide_mullhi_u64",
+        "min",
+        "operator_delete___ZdlPvS_",
+        "operator_delete_array___ZdaPvS_",
+        "tabledivide32"
+      ],
+      "reexports": [
+        "__atomic_add",
+        "__atomic_add_single",
+        "__cxx_operator_11a696315e969ab4",
+        "__cxx_operator_35d41574d9c68141",
+        "__cxx_operator_9d5bfff63c86ec9c",
+        "__exchange_and_add",
+        "__exchange_and_add_single",
+        "__gthread_active_p",
+        "__gthread_mutex_lock",
+        "__gthread_mutex_unlock",
+        "__gthread_recursive_mutex_lock",
+        "__gthread_recursive_mutex_unlock",
+        "__is_constant_evaluated",
+        "_mm_and_si128",
+        "_mm_or_si128",
+        "_mm_xor_si128",
+        "fix16_from_dbl",
+        "fix16_from_float",
+        "fix16_from_int",
+        "fix16_half__header_global_32abdaf38138b574",
+        "fix16_mod",
+        "fix16_one__header_global_1ff90da45b33318d",
+        "fix16_to_dbl",
+        "fix16_to_float",
+        "fix16_to_int",
+        "flt_f161r__header_global_08ad66003e737fed",
+        "libdivide_128_div_128_to_64",
+        "libdivide_32_div_16_to_16",
+        "libdivide_count_leading_zeros16",
+        "libdivide_count_leading_zeros32",
+        "libdivide_count_leading_zeros64",
+        "libdivide_mullhi_s16",
+        "libdivide_mullhi_s32",
+        "libdivide_mullhi_s64",
+        "libdivide_mullhi_u16",
+        "libdivide_mullhi_u32",
+        "libdivide_mullhi_u64",
+        "min",
+        "operator_delete___ZdlPvS_",
+        "operator_delete_array___ZdaPvS_",
+        "tabledivide32"
+      ],
+      "imports": [
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "13f3aafb3cccb8c5d2afab4d1c6020e1bb6c5b0bb94a41482d65e59bc705af47"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_9ec4db31e891.mjs",
+      "sha256": "9ec4db31e891a06efb7cb7f2b8283b8472a014ef2d031c2a9fdb472d4b741627",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "g_videoContrast",
+        "g_videoGamma",
+        "g_videoSaturation",
+        "maxspritesonscreen",
+        "novoxmips",
+        "r_borderless",
+        "r_fpgrouscan",
+        "r_rotatespriteinterp",
+        "r_screenxy"
+      ],
+      "reexports": [
+        "g_videoContrast",
+        "g_videoGamma",
+        "g_videoSaturation",
+        "maxspritesonscreen",
+        "novoxmips",
+        "r_borderless",
+        "r_fpgrouscan",
+        "r_rotatespriteinterp",
+        "r_screenxy",
+        "__cxx_global_cell_eb7ec64efb5dec6e758a65c7",
+        "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+        "__cxx_global_cell_a6f1e8c839618189cf2ebd7a",
+        "__cxx_global_cell_4723a60d88a1aa0814b17967",
+        "__cxx_global_cell_7e42dba8ea8f9a8bc3318fdc",
+        "__cxx_global_cell_67da6fc124c3ab1d5da4a606",
+        "__cxx_global_cell_d33e7d272649317fa29cc706",
+        "__cxx_global_cell_839b6dd579d4126718a101c3",
+        "__cxx_global_cell_585083e70b316eace630e342"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "5c689bb5d507efccacb96f67c897db25c67638943f771fee0111c9edf07727bf"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_a7183815435c.mjs",
+      "sha256": "a7183815435c22885c94af901c6d5c06201e142768755445c59280a53feba7b5",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "britable",
+        "palette"
+      ],
+      "reexports": [
+        "britable",
+        "palette"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "04c93232eee2be6c287d8832cf833feb64cc1312bd00cd002df20253ceb558d1"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_85380f0701c0.mjs",
+      "sha256": "85380f0701c0930331950c694536c68b55d06378db9b6088407debc94414dfe1",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "ARRAY_SIZE__header_3fb05a303daa",
+        "bakdmost",
+        "bakumost",
+        "divscale",
+        "divscale16",
+        "divscale32",
+        "dmost",
+        "dotp1",
+        "dotp2",
+        "dplc",
+        "dwall",
+        "fxdimen",
+        "halfxdimen",
+        "horizlookup",
+        "horizlookup2",
+        "horizycent",
+        "kensmessage",
+        "lastx",
+        "lookups",
+        "lplc",
+        "lwall",
+        "max__template_b1cfaf2244c73238",
+        "min__cxx_d283c7086cbc",
+        "min__template_774131ccff66371d",
+        "newaspect_enable",
+        "nodesperline",
+        "oviewingrange",
+        "oxdimen",
+        "oxyaspect",
+        "r_usenewaspect",
+        "radarang2",
+        "renderSetAspect",
+        "scale",
+        "searchx",
+        "searchy",
+        "setaspect_new_use_dimen",
+        "smost",
+        "startdmost",
+        "startumost",
+        "swall",
+        "swallf",
+        "swplc",
+        "tabledivide64",
+        "umost",
+        "uplc",
+        "uwall",
+        "videoGetRenderMode",
+        "viewingrange",
+        "viewingrangerecip",
+        "wx1",
+        "wx2",
+        "wy1",
+        "wy2",
+        "xdimen",
+        "xdimenrecip",
+        "xdimenscale",
+        "xdimscale",
+        "xrealloc",
+        "xyaspect",
+        "ydimen",
+        "ysavecnt",
+        "yxaspect"
+      ],
+      "reexports": [
+        "ARRAY_SIZE__header_3fb05a303daa",
+        "bakdmost",
+        "bakumost",
+        "divscale",
+        "divscale16",
+        "divscale32",
+        "dmost",
+        "dotp1",
+        "dotp2",
+        "dplc",
+        "dwall",
+        "fxdimen",
+        "halfxdimen",
+        "horizlookup",
+        "horizlookup2",
+        "horizycent",
+        "kensmessage",
+        "lastx",
+        "lookups",
+        "lplc",
+        "lwall",
+        "max__template_b1cfaf2244c73238",
+        "min__cxx_d283c7086cbc",
+        "min__template_774131ccff66371d",
+        "newaspect_enable",
+        "nodesperline",
+        "oviewingrange",
+        "oxdimen",
+        "oxyaspect",
+        "r_usenewaspect",
+        "radarang2",
+        "renderSetAspect",
+        "scale",
+        "searchx",
+        "searchy",
+        "setaspect_new_use_dimen",
+        "smost",
+        "startdmost",
+        "startumost",
+        "swall",
+        "swallf",
+        "swplc",
+        "tabledivide64",
+        "umost",
+        "uplc",
+        "uwall",
+        "videoGetRenderMode",
+        "viewingrange",
+        "viewingrangerecip",
+        "wx1",
+        "wx2",
+        "wy1",
+        "wy2",
+        "xdimen",
+        "xdimenrecip",
+        "xdimenscale",
+        "xdimscale",
+        "xrealloc",
+        "xyaspect",
+        "ydimen",
+        "ysavecnt",
+        "yxaspect",
+        "__cxx_private_cell_d3e9e18f891884c6c96f52fe",
+        "__cxx_private_cell_23bb7f67ca630bc65b4c93bd",
+        "__cxx_private_cell_8eaacff0c38c7a01c1b3d98a",
+        "__cxx_private_cell_c45848d776e78e3ad15aa19e",
+        "__cxx_private_cell_f680dc34f3f16b7605bd2076",
+        "__cxx_private_cell_030dea20292b8ccfb253f2f2",
+        "__cxx_private_cell_06af83b949965f384726a5d5",
+        "__cxx_global_cell_c332faf0c44a2245574f00c2",
+        "__cxx_global_cell_7f82f1ce39a55e3695e486ff",
+        "__cxx_private_cell_6ef572a4d918a9b697b4e317",
+        "__cxx_private_cell_ef565da95f0d7e5345f8f6f7",
+        "__cxx_private_cell_e991bfcab826047ea36d44dc",
+        "__cxx_private_cell_a0cf17e5040f768fecaa0eed",
+        "__cxx_private_cell_ada883e80594d1c803381375",
+        "__cxx_private_cell_faaa894d8f96459328af7d1c",
+        "__cxx_private_cell_01c16f662f9d8ebf17e1b4d9",
+        "__cxx_private_cell_60e94246258c1e5f501cf23e",
+        "__cxx_global_cell_86f16538d5c8fb71ab0764a7",
+        "__cxx_private_cell_504ad5559007d6f33ec65ccc",
+        "__cxx_private_cell_2b8c40034bcea70c222db70e",
+        "__cxx_private_cell_e173003857febd280b59233f",
+        "__cxx_global_cell_1b985dff60433db520d1c28e",
+        "__cxx_global_cell_1719e7bd91d790092d913225",
+        "__cxx_private_cell_79c096bc46ac26f0340ef029",
+        "__cxx_global_cell_853c2f0031b3fbadbddd90e9",
+        "__cxx_global_cell_66460e3d31d56a66ad1ade0c",
+        "__cxx_global_cell_9fb8f07246a7e914e0b9d5d8",
+        "__cxx_private_cell_17ebf087dc87d0c7c2704242",
+        "__cxx_global_cell_3be09651661a7974b1bb1434",
+        "__cxx_global_cell_26d4b87c2e0d474be07ce565",
+        "__cxx_private_cell_096acb25228b09dae41dc959",
+        "__cxx_private_cell_efae0614594f44eeb6e58297",
+        "__cxx_private_cell_14183efcf620ecfb8850097d",
+        "__cxx_private_cell_cda2119587abc71704501e74",
+        "__cxx_private_cell_80245ff0670b238fddf41674",
+        "__cxx_private_cell_8fac817ec1046bcc9af9d807",
+        "__cxx_global_cell_c84014786923d3572b20a599",
+        "__cxx_private_cell_ad1b18ed8e716c2860429776",
+        "__cxx_global_cell_5d3f7e3c255e1e4d3dba7fa2",
+        "__cxx_global_cell_73872b378ae600f82ef1585d",
+        "__cxx_global_cell_94e67cd1b6471a084977e82f",
+        "__cxx_global_cell_8513acc4c7b23588d79953c0",
+        "__cxx_global_cell_1bb1070901d1e89087ee9441",
+        "__cxx_global_cell_dee358e91a1a7f2a6d37a5a5",
+        "__cxx_global_cell_c52bd54e6d33290c61ff7d56",
+        "__cxx_global_cell_8237672c9966884eda00f429",
+        "__cxx_global_cell_04e37a4474feb35e339a7e25",
+        "__cxx_global_cell_6314158c901ae0222f46040e",
+        "__cxx_private_cell_1489693e4d227075879c91f9",
+        "__cxx_global_cell_9de9945f48c8bc47d005b6f8"
+      ],
+      "imports": [
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_32abdaf38138b574",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_1ff90da45b33318d",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_08ad66003e737fed",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "8448a50e658740da58e628a9ed442e3f2b3ab8d56bb49f9ac5a76a9db53d3ca0"
     }
   ],
   "superseded_module_fragments": [

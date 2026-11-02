@@ -55,9 +55,9 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\osd.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 1033,
-  "emitted": 462,
-  "blocked": 571,
+  "found": 1041,
+  "emitted": 484,
+  "blocked": 557,
   "definitions": [
     {
       "name": "fix16_rad_to_deg_mult__header_global_1f20827e10fe1139",
@@ -14386,29 +14386,6 @@
       "unresolved_references": []
     },
     {
-      "name": "OSD_RegisterCvar",
-      "source_name": "OSD_RegisterCvar",
-      "kind": "FunctionDecl",
-      "line": 60,
-      "original_type": "void (osdcvardata_t *const, int (*)(osdcmdptr_t))",
-      "linkage": "external",
-      "source_references": [
-        "OSD_Init",
-        "OSD_RegisterFunction",
-        "h_cvars",
-        "hash_add",
-        "osd",
-        "xrealloc"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: hash_add",
-      "unresolved_references": [
-        "hash_add"
-      ]
-    },
-    {
       "name": "OSD_CvarModified",
       "source_name": "OSD_CvarModified",
       "kind": "FunctionDecl",
@@ -14449,38 +14426,6 @@
       "unresolved_references": [
         "Bstrtoken",
         "g_mouseBits"
-      ]
-    },
-    {
-      "name": "OSD_Exec",
-      "source_name": "OSD_Exec",
-      "kind": "FunctionDecl",
-      "line": 177,
-      "original_type": "int (const char *)",
-      "linkage": "external",
-      "source_references": [
-        "Bstrtoken",
-        "OSD_Dispatch",
-        "current_verbosity_cutoff",
-        "kclose",
-        "kfilelength",
-        "kopen4load",
-        "kread",
-        "loguru_log",
-        "osd",
-        "xfree",
-        "xmalloc"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: Bstrtoken, kclose, kfilelength, kopen4load, kread",
-      "unresolved_references": [
-        "Bstrtoken",
-        "kclose",
-        "kfilelength",
-        "kopen4load",
-        "kread"
       ]
     },
     {
@@ -14615,26 +14560,6 @@
       "unresolved_references": []
     },
     {
-      "name": "osdfunc_exec",
-      "source_name": "osdfunc_exec",
-      "kind": "FunctionDecl",
-      "line": 261,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "OSD_Exec",
-        "current_verbosity_cutoff",
-        "loguru_log"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: OSD_Exec",
-      "unresolved_references": [
-        "OSD_Exec"
-      ]
-    },
-    {
       "name": "osdfunc_echo",
       "source_name": "osdfunc_echo",
       "kind": "FunctionDecl",
@@ -14653,52 +14578,6 @@
         "loguru_log"
       ],
       "unresolved_references": []
-    },
-    {
-      "name": "osdfunc_fileinfo",
-      "source_name": "osdfunc_fileinfo",
-      "kind": "FunctionDecl",
-      "line": 279,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "Bcrc32",
-        "OSD_Printf",
-        "XXH32_digest",
-        "XXH32_reset",
-        "XXH32_state_s",
-        "XXH32_update",
-        "current_verbosity_cutoff",
-        "kclose",
-        "kfilelength",
-        "klseek",
-        "kopen4load",
-        "kread",
-        "loguru_log",
-        "timerGetFractionalTicks",
-        "xfree",
-        "xmalloc"
-      ],
-      "external_reference_imports": [],
-      "emitted_constructor_providers": [
-        "XXH32_state_s"
-      ],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: Bcrc32, XXH32_digest, XXH32_reset, XXH32_state_s, XXH32_update, kclose, kfilelength, klseek, kopen4load, kread, timerGetFractionalTicks",
-      "unresolved_references": [
-        "Bcrc32",
-        "XXH32_digest",
-        "XXH32_reset",
-        "XXH32_state_s",
-        "XXH32_update",
-        "kclose",
-        "kfilelength",
-        "klseek",
-        "kopen4load",
-        "kread",
-        "timerGetFractionalTicks"
-      ]
     },
     {
       "name": "_internal_getcolumnwidth",
@@ -14792,34 +14671,6 @@
       "unresolved_references": []
     },
     {
-      "name": "osdfunc_alias",
-      "source_name": "osdfunc_alias",
-      "kind": "FunctionDecl",
-      "line": 437,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "OSD_RegisterFunction",
-        "current_verbosity_cutoff",
-        "loguru_log",
-        "osd",
-        "strcasecmp",
-        "xstrdup"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "external_imports": [
-        "current_verbosity_cutoff",
-        "loguru_log",
-        "strcasecmp"
-      ],
-      "unresolved_references": [
-        "OSD_RegisterFunction"
-      ],
-      "reason": "unlinked identifiers: OSD_RegisterFunction"
-    },
-    {
       "name": "osdfunc_unalias",
       "source_name": "osdfunc_unalias",
       "kind": "FunctionDecl",
@@ -14843,80 +14694,6 @@
       "unresolved_references": []
     },
     {
-      "name": "osdfunc_listsymbols",
-      "source_name": "osdfunc_listsymbols",
-      "kind": "FunctionDecl",
-      "line": 521,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "OSD_CvarModified",
-        "OSD_Printf",
-        "current_verbosity_cutoff",
-        "h_cvars",
-        "hash_find",
-        "loguru_log",
-        "max__template_b1cfaf2244c73238",
-        "osd",
-        "snprintf",
-        "strcat",
-        "strlen",
-        "strncmp"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "max__template_b1cfaf2244c73238",
-          "reference_contract": {
-            "abi": "source-cpp-lvalue-reference/1",
-            "parameters": [
-              {
-                "index": 0,
-                "type": "int",
-                "const": true
-              },
-              {
-                "index": 1,
-                "type": "int",
-                "const": true
-              }
-            ],
-            "result": "int"
-          }
-        }
-      ],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: hash_find",
-      "unresolved_references": [
-        "hash_find"
-      ]
-    },
-    {
-      "name": "osdfunc_help",
-      "source_name": "osdfunc_help",
-      "kind": "FunctionDecl",
-      "line": 586,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "OSD_Printf",
-        "current_verbosity_cutoff",
-        "h_cvars",
-        "hash_findcase",
-        "loguru_log",
-        "osd",
-        "osd_findexactsymbol",
-        "osdfunc_printvar"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: hash_findcase",
-      "unresolved_references": [
-        "hash_findcase"
-      ]
-    },
-    {
       "name": "osdfunc_clear",
       "source_name": "osdfunc_clear",
       "kind": "FunctionDecl",
@@ -14931,31 +14708,6 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
-    },
-    {
-      "name": "osdfunc_history",
-      "source_name": "osdfunc_history",
-      "kind": "FunctionDecl",
-      "line": 613,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "OSD_Printf",
-        "current_verbosity_cutoff",
-        "loguru_log",
-        "osd"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "external_imports": [
-        "current_verbosity_cutoff",
-        "loguru_log"
-      ],
-      "unresolved_references": [
-        "OSD_Printf"
-      ],
-      "reason": "unlinked identifiers: OSD_Printf"
     },
     {
       "name": "OSD_Cleanup",
@@ -14998,69 +14750,6 @@
         "strlen"
       ],
       "unresolved_references": []
-    },
-    {
-      "name": "OSD_Init",
-      "source_name": "OSD_Init",
-      "kind": "FunctionDecl",
-      "line": 783,
-      "original_type": "void ()",
-      "linkage": "external",
-      "source_references": [
-        "OSD_RegisterCvar",
-        "OSD_RegisterFunction",
-        "__cxx_record_CircularQueue_72e67824d02fa6e1",
-        "_internal_clearbackground",
-        "_internal_drawosdchar",
-        "_internal_drawosdcursor",
-        "_internal_drawosdstr",
-        "_internal_getcolumnwidth",
-        "_internal_getrowheight",
-        "_internal_gettime",
-        "_internal_onshowosd",
-        "default_callbacks",
-        "h_cvars",
-        "h_osd",
-        "hash_init",
-        "memset",
-        "mutex_init",
-        "osd",
-        "osdcmd_cvar_set",
-        "osdcmd_cvar_set_osd",
-        "osdfunc_alias",
-        "osdfunc_clear",
-        "osdfunc_echo",
-        "osdfunc_exec",
-        "osdfunc_fileinfo",
-        "osdfunc_help",
-        "osdfunc_history",
-        "osdfunc_listsymbols",
-        "osdfunc_toggle",
-        "osdfunc_unalias",
-        "osdrows",
-        "xcalloc",
-        "xmalloc"
-      ],
-      "external_reference_imports": [],
-      "emitted_constructor_providers": [
-        "__cxx_record_CircularQueue_72e67824d02fa6e1"
-      ],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: OSD_RegisterCvar, _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, hash_init, osdcmd_cvar_set_osd, osdfunc_exec, osdfunc_fileinfo, osdfunc_help, osdfunc_listsymbols, osdfunc_toggle",
-      "unresolved_references": [
-        "OSD_RegisterCvar",
-        "_internal_drawosdchar",
-        "_internal_drawosdcursor",
-        "_internal_drawosdstr",
-        "hash_init",
-        "osdcmd_cvar_set_osd",
-        "osdfunc_exec",
-        "osdfunc_fileinfo",
-        "osdfunc_help",
-        "osdfunc_listsymbols",
-        "osdfunc_toggle"
-      ]
     },
     {
       "name": "OSD_SetLogFile",
@@ -15459,73 +15148,6 @@
       ]
     },
     {
-      "name": "OSD_Printf",
-      "source_name": "OSD_Printf",
-      "kind": "FunctionDecl",
-      "line": 1696,
-      "original_type": "int (const char *, ...)",
-      "linkage": "external",
-      "source_references": [
-        "OSD_Puts",
-        "OSD_StripColors",
-        "current_verbosity_cutoff",
-        "g_useLogCallback",
-        "loguru_log",
-        "max__template_b1cfaf2244c73238",
-        "nextPow2",
-        "osd",
-        "strlen",
-        "strncmp",
-        "vsnprintf",
-        "xfree",
-        "xrealloc"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "max__template_b1cfaf2244c73238",
-          "reference_contract": {
-            "abi": "source-cpp-lvalue-reference/1",
-            "parameters": [
-              {
-                "index": 0,
-                "type": "int",
-                "const": true
-              },
-              {
-                "index": 1,
-                "type": "int",
-                "const": true
-              }
-            ],
-            "result": "int"
-          }
-        }
-      ],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: OSD_Puts, OSD_StripColors, g_useLogCallback",
-      "unresolved_references": [
-        "OSD_Puts",
-        "OSD_StripColors",
-        "g_useLogCallback"
-      ]
-    },
-    {
-      "name": "OSD_Puts",
-      "source_name": "OSD_Puts",
-      "kind": "FunctionDecl",
-      "line": 1733,
-      "original_type": "void (const char *)",
-      "linkage": "external",
-      "source_references": [
-        "OSD_WritePendingLines",
-        "osd",
-        "xstrdup"
-      ],
-      "status": "blocked",
-      "reason": "C++ heap object needs complete original class construction/destruction: AtomicLogString"
-    },
-    {
       "name": "OSD_LineFeed",
       "source_name": "OSD_LineFeed",
       "kind": "FunctionDecl",
@@ -15567,23 +15189,6 @@
       "unresolved_references": []
     },
     {
-      "name": "OSD_WritePendingLines",
-      "source_name": "OSD_WritePendingLines",
-      "kind": "FunctionDecl",
-      "line": 1871,
-      "original_type": "void ()",
-      "linkage": "external",
-      "source_references": [
-        "OSD_FilterConsoleMsg",
-        "OSD_UpdateDrawBuffer",
-        "mutex_lock",
-        "mutex_unlock",
-        "osd"
-      ],
-      "status": "blocked",
-      "reason": "while shape"
-    },
-    {
       "name": "OSD_DispatchQueued",
       "source_name": "OSD_DispatchQueued",
       "kind": "FunctionDecl",
@@ -15617,63 +15222,6 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
-    },
-    {
-      "name": "OSD_Dispatch",
-      "source_name": "OSD_Dispatch",
-      "kind": "FunctionDecl",
-      "line": 2013,
-      "original_type": "void (const char *, bool)",
-      "linkage": "external",
-      "source_references": [
-        "ARRAY_SIZE__header_72600e724364",
-        "M32RunScript",
-        "OSD_Dispatch",
-        "OSD_Printf",
-        "current_verbosity_cutoff",
-        "h_cvars",
-        "hash_findcase",
-        "loguru_log",
-        "m32_osd_tryscript",
-        "osd",
-        "osd_findexactsymbol",
-        "osd_strtoken",
-        "osdfunc_printvar",
-        "strlen",
-        "strncmp",
-        "xfree",
-        "xstrdup"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: M32RunScript, OSD_Printf, hash_findcase",
-      "unresolved_references": [
-        "M32RunScript",
-        "OSD_Printf",
-        "hash_findcase"
-      ]
-    },
-    {
-      "name": "OSD_RegisterFunction",
-      "source_name": "OSD_RegisterFunction",
-      "kind": "FunctionDecl",
-      "line": 2100,
-      "original_type": "int (const char *, const char *, int (*)(osdcmdptr_t))",
-      "linkage": "external",
-      "source_references": [
-        "OSD_Init",
-        "osd",
-        "osd_addsymbol",
-        "osd_findexactsymbol"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: OSD_Init",
-      "unresolved_references": [
-        "OSD_Init"
-      ]
     },
     {
       "name": "OSD_SetVersion",
@@ -17489,6 +17037,1598 @@
         "lastd_s32",
         "libdivide_s32_do",
         "libdivide_s32_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_Puts",
+      "source_name": "OSD_Puts",
+      "kind": "FunctionDecl",
+      "line": 1733,
+      "original_type": "void (const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_WritePendingLines",
+        "__source_byte_ctor_0d0e3eda0a9f2dab1a82",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "osd",
+        "xstrdup"
+      ],
+      "storage_constructor_count": 1,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_WritePendingLines",
+      "source_name": "OSD_WritePendingLines",
+      "kind": "FunctionDecl",
+      "line": 1871,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_FilterConsoleMsg",
+        "OSD_UpdateDrawBuffer",
+        "__cxx_record_CircularQueue_72e67824d02fa6e1",
+        "__source_byte_method_fetch_add_ea67e3a9f39df1edfb0b",
+        "__source_byte_method_isEmpty_e08944fded2a95bad7d5",
+        "__source_byte_method_pop_a015b2255a1ea89938e8",
+        "mutex_lock",
+        "mutex_unlock",
+        "osd"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_CircularQueue_72e67824d02fa6e1",
+          "reference_class_abi": "source-cpp-lvalue-reference/1"
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_UpdateDrawBuffer",
+        "__cxx_record_CircularQueue_72e67824d02fa6e1",
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_ctor_0d0e3eda0a9f2dab1a82",
+      "source_name": "__source_byte_ctor_0d0e3eda0a9f2dab1a82",
+      "kind": "FunctionDecl",
+      "line": 183,
+      "original_type": "void (AtomicLogString *, char *)",
+      "linkage": "internal",
+      "original_byte_constructor": {
+        "abi": "source-byte-constructor/1",
+        "source_header": "source/build/include/osd.h",
+        "source_offset": 4367,
+        "source_line": 183,
+        "header_sha256": "5ff761fe96500681a79a41fe9be853e15ddbb7ac3b98b1fcabab02b7ad735105",
+        "mangled_name": "_ZN15AtomicLogStringC1EPc",
+        "original_type": "void (char *)",
+        "original_ast_kind": "CXXConstructorDecl",
+        "implicit": false,
+        "translation_unit": "source/build/src/osd.cpp",
+        "destruction": "clang-trivial",
+        "copy_semantics_granted": false,
+        "receiver_schema": {
+          "size": 24,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "m_next": {
+              "offset": 0,
+              "pointer": true,
+              "size": 8
+            },
+            "m_value": {
+              "offset": 8,
+              "pointer": true,
+              "size": 8
+            },
+            "m_isLogged": {
+              "offset": 16,
+              "byteRecord": {
+                "size": 4,
+                "align": 4,
+                "union": false,
+                "fields": {
+                  "_M_i": {
+                    "offset": 0,
+                    "native": "Int32Array",
+                    "size": 4
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "bases": [
+                  {
+                    "type": "__cxx_record___atomic_base_6b7b06d18593cb0a",
+                    "offset": 0,
+                    "size": 4
+                  }
+                ],
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "bases": [
+            {
+              "type": "__cxx_record_AtomicSListNode_f91aac56b18644e8",
+              "offset": 0,
+              "size": 8
+            }
+          ],
+          "overlaps": false
+        }
+      },
+      "physical_source": "source/build/include/osd.h",
+      "source_references": [
+        "__source_byte_ctor_316ccabdc96e443502d1",
+        "__source_byte_ctor_bc80c846b5020f710e60"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_ctor_316ccabdc96e443502d1",
+      "source_name": "__source_byte_ctor_316ccabdc96e443502d1",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "void (__cxx_record_AtomicSListNode_f91aac56b18644e8 *)",
+      "linkage": "internal",
+      "original_byte_constructor": {
+        "abi": "source-byte-constructor/1",
+        "source_header": "source/build/include/atomiclist.h",
+        "source_offset": 256,
+        "source_line": 10,
+        "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+        "mangled_name": "_ZN15AtomicSListNodeI15AtomicLogStringEC1Ev",
+        "original_type": "void () noexcept",
+        "original_ast_kind": "CXXConstructorDecl",
+        "implicit": true,
+        "translation_unit": "source/build/src/osd.cpp",
+        "destruction": "clang-trivial",
+        "copy_semantics_granted": false,
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "m_next": {
+              "offset": 0,
+              "pointer": true,
+              "size": 8
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        }
+      },
+      "physical_source": "source/build/include/atomiclist.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_ctor_a04c21846848fa96b20f",
+      "source_name": "__source_byte_ctor_a04c21846848fa96b20f",
+      "kind": "FunctionDecl",
+      "line": 345,
+      "original_type": "void (__cxx_record___atomic_base_6b7b06d18593cb0a *, __int_type)",
+      "linkage": "internal",
+      "original_byte_constructor": {
+        "abi": "source-byte-constructor/1",
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 10052,
+        "source_line": 345,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "mangled_name": "_ZNSt13__atomic_baseIiEC1Ei",
+        "original_type": "void (__int_type) noexcept",
+        "original_ast_kind": "CXXConstructorDecl",
+        "implicit": false,
+        "translation_unit": "source/build/src/osd.cpp",
+        "destruction": "clang-trivial",
+        "copy_semantics_granted": false,
+        "receiver_schema": {
+          "size": 4,
+          "align": 4,
+          "union": false,
+          "fields": {
+            "_M_i": {
+              "offset": 0,
+              "native": "Int32Array",
+              "size": 4
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        }
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_ctor_bc80c846b5020f710e60",
+      "source_name": "__source_byte_ctor_bc80c846b5020f710e60",
+      "kind": "FunctionDecl",
+      "line": 835,
+      "original_type": "void (__cxx_record_atomic_0669cbf072e69137 *, __integral_type)",
+      "linkage": "internal",
+      "original_byte_constructor": {
+        "abi": "source-byte-constructor/1",
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+        "source_offset": 23819,
+        "source_line": 835,
+        "header_sha256": "09bde2e47c59ef6cac6ac898a21f3a6d95017d266ee3091d52204dfa315b2f38",
+        "mangled_name": "_ZNSt6atomicIiEC1Ei",
+        "original_type": "void (__integral_type) noexcept",
+        "original_ast_kind": "CXXConstructorDecl",
+        "implicit": false,
+        "translation_unit": "source/build/src/osd.cpp",
+        "destruction": "clang-trivial",
+        "copy_semantics_granted": false,
+        "receiver_schema": {
+          "size": 4,
+          "align": 4,
+          "union": false,
+          "fields": {
+            "_M_i": {
+              "offset": 0,
+              "native": "Int32Array",
+              "size": 4
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "bases": [
+            {
+              "type": "__cxx_record___atomic_base_6b7b06d18593cb0a",
+              "offset": 0,
+              "size": 4
+            }
+          ],
+          "overlaps": false
+        }
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+      "source_references": [
+        "__source_byte_ctor_a04c21846848fa96b20f"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_fetch_add_ea67e3a9f39df1edfb0b",
+      "source_name": "__source_byte_method_fetch_add_ea67e3a9f39df1edfb0b",
+      "kind": "FunctionDecl",
+      "line": 616,
+      "original_type": "int (std::__atomic_base<int> *, int, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 18079,
+        "source_line": 616,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "mangled_name": "_ZNSt13__atomic_baseIiE9fetch_addEiSt12memory_order",
+        "original_type": "__int_type (__int_type, memory_order) noexcept",
+        "original_name": "fetch_add",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 4,
+          "align": 4,
+          "union": false,
+          "fields": {
+            "_M_i": {
+              "offset": 0,
+              "native": "Int32Array",
+              "size": 4
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "c91d2ee640209f9870ae71c39e9a2998d8647d6122762bf49f903bb77ee350e1",
+        "method_type": "int (int, memory_order) noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_first_e05d9928785c52e5cd72",
+      "source_name": "__source_byte_method_first_e05d9928785c52e5cd72",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "AtomicLogString * (const AtomicSList64<AtomicLogString> *)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "source/build/include/atomiclist.h",
+        "source_offset": 1738,
+        "source_line": 60,
+        "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+        "mangled_name": "_ZNK13AtomicSList64I15AtomicLogStringE5firstEv",
+        "original_type": "AtomicLogString *() const",
+        "original_name": "first",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "m_head": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 8,
+                "align": 8,
+                "union": false,
+                "fields": {
+                  "_M_b": {
+                    "offset": 0,
+                    "byteRecord": {
+                      "size": 8,
+                      "align": 8,
+                      "union": false,
+                      "fields": {
+                        "_M_p": {
+                          "offset": 0,
+                          "pointer": true,
+                          "size": 8
+                        }
+                      },
+                      "arrayAlign": 1,
+                      "projection": true,
+                      "overlaps": false
+                    }
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+        "method_type": "AtomicLogString *() const"
+      },
+      "physical_source": "source/build/include/atomiclist.h",
+      "source_references": [
+        "__source_byte_method_load_8c900e6fe18ffce51024"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_isEmpty_e08944fded2a95bad7d5",
+      "source_name": "__source_byte_method_isEmpty_e08944fded2a95bad7d5",
+      "kind": "FunctionDecl",
+      "line": 64,
+      "original_type": "bool (const AtomicSList64<AtomicLogString> *)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "source/build/include/atomiclist.h",
+        "source_offset": 1841,
+        "source_line": 64,
+        "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+        "mangled_name": "_ZNK13AtomicSList64I15AtomicLogStringE7isEmptyEv",
+        "original_type": "bool () const",
+        "original_name": "isEmpty",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "m_head": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 8,
+                "align": 8,
+                "union": false,
+                "fields": {
+                  "_M_b": {
+                    "offset": 0,
+                    "byteRecord": {
+                      "size": 8,
+                      "align": 8,
+                      "union": false,
+                      "fields": {
+                        "_M_p": {
+                          "offset": 0,
+                          "pointer": true,
+                          "size": 8
+                        }
+                      },
+                      "arrayAlign": 1,
+                      "projection": true,
+                      "overlaps": false
+                    }
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+        "method_type": "bool () const"
+      },
+      "physical_source": "source/build/include/atomiclist.h",
+      "source_references": [
+        "__source_byte_method_first_e05d9928785c52e5cd72"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_pop_a015b2255a1ea89938e8",
+      "source_name": "__source_byte_method_pop_a015b2255a1ea89938e8",
+      "kind": "FunctionDecl",
+      "line": 44,
+      "original_type": "AtomicLogString * (AtomicSList64<AtomicLogString> *)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "source/build/include/atomiclist.h",
+        "source_offset": 1256,
+        "source_line": 44,
+        "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+        "mangled_name": "_ZN13AtomicSList64I15AtomicLogStringE3popEv",
+        "original_type": "AtomicLogString *()",
+        "original_name": "pop",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "m_head": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 8,
+                "align": 8,
+                "union": false,
+                "fields": {
+                  "_M_b": {
+                    "offset": 0,
+                    "byteRecord": {
+                      "size": 8,
+                      "align": 8,
+                      "union": false,
+                      "fields": {
+                        "_M_p": {
+                          "offset": 0,
+                          "pointer": true,
+                          "size": 8
+                        }
+                      },
+                      "arrayAlign": 1,
+                      "projection": true,
+                      "overlaps": false
+                    }
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+        "method_type": "AtomicLogString *()"
+      },
+      "physical_source": "source/build/include/atomiclist.h",
+      "source_references": [
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_load_8c900e6fe18ffce51024"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_Dispatch",
+      "source_name": "OSD_Dispatch",
+      "kind": "FunctionDecl",
+      "line": 2013,
+      "original_type": "void (const char *, bool)",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "ARRAY_SIZE__header_72600e724364",
+        "M32RunScript",
+        "OSD_Dispatch",
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "loguru_log",
+        "m32_osd_tryscript",
+        "osd",
+        "osd_findexactsymbol",
+        "osd_strtoken",
+        "osdfunc_printvar",
+        "strlen",
+        "strncmp",
+        "xfree",
+        "xstrdup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_cvars",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "m32_osd_tryscript",
+          "binding": "__cxx_global_cell_50934f4ac2e9701b845e3757",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "M32RunScript",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "loguru_log",
+        "m32_osd_tryscript",
+        "osd",
+        "strlen",
+        "strncmp"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_Exec",
+      "source_name": "OSD_Exec",
+      "kind": "FunctionDecl",
+      "line": 177,
+      "original_type": "int (const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "Bstrtoken",
+        "OSD_Dispatch",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "kopen4load",
+        "kread",
+        "loguru_log",
+        "osd",
+        "xfree",
+        "xmalloc"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Bstrtoken",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "kopen4load",
+        "kread",
+        "loguru_log",
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_Init",
+      "source_name": "OSD_Init",
+      "kind": "FunctionDecl",
+      "line": 783,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_RegisterCvar",
+        "OSD_RegisterFunction",
+        "__cxx_record_CircularQueue_72e67824d02fa6e1",
+        "_internal_clearbackground",
+        "_internal_drawosdchar",
+        "_internal_drawosdcursor",
+        "_internal_drawosdstr",
+        "_internal_getcolumnwidth",
+        "_internal_getrowheight",
+        "_internal_gettime",
+        "_internal_onshowosd",
+        "default_callbacks",
+        "h_cvars",
+        "h_osd",
+        "hash_init",
+        "memset",
+        "mutex_init",
+        "osd",
+        "osdcmd_cvar_set",
+        "osdcmd_cvar_set_osd",
+        "osdfunc_alias",
+        "osdfunc_clear",
+        "osdfunc_echo",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols",
+        "osdfunc_toggle",
+        "osdfunc_unalias",
+        "osdrows",
+        "xcalloc",
+        "xmalloc"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_CircularQueue_72e67824d02fa6e1",
+          "reference_class_abi": "source-cpp-lvalue-reference/1"
+        }
+      ],
+      "emitted_constructor_providers": [
+        "__cxx_record_CircularQueue_72e67824d02fa6e1"
+      ],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_89f1619e624af57267ee6473",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct osdcallbacks_t",
+          "byte_record": {
+            "size": 64,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "drawchar": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "drawstr": {
+                "offset": 8,
+                "pointer": true,
+                "size": 8
+              },
+              "drawcursor": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              },
+              "getcolumnwidth": {
+                "offset": 24,
+                "pointer": true,
+                "size": 8
+              },
+              "getrowheight": {
+                "offset": 32,
+                "pointer": true,
+                "size": 8
+              },
+              "clear": {
+                "offset": 40,
+                "pointer": true,
+                "size": 8
+              },
+              "gettime": {
+                "offset": 48,
+                "pointer": true,
+                "size": 8
+              },
+              "onshowosd": {
+                "offset": 56,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": false
+          },
+          "name": "default_callbacks",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_cvars",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e29f56370946f18c1c4ce6f4",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_osd",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_118753c0135375278a2f5a8b",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "name": "osdrows",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "default_callbacks",
+        "h_cvars",
+        "h_osd",
+        "hash_init",
+        "memset",
+        "mutex_init",
+        "osd",
+        "osdcmd_cvar_set",
+        "osdrows"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_Printf",
+      "source_name": "OSD_Printf",
+      "kind": "FunctionDecl",
+      "line": 1696,
+      "original_type": "int (const char *, ...)",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_Puts",
+        "OSD_StripColors",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "loguru_log",
+        "max__template_b1cfaf2244c73238",
+        "nextPow2",
+        "osd",
+        "strlen",
+        "strncmp",
+        "vsnprintf",
+        "xfree",
+        "xrealloc"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_useLogCallback",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_Puts",
+        "OSD_StripColors",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "loguru_log",
+        "osd",
+        "strlen",
+        "strncmp",
+        "vsnprintf"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_RegisterCvar",
+      "source_name": "OSD_RegisterCvar",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "void (osdcvardata_t *const, int (*)(osdcmdptr_t))",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_Init",
+        "OSD_RegisterFunction",
+        "h_cvars",
+        "hash_add",
+        "osd",
+        "xrealloc"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_cvars",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "h_cvars",
+        "hash_add",
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "OSD_RegisterFunction",
+      "source_name": "OSD_RegisterFunction",
+      "kind": "FunctionDecl",
+      "line": 2100,
+      "original_type": "int (const char *, const char *, int (*)(osdcmdptr_t))",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_Init",
+        "osd",
+        "osd_addsymbol",
+        "osd_findexactsymbol"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_alias",
+      "source_name": "osdfunc_alias",
+      "kind": "FunctionDecl",
+      "line": 437,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_RegisterFunction",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osd",
+        "strcasecmp",
+        "xstrdup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osd",
+        "strcasecmp"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_exec",
+      "source_name": "osdfunc_exec",
+      "kind": "FunctionDecl",
+      "line": 261,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_Exec",
+        "current_verbosity_cutoff",
+        "loguru_log"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_fileinfo",
+      "source_name": "osdfunc_fileinfo",
+      "kind": "FunctionDecl",
+      "line": 279,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "Bcrc32",
+        "OSD_Printf",
+        "XXH32_digest",
+        "XXH32_reset",
+        "XXH32_update",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "klseek",
+        "kopen4load",
+        "kread",
+        "loguru_log",
+        "timerGetFractionalTicks",
+        "xfree",
+        "xmalloc"
+      ],
+      "storage_constructor_count": 1,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "Bcrc32",
+        "XXH32_digest",
+        "XXH32_reset",
+        "XXH32_update",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "klseek",
+        "kopen4load",
+        "kread",
+        "loguru_log",
+        "timerGetFractionalTicks"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_help",
+      "source_name": "osdfunc_help",
+      "kind": "FunctionDecl",
+      "line": 586,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "loguru_log",
+        "osd",
+        "osd_findexactsymbol",
+        "osdfunc_printvar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_cvars",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_findcase",
+        "loguru_log",
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_history",
+      "source_name": "osdfunc_history",
+      "kind": "FunctionDecl",
+      "line": 613,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osd"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_listsymbols",
+      "source_name": "osdfunc_listsymbols",
+      "kind": "FunctionDecl",
+      "line": 521,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_CvarModified",
+        "OSD_Printf",
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_find",
+        "loguru_log",
+        "max__template_b1cfaf2244c73238",
+        "osd",
+        "snprintf",
+        "strcat",
+        "strlen",
+        "strncmp"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "name": "h_cvars",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "h_cvars",
+        "hash_find",
+        "loguru_log",
+        "osd",
+        "snprintf",
+        "strcat",
+        "strlen",
+        "strncmp"
       ],
       "unresolved_references": []
     }
@@ -19359,6 +20499,790 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "85c515257686d678eb6a14a66c4d78116cd86e3e5604e8074abb8907823fc9b8"
+    },
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_0063d2a8bc9e.mjs",
+      "sha256": "0063d2a8bc9e4f5dedc87fe6096f333eca79061baca980340560005b658c16f9",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "OSD_Puts",
+        "OSD_WritePendingLines",
+        "__source_byte_ctor_0d0e3eda0a9f2dab1a82",
+        "__source_byte_ctor_316ccabdc96e443502d1",
+        "__source_byte_ctor_a04c21846848fa96b20f",
+        "__source_byte_ctor_bc80c846b5020f710e60",
+        "__source_byte_method_fetch_add_ea67e3a9f39df1edfb0b",
+        "__source_byte_method_first_e05d9928785c52e5cd72",
+        "__source_byte_method_isEmpty_e08944fded2a95bad7d5",
+        "__source_byte_method_pop_a015b2255a1ea89938e8"
+      ],
+      "reexports": [
+        "OSD_Puts",
+        "OSD_WritePendingLines",
+        "__source_byte_ctor_0d0e3eda0a9f2dab1a82",
+        "__source_byte_ctor_316ccabdc96e443502d1",
+        "__source_byte_ctor_a04c21846848fa96b20f",
+        "__source_byte_ctor_bc80c846b5020f710e60",
+        "__source_byte_method_fetch_add_ea67e3a9f39df1edfb0b",
+        "__source_byte_method_first_e05d9928785c52e5cd72",
+        "__source_byte_method_isEmpty_e08944fded2a95bad7d5",
+        "__source_byte_method_pop_a015b2255a1ea89938e8"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_UpdateDrawBuffer",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicLock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicUnlock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__cxx_record_CircularQueue_72e67824d02fa6e1",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "reference_class_abi": "source-cpp-lvalue-reference/1"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_75d6a502adeb2e09",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_7b9a68c01681fb34",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_924f794035c2c765",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "cee09ebd627c23fa3e092478ea84e2e0d08ebe4eab917d4152788f8abbf17779"
+    },
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_4723966e2072.mjs",
+      "sha256": "4723966e20729fd8abc53f7f354434145393ce43d9faf2f858388c12b104b784",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "OSD_Dispatch",
+        "OSD_Exec",
+        "OSD_Init",
+        "OSD_Printf",
+        "OSD_RegisterCvar",
+        "OSD_RegisterFunction",
+        "osdfunc_alias",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols"
+      ],
+      "reexports": [
+        "OSD_Dispatch",
+        "OSD_Exec",
+        "OSD_Init",
+        "OSD_Printf",
+        "OSD_RegisterCvar",
+        "OSD_RegisterFunction",
+        "osdfunc_alias",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bcrc32",
+          "from": "source/build/src/crc32.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtoken",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "M32RunScript",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_GetShadePal",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_Puts",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_SetTextMode",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_StripColors",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicLock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicUnlock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXH32_digest",
+          "from": "source/build/src/xxhash.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXH32_reset",
+          "from": "source/build/src/xxhash.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXH32_update",
+          "from": "source/build/src/xxhash.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "calloc",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "curpalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            256
+          ],
+          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "original_type": "palette_t[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "default_callbacks",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_89f1619e624af57267ee6473",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct osdcallbacks_t",
+          "byte_record": {
+            "size": 64,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "drawchar": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "drawstr": {
+                "offset": 8,
+                "pointer": true,
+                "size": 8
+              },
+              "drawcursor": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              },
+              "getcolumnwidth": {
+                "offset": 24,
+                "pointer": true,
+                "size": 8
+              },
+              "getrowheight": {
+                "offset": 32,
+                "pointer": true,
+                "size": 8
+              },
+              "clear": {
+                "offset": 40,
+                "pointer": true,
+                "size": 8
+              },
+              "gettime": {
+                "offset": 48,
+                "pointer": true,
+                "size": 8
+              },
+              "onshowosd": {
+                "offset": 56,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": false
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_75d6a502adeb2e09",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_7b9a68c01681fb34",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_924f794035c2c765",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "free",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_useLogCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "h_osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e29f56370946f18c1c4ce6f4",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kfilelength",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "klseek",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4load",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "m32_osd_tryscript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_50934f4ac2e9701b845e3757",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mutex_init",
+          "from": "source/build/src/mutex.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdmaxrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6ccf77af1ebb35ce0896b7ab",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_118753c0135375278a2f5a8b",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrowscur",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "palookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "printext256",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetFractionalTicks",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vsnprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "whiteColorIdx",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ea15dc1aa7360bcf15297a0",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "c6c627b3bb3b7114d563990949eb54c131621658fff2fd46abae2433be5b6b14"
     }
   ],
   "superseded_module_fragments": [
@@ -20257,6 +22181,634 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "85c515257686d678eb6a14a66c4d78116cd86e3e5604e8074abb8907823fc9b8"
+    },
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_571408107ade.mjs",
+      "sha256": "571408107ade9af160f334ee2a90d74454b417a320b63d200556025f6dc166c8",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "OSD_Dispatch",
+        "OSD_Exec",
+        "OSD_Init",
+        "OSD_Printf",
+        "OSD_RegisterCvar",
+        "OSD_RegisterFunction",
+        "osdfunc_alias",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols"
+      ],
+      "reexports": [
+        "OSD_Dispatch",
+        "OSD_Exec",
+        "OSD_Init",
+        "OSD_Printf",
+        "OSD_RegisterCvar",
+        "OSD_RegisterFunction",
+        "osdfunc_alias",
+        "osdfunc_exec",
+        "osdfunc_fileinfo",
+        "osdfunc_help",
+        "osdfunc_history",
+        "osdfunc_listsymbols"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bcrc32",
+          "from": "source/build/src/crc32.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtoken",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "M32RunScript",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_GetShadePal",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_Puts",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_SetTextMode",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_StripColors",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicLock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicUnlock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXH32_digest",
+          "from": "source/build/src/xxhash.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXH32_reset",
+          "from": "source/build/src/xxhash.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXH32_update",
+          "from": "source/build/src/xxhash.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "calloc",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "curpalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            256
+          ],
+          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "original_type": "palette_t[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "default_callbacks",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_89f1619e624af57267ee6473",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct osdcallbacks_t",
+          "byte_record": {
+            "size": 64,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "drawchar": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "drawstr": {
+                "offset": 8,
+                "pointer": true,
+                "size": 8
+              },
+              "drawcursor": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              },
+              "getcolumnwidth": {
+                "offset": 24,
+                "pointer": true,
+                "size": 8
+              },
+              "getrowheight": {
+                "offset": 32,
+                "pointer": true,
+                "size": 8
+              },
+              "clear": {
+                "offset": 40,
+                "pointer": true,
+                "size": 8
+              },
+              "gettime": {
+                "offset": 48,
+                "pointer": true,
+                "size": 8
+              },
+              "onshowosd": {
+                "offset": 56,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": false
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_75d6a502adeb2e09",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_7b9a68c01681fb34",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_924f794035c2c765",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "free",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_useLogCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "h_osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e29f56370946f18c1c4ce6f4",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kfilelength",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "klseek",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4load",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "m32_osd_tryscript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_50934f4ac2e9701b845e3757",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mutex_init",
+          "from": "source/build/src/mutex.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdmaxrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6ccf77af1ebb35ce0896b7ab",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_118753c0135375278a2f5a8b",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrowscur",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "palookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "printext256",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetFractionalTicks",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vsnprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "whiteColorIdx",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ea15dc1aa7360bcf15297a0",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "3d2212b355d532f3e6778edc0ad6d652142afae4f6e49b6acb38e126bde04349"
     }
   ]
 }
