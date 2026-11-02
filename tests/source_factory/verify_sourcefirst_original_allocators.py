@@ -70,7 +70,10 @@ with tempfile.TemporaryDirectory(prefix='eduke-original-allocators-') as temp:
  puts=next(r for r in json.loads((osd/'source/build/src/osd.cpp.manifest.json').read_text())['definitions'] if r['name']=='OSD_Puts')
  assert names['_Znwm'] in puts['source_references'],puts
  assert puts['status']=='blocked',puts
- assert ('original provider' in puts['reason'] or puts['reason']=='record pointer member requires original byte layout: osdmain_t'),puts
+ reason=puts['reason']
+ assert ('original provider' in reason or reason=='record pointer member requires original byte layout: osdmain_t'
+         or reason.startswith('nontrivial byte-view method requires original class prototype: __cxx_record_AtomicSList64_')
+            and reason.endswith('::push')),puts
  report={'format':'original-allocation-operators-native-parity/1','operators':10,'native_js_cases':512,'compared_values':2048,
   'missing_original_providers_remain_blocked':True,'original_source_ownership':True,'fixture_providers_shipped':False,
   'original_osd_allocation_dependency_matches_provider_identity':True,

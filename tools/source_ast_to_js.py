@@ -1828,7 +1828,7 @@ class Emit:
                 self.used_class_constructors=getattr(self,'used_class_constructors',set())|{js_ident(cname)}
                 target=(f'({js_ident(cname)}())' if cname in getattr(self,'header_record_factories',set()) else js_ident(cname))
                 return f'{target}.{symbol}({self.constructor_arguments(n)})'
-            if not record and class_fields is None:
+            if not record and class_fields is None and cname not in getattr(self,'source_class_providers',set()):
                 # An identifier match is not constructor evidence. C APIs can
                 # legally share a spelling with a record tag (for example a
                 # metadata query and its output record). Demand the actual
@@ -4755,6 +4755,12 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if key not in ambiguous_variable_signatures and key not in by_signature:
             by_signature[key]=symbol
     source_owned_names={n.get('name') for n in candidates if n.get('name')}
+    # A complete class selected for source emission remains a constructor
+    # provider even with no data fields. A record tag or same-named C function
+    # does not establish that provider; its actual class must still link.
+    source_class_providers={candidate.get('name') for candidate in candidates
+        if kind(candidate)=='CXXRecordDecl' and candidate.get('completeDefinition')
+        and symbols.get(id(candidate))==js_ident(candidate.get('name',''))}
     managed_record_names={record.get('name') for tree in ast for record in descendants(tree)
         if kind(record)=='CXXRecordDecl' and record.get('completeDefinition') and any(
             kind(member) in ('CXXConstructorDecl','CXXDestructorDecl') and not member.get('isImplicit')
@@ -4993,6 +4999,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             source.append((n,None,row));continue
         em=Emit();em.lifetime_classes=lifetime_classes;em.header_record_factories=header_record_factories;em.header_trivial_assignments=header_trivial_assignments;em.allowed_static_prototypes=set(previous_class_prototypes)|header_record_factories;em.trivial_assignment_methods=trivial_assignments;em.implicit_byte_assignable=implicit_byte_assignable;em.enum_values=enum_values;em.record_layouts=record_layouts
         em.all_declarations=all_declarations
+        em.source_class_providers=source_class_providers
         em.managed_record_names=managed_record_names
         em.record_storage_views=record_storage_views
         em.member_method_symbols=member_method_symbols;em.overloaded_member_names=overloaded_member_names

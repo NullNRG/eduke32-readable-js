@@ -39,7 +39,7 @@ state['original_engine_preinit_frontier']={
 state['regression_baseline']={'report':'reports/oct30-startup-verified-regression.json',
     'passed':186,'complete':True,'frozen_inputs':True,
     'note':'Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes.'}
-regression_report='reports/nov01-vfs-corrected-full-regression.json'
+regression_report='reports/nov01-vfs-final-full-regression.json'
 report=read(regression_report)
 keys=('complete','counts','selected_tests','completed_tests','all_passed','regression_inputs_unchanged','compiler_frontend_sha256')
 state['regression']={'report':regression_report,**{k:report.get(k) for k in keys},
@@ -62,6 +62,13 @@ state['original_resource_io']={'report':'reports/nov01-original-vfs-parity.json'
     'raw_archive_only_mounted':True,'game_state_prepopulated':False}
 state['prior_frozen_full_regression']={'report':'reports/nov01-integration-full-regression.json',
     'passed':199,'complete':True,'frozen_inputs':True,'revision_matches_current_inputs':False}
+state['vfs_regression_corrections']={'earlier_complete_report':'reports/nov01-vfs-corrected-full-regression.json',
+    'earlier_passed':204,'earlier_failed':3,
+    'fixes':['Preserve a complete original class provider with no fields while rejecting a same-named C function as a constructor.',
+        'Retain the original allocation-operator dependency check when the console reaches its newer explicit atomic-list method blocker.',
+        'Rebuild the original libdivide provider after shared pointer helper changes.'],
+    'division_parity_report':'reports/oct25-original-libdivide-parity.json',
+    'native_node_chromium_divisions':3968,'native_node_chromium_wide_arithmetic_cases':256}
 state['november_source_recovery']={
     'software_surface_parity_report':'reports/nov01-original-softsurface-parity.json',
     'software_surface_native_node_chromium_compared_bytes':1062912,
