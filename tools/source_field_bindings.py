@@ -28,14 +28,17 @@ def index(complete,types):
     return result
 
 def rebind(filtered,proofs):
-    known={node.get('id') for root in filtered for node in walk(root) if node.get('kind') in ('FieldDecl','CXXMethodDecl')}
     count=0
     for key,member in sites(filtered):
-        if member.get('referencedMemberDecl') in known:continue
+        # Independent Clang processes can reuse pointer-shaped IDs. An ID
+        # appearing elsewhere in the merged AST does not prove this call's
+        # selection; the unchanged same-TU callsite must still agree.
         choices=proofs.get(key,{})
         if len(choices)!=1:continue
         target=next(iter(choices.values()))
         if target.get('name')!=member.get('name'):continue
+        if member.get('referencedMemberDecl')==target['id'] and member.get(
+            '_source_field_declaration' if target['kind']=='FieldDecl' else '_source_member_declaration')==target:continue
         member['referencedMemberDecl']=target['id']
         member['_source_field_declaration' if target['kind']=='FieldDecl' else '_source_member_declaration']=target
         count+=1

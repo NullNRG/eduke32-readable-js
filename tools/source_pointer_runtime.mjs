@@ -94,8 +94,12 @@ const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
     if((delta===0||delta===0n)&&Number.isSafeInteger(stride)&&stride>0)return source;
     throw new RangeError('C scalar reference arithmetic requires original byte storage');
   }
-  const initial=cPointer(source);
-  const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
+  // Native record/row arrays expose readable JS indices over one existing
+  // byte allocation. Address arithmetic must retain that allocation and its
+  // actual subarray offset, rather than turn it into detached object slots.
+  const arrayBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
+  const initial=cPointer(arrayBytes||source);
+  const p=Array.isArray(source)&&!arrayBytes ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
   const outside=next<p.lower||next>p.upper;

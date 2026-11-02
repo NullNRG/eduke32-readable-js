@@ -1,7 +1,7 @@
 """Native-constructed nontrivial objects retain their original field bytes.
 
-The tested JS operation mutates existing fields only; construction, copying,
-and dispatch through a missing nontrivial prototype must remain blocked.
+The tested JS operation mutates existing fields; an exact original method can
+borrow the same storage. Construction and copying must remain blocked.
 """
 import base64,json,os,subprocess,sys,tempfile
 from pathlib import Path
@@ -60,14 +60,15 @@ int main(){for(int n=0;n<256;n++){
         module=out/'unit.cpp.mjs';report=json.loads(module.with_suffix('.manifest.json').read_text())
         rows={row['source_name']:row for row in report['definitions']}
         assert rows['modify']['status']=='source-first',rows['modify']
-        for name in ('copy_value','make_local','method'):
+        assert rows['method']['status']=='source-first',rows['method']
+        for name in ('copy_value','make_local'):
             assert rows[name]['status']=='blocked',(name,rows[name])
         driver=root/'run.mjs'
-        driver.write_text('import {modify} from '+json.dumps(module.as_uri())+';\n'+
+        driver.write_text('import {modify,method} from '+json.dumps(module.as_uri())+';\n'+
             'const cases='+json.dumps(expected)+';\n'+'''
 for(let n=0;n<cases.length;n++){
  const bytes=Uint8Array.from(Buffer.from(cases[n][0],'hex'));
- const result=modify(bytes,n);console.log(result+','+Buffer.from(bytes).toString('hex'));
+ const result=modify(bytes,n);if(method(bytes)!==new DataView(bytes.buffer).getInt32(0,true))throw Error('Original method detached from native storage');console.log(result+','+Buffer.from(bytes).toString('hex'));
 }
 ''')
         actual=run(['node',driver],root).splitlines()

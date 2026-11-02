@@ -61,7 +61,21 @@ int run_original(int v){Box x(counter);return x.add(original_inline(v));}
     new,stats=run_clang_ast(command,cwd=root,cache_path=root/'ast.json')
     # Clang pointer IDs differ across processes, so compare the exact same dump.
     with (root/'ast.json').open('rb') as stream:raw=json.load(stream)
-    assert new==strip_ranges([raw])
+    assert strip_ranges(new)==strip_ranges([raw])
+    def walk(node):
+        yield node
+        for child in node.get('inner',[]):
+            if child:yield from walk(child)
+    # Instance-method lowering needs the exact original class and method
+    # spans. Verify these against the same native dump, independently of the
+    # decoder's omission of unrelated ranges.
+    for node_kind,name in (('CXXRecordDecl','Box'),('CXXMethodDecl','add')):
+        expected=[node['range'] for node in walk(raw) if node.get('kind')==node_kind
+                  and node.get('name')==name and 'range' in node]
+        actual=[node['range'] for tree in new for node in walk(tree) if node.get('kind')==node_kind
+                and node.get('name')==name and 'range' in node]
+        assert expected and actual==expected,(node_kind,name,actual,expected)
+    assert stats['instance_method_ranges_retained']>=2,stats
     normal=produce([raw],source,'original.cpp',include_header_inlines=True,source_root=root,
                    header_dependency_closure=True)
     streamed=produce(new,source,'original.cpp',include_header_inlines=True,source_root=root,

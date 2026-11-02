@@ -55,9 +55,9 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\osd.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 1025,
-  "emitted": 450,
-  "blocked": 575,
+  "found": 1033,
+  "emitted": 462,
+  "blocked": 571,
   "definitions": [
     {
       "name": "fix16_rad_to_deg_mult__header_global_1f20827e10fe1139",
@@ -634,19 +634,6 @@
       ],
       "status": "blocked",
       "reason": "statement FunctionDecl"
-    },
-    {
-      "name": "__is_constant_evaluated",
-      "source_name": "__is_constant_evaluated",
-      "kind": "FunctionDecl",
-      "line": 516,
-      "original_type": "bool () noexcept",
-      "linkage": "external",
-      "source_references": [
-        "__builtin_is_constant_evaluated"
-      ],
-      "status": "blocked",
-      "reason": "builtin __builtin_is_constant_evaluated"
     },
     {
       "name": "__bswap_16",
@@ -8329,28 +8316,6 @@
       ]
     },
     {
-      "name": "__exchange_and_add",
-      "source_name": "__exchange_and_add",
-      "kind": "FunctionDecl",
-      "line": 65,
-      "original_type": "_Atomic_word (volatile _Atomic_word *, int)",
-      "linkage": "external",
-      "source_references": [],
-      "status": "blocked",
-      "reason": "AtomicExpr"
-    },
-    {
-      "name": "__atomic_add",
-      "source_name": "__atomic_add",
-      "kind": "FunctionDecl",
-      "line": 70,
-      "original_type": "void (volatile _Atomic_word *, int)",
-      "linkage": "external",
-      "source_references": [],
-      "status": "blocked",
-      "reason": "AtomicExpr"
-    },
-    {
       "name": "__exchange_and_add_single",
       "source_name": "__exchange_and_add_single",
       "kind": "FunctionDecl",
@@ -9883,38 +9848,6 @@
       "reason": "unlinked identifiers: lastd_s64",
       "unresolved_references": [
         "lastd_s64"
-      ]
-    },
-    {
-      "name": "tabledivide32",
-      "source_name": "tabledivide32",
-      "kind": "FunctionDecl",
-      "line": 121,
-      "original_type": "int32_t (const int32_t, const int32_t)",
-      "linkage": "internal",
-      "source_references": [
-        "divtable32",
-        "lastd_s32",
-        "libdivide_s32_do",
-        "libdivide_s32_gen"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "divtable32",
-          "abi": "source-byte-record-array/1",
-          "stride": 5,
-          "dimensions": [
-            16384
-          ],
-          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
-          "original_type": "libdivide::libdivide_s32_t[16384]"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: lastd_s32",
-      "unresolved_references": [
-        "lastd_s32"
       ]
     },
     {
@@ -17076,6 +17009,488 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "__atomic_add",
+      "source_name": "__atomic_add",
+      "kind": "FunctionDecl",
+      "line": 70,
+      "original_type": "void (volatile _Atomic_word *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_e73606c6bb71dfa0",
+      "source_name": "operator&",
+      "kind": "FunctionDecl",
+      "line": 104,
+      "original_type": "memory_order (memory_order, __memory_order_modifier)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3116,
+        "enclosing_record": "(free inline function)",
+        "type": "memory_order (memory_order, __memory_order_modifier)",
+        "semantic_sha256": "67b848a87d298d560bfd9e622ca0aaca2903a0b0219b641e137091231e9ef6d1"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3116,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__exchange_and_add",
+      "source_name": "__exchange_and_add",
+      "kind": "FunctionDecl",
+      "line": 65,
+      "original_type": "_Atomic_word (volatile _Atomic_word *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__is_constant_evaluated",
+      "source_name": "__is_constant_evaluated",
+      "kind": "FunctionDecl",
+      "line": 516,
+      "original_type": "bool () noexcept",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__is_valid_cmpexch_failure_order",
+      "source_name": "__is_valid_cmpexch_failure_order",
+      "kind": "FunctionDecl",
+      "line": 125,
+      "original_type": "bool (memory_order) noexcept",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3768,
+        "enclosing_record": "(free inline function)",
+        "type": "bool (memory_order) noexcept",
+        "semantic_sha256": "b8330eeb7ddd121ab64da5dea86e93dbc804da092b67801980e2c1ac66206abb"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3768,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [
+        "__cxx_operator_e73606c6bb71dfa0"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+      "source_name": "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+      "kind": "FunctionDecl",
+      "line": 596,
+      "original_type": "bool (std::atomic<AtomicLogString *> *, AtomicLogString * &, AtomicLogString *, memory_order, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+        "source_offset": 16518,
+        "source_line": 596,
+        "header_sha256": "09bde2e47c59ef6cac6ac898a21f3a6d95017d266ee3091d52204dfa315b2f38",
+        "mangled_name": "_ZNSt6atomicIP15AtomicLogStringE21compare_exchange_weakERS1_S1_St12memory_orderS4_",
+        "original_type": "bool (__pointer_type &, __pointer_type, memory_order, memory_order) noexcept",
+        "original_name": "compare_exchange_weak",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "_M_b": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 8,
+                "align": 8,
+                "union": false,
+                "fields": {
+                  "_M_p": {
+                    "offset": 0,
+                    "pointer": true,
+                    "size": 8
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "80767976e1c63172da4685e2c8a556e6f5836e1f5ec74852c898f5f0d5395b5f",
+        "method_type": "bool (AtomicLogString * &, AtomicLogString *, memory_order, memory_order) noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+      "source_references": [
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "AtomicLogString *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+      "source_name": "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+      "kind": "FunctionDecl",
+      "line": 850,
+      "original_type": "bool (std::__atomic_base<AtomicLogString *> *, AtomicLogString * &, AtomicLogString *, memory_order, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 25213,
+        "source_line": 850,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "mangled_name": "_ZNSt13__atomic_baseIP15AtomicLogStringE21compare_exchange_weakERS1_S1_St12memory_orderS4_",
+        "original_type": "bool (__pointer_type &, __pointer_type, memory_order, memory_order) noexcept",
+        "original_name": "compare_exchange_weak",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "_M_p": {
+              "offset": 0,
+              "pointer": true,
+              "size": 8
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
+        "method_type": "bool (AtomicLogString * &, AtomicLogString *, memory_order, memory_order) noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "AtomicLogString *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_load_8c900e6fe18ffce51024",
+      "source_name": "__source_byte_method_load_8c900e6fe18ffce51024",
+      "kind": "FunctionDecl",
+      "line": 578,
+      "original_type": "AtomicLogString * (const std::atomic<AtomicLogString *> *, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+        "source_offset": 15952,
+        "source_line": 578,
+        "header_sha256": "09bde2e47c59ef6cac6ac898a21f3a6d95017d266ee3091d52204dfa315b2f38",
+        "mangled_name": "_ZNKSt6atomicIP15AtomicLogStringE4loadESt12memory_order",
+        "original_type": "__pointer_type (memory_order) const noexcept",
+        "original_name": "load",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "_M_b": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 8,
+                "align": 8,
+                "union": false,
+                "fields": {
+                  "_M_p": {
+                    "offset": 0,
+                    "pointer": true,
+                    "size": 8
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "80767976e1c63172da4685e2c8a556e6f5836e1f5ec74852c898f5f0d5395b5f",
+        "method_type": "AtomicLogString * (memory_order) const noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+      "source_references": [
+        "__source_byte_method_load_d45fe9c1d1662fe18dae"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_load_d45fe9c1d1662fe18dae",
+      "source_name": "__source_byte_method_load_d45fe9c1d1662fe18dae",
+      "kind": "FunctionDecl",
+      "line": 813,
+      "original_type": "AtomicLogString * (const std::__atomic_base<AtomicLogString *> *, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 24102,
+        "source_line": 813,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "mangled_name": "_ZNKSt13__atomic_baseIP15AtomicLogStringE4loadESt12memory_order",
+        "original_type": "__pointer_type (memory_order) const noexcept",
+        "original_name": "load",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "_M_p": {
+              "offset": 0,
+              "pointer": true,
+              "size": 8
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
+        "method_type": "AtomicLogString * (memory_order) const noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__is_constant_evaluated"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_push_380753adf605bd3c3414",
+      "source_name": "__source_byte_method_push_380753adf605bd3c3414",
+      "kind": "FunctionDecl",
+      "line": 34,
+      "original_type": "void (AtomicSList64<AtomicLogString> *, AtomicLogString *)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "source/build/include/atomiclist.h",
+        "source_offset": 881,
+        "source_line": 34,
+        "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+        "mangled_name": "_ZN13AtomicSList64I15AtomicLogStringE4pushEPS0_",
+        "original_type": "void (AtomicLogString *)",
+        "original_name": "push",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/build/src/osd.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 8,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "m_head": {
+              "offset": 0,
+              "byteRecord": {
+                "size": 8,
+                "align": 8,
+                "union": false,
+                "fields": {
+                  "_M_b": {
+                    "offset": 0,
+                    "byteRecord": {
+                      "size": 8,
+                      "align": 8,
+                      "union": false,
+                      "fields": {
+                        "_M_p": {
+                          "offset": 0,
+                          "pointer": true,
+                          "size": 8
+                        }
+                      },
+                      "arrayAlign": 1,
+                      "projection": true,
+                      "overlaps": false
+                    }
+                  }
+                },
+                "arrayAlign": 1,
+                "projection": true,
+                "overlaps": false
+              }
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+        "method_type": "void (AtomicLogString *)"
+      },
+      "physical_source": "source/build/include/atomiclist.h",
+      "source_references": [
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_load_8c900e6fe18ffce51024"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+      "clang_template_mangled_name": "_ZSt3minImERKT_S2_S2_",
+      "linkage": "external",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned long",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned long",
+            "const": true
+          }
+        ],
+        "result": "unsigned long"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tabledivide32",
+      "source_name": "tabledivide32",
+      "kind": "FunctionDecl",
+      "line": 121,
+      "original_type": "int32_t (const int32_t, const int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "divtable32",
+        "lastd_s32",
+        "libdivide_s32_do",
+        "libdivide_s32_gen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s32",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "divtable32",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "divtable32",
+        "lastd_s32",
+        "libdivide_s32_do",
+        "libdivide_s32_gen"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -18496,6 +18911,904 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "a2c1de73076cabfeb6104c1060101aa3f192f75943b200ccb014b840f4c52b88"
+    },
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_96454e4990d4.mjs",
+      "sha256": "96454e4990d46c8c405b3a4319483bfe734e855cc736c4fc200c4f4fb49fd572",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "__atomic_add",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__exchange_and_add",
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order",
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+        "__source_byte_method_load_8c900e6fe18ffce51024",
+        "__source_byte_method_load_d45fe9c1d1662fe18dae",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "min",
+        "tabledivide32"
+      ],
+      "reexports": [
+        "__atomic_add",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__exchange_and_add",
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order",
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+        "__source_byte_method_load_8c900e6fe18ffce51024",
+        "__source_byte_method_load_d45fe9c1d1662fe18dae",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "min",
+        "tabledivide32"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_GetShadePal",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_SetTextMode",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicLock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicUnlock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "calloc",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "curpalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            256
+          ],
+          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "original_type": "palette_t[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_75d6a502adeb2e09",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_7b9a68c01681fb34",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_924f794035c2c765",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "free",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "h_osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e29f56370946f18c1c4ce6f4",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdmaxrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6ccf77af1ebb35ce0896b7ab",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_118753c0135375278a2f5a8b",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrowscur",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "palookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "printext256",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "whiteColorIdx",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ea15dc1aa7360bcf15297a0",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "85c515257686d678eb6a14a66c4d78116cd86e3e5604e8074abb8907823fc9b8"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_2789950a6bf4.mjs",
+      "sha256": "2789950a6bf41b4ccc464f12b7ec29ace1a556e323f336522d8b5083d4216876",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "__atomic_add",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__exchange_and_add",
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order",
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+        "__source_byte_method_load_8c900e6fe18ffce51024",
+        "__source_byte_method_load_d45fe9c1d1662fe18dae",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "min",
+        "tabledivide32"
+      ],
+      "reexports": [
+        "__atomic_add",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__exchange_and_add",
+        "__is_constant_evaluated",
+        "__is_valid_cmpexch_failure_order",
+        "__source_byte_method_compare_exchange_weak_1c47e055455677a6758c",
+        "__source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6",
+        "__source_byte_method_load_8c900e6fe18ffce51024",
+        "__source_byte_method_load_d45fe9c1d1662fe18dae",
+        "__source_byte_method_push_380753adf605bd3c3414",
+        "min",
+        "tabledivide32"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_GetShadePal",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_SetTextMode",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicLock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_AtomicUnlock",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "calloc",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "curpalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            256
+          ],
+          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "original_type": "palette_t[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_75d6a502adeb2e09",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_7b9a68c01681fb34",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_924f794035c2c765",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "free",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "h_cvars",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a920b40f756adfb47f87522c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "h_osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e29f56370946f18c1c4ce6f4",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdmaxrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6ccf77af1ebb35ce0896b7ab",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrows",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_118753c0135375278a2f5a8b",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrowscur",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "palookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "printext256",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_lock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pthread_mutex_unlock",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "whiteColorIdx",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0ea15dc1aa7360bcf15297a0",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "b8eb0d933fd9a61101e262a3ac98eabb44071a7b20afbf0dc5a843dc42346365"
     }
   ]
 }

@@ -1,0 +1,396 @@
+{
+  "format": "original-atomic-list-native-parity/1",
+  "passed": true,
+  "native_node_chromium_cases": 256,
+  "browser_version": "155.0.4283.62",
+  "page_errors": [],
+  "original_methods": [
+    "push",
+    "first",
+    "isEmpty"
+  ],
+  "source_header": "source/build/include/atomiclist.h",
+  "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+  "fixture_sha256": "e14691835aff31af228878625f2ae2df1a6b444fcbe791c3327aa02dc196fa08",
+  "fixture_header_is_byte_identical_to_original": true,
+  "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+  "compiler_and_runtime_helpers": {
+    "tools/source_address_runtime.mjs": "fff8369298b45372bd0369bbcd718e5e492cf9ecb58f8f6842da8bb60b822664",
+    "tools/source_aggregate_assignment_runtime.mjs": "e979b052f086e9b32fa6b6e3a1152b4342bf7bf626c4c51e079e497adcf9c84b",
+    "tools/source_aggregate_runtime.mjs": "9b2da9045f5aaab69aa6adae23a62afa877a41c1f0d04b2a749a39aaa29e9cf5",
+    "tools/source_anonymous_records.py": "43a3857c521468ef8f6859c78880196b6f0b8d5511b83845b476ade6873ce182",
+    "tools/source_ast_cache_paths.py": "b82ed86d6db6cb6ed4256bb8191f8c82761b8efa0853a897d799abe59214aed0",
+    "tools/source_ast_events.py": "0cccf7a3e951942d87dd4302679f060e06c068a47c3f37c9f9f1c8b665ae6c19",
+    "tools/source_ast_stream.py": "eb9b6f43efca3835b43d95aa78734ccba10b9b30e9ceabc16b80c0c1eadf4a97",
+    "tools/source_ast_to_js.py": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "tools/source_atomic_runtime.mjs": "769dee44cbc0ba8713ef69e2bbfbff36f6a2f6a71f02ef1d56cca0faef5837b5",
+    "tools/source_byte_memory_runtime.mjs": "b3e5e1d76423da8e1a1b4322ab1e67143bf05ab91cc315ded29cc688ba71589f",
+    "tools/source_byte_methods.py": "f531c2bd5bef7be6dc828854e11abbafe190405dfded2ac41fd6756398feec7a",
+    "tools/source_byte_records.py": "2f9426c461ecb5bd22abb65d08592cea2016e1612a446e4a70039070207a2812",
+    "tools/source_c_allocators.py": "84a4f1a6f1ab153a27aa58f66cd16c214253fa99f3122e47f6b7c61c14da7791",
+    "tools/source_c_function_bindings.py": "5020c4192ccbb4a4751dbb7578b8c876ef82838707169cd9e0269504641498c6",
+    "tools/source_c_heap_runtime.mjs": "87f7a7365fa346c75bd2aed5ce604440c6658da5c04301b889bf9119f810ad96",
+    "tools/source_control_flow.py": "3938e2faaf59102f08b73992ce12715fff26d6f282e58798e8908b6179ecf25e",
+    "tools/source_coroutine_cfg.py": "71e76c30a110227d6a27e3ae0cc0b3836173495b3bb76bb0d1edcfcab56891fd",
+    "tools/source_cpp_heap.py": "8bb303a8b67532556d240634085a2caefce7183946739a6fa8b6b10354572915",
+    "tools/source_cpp_heap_runtime.mjs": "f858476bdd4cbe6e46cbdb9de63bd95c6d3502caef1d32dfb2385a57716f4c5b",
+    "tools/source_cpp_lifetime.py": "0e968a18260b4e43f46c446aebe549d794f5d68ed2f44df6de64f89dc6bb1584",
+    "tools/source_cpp_lifetime_runtime.mjs": "774b9ca82859f7ef5effa203b00ec4863c74f0dc6c03d848b0d2d97a96c022d4",
+    "tools/source_cpp_references.py": "fbd55e4a38e863db1d9c4e2549172168d0a2c66e157e3fc0f0bc9a74e3114240",
+    "tools/source_cpp_types.py": "7a6dd19ff61b11a0a4ceb70abf7e26d986a4efd2e2178c7c387dcb891fa55ce8",
+    "tools/source_empty_asm.py": "3bb2b8f215d3d23a885c26786c18495278601963e8dc5fd04781ea76ed74a758",
+    "tools/source_explicit_member_operators.py": "588ad7c1fa6109e47f93ecd1747e256485ca712f1af164e8b934180a27f18fc6",
+    "tools/source_factory.py": "af19014802aba0714f9e06e566a16c8c0ed9d610507aa1256ac3cc0bbd47fb67",
+    "tools/source_field_bindings.py": "9aa00df48a8e4ea0ab3c4311acd82d91b7f9fd87af54a02c5291b95d97e02fd1",
+    "tools/source_first_automate.py": "25988785608e72f85a50c82bc67b2abf37cc5e98e5818acb1f31d4fac4c9a47c",
+    "tools/source_first_autonomous.py": "4353da05f746455b21835a2a19a0d613ed7bf8aada65e07c245fa0b47def199f",
+    "tools/source_first_boot_audit.py": "f95758435df5d7aae8ec36ee931784b81f7a6f55b396c86793b4d070da87ccb6",
+    "tools/source_first_boot_frontier.py": "ed09ce96d262908d52e1a6747854f470dc56c5994858e0a6b08558852dc1152d",
+    "tools/source_first_coverage_gate.py": "617fcec8175c1364c5543a1c4e0307b7a3dba3729a94efbcbf2703ee79a4ec4a",
+    "tools/source_first_file_audit.py": "afe48fd3e1bf1c9e9a4da5403e045fe245792e623c52a027d997ef315a0a1655",
+    "tools/source_first_game_gate.py": "d96522846f036f42105f084140ce82b25943698403584c8e5ffa6a9988526f55",
+    "tools/source_first_generated.py": "aac2d6700ae31db0fedb904ff38834a9a022c5cafb380ac824167b6e712116ae",
+    "tools/source_first_global_audit.py": "06e959cb988277ce76ba4ae76f8fd590e162bd8a9c15f4b25e09c7a5a68dae69",
+    "tools/source_first_global_link.py": "dc53450bba63a9bb2d7951fef09b5fa23c1fd7d36de54304b9ba1ccf66e7a868",
+    "tools/source_first_inventory.py": "d26136d878af0c583d2062fc55b33ad009a4d276de4e3ece30e00a458b4a8734",
+    "tools/source_first_missing_map.py": "3adbf9910be87afe3d87d3e1fc5372d09c99957c373704549b153628dd0ed8b4",
+    "tools/source_first_module_audit.py": "cb0240e1d97cc5eca7ff3118ed18474bb1a2764f6d9f5952190f4f19bfe097f3",
+    "tools/source_first_project.py": "1a8edab1f5bb60538e7890abf62a5534413d0a43324f0caf95a362640d32c937",
+    "tools/source_first_recover_module_initializers.py": "9355f0b6a81b55c0a44ea8d6d5494c432c77f054b3e89f066642fce5e34e113a",
+    "tools/source_first_reports.py": "e4748406381a59f360dbd396689f68f68d64bd97c42a2f918dae5c67057c2630",
+    "tools/source_first_toolchain.py": "eda2ee0812b56e176effc4fe488918875753e286e90b2b07c0e4c4a5ca9b7a1e",
+    "tools/source_fragment_storage.py": "65527ac301656b9eeb65437540131e3410364956329dbff5e7e90844e0280209",
+    "tools/source_header_definitions.py": "995ada113485ec0fbf8841d9db7a30b26bfbd464fab4478dfefae0ea767d9b40",
+    "tools/source_header_records.py": "39491a1e10bd1cf5bc6d6826203a7e662861ba8b0009897ca54e50e97bf5596e",
+    "tools/source_historical_checkpoint.py": "02ecf36c3b49a88739baa488e4e2c684ca20890e310215ff585cc6fb600e55ba",
+    "tools/source_pointer_runtime.mjs": "d753ca23b6c39be8e4cd346e3d98521481af0f6b70f66d530682637da3d3afbd",
+    "tools/source_pointer_span_runtime.mjs": "5d92e880fbeb9fb4d1286e844fb78c4347a526bbce93d6cdfa31414b0ea3edb0",
+    "tools/source_private_record_schema.py": "915ab9172bf433b0d79107d5d1c45219e2b8f30f0dcedd6b44a651ced56306d1",
+    "tools/source_process_runtime.mjs": "16dcc49698857f2ab11b1b2c4ef2c243cfda38a9804a0a1c19ed8987ac9ed135",
+    "tools/source_record_init_recovery.py": "aeda6efde28c983d4790121aef8d69133151232e7dbb9ef2c29b62bef3869d87",
+    "tools/source_recovery_compare.py": "f35725a4d11c7e854c1165ae086cce668133b5e83921086145a141ea9fe3d3a8",
+    "tools/source_resume_dispatch.py": "71c0d8cadfdcf4618a8dd942980b8c09cfbede97fa84d3e49b007468e84b6d53",
+    "tools/source_scalar_types.py": "d56ddbaeb7d923237351da372770f7166957722672e6e5156d39f1c5473f13a9",
+    "tools/source_semantic_index.py": "ae574a4d9d1bc8b744f66e7f44fd66ea9c34a97d9784bed200ccb90152db08d5",
+    "tools/source_standard_heap_contract.py": "ac758b8285844dbe706a9a8bcd4449c2f3575837b7ea296f44385db99f04da4f",
+    "tools/source_static_members.py": "0c82354326f572e011f83d3e51057f69cd028d9ca2e82f083a147907351fdd9f",
+    "tools/source_template_destructors.py": "f5dcecfbcfa0290961fc2d7f1f5eb57b8abb486f3ad2ae804d67d42fc7c5d81d",
+    "tools/source_trivial_assignment.py": "e0e7e38527219074c7c813386025919311583332ac03c81552226decb8bfa9da",
+    "tools/source_variadic_runtime.mjs": "f495e1870f44e469eb869f8d350a77e55aba2e93fc028300e31466cec5fe2216"
+  },
+  "emitted_module_sha256": "b2734779f49dc6b2a08e5e973b0cc3d553fae123754cde5e4f07c673d8fc0b0b",
+  "methods": [
+    {
+      "source_header": "atomiclist.h",
+      "source_offset": 1841,
+      "source_line": 64,
+      "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+      "mangled_name": "_ZNK13AtomicSList64I4ItemE7isEmptyEv",
+      "original_type": "bool () const",
+      "original_name": "isEmpty",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "m_head": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 8,
+              "align": 8,
+              "union": false,
+              "fields": {
+                "_M_b": {
+                  "offset": 0,
+                  "byteRecord": {
+                    "size": 8,
+                    "align": 8,
+                    "union": false,
+                    "fields": {
+                      "_M_p": {
+                        "offset": 0,
+                        "pointer": true,
+                        "size": 8
+                      }
+                    },
+                    "arrayAlign": 1,
+                    "projection": true,
+                    "overlaps": false
+                  }
+                }
+              },
+              "arrayAlign": 1,
+              "projection": true,
+              "overlaps": false
+            }
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+      "method_type": "bool () const"
+    },
+    {
+      "source_header": "atomiclist.h",
+      "source_offset": 881,
+      "source_line": 34,
+      "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+      "mangled_name": "_ZN13AtomicSList64I4ItemE4pushEPS0_",
+      "original_type": "void (Item *)",
+      "original_name": "push",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "m_head": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 8,
+              "align": 8,
+              "union": false,
+              "fields": {
+                "_M_b": {
+                  "offset": 0,
+                  "byteRecord": {
+                    "size": 8,
+                    "align": 8,
+                    "union": false,
+                    "fields": {
+                      "_M_p": {
+                        "offset": 0,
+                        "pointer": true,
+                        "size": 8
+                      }
+                    },
+                    "arrayAlign": 1,
+                    "projection": true,
+                    "overlaps": false
+                  }
+                }
+              },
+              "arrayAlign": 1,
+              "projection": true,
+              "overlaps": false
+            }
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+      "method_type": "void (Item *)"
+    },
+    {
+      "source_header": "atomiclist.h",
+      "source_offset": 1738,
+      "source_line": 60,
+      "header_sha256": "30e0fe02867a868ca207ca1cfc534054102ec642a178b3f95f6846c3d1cfd77e",
+      "mangled_name": "_ZNK13AtomicSList64I4ItemE5firstEv",
+      "original_type": "Item *() const",
+      "original_name": "first",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "m_head": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 8,
+              "align": 8,
+              "union": false,
+              "fields": {
+                "_M_b": {
+                  "offset": 0,
+                  "byteRecord": {
+                    "size": 8,
+                    "align": 8,
+                    "union": false,
+                    "fields": {
+                      "_M_p": {
+                        "offset": 0,
+                        "pointer": true,
+                        "size": 8
+                      }
+                    },
+                    "arrayAlign": 1,
+                    "projection": true,
+                    "overlaps": false
+                  }
+                }
+              },
+              "arrayAlign": 1,
+              "projection": true,
+              "overlaps": false
+            }
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "a80273a015eb94af79340016b9f5aeb6a45ce9380426b5b929f59be8e04070f6",
+      "method_type": "Item *() const"
+    },
+    {
+      "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+      "source_offset": 15952,
+      "source_line": 578,
+      "header_sha256": "09bde2e47c59ef6cac6ac898a21f3a6d95017d266ee3091d52204dfa315b2f38",
+      "mangled_name": "_ZNKSt6atomicIP4ItemE4loadESt12memory_order",
+      "original_type": "__pointer_type (memory_order) const noexcept",
+      "original_name": "load",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "_M_b": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 8,
+              "align": 8,
+              "union": false,
+              "fields": {
+                "_M_p": {
+                  "offset": 0,
+                  "pointer": true,
+                  "size": 8
+                }
+              },
+              "arrayAlign": 1,
+              "projection": true,
+              "overlaps": false
+            }
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "80767976e1c63172da4685e2c8a556e6f5836e1f5ec74852c898f5f0d5395b5f",
+      "method_type": "Item * (memory_order) const noexcept"
+    },
+    {
+      "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_offset": 24102,
+      "source_line": 813,
+      "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+      "mangled_name": "_ZNKSt13__atomic_baseIP4ItemE4loadESt12memory_order",
+      "original_type": "__pointer_type (memory_order) const noexcept",
+      "original_name": "load",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "_M_p": {
+            "offset": 0,
+            "pointer": true,
+            "size": 8
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
+      "method_type": "Item * (memory_order) const noexcept"
+    },
+    {
+      "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/atomic",
+      "source_offset": 16518,
+      "source_line": 596,
+      "header_sha256": "09bde2e47c59ef6cac6ac898a21f3a6d95017d266ee3091d52204dfa315b2f38",
+      "mangled_name": "_ZNSt6atomicIP4ItemE21compare_exchange_weakERS1_S1_St12memory_orderS4_",
+      "original_type": "bool (__pointer_type &, __pointer_type, memory_order, memory_order) noexcept",
+      "original_name": "compare_exchange_weak",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "_M_b": {
+            "offset": 0,
+            "byteRecord": {
+              "size": 8,
+              "align": 8,
+              "union": false,
+              "fields": {
+                "_M_p": {
+                  "offset": 0,
+                  "pointer": true,
+                  "size": 8
+                }
+              },
+              "arrayAlign": 1,
+              "projection": true,
+              "overlaps": false
+            }
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "80767976e1c63172da4685e2c8a556e6f5836e1f5ec74852c898f5f0d5395b5f",
+      "method_type": "bool (Item * &, Item *, memory_order, memory_order) noexcept"
+    },
+    {
+      "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_offset": 25213,
+      "source_line": 850,
+      "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+      "mangled_name": "_ZNSt13__atomic_baseIP4ItemE21compare_exchange_weakERS1_S1_St12memory_orderS4_",
+      "original_type": "bool (__pointer_type &, __pointer_type, memory_order, memory_order) noexcept",
+      "original_name": "compare_exchange_weak",
+      "original_ast_kind": "CXXMethodDecl",
+      "translation_unit": "list.cpp",
+      "abi": "source-byte-instance-method/1",
+      "receiver_schema": {
+        "size": 8,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "_M_p": {
+            "offset": 0,
+            "pointer": true,
+            "size": 8
+          }
+        },
+        "arrayAlign": 1,
+        "projection": true,
+        "overlaps": false
+      },
+      "receiver_schema_sha256": "dddd323834a0236149f0f6a880fa62d9bf991443bc7bbbf9d678af835210c514",
+      "method_type": "bool (Item * &, Item *, memory_order, memory_order) noexcept"
+    }
+  ],
+  "original_cpp_lifetimes_executed_by_native_oracle": true,
+  "javascript_constructed_list_or_nodes": false,
+  "pop_verified": false,
+  "console_initialization_verified": false,
+  "gameplay_verified": false
+}

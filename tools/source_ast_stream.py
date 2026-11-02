@@ -218,7 +218,7 @@ def parse_ast_file(stream, *, retain_ranges=False):
     stats={'format':'source-ast-stream/1','backend':backend,
            'retained_source_ranges':retain_ranges,'roots':0,'objects':0,
            'ranges_omitted':0,'allocator_body_ranges_retained':0,'macro_declaration_ranges_retained':0,
-           'semantic_barrier_ranges_retained':0,
+           'semantic_barrier_ranges_retained':0,'instance_method_ranges_retained':0,
            'type_metadata_reuses':0,'include_metadata_reuses':0}
     # Clang returns an empty stdout for a name filter with no matching
     # declaration. That is a complete empty query, not truncated JSON.
@@ -266,9 +266,11 @@ def parse_ast_file(stream, *, retain_ranges=False):
                 stack[-1][0].get('kind')=='CompoundStmt' and any(
                     isinstance(frame[0],dict) and frame[0].get('kind')=='FunctionDecl'
                     and frame[0].get('loc',{}).get('expansionLoc') for frame in stack[:-1]))
+            instance_method=stack[-1][0].get('kind') in ('CXXRecordDecl','ClassTemplateSpecializationDecl','CXXMethodDecl')
             if allocator_body:stats['allocator_body_ranges_retained']+=1
             elif macro_declaration:stats['macro_declaration_ranges_retained']+=1
             elif semantic_barrier:stats['semantic_barrier_ranges_retained']+=1
+            elif instance_method:stats['instance_method_ranges_retained']+=1
             else:
                 stack[-1][1]=None;stats['ranges_omitted']+=1
                 if event in ('start_map','start_array'):skip=1

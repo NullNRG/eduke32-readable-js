@@ -4,13 +4,15 @@ No offset is computed here: every subobject offset and total extent must be
 present in the same target's Clang record-layout dump. Borrowed pointer slots
 retain identity in the checked LP64 representation. Reference,
 inheritance, and nontrivial-lifetime C++ value operations remain unsupported.
-Separate field-only projections can borrow existing nontrivial standard-layout
-objects; they never authorize construction, assignment, copying or destruction.
+Separate field-only projections can borrow existing nonvirtual objects with
+Clang-proven subobjects. One nonvirtual base at offset zero is supported for
+these views only; construction, assignment, copying and destruction stay separate.
 C records have no constructors or destructors; fields still need Clang layouts.
 """
 import re
 from pathlib import Path
 from source_scalar_types import scalar_info
+from source_cpp_types import has_outer_indirection
 
 
 def children(node):
@@ -181,6 +183,8 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             # spelling, not the generated JS identifier.
             if node.get('_source_record_name'):
                 own_names.append(node['_source_record_name'])
+                own_names.append(node.get('_source_record_qualified_name'))
+                own_names.extend(node.get('_source_self_type_spellings',[]))
                 template_scope='::'.join((*parents,node['_source_record_name']))
             template_scopes[node.get('id')]=template_scope
             register(node, own_names)
@@ -273,6 +277,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if isinstance(value,dict):
             return {key:(field_bindings[item] if key=='referencedMemberDecl' and isinstance(item,str) and item in field_bindings else declaration_shape(item)) for key,item in value.items()
                     if key not in ('id','loc','range','typeAliasDeclId','previousDecl','TemplateInstantiationPattern','_source_field_declaration',
+                                   '_source_member_declaration','_source_byte_method_call',
                                    'parentDeclContextId','isReferenced','isUsed')}
         if isinstance(value,list):return [declaration_shape(item) for item in value]
         return value
@@ -385,7 +390,12 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             # Reading an existing object's proven fields does not construct,
             # copy, assign or destroy that C++ object. Keep this separate from
             # the trivial aggregate schemas consumed by value lowering.
-            valid=(c_record or traits.get('isStandardLayout') is True) and not record.get('bases')
+            # A non-standard-layout class can still expose existing fields
+            # when target Clang proves every subobject offset. This does not
+            # authorize construction, copying, destruction or virtual dispatch.
+            valid=not traits.get('isPolymorphic')
+            bases=record.get('bases',[])
+            if len(bases)>1 or any(base.get('isVirtual') for base in bases):valid=False
             if record.get('tagUsed')=='union' and not c_record and not traits.get('isTriviallyCopyable'):valid=False
             if any(member.get('virtual') or member.get('pure') for member in children(record)):valid=False
         methods = [child for child in children(record)
@@ -425,12 +435,12 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 seen=set()
                 while spelling in aliases and spelling not in seen:
                     seen.add(spelling);spelling=clean_type(aliases[spelling])
-                pointer_members.append('*' in spelling)
+                pointer_members.append(has_outer_indirection(spelling,'*'))
             # Reinterpreting integers as pointers needs a complete integer
             # address-space model. Identity-preserving borrowed pointer slots
             # authorize pointer-only alternatives, never mixed numeric unions.
             if any(pointer_members) and not all(pointer_members):valid=False
-        if not valid or not layout or not fields or not (0 < layout['size'] <= 1048576):
+        if not valid or not layout or not (fields or storage_views and record.get('bases')) or not (0 < layout['size'] <= 1048576):
             active.remove(identity)
             cached[identity] = None
             return None
@@ -444,6 +454,33 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if storage_views:result['projection']=True
         elif methods:result['prototype']=record['name']
         overlaps = result['union']
+        if record.get('bases'):
+            # The current source pointer casts preserve address identity.
+            # Accept only one nonvirtual base at a Clang-proven offset zero;
+            # nonzero and virtual adjustments remain explicit blockers.
+            native_bases=layout.get('bases',[])
+            declared_bases=record['bases']
+            if (not storage_views or len(native_bases)!=1 or len(declared_bases)!=1
+                    or native_bases[0].get('virtual') or native_bases[0]['offset']!=0):
+                active.remove(identity);cached[identity]=None;return None
+            declared_base=declared_bases[0].get('type',{})
+            spelling=clean_type(declared_base.get('desugaredQualType') or declared_base.get('qualType',''))
+            original_spelling=spelling
+            seen=set()
+            while spelling in aliases and spelling not in seen:
+                seen.add(spelling);spelling=clean_type(aliases[spelling])
+            base_identity=unique.get(spelling)
+            known_spellings={original_spelling,*record_spellings.get(base_identity,())}
+            if cpp_layout_type(native_bases[0]['type']) not in {cpp_layout_type(name) for name in known_spellings}:
+                active.remove(identity);cached[identity]=None;return None
+            base_schema=build(base_identity) if base_identity else None
+            if (not base_schema or base_schema['size']>layout['size']
+                    or any(field.get('name') in base_schema['fields'] for field in fields)):
+                active.remove(identity);cached[identity]=None;return None
+            result['fields'].update(base_schema['fields'])
+            result['arrayAlign']=base_schema['arrayAlign']
+            result['bases']=[{'type':spelling,'offset':0,'size':base_schema['size']}]
+            overlaps=overlaps or base_schema['overlaps']
         for field, offset in zip(fields, layout['fields']):
             name = field.get('name') or field_names.get(field.get('id'))
             typ = field.get('type', {}).get('desugaredQualType') or field.get('type', {}).get('qualType', '')
@@ -477,8 +514,9 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 valid = False
                 break
             typ = clean_type(typ)
-            dims = [int(x) for x in re.findall(r'\[(\d+)\]', typ)]
-            base = re.sub(r'\[\d+\]', '', typ).strip()
+            dims=[];base=typ
+            while match:=re.search(r'\[(\d+)\]$',base):
+                dims.insert(0,int(match[1]));base=base[:match.start()].strip()
             seen = set()
             while base in aliases and base not in seen:
                 seen.add(base)
@@ -499,7 +537,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                     'signed':primitive[0]=='integer' and not primitive[2],
                     'wide':primitive[0]=='integer' and primitive[1]==8,
                     'boolean':primitive[0]=='boolean'},'size':size}
-            elif dims and len(dims)<=8 and '*' in base and '&' not in base:
+            elif dims and len(dims)<=8 and has_outer_indirection(base,'*') and not has_outer_indirection(base,'&'):
                 count=1
                 for dimension in dims:count*=dimension
                 size=count*8
@@ -507,7 +545,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                     valid=False;break
                 item={'pointerArray':True,'dims':dims,'size':size}
                 result['arrayAlign']=max(result['arrayAlign'],8)
-            elif not dims and '*' in base and '&' not in base:
+            elif not dims and has_outer_indirection(base,'*') and not has_outer_indirection(base,'&'):
                 # This extractor shares the compiler's verified x86-64 LP64
                 # target contract. The runtime stores an owned pointer identity
                 # in these eight bytes; it never serializes a JS object string.

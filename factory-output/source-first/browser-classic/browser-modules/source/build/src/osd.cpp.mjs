@@ -3981,3 +3981,6 @@ export { OSD_ResizeDisplay, OSD_SetTextMode, OSD_StripColors, OSD_UpdateDrawBuff
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { _internal_drawosdchar, _internal_drawosdcursor, _internal_drawosdstr, klabs } from "./_source_legacy_osd_cpp_2255541e0308.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { __atomic_add, __cxx_operator_e73606c6bb71dfa0, __exchange_and_add, __is_constant_evaluated, __is_valid_cmpexch_failure_order, __source_byte_method_compare_exchange_weak_1c47e055455677a6758c, __source_byte_method_compare_exchange_weak_1f155a1ebc79bfd153c6, __source_byte_method_load_8c900e6fe18ffce51024, __source_byte_method_load_d45fe9c1d1662fe18dae, __source_byte_method_push_380753adf605bd3c3414, min, tabledivide32 } from "./_source_legacy_osd_cpp_96454e4990d4.mjs";

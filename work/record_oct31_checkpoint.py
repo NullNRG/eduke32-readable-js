@@ -36,24 +36,44 @@ state['original_hash_frontier']={'original_hash_initializers_linked':True,
     'original_libdivide_execution_records':65532}
 state['original_engine_preinit_frontier']={
     'linked':False,'executed':False,
-    'immediate_shared_blocker':'Original osdmain_t byte storage contains AtomicSList64/std::atomic; inherited storage and atomic class methods remain incomplete. Original CircularQueue destruction now has source-proven template recovery.',
+    'immediate_shared_blocker':'Original AtomicSList64 push/load/compare-exchange now link. OSD_Puts remains blocked by original AtomicLogString construction and inherited/member object lifetimes. Borrowed byte-field views do not establish construction.',
     'additional_dependencies':['original console registration and callbacks','logging','remaining engine services']}
 state['regression_baseline']={'report':'reports/oct30-startup-verified-regression.json',
     'passed':186,'complete':True,'frozen_inputs':True,
     'note':'Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes.'}
-regression_report='reports/nov01-vfs-final-full-regression.json'
+regression_report=('reports/nov02-method-full-regression.json' if (ROOT/'reports/nov02-method-full-regression.json').is_file()
+                   else 'reports/nov01-vfs-final-full-regression.json')
 report=read(regression_report)
 keys=('complete','counts','selected_tests','completed_tests','all_passed','regression_inputs_unchanged','compiler_frontend_sha256')
 state['regression']={'report':regression_report,**{k:report.get(k) for k in keys},
     'revision_matches_current_inputs':bool(report['complete'] and report['regression_inputs_unchanged'] and
         report['regression_inputs']==regression_inputs()),
     'gameplay_verified':False}
-targeted_report='reports/nov01-archive-compiler-regression.json'
+corrected_path=ROOT/'reports/nov02-corrected-stream-regression.json'
+if corrected_path.is_file():
+    corrected=read(corrected_path.relative_to(ROOT));current=regression_inputs()
+    before=report.get('regression_inputs',{})
+    state['corrected_regression_tests']={'report':corrected_path.relative_to(ROOT).as_posix(),
+        **{key:corrected.get(key) for key in keys},
+        'revision_matches_current_inputs':corrected.get('regression_inputs')==current,
+        'files_changed_since_complete_run':[name for name in sorted(set(before)|set(current)) if before.get(name)!=current.get(name)],
+        'subsequent_full_pass_claimed':False}
+targeted_report=('reports/nov02-array-address-regression.json' if (ROOT/'reports/nov02-array-address-regression.json').is_file()
+                 else 'reports/nov01-archive-compiler-regression.json')
 targeted=read(targeted_report)
 state['latest_targeted_regression']={'report':targeted_report,
     **{key:targeted.get(key) for key in keys},
     'revision_matches_current_inputs':targeted.get('regression_inputs')==regression_inputs(),
-    'note':'Earlier focused 16-test pass; subsequent fixes and current complete regression are recorded separately.'}
+    'note':'Focused subset only; fingerprints and the current complete regression are recorded separately.'}
+atomic_report=ROOT/'reports/nov02-original-atomic-list-parity.json'
+if atomic_report.is_file():
+    atomic=read(atomic_report.relative_to(ROOT))
+    state['original_atomic_list_methods']={'report':atomic_report.relative_to(ROOT).as_posix(),
+        **{key:atomic[key] for key in ('passed','native_node_chromium_cases','original_methods',
+            'javascript_constructed_list_or_nodes','pop_verified','console_initialization_verified','gameplay_verified')},
+        'frontier_note':'reports/nov02-constructor-frontier.md',
+        'compiler_and_runtime_helpers_match':bool(atomic.get('compiler_and_runtime_helpers')) and all(
+            (ROOT/path).is_file() and sha(path)==digest for path,digest in atomic.get('compiler_and_runtime_helpers',{}).items())}
 vfs=read('reports/nov01-original-vfs-parity.json')
 state['original_resource_io']={'report':'reports/nov01-original-vfs-parity.json',
     'passed':vfs['passed'],'native_node_chromium_match':vfs['native_node_chromium_match'],

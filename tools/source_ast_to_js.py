@@ -36,6 +36,7 @@ from source_explicit_member_operators import explicit_operator, has_unresolved_e
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
 from source_field_bindings import index as index_source_fields, rebind as rebind_source_fields
 from source_header_definitions import load as load_header_definitions, match as match_header_definition
+from source_byte_methods import recover as recover_byte_methods
 
 HERE=Path(__file__).resolve().parents[1]
 NATIVE_POINTER_ABI='source-lp64-addresses/2'
@@ -129,15 +130,21 @@ def recover_enum_values(ast, supplemental=None):
 
 def recover_enum_type_names(ast):
     """Only enum names with one unique Clang definition may be by-value operands."""
-    names={}; conflicting=set()
-    for root in ast:
-        for node in descendants(root):
-            if kind(node)!='EnumDecl' or not node.get('name'):continue
-            name=node['name']
-            signature=tuple((item.get('name'),repr(item.get('inner'))) for item in kids(node) if kind(item)=='EnumConstantDecl')
-            if name in names and names[name]!=signature:conflicting.add(name)
-            else:names[name]=signature
-    return set(names)-conflicting
+    names={};values=recover_enum_values(ast)
+    def visit(node,scope=()):
+        if kind(node) in ('NamespaceDecl','CXXRecordDecl') and node.get('name'):scope=(*scope,node['name'])
+        if kind(node)=='EnumDecl' and node.get('name'):
+            constants=[item for item in kids(node) if kind(item)=='EnumConstantDecl']
+            # A forward declaration has no values. Repeated Clang dumps have
+            # different IDs and use flags; neither changes the original enum.
+            if constants and all(item.get('id') in values for item in constants):
+                name=node['name'];qualified='::'.join((*scope,name))
+                signature=(qualified,node.get('loc',{}).get('offset'),
+                    tuple((item.get('name'),values[item['id']]) for item in constants))
+                for spelling in (name,qualified):names.setdefault(spelling,set()).add(signature)
+        for child in kids(node):visit(child,scope)
+    for root in ast:visit(root)
+    return {name for name,identities in names.items() if len(identities)==1}
 
 def conversion_js_symbol(name, signature):
     """C++ conversion functions are class methods, not JS type casts."""
@@ -764,6 +771,10 @@ class Emit:
         if t.count('*')!=1:return typed_pointer(t)
         base,suffix=t.split('*',1)
         return typed_pointer(resolve_scalar_storage_alias(base,self.type_aliases)+' *'+suffix)
+    def requires_constant_evaluation(self,node):
+        queries=getattr(self,'constant_query_functions',set())
+        return any(name=='__builtin_is_constant_evaluated' or (name,typ) in queries
+            for name,typ in constant_query_references(node,getattr(self,'all_declarations',{})))
     def lifetime_class(self,typ):
         name=normalized_record_name(typ,self.type_aliases)
         return getattr(self,'lifetime_classes',{}).get(name)
@@ -783,6 +794,7 @@ class Emit:
         if not refs and not ret:return None
         return {'abi':REFERENCE_ABI,'parameters':refs,'result':ret}
     def call_type(self,n):
+        if n.get('_source_byte_method_call'):return n['_source_byte_method_call']['method_type']
         if not kids(n):return ''
         callee=kids(n)[0]
         while kind(callee) in WRAPPERS and len(kids(callee))==1:callee=kids(callee)[0]
@@ -803,7 +815,7 @@ class Emit:
             value=self.expression_temp()
             return '(('+value+') => cRef(() => '+value+', () => { throw new TypeError("const C++ reference write"); }))('+self.expr(n)+')'
         raise Unsupported('mutable C++ reference requires original lvalue')
-    def call_expression(self,n,target,as_reference=False,argument_nodes=None):
+    def call_expression(self,n,target,as_reference=False,argument_nodes=None,prefix_arguments=()):
         parts=function_type_parts(self.call_type(n))
         arguments=kids(n)[1:] if argument_nodes is None else argument_nodes
         types=parts[1] if parts else []
@@ -813,16 +825,19 @@ class Emit:
         contract=self.reference_contract(self.call_type(n))
         callee=kids(n)[0]
         while kind(callee) in WRAPPERS and len(kids(callee))==1:callee=kids(callee)[0]
-        if contract and kind(callee)=='MemberExpr' and kids(callee):
+        if contract and kind(callee)=='MemberExpr' and kids(callee) and not prefix_arguments:
             receiver=qual(kids(callee)[0]).strip().rstrip('*&').strip()
             owner=normalized_record_name(receiver,self.type_aliases)
             if owner:self.used_reference_classes=getattr(self,'used_reference_classes',set())|{owner}
         if contract and re.fullmatch(r'[A-Za-z_$][\w$]*',target):
+            if prefix_arguments:
+                contract={**contract,'parameters':[{**parameter,'index':parameter['index']+len(prefix_arguments)}
+                    for parameter in contract['parameters']]}
             imports=getattr(self,'used_reference_contracts',{})
             if target in imports and imports[target]!=contract:
                 raise Unsupported('conflicting C++ reference call contracts: '+target)
             self.used_reference_contracts={**imports,target:contract}
-        result=target+'('+', '.join(values)+')'
+        result=target+'('+', '.join([*prefix_arguments,*values])+')'
         returns_ref=bool(parts and self.scalar_reference(parts[0]))
         if as_reference:
             if not returns_ref:raise Unsupported('call has no Clang-proven scalar reference result')
@@ -972,6 +987,9 @@ class Emit:
         return f'cRecordObject({expression})'
     def raw_record_receiver(self,expression,arrow):
         spelling=qual(expression).strip()
+        stripped=expression
+        while kind(stripped) in WRAPPERS and len(kids(stripped))==1:stripped=kids(stripped)[0]
+        if getattr(self,'byte_this_parameter',None) and kind(stripped)=='CXXThisExpr':return True
         if arrow:
             name=normalized_record_name(spelling.rstrip('*').strip(),self.type_aliases)
             return (name in getattr(self,'record_storage_views',{}) and not self.global_storage_records.get(name,{}).get('byte_schema')
@@ -1139,7 +1157,7 @@ class Emit:
         if k=='CharacterLiteral':return str(n.get('value',0))
         if k=='CXXBoolLiteralExpr':return 'true' if n.get('value',False) else 'false'
         if k in ('CXXNullPtrLiteralExpr','GNUNullExpr'):return 'null'
-        if k=='CXXThisExpr':return 'this'
+        if k=='CXXThisExpr':return getattr(self,'byte_this_parameter',None) or 'this'
         if k=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
             constant=getattr(self,'non_odr_static_values',{}).get(decl.get('id')) if n.get('nonOdrUseReason')=='constant' else None
@@ -1477,7 +1495,7 @@ class Emit:
             if op=='*':
                 if re.search(r'\(\s*\*[^)]*\)\s*\(',qual(a[0])):
                     return self.expr(a[0])
-                if kind(a[0])=='CXXThisExpr':return 'this'
+                if kind(a[0])=='CXXThisExpr':return self.expr(a[0])
                 if is_record_pointee(qual(a[0])) or self.record_pointer_stride(qual(a[0])):
                     return f'cRecordObject({self.expr(a[0])})'
                 if self.pointer_type(qual(a[0])):
@@ -1585,7 +1603,21 @@ class Emit:
             return self.call_expression(n,target)
         if k in ('CallExpr','CXXMemberCallExpr'):
             if not a:raise Unsupported('call without callee')
+            byte_call=n.get('_source_byte_method_call')
+            if k=='CXXMemberCallExpr' and byte_call and kind(a[0])=='MemberExpr' and kids(a[0]) and self.raw_record_receiver(kids(a[0])[0],a[0].get('isArrow',False)):
+                receiver=self.expr(kids(a[0])[0])
+                receiver='cRecordObject(cRecordPointer('+receiver+', '+json.dumps(byte_call['receiver_schema'],sort_keys=True)+'))'
+                target=byte_call['name']
+                self.used_byte_methods=getattr(self,'used_byte_methods',set())|{target}
+                return self.call_expression(n,target,prefix_arguments=[receiver],argument_nodes=byte_call['arguments'])
             target=self.expr(a[0])
+            if target=='__builtin_is_constant_evaluated':
+                if len(a)!=1 or qual(n)!='bool' or self.call_type(n) not in ('bool () noexcept','bool ()'):
+                    raise Unsupported('constant-evaluation query requires original Clang bool builtin')
+                # Emitted functions execute at runtime. Constant initializers
+                # requiring evaluation of a function body are separately gated.
+                self.used_runtime_queries=getattr(self,'used_runtime_queries',set())|{target}
+                return 'false'
             if target=='__builtin_assume':
                 if not is_unevaluated_assume(n) or qual(n)!='void':
                     raise Unsupported('assume requires original Clang void builtin signature')
@@ -2383,7 +2415,13 @@ class Emit:
 
         if k=='VarDecl':
             declared_array_alignment(n,self.type_aliases)
-            a=[v for v in a if kind(v)!='AlignedAttr']
+            harmless={'AlignedAttr','UsedAttr','UnusedAttr','DeprecatedAttr','FullComment'}
+            attributes=[v for v in a if kind(v).endswith('Attr')]
+            if any(kind(v) not in harmless for v in attributes):
+                raise Unsupported('local variable attribute requires original semantics')
+            a=[v for v in a if kind(v) not in harmless]
+            if (n.get('constexpr') or n.get('storageClass')=='static') and self.requires_constant_evaluation(n):
+                raise Unsupported('constexpr function evaluation requires Clang-proven constant initializer')
             source_name=n.get('name');name=js_ident(source_name);t=qual(n)
             if self.goto_plan and n.get('id') in self.goto_plan.alpha_locals:
                 name=self.goto_plan.alpha_locals[n['id']]
@@ -2907,6 +2945,8 @@ class Emit:
             return pad+self.expr(n)+';'
         raise Unsupported('statement '+k)
     def constant(self,n,symbol=None):
+        if self.requires_constant_evaluation(n):
+            raise Unsupported('constexpr function evaluation requires Clang-proven constant initializer')
         if self.scalar_reference(qual(n)):
             raise Unsupported('global C++ reference requires source static relocation/lifetime ABI')
         name=symbol or js_ident(n.get('name',''))
@@ -3755,6 +3795,15 @@ def descendants(node):
     yield node
     for child in semantic_kids(node):yield from descendants(child)
 
+def constant_query_references(node,declarations):
+    for part in descendants(node):
+        if kind(part)=='DeclRefExpr':declaration=part.get('referencedDecl',{})
+        elif kind(part)=='MemberExpr':
+            declaration=part.get('_source_member_declaration') or declarations.get(part.get('referencedMemberDecl'),{})
+        else:continue
+        if declaration.get('kind') in ('FunctionDecl','CXXMethodDecl'):
+            yield declaration.get('name'),qual(declaration)
+
 @lru_cache(maxsize=4)
 def original_header_source_bytes(source_root):
     """Read original headers once for exact Clang-elided filename provenance."""
@@ -4115,6 +4164,11 @@ def parse_clang_record_layouts(output):
         for item in re.finditer(r'^\s*(\d+)(?::(\d+)-(\d+)|:(-))?\s*\|   (\S[^\n]*)$',block,re.M):
             byte,start,end,zero,declaration=item.groups()
             field={'offset':int(byte),'declaration':declaration.strip()}
+            base=re.fullmatch(r'(.+?) \((primary base|base|virtual base|primary virtual base)\)',declaration.strip())
+            if base:
+                layout.setdefault('bases',[]).append({'offset':int(byte),'type':base[1],
+                    'virtual':'virtual' in base[2]})
+                continue
             if start is not None:field.update(bit_start=int(start),bit_width=int(end)-int(start)+1)
             elif zero is not None:field.update(bit_start=0,bit_width=0)
             layout['fields'].append(field)
@@ -4503,6 +4557,14 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     header_global_internal={id(node) for node in header_globals
         if header_global_proofs[id(node)]['linkage']=='internal'}
     candidates.extend(header_globals)
+    def byte_method_sources():
+        source_path=Path(source).resolve()
+        pairs=original_header_source_bytes(str(Path(source_root).resolve()))
+        sysroot=os.environ.get('EDUKE32_SYSROOT')
+        if sysroot:pairs=(*pairs,*toolchain_header_source_bytes(sysroot))
+        return (*pairs,(source_path,source_path.read_bytes()))
+    candidates.extend(recover_byte_methods(ast,candidates,record_storage_views,aliases,normalized_record_name,
+        source_root,source_rel,byte_method_sources))
     header_helpers,header_odr,header_templates=(recover_referenced_header_functions(ast,candidates,source_root,
                     requested_templates=set(filters.split(',')) if filters and include_header_inlines else ())
                     if header_dependency_closure else ([],{},set()))
@@ -4754,6 +4816,37 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     for key,symbol in variable_signatures.items():
         if key not in ambiguous_variable_signatures and key not in by_signature:
             by_signature[key]=symbol
+    borrowed_header_values=set()
+    for node in candidates:
+        symbol=symbols.get(id(node));previous=(existing_source_storage or {}).get(symbol,{})
+        proof=header_global_proofs.get(id(node),{});old=previous.get('header_global_definition',{})
+        identity=('source_header','source_offset','translation_unit','linkage')
+        if (kind(node)=='VarDecl' and immutable_global(node) and proof and old
+                and scalar_info(resolve_scalar_storage_alias(qual(node),aliases))
+                and previous.get('original_type')==qual(node)
+                and all(proof.get(key)==old.get(key) for key in identity)
+                and project_symbols.get(symbol)==source_rel):
+            borrowed_header_values.add(id(node))
+    # Keep the exact declaration-to-symbol bindings above, but emit no second
+    # storage definition. The main entry point admits these header values only
+    # when the complete original preprocessor dependency fingerprint matches.
+    candidates=[node for node in candidates if id(node) not in borrowed_header_values]
+    # Runtime lowering of is_constant_evaluated is false. A constant/static
+    # initializer that reaches this query requires a separate Clang constant
+    # value, even through a constexpr wrapper; do not emit that runtime result
+    # as if it proved the compile-time branch.
+    query_edges={}
+    query_declarations={node.get('id'):node for tree in ast for node in descendants(tree) if node.get('id')}
+    for tree in [*ast,*candidates]:
+        for function in descendants(tree):
+            if kind(function) not in ('FunctionDecl','CXXMethodDecl') or not any(kind(body)=='CompoundStmt' for body in kids(function)):continue
+            key=(function.get('name'),qual(function))
+            query_edges.setdefault(key,set()).update(constant_query_references(function,query_declarations))
+    constant_query_functions=set()
+    while True:
+        discovered={key for key,refs in query_edges.items() if any(name=='__builtin_is_constant_evaluated' or (name,typ) in constant_query_functions for name,typ in refs)}
+        if discovered<=constant_query_functions:break
+        constant_query_functions.update(discovered)
     source_owned_names={n.get('name') for n in candidates if n.get('name')}
     # A complete class selected for source emission remains a constructor
     # provider even with no data fields. A record tag or same-named C function
@@ -4938,6 +5031,10 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         row['linkage']=('internal' if n.get('storageClass')=='static'
                         or id(n) in header_helper_ids or id(n) in header_global_internal else 'external')
         source_path=n.get('loc',{}).get('file')
+        if n.get('_source_byte_method'):
+            row['original_byte_method']=n['_source_byte_method']
+            source_path=n['_source_byte_method']['source_header']
+            row['line']=n['_source_byte_method']['source_line']
         if id(n) in allocator_proofs:
             proof=allocator_proofs[id(n)]
             row['original_allocator_definition']=proof
@@ -4999,6 +5096,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             source.append((n,None,row));continue
         em=Emit();em.lifetime_classes=lifetime_classes;em.header_record_factories=header_record_factories;em.header_trivial_assignments=header_trivial_assignments;em.allowed_static_prototypes=set(previous_class_prototypes)|header_record_factories;em.trivial_assignment_methods=trivial_assignments;em.implicit_byte_assignable=implicit_byte_assignable;em.enum_values=enum_values;em.record_layouts=record_layouts
         em.all_declarations=all_declarations
+        em.constant_query_functions=constant_query_functions
+        em.byte_this_parameter=n.get('_source_this_parameter')
         em.source_class_providers=source_class_providers
         em.managed_record_names=managed_record_names
         em.record_storage_views=record_storage_views
@@ -5009,7 +5108,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if barriers:row['original_empty_asm_barriers']=barriers
         em.static_method_owners=static_method_owners
         if kind(n)=='CXXRecordDecl' and n.get('name'):previous_class_prototypes.add(n['name'])
-        em.type_aliases=aliases;em.global_storage_records=global_storage_records;em.function_symbols=by_id;em.signature_symbols=by_signature
+        em.type_aliases={**aliases,**n.get('_source_method_type_aliases',{})};em.global_storage_records=global_storage_records;em.function_symbols=by_id;em.signature_symbols=by_signature
         em.standard_heap_operators=heap_operators;em.heap_classes=set(addressable_classes)|set(lifetime_classes)
         em.verified_scoped_trivial_records=verified_scoped_trivial_records
         em.ambiguous_source_names=collision;em.trivial_destructors=trivial_destructors;em.aggregate_records=aggregate_records;em.pointer_span_records=pointer_span_records;em.enum_types=enum_types;em.member_operators=member_operators;em.member_conversions=member_conversions;em.member_conversion_names=member_conversion_names;em.copy_classes=copy_classes;em.constructor_factories=constructor_factories
@@ -5140,8 +5239,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             # not an external source dependency. Only helpers actually used
             # by this definition can leave the dependency frontier.
             resolved_references-=set(BUILTIN_HELPERS)&em.used
+            resolved_references-=getattr(em,'used_runtime_queries',set())
             row['source_references']=sorted(resolved_references)
-            row['source_references']=sorted(set(row['source_references'])|getattr(em,'used_class_constructors',set())|getattr(em,'used_reference_classes',set())|getattr(em,'used_static_method_owners',set()))
+            row['source_references']=sorted(set(row['source_references'])|getattr(em,'used_class_constructors',set())|getattr(em,'used_reference_classes',set())|getattr(em,'used_static_method_owners',set())|getattr(em,'used_byte_methods',set()))
             for ref in row['source_references']:
                 record=reference_records.get(ref)
                 if record and any(em.reference_contract(qual(child)) for child in kids(record)
@@ -5325,7 +5425,7 @@ def main():
     if not src.is_file():parser.error('missing source '+str(src))
     commands=json.loads(opt.compile_commands.read_text()) if opt.compile_commands.exists() else []
     comp=next((v for v in commands if v['file']==opt.source),None)
-    private_source_storage={};existing_source_storage={}
+    private_source_storage={};existing_source_storage={};existing_header_values={};owner_input_fingerprint=None
     if opt.rebuild_owner_sha256 and not opt.import_root:
         parser.error('--rebuild-owner-sha256 requires an existing import root')
     if opt.import_root:
@@ -5338,11 +5438,15 @@ def main():
         if owner_manifest.is_file():
             owner=json.loads(owner_manifest.read_text())
             if owner.get('source')==opt.source:
+                owner_input_fingerprint=owner.get('ast_cache_inputs')
                 for definition in owner.get('definitions',[]):
                     if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('kind')=='VarDecl'
                             and (definition.get('physical_source',opt.source)==opt.source or
                                  definition.get('private_storage') or definition.get('global_storage'))):
                         existing_source_storage[definition['name']]=definition
+                    if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first'
+                            and definition.get('kind')=='VarDecl' and definition.get('header_global_definition')):
+                        existing_header_values[definition['name']]=definition
                     if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('linkage')=='internal'
                             and definition.get('private_storage')):
                         private_source_storage[definition['name']]=definition['private_storage']
@@ -5413,6 +5517,9 @@ def main():
     args+=target_args
     ast_cache_inputs=(source_ast_input_fingerprint(root,frontend,language,args,opt.source)
                       if opt.ast_cache_dir else None)
+    if (ast_cache_inputs and ast_cache_inputs.get('preprocessor_verified') is True
+            and owner_input_fingerprint==ast_cache_inputs):
+        existing_source_storage.update(existing_header_values)
     cmd=[frontend,*language,'-Xclang','-ast-dump=json']
     if opt.filter:cmd+=['-Xclang','-ast-dump-filter='+opt.filter]
     cmd+=['-fsyntax-only',*args,opt.source]
@@ -5628,7 +5735,7 @@ def main():
     layout_cache=None
     if opt.ast_cache_dir:
         layout_cache=opt.ast_cache_dir/('layouts-'+hashlib.sha256(json.dumps([str(root),cmd,toolchain,
-            ast_cache_inputs],sort_keys=True).encode()).hexdigest()+'.json')
+            ast_cache_inputs,hashlib.sha256(Path(__file__).read_bytes()).hexdigest()],sort_keys=True).encode()).hexdigest()+'.json')
     layouts=json.loads(layout_cache.read_text()) if layout_cache and layout_cache.exists() else {}
     if opt.require_record_layouts:
         layout_result=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
@@ -5823,7 +5930,8 @@ def main():
         # Keep the original same-TU declaration context before joining its
         # qualified target layout; never join merely by a matching short name.
         unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
-            'record field requires verified native storage:')) for row in report)
+            'record field requires verified native storage:',
+            'nontrivial byte-view method requires original class prototype:')) for row in report)
         ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
         if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or ordinary_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
@@ -5872,6 +5980,24 @@ def main():
                     return {**node,'inner':children} if children else None
                 additions=[kept for node in complete if (kept:=types_only(node)) is not None]
                 field_selection_index.update(index_source_fields(complete,additions))
+                # Retained original method bodies can call free inline header
+                # functions. Keep their exact same-TU definitions as evidence;
+                # normal demand-driven header recovery still decides emission.
+                functions={node.get('id'):node for tree in complete for node in descendants(tree)
+                    if kind(node)=='FunctionDecl' and any(kind(body)=='CompoundStmt' for body in kids(node))}
+                pending=list(additions);kept_functions=set()
+                while pending:
+                    for reference in descendants(pending.pop()):
+                        declaration=reference.get('referencedDecl',{})
+                        identity=declaration.get('id')
+                        function=functions.get(identity)
+                        if declaration.get('kind')!='FunctionDecl' or not function or identity in kept_functions:continue
+                        loc=function.get('loc',{})
+                        if not loc.get('includedFrom') and not loc.get('file'):continue
+                        if loc.get('file') in (opt.source,str(src)):continue
+                        kept_functions.add(identity);pending.append(function)
+                additions.extend(function for identity,function in functions.items() if identity in kept_functions)
+                full_type_closure['retained_method_function_dependencies']=len(kept_functions)
                 full_type_closure['field_selection_sites']=len(field_selection_index)
                 retained_ids={id(node) for tree in additions for node in descendants(tree)}
                 # Later dependency rounds can add another original header
