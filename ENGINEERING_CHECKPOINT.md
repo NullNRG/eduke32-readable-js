@@ -1,4 +1,4 @@
-# Engine startup checkpoint — November 2, 2026
+# Engine startup checkpoint — updated November 3, 2026
 
 **Original `enginePreInit` executes in Chromium and returns 0. The original game does not yet boot.** There is no verified `app_main` execution, rendered menu, E1L1 world image, controlled gameplay session or playable `dist/index.html`. The developer launcher and its screenshots are diagnostics, not gameplay evidence.
 
@@ -83,7 +83,7 @@ Keep heavy Clang jobs serial on this host. Reuse AST caches only when source/hea
 
 ## Regression and release limits
 
-The earlier frozen full run attempted 218 tests: 215 passed, two internal timeouts and one outer timeout. Same-input isolated confirmation reached 217 passed, one internal clock-fixture timeout. Later performance/worklist fixes pass focused suites. The packed-assignment changes pass seven affected checks; the union-selection checkpoint passes eight, including original vector and menu-header comparisons. The new full run is `reports/nov02-engine-launcher-full-regression.json`; its `complete`, counts and input fingerprints are authoritative. **A complete pass is claimed only when that report is complete, all tests pass and inputs match.** Historical successes are not current gameplay evidence.
+The complete frozen `reports/nov02-engine-launcher-full-regression.json` run passes **221/221 tests**, with compiler/runtime/test inputs unchanged. This includes the packed assignment, exact union selection, original vector/menu-header and launcher checks. The new GitHub CI native/Node fixtures also pass on Linux. These are compiler/runtime and subsystem proofs; original app_main and gameplay remain unverified. The current semantic export also passed an independent SQLite restoration with all table hashes and rows checked; see `reports/nov02-semantic-restore.json`.
 
 Complete selected-unit emission, source ownership and fixed-point linking after shared semantics stabilize. Then verify original menu and E1L1 rendering, at least 60 seconds of controlled gameplay, enemies/weapons/collision/interactions, sound/music, progression, save/reload/persistence and offline operation. Bind evidence to the exact promoted player. `compile:game` still needs candidate construction/promotion from the incremental graph. The stable-declaration 90% compiler-recovery measurement also remains unverified.
 

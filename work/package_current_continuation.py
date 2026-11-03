@@ -70,7 +70,7 @@ def selected(root,public=False):
     for path in (root/'reports').rglob('*'):
         if not path.is_file():continue
         relative=path.relative_to(root/'reports')
-        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','nov01-','nov02-','project-current-status'))
+        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','nov01-','nov02-','nov03-','project-current-status'))
                 or relative.parts[0] in ('native-oracle','semantic-continuation','evidence')):
             if path.suffix in ('.json','.gz','.log','.md','.png'):add(path)
     add(root/'reports/historical-latest/dependency-graph.json')

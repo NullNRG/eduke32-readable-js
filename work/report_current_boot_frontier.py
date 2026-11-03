@@ -11,8 +11,7 @@ from source_ast_to_js import compiler_runtime_revision
 profile=json.loads((ROOT/'tools/browser_classic_profile.json').read_text())
 base=ROOT/profile['build_root'];frontier_path=base/'reports/frontier-source_duke3d_src_game.cpp.json'
 frontier=json.loads(frontier_path.read_text());manifest=json.loads((ROOT/frontier['manifest']).read_text())
-selected={row['file'] for row in json.loads((ROOT/profile['compile_commands']).read_text())} if 'compile_commands' in profile else {
-    row['file'] for row in json.loads((ROOT/'factory-output/browser-classic/compile_commands.json').read_text())}
+selected={row['file'] for row in json.loads((ROOT/profile['derived_commands']).read_text())}
 connection=sqlite3.connect((base/'reports/semantic-index.sqlite').resolve().as_uri()+'?mode=ro',uri=True)
 fingerprint=dict(connection.execute('select key,value from meta'))['fingerprint']
 callers=collections.defaultdict(list);semantic=[]

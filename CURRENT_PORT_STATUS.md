@@ -1,6 +1,6 @@
 # Current EDuke32 continuation status
 
-Updated November 2, 2026. Original `enginePreInit` now completes in a fresh Chromium process and returns **0**. The JavaScript game is **not yet bootable or playable**: original `app_main` has not executed. There is no verified game menu, E1L1 screenshot, playable `dist/index.html` or deployed player.
+Updated November 3, 2026. Original `enginePreInit` now completes in a fresh Chromium process and returns **0**. The JavaScript game is **not yet bootable or playable**: original `app_main` has not executed. There is no verified game menu, E1L1 screenshot, playable `dist/index.html` or deployed player.
 
 The canonical project is this directory. The approved release keeps original Build rendering, game logic, CON, actors, weapons, menus and simulation in readable JavaScript. SDL2/platform/audio/timing may use the isolated native WASM services; no original game or Build translation unit is in that WASM module. Classic single-player is selected; desktop features, enhanced rendering and multiplayer are excluded.
 
@@ -30,7 +30,7 @@ Shared changes include dependency recovery to a bounded fixed point, stable same
 
 ## Regression evidence
 
-The latest full frozen run, `reports/nov02-static-startup-full-regression.json`, attempted 218 tests: 215 passed, two failed by internal timeout and one hit the outer timeout. Same-input isolated confirmation in `reports/nov02-static-startup-confirmed-regression.json` reached 217 passed and one clock-fixture internal timeout. Subsequent shared performance and dependency-worklist fixes pass focused suites in `reports/nov02-closure-performance-regression.json`, `reports/nov02-complete-frontier-regression.json` and `reports/nov02-worklist-final-regression.json`. The clock fixture now states its bounded query budget; separate tests exercise the complete structured frontier. No final complete-suite pass under the latest tools/tests is claimed. See ENGINEERING_CHECKPOINT.md and the generated snapshot for revision matches. Fixture success does not establish gameplay.
+The complete frozen run in `reports/nov02-engine-launcher-full-regression.json` passes **221/221 tests**, with compiler/runtime/test inputs unchanged. This verifies the current shared input/union compiler changes and launcher tests. Original engine and launcher Chromium evidence are recorded separately; none of these checks establishes playable gameplay. Earlier 218-test timeout reports remain historical. The generated snapshot compares current fingerprints before retaining this pass.
 
 The new native comparisons cover inherited byte storage, exact original instance-method dispatch, scoped typedef/reference arguments, default arguments and integer/pointer atomics. Native/Node/Chromium byte-method checks cover 512 cases in full and filtered compilation. Record-array address checks cover 256 cases, including original subarray offsets and complete resulting bytes. Same-TU header values reuse their original owner only with an identical preprocessor dependency fingerprint; changed headers are rejected by integration. Focused reports retain their individual revisions.
 

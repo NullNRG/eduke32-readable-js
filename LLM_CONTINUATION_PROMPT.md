@@ -29,3 +29,6 @@ Save all modifications and factual failed acceptance checks. python work/package
 
 
 Latest shared recovery: packed anonymous typedef assignment and exact selected union initialization pass native/Node/Chromium comparisons. The original input functions advance to missing dependencies, and the separate bounded G_DrawRooms probe reports no semantic blockers. Original app_main remains unlinked (116 direct references in its latest bounded attempt); G_HandleLocalKeys exposes a legal cross-scope goto case. See ENGINEERING_CHECKPOINT.md, reports/nov02-game-provider-frontier.json and the live full-regression report reports/nov02-engine-launcher-full-regression.json.
+
+
+November 3 verified checkpoint: reports/nov02-engine-launcher-full-regression.json completes 221/221 tests with frozen inputs unchanged. The generated snapshot checks current fingerprints. The original game remains unlinked/unplayed; continue the recorded provider and goto frontier. The current semantic export independently restores and verifies all tables (reports/nov02-semantic-restore.json).
