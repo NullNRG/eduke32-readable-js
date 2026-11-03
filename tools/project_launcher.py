@@ -48,10 +48,13 @@ class Project:
                     result={'status':'failed','error':str(error),'finished':time.time()}
                 finally:
                     with self.lock:
-                        self.process=None; self.job.update(result); save(self.root/'reports/project-job.json',self.job)
+                        finished={**self.job,**result}
+                        save(self.root/'reports/project-job.json',finished)
+                        self.process=None; self.job=finished
             threading.Thread(target=run,daemon=True).start()
             return dict(self.job)
     def status(self):
+        with self.lock:job=dict(self.job) if self.job else None
         def read(name):
             try:return json.loads((self.root/name).read_text(encoding='utf-8-sig'))
             except (OSError,ValueError):return None
@@ -77,7 +80,7 @@ class Project:
             'message':'Original gameplay verified' if verified else 'Game build exists; gameplay is unverified' if exists else 'Original game is blocked; no playable dist/index.html yet',
             'failed_checks':acceptance.get('failed_checks',[]),'unverified_checks':acceptance.get('unverified_checks',[]),
             'handoff':read('reports/project-handoff.json'),'cleanup':read('reports/project-cleanup.json'),
-            'job':dict(self.job) if self.job else None,'token':self.token}
+            'job':job,'token':self.token}
         result['engine']={'available':engine_available,'verified':engine_verified,
             'url':'/engine-startup.html' if engine_available else None,
             'report_url':'/reports/oct30-original-browser-component.json' if proof else None,
@@ -89,8 +92,8 @@ class Project:
         if result['handoff']:
             path=Path(result['handoff']['path'])
             result['handoff']['url']='/'+path.relative_to(self.root).as_posix() if path.is_relative_to(self.root) and path.is_file() else None
-        if self.job:
-            path=self.root/self.job['log']
+        if job:
+            path=self.root/job['log']
             if path.exists():
                 with path.open('rb') as stream:
                     stream.seek(max(0,path.stat().st_size-16000)); result['log_tail']=stream.read().decode('utf-8','replace')

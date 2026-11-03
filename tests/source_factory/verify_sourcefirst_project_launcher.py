@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools'))
 from project_launcher import Project, Handler, JOBS, ThreadingHTTPServer
+import project_launcher as launcher
 from project_workspace import cleanup, cleanup_plan, package
 
 def main():
@@ -49,15 +50,26 @@ def main():
             assert request('POST','/api/jobs','{"action":"shell"}',headers)[0]==400
             assert request('POST','/api/jobs','{"action":"test"}',{**headers,'Origin':'http://evil.invalid'})[0]==403
             original=JOBS['test'];JOBS['test']=('Fixture command',['tools/probe.py'])
+            saved_save=launcher.save;persisting=threading.Event();release=threading.Event()
+            def delayed_save(path,data):
+                if path.name=='project-job.json' and data.get('returncode')==7:
+                    persisting.set();assert release.wait(5),'Test did not release persistence gate'
+                return saved_save(path,data)
+            launcher.save=delayed_save
             try:
                 assert request('POST','/api/jobs','{"action":"test"}',headers)[0]==202
                 assert request('POST','/api/jobs','{"action":"test"}',headers)[0]==409
+                try:
+                    assert persisting.wait(5),'Job never reached final persistence'
+                    assert server.project.job['status']=='running','Completion became visible before the exit code was saved'
+                    assert json.loads((root/'reports/project-job.json').read_text())['status']=='running'
+                finally:release.set()
                 deadline=time.monotonic()+10
                 while server.project.job['status']=='running' and time.monotonic()<deadline:time.sleep(.02)
                 state=server.project.status();assert state['job']['status']=='failed' and state['job']['returncode']==7
                 assert 'real job output' in state['log_tail']
                 assert json.loads((root/'reports/project-job.json').read_text())['returncode']==7
-            finally:JOBS['test']=original
+            finally:release.set();launcher.save=saved_save;JOBS['test']=original
             (root/'dist').mkdir();(root/'dist/index.html').write_text('unverified game')
             assert server.project.status()['game_present'] and not server.project.status()['gameplay_verified']
             (root/'reports/port-acceptance.json').write_text(json.dumps({'original_game_playable_verified':True,'deliverables':{'offline_html':{'sha256':'stale'}}}))
