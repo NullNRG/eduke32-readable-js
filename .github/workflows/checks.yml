@@ -20,6 +20,17 @@ jobs:
       - run: npm ci
       - run: python -m compileall -q tools
       - run: python tests/source_factory/verify_sourcefirst_public_package.py
+      - name: Check local launcher actions and exact-build launch gates
+        run: |
+          python tests/source_factory/verify_sourcefirst_project_launcher.py
+          python tests/source_factory/verify_sourcefirst_launcher_gate.py
+      - name: Install bounded-memory AST reader
+        run: python -m pip install ijson==3.6.0
+      - name: Compare shared packed-record and union lowering against native C++
+        run: |
+          clang++ --version
+          python tests/source_factory/verify_sourcefirst_typedef_packed_assignment.py
+          python tests/source_factory/verify_sourcefirst_union_selection.py
       - run: node --test tests/source_factory/runtime.test.mjs tests/source_factory/portability.test.mjs
       - name: Reject accidentally tracked game archives or generated pages
         shell: bash

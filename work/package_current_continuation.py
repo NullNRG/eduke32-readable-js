@@ -1,5 +1,5 @@
 """Compact private continuation of active work; no discarded source or fresh start."""
-import argparse,json,re,sys
+import argparse,gzip,json,re,sys
 from datetime import datetime
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
@@ -28,12 +28,24 @@ def selected(root,public=False):
     add(root/'reports/history/original-source-manifests-20261014.zip')
     profile=json.loads((root/'tools/browser_classic_profile.json').read_text())
     state=json.loads((root/'reports/project-current-status.json').read_text())
+    semantic_payload=root/'reports/semantic-browser-checkpoint/index.jsonl.gz'
+    metadata=json.loads(semantic_payload.with_suffix('.json').read_text())
+    with gzip.open(semantic_payload,'rt',encoding='utf-8') as stream:header=json.loads(next(stream))
+    if not (metadata.get('semantic_fingerprint')==header.get('semantic_fingerprint')==state.get('semantic_index',{}).get('fingerprint')):
+        raise ValueError('Semantic export and current snapshot differ; refresh the export/status before packaging')
     roots={profile['build_root'],profile['migration_input'],*state.get('continuation_artifact_roots',[])}
     for relative in roots:
         folder=package_tool.safe_path(root,relative)
         for path in folder.rglob('*'):
             if any(part in ('boot-probes','byte-debug','owner-history','owner-rebuilds','storage-rebuilds') for part in path.relative_to(folder).parts):continue
             if path.suffix in ('.mjs','.json','.csv','.md','.wasm','.symbols') and path.is_file() and path.stat().st_size<80_000_000:add(path)
+    # Retain the actual manifests referenced by the current frontier reports,
+    # without copying every superseded recovery stage or raw AST database.
+    for frontier in (root/profile['build_root']/'reports').glob('frontier-*.json'):
+        doc=json.loads(frontier.read_text())
+        if not doc.get('manifest'):continue
+        manifest=package_tool.safe_path(root,doc['manifest']);add(manifest)
+        add(manifest.with_name(manifest.name.removesuffix('.manifest.json')+'.mjs'))
     # Retain any actual source imports outside these roots, not every obsolete
     # build epoch. Every imported module stays under the canonical project.
     # Owner recompilation leaves immutable historical fragments on disk.

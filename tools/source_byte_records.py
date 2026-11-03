@@ -281,6 +281,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             return {key:(field_bindings[item] if key=='referencedMemberDecl' and isinstance(item,str) and item in field_bindings else declaration_shape(item)) for key,item in value.items()
                     if key not in ('id','loc','range','typeAliasDeclId','previousDecl','TemplateInstantiationPattern','_source_field_declaration',
                                    '_source_member_declaration','_source_byte_method_call',
+                                   '_source_trivial_assignment_typedefs',
                                    'parentDeclContextId','isReferenced','isUsed')}
         if isinstance(value,list):return [declaration_shape(item) for item in value]
         return value
@@ -327,9 +328,22 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if path not in raw_contents:raw_contents[path]=path.read_bytes()
         for field in children(record):
             name=field.get('name');offset=field.get('loc',{}).get('offset');key=field.get('id')
-            if field.get('kind')!='FieldDecl' or not name or not isinstance(offset,int) or not key:continue
-            if raw_contents[path][offset:offset+len(name)]!=name.encode():continue
-            binding={'original_record':repr(proof),'field':name,'source_offset':offset,
+            if field.get('kind')!='FieldDecl' or not isinstance(offset,int) or not key:continue
+            selected=name
+            if name:
+                if raw_contents[path][offset:offset+len(name)]!=name.encode():continue
+            else:
+                # Compiler-generated assignment bodies address anonymous
+                # union/struct subobjects by FieldDecl ID too. Reconcile that
+                # ID only through its exact lexical child and original tag
+                # token, never by assuming an anonymous field's position.
+                child_id=field_records.get(key);child=records.get(child_id,{})
+                child_proof=physical_proofs.get(child_id);token=child.get('tagUsed','').encode()
+                if (not field.get('isImplicit') or not child_proof or not token
+                        or child.get('loc',{}).get('offset')!=offset
+                        or raw_contents[path][offset:offset+len(token)]!=token):continue
+                selected={'anonymous_child':repr(child_proof)}
+            binding={'original_record':repr(proof),'field':selected,'source_offset':offset,
                      'type':declaration_shape(field.get('type',{}))}
             if key in field_bindings and field_bindings[key]!=binding:ambiguous_fields.add(key)
             else:field_bindings[key]=binding

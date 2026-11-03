@@ -15,7 +15,7 @@ from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
 from source_byte_records import recover_byte_records, clean_type as clean_record_type, owned_anonymous_record_members, typedef_record_layouts
-from source_trivial_assignment import recover_trivial_assignment_methods
+from source_trivial_assignment import recover_trivial_assignment_methods, annotate_typedef_assignment_names
 from source_cpp_lifetime import recover_lifetime_classes
 from source_cpp_references import REFERENCE_ABI, function_type_parts, lvalue_referent, const_referent
 from source_cpp_types import has_outer_indirection
@@ -1530,7 +1530,7 @@ class Emit:
                     return self.expr(a[0])
                 if kind(a[0])=='CXXThisExpr':return self.expr(a[0])
                 if is_record_pointee(qual(a[0])) or self.record_pointer_stride(qual(a[0])):
-                    return f'cRecordObject({self.expr(a[0])})'
+                    return self.record_object_expr(qual(a[0]),self.expr(a[0]))
                 if self.pointer_type(qual(a[0])):
                     return f'(cDeref({self.expr(a[0])}, {self.pointer_type(qual(a[0]))}).value)'
                 if self.indirect_pointer_stride(qual(a[0])):
@@ -1592,7 +1592,9 @@ class Emit:
                         schema=aggregate_type_schema(storage_type,self.global_storage_records,self.type_aliases,self.record_layouts,allow_pointer_storage=True,enum_types=self.enum_types)
                     if not receiver or receiver!=argument or schema is None:
                         raise Unsupported('trivial assignment requires matching Clang-proven pointer-free storage: '+str(key))
-                    return f'cAssignAggregate({self.expr(a[1])}, {self.expr(a[2])}, {json.dumps(schema,sort_keys=True)})'
+                    destination,source_value=self.expr(a[1]),self.expr(a[2])
+                    self.storage_assignment_nodes=getattr(self,'storage_assignment_nodes',set())|{id(n)}
+                    return f'cAssignAggregate({destination}, {source_value}, {json.dumps(schema,sort_keys=True)})'
                 method=self.member_operators.get(key)
                 if not method:
                     raise Unsupported('C++ member operator requires source-defined class/method ABI: '+str(key),
@@ -4185,7 +4187,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
     return added,odr_origins,{id(n) for n in added if id(n) in template_ids}
 
 
-def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None):
+def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None, storage_assignment_nodes=None):
     """Find non-local symbol dependencies using Clang DECLARATION IDENTITIES.
 
     Names alone are unsafe: a shadowing local `int globals;` must not suppress
@@ -4230,7 +4232,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
             ref=callee.get('referencedDecl',{}) if kind(callee)=='DeclRefExpr' else {}
             if ref.get('kind')=='CXXMethodDecl':
                 cls=normalized_record_name(qual(kids(n)[1]),type_aliases)
-                if cls and ref.get('id') not in (trivial_assignments or {}):result.add(js_ident(cls))
+                if cls and ref.get('id') not in (trivial_assignments or {}) and id(n) not in (storage_assignment_nodes or set()):result.add(js_ident(cls))
         if kind(n)=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
             if n.get('nonOdrUseReason')=='constant' and decl.get('id') in (non_odr_static_values or {}):return
@@ -4393,7 +4395,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     implicit_byte_assignable=set()
     for root_node in ast:
         for record in descendants(root_node):
-            if kind(record)!='CXXRecordDecl' or not record.get('completeDefinition') or not record.get('name'):
+            if kind(record)!='CXXRecordDecl' or not record.get('completeDefinition'):
                 continue
             traits=record.get('definitionData',{})
             if (traits.get('copyAssign',{}).get('trivial') is True and
@@ -4402,7 +4404,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 not any(kind(method)=='CXXMethodDecl' and method.get('name')=='operator='
                             and not method.get('isImplicit') and any(kind(child)=='CompoundStmt' for child in kids(method))
                             for method in kids(record))):
-                implicit_byte_assignable.add(record['name'])
+                if record.get('name'):implicit_byte_assignable.add(record['name'])
+                implicit_byte_assignable.update(record.get('_source_trivial_assignment_typedefs',[]))
     # Record declarations in Clang's AST filter are often detached from the
     # enclosing NamespaceDecl. Resolve a scoped POD's short storage name only
     # when the complete original record definition is unique in this AST.
@@ -5311,15 +5314,17 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 # the actual generated class, not its memoizing factory.
                 definition=definition.replace(js_ident(name)+'.',implementation+'.')
                 code='export function '+js_ident(name)+'() {\n  return '+js_ident(name)+'.type || ('+js_ident(name)+'.type = '+definition+');\n}'
-            if getattr(em,'storage_constructor_nodes',None):
+            if getattr(em,'storage_constructor_nodes',None) or getattr(em,'storage_assignment_nodes',None):
                 # Remove only the precise constructor AST nodes already lowered
                 # to verified storage. A same-named variable, function, operator,
                 # static member or another constructor is still a dependency.
                 row['source_references']=sorted(reference_names(n,resolve,class_dependencies,
                     trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,
                     static_method_owners=static_method_owners,
-                    storage_constructor_nodes=em.storage_constructor_nodes,non_odr_static_values=non_odr_static_values))
-                row['storage_constructor_count']=len(em.storage_constructor_nodes)
+                    storage_constructor_nodes=getattr(em,'storage_constructor_nodes',set()),non_odr_static_values=non_odr_static_values,
+                    storage_assignment_nodes=getattr(em,'storage_assignment_nodes',set())))
+                row['storage_constructor_count']=len(getattr(em,'storage_constructor_nodes',set()))
+                row['storage_assignment_count']=len(getattr(em,'storage_assignment_nodes',set()))
             resolved_references=set(row.get('source_references',[]))|getattr(em,'used_aggregate_prototypes',set())
             # A filtered C++ class definition is emitted as its bare ES class
             # identifier; the same Clang AST references it by its qualified
@@ -5692,6 +5697,7 @@ def main():
             cache_path=opt.ast_cache_dir/(cache_key+'.json')
         try:
             decoded,decode_report=run_clang_ast(one,cwd=root,cache_path=cache_path)
+            if not filter_name:annotate_typedef_assignment_names(decoded)
             ast.extend(decoded);ast_decode.append(decode_report)
         except Exception as e:raise SystemExit('Clang AST extraction failed: '+str(e))
     if opt.exact_filter:
@@ -6100,7 +6106,10 @@ def main():
             'global aggregate array requires verified storage shape:',
             'nontrivial byte-view method requires original class prototype:')) for row in report)
         ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
-        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or ordinary_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views) and not full_type_closure['attempted']:
+        implicit_assignment_types=any(row.get('required_record_types') and row.get('reason','').startswith(
+            'C++ member operator requires source-defined class/method ABI:') for row in report)
+        union_initializers=any(row.get('reason','').startswith('union initializer lacks exact Clang-selected field') for row in report)
+        if (pod_record_closure['rejected'] or anonymous_arrays or explicit_members or ordinary_members or static_members or heap_types or c_overloads or unresolved_enums or unresolved_record_views or implicit_assignment_types or union_initializers) and not full_type_closure['attempted']:
             full_type_closure['attempted']=True
             full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
             full_cache=None
@@ -6109,6 +6118,7 @@ def main():
                 full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
+                full_type_closure['anonymous_typedef_trivial_assignment_names']=annotate_typedef_assignment_names(complete)
                 full_type_closure['explicit_member_calls_rebound']=rebind_explicit_operators(ast,complete)
                 full_type_closure['static_member_references_rebound']=rebind_static_references(ast,complete)
                 # Complete EnumDecls prove implicit successors as well as

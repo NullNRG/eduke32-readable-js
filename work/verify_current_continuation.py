@@ -47,8 +47,9 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
         # The packager has already checksum-verified every archive payload.
         executable_artifact=name in executable_artifacts
         if (relative.parts[0] in ('tools','runtime','tests') or executable_artifact
-            or name in ('input-data/DUKE3D.GRP','work/probe_original_vfs.mjs','work/run_original_vfs.mjs')
+            or name in ('input-data/DUKE3D.GRP','work/probe_original_vfs.mjs','work/run_original_vfs.mjs','work/verify_fresh_engine_startup.py')
             or name in ('package.json','HANDOFF_SNAPSHOT.json','CONTINUE_HERE.md',
+                        'index.html','engine-startup.html','ENGINEERING_CHECKPOINT.md',
                         'factory-output/source-first/browser-classic/component-manifest.json')):
             data=saved.read('EDuke32_SourceFactory/'+name)
             assert hashlib.sha256(data).hexdigest()==row['sha256'],name

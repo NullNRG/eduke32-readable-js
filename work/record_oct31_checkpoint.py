@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 from verify_recovery_suite import regression_inputs
+from source_ast_to_js import compiler_runtime_revision
 def read(name):return json.loads((ROOT/name).read_text())
 def sha(name):return hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
 state=read('HANDOFF_SNAPSHOT.json')
@@ -27,6 +28,12 @@ if payload_metadata.is_file():
         'matches_current_index':payload.get('semantic_fingerprint')==semantic['fingerprint'],
         'table_rows':payload.get('table_rows'),'logical_table_sha256':payload.get('logical_table_sha256'),
         'new_sqlite_restoration_tested':False,'gameplay_verified':False}
+    restore_path=ROOT/'reports/nov02-semantic-restore.json'
+    if restore_path.is_file():
+        restored=read(restore_path.relative_to(ROOT))
+        if restored.get('payload_sha256')==payload.get('payload_sha256') and restored.get('logical_tables_verified'):
+            state['portable_semantic_payload_verification'].update(new_sqlite_restoration_tested=True,
+                independent_restore_report=restore_path.relative_to(ROOT).as_posix())
 console_path=ROOT/'reports/nov02-original-console-chromium.json'
 console=read(console_path.relative_to(ROOT)) if console_path.is_file() else {}
 console_matches=(console.get('artifacts')=={path:digest for path,digest in component.get('artifacts',{}).items() if path.endswith('.mjs')}
@@ -65,21 +72,38 @@ state['original_engine_preinit_frontier']={
     'linked':bool(component.get('entry_exports',{}).get('enginePreInit')),
     'executed':state['original_engine_preinit_executed'],
     'direct_failures':[row for row in engine_frontier.get('blocked',[]) if row.get('name')=='enginePreInit'],
-    'immediate_shared_blocker':'Original enginePreInit returns 0 in fresh Chromium. Continue original app_main: anonymous typedef-owned input_t copy/move assignment, exact selected union initialization and remaining source dependencies.',
+    'immediate_shared_blocker':'Original enginePreInit returns 0 in fresh Chromium. Packed input assignment and selected union lowering now pass focused parity; original game roots advance to missing dependencies. G_HandleLocalKeys also requires a legal cross-scope goto lowering.',
     'additional_dependencies':['original app_main and game loop','original game clock initialization','source SDL surfaces/events/audio']}
 game_frontier=read('factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json')
+game_manifest=read(game_frontier['manifest'])
+game_closure=game_manifest.get('dependency_closure',{})
 state['original_app_main_frontier']={'report':'factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json',
     'linked':bool(component.get('entry_exports',{}).get('app_main')),'executed':False,
+    'manifest':game_frontier['manifest'],'definition_entries':game_manifest.get('found'),
+    'emitted_entries':game_manifest.get('emitted'),'blocked_entries':game_manifest.get('blocked'),
+    'compiler_revision_matches_current':game_manifest.get('compiler_runtime_input_sha256')==compiler_runtime_revision(),
     'missing_direct_references':next((row.get('dependencies',[]) for row in game_frontier.get('blocked',[]) if row.get('name')=='app_main'),[]),
     'non_link_semantic_blockers':[row for row in game_frontier.get('blocked',[]) if not row.get('reason','').startswith('unlinked identifiers:')],
-    'dependency_catalog_is_complete':False,'reason':'The bounded recovery reached 256 queries; 50 references remain unqueried in this attempt.'}
+    'dependency_catalog_is_complete':False,'query_limit':game_closure.get('query_limit'),
+    'budget_exhausted':game_closure.get('budget_exhausted'),'unqueried_references':game_closure.get('unqueried_references',[]),
+    'reason':'This is a bounded targeted attempt, not the complete game dependency catalog.'}
 state['launcher_features']=['interactive original enginePreInit diagnostic','fresh Chromium startup verification',
     'targeted app_main dependency recovery','full build','regression suite','acceptance checks','private continuation ZIP','conservative cleanup preview']
 state['launcher_browser_evidence']='reports/nov02-launcher-browser.json'
+state['bounded_game_provider_report']='reports/nov02-game-provider-frontier.json'
+renderer_probe_path=ROOT/'factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp-G_DrawRooms.json'
+if renderer_probe_path.is_file():
+    renderer=read(renderer_probe_path.relative_to(ROOT))
+    state['original_renderer_lowering_probe']={'report':renderer_probe_path.relative_to(ROOT).as_posix(),
+        'compiler_revision_matches_current':renderer.get('compiler_runtime_input_sha256')==compiler_runtime_revision(),
+        'query_limit':renderer.get('query_limit'),'requested_compiled':renderer.get('requested_compiled'),
+        'semantic_blockers':[row for row in renderer.get('blocked',[]) if not row.get('reason','').startswith('unlinked identifiers:')],
+        'installed':False,'original_renderer_executed':False,'gameplay_verified':False}
 state['regression_baseline']={'report':'reports/oct30-startup-verified-regression.json',
     'passed':186,'complete':True,'frozen_inputs':True,
     'note':'Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes.'}
-regression_report=('reports/nov02-static-startup-full-regression.json' if (ROOT/'reports/nov02-static-startup-full-regression.json').is_file()
+regression_report=('reports/nov02-engine-launcher-full-regression.json' if (ROOT/'reports/nov02-engine-launcher-full-regression.json').is_file()
+                   else 'reports/nov02-static-startup-full-regression.json' if (ROOT/'reports/nov02-static-startup-full-regression.json').is_file()
                    else 'reports/nov02-method-full-regression.json' if (ROOT/'reports/nov02-method-full-regression.json').is_file()
                    else 'reports/nov01-vfs-final-full-regression.json')
 report=read(regression_report)
@@ -97,7 +121,9 @@ if corrected_path.is_file():
         'revision_matches_current_inputs':corrected.get('regression_inputs')==current,
         'files_changed_since_complete_run':[name for name in sorted(set(before)|set(current)) if before.get(name)!=current.get(name)],
         'subsequent_full_pass_claimed':False}
-targeted_report=('reports/nov02-launcher-regression.json' if (ROOT/'reports/nov02-launcher-regression.json').is_file()
+targeted_report=('reports/nov02-union-selection-regression.json' if (ROOT/'reports/nov02-union-selection-regression.json').is_file()
+                 else 'reports/nov02-packed-assignment-regression.json' if (ROOT/'reports/nov02-packed-assignment-regression.json').is_file()
+                 else 'reports/nov02-launcher-regression.json' if (ROOT/'reports/nov02-launcher-regression.json').is_file()
                  else 'reports/nov02-worklist-final-regression.json' if (ROOT/'reports/nov02-worklist-final-regression.json').is_file()
                  else 'reports/nov02-static-player-final-regression.json' if (ROOT/'reports/nov02-static-player-final-regression.json').is_file()
                  else 'reports/nov02-player-storage-final-regression.json' if (ROOT/'reports/nov02-player-storage-final-regression.json').is_file()
@@ -178,7 +204,7 @@ state['known_correctness_gaps']=[
 if component.get('storage_ownership_conflicts'):
     state['known_correctness_gaps'].insert(0,'Legacy source fragments still duplicate some original globals. The component manifest enumerates the actual active conflicts; zero missing imports does not prove shared storage correctness.')
 state['remaining_acceptance_failures']=[
-    'Original app_main dependency closure, including packed input_t copy/move and selected union initialization',
+    'Original app_main dependency closure and legal cross-scope goto lowering in original quick-save/load handling',
     'Remaining actual duplicate source storage in legacy fragments',
     'Current uniform selected-unit emission and verified fixed-point global linkage',
     'Original app_main execution (enginePreInit already passes independently)',

@@ -1,6 +1,6 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-03T01:08:07.315634+00:00",
+  "updated_utc": "2026-11-03T01:43:48.018743+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "8d91ec9a0b04b35f8ce2dd10c842349b96670b1c54a66f3285964a98cb735a13",
+  "compiler_frontend_sha256": "3deacb06993e9e1d3572f882c9c43aac5995c6fffd42e3fe5060657ec2a7946a",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -143,19 +143,19 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/nov02-static-startup-full-regression.json",
-    "complete": true,
+    "report": "reports/nov02-engine-launcher-full-regression.json",
+    "complete": false,
     "counts": {
-      "passed": 215,
-      "failed": 2,
-      "timeout": 1,
+      "passed": 50,
+      "failed": 0,
+      "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 218,
-    "completed_tests": 218,
+    "selected_tests": 221,
+    "completed_tests": 50,
     "all_passed": false,
-    "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "7de5bffcfb86196064bb5dfb14dc14ccb0ad66f36134c240725a0db8b31d0235",
+    "regression_inputs_unchanged": null,
+    "compiler_frontend_sha256": "3deacb06993e9e1d3572f882c9c43aac5995c6fffd42e3fe5060657ec2a7946a",
     "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
@@ -534,7 +534,7 @@
     "linked": true,
     "executed": true,
     "direct_failures": [],
-    "immediate_shared_blocker": "Original enginePreInit returns 0 in fresh Chromium. Continue original app_main: anonymous typedef-owned input_t copy/move assignment, exact selected union initialization and remaining source dependencies.",
+    "immediate_shared_blocker": "Original enginePreInit returns 0 in fresh Chromium. Packed input assignment and selected union lowering now pass focused parity; original game roots advance to missing dependencies. G_HandleLocalKeys also requires a legal cross-scope goto lowering.",
     "additional_dependencies": [
       "original app_main and game loop",
       "original game clock initialization",
@@ -686,36 +686,37 @@
     "data": "reports/semantic-browser-checkpoint/index.jsonl.gz",
     "metadata": "reports/semantic-browser-checkpoint/index.jsonl.json",
     "lossless_all_tables": true,
-    "fingerprint_matches_current_index": false,
+    "fingerprint_matches_current_index": true,
     "restore_command": "python work/portable_semantic_checkpoint.py restore --input reports/semantic-browser-checkpoint/index.jsonl.gz --output factory-output/source-first/browser-classic/reports/semantic-index.sqlite"
   },
   "portable_semantic_payload_verification": {
     "format": "semantic-continuation-payload-verification/2",
     "payload": "reports/semantic-browser-checkpoint/index.jsonl.gz",
-    "payload_sha256": "3cbba3d72ec37ef6530156bf7abbe5aa45b72811d0a9eca38fbf303a3ed66394",
-    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
-    "matches_current_index": false,
+    "payload_sha256": "5347a89a25e1a5463bd559e9bd537e185a3a5e1629af09cd8f69663ba17a9eb2",
+    "semantic_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
+    "matches_current_index": true,
     "table_rows": {
-      "declarations": 262449,
+      "declarations": 262445,
       "meta": 1,
-      "observations": 1252341,
-      "reference_observations": 1830941,
-      "refs": 1030050,
+      "observations": 1252337,
+      "reference_observations": 1830884,
+      "refs": 1029993,
       "units": 111
     },
     "logical_table_sha256": {
-      "declarations": "0da7884daea153bc5821a44a023b50bf1a2302768a63bafa60d8aa51f008e027",
-      "meta": "44b4af47b60824ffcb0f2f0de6cb8700da28083131bbee0c3eaa8dbfef1a27dc",
-      "observations": "477b0d61f1ceba597985dabd7f46cafc7eae6369184a4035f5f21638cdfeeeda",
-      "reference_observations": "8104530bfc88ebb43ecd865b1e8844dd3391421be4db5b6b44f8ce1addf18b2a",
-      "refs": "cdb3583240fe66b491c6d6ff033888bf4a981a47d1f5b2e3f4b3dc0df157bb16",
-      "units": "6815024c49aef5db9e6abf348bb4a4a4d7080f4bd30536ab60733b810389d8c0"
+      "declarations": "524b72b58a4b7a8aec2e52b76895b1d9c0320a23a172ec7bc768cf62ddb8c325",
+      "meta": "327c94286ce4a0d858296ea65a4f51b9a5c25f20e30bb9e2d868b82457d076df",
+      "observations": "4733334b8c6179ce66a34e2811a40584840abe2d17bd96135fb5692658c9671f",
+      "reference_observations": "66f709873263d32fb7b89c4354132ed5dcaf725aed72d521b863cb3b121a2c35",
+      "refs": "cc6bea3bab1dc4fc28e4764a3e1c31480f33ae12dfa52940988437f07ff73020",
+      "units": "1af682a15a5803e457b4e7327fd376e0ef26f9d479ee7a71d77a65bf8d765240"
     },
-    "new_sqlite_restoration_tested": false,
-    "gameplay_verified": false
+    "new_sqlite_restoration_tested": true,
+    "gameplay_verified": false,
+    "independent_restore_report": "reports/nov02-semantic-restore.json"
   },
   "remaining_acceptance_failures": [
-    "Original app_main dependency closure, including packed input_t copy/move and selected union initialization",
+    "Original app_main dependency closure and legal cross-scope goto lowering in original quick-save/load handling",
     "Remaining actual duplicate source storage in legacy fragments",
     "Current uniform selected-unit emission and verified fixed-point global linkage",
     "Original app_main execution (enginePreInit already passes independently)",
@@ -754,19 +755,19 @@
     "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
   },
   "latest_targeted_regression": {
-    "report": "reports/nov02-launcher-regression.json",
+    "report": "reports/nov02-union-selection-regression.json",
     "complete": true,
     "counts": {
-      "passed": 2,
+      "passed": 8,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 2,
-    "completed_tests": 2,
+    "selected_tests": 8,
+    "completed_tests": 8,
     "all_passed": true,
     "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "8d91ec9a0b04b35f8ce2dd10c842349b96670b1c54a66f3285964a98cb735a13",
+    "compiler_frontend_sha256": "3deacb06993e9e1d3572f882c9c43aac5995c6fffd42e3fe5060657ec2a7946a",
     "revision_matches_current_inputs": true,
     "note": "Focused subset only; fingerprints and the current complete regression are recorded separately."
   },
@@ -847,7 +848,7 @@
     "frozen_inputs": true,
     "revision_matches_current_inputs": false
   },
-  "source_implementation_commit": "eab2b6d452bb9012e71d353a7a63748d8eaabd4a",
+  "source_implementation_commit": "09730ca97a565682630212bc2dc571d1d46f7919",
   "vfs_regression_corrections": {
     "earlier_complete_report": "reports/nov01-vfs-corrected-full-regression.json",
     "earlier_passed": 204,
@@ -893,16 +894,7 @@
     "regression_inputs_unchanged": true,
     "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
     "revision_matches_current_inputs": false,
-    "files_changed_since_complete_run": [
-      "tests/source_factory/verify_sourcefirst_clockticks.py",
-      "tests/source_factory/verify_sourcefirst_dependency_frontier_batch.py",
-      "tests/source_factory/verify_sourcefirst_launcher_gate.py",
-      "tests/source_factory/verify_sourcefirst_project_launcher.py",
-      "tools/browser_engine_probe.py",
-      "tools/project_launcher.py",
-      "tools/source_ast_to_js.py",
-      "tools/source_byte_records.py"
-    ],
+    "files_changed_since_complete_run": [],
     "subsequent_full_pass_claimed": false
   },
   "original_console_execution": {
@@ -921,6 +913,11 @@
     "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json",
     "linked": false,
     "executed": false,
+    "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-9984a2b6ad8a15f7/source/duke3d/src/game.cpp.manifest.json",
+    "definition_entries": 61,
+    "emitted_entries": 27,
+    "blocked_entries": 34,
+    "compiler_revision_matches_current": false,
     "missing_direct_references": [
       "Anim_Init",
       "CONFIG_ReadSettings",
@@ -1016,6 +1013,7 @@
       "g_scriptDebug",
       "g_setupFileName",
       "g_useCwd",
+      "gameHandleEvents",
       "gamefunctions",
       "h_gamefuncs",
       "idle",
@@ -1045,18 +1043,86 @@
         "dependencies": []
       },
       {
-        "name": "drawframe_do",
-        "reason": "C++ member operator requires source-defined class/method ABI: ('input_t', 'operator=', 'input_t &(input_t &&) noexcept')",
-        "dependencies": []
-      },
-      {
-        "name": "dukeFillInputForTic",
-        "reason": "C++ member operator requires source-defined class/method ABI: ('input_t', 'operator=', 'input_t &(const input_t &) noexcept')",
+        "name": "G_HandleLocalKeys",
+        "reason": "source control flow: goto enters a different lexical scope",
         "dependencies": []
       }
     ],
     "dependency_catalog_is_complete": false,
-    "reason": "The bounded recovery reached 256 queries; 50 references remain unqueried in this attempt."
+    "query_limit": 256,
+    "budget_exhausted": true,
+    "unqueried_references": [
+      "g_setupFileName",
+      "g_showShareware",
+      "g_sounds",
+      "g_tile",
+      "g_useCwd",
+      "gameHandleEvents",
+      "gameTimerHandler",
+      "gamefunctions",
+      "h_arrays",
+      "h_dsound",
+      "h_dukeanim",
+      "h_dynamictilemap",
+      "h_gamefuncs",
+      "h_gamevars",
+      "h_labels",
+      "idle",
+      "inputfifo",
+      "keyFlushChars",
+      "keySetCallback",
+      "keydefaults",
+      "keystatus",
+      "kopen4loadfrommod",
+      "krand",
+      "label",
+      "labelcode",
+      "labeltype",
+      "loaddefinitions_game",
+      "loaddefinitionsfile",
+      "localInput",
+      "lockclock",
+      "mulscale9",
+      "newgamechoices_recursive_free",
+      "nullsound",
+      "nullvoice",
+      "numplayers",
+      "oldipos",
+      "ototalclock",
+      "paletteFixTranslucencyMask",
+      "palettePostLoadLookups",
+      "paletteSetupDefaultFog",
+      "picanm",
+      "pub",
+      "pus",
+      "quitevent",
+      "randomseed",
+      "ready2send",
+      "registerosdcommands",
+      "screenpeek",
+      "sintable",
+      "system_getcvars",
+      "szPlayerName",
+      "tabledivide32_noinline",
+      "tempbuf",
+      "ticrandomseed",
+      "tileDelete",
+      "timerGetClockRate",
+      "timerGetNanoTicks",
+      "timerSetCallback",
+      "totalclock",
+      "uninitgroupfile",
+      "user_quote_time",
+      "videoGetRenderMode",
+      "videoNextPage",
+      "videoSetGameMode",
+      "vmoffset",
+      "walock",
+      "xcalloc",
+      "xmalloc",
+      "xrealloc"
+    ],
+    "reason": "This is a bounded targeted attempt, not the complete game dependency catalog."
   },
   "launcher_features": [
     "interactive original enginePreInit diagnostic",
@@ -1078,5 +1144,18 @@
     "original_scalar_atomic_constructor_executed": true,
     "fixture_record_span_is_byte_identical_to_original": true,
     "compiler_and_runtime_helpers_match": false
+  },
+  "bounded_game_provider_report": "reports/nov02-game-provider-frontier.json",
+  "original_renderer_lowering_probe": {
+    "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp-G_DrawRooms.json",
+    "compiler_revision_matches_current": true,
+    "query_limit": 12,
+    "requested_compiled": {
+      "G_DrawRooms": false
+    },
+    "semantic_blockers": [],
+    "installed": false,
+    "original_renderer_executed": false,
+    "gameplay_verified": false
   }
 }

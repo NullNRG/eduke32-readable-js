@@ -6,6 +6,58 @@ schema before applying one of these declaration IDs.
 """
 
 
+def annotate_typedef_assignment_names(ast):
+    """Attach global anonymous-tag aliases within ONE Clang invocation only.
+
+    Call before independent filtered ASTs are concatenated. A raw Clang ID
+    proves a typedef's tag only inside that invocation. Keep this conservative:
+    local/namespace spellings and collisions remain outside this fallback.
+    Actual byte layout and matching operand types are still checked by Emit.
+    """
+    records = {}; declarations = []; names = {}
+
+    def visit(node, global_context=True):
+        kind = node.get('kind'); name = node.get('name')
+        if kind in ('CXXRecordDecl', 'ClassTemplateSpecializationDecl') and node.get('completeDefinition'):
+            records[node.get('id')] = node
+        if kind in ('TypedefDecl', 'TypeAliasDecl', 'CXXRecordDecl', 'ClassTemplateSpecializationDecl') and name:
+            owner = None
+            for child in node.get('inner', []):
+                if not child: continue
+                owned = child.get('ownedTagDecl', {})
+                if not owned and child.get('kind') == 'RecordType' and child.get('isTagOwned') is True:
+                    owned = child.get('decl', {})
+                if owned.get('kind') == 'CXXRecordDecl' and owned.get('id'):
+                    owner = owned['id']
+            # Count even unrecognized aliases and declarations in other
+            # scopes. They must not inherit this global type's copy proof.
+            identity = owner or node.get('id')
+            names.setdefault(name, set()).add(identity)
+            if kind == 'TypedefDecl' and owner and global_context:
+                declarations.append((name, owner))
+        child_global = global_context and kind in ('TranslationUnitDecl', 'LinkageSpecDecl')
+        for child in node.get('inner', []):
+            if child: visit(child, child_global)
+
+    for root in ast: visit(root)
+    count = 0
+    for name, identity in declarations:
+        record = records.get(identity)
+        if not record or record.get('name') or names.get(name) != {identity}: continue
+        traits = record.get('definitionData', {})
+        if (record.get('bases') or traits.get('isStandardLayout') is not True
+                or traits.get('isTriviallyCopyable') is not True
+                or traits.get('isAggregate') is not True
+                or traits.get('copyAssign', {}).get('trivial') is not True
+                or traits.get('moveAssign', {}).get('trivial') is not True
+                or traits.get('dtor', {}).get('trivial') is not True): continue
+        if any(child.get('kind') == 'CXXMethodDecl' and child.get('name') == 'operator='
+               and not child.get('isImplicit') for child in record.get('inner', []) if child): continue
+        aliases = record.setdefault('_source_trivial_assignment_typedefs', [])
+        if name not in aliases: aliases.append(name); count += 1
+    return count
+
+
 def recover_trivial_assignment_methods(ast):
     found, ambiguous = {}, set()
 

@@ -1,0 +1,570 @@
+{
+  "source": "source/duke3d/src/game.cpp",
+  "requested": [
+    "app_main"
+  ],
+  "requested_resolved": {
+    "app_main": false
+  },
+  "requested_compiled": {
+    "app_main": false
+  },
+  "requested_still_unlinked": [
+    "app_main"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-9984a2b6ad8a15f7/source/duke3d/src/game.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_GameExit",
+      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens, g_demo_filePtr, videoSetGameMode",
+      "dependencies": [
+        "G_BonusScreen",
+        "G_CloseDemoWrite",
+        "G_DisplayExtraScreens",
+        "g_demo_filePtr",
+        "videoSetGameMode"
+      ]
+    },
+    {
+      "name": "G_DrawRooms",
+      "reason": "union initializer lacks exact Clang-selected field",
+      "dependencies": []
+    },
+    {
+      "name": "G_HandleLocalKeys",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "G_UpdateAppTitle",
+      "reason": "unlinked identifiers: communityapiSetRichPresence, g_gameNamePtr, tempbuf",
+      "dependencies": [
+        "communityapiSetRichPresence",
+        "g_gameNamePtr",
+        "tempbuf"
+      ]
+    },
+    {
+      "name": "G_Cleanup",
+      "reason": "unlinked identifiers: Duke_CommonCleanup, G_FreeMapState, Gv_Clear, apScript, apStrings, apXStrings, bitptr, g_MenuGameplayEntries, g_highestSoundIdx, g_mapInfo, g_sounds, h_arrays",
+      "dependencies": [
+        "Duke_CommonCleanup",
+        "G_FreeMapState",
+        "Gv_Clear",
+        "apScript",
+        "apStrings",
+        "apXStrings",
+        "bitptr",
+        "g_MenuGameplayEntries",
+        "g_highestSoundIdx",
+        "g_mapInfo",
+        "g_sounds",
+        "h_arrays",
+        "h_dsound",
+        "h_dukeanim",
+        "h_dynamictilemap",
+        "h_gamefuncs",
+        "h_gamevars",
+        "h_labels",
+        "label",
+        "labelcode",
+        "newgamechoices_recursive_free",
+        "nullsound",
+        "nullvoice",
+        "vmoffset"
+      ]
+    },
+    {
+      "name": "G_Shutdown",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, CONTROL_Shutdown, FreeGroups, G_Cleanup, OSD_Cleanup, S_MusicShutdown, S_SoundShutdown, engineUnInit, uninitgroupfile",
+      "dependencies": [
+        "CONFIG_WriteSetup",
+        "CONTROL_Shutdown",
+        "FreeGroups",
+        "G_Cleanup",
+        "OSD_Cleanup",
+        "S_MusicShutdown",
+        "S_SoundShutdown",
+        "engineUnInit",
+        "uninitgroupfile"
+      ]
+    },
+    {
+      "name": "G_CompileScripts",
+      "reason": "unlinked identifiers: C_Compile, G_ConFile, G_GameExit, g_labelCnt, g_loadFromGroupOnly, g_scriptNamePtr, label, labelcode, labeltype, xmalloc, xrealloc",
+      "dependencies": [
+        "C_Compile",
+        "G_ConFile",
+        "G_GameExit",
+        "g_labelCnt",
+        "g_loadFromGroupOnly",
+        "g_scriptNamePtr",
+        "label",
+        "labelcode",
+        "labeltype",
+        "xmalloc",
+        "xrealloc"
+      ]
+    },
+    {
+      "name": "G_CheckGametype",
+      "reason": "unlinked identifiers: g_gametypeCnt, g_gametypeNames",
+      "dependencies": [
+        "g_gametypeCnt",
+        "g_gametypeNames"
+      ]
+    },
+    {
+      "name": "G_PostLoadPalette",
+      "reason": "unlinked identifiers: duke3d_globalflags, paletteFixTranslucencyMask, palettePostLoadLookups, paletteSetupDefaultFog",
+      "dependencies": [
+        "duke3d_globalflags",
+        "paletteFixTranslucencyMask",
+        "palettePostLoadLookups",
+        "paletteSetupDefaultFog"
+      ]
+    },
+    {
+      "name": "A_InitEnemyFlags",
+      "reason": "unlinked identifiers: BOSS1, BOSS1STAYPUT, BOSS2, BOSS2STAYPUT, BOSS3, BOSS3STAYPUT, BOSS4, BOSS4STAYPUT, BOSS5, BOSS5STAYPUT, COMMANDER, COMMANDERSTAYPUT",
+      "dependencies": [
+        "BOSS1",
+        "BOSS1STAYPUT",
+        "BOSS2",
+        "BOSS2STAYPUT",
+        "BOSS3",
+        "BOSS3STAYPUT",
+        "BOSS4",
+        "BOSS4STAYPUT",
+        "BOSS5",
+        "BOSS5STAYPUT",
+        "COMMANDER",
+        "COMMANDERSTAYPUT",
+        "DRONE",
+        "EGG",
+        "FIREFLY",
+        "GREENSLIME",
+        "LIZMAN",
+        "LIZMANJUMP",
+        "LIZMANSPITTING",
+        "LIZTROOP",
+        "LIZTROOPDUCKING",
+        "LIZTROOPJETPACK",
+        "LIZTROOPJUSTSIT",
+        "LIZTROOPONTOILET",
+        "LIZTROOPRUNNING",
+        "LIZTROOPSHOOT",
+        "LIZTROOPSTAYPUT",
+        "NEWBEAST",
+        "OCTABRAIN",
+        "ORGANTIC",
+        "PIGCOP",
+        "PIGCOPDIVE",
+        "PIGCOPSTAYPUT",
+        "RAT",
+        "RECON",
+        "ROTATEGUN",
+        "SHARK",
+        "TANK",
+        "g_gameType",
+        "g_scriptVersion",
+        "g_tile"
+      ]
+    },
+    {
+      "name": "G_PostCreateGameState",
+      "reason": "unlinked identifiers: A_InitEnemyFlags",
+      "dependencies": [
+        "A_InitEnemyFlags"
+      ]
+    },
+    {
+      "name": "G_HandleMemErr",
+      "reason": "unlinked identifiers: tempbuf",
+      "dependencies": [
+        "tempbuf"
+      ]
+    },
+    {
+      "name": "G_FatalEngineInitError",
+      "reason": "unlinked identifiers: G_Cleanup, engineerrstr, tempbuf",
+      "dependencies": [
+        "G_Cleanup",
+        "engineerrstr",
+        "tempbuf"
+      ]
+    },
+    {
+      "name": "G_Startup",
+      "reason": "unlinked identifiers: BIGORBIT1, CLOUDYOCEAN, CommandMap, CommandName, G_CheckGametype, G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_HandleMemErr, G_InitDynamicNames, G_InitMultiPsky, G_LoadLookups",
+      "dependencies": [
+        "BIGORBIT1",
+        "CLOUDYOCEAN",
+        "CommandMap",
+        "CommandName",
+        "G_CheckGametype",
+        "G_CompileScripts",
+        "G_FatalEngineInitError",
+        "G_GameExit",
+        "G_HandleMemErr",
+        "G_InitDynamicNames",
+        "G_InitMultiPsky",
+        "G_LoadLookups",
+        "G_PostCreateGameState",
+        "G_Shutdown",
+        "Gv_FinalizeWeaponDefaults",
+        "LA",
+        "LOADSCREEN",
+        "MOONSKY1",
+        "Net_GetPackets",
+        "artLoadFiles",
+        "engineInit",
+        "g_netServer",
+        "g_noMusic",
+        "g_noSound",
+        "gameTimerHandler",
+        "kopen4loadfrommod",
+        "numplayers",
+        "picanm",
+        "quitevent",
+        "screenpeek",
+        "szPlayerName",
+        "tempbuf",
+        "timerSetCallback"
+      ]
+    },
+    {
+      "name": "G_BackToMenu",
+      "reason": "unlinked identifiers: G_CloseDemoWrite, G_UpdateAppTitle, Menu_Change, Menu_Open, keyFlushChars",
+      "dependencies": [
+        "G_CloseDemoWrite",
+        "G_UpdateAppTitle",
+        "Menu_Change",
+        "Menu_Open",
+        "keyFlushChars"
+      ]
+    },
+    {
+      "name": "G_EndOfLevel",
+      "reason": "unlinked identifiers: CONFIG_SetMapBestTime, G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_SetGamePalette, P_UpdateScreenPal, artClearMapArt",
+      "dependencies": [
+        "CONFIG_SetMapBestTime",
+        "G_BackToMenu",
+        "G_BonusScreen",
+        "G_CloseDemoWrite",
+        "G_DoOrderScreen",
+        "G_EnterLevel",
+        "G_UpdateScreenArea",
+        "Menu_Change",
+        "Menu_Open",
+        "P_SetGamePalette",
+        "P_UpdateScreenPal",
+        "artClearMapArt",
+        "g_loadedMapHack",
+        "g_netServer",
+        "numplayers",
+        "ready2send"
+      ]
+    },
+    {
+      "name": "G_MaybeAllocPlayer",
+      "reason": "unlinked identifiers: xcalloc",
+      "dependencies": [
+        "xcalloc"
+      ]
+    },
+    {
+      "name": "drawframe_do",
+      "reason": "unlinked identifiers: CONTROL_BindsEnabled, G_DisplayRest, G_DrawBackground, G_DrawRooms, G_HandleLocalKeys, OSD_DispatchQueued, P_GetInput, S_Update, g_frameCounter, g_frameJustDrawn, g_gameQuit, g_lastFrameDuration",
+      "dependencies": [
+        "CONTROL_BindsEnabled",
+        "G_DisplayRest",
+        "G_DrawBackground",
+        "G_DrawRooms",
+        "G_HandleLocalKeys",
+        "OSD_DispatchQueued",
+        "P_GetInput",
+        "S_Update",
+        "g_frameCounter",
+        "g_frameJustDrawn",
+        "g_gameQuit",
+        "g_lastFrameDuration",
+        "g_lastFrameDuration2",
+        "g_lastFrameEndTime",
+        "g_lastFrameEndTime2",
+        "g_lastFrameStartTime",
+        "g_saveRequested",
+        "localInput",
+        "ototalclock",
+        "screenpeek",
+        "timerGetNanoTicks",
+        "totalclock",
+        "videoGetRenderMode",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "dukeFillInputForTic",
+      "reason": "unlinked identifiers: g_gameType, inputfifo, localInput, mulscale9, sintable",
+      "dependencies": [
+        "g_gameType",
+        "inputfifo",
+        "localInput",
+        "mulscale9",
+        "sintable"
+      ]
+    },
+    {
+      "name": "app_main",
+      "reason": "unlinked identifiers: Anim_Init, CONFIG_ReadSettings, CONFIG_ReadSetup, CONFIG_SetDefaultKeys, CONFIG_SetupJoystick, CONFIG_SetupMouse, CONFIG_WriteSetup, CONTROL_BindsEnabled, CONTROL_JoyPresent, CONTROL_JoystickEnabled, CONTROL_MouseEnabled, CONTROL_MousePresent",
+      "dependencies": [
+        "Anim_Init",
+        "CONFIG_ReadSettings",
+        "CONFIG_ReadSetup",
+        "CONFIG_SetDefaultKeys",
+        "CONFIG_SetupJoystick",
+        "CONFIG_SetupMouse",
+        "CONFIG_WriteSetup",
+        "CONTROL_BindsEnabled",
+        "CONTROL_JoyPresent",
+        "CONTROL_JoystickEnabled",
+        "CONTROL_MouseEnabled",
+        "CONTROL_MousePresent",
+        "CONTROL_Startup",
+        "CrosshairColors",
+        "G_CheckCommandLine",
+        "G_CleanupSearchPaths",
+        "G_DefFile",
+        "G_DisplayLogo",
+        "G_DoCheats",
+        "G_DrawRooms",
+        "G_EndOfLevel",
+        "G_ExtInit",
+        "G_ExtPreInit",
+        "G_FatalEngineInitError",
+        "G_GameExit",
+        "G_GetCrosshairColor",
+        "G_InitText",
+        "G_LoadGroups",
+        "G_MaybeAllocPlayer",
+        "G_NewGame",
+        "G_PlaybackDemo",
+        "G_PostLoadPalette",
+        "G_SavePlayerMaybeMulti",
+        "G_ScanGroups",
+        "G_SetCrosshairColor",
+        "G_SetupCheats",
+        "G_Startup",
+        "G_UpdateAppTitle",
+        "G_UpdateScreenArea",
+        "Gv_ResetSystemDefaults",
+        "MIRROR",
+        "Menu_Change",
+        "Menu_Init",
+        "Net_GetPackets",
+        "OSD_SetCallbacks",
+        "P_ResetInventory",
+        "P_ResetWeapons",
+        "PrintBuildInfo",
+        "RTS_Init",
+        "ReadSaveGameHeaders",
+        "S_ClearSoundLocks",
+        "S_MusicStartup",
+        "S_SoundStartup",
+        "cacheAllSounds",
+        "connectpoint2",
+        "drawframe_do",
+        "dukeConsoleClearBackground",
+        "dukeConsoleGetColumnWidth",
+        "dukeConsoleGetRowHeight",
+        "dukeConsoleOnShowCallback",
+        "dukeConsolePrintChar",
+        "dukeConsolePrintCursor",
+        "dukeConsolePrintString",
+        "dukeFillInputForTic",
+        "engineFPSLimit",
+        "engineLoadClipMaps",
+        "enginePostInit",
+        "engineSetLogFile",
+        "engineSetLogVerbosityCallback",
+        "engineUnInit",
+        "g_clipMapFiles",
+        "g_defModules",
+        "g_fakeMultiMode",
+        "g_frameCounter",
+        "g_frameJustDrawn",
+        "g_gameType",
+        "g_gameUpdateAndDrawTime",
+        "g_gameUpdateAvgTime",
+        "g_gameUpdateTime",
+        "g_lastFrameDuration",
+        "g_lastautosave",
+        "g_maxDefinedSkill",
+        "g_netClient",
+        "g_netServer",
+        "g_networkMode",
+        "g_noAutoLoad",
+        "g_noLogoAnim",
+        "g_quickload",
+        "g_rtsNamePtr",
+        "g_saveRequested",
+        "g_screenCapture",
+        "g_scriptDebug",
+        "g_setupFileName",
+        "g_useCwd",
+        "gameHandleEvents",
+        "gamefunctions",
+        "h_gamefuncs",
+        "idle",
+        "keyFlushChars",
+        "keydefaults",
+        "keystatus",
+        "loaddefinitions_game",
+        "loaddefinitionsfile",
+        "lockclock",
+        "numplayers",
+        "ototalclock",
+        "quitevent",
+        "ready2send",
+        "registerosdcommands",
+        "system_getcvars",
+        "tempbuf",
+        "tileDelete",
+        "totalclock",
+        "user_quote_time",
+        "videoSetGameMode",
+        "walock"
+      ]
+    },
+    {
+      "name": "G_DoMoveThings",
+      "reason": "unlinked identifiers: APLAYERTOP, A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill, actor, connectpoint2",
+      "dependencies": [
+        "APLAYERTOP",
+        "A_MoveCyclers",
+        "A_MoveDummyPlayers",
+        "G_AnimateWalls",
+        "G_DemoRecord",
+        "G_MoveWorld",
+        "P_CheckSectors",
+        "P_HandleSharedKeys",
+        "P_ProcessInput",
+        "P_QuickKill",
+        "actor",
+        "connectpoint2",
+        "everyothertime",
+        "g_earthquakeTime",
+        "g_globalRandom",
+        "g_moveThingsCount",
+        "g_netClient",
+        "g_netServer",
+        "g_showShareware",
+        "inputfifo",
+        "krand",
+        "lockclock",
+        "pub",
+        "pus",
+        "randomseed",
+        "ticrandomseed",
+        "user_quote_time"
+      ]
+    },
+    {
+      "name": "G_SetupGameButtons",
+      "reason": "unlinked identifiers: CONTROL_DefineFlag",
+      "dependencies": [
+        "CONTROL_DefineFlag"
+      ]
+    },
+    {
+      "name": "BGetTime__header_e0d5a90e5073",
+      "reason": "unlinked identifiers: totalclock",
+      "dependencies": [
+        "totalclock"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_dc180f51db89",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_507d9c6bed4d",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "dependencies": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "G_NewGame_EnterLevel__header_96c36a42496f",
+      "reason": "unlinked identifiers: G_BackToMenu, G_EnterLevel, G_NewGame",
+      "dependencies": [
+        "G_BackToMenu",
+        "G_EnterLevel",
+        "G_NewGame"
+      ]
+    },
+    {
+      "name": "G_UpdateInterpolations__header_2ddf22606984",
+      "reason": "unlinked identifiers: curipos, g_interpolationCnt, oldipos",
+      "dependencies": [
+        "curipos",
+        "g_interpolationCnt",
+        "oldipos"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_58b695402eef",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "KB_Shutdown__header_f9b728aabb4d",
+      "reason": "unlinked identifiers: keySetCallback",
+      "dependencies": [
+        "keySetCallback"
+      ]
+    },
+    {
+      "name": "calc_smoothratio__header_10443239967a",
+      "reason": "unlinked identifiers: calc_smoothratio__header_4efb61ea221d",
+      "dependencies": [
+        "calc_smoothratio__header_4efb61ea221d"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_d57fb66bb209",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_c6eb91badbc8",
+      "dependencies": [
+        "FX_SetErrorCode__header_c6eb91badbc8"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_24d009939acc",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "calc_smoothratio__header_4efb61ea221d",
+      "reason": "unlinked identifiers: tabledivide32_noinline, timerGetClockRate",
+      "dependencies": [
+        "tabledivide32_noinline",
+        "timerGetClockRate"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_c6eb91badbc8",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false
+}
