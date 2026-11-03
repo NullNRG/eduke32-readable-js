@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDuke32 · Original engine startup diagnostic</title>
+<style>
+:root{color-scheme:dark;font:16px/1.6 system-ui;background:#101416;color:#edf1ef}body{max-width:960px;margin:40px auto;padding:0 24px}a{color:#c4e7a5}h1{font-size:28px}button{font:inherit;padding:10px 18px;background:#c4e7a5;border:0;border-radius:6px;cursor:pointer}button:disabled{opacity:.5;cursor:wait}pre{padding:20px;background:#19211e;border:1px solid #34443c;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.7 monospace}#result{padding:16px;border-left:4px solid #b59760;background:#19211e}.muted{color:#aab6b1}[hidden]{display:none!important}
+</style></head><body>
+<a href="/">← Project launcher</a><h1>Original engine startup</h1>
+<p>This runs the compiled original allocator and <code>enginePreInit</code> in this browser, then checks the division tables and video-mode state they initialized.</p>
+<p class="muted">This is an engine pre-initialization diagnostic. It does not run <code>app_main</code>, render a menu or start a level. The blank diagnostic canvas is hidden.</p>
+<button id="run">Run original engine startup</button> <a id="download" hidden download="engine-startup-browser-result.json">Save this run’s result</a>
+<p id="result" role="status" aria-live="polite">Ready. Each run uses a fresh page and fresh original globals.</p>
+<canvas id="canvas" width="640" height="480" hidden></canvas><pre id="trace">No original functions executed in this page yet.</pre>
+<script type="module">
+const button=document.querySelector('#run'),status=document.querySelector('#result'),trace=document.querySelector('#trace');
+let finished=false;
+button.addEventListener('click',async()=>{
+ if(finished){location.reload();return;}
+ button.disabled=true;status.textContent='Running original source…';trace.textContent='';
+ const originalInfo=console.info;
+ console.info=(...args)=>{originalInfo.apply(console,args);if(String(args[0]).startsWith('SOURCE_TRACE '))trace.textContent+=String(args[0]).slice(13)+'\n';};
+ try{
+  const response=await fetch('/api/engine-startup-config',{cache:'no-store'});if(!response.ok)throw Error('Start the local project launcher first');
+  const {base}=await response.json(),{default:run}=await import('/api/engine-startup.js');
+  const result=await run({base,consoleOnly:false});window.__ENGINE_STARTUP_RESULT__=result;
+  if(!result.component_passed||!result.original_engine_startup_verified||!result.fresh_startup_without_precalled_helpers)throw Error(result.error||'Original startup did not pass');
+  status.textContent='Original enginePreInit returned 0. Divider storage and video modes passed. Gameplay remains unverified.';
+  trace.textContent=JSON.stringify(result,null,2);
+  const link=document.querySelector('#download');link.href=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)+'\n'],{type:'application/json'}));link.hidden=false;
+ }catch(error){status.textContent='Startup failed: '+error.message;trace.textContent+='\n'+(error.stack||error);}
+ finally{console.info=originalInfo;finished=true;button.disabled=false;button.textContent='Reload for a fresh run';}
+});
+if(location.protocol==='file:'){button.disabled=true;status.textContent='Open launch-project.cmd or run npm run serve:project, then open this diagnostic from the launcher.';}
+</script></body></html>

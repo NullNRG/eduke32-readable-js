@@ -9,7 +9,7 @@
   "scripts": {
     "compile:component": "node tools/run_python.mjs tools/recover_browser_component.py",
     "status:component": "node tools/run_python.mjs tools/recover_browser_component.py --snapshot",
-    "verify:engine-startup": "node tools/run_python.mjs tools/verify_browser_engine_component.py",
+    "verify:engine-startup": "node tools/run_python.mjs work/verify_fresh_engine_startup.py",
     "build:services": "node tools/run_python.mjs tools/build_browser_services.py",
     "test:services": "node tools/run_python.mjs tests/source_factory/verify_native_sdl_services.py",
     "audit:all-files": "node tools/run_python.mjs tools/source_first_file_audit.py --out factory-output/source-first/all-files-audit.json --strict",
@@ -156,7 +156,8 @@
     "serve:project": "node tools/run_python.mjs tools/project_launcher.py --open",
     "handoff:project": "node tools/run_python.mjs work/package_current_continuation.py",
     "clean:preview": "node tools/run_python.mjs tools/project_workspace.py plan",
-    "clean:project": "node tools/run_python.mjs tools/project_workspace.py clean"
+    "clean:project": "node tools/run_python.mjs tools/project_workspace.py clean",
+    "recover:app-main": "node tools/run_python.mjs work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main"
   },
   "type": "module",
   "version": "0.1.0"

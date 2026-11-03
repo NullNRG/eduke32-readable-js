@@ -11,11 +11,31 @@ state=read('HANDOFF_SNAPSHOT.json')
 try:state['source_implementation_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
 except (OSError,subprocess.CalledProcessError):pass
 component=read('factory-output/source-first/browser-classic/component-manifest.json')
+semantic=read('factory-output/source-first/browser-classic/reports/semantic-index.summary.json')
+state['semantic_index']={key:semantic.get(key) for key in ('fingerprint','selected_units','attempted_units',
+    'unit_statuses','all_selected_units_parsed_without_errors','complete_semantic_extraction','limitations')}
+preparation=read('reports/browser-classic-preparation.json')
+state['source_preparation']={key:preparation.get(key) for key in ('selected_units','commands_sha256',
+    'allocator_backend','excluded_pool_units','source_adaptations')}
+payload_metadata=ROOT/'reports/semantic-browser-checkpoint/index.jsonl.json'
+if payload_metadata.is_file():
+    payload=read(payload_metadata.relative_to(ROOT))
+    state['portable_semantic_checkpoint']['fingerprint_matches_current_index']=payload.get('semantic_fingerprint')==semantic['fingerprint']
+    state['portable_semantic_payload_verification']={
+        'format':'semantic-continuation-payload-verification/2','payload':'reports/semantic-browser-checkpoint/index.jsonl.gz',
+        'payload_sha256':payload.get('payload_sha256'),'semantic_fingerprint':payload.get('semantic_fingerprint'),
+        'matches_current_index':payload.get('semantic_fingerprint')==semantic['fingerprint'],
+        'table_rows':payload.get('table_rows'),'logical_table_sha256':payload.get('logical_table_sha256'),
+        'new_sqlite_restoration_tested':False,'gameplay_verified':False}
+console_path=ROOT/'reports/nov02-original-console-chromium.json'
+console=read(console_path.relative_to(ROOT)) if console_path.is_file() else {}
+console_matches=(console.get('artifacts')=={path:digest for path,digest in component.get('artifacts',{}).items() if path.endswith('.mjs')}
+    and console.get('runtime_artifacts')==component.get('runtime_artifacts'))
 state.update(updated_utc=datetime.now(timezone.utc).isoformat(),
     compiler_frontend_sha256=sha('tools/source_ast_to_js.py'),
     current_full_profile_emission_verified=False,current_whole_program_linked=False,
-    original_entry_executed_current_profile=False,original_engine_preinit_executed=False,
-    original_console_initialization_verified=False,original_menu_rendered_in_javascript=False,
+    original_entry_executed_current_profile=False,original_engine_preinit_executed=bool(component.get('original_engine_startup_verified')),
+    original_console_initialization_verified=bool(console_matches and console.get('original_console_initialization_verified') and not console.get('page_errors')),original_menu_rendered_in_javascript=False,
     original_e1l1_rendered_in_javascript=False,gameplay_verified=False,
     playable_dist_index_present=False)
 state['boot_module_root']=component['module_root']
@@ -28,20 +48,39 @@ state['startup_component_build'].update(manifest='factory-output/source-first/br
     ambiguous_export_group_count=len(component['ambiguous_export_groups']),
     original_storage_ownership_verified=component.get('original_storage_ownership_verified',False),
     storage_ownership_conflicts=component.get('storage_ownership_conflicts',[]))
-state['startup_component_warning']='22 partial unit modules are incremental artifacts, not a uniform 111-unit game build. Executed allocator/division/system/video calls do not execute original enginePreInit or app_main. Per-module fingerprints retain their individual compiler revisions.'
+state['startup_component_warning']=f"{component['source_units_with_partial_modules']} partial unit modules are incremental artifacts, not a uniform {component['selected_source_units']}-unit game build. Original enginePreInit executes in a fresh Chromium realm without manually initializing its helpers. Original app_main, menus and gameplay remain unverified. Per-module fingerprints retain their individual compiler revisions."
 state['original_console_frontier']=read('factory-output/source-first/browser-classic/reports/frontier-source_build_src_osd.cpp.json')
+state['original_console_execution']={'report':'reports/nov02-original-console-chromium.json',
+    'current_module_and_runtime_fingerprints_match':console_matches,
+    **{key:console.get(key) for key in ('component_passed','original_console_initialization_verified',
+        'original_console_alias_verified','original_console_command_callbacks','browser_version','page_errors')},
+    'original_engine_startup_verified':False,'gameplay_verified':False}
 state['original_hash_frontier']={'original_hash_initializers_linked':True,
     'original_xxh32_parity_report':'reports/oct31-original-xxh32-parity.json',
     'original_xxh32_native_node_chromium_cases':272,
     'original_libdivide_execution_records':65532}
+engine_frontier_path=ROOT/'factory-output/source-first/browser-classic/reports/frontier-source_build_src_engine.cpp.json'
+engine_frontier=read(engine_frontier_path.relative_to(ROOT)) if engine_frontier_path.is_file() else {}
 state['original_engine_preinit_frontier']={
-    'linked':False,'executed':False,
-    'immediate_shared_blocker':'Original AtomicSList64 push/load/compare-exchange now link. OSD_Puts remains blocked by original AtomicLogString construction and inherited/member object lifetimes. Borrowed byte-field views do not establish construction.',
-    'additional_dependencies':['original console registration and callbacks','logging','remaining engine services']}
+    'linked':bool(component.get('entry_exports',{}).get('enginePreInit')),
+    'executed':state['original_engine_preinit_executed'],
+    'direct_failures':[row for row in engine_frontier.get('blocked',[]) if row.get('name')=='enginePreInit'],
+    'immediate_shared_blocker':'Original enginePreInit returns 0 in fresh Chromium. Continue original app_main: anonymous typedef-owned input_t copy/move assignment, exact selected union initialization and remaining source dependencies.',
+    'additional_dependencies':['original app_main and game loop','original game clock initialization','source SDL surfaces/events/audio']}
+game_frontier=read('factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json')
+state['original_app_main_frontier']={'report':'factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json',
+    'linked':bool(component.get('entry_exports',{}).get('app_main')),'executed':False,
+    'missing_direct_references':next((row.get('dependencies',[]) for row in game_frontier.get('blocked',[]) if row.get('name')=='app_main'),[]),
+    'non_link_semantic_blockers':[row for row in game_frontier.get('blocked',[]) if not row.get('reason','').startswith('unlinked identifiers:')],
+    'dependency_catalog_is_complete':False,'reason':'The bounded recovery reached 256 queries; 50 references remain unqueried in this attempt.'}
+state['launcher_features']=['interactive original enginePreInit diagnostic','fresh Chromium startup verification',
+    'targeted app_main dependency recovery','full build','regression suite','acceptance checks','private continuation ZIP','conservative cleanup preview']
+state['launcher_browser_evidence']='reports/nov02-launcher-browser.json'
 state['regression_baseline']={'report':'reports/oct30-startup-verified-regression.json',
     'passed':186,'complete':True,'frozen_inputs':True,
     'note':'Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes.'}
-regression_report=('reports/nov02-method-full-regression.json' if (ROOT/'reports/nov02-method-full-regression.json').is_file()
+regression_report=('reports/nov02-static-startup-full-regression.json' if (ROOT/'reports/nov02-static-startup-full-regression.json').is_file()
+                   else 'reports/nov02-method-full-regression.json' if (ROOT/'reports/nov02-method-full-regression.json').is_file()
                    else 'reports/nov01-vfs-final-full-regression.json')
 report=read(regression_report)
 keys=('complete','counts','selected_tests','completed_tests','all_passed','regression_inputs_unchanged','compiler_frontend_sha256')
@@ -58,7 +97,14 @@ if corrected_path.is_file():
         'revision_matches_current_inputs':corrected.get('regression_inputs')==current,
         'files_changed_since_complete_run':[name for name in sorted(set(before)|set(current)) if before.get(name)!=current.get(name)],
         'subsequent_full_pass_claimed':False}
-targeted_report=('reports/nov02-atomic-pop-regression.json' if (ROOT/'reports/nov02-atomic-pop-regression.json').is_file()
+targeted_report=('reports/nov02-launcher-regression.json' if (ROOT/'reports/nov02-launcher-regression.json').is_file()
+                 else 'reports/nov02-worklist-final-regression.json' if (ROOT/'reports/nov02-worklist-final-regression.json').is_file()
+                 else 'reports/nov02-static-player-final-regression.json' if (ROOT/'reports/nov02-static-player-final-regression.json').is_file()
+                 else 'reports/nov02-player-storage-final-regression.json' if (ROOT/'reports/nov02-player-storage-final-regression.json').is_file()
+                 else 'reports/nov02-header-scope-regression.json' if (ROOT/'reports/nov02-header-scope-regression.json').is_file()
+                 else 'reports/nov02-console-final-regression.json' if (ROOT/'reports/nov02-console-final-regression.json').is_file()
+                 else 'reports/nov02-function-address-regression.json' if (ROOT/'reports/nov02-function-address-regression.json').is_file()
+                 else 'reports/nov02-atomic-pop-regression.json' if (ROOT/'reports/nov02-atomic-pop-regression.json').is_file()
                  else 'reports/nov02-array-address-regression.json' if (ROOT/'reports/nov02-array-address-regression.json').is_file()
                  else 'reports/nov01-archive-compiler-regression.json')
 targeted=read(targeted_report)
@@ -75,6 +121,14 @@ if atomic_report.is_file():
         'frontier_note':'reports/nov02-constructor-frontier.md',
         'compiler_and_runtime_helpers_match':bool(atomic.get('compiler_and_runtime_helpers')) and all(
             (ROOT/path).is_file() and sha(path)==digest for path,digest in atomic.get('compiler_and_runtime_helpers',{}).items())}
+log_constructor_path=ROOT/'reports/nov02-original-log-constructor-parity.json'
+if log_constructor_path.is_file():
+    constructor=read(log_constructor_path.relative_to(ROOT))
+    state['original_log_node_constructor']={'report':log_constructor_path.relative_to(ROOT).as_posix(),
+        **{key:constructor.get(key) for key in ('passed','native_node_chromium_cases',
+            'javascript_constructed_original_log_node','original_default_base_initializer_executed',
+            'original_scalar_atomic_constructor_executed','fixture_record_span_is_byte_identical_to_original')},
+        'compiler_and_runtime_helpers_match':all(sha(path)==digest for path,digest in constructor.get('compiler_and_runtime_helpers',{}).items())}
 vfs=read('reports/nov01-original-vfs-parity.json')
 state['original_resource_io']={'report':'reports/nov01-original-vfs-parity.json',
     'passed':vfs['passed'],'native_node_chromium_match':vfs['native_node_chromium_match'],
@@ -124,10 +178,10 @@ state['known_correctness_gaps']=[
 if component.get('storage_ownership_conflicts'):
     state['known_correctness_gaps'].insert(0,'Legacy source fragments still duplicate some original globals. The component manifest enumerates the actual active conflicts; zero missing imports does not prove shared storage correctness.')
 state['remaining_acceptance_failures']=[
-    'Original console C++ object storage/lifetime, registration and logging closure',
+    'Original app_main dependency closure, including packed input_t copy/move and selected union initialization',
     'Remaining actual duplicate source storage in legacy fragments',
     'Current uniform selected-unit emission and verified fixed-point global linkage',
-    'Original app_main and enginePreInit execution',
+    'Original app_main execution (enginePreInit already passes independently)',
     'Original game-clock state and complete SDL/browser service integration',
     'Original rendered menu and E1L1',
     '60-second gameplay, audio, collision, interaction, progression and save/load verification',
@@ -136,7 +190,7 @@ state['remaining_acceptance_failures']=[
 state['resume_commands']=[
     '. work/session-env.ps1',
     'npm run status:component',
-    'npm run compile:component -- source/build/src/osd.cpp OSD_Init,OSD_RegisterCvar,OSD_RegisterFunction,OSD_Puts',
+    'npm run recover:app-main',
     'npm run verify:engine-startup',
     'python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json',
     'npm run compile:game'

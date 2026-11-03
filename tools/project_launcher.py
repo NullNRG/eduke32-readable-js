@@ -5,8 +5,11 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from project_workspace import ROOT, cleanup_plan, save, sha
+from browser_engine_probe import fresh_engine_probe
 
 JOBS = {
+    'engine-startup': ('Verify original engine startup in Chromium', ['work/verify_fresh_engine_startup.py']),
+    'resume-app-main': ('Recover original app_main dependency closure', ['work/recover_boot_reachable.py','source/duke3d/src/game.cpp','app_main']),
     'build': ('Compile original game', ['tools/build_browser_classic.py']),
     'test': ('Compiler and runtime regression tests', ['tools/verify_recovery_suite.py','--jobs','1','--timeout','240','--report','reports/project-regression.json']),
     'acceptance': ('Original game acceptance checks', ['tools/verify_port_acceptance.py','--strict']),
@@ -17,6 +20,14 @@ JOBS = {
 class Project:
     def __init__(self, root=ROOT):
         self.root=root.resolve(); self.token=secrets.token_urlsafe(32); self.lock=threading.Lock(); self.job=None; self.process=None
+        self.hash_cache={}
+    def unchanged_artifact(self, name, digest):
+        path=(self.root/name).resolve()
+        if not path.is_relative_to(self.root) or not path.is_file():return False
+        stat=path.stat(); stamp=(stat.st_mtime_ns,stat.st_ctime_ns,stat.st_size)
+        previous=self.hash_cache.get(name)
+        if not previous or previous[0]!=stamp:self.hash_cache[name]=(stamp,sha(path))
+        return self.hash_cache[name][1]==digest
     def start(self, name):
         if name not in JOBS: raise ValueError('Unknown project action')
         with self.lock:
@@ -45,6 +56,20 @@ class Project:
             try:return json.loads((self.root/name).read_text(encoding='utf-8-sig'))
             except (OSError,ValueError):return None
         acceptance=read('reports/port-acceptance.json') or {}
+        profile=read('tools/browser_classic_profile.json') or {}
+        component=read('factory-output/source-first/browser-classic/component-manifest.json') or {}
+        proof=read('reports/oct30-original-browser-component.json') or {}
+        artifacts={**proof.get('artifacts',{}),**proof.get('runtime_artifacts',{})}
+        attested_modules={name:digest for name,digest in component.get('artifacts',{}).items() if name.endswith('.mjs')}
+        engine_verified=bool(proof.get('original_engine_startup_verified')
+            and proof.get('fresh_startup_without_precalled_helpers') and not proof.get('page_errors')
+            and proof.get('artifacts') and proof.get('runtime_artifacts')
+            and proof.get('artifacts')==attested_modules
+            and proof.get('runtime_artifacts')==component.get('runtime_artifacts')
+            and all(self.unchanged_artifact(name,digest) for name,digest in artifacts.items()))
+        module_root=profile.get('boot_module_root','')
+        engine_path=(self.root/module_root/'source/build/src/engine.cpp.mjs').resolve() if module_root else None
+        engine_available=bool(engine_path and engine_path.is_relative_to(self.root) and engine_path.is_file())
         html=self.root/'dist/index.html'; exists=html.is_file()
         attested=acceptance.get('deliverables',{}).get('offline_html',{})
         verified=bool(exists and acceptance.get('original_game_playable_verified') and attested.get('sha256')==sha(html))
@@ -53,6 +78,14 @@ class Project:
             'failed_checks':acceptance.get('failed_checks',[]),'unverified_checks':acceptance.get('unverified_checks',[]),
             'handoff':read('reports/project-handoff.json'),'cleanup':read('reports/project-cleanup.json'),
             'job':dict(self.job) if self.job else None,'token':self.token}
+        result['engine']={'available':engine_available,'verified':engine_verified,
+            'url':'/engine-startup.html' if engine_available else None,
+            'report_url':'/reports/oct30-original-browser-component.json' if proof else None,
+            'message':'Original enginePreInit returned 0; recorded module and runtime bytes match' if engine_verified else 'Startup evidence is absent or stale; run verification for current bytes',
+            'partial_units':component.get('source_units_with_partial_modules'),
+            'selected_units':component.get('selected_source_units'),
+            'app_main_linked':bool(component.get('entry_exports',{}).get('app_main')),
+            'gameplay_verified':False}
         if result['handoff']:
             path=Path(result['handoff']['path'])
             result['handoff']['url']='/'+path.relative_to(self.root).as_posix() if path.is_relative_to(self.root) and path.is_file() else None
@@ -77,10 +110,18 @@ class Handler(SimpleHTTPRequestHandler):
         path=unquote(urlsplit(self.path).path)
         if path=='/api/status':return self.json(200,self.server.project.status())
         if path=='/api/cleanup-plan':return self.json(200,cleanup_plan(self.server.project.root))
+        if path=='/api/engine-startup-config':
+            profile=json.loads((self.server.project.root/'tools/browser_classic_profile.json').read_text())
+            module_root=Path(profile['boot_module_root'])
+            if module_root.is_absolute() or '..' in module_root.parts:return self.json(500,{'error':'Invalid module root'})
+            return self.json(200,{'base':'/'+module_root.as_posix()})
+        if path=='/api/engine-startup.js':
+            body=('export default '+fresh_engine_probe(self.server.project.root)+';\n').encode()
+            self.send_response(200);self.send_header('Content-Type','text/javascript');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body);return
         resolved=(self.server.project.root/path.lstrip('/')).resolve()
         if not resolved.is_relative_to(self.server.project.root):return self.json(403,{'error':'Outside project'})
         parts=Path(path.lstrip('/')).parts
-        allowed=not parts or path=='/index.html' or parts[0] in ('runtime','factory-output','reports','dist','handoffs') or path in ('/CONTINUE_HERE.md','/CURRENT_PORT_STATUS.md','/BUILD_PORTABILITY.md')
+        allowed=not parts or path in ('/index.html','/engine-startup.html','/tools/source_address_runtime.mjs') or parts[0] in ('runtime','factory-output','reports','dist','handoffs') or path in ('/CONTINUE_HERE.md','/CURRENT_PORT_STATUS.md','/BUILD_PORTABILITY.md','/ENGINEERING_CHECKPOINT.md')
         if not allowed or any(p.startswith('.') for p in parts):return self.json(404,{'error':'Not a public project artifact'})
         if resolved.is_dir() and path not in ('/','/index.html'):return self.json(404,{'error':'Directory listing disabled'})
         return super().do_GET()

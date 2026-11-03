@@ -18,6 +18,7 @@ def main():
         (root/'work/ast-cache-clock').mkdir();(root/'work/ast-cache-clock/old.json').write_bytes(b'old-cache'*100)
         (root/'work/private.txt').write_text('not publicly served')
         (root/'tools/probe.py').write_text('import time\nprint("real job output",flush=True)\ntime.sleep(0.3)\nraise SystemExit(7)\n')
+        (root/'tools/source_address_runtime.mjs').write_text('export const abi="test";')
         assert cleanup_plan(root)['bytes']==900
         result=cleanup(root); assert result['removed_bytes']==900 and not (root/'work/ast-cache-clock').exists()
         assert (root/'runtime/keep.mjs').is_file() and cleanup_plan(root)['bytes']==0
@@ -39,6 +40,8 @@ def main():
             assert not state['game_present'] and not state['gameplay_verified']
             assert request('GET','/api/status',headers={'Host':'evil.invalid'})[0]==403
             assert request('GET','/work/private.txt')[0]==404
+            assert request('GET','/tools/source_address_runtime.mjs')[0]==200
+            assert request('GET','/tools/probe.py')[0]==404
             assert request('GET','/../private.txt')[0]==403
             assert request('GET','/reports/')[0]==404
             assert request('POST','/api/jobs','{"action":"build"}')[0]==403

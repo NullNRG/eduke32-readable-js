@@ -1,12 +1,12 @@
 {
   "format": "sourcefactory-current-project/3",
-  "updated_utc": "2026-11-02T15:48:28.383853+00:00",
+  "updated_utc": "2026-11-03T01:08:07.315634+00:00",
   "source_repository": "https://github.com/NullNRG/eduke32-readable-js",
   "gameplay_verified": false,
   "playable_dist_index_present": false,
   "original_entry_executed_current_profile": false,
-  "original_engine_preinit_executed": false,
-  "original_console_initialization_verified": false,
+  "original_engine_preinit_executed": true,
+  "original_console_initialization_verified": true,
   "original_menu_rendered_in_javascript": false,
   "original_e1l1_rendered_in_javascript": false,
   "current_full_profile_emission_verified": false,
@@ -29,7 +29,7 @@
     "factory-output/source-first/oct29-browser-audio-table",
     "factory-output/browser-services"
   ],
-  "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+  "compiler_frontend_sha256": "8d91ec9a0b04b35f8ce2dd10c842349b96670b1c54a66f3285964a98cb735a13",
   "native_pointer_abi": "source-lp64-addresses/2",
   "native_service_pointer_bits": 32,
   "native_service_separate_heap": true,
@@ -86,6 +86,12 @@
         "reason": "Exclude pool statistics when the browser profile does not use a pool"
       },
       {
+        "file": "source/build/src/baselayer.cpp",
+        "original_sha256": "1ee5ffa33fe90158798abf06511bdbb1a56c8ec19e1bd514853eee65e626e78f",
+        "browser_sha256": "7762522b265651b48655a3ffe2bab94cd57c1262baf234f9ef8ce0a5a85a854e",
+        "reason": "Exclude desktop output-monitor selection from the browser console; retain original video mode and rendering paths"
+      },
+      {
         "file": "GNUmakefile",
         "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
         "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
@@ -94,7 +100,7 @@
     ]
   },
   "semantic_index": {
-    "fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
     "selected_units": 111,
     "attempted_units": 111,
     "unit_statuses": {
@@ -137,19 +143,19 @@
   },
   "blocker_report_warning": "Existing whole-program blocker reports predate current profile/ABI. Refresh from current emission.",
   "regression": {
-    "report": "reports/nov02-method-full-regression.json",
+    "report": "reports/nov02-static-startup-full-regression.json",
     "complete": true,
     "counts": {
-      "passed": 210,
-      "failed": 1,
-      "timeout": 0,
+      "passed": 215,
+      "failed": 2,
+      "timeout": 1,
       "launch-failed": 0
     },
-    "selected_tests": 211,
-    "completed_tests": 211,
+    "selected_tests": 218,
+    "completed_tests": 218,
     "all_passed": false,
     "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "compiler_frontend_sha256": "7de5bffcfb86196064bb5dfb14dc14ccb0ad66f36134c240725a0db8b31d0235",
     "revision_matches_current_inputs": false,
     "gameplay_verified": false
   },
@@ -188,47 +194,36 @@
   "original_console_frontier": {
     "source": "source/build/src/osd.cpp",
     "requested": [
+      "OSD_Dispatch",
+      "OSD_Exec",
       "OSD_Init",
+      "OSD_Printf",
       "OSD_RegisterCvar",
       "OSD_RegisterFunction",
-      "OSD_Puts"
+      "osdfunc_alias",
+      "osdfunc_exec",
+      "osdfunc_fileinfo",
+      "osdfunc_help",
+      "osdfunc_history",
+      "osdfunc_listsymbols"
     ],
     "requested_resolved": {
-      "OSD_Init": false,
-      "OSD_RegisterCvar": false,
-      "OSD_RegisterFunction": false,
-      "OSD_Puts": false
+      "OSD_Dispatch": true,
+      "OSD_Exec": true,
+      "OSD_Init": true,
+      "OSD_Printf": true,
+      "OSD_RegisterCvar": true,
+      "OSD_RegisterFunction": true,
+      "osdfunc_alias": true,
+      "osdfunc_exec": true,
+      "osdfunc_fileinfo": true,
+      "osdfunc_help": true,
+      "osdfunc_history": true,
+      "osdfunc_listsymbols": true
     },
-    "requested_still_unlinked": [
-      "OSD_Init",
-      "OSD_RegisterCvar",
-      "OSD_RegisterFunction",
-      "OSD_Puts"
-    ],
-    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\c0da9606d3d8\\source\\build\\src\\osd.cpp.manifest.json",
+    "requested_still_unlinked": [],
+    "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\d4d49e8a4eed\\source\\build\\src\\osd.cpp.manifest.json",
     "blocked": [
-      {
-        "name": "OSD_RegisterCvar",
-        "reason": "unlinked identifiers: OSD_Init, OSD_RegisterFunction",
-        "dependencies": [
-          "OSD_Init",
-          "OSD_RegisterFunction"
-        ]
-      },
-      {
-        "name": "OSD_Exec",
-        "reason": "unlinked identifiers: OSD_Dispatch",
-        "dependencies": [
-          "OSD_Dispatch"
-        ]
-      },
-      {
-        "name": "osdfunc_exec",
-        "reason": "unlinked identifiers: OSD_Exec",
-        "dependencies": [
-          "OSD_Exec"
-        ]
-      },
       {
         "name": "_mm_add_epi16",
         "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(8 * sizeof(unsigned short)))) unsigned short",
@@ -522,85 +517,8 @@
         ]
       },
       {
-        "name": "osdfunc_fileinfo",
-        "reason": "unlinked identifiers: OSD_Printf",
-        "dependencies": [
-          "OSD_Printf"
-        ]
-      },
-      {
-        "name": "osdfunc_alias",
-        "reason": "unlinked identifiers: OSD_RegisterFunction",
-        "dependencies": [
-          "OSD_RegisterFunction"
-        ]
-      },
-      {
-        "name": "osdfunc_listsymbols",
-        "reason": "unlinked identifiers: OSD_Printf",
-        "dependencies": [
-          "OSD_Printf"
-        ]
-      },
-      {
-        "name": "osdfunc_help",
-        "reason": "unlinked identifiers: OSD_Printf",
-        "dependencies": [
-          "OSD_Printf"
-        ]
-      },
-      {
-        "name": "osdfunc_history",
-        "reason": "unlinked identifiers: OSD_Printf",
-        "dependencies": [
-          "OSD_Printf"
-        ]
-      },
-      {
-        "name": "OSD_Init",
-        "reason": "unlinked identifiers: osdfunc_exec, osdfunc_fileinfo, osdfunc_help, osdfunc_history, osdfunc_listsymbols",
-        "dependencies": [
-          "osdfunc_exec",
-          "osdfunc_fileinfo",
-          "osdfunc_help",
-          "osdfunc_history",
-          "osdfunc_listsymbols"
-        ]
-      },
-      {
-        "name": "OSD_Printf",
-        "reason": "unlinked identifiers: OSD_Puts",
-        "dependencies": [
-          "OSD_Puts"
-        ]
-      },
-      {
-        "name": "OSD_Puts",
-        "reason": "C++ heap object needs complete original class construction/destruction: AtomicLogString",
-        "dependencies": []
-      },
-      {
-        "name": "OSD_Dispatch",
-        "reason": "unlinked identifiers: OSD_Printf",
-        "dependencies": [
-          "OSD_Printf"
-        ]
-      },
-      {
-        "name": "OSD_RegisterFunction",
-        "reason": "unlinked identifiers: OSD_Init",
-        "dependencies": [
-          "OSD_Init"
-        ]
-      },
-      {
         "name": "__digits__header_630a4bdb591c",
         "reason": "DependentScopeDeclRefExpr",
-        "dependencies": []
-      },
-      {
-        "name": "AtomicLogString",
-        "reason": "C++ inheritance requires a source-level inheritance lowering pass",
         "dependencies": []
       }
     ],
@@ -613,30 +531,31 @@
     "original_libdivide_execution_records": 65532
   },
   "original_engine_preinit_frontier": {
-    "linked": false,
-    "executed": false,
-    "immediate_shared_blocker": "Original AtomicSList64 push/load/compare-exchange now link. OSD_Puts remains blocked by original AtomicLogString construction and inherited/member object lifetimes. Borrowed byte-field views do not establish construction.",
+    "linked": true,
+    "executed": true,
+    "direct_failures": [],
+    "immediate_shared_blocker": "Original enginePreInit returns 0 in fresh Chromium. Continue original app_main: anonymous typedef-owned input_t copy/move assignment, exact selected union initialization and remaining source dependencies.",
     "additional_dependencies": [
-      "original console registration and callbacks",
-      "logging",
-      "remaining engine services"
+      "original app_main and game loop",
+      "original game clock initialization",
+      "source SDL surfaces/events/audio"
     ]
   },
   "startup_component_build": {
-    "source_units_with_partial_modules": 22,
+    "source_units_with_partial_modules": 29,
     "selected_source_units": 111,
-    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "compiler_frontend_sha256": "8d91ec9a0b04b35f8ce2dd10c842349b96670b1c54a66f3285964a98cb735a13",
     "whole_selected_program_compiled_under_current_revision": false,
     "entry_exports": {
-      "enginePreInit": false,
+      "enginePreInit": true,
       "app_main": false
     },
     "execution_evidence_matches_modules": true,
     "execution_report": "reports/oct30-original-browser-component.json",
-    "original_engine_startup_verified": false,
+    "original_engine_startup_verified": true,
     "manifest": "factory-output/source-first/browser-classic/component-manifest.json",
     "invalid_import_count": 0,
-    "ambiguous_export_group_count": 57,
+    "ambiguous_export_group_count": 65,
     "original_storage_ownership_verified": false,
     "storage_ownership_conflicts": [
       {
@@ -710,7 +629,7 @@
       }
     ]
   },
-  "startup_component_warning": "22 partial unit modules are incremental artifacts, not a uniform 111-unit game build. Executed allocator/division/system/video calls do not execute original enginePreInit or app_main. Per-module fingerprints retain their individual compiler revisions.",
+  "startup_component_warning": "29 partial unit modules are incremental artifacts, not a uniform 111-unit game build. Original enginePreInit executes in a fresh Chromium realm without manually initializing its helpers. Original app_main, menus and gameplay remain unverified. Per-module fingerprints retain their individual compiler revisions.",
   "latest_header_prototype_regression": {
     "report": "reports/oct29-header-prototype-stable-regression.json",
     "complete": true,
@@ -767,16 +686,15 @@
     "data": "reports/semantic-browser-checkpoint/index.jsonl.gz",
     "metadata": "reports/semantic-browser-checkpoint/index.jsonl.json",
     "lossless_all_tables": true,
-    "fingerprint_matches_current_index": true,
+    "fingerprint_matches_current_index": false,
     "restore_command": "python work/portable_semantic_checkpoint.py restore --input reports/semantic-browser-checkpoint/index.jsonl.gz --output factory-output/source-first/browser-classic/reports/semantic-index.sqlite"
   },
   "portable_semantic_payload_verification": {
-    "format": "semantic-continuation-payload-verification/1",
-    "passed": true,
+    "format": "semantic-continuation-payload-verification/2",
     "payload": "reports/semantic-browser-checkpoint/index.jsonl.gz",
     "payload_sha256": "3cbba3d72ec37ef6530156bf7abbe5aa45b72811d0a9eca38fbf303a3ed66394",
     "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
-    "selected_units": 111,
+    "matches_current_index": false,
     "table_rows": {
       "declarations": 262449,
       "meta": 1,
@@ -793,15 +711,14 @@
       "refs": "cdb3583240fe66b491c6d6ff033888bf4a981a47d1f5b2e3f4b3dc0df157bb16",
       "units": "6815024c49aef5db9e6abf348bb4a4a4d7080f4bd30536ab60733b810389d8c0"
     },
-    "all_rows_verified": true,
     "new_sqlite_restoration_tested": false,
     "gameplay_verified": false
   },
   "remaining_acceptance_failures": [
-    "Original console C++ object storage/lifetime, registration and logging closure",
+    "Original app_main dependency closure, including packed input_t copy/move and selected union initialization",
     "Remaining actual duplicate source storage in legacy fragments",
     "Current uniform selected-unit emission and verified fixed-point global linkage",
-    "Original app_main and enginePreInit execution",
+    "Original app_main execution (enginePreInit already passes independently)",
     "Original game-clock state and complete SDL/browser service integration",
     "Original rendered menu and E1L1",
     "60-second gameplay, audio, collision, interaction, progression and save/load verification",
@@ -810,7 +727,7 @@
   "resume_commands": [
     ". work/session-env.ps1",
     "npm run status:component",
-    "npm run compile:component -- source/build/src/osd.cpp OSD_Init,OSD_RegisterCvar,OSD_RegisterFunction,OSD_Puts",
+    "npm run recover:app-main",
     "npm run verify:engine-startup",
     "python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json",
     "npm run compile:game"
@@ -837,19 +754,19 @@
     "note": "Earlier revision before subsequent dependency, atomic, header-definition and strict record-pointer changes."
   },
   "latest_targeted_regression": {
-    "report": "reports/nov02-atomic-pop-regression.json",
+    "report": "reports/nov02-launcher-regression.json",
     "complete": true,
     "counts": {
-      "passed": 3,
+      "passed": 2,
       "failed": 0,
       "timeout": 0,
       "launch-failed": 0
     },
-    "selected_tests": 3,
-    "completed_tests": 3,
+    "selected_tests": 2,
+    "completed_tests": 2,
     "all_passed": true,
     "regression_inputs_unchanged": true,
-    "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
+    "compiler_frontend_sha256": "8d91ec9a0b04b35f8ce2dd10c842349b96670b1c54a66f3285964a98cb735a13",
     "revision_matches_current_inputs": true,
     "note": "Focused subset only; fingerprints and the current complete regression are recorded separately."
   },
@@ -930,7 +847,7 @@
     "frozen_inputs": true,
     "revision_matches_current_inputs": false
   },
-  "source_implementation_commit": "fd77f9b7821217f6d544f3bbfd54148264dffb61",
+  "source_implementation_commit": "eab2b6d452bb9012e71d353a7a63748d8eaabd4a",
   "vfs_regression_corrections": {
     "earlier_complete_report": "reports/nov01-vfs-corrected-full-regression.json",
     "earlier_passed": 204,
@@ -959,7 +876,7 @@
     "console_initialization_verified": false,
     "gameplay_verified": false,
     "frontier_note": "reports/nov02-constructor-frontier.md",
-    "compiler_and_runtime_helpers_match": true
+    "compiler_and_runtime_helpers_match": false
   },
   "corrected_regression_tests": {
     "report": "reports/nov02-corrected-stream-regression.json",
@@ -977,10 +894,189 @@
     "compiler_frontend_sha256": "8e54174551037feec0af6e712899e7b184c4cf9bb4ab407a65bf511b63e082fd",
     "revision_matches_current_inputs": false,
     "files_changed_since_complete_run": [
-      "tests/source_factory/verify_sourcefirst_ast_stream.py",
-      "tests/source_factory/verify_sourcefirst_atomic_operations.py",
-      "tools/source_atomic_runtime.mjs"
+      "tests/source_factory/verify_sourcefirst_clockticks.py",
+      "tests/source_factory/verify_sourcefirst_dependency_frontier_batch.py",
+      "tests/source_factory/verify_sourcefirst_launcher_gate.py",
+      "tests/source_factory/verify_sourcefirst_project_launcher.py",
+      "tools/browser_engine_probe.py",
+      "tools/project_launcher.py",
+      "tools/source_ast_to_js.py",
+      "tools/source_byte_records.py"
     ],
     "subsequent_full_pass_claimed": false
+  },
+  "original_console_execution": {
+    "report": "reports/nov02-original-console-chromium.json",
+    "current_module_and_runtime_fingerprints_match": true,
+    "component_passed": true,
+    "original_console_initialization_verified": true,
+    "original_console_alias_verified": true,
+    "original_console_command_callbacks": 2,
+    "browser_version": "156.0.4314.50",
+    "page_errors": [],
+    "original_engine_startup_verified": false,
+    "gameplay_verified": false
+  },
+  "original_app_main_frontier": {
+    "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json",
+    "linked": false,
+    "executed": false,
+    "missing_direct_references": [
+      "Anim_Init",
+      "CONFIG_ReadSettings",
+      "CONFIG_ReadSetup",
+      "CONFIG_SetDefaultKeys",
+      "CONFIG_SetupJoystick",
+      "CONFIG_SetupMouse",
+      "CONFIG_WriteSetup",
+      "CONTROL_BindsEnabled",
+      "CONTROL_JoyPresent",
+      "CONTROL_JoystickEnabled",
+      "CONTROL_MouseEnabled",
+      "CONTROL_MousePresent",
+      "CONTROL_Startup",
+      "CrosshairColors",
+      "G_CheckCommandLine",
+      "G_CleanupSearchPaths",
+      "G_DefFile",
+      "G_DisplayLogo",
+      "G_DoCheats",
+      "G_DrawRooms",
+      "G_EndOfLevel",
+      "G_ExtInit",
+      "G_ExtPreInit",
+      "G_FatalEngineInitError",
+      "G_GameExit",
+      "G_GetCrosshairColor",
+      "G_InitText",
+      "G_LoadGroups",
+      "G_MaybeAllocPlayer",
+      "G_NewGame",
+      "G_PlaybackDemo",
+      "G_PostLoadPalette",
+      "G_SavePlayerMaybeMulti",
+      "G_ScanGroups",
+      "G_SetCrosshairColor",
+      "G_SetupCheats",
+      "G_Startup",
+      "G_UpdateAppTitle",
+      "G_UpdateScreenArea",
+      "Gv_ResetSystemDefaults",
+      "MIRROR",
+      "Menu_Change",
+      "Menu_Init",
+      "Net_GetPackets",
+      "OSD_SetCallbacks",
+      "P_ResetInventory",
+      "P_ResetWeapons",
+      "PrintBuildInfo",
+      "RTS_Init",
+      "ReadSaveGameHeaders",
+      "S_ClearSoundLocks",
+      "S_MusicStartup",
+      "S_SoundStartup",
+      "cacheAllSounds",
+      "connectpoint2",
+      "drawframe_do",
+      "dukeConsoleClearBackground",
+      "dukeConsoleGetColumnWidth",
+      "dukeConsoleGetRowHeight",
+      "dukeConsoleOnShowCallback",
+      "dukeConsolePrintChar",
+      "dukeConsolePrintCursor",
+      "dukeConsolePrintString",
+      "dukeFillInputForTic",
+      "engineFPSLimit",
+      "engineLoadClipMaps",
+      "enginePostInit",
+      "engineSetLogFile",
+      "engineSetLogVerbosityCallback",
+      "engineUnInit",
+      "g_clipMapFiles",
+      "g_defModules",
+      "g_fakeMultiMode",
+      "g_frameCounter",
+      "g_frameJustDrawn",
+      "g_gameType",
+      "g_gameUpdateAndDrawTime",
+      "g_gameUpdateAvgTime",
+      "g_gameUpdateTime",
+      "g_lastFrameDuration",
+      "g_lastautosave",
+      "g_maxDefinedSkill",
+      "g_netClient",
+      "g_netServer",
+      "g_networkMode",
+      "g_noAutoLoad",
+      "g_noLogoAnim",
+      "g_quickload",
+      "g_rtsNamePtr",
+      "g_saveRequested",
+      "g_screenCapture",
+      "g_scriptDebug",
+      "g_setupFileName",
+      "g_useCwd",
+      "gamefunctions",
+      "h_gamefuncs",
+      "idle",
+      "keyFlushChars",
+      "keydefaults",
+      "keystatus",
+      "loaddefinitions_game",
+      "loaddefinitionsfile",
+      "lockclock",
+      "numplayers",
+      "ototalclock",
+      "quitevent",
+      "ready2send",
+      "registerosdcommands",
+      "system_getcvars",
+      "tempbuf",
+      "tileDelete",
+      "totalclock",
+      "user_quote_time",
+      "videoSetGameMode",
+      "walock"
+    ],
+    "non_link_semantic_blockers": [
+      {
+        "name": "G_DrawRooms",
+        "reason": "union initializer lacks exact Clang-selected field",
+        "dependencies": []
+      },
+      {
+        "name": "drawframe_do",
+        "reason": "C++ member operator requires source-defined class/method ABI: ('input_t', 'operator=', 'input_t &(input_t &&) noexcept')",
+        "dependencies": []
+      },
+      {
+        "name": "dukeFillInputForTic",
+        "reason": "C++ member operator requires source-defined class/method ABI: ('input_t', 'operator=', 'input_t &(const input_t &) noexcept')",
+        "dependencies": []
+      }
+    ],
+    "dependency_catalog_is_complete": false,
+    "reason": "The bounded recovery reached 256 queries; 50 references remain unqueried in this attempt."
+  },
+  "launcher_features": [
+    "interactive original enginePreInit diagnostic",
+    "fresh Chromium startup verification",
+    "targeted app_main dependency recovery",
+    "full build",
+    "regression suite",
+    "acceptance checks",
+    "private continuation ZIP",
+    "conservative cleanup preview"
+  ],
+  "launcher_browser_evidence": "reports/nov02-launcher-browser.json",
+  "original_log_node_constructor": {
+    "report": "reports/nov02-original-log-constructor-parity.json",
+    "passed": true,
+    "native_node_chromium_cases": 256,
+    "javascript_constructed_original_log_node": true,
+    "original_default_base_initializer_executed": true,
+    "original_scalar_atomic_constructor_executed": true,
+    "fixture_record_span_is_byte_identical_to_original": true,
+    "compiler_and_runtime_helpers_match": false
   }
 }

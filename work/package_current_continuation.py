@@ -1,5 +1,6 @@
 """Compact private continuation of active work; no discarded source or fresh start."""
 import argparse,json,re,sys
+from datetime import datetime
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 import project_workspace as package_tool
@@ -21,7 +22,7 @@ def selected(root,public=False):
     for name in ('.gitignore','.gitattributes','README.md','README_SOURCE_FACTORY.md','CURRENT_PORT_STATUS.md',
                  'CONTINUE_HERE.md','LLM_CONTINUATION_PROMPT.md','HANDOFF_SNAPSHOT.json','BUILD_PORTABILITY.md','BROWSER_SERVICES.md',
                  'package.json','package-lock.json','dev-requirements.txt','eslint.config.mjs','index.html',
-                 'launch-project.cmd','launch-project.ps1'):
+                 'launch-project.cmd','launch-project.ps1','engine-startup.html','ENGINEERING_CHECKPOINT.md'):
         add(root/name)
     add(root/'input-data/DUKE3D.GRP');add(root/'factory-output/compile_commands.json')
     add(root/'reports/history/original-source-manifests-20261014.zip')
@@ -58,7 +59,7 @@ def selected(root,public=False):
         if not path.is_file():continue
         relative=path.relative_to(root/'reports')
         if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','nov01-','nov02-','project-current-status'))
-                or relative.parts[0] in ('native-oracle','semantic-continuation')):
+                or relative.parts[0] in ('native-oracle','semantic-continuation','evidence')):
             if path.suffix in ('.json','.gz','.log','.md','.png'):add(path)
     add(root/'reports/historical-latest/dependency-graph.json')
     add(root/'reports/port-acceptance.json')
@@ -68,7 +69,7 @@ def selected(root,public=False):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--out',type=Path,default=ROOT/'handoffs/EDuke32_JS_Continuation_2026-11-01.zip')
+    parser.add_argument('--out',type=Path,default=ROOT/('handoffs/EDuke32_JS_Continuation_'+datetime.now().strftime('%Y-%m-%d_%H%M%S')+'.zip'))
     parser.add_argument('--list-only',action='store_true')
     args=parser.parse_args()
     if args.list_only:

@@ -1,47 +1,36 @@
 {
   "source": "source/build/src/osd.cpp",
   "requested": [
+    "OSD_Dispatch",
+    "OSD_Exec",
     "OSD_Init",
+    "OSD_Printf",
     "OSD_RegisterCvar",
     "OSD_RegisterFunction",
-    "OSD_Puts"
+    "osdfunc_alias",
+    "osdfunc_exec",
+    "osdfunc_fileinfo",
+    "osdfunc_help",
+    "osdfunc_history",
+    "osdfunc_listsymbols"
   ],
   "requested_resolved": {
-    "OSD_Init": false,
-    "OSD_RegisterCvar": false,
-    "OSD_RegisterFunction": false,
-    "OSD_Puts": false
+    "OSD_Dispatch": true,
+    "OSD_Exec": true,
+    "OSD_Init": true,
+    "OSD_Printf": true,
+    "OSD_RegisterCvar": true,
+    "OSD_RegisterFunction": true,
+    "osdfunc_alias": true,
+    "osdfunc_exec": true,
+    "osdfunc_fileinfo": true,
+    "osdfunc_help": true,
+    "osdfunc_history": true,
+    "osdfunc_listsymbols": true
   },
-  "requested_still_unlinked": [
-    "OSD_Init",
-    "OSD_RegisterCvar",
-    "OSD_RegisterFunction",
-    "OSD_Puts"
-  ],
-  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\c0da9606d3d8\\source\\build\\src\\osd.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_osd.cpp\\d4d49e8a4eed\\source\\build\\src\\osd.cpp.manifest.json",
   "blocked": [
-    {
-      "name": "OSD_RegisterCvar",
-      "reason": "unlinked identifiers: OSD_Init, OSD_RegisterFunction",
-      "dependencies": [
-        "OSD_Init",
-        "OSD_RegisterFunction"
-      ]
-    },
-    {
-      "name": "OSD_Exec",
-      "reason": "unlinked identifiers: OSD_Dispatch",
-      "dependencies": [
-        "OSD_Dispatch"
-      ]
-    },
-    {
-      "name": "osdfunc_exec",
-      "reason": "unlinked identifiers: OSD_Exec",
-      "dependencies": [
-        "OSD_Exec"
-      ]
-    },
     {
       "name": "_mm_add_epi16",
       "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(8 * sizeof(unsigned short)))) unsigned short",
@@ -335,85 +324,8 @@
       ]
     },
     {
-      "name": "osdfunc_fileinfo",
-      "reason": "unlinked identifiers: OSD_Printf",
-      "dependencies": [
-        "OSD_Printf"
-      ]
-    },
-    {
-      "name": "osdfunc_alias",
-      "reason": "unlinked identifiers: OSD_RegisterFunction",
-      "dependencies": [
-        "OSD_RegisterFunction"
-      ]
-    },
-    {
-      "name": "osdfunc_listsymbols",
-      "reason": "unlinked identifiers: OSD_Printf",
-      "dependencies": [
-        "OSD_Printf"
-      ]
-    },
-    {
-      "name": "osdfunc_help",
-      "reason": "unlinked identifiers: OSD_Printf",
-      "dependencies": [
-        "OSD_Printf"
-      ]
-    },
-    {
-      "name": "osdfunc_history",
-      "reason": "unlinked identifiers: OSD_Printf",
-      "dependencies": [
-        "OSD_Printf"
-      ]
-    },
-    {
-      "name": "OSD_Init",
-      "reason": "unlinked identifiers: osdfunc_exec, osdfunc_fileinfo, osdfunc_help, osdfunc_history, osdfunc_listsymbols",
-      "dependencies": [
-        "osdfunc_exec",
-        "osdfunc_fileinfo",
-        "osdfunc_help",
-        "osdfunc_history",
-        "osdfunc_listsymbols"
-      ]
-    },
-    {
-      "name": "OSD_Printf",
-      "reason": "unlinked identifiers: OSD_Puts",
-      "dependencies": [
-        "OSD_Puts"
-      ]
-    },
-    {
-      "name": "OSD_Puts",
-      "reason": "C++ heap object needs complete original class construction/destruction: AtomicLogString",
-      "dependencies": []
-    },
-    {
-      "name": "OSD_Dispatch",
-      "reason": "unlinked identifiers: OSD_Printf",
-      "dependencies": [
-        "OSD_Printf"
-      ]
-    },
-    {
-      "name": "OSD_RegisterFunction",
-      "reason": "unlinked identifiers: OSD_Init",
-      "dependencies": [
-        "OSD_Init"
-      ]
-    },
-    {
       "name": "__digits__header_630a4bdb591c",
       "reason": "DependentScopeDeclRefExpr",
-      "dependencies": []
-    },
-    {
-      "name": "AtomicLogString",
-      "reason": "C++ inheritance requires a source-level inheritance lowering pass",
       "dependencies": []
     }
   ],

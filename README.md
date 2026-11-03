@@ -1,6 +1,7 @@
 # EDuke32 readable JavaScript port
 
-Work in progress: the original game is not yet bootable or playable in JavaScript.
+Original **enginePreInit now executes in Chromium and returns 0**. Work in progress:
+the original game is not yet bootable or playable in JavaScript.
 There is no verified playable `dist/index.html` and no JavaScript gameplay screenshot.
 
 The project continues the existing Clang-based C/C++ source compiler, source-owned
@@ -13,8 +14,11 @@ execution diagnostics are not the target and are not playable release artifacts.
 
 Read [CURRENT_PORT_STATUS.md](CURRENT_PORT_STATUS.md) and
 [CONTINUE_HERE.md](CONTINUE_HERE.md) for the latest limitations and resume commands.
-Native SDL2 services now pass real Chromium subsystem checks. Original console,
-hash-table, platform initialization and global-storage dependencies still block boot.
+Read [ENGINEERING_CHECKPOINT.md](ENGINEERING_CHECKPOINT.md) for the current
+dependency frontier, verified evidence, limitations and exact resume commands.
+The launcher can execute original engine pre-initialization in your browser.
+Original allocator, console, hash, division and system initialization now execute;
+original `app_main`, source ownership and remaining game dependencies still block boot.
 The original checksum, gamma and selected memory/math behavior have scoped native
 and Chromium verification. These subsystem tests do not establish game boot.
 
@@ -26,6 +30,8 @@ Then use:
 ```sh
 npm ci
 npm run serve:project
+npm run verify:engine-startup
+npm run recover:app-main
 npm run compile:game
 npm run test:recovery
 ```
@@ -36,8 +42,13 @@ GTK, enhanced renderers, multiplayer, mimalloc, optional external codecs and ALS
 GNU Make is required for source selection. Compilation and recovery share this
 configuration and select the original GenericAllocator backend. Read
 [BROWSER_SERVICES.md](BROWSER_SERVICES.md) for the pinned native-services SDK.
-Original engine startup and playable output remain unfinished.
-The root launcher provides local build, test, acceptance and packaging actions.
+Original engine pre-initialization passes; original game startup and playable output
+remain unfinished. Open `launch-project.cmd` on the configured Windows host or
+visit http://127.0.0.1:8765/ after starting the service. The root launcher provides
+an interactive original engine diagnostic, targeted app_main recovery, build,
+test, acceptance, cleanup and private continuation packaging actions. Its Play
+control requires gameplay evidence matching the exact built HTML. The launcher
+is a local development interface; it is not a hosted playable game.
 
 ## Assets and publication
 
