@@ -10,6 +10,7 @@ these views only; construction, assignment, copying and destruction stay separat
 C records have no constructors or destructors; fields still need Clang layouts.
 """
 import re
+from functools import lru_cache
 from pathlib import Path
 from source_scalar_types import scalar_info
 from source_cpp_types import has_outer_indirection
@@ -25,6 +26,7 @@ def descendants(node):
         yield from descendants(item)
 
 
+@lru_cache(maxsize=8192)
 def clean_type(spelling):
     spelling = re.sub(r'\b(?:const|volatile|restrict|__restrict)\b', '', spelling)
     spelling = re.sub(r'^(?:struct|class|union)\s+', '', spelling.strip())
@@ -32,6 +34,7 @@ def clean_type(spelling):
     return re.sub(r'\s*\[\s*(\d+)\s*\]', r'[\1]', spelling)
 
 
+@lru_cache(maxsize=8192)
 def cpp_layout_type(spelling):
     """Normalize Clang's two spellings of an empty C++ parameter list.
 

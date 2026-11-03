@@ -4943,11 +4943,16 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if kind(function) not in ('FunctionDecl','CXXMethodDecl') or not any(kind(body)=='CompoundStmt' for body in kids(function)):continue
             key=(function.get('name'),qual(function))
             query_edges.setdefault(key,set()).update(constant_query_references(function,query_declarations))
-    constant_query_functions=set()
-    while True:
-        discovered={key for key,refs in query_edges.items() if any(name=='__builtin_is_constant_evaluated' or (name,typ) in constant_query_functions for name,typ in refs)}
-        if discovered<=constant_query_functions:break
-        constant_query_functions.update(discovered)
+    constant_query_functions=set();query_callers={}
+    for key,refs in query_edges.items():
+        for reference in refs:
+            query_callers.setdefault(reference,set()).add(key)
+            if reference[0]=='__builtin_is_constant_evaluated':constant_query_functions.add(key)
+    pending_queries=list(constant_query_functions)
+    while pending_queries:
+        for caller in query_callers.get(pending_queries.pop(),()):
+            if caller not in constant_query_functions:
+                constant_query_functions.add(caller);pending_queries.append(caller)
     source_owned_names={n.get('name') for n in candidates if n.get('name')}
     # A complete class selected for source emission remains a constructor
     # provider even with no data fields. A record tag or same-named C function
@@ -5947,6 +5952,7 @@ def main():
         nonlocal emitted, report, static_reference_context
         if not opt.filter:return
         unresolved_types=set(required_types)
+        nullary_record_names=None;anonymous_member_owners=None;range_record_names=None
         for row in report:
             reason=row.get('reason','')
             unresolved_types.update(row.get('required_record_types',()))
@@ -5965,18 +5971,24 @@ def main():
             if assignment_owner:unresolved_types.add(assignment_owner.group(1).rsplit('::',1)[-1])
             if reason.startswith('unlinked identifiers:'):
                 missing={name.strip() for name in reason.partition(':')[2].split(',')}
-                for tree in ast:
-                    for operation in descendants(tree):
-                        if kind(operation)!='CXXConstructExpr' or kids(operation):continue
-                        name=normalized_record_name(qual(operation))
-                        if name in missing and re.fullmatch(r'[A-Za-z_]\w*',name):unresolved_types.add(name)
+                if nullary_record_names is None:
+                    nullary_record_names=set()
+                    for tree in ast:
+                        for operation in descendants(tree):
+                            if kind(operation)!='CXXConstructExpr' or kids(operation):continue
+                            name=normalized_record_name(qual(operation))
+                            if name and re.fullmatch(r'[A-Za-z_]\w*',name):nullary_record_names.add(name)
+                unresolved_types.update(missing&nullary_record_names)
             if reason=='nonidentifier member':
-                for tree in ast:
-                    for member in descendants(tree):
-                        if kind(member)!='MemberExpr' or member.get('name') or not kids(member):continue
-                        spelling=qual(kids(member)[0]).rstrip(' *&').strip()
-                        spelling=re.sub(r'^(?:const )?(?:struct |class |union )?', '', spelling)
-                        if re.fullmatch(r'[A-Za-z_]\w*',spelling):unresolved_types.add(spelling)
+                if anonymous_member_owners is None:
+                    anonymous_member_owners=set()
+                    for tree in ast:
+                        for member in descendants(tree):
+                            if kind(member)!='MemberExpr' or member.get('name') or not kids(member):continue
+                            spelling=qual(kids(member)[0]).rstrip(' *&').strip()
+                            spelling=re.sub(r'^(?:const )?(?:struct |class |union )?', '', spelling)
+                            if re.fullmatch(r'[A-Za-z_]\w*',spelling):anonymous_member_owners.add(spelling)
+                unresolved_types.update(anonymous_member_owners)
             if reason.startswith('external object address requires a verified owner identity ABI'):
                 for tree in ast:
                     if tree.get('name')!=row.get('source_name',row.get('name')):continue
@@ -5989,13 +6001,16 @@ def main():
                         spelling=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',spelling).strip()
                         if re.fullmatch(r'[A-Za-z_]\w*',spelling) and scalar_size(spelling) is None:unresolved_types.add(spelling)
             if reason.startswith(('C++ range reference escapes','address-of C++ range element')):
-                for tree in ast:
-                    for loop in descendants(tree):
-                        if kind(loop)!='CXXForRangeStmt':continue
-                        slots=loop.get('inner',[])
-                        if len(slots)!=8 or len(kids(slots[6]))!=1:continue
-                        spelling=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',qual(kids(slots[6])[0])).rstrip(' &').strip()
-                        if re.fullmatch(r'[A-Za-z_]\w*',spelling):unresolved_types.add(spelling)
+                if range_record_names is None:
+                    range_record_names=set()
+                    for tree in ast:
+                        for loop in descendants(tree):
+                            if kind(loop)!='CXXForRangeStmt':continue
+                            slots=loop.get('inner',[])
+                            if len(slots)!=8 or len(kids(slots[6]))!=1:continue
+                            spelling=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',qual(kids(slots[6])[0])).rstrip(' &').strip()
+                            if re.fullmatch(r'[A-Za-z_]\w*',spelling):range_record_names.add(spelling)
+                unresolved_types.update(range_record_names)
             match=re.fullmatch(r'unsupported global array element type (?:(?:struct|class|union) )?([A-Za-z_]\w*)',reason)
             if match:unresolved_types.add(match.group(1))
             array_shape=re.fullmatch(r'global aggregate array requires verified storage shape: (?:(?:struct|class|union) )?([A-Za-z_]\w*)',reason)
