@@ -5970,7 +5970,10 @@ def main():
             assignment_owner=re.match(r"C\+\+ member operator requires source-defined class/method ABI: \('((?:[A-Za-z_]\w*::)*[A-Za-z_]\w*)', 'operator='",reason)
             if assignment_owner:unresolved_types.add(assignment_owner.group(1).rsplit('::',1)[-1])
             if reason.startswith('unlinked identifiers:'):
-                missing={name.strip() for name in reason.partition(':')[2].split(',')}
+                # The readable reason deliberately previews only 12 names.
+                # Recovery must consume the complete structured frontier.
+                missing=set(row['unresolved_references']) if 'unresolved_references' in row else {
+                    name.strip() for name in reason.partition(':')[2].split(',')}
                 if nullary_record_names is None:
                     nullary_record_names=set()
                     for tree in ast:
@@ -6424,7 +6427,8 @@ def main():
             for row in report:
                 reason=row.get('reason','')
                 if reason.startswith('unlinked identifiers:'):
-                    names.update(x.strip() for x in reason.partition(':')[2].split(',') if x.strip())
+                    names.update(row['unresolved_references'] if 'unresolved_references' in row else
+                        (x.strip() for x in reason.partition(':')[2].split(',') if x.strip()))
                 if reason.startswith('static pointer initializer requires a proven original source address:'):
                     # A filtered table's callback providers can be absent
                     # before its static relocation is authorized. Query only

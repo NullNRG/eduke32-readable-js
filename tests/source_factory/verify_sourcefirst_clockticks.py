@@ -15,8 +15,12 @@ def run(argv, cwd=ROOT, timeout=120):
 with tempfile.TemporaryDirectory(prefix='eduke_original_clockticks_') as tmp:
     tmp=Path(tmp)
     output=tmp/'output'
+    # This checks ClockTicks/enum recovery and app_main syntax, not whole-game
+    # linkage. Bound unrelated calls explicitly now that dependency recovery
+    # correctly follows the complete frontier beyond diagnostic previews.
     run([sys.executable,'tools/source_ast_to_js.py','--root',str(SOURCE),
          '--source',GAME,'--filter','app_main','--enum-closure','--dependency-closure',
+         '--dependency-query-limit','12',
          '--out-dir',str(output)])
     module=output/(GAME+'.mjs')
     manifest=json.loads(module.with_suffix('.manifest.json').read_text())
