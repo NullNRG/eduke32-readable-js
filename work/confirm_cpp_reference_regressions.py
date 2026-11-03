@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser();parser.add_argument('--input',type=Path,default=ROOT/'reports/oct16-cpp-references-regression-verified.json')
 parser.add_argument('--out',type=Path,default=ROOT/'reports/oct16-cpp-references-regression-confirmed.json');args=parser.parse_args()
+args.input=args.input.resolve();args.out=args.out.resolve()
 data=json.loads(args.input.read_text());assert data['complete'] and data['regression_inputs_unchanged']
 def guard():
  for name,expected in data['regression_inputs'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected,name

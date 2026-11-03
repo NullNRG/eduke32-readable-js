@@ -31,7 +31,7 @@ def selected(root,public=False):
     for relative in roots:
         folder=package_tool.safe_path(root,relative)
         for path in folder.rglob('*'):
-            if any(part in ('boot-probes','byte-debug','owner-history','owner-rebuilds') for part in path.relative_to(folder).parts):continue
+            if any(part in ('boot-probes','byte-debug','owner-history','owner-rebuilds','storage-rebuilds') for part in path.relative_to(folder).parts):continue
             if path.suffix in ('.mjs','.json','.csv','.md','.wasm','.symbols') and path.is_file() and path.stat().st_size<80_000_000:add(path)
     # Retain any actual source imports outside these roots, not every obsolete
     # build epoch. Every imported module stays under the canonical project.

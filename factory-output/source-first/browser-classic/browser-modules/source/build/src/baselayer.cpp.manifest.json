@@ -55,8 +55,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\baselayer.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 91,
-  "emitted": 91,
+  "found": 95,
+  "emitted": 95,
   "blocked": 0,
   "definitions": [
     {
@@ -1808,6 +1808,297 @@
         "libdivide_s64_gen"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "baselayer_init",
+      "source_name": "baselayer_init",
+      "kind": "FunctionDecl",
+      "line": 794,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/baselayer.cpp",
+      "source_references": [
+        "OSD_RegisterCvar",
+        "g_keyRemapTable",
+        "g_videoContrast",
+        "g_videoGamma",
+        "g_videoSaturation",
+        "lz4CompressionLevel",
+        "maxspritesonscreen",
+        "novoxmips",
+        "osdcmd_cvar_set",
+        "osdcmd_cvar_set_baselayer",
+        "r_borderless",
+        "r_fpgrouscan",
+        "r_maxfps",
+        "r_rotatespriteinterp",
+        "r_screenxy",
+        "r_tror_nomaskpass",
+        "r_usenewaspect",
+        "screenshot_dir",
+        "usehightile",
+        "usevoxels"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_videoContrast",
+          "binding": "__cxx_global_cell_eb7ec64efb5dec6e758a65c7",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "g_videoGamma",
+          "binding": "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "g_videoSaturation",
+          "binding": "__cxx_global_cell_a6f1e8c839618189cf2ebd7a",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "lz4CompressionLevel",
+          "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "maxspritesonscreen",
+          "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "novoxmips",
+          "binding": "__cxx_global_cell_7e42dba8ea8f9a8bc3318fdc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_borderless",
+          "binding": "__cxx_global_cell_67da6fc124c3ab1d5da4a606",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_fpgrouscan",
+          "binding": "__cxx_global_cell_d33e7d272649317fa29cc706",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_maxfps",
+          "binding": "__cxx_global_cell_9856254f6c33ff5182a27f76",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_rotatespriteinterp",
+          "binding": "__cxx_global_cell_839b6dd579d4126718a101c3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_screenxy",
+          "binding": "__cxx_global_cell_585083e70b316eace630e342",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned int"
+        },
+        {
+          "name": "r_tror_nomaskpass",
+          "binding": "__cxx_global_cell_8afc3f1714c50fd848123c08",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_usenewaspect",
+          "binding": "__cxx_global_cell_1719e7bd91d790092d913225",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "usehightile",
+          "binding": "__cxx_global_cell_528ff86eb213577eb56b717e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "usevoxels",
+          "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_RegisterCvar",
+        "g_keyRemapTable",
+        "g_videoContrast",
+        "g_videoGamma",
+        "g_videoSaturation",
+        "lz4CompressionLevel",
+        "maxspritesonscreen",
+        "novoxmips",
+        "osdcmd_cvar_set",
+        "r_borderless",
+        "r_fpgrouscan",
+        "r_maxfps",
+        "r_rotatespriteinterp",
+        "r_screenxy",
+        "r_tror_nomaskpass",
+        "r_usenewaspect",
+        "screenshot_dir",
+        "usehightile",
+        "usevoxels"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "calcFrameDelay__header_71d089a3b620",
+      "source_name": "calcFrameDelay",
+      "kind": "FunctionDecl",
+      "line": 348,
+      "original_type": "uint64_t (int)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [
+        "refreshfreq",
+        "tabledivide64__header_4c9e43263490",
+        "timerGetNanoTickRate"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "refreshfreq",
+          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
+          "abi": "source-global-cell/2",
+          "original_type": "double"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "refreshfreq",
+        "timerGetNanoTickRate"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdcmd_cvar_set_baselayer",
+      "source_name": "osdcmd_cvar_set_baselayer",
+      "kind": "FunctionDecl",
+      "line": 775,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/baselayer.cpp",
+      "source_references": [
+        "calcFrameDelay__header_71d089a3b620",
+        "clamp__header_1ecf5feb2977",
+        "g_frameDelay",
+        "g_videoGamma",
+        "max__template_9f711f2400ba566e",
+        "min__template_d0e4358054a560bb",
+        "osdcmd_cvar_set",
+        "r_maxfps",
+        "strcasecmp",
+        "videoSetPalette"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "min__template_d0e4358054a560bb",
+          "reference_contract": {
+            "abi": "source-cpp-lvalue-reference/1",
+            "parameters": [
+              {
+                "index": 0,
+                "type": "float",
+                "const": true
+              },
+              {
+                "index": 1,
+                "type": "float",
+                "const": true
+              }
+            ],
+            "result": "float"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "g_frameDelay",
+          "binding": "__cxx_global_cell_5669eb8f22367bb78b701754",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "g_videoGamma",
+          "binding": "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "r_maxfps",
+          "binding": "__cxx_global_cell_9856254f6c33ff5182a27f76",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_frameDelay",
+        "g_videoGamma",
+        "osdcmd_cvar_set",
+        "r_maxfps",
+        "strcasecmp",
+        "videoSetPalette"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tabledivide64__header_4c9e43263490",
+      "source_name": "tabledivide64",
+      "kind": "FunctionDecl",
+      "line": 111,
+      "original_type": "int64_t (const int64_t, const int64_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "divtable64",
+        "lastd_s64",
+        "libdivide_s64_do",
+        "libdivide_s64_gen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s64",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "divtable64",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "consumer_source": "source/build/src/baselayer.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "divtable64",
+        "lastd_s64",
+        "libdivide_s64_do",
+        "libdivide_s64_gen"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -2466,6 +2757,229 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "ea84826ee13f5f63ee7f1e8103cf348975c17ec6cc2400d691c2ad30fe7ec35d"
+    },
+    {
+      "module": "source/build/src/_source_legacy_baselayer_cpp_359b68adcfc8.mjs",
+      "sha256": "359b68adcfc866768a9af7c7124f41412c0bf19af9a0dbbb1ec9fdd14f71dae8",
+      "original_source": "source/build/src/baselayer.cpp",
+      "exports": [
+        "baselayer_init",
+        "calcFrameDelay__header_71d089a3b620",
+        "osdcmd_cvar_set_baselayer",
+        "tabledivide64__header_4c9e43263490"
+      ],
+      "reexports": [
+        "baselayer_init",
+        "calcFrameDelay__header_71d089a3b620",
+        "osdcmd_cvar_set_baselayer",
+        "tabledivide64__header_4c9e43263490"
+      ],
+      "imports": [
+        {
+          "name": "OSD_RegisterCvar",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "consumer_source": "source/build/src/baselayer.cpp"
+        },
+        {
+          "name": "g_frameDelay",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5669eb8f22367bb78b701754",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "g_keyRemapTable",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_videoContrast",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_eb7ec64efb5dec6e758a65c7",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "g_videoGamma",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "g_videoSaturation",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6f1e8c839618189cf2ebd7a",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lz4CompressionLevel",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "maxspritesonscreen",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "novoxmips",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7e42dba8ea8f9a8bc3318fdc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "r_borderless",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_67da6fc124c3ab1d5da4a606",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_fpgrouscan",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d33e7d272649317fa29cc706",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_maxfps",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9856254f6c33ff5182a27f76",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_rotatespriteinterp",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_839b6dd579d4126718a101c3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_screenxy",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_585083e70b316eace630e342",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned int"
+        },
+        {
+          "name": "r_tror_nomaskpass",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8afc3f1714c50fd848123c08",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_usenewaspect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1719e7bd91d790092d913225",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "refreshfreq",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
+          "abi": "source-global-cell/2",
+          "original_type": "double"
+        },
+        {
+          "name": "screenshot_dir",
+          "from": "source/build/src/screenshot.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetNanoTickRate",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "usehightile",
+          "from": "source/build/src/hightile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_528ff86eb213577eb56b717e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "usevoxels",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "videoSetPalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "9dc34928bd613a84c42aa7c681b8e446e66408ce6898252f40daa0575263c4ce"
     }
   ]
 }

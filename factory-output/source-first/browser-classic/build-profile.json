@@ -1,0 +1,49 @@
+{
+  "format": "sourcefactory-browser-build/1",
+  "profile": "browser-classic-single-player",
+  "command_database": "factory-output/browser-classic/compile_commands.json",
+  "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+  "selected_units": 111,
+  "source_adaptations": [
+    {
+      "file": "source/audiolib/src/drivers.cpp",
+      "original_sha256": "456136b76661e554d11800b06673bbfe4bd581fd19a1982591bde7ac2ae39a29",
+      "browser_sha256": "3f5d23a48f8511aeac9303768542bb7773a8fc5fc978d63c59fdac04f0165a3d",
+      "reason": "Exclude ALSA backend; retain original SDL, OPL and mixer behavior"
+    },
+    {
+      "file": "source/build/include/compat.h",
+      "original_sha256": "1a4fb470a00816a06552d788ad783b45566ae8b76858970ebb611582448fd79d",
+      "browser_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf",
+      "reason": "Select original GenericAllocator for browser allocation wrappers; preserve original error handling"
+    },
+    {
+      "file": "source/build/src/compat.cpp",
+      "original_sha256": "88763c53fff2af45a15c79260e4be2c01e741dd73b5ab2b0bc5014c32f4447bc",
+      "browser_sha256": "f99de913f994978af978fc6f126485dcb914cecd2d5a9c7c6a705aa0e0466120",
+      "reason": "Declare the browser allocator instance with its actual original GenericAllocator type"
+    },
+    {
+      "file": "source/build/include/smmalloc.h",
+      "original_sha256": "c1859ce1cb9546acd299f0c9c6613624f993919a29549d8571b46a50f3dc955b",
+      "browser_sha256": "356a989263bb7a15c32a9a7780f7d27525d31680e5b48df317ef0aef03f0019e",
+      "reason": "Exclude pool statistics when the browser profile does not use a pool"
+    },
+    {
+      "file": "source/build/src/baselayer.cpp",
+      "original_sha256": "1ee5ffa33fe90158798abf06511bdbb1a56c8ec19e1bd514853eee65e626e78f",
+      "browser_sha256": "7762522b265651b48655a3ffe2bab94cd57c1262baf234f9ef8ce0a5a85a854e",
+      "reason": "Exclude desktop output-monitor selection from the browser console; retain original video mode and rendering paths"
+    },
+    {
+      "file": "GNUmakefile",
+      "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
+      "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
+      "reason": "Exclude unused pool and thread-cache units from original Make browser selection"
+    }
+  ],
+  "allocator_backend": "original-sm-GenericAllocator",
+  "diagnostic_stop_after": "semantic",
+  "source_root": "factory-output/browser-classic/source-tree/eduke32-master",
+  "gameplay_verified": false
+}

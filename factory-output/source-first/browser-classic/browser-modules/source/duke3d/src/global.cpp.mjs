@@ -1344,4 +1344,4 @@ export function operator_delete_array___ZdaPvS_(arg0, arg1) {
 export { g_gametypeFlags, g_mostConcurrentPlayers, __cxx_global_cell_462926f90efdfe463807ff55 } from "./_source_legacy_global_cpp_203cdd26ef71.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
-export { g_player, g_player_s__header_global_b7197fa1f55d8b6b } from "./_source_legacy_global_cpp_7d39b5233a92.mjs";
+export { g_player, g_player_s__header_global_b7197fa1f55d8b6b } from "./_source_legacy_global_cpp_7cea82983dac.mjs";

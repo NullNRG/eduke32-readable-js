@@ -13,3 +13,6 @@ export function timerGetTicks() {
 export function timerGetFractionalTicks() {
   return timerGetTicks(1000);
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { clockTicksPerSecond, timerGetNanoTickRate, __cxx_private_cell_9bf3f9df2ac908b4b68699d4 } from "./_source_legacy_timer_cpp_bd47cf9eac81.mjs";

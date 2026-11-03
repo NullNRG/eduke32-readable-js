@@ -60,8 +60,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\timer.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 2,
-  "emitted": 2,
+  "found": 4,
+  "emitted": 4,
   "blocked": 0,
   "definitions": [
     {
@@ -91,6 +91,44 @@
       "physical_source": "source/build/src/timer.cpp",
       "source_references": [
         "timerGetTicks"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clockTicksPerSecond",
+      "source_name": "clockTicksPerSecond",
+      "kind": "VarDecl",
+      "line": 40,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/timer.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_9bf3f9df2ac908b4b68699d4",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetNanoTickRate",
+      "source_name": "timerGetNanoTickRate",
+      "kind": "FunctionDecl",
+      "line": 116,
+      "original_type": "uint64_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/timer.cpp",
+      "source_references": [
+        "clockTicksPerSecond"
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
@@ -223,5 +261,32 @@
     }
   ],
   "storage_exports": [],
-  "private_storage_exports": []
+  "private_storage_exports": [
+    {
+      "name": "clockTicksPerSecond",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_9bf3f9df2ac908b4b68699d4",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "int"
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_timer_cpp_bd47cf9eac81.mjs",
+      "sha256": "bd47cf9eac811645d0265a46b80a08b8a99ea2d85763c845699ee0a0c92d97bf",
+      "original_source": "source/build/src/timer.cpp",
+      "exports": [
+        "clockTicksPerSecond",
+        "timerGetNanoTickRate"
+      ],
+      "reexports": [
+        "clockTicksPerSecond",
+        "timerGetNanoTickRate",
+        "__cxx_private_cell_9bf3f9df2ac908b4b68699d4"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "c7792a002ff108d0bb3bb65bad5c6d1b2ee1abce54916293c8e0e2cddc629e97"
+    }
+  ]
 }

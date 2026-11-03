@@ -59,3 +59,6 @@ export { SILENCE_UNUSED__header_6c4dd990742e, __atomic_add, __atomic_add_single,
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { videoResetMode, videomodereset, __cxx_global_cell_be076cccfa4a217ba3cad38e } from "./_source_legacy_sdlayer_cpp_ef62cc3b2d10.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { refreshfreq, __cxx_global_cell_84c518e352f66f31d8eaf74c } from "./_source_legacy_sdlayer_cpp_d9a18aa75ae8.mjs";

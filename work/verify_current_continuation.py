@@ -68,15 +68,19 @@ with zipfile.ZipFile(archive) as saved, tempfile.TemporaryDirectory(prefix='eduk
     vfs=json.loads(resources.stdout)
     assert vfs['passed'] and vfs['original_grp_index_executed'] and vfs['directory_entries']==456,vfs
     output=root/'reports/extracted-browser-component.json'
-    browser=run([sys.executable,str(root/'tools/verify_browser_engine_component.py'),'--report',str(output)])
+    expected_startup=bool(state.get('original_engine_preinit_executed',False))
+    verifier='work/verify_fresh_engine_startup.py' if expected_startup else 'tools/verify_browser_engine_component.py'
+    browser=run([sys.executable,str(root/verifier),'--report',str(output)])
     assert output.is_file(),browser.stdout[-2000:]+browser.stderr[-2000:]
     proof=json.loads(output.read_text())
     assert proof['component_passed'] and not proof['page_errors'],proof
     assert browser.returncode==(0 if proof['original_engine_startup_verified'] else 1),browser.returncode
     # Preserve the saved checkpoint's actual acceptance state; a component
     # pass cannot upgrade it, and a future verified startup must not be refused.
-    expected_startup=bool(state.get('original_engine_preinit_executed',False))
     assert proof['original_engine_startup_verified'] is expected_startup
+    if expected_startup:
+        assert proof.get('fresh_startup_without_precalled_helpers') is True
+        assert proof.get('fresh_startup_probe',{}).get('manual_division_system_mode_initializers_called') is False
     report.update(extracted_files=len(extracted),required_inputs_present=True,
         extracted_payload_hashes_verified=True,node_service_tests_passed=True,
         extracted_original_grp_io_passed=True,

@@ -94,9 +94,9 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\engine.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 152,
-  "emitted": 149,
-  "blocked": 3,
+  "found": 155,
+  "emitted": 153,
+  "blocked": 2,
   "definitions": [
     {
       "name": "__cxx_record_vec2_8ca824f0ac397ec5",
@@ -481,56 +481,6 @@
         "__cxx_record_vec2_2150e186aab2ebda"
       ],
       "unresolved_references": []
-    },
-    {
-      "name": "enginePreInit",
-      "source_name": "enginePreInit",
-      "kind": "FunctionDecl",
-      "line": 9163,
-      "original_type": "int32_t ()",
-      "linkage": "external",
-      "physical_source": "source/build/src/engine.cpp",
-      "source_references": [
-        "baselayer_init",
-        "engineDestroyAllocator",
-        "engineInitClipMaps",
-        "initcrc16",
-        "initcrc32table",
-        "initdivtables",
-        "initprintf",
-        "initsystem",
-        "makeasmwriteable",
-        "preinitcalled",
-        "sector",
-        "sector_s",
-        "sprite",
-        "sprite_s",
-        "spriteext",
-        "spriteext_s",
-        "spritesmooth",
-        "spritesmooth_s",
-        "tsprite",
-        "tsprite_s",
-        "upscalefactor",
-        "validmodecnt",
-        "videoGetModes",
-        "wall",
-        "wall_s",
-        "wallext",
-        "wallext_s",
-        "wm_msgbox"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: baselayer_init, initprintf, initsystem, videoGetModes, wm_msgbox",
-      "unresolved_references": [
-        "baselayer_init",
-        "initprintf",
-        "initsystem",
-        "videoGetModes",
-        "wm_msgbox"
-      ]
     },
     {
       "name": "sector",
@@ -3657,6 +3607,286 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "r_tror_nomaskpass",
+      "source_name": "r_tror_nomaskpass",
+      "kind": "VarDecl",
+      "line": 427,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_8afc3f1714c50fd848123c08",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "usevoxels",
+      "source_name": "usevoxels",
+      "kind": "VarDecl",
+      "line": 86,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineDestroyAllocator__header_0328fac25cb3",
+      "source_name": "engineDestroyAllocator",
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "enginePreInit",
+      "source_name": "enginePreInit",
+      "kind": "FunctionDecl",
+      "line": 9163,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "baselayer_init",
+        "engineDestroyAllocator__header_0328fac25cb3",
+        "engineInitClipMaps",
+        "initcrc16",
+        "initcrc32table",
+        "initdivtables",
+        "initprintf",
+        "initsystem",
+        "makeasmwriteable",
+        "preinitcalled",
+        "sector",
+        "sector_s",
+        "sprite",
+        "sprite_s",
+        "spriteext",
+        "spriteext_s",
+        "spritesmooth",
+        "spritesmooth_s",
+        "tsprite",
+        "tsprite_s",
+        "upscalefactor",
+        "validmodecnt",
+        "videoGetModes",
+        "wall",
+        "wall_s",
+        "wallext",
+        "wallext_s",
+        "wm_msgbox"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5127bf7d54074c32ac833da9",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "int",
+          "name": "preinitcalled",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sprite",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "spriteext",
+          "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+          "abi": "source-global-cell/2",
+          "original_type": "spriteext_t *"
+        },
+        {
+          "name": "spritesmooth",
+          "binding": "__cxx_global_cell_2487f0a2e0979a5d48ff1cd7",
+          "abi": "source-global-cell/2",
+          "original_type": "spritesmooth_t *"
+        },
+        {
+          "name": "tsprite",
+          "binding": "__cxx_global_cell_4f8c0a98fe113810db905f6a",
+          "abi": "source-global-cell/2",
+          "original_type": "tspritetype *"
+        },
+        {
+          "name": "upscalefactor",
+          "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "validmodecnt",
+          "binding": "__cxx_global_cell_959ecb0f89b58217d69a30a7",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "wall",
+          "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+          "abi": "source-global-cell/2",
+          "original_type": "walltype *"
+        },
+        {
+          "name": "wallext",
+          "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+          "abi": "source-global-cell/2",
+          "original_type": "wallext_t *"
+        },
+        {
+          "name": "sector_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            4098
+          ],
+          "schema_sha256": "5915ee0619c607321386fc9c28d9ca82dcebd55e28eef43a69244e98b8ebae92",
+          "original_type": "sectortype[4098]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "sprite_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 44,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9c505f1a849d4301423b852b783054d0f4f5a986715847a047719f0bb7e8e7d0",
+          "original_type": "spritetype[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "spriteext_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 64,
+          "dimensions": [
+            16640
+          ],
+          "schema_sha256": "c3ac4e177388548530dcb0412db3b7a746ab51fc7b2def4546de1d9bdedc51eb",
+          "original_type": "spriteext_t[16640]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "spritesmooth_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 10,
+          "dimensions": [
+            16640
+          ],
+          "schema_sha256": "818ae142caff084e95ae01d6d828f07b25e7da846f5b6800d651460e6ef6c642",
+          "original_type": "spritesmooth_t[16640]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "tsprite_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 44,
+          "dimensions": [
+            4096
+          ],
+          "schema_sha256": "9c505f1a849d4301423b852b783054d0f4f5a986715847a047719f0bb7e8e7d0",
+          "original_type": "tspritetype[4096]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "wall_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            16896
+          ],
+          "schema_sha256": "c7fbf0084447f2b93b6b965337f8cbbbf9e1b9a5e0319292cb151c9df7b63d54",
+          "original_type": "walltype[16896]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "wallext_s",
+          "abi": "source-byte-record-array/1",
+          "stride": 1,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "27420cb3a06033626090ce39c428d84c7e2e1f6bcdfd77f6f618801ea64bcbd5",
+          "original_type": "wallext_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "baselayer_init",
+        "engineInitClipMaps",
+        "initcrc16",
+        "initcrc32table",
+        "initdivtables",
+        "initprintf",
+        "initsystem",
+        "makeasmwriteable",
+        "preinitcalled",
+        "sector",
+        "sector_s",
+        "sprite",
+        "sprite_s",
+        "spriteext",
+        "spriteext_s",
+        "spritesmooth",
+        "spritesmooth_s",
+        "tsprite",
+        "tsprite_s",
+        "upscalefactor",
+        "validmodecnt",
+        "videoGetModes",
+        "wall",
+        "wall_s",
+        "wallext",
+        "wallext_s",
+        "wm_msgbox"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -4143,6 +4373,18 @@
       "binding": "__cxx_global_cell_26d4b87c2e0d474be07ce565",
       "abi": "source-global-cell/2",
       "original_type": "int16_t *"
+    },
+    {
+      "name": "usevoxels",
+      "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "r_tror_nomaskpass",
+      "binding": "__cxx_global_cell_8afc3f1714c50fd848123c08",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
     }
   ],
   "private_storage_exports": [
@@ -5006,6 +5248,277 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "8448a50e658740da58e628a9ed442e3f2b3ab8d56bb49f9ac5a76a9db53d3ca0"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_53b6aef9c124.mjs",
+      "sha256": "53b6aef9c124c6bf747408eef1c3249391218dccd7c9896a044acc0cc2b26727",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "r_tror_nomaskpass",
+        "usevoxels"
+      ],
+      "reexports": [
+        "r_tror_nomaskpass",
+        "usevoxels",
+        "__cxx_global_cell_8afc3f1714c50fd848123c08",
+        "__cxx_global_cell_77d5c24237b7b046074e378d"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "f72e44e65583676af0f9c72befe97e8a045ac7ad6b4f00e0780589290e3cacc7"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_1a801ee25ce2.mjs",
+      "sha256": "1a801ee25ce24b227c8a3194d700acc647adbd7e4eb9f1c48c990300f7c84545",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "engineDestroyAllocator__header_0328fac25cb3",
+        "enginePreInit"
+      ],
+      "reexports": [
+        "engineDestroyAllocator__header_0328fac25cb3",
+        "enginePreInit"
+      ],
+      "imports": [
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "baselayer_init",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "engineInitClipMaps",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "initcrc16",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initcrc32table",
+          "from": "source/build/src/crc32.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initdivtables",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initprintf",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initsystem",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "makeasmwriteable",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "preinitcalled",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5127bf7d54074c32ac833da9",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "sector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sector_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            4098
+          ],
+          "schema_sha256": "5915ee0619c607321386fc9c28d9ca82dcebd55e28eef43a69244e98b8ebae92",
+          "original_type": "sectortype[4098]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "sprite_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 44,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9c505f1a849d4301423b852b783054d0f4f5a986715847a047719f0bb7e8e7d0",
+          "original_type": "spritetype[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "spriteext",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+          "abi": "source-global-cell/2",
+          "original_type": "spriteext_t *"
+        },
+        {
+          "name": "spriteext_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 64,
+          "dimensions": [
+            16640
+          ],
+          "schema_sha256": "c3ac4e177388548530dcb0412db3b7a746ab51fc7b2def4546de1d9bdedc51eb",
+          "original_type": "spriteext_t[16640]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "spritesmooth",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2487f0a2e0979a5d48ff1cd7",
+          "abi": "source-global-cell/2",
+          "original_type": "spritesmooth_t *"
+        },
+        {
+          "name": "spritesmooth_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 10,
+          "dimensions": [
+            16640
+          ],
+          "schema_sha256": "818ae142caff084e95ae01d6d828f07b25e7da846f5b6800d651460e6ef6c642",
+          "original_type": "spritesmooth_t[16640]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "tsprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4f8c0a98fe113810db905f6a",
+          "abi": "source-global-cell/2",
+          "original_type": "tspritetype *"
+        },
+        {
+          "name": "tsprite_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 44,
+          "dimensions": [
+            4096
+          ],
+          "schema_sha256": "9c505f1a849d4301423b852b783054d0f4f5a986715847a047719f0bb7e8e7d0",
+          "original_type": "tspritetype[4096]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "upscalefactor",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "validmodecnt",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_959ecb0f89b58217d69a30a7",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "videoGetModes",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wall",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+          "abi": "source-global-cell/2",
+          "original_type": "walltype *"
+        },
+        {
+          "name": "wall_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            16896
+          ],
+          "schema_sha256": "c7fbf0084447f2b93b6b965337f8cbbbf9e1b9a5e0319292cb151c9df7b63d54",
+          "original_type": "walltype[16896]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "wallext",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+          "abi": "source-global-cell/2",
+          "original_type": "wallext_t *"
+        },
+        {
+          "name": "wallext_s",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 1,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "27420cb3a06033626090ce39c428d84c7e2e1f6bcdfd77f6f618801ea64bcbd5",
+          "original_type": "wallext_t[16384]",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "wm_msgbox",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "015431cba9763f6364823d1565ae7c4e29e1c83add2bf1a5360490a679ed353e"
     }
   ],
   "superseded_module_fragments": [

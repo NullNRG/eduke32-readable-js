@@ -1,0 +1,86 @@
+{
+  "format": "source-first-standard-heap-contract/2",
+  "source_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\source-tree\\eduke32-master",
+  "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+  "source_inventory": {
+    "sha256": "ec12028a853f50d050bf1f6d09dfd0370c757b9fcce1648ac30e35e3b6aa0259",
+    "files": 790
+  },
+  "semantic_database": "..\\source-first\\browser-classic\\reports\\semantic-index.sqlite",
+  "semantic_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
+  "extractor_sha256": "ae574a4d9d1bc8b744f66e7f44fd66ea9c34a97d9784bed200ccb90152db08d5",
+  "toolchain": [
+    {
+      "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang.EXE",
+      "arguments": [
+        "--target=x86_64-linux-gnu",
+        "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+        "-isystem",
+        "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+      ],
+      "abi": "x86_64-linux-lp64-le",
+      "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+      "abi_verified": true
+    },
+    {
+      "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+      "arguments": [
+        "--target=x86_64-linux-gnu",
+        "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+        "-isystem",
+        "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+        "-isystem",
+        "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+        "-isystem",
+        "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+        "-isystem",
+        "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+      ],
+      "abi": "x86_64-linux-lp64-le",
+      "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+      "abi_verified": true
+    }
+  ],
+  "evidence": {
+    "selected_units": 111,
+    "global_standard_replacements": [],
+    "source_c_allocator_definitions": [],
+    "nonstandard_source_operators": [
+      {
+        "id": "cdc3ce8aee1932e77db95a88c2ff27ee7fee122e9fd6440de0e9264577814638",
+        "name": "operator new",
+        "file": "source/imgui/include/imgui.h",
+        "line": 2182,
+        "canonical_type": "void *(unsigned long, ImNewWrapper, void *)",
+        "kind": "FUNCTION_DECL"
+      },
+      {
+        "id": "04228ad3e1390e189ac66bd9c4ed2099e821cb3e1b7748e84b4c23f4071d0e57",
+        "name": "operator delete",
+        "file": "source/imgui/include/imgui.h",
+        "line": 2183,
+        "canonical_type": "void (void *, ImNewWrapper, void *)",
+        "kind": "FUNCTION_DECL"
+      }
+    ],
+    "class_specific_source_operators": [
+      {
+        "id": "390596669bdf1b89c97ab7bc7525185e508f5d2e08b9fb1963c95b15692c6d96",
+        "name": "operator new",
+        "file": "source/build/include/libasync.h",
+        "line": 905,
+        "canonical_type": "void *(unsigned long)",
+        "kind": "CXX_METHOD"
+      },
+      {
+        "id": "6645527567ef39dc9f7fa433793c2ab029aac42205b1b35a8b5b5adedbea6b3a",
+        "name": "operator delete",
+        "file": "source/build/include/libasync.h",
+        "line": 909,
+        "canonical_type": "void (void *)",
+        "kind": "CXX_METHOD"
+      }
+    ]
+  },
+  "gameplay_verified": false
+}
