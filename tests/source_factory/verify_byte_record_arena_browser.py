@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Native/Node/Chromium parity for Clang-sized contiguous C union record arrays."""
-import asyncio, base64, json, shutil, subprocess, tempfile
+import asyncio, base64, json, shutil, subprocess, sys, tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'tools'))
+from source_runtime_helpers import embedded
 CPP=r'''
 #include <cstdint>
 #include <cstdio>
@@ -30,7 +32,7 @@ SCHEMA={'size':12,'fields':{
  'pair':{'offset':0,'native':'Int32Array','size':8,'length':2},
  'shade':{'offset':8,'native':'Uint16Array','size':2},
  'flags':{'offset':10,'native':'Uint16Array','size':2}}}
-JS=(ROOT/'tools/source_address_runtime.mjs').read_text()+'\n'+(ROOT/'tools/source_aggregate_runtime.mjs').read_text()+'''
+JS=embedded(ROOT/'tools/source_address_runtime.mjs')+'\n'+embedded(ROOT/'tools/source_pointer_runtime.mjs')+'\n'+embedded(ROOT/'tools/source_aggregate_runtime.mjs')+'''
 function run() {
  const schema = '''+json.dumps(SCHEMA)+''';
  const a=cByteRecordArray(schema,4);

@@ -3,6 +3,8 @@
 import json,subprocess,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]; SRC='tests/source_factory/source_first_pointer_alias_fixture.cpp'
+sys.path.insert(0,str(ROOT/'tools'))
+from source_runtime_helpers import embedded
 def run(cmd):
  p=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=80)
  assert p.returncode==0,(cmd,p.stderr[-2000:],p.stdout[-500:]);return p.stdout
@@ -19,7 +21,7 @@ extern "C" int pointerWalk(int),pointerAliasing(int);
 int main(){for(int i=-40;i<160;i++)printf("%d %d\\n",pointerWalk(i),pointerAliasing(i));}''')
  run(['clang++','-std=c++17',str(ROOT/SRC),str(d/'driver.cpp'),'-o',str(d/'native')]);native=run([str(d/'native')]).splitlines()
  assert js==native,(js[:12],native[:12])
- (d/'bounds.mjs').write_text((ROOT/'tools/source_pointer_runtime.mjs').read_text()+'''
+ (d/'bounds.mjs').write_text(embedded(ROOT/'tools/source_address_runtime.mjs')+'\n'+embedded(ROOT/'tools/source_pointer_runtime.mjs')+'''
 const bytes=new Uint8Array([2,5,7,11]);
 const p=cPointerOffset(bytes,3);const q=cPointerOffset(p,-2);
 if (cDeref(q,Uint8Array).value!==5) throw new Error('backward pointer lost alias');

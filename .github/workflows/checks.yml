@@ -41,6 +41,9 @@ jobs:
           python tests/source_factory/verify_sourcefirst_directory_bridge.py
           python tests/source_factory/verify_sourcefirst_owner_header_aliases.py
           python tests/source_factory/verify_sourcefirst_record_pointer_types.py
+          python tests/source_factory/verify_sourcefirst_named_pod_storage.py
+          python tests/source_factory/verify_sourcefirst_pointer_alias.py
+          python tests/source_factory/verify_sourcefirst_nttp_assume_aligned.py
       - run: node --test tests/source_factory/runtime.test.mjs tests/source_factory/portability.test.mjs
       - name: Reject accidentally tracked game archives or generated pages
         shell: bash

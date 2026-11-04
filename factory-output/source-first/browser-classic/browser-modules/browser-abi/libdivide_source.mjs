@@ -198,6 +198,10 @@ const cPointer = source => {
 // source owner on use, after module initialization; do not read an ESM binding
 // early while merely constructing a forward/static pointer initializer.
 const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+// A GNU trailing char[1] keeps its declared array size. Only pointer decay
+// may borrow the remaining ORIGINAL complete heap allocation, as Clang's
+// configured flexible-array mode allows; ordinary member arrays stay bounded.
+const cArrayDecay = source => source?.[Symbol.for('source-first.clang-byte-tail-pointer/1')] || source;
 const cPointerElementRef = (source,index) => {
   if (source?.__cDeferredPointer===true || source?.__cDeferredReference===true)
     return cPointerElementRef(source.resolve(),index);
@@ -527,7 +531,7 @@ const cByteArrayMember = (field,bytes,prototypes,values=[]) => {
   Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),{value:bytes});
   return rows;
 };
-const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
+const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocation=null) => {
   if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
       !values || Object.keys(values).length || schema.prototype))
     throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
@@ -604,6 +608,19 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
             (bytes.byteOffset+field.offset)%C.BYTES_PER_ELEMENT)
           throw new TypeError('Unaligned or invalid native array field');
         const array=new C(bytes.buffer,bytes.byteOffset+field.offset,field.length);
+        if(field.oneByteTailArray==='clang-flex-arrays-0-or-1/1' && field.length===1 && C.BYTES_PER_ELEMENT===1 && allocation){
+          const heap=globalThis[Symbol.for('source-first.native-C-heap/2')];
+          // Original allocators can return a payload after their own header.
+          // Retain that one live allocation's bounds rather than requiring
+          // the source object to start at the raw host malloc address.
+          const complete=heap?.buffer===bytes.buffer && [...heap.allocations].find(([base,size])=>
+            base<=bytes.byteOffset && allocation.lower>=base && allocation.upper<=base+size);
+          if(complete && allocation.offset===bytes.byteOffset &&
+              allocation.upper>=bytes.byteOffset+schema.size && allocation.upper>=bytes.byteOffset+field.offset+field.size)
+            Object.defineProperty(array,Symbol.for('source-first.clang-byte-tail-pointer/1'),{value:{
+              __cPointer:true,array:false,buffer:bytes.buffer,lower:bytes.byteOffset+field.offset,
+              offset:bytes.byteOffset+field.offset,upper:allocation.upper}});
+        }
         Object.defineProperty(result,name,{value:array,enumerable:true});
       } else {
         if (field.size!==C.BYTES_PER_ELEMENT) throw new TypeError('Native scalar width differs from Clang');
@@ -753,6 +770,7 @@ const cRecordPointerViews = (()=>{
   if(globalThis[key])return globalThis[key];
   const buffers=new WeakMap(),fieldReferences=new WeakMap();
   const api={
+    protocol:'source-record-pointer-views/2',
     fieldReference(owner,name){
       const storage=cByteRecordStorage.get(owner),field=storage&&JSON.parse(storage.schema).fields[name];
       if(!field)throw new TypeError('Field address requires original Clang storage');
@@ -772,9 +790,10 @@ const cRecordPointerViews = (()=>{
       const p=pointer,schema=p.recordSchema;
       if(p.__cPointer!==true||p.__cRecordPointer!==true||p.array||!schema||p.offset<p.lower||p.offset+schema.size>p.upper)
         throw new RangeError('C record dereference escapes original byte allocation');
-      const identity=p.offset+':'+JSON.stringify(schema);
+      const tail=Object.values(schema.fields).some(field=>field.oneByteTailArray);
+      const identity=p.offset+':'+JSON.stringify(schema)+(tail?':'+p.lower+':'+p.upper:'');
       let views=buffers.get(p.buffer);if(!views){views=new Map();buffers.set(p.buffer,views);}
-      if(!views.has(identity))views.set(identity,cInitByteRecord(schema,{},new Uint8Array(p.buffer,p.offset,schema.size),p.recordPrototypes));
+      if(!views.has(identity))views.set(identity,cInitByteRecord(schema,{},new Uint8Array(p.buffer,p.offset,schema.size),p.recordPrototypes,p));
       return views.get(identity);
     },
     element(pointer,index){

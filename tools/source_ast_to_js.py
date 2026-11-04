@@ -2768,7 +2768,7 @@ class Emit:
                 extent=re.fullmatch(r'.+\[(\d+)\]',qual(original[0]))
                 if (not extent or len(re.findall(r'\[\d+\]',qual(original[0])))!=1
                         or not (primitive or pointer_value)):
-                    raise Unsupported('C++ range by-value requires a bounded scalar or pointer array')
+                    raise Unsupported('C++ range iteration by-value requires a bounded scalar or pointer array')
                 name=js_ident(ref.get('name',''))
                 if not ref.get('id') or not re.fullmatch(r'[A-Za-z_$][\w$]*',name):
                     raise Unsupported('C++ range value lacks original declaration identity')
@@ -4880,6 +4880,14 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                    key=lambda node:node.get('loc',{}).get('offset',0))
     for position,node in zip(original_positions,ordered):candidates[position]=node
     value_names={n.get('name') for n in candidates if kind(n)=='VarDecl'}
+    # A filtered AST can contain a proven header record factory and a call
+    # to a DIFFERENT FunctionDecl with the same spelling, while omitting
+    # that function's body. Keep their JS names separate so dependency
+    # closure queries the actual function instead of calling the factory.
+    # This does not assert that the declarations share a C++ lexical scope.
+    referenced_function_names={node.get('referencedDecl',{}).get('name')
+        for candidate in candidates for node in descendants(candidate)
+        if kind(node)=='DeclRefExpr' and node.get('referencedDecl',{}).get('kind')=='FunctionDecl'}
     declaration_scopes={}
     def index_tag_scopes(node,scope=None):
         if kind(node)=='TranslationUnitDecl':scope=()
@@ -4895,9 +4903,10 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     # Separate only layout-proven trivial tags that need no authored lifetime
     # or method dispatch. Nontrivial classes retain the existing ambiguity gate.
     separate_tags={id(n) for n in candidates if kind(n)=='CXXRecordDecl'
-        and n.get('name') in value_names and n.get('completeDefinition')
-        and n.get('id') in declaration_scopes
-        and (n.get('name'),declaration_scopes[n['id']]) in value_scopes
+        and n.get('completeDefinition')
+        and ((n.get('name') in value_names and n.get('id') in declaration_scopes
+              and (n.get('name'),declaration_scopes[n['id']]) in value_scopes)
+             or (n.get('name') in header_record_factories and n.get('name') in referenced_function_names))
         and n.get('definitionData',{}).get('defaultCtor',{}).get('trivial') is True
         and n.get('definitionData',{}).get('dtor',{}).get('trivial') is True
         and record_storage_views.get(n.get('name'),{}).get('byte_schema')
@@ -5389,19 +5398,20 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                   em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n,symbol=symbol))
             if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
-                original='export class '+js_ident(name)+' {'
+                factory_symbol=symbol or js_ident(name)
+                original='export class '+factory_symbol+' {'
                 assert original in code
                 # The class expression MUST NOT inherit the same lexical name
                 # as its enclosing factory. Otherwise method bodies that call
                 # the factory to construct another proven aggregate resolve
                 # to the class constructor and throw "cannot be invoked without
                 # new" at runtime (original vec2<T> operator + / - / *).
-                implementation=js_ident(name)+'__implementation'
+                implementation=factory_symbol+'__implementation'
                 definition=code.replace(original,'class '+implementation+' {',1)
                 # Preserve source class static-member bindings: those refer to
                 # the actual generated class, not its memoizing factory.
-                definition=definition.replace(js_ident(name)+'.',implementation+'.')
-                code='export function '+js_ident(name)+'() {\n  return '+js_ident(name)+'.type || ('+js_ident(name)+'.type = '+definition+');\n}'
+                definition=definition.replace(factory_symbol+'.',implementation+'.')
+                code='export function '+factory_symbol+'() {\n  return '+factory_symbol+'.type || ('+factory_symbol+'.type = '+definition+');\n}'
             if getattr(em,'storage_constructor_nodes',None) or getattr(em,'storage_assignment_nodes',None):
                 # Remove only the precise constructor AST nodes already lowered
                 # to verified storage. A same-named variable, function, operator,

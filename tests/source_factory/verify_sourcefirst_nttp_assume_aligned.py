@@ -8,6 +8,7 @@ import subprocess,sys,tempfile
 import os
 sys.path.insert(0,os.environ.get("EDUKE_TEST_COMPILER_DIR") or str(Path(__file__).resolve().parents[2]/"tools"))
 from source_ast_to_js import parse_json_stream,produce,Emit,Unsupported
+from source_runtime_helpers import embedded
 
 def run(cmd,cwd):
     proc=subprocess.run(cmd,cwd=cwd,capture_output=True,text=True,timeout=50)
@@ -39,7 +40,8 @@ int main(){for (int i=0;i<256;i++) {
     ast=parse_json_stream(run(['clang++','-std=c++17','-Xclang','-ast-dump=json','-fsyntax-only','case.cpp'],p))
     code,rows=produce(ast,p/'case.cpp','case.cpp',source_root=p,header_dependency_closure=True)
     assert all(r['status']=='source-first' for r in rows),rows
-    (p/'case.mjs').write_text((Path(__file__).resolve().parents[2]/'tools/source_pointer_runtime.mjs').read_text()+'\nconst i32=x=>Number(x)|0;const u32=x=>Number(x)>>>0;\n'+'\n'.join(code)+'''
+    helper_root=Path(__file__).resolve().parents[2]/'tools'
+    (p/'case.mjs').write_text(embedded(helper_root/'source_address_runtime.mjs')+'\n'+embedded(helper_root/'source_pointer_runtime.mjs')+'\nconst i32=x=>Number(x)|0;const u32=x=>Number(x)>>>0;\n'+'\n'.join(code)+'''
 for (let i=0;i<256;i++){let x=i*97-900;console.log(`${sum_case(x)} ${mask_case(x>>>0)} ${align_case(x)} ${align_size(x)}`)}
 ''')
     run(['node','--check','case.mjs'],p)
