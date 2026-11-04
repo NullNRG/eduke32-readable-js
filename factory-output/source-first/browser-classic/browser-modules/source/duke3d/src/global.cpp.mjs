@@ -1345,3 +1345,6 @@ export { g_gametypeFlags, g_mostConcurrentPlayers, __cxx_global_cell_462926f90ef
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { g_player, g_player_s__header_global_b7197fa1f55d8b6b } from "./_source_legacy_global_cpp_7cea82983dac.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { CHAINGUNSPRITE____header_global_9c12cca6f038562f, DEVISTATORAMMO____header_global_a1a5e5a30dc7c727, FIRSTAID____header_global_00486630ed81ef54, FREEZEAMMO____header_global_a6ddc6bafaefda66, FREEZESPRITE____header_global_b492258a356edfb5, JETPACK____header_global_1fa75b398760317c, RPGAMMO____header_global_f24104a903b8deba, RPGSPRITE____header_global_03e7ca5ce3453d3c, SHIELD____header_global_d9c938b9e43ea3ad, STEROIDS____header_global_f4d11f31dd5cb7fd, g_blimpSpawnItems } from "./_source_legacy_global_cpp_9066d9e620fb.mjs";

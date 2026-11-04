@@ -4,7 +4,7 @@ Read CURRENT_PORT_STATUS.md and HANDOFF_SNAPSHOT.json first. Original enginePreI
 
 The authoritative profile is tools/browser_classic_profile.json. Original Make selects 111 classic single-player units with NOASM and the original GenericAllocator. Game/Build behavior must remain readable JavaScript. Native WASM is allowed only for isolated SDL2/platform/audio/timing/low-level services. No emulation, replacement engine or fabricated success functions.
 
-The active incremental module tree is the profile's boot_module_root, with 29 partial units. Its component-manifest.json binds exact modules, runtime fingerprints, import audits and execution evidence. The October 20 tree is historical migration input. Current whole-program compilation/linking are incomplete.
+The active incremental module tree is the profile's boot_module_root, with 31 partial units. Its component-manifest.json binds exact modules, runtime fingerprints, import audits and execution evidence. The October 20 tree is historical migration input. Current whole-program compilation/linking are incomplete.
 
 On this host:
 
@@ -48,7 +48,12 @@ npm run serve:project
 The root index.html is the developer launcher, not the game. The continuation ZIP includes the supplied GRP and is private. Public Git must remain asset-free. Original gameplay acceptance, standalone offline HTML and the public playable release remain incomplete.
 
 
-Latest shared recovery: packed anonymous typedef assignment and exact selected union initialization pass native/Node/Chromium comparisons. The original input functions advance to missing dependencies, and the separate bounded G_DrawRooms probe reports no semantic blockers. Original app_main remains unlinked (116 direct references in its latest bounded attempt); G_HandleLocalKeys exposes a legal cross-scope goto case. See ENGINEERING_CHECKPOINT.md, reports/nov02-game-provider-frontier.json and the live full-regression report reports/nov02-engine-launcher-full-regression.json.
+Latest shared recovery: packed anonymous typedef assignment and exact selected union initialization pass native/Node/Chromium comparisons. The original input functions advance to missing dependencies, and the separate bounded G_DrawRooms probe reports no semantic blockers. Original app_main remains unlinked (120 direct references in its latest bounded attempt); G_HandleLocalKeys exposes a legal cross-scope goto case. See ENGINEERING_CHECKPOINT.md, reports/nov02-game-provider-frontier.json and the live full-regression report reports/nov02-engine-launcher-full-regression.json.
 
 
 November 3 verified checkpoint: reports/nov02-engine-launcher-full-regression.json completes 221/221 tests with frozen inputs unchanged. The generated snapshot checks current fingerprints. The original game remains unlinked/unplayed; continue the recorded provider and goto frontier. The current semantic export independently restores and verifies all tables (reports/nov02-semantic-restore.json).
+
+
+November 3 dynamic-name checkpoint: the original dynamic-name unit, weapon/spawn arrays and integer-hash providers are now linked. Original `G_InitDynamicNames` executes in Node and Chromium and matches 2,311 native comparison rows: 767 globals, 625 tile records, 142 sound records, actual pointer remaps, weapon/spawn arrays before/after initialization, and 767 map lookups. `reports/nov03-original-dynamic-initialization.json` binds that evidence to module/runtime hashes. EnginePreInit and original console verification were refreshed for the 31-unit partial graph. This does not execute app_main or render the game.
+
+Resume dependency recovery with `python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --install-closed-leaves`. Validated saved emissions can be reused with `--reuse-manifest PATH`; it checks current compiler and complete Clang preprocessor content fingerprints before strict import/ABI installation. The default dependency budget remains bounded and records unqueried references. The earlier G_HandleLocalKeys scope-entry issue is still a known unsupported case; that definition was not reached in the latest bounded attempt.

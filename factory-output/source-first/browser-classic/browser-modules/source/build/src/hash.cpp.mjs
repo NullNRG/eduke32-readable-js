@@ -3055,3 +3055,6 @@ export function __cxx_operator_761c63d1e16e183f(lhs, rhs) {
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { hash_init, inthash_init } from "./_source_legacy_hash_cpp_c37bf9ec397e.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { engineDestroyAllocator__header_10b88093df29, inthash_add, inthash_getbucket__header_8959b4c6e48a, inthash_getcode__header_fe9b32bd5684 } from "./_source_legacy_hash_cpp_34d42385f3c2.mjs";

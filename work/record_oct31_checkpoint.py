@@ -79,6 +79,7 @@ game_manifest=read(game_frontier['manifest'])
 game_closure=game_manifest.get('dependency_closure',{})
 state['original_app_main_frontier']={'report':'factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json',
     'linked':bool(component.get('entry_exports',{}).get('app_main')),'executed':False,
+    'installed_closed_dependencies':game_frontier.get('installed_closed_definitions',0),
     'manifest':game_frontier['manifest'],'definition_entries':game_manifest.get('found'),
     'emitted_entries':game_manifest.get('emitted'),'blocked_entries':game_manifest.get('blocked'),
     'compiler_revision_matches_current':game_manifest.get('compiler_runtime_input_sha256')==compiler_runtime_revision(),
@@ -112,6 +113,28 @@ state['regression']={'report':regression_report,**{k:report.get(k) for k in keys
     'revision_matches_current_inputs':bool(report['complete'] and report['regression_inputs_unchanged'] and
         report['regression_inputs']==regression_inputs()),
     'gameplay_verified':False}
+current_inputs=regression_inputs()
+state['regression']['files_changed_since_full_run']=[name for name in sorted(set(current_inputs)|set(report.get('regression_inputs',{})))
+    if current_inputs.get(name)!=report.get('regression_inputs',{}).get(name)]
+state['regression']['compiler_and_runtime_inputs_match']=all(
+    not name.startswith(('tools/source_','runtime/')) for name in state['regression']['files_changed_since_full_run'])
+launcher_report=ROOT/'reports/nov03-launcher-publication-regression.json'
+if launcher_report.is_file():
+    launch=read(launcher_report.relative_to(ROOT))
+    state['launcher_publication_regression']={'report':launcher_report.relative_to(ROOT).as_posix(),
+        'complete':launch.get('complete'),'all_passed':launch.get('all_passed'),'counts':launch.get('counts'),
+        'revision_matches_current_inputs':launch.get('regression_inputs')==current_inputs}
+dynamic_path=ROOT/'reports/nov03-original-dynamic-initialization.json'
+if dynamic_path.is_file():
+    dynamic=read(dynamic_path.relative_to(ROOT))
+    state['original_dynamic_names']={'report':dynamic_path.relative_to(ROOT).as_posix(),
+        **{key:dynamic.get(key) for key in ('passed','original_numeric_globals','original_tile_records','original_sound_records',
+            'native_node_chromium_rows','original_G_InitDynamicNames_executed','original_integer_mapping_lookups_verified',
+            'pointer_writes_reach_original_global_exports','original_spawn_and_weapon_arrays_verified_before_and_after','page_errors')},
+        'current_module_and_runtime_fingerprints_match':bool(dynamic.get('artifacts'))
+            and dynamic.get('artifacts')=={path:digest for path,digest in component.get('artifacts',{}).items() if path.endswith('.mjs')}
+            and dynamic.get('runtime_artifacts')==component.get('runtime_artifacts'),
+        'original_app_main_executed':False,'gameplay_verified':False}
 corrected_path=ROOT/'reports/nov02-corrected-stream-regression.json'
 if corrected_path.is_file():
     corrected=read(corrected_path.relative_to(ROOT));current=regression_inputs()
@@ -176,6 +199,11 @@ acceptance=read('reports/nov01-port-acceptance.json')
 state['strict_acceptance']={'report':'reports/nov01-port-acceptance.json',
     **{key:acceptance[key] for key in ('all_acceptance_criteria_passed','original_game_playable_verified',
         'failed_checks','unverified_checks')}}
+fresh_acceptance=ROOT/'reports/nov03-port-acceptance.json'
+if fresh_acceptance.is_file():
+    acceptance=read(fresh_acceptance.relative_to(ROOT))
+    state['strict_acceptance']={'report':fresh_acceptance.relative_to(ROOT).as_posix(),
+        **{key:acceptance[key] for key in ('all_acceptance_criteria_passed','original_game_playable_verified','failed_checks','unverified_checks')}}
 state['november_source_recovery']={
     'software_surface_parity_report':'reports/nov01-original-softsurface-parity.json',
     'software_surface_native_node_chromium_compared_bytes':1062912,
@@ -216,7 +244,7 @@ state['remaining_acceptance_failures']=[
 state['resume_commands']=[
     '. work/session-env.ps1',
     'npm run status:component',
-    'npm run recover:app-main',
+    'python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --install-closed-leaves',
     'npm run verify:engine-startup',
     'python tools/verify_recovery_suite.py --jobs 1 --timeout 240 --report reports/resumed-regression.json',
     'npm run compile:game'

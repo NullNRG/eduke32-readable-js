@@ -63,3 +63,5 @@ the existing private continuation package can include local game data.
 
 GitHub Actions currently runs basic source/runtime checks. Deployment is disabled
 until original startup, menu, level rendering and controlled gameplay pass.
+
+Original dynamic-name initialization also executes in Node and Chromium, with 2,311 native comparison rows. The developer launcher currently runs locally at http://127.0.0.1:8766/ in this session; `npm run serve:project -- --port 8766` starts that port explicitly. Full game startup and gameplay remain incomplete.

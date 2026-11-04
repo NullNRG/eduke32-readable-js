@@ -1,0 +1,4 @@
+// Original-source facade; definitions are supplied by verified source fragments.
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { CHAINGUNSPRITE____header_global_351a0ad962b59414, DEVISTATORSPRITE____header_global_66a28dddef5a11b5, FIRSTGUNSPRITE____header_global_c1c547544d39dbf0, FLAMETHROWERSPRITE____header_global_1ea720e369320358, FREEZESPRITE____header_global_92bb4eb5c06b9336, HEAVYHBOMB____header_global_bccd3cd5afcfca14, KNEE____header_global_64c9e05c6ac7a4e1, RPGSPRITE____header_global_77326689676acde2, SHOTGUNSPRITE____header_global_d4a6bd7f9f5dca82, SHRINKERSPRITE____header_global_ec3659d1378fb0de, TRIPBOMBSPRITE____header_global_da14947c83fb8632, WeaponPickupSprites } from "./_source_legacy_player_cpp_8a8a991c7e30.mjs";
