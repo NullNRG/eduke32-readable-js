@@ -1,6 +1,7 @@
 """Recover an original unit into the canonical browser graph without duplicating state."""
 import argparse,hashlib,json,os,re,subprocess,sys
 from pathlib import Path
+from source_runtime_helpers import runtime_fingerprints
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 os.environ['EDUKE32_AST_CAPTURE_GZIP']='1'
 from browser_target_closure import active_exports,build
@@ -40,7 +41,7 @@ def checkpoint():
  proof=ROOT/'reports/oct30-original-browser-component.json'
  execution=json.loads(proof.read_text()) if proof.is_file() else {}
  actual_modules={p:d for p,d in artifacts.items() if p.endswith('.mjs')}
- runtime_artifacts={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in [*sorted((ROOT/'runtime').rglob('*.mjs')),ROOT/'tools/source_address_runtime.mjs']}
+ runtime_artifacts=runtime_fingerprints(ROOT)
  matches=execution.get('artifacts')==actual_modules and execution.get('runtime_artifacts')==runtime_artifacts
  contract=json.loads(COMMANDS.with_suffix('.standard-heap.json').read_text())
  storage_conflicts=storage_ownership_audit(OUT)

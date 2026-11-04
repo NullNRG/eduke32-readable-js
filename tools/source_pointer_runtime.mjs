@@ -1,3 +1,4 @@
+import { sourceAddressSpace as cSourceAddresses } from './source_address_runtime.mjs';
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
@@ -31,6 +32,10 @@ const cPointer = source => {
 // source owner on use, after module initialization; do not read an ESM binding
 // early while merely constructing a forward/static pointer initializer.
 const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+// A GNU trailing char[1] keeps its declared array size. Only pointer decay
+// may borrow the remaining ORIGINAL complete heap allocation, as Clang's
+// configured flexible-array mode allows; ordinary member arrays stay bounded.
+const cArrayDecay = source => source?.[Symbol.for('source-first.clang-byte-tail-pointer/1')] || source;
 const cPointerElementRef = (source,index) => {
   if (source?.__cDeferredPointer===true || source?.__cDeferredReference===true)
     return cPointerElementRef(source.resolve(),index);
@@ -227,3 +232,4 @@ const cAlignedStorage = (storage, alignment) => {
   registry.set(storage.buffer,Math.max(alignment,storage.BYTES_PER_ELEMENT,registry.get(storage.buffer)||1));
   return storage;
 };
+export { cPointer };

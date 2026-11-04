@@ -50,6 +50,15 @@ def missing_exports(names, file):
 
 def storage_import_error(dependency,units):
     actual_provider=units.get(dependency['from'])
+    expected_record=dependency.get('header_record_proof')
+    if expected_record is not None:
+        if not actual_provider:return 'source header constructor provider missing'
+        records=[row for row in actual_provider['manifest']['definitions']
+                 if row['name']==dependency['name'] and row.get('status')=='source-first']
+        if (len(records)!=1 or not records[0].get('header_record_factory')
+                or expected_record.get('prototype_factory_abi')!='source-header-record-factory/1'
+                or records[0].get('odr_inline')!=expected_record):
+            return 'source header constructor requires identical original specialization and methods'
     if actual_provider and (dependency.get('native_pointer_abi') or actual_provider['manifest'].get('native_pointer_abi')):
         if dependency.get('native_pointer_abi')!=actual_provider['manifest'].get('native_pointer_abi'):
             return 'source native-pointer ABI differs across translation units'
@@ -163,8 +172,13 @@ def storage_import_error(dependency,units):
     metadata=definitions[0].get('global_storage',{})
     if metadata.get('binding')!=binding or metadata.get('abi')!=GLOBAL_STORAGE_ABI:
         return 'global storage provider metadata missing or mismatched'
-    if dependency.get('original_type')!=metadata.get('original_type'):
+    expected_pointer=dependency.get('record_pointer_identity');actual_pointer=metadata.get('record_pointer_identity')
+    identical_pointer=bool(expected_pointer and expected_pointer.get('abi')=='source-global-record-pointer-type/1'
+                           and expected_pointer==actual_pointer)
+    if dependency.get('original_type')!=metadata.get('original_type') and not identical_pointer:
         return 'global storage declaration type differs across translation units'
+    if expected_pointer and actual_pointer and not identical_pointer:
+        return 'global pointer record identity or target layout differs across translation units'
     if dependency.get('record_layout_sha256')!=metadata.get('record_layout_sha256'):
         return 'global record address target layout differs across translation units'
     if dependency.get('byte_record_schema_sha256')!=metadata.get('byte_record_schema_sha256'):

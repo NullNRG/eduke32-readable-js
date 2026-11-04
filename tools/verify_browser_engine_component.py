@@ -1,6 +1,7 @@
 """Execute the current original-source startup component; never a game gate."""
 import argparse,functools,hashlib,json,os,threading
 from pathlib import Path
+from source_runtime_helpers import runtime_fingerprints
 from http.server import SimpleHTTPRequestHandler,HTTPServer
 ROOT=Path(__file__).resolve().parents[1]
 def main():
@@ -113,7 +114,7 @@ def main():
  finally:server.shutdown();server.server_close()
  result.update({'format':'original-browser-console-component/1' if a.console_only else 'original-browser-engine-component/1','browser_version':version,'console':console,'page_errors':errors,
   'module_root':modules.relative_to(ROOT).as_posix(),'artifacts':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in modules.rglob('*.mjs')},
-  'runtime_artifacts':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in [*sorted((ROOT/'runtime').rglob('*.mjs')),ROOT/'tools/source_address_runtime.mjs']},
+  'runtime_artifacts':runtime_fingerprints(ROOT),
   'menu_verified':False,'level_verified':False,'standalone_player_verified':False})
  a.report.parent.mkdir(parents=True,exist_ok=True);a.report.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='artifacts'},indent=2))
  return 0 if (result.get('original_console_initialization_verified') if a.console_only else result.get('original_engine_startup_verified')) else 1

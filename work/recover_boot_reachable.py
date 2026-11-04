@@ -12,7 +12,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('names')
     parser.add_argument('--query-limit',type=int,default=256)
     parser.add_argument('--probe-only',action='store_true',help='Save a separate targeted frontier without installing partial work')
-    parser.add_argument('--whole-unit',action='store_true',help='Extract a new original unit once; install only ABI-verified emitted definitions')
+    parser.add_argument('--whole-unit',action='store_true',help='Extract an original unit once; reuse existing storage and install only ABI-verified new definitions')
     parser.add_argument('--install-closed-leaves',action='store_true',help='Install verified dependencies while keeping a blocked requested root unresolved')
     parser.add_argument('--reuse-manifest',type=Path,help='Require current compiler and preprocessor content fingerprints before reusing an emission')
     args=parser.parse_args();source,names=args.source,args.names;out=component.OUT;base=component.BASE
@@ -21,7 +21,10 @@ def main():
     frontier_path=base/'reports'/('frontier-'+source.replace('/','_')+suffix+'.json')
     assert source in {row['file'] for row in json.loads(component.COMMANDS.read_text())}
     owner=out/(source+'.mjs');existing=active_exports(owner) if owner.is_file() else set()
-    if args.whole_unit and existing:parser.error('Whole-unit recovery requires a new owner; existing storage needs filtered extension')
+    # The canonical compiler imports already-owned public/private address cells
+    # even for a complete AST. The strict installer independently rejects every
+    # duplicate VarDecl before changing the owner. Whole-unit extension therefore
+    # uses the same proven storage contract as filtered extension.
     if set(names.split(','))<=existing:
         report={'source':source,'requested':names.split(','),'requested_resolved':{name:True for name in names.split(',')},
             'requested_still_unlinked':[],'manifest':owner.with_suffix('.manifest.json').relative_to(ROOT).as_posix(),

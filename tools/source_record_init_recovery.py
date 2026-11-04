@@ -8,6 +8,7 @@ fields. Never report these recoveries as whole-engine equivalence.
 from __future__ import annotations
 import json,re,hashlib,subprocess,sys
 from pathlib import Path
+from source_runtime_helpers import embedded as embedded_runtime
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 from source_ast_to_js import kind, kids
@@ -155,7 +156,7 @@ def schema_for(typ,roots):
 
 def prepend_runtime(source):
     if 'const cZeroAggregate =' in source and 'const cInitByteRecord =' in source:return source
-    runtime=(ROOT/'tools/source_aggregate_runtime.mjs').read_text()
+    runtime=embedded_runtime(ROOT/'tools/source_aggregate_runtime.mjs')
     boundary=source.find('// C/C++ source:')
     if boundary<0:raise ValueError('no source boundary')
     if 'const cZeroAggregate =' in source:
@@ -168,7 +169,7 @@ def refresh_verified_aggregate_runtime(source):
     # zero-aggregate helper: replace just that helper with the canonical one.
     # In particular, anonymous C pointer unions must share one storage slot.
     pattern=re.compile(r'(?ms)^const cZeroAggregate = schema => \{.*?^\};\n')
-    reference=(ROOT/'tools/source_aggregate_runtime.mjs').read_text()
+    reference=embedded_runtime(ROOT/'tools/source_aggregate_runtime.mjs')
     m=pattern.search(reference)
     if m is None:raise ValueError('canonical aggregate helper missing')
     source,count=pattern.subn(lambda _:m.group(0),source,count=1)

@@ -309,7 +309,8 @@ def safe_zero_default_member_record(node):
     C++ classes with private fields and `{}` field initializers are not
     aggregates, but Clang proves their implicitly defaulted constructors and
     trivial destructors. Accept only pointers (null) and scalar integer/bool
-    fields with empty InitListExpr, never unions, bitfields or object members.
+    fields with Clang-proven zero/null initialization, never unions, bitfields
+    or object members. Pointer depth is retained by the normal typed ABI.
     """
     traits=node.get('definitionData',{})
     if (node.get('kind')!='CXXRecordDecl' or not node.get('completeDefinition')
@@ -321,14 +322,26 @@ def safe_zero_default_member_record(node):
     fields=[c for c in node.get('inner',[]) if c.get('kind')=='FieldDecl']
     if not fields:return False
     simple=re.compile(r'(?:(?:const|volatile|signed|unsigned)\s+)*(?:bool|char|short|int|long|long long|int\d+_t|uint\d+_t|size_t|intptr_t|uintptr_t|ptrdiff_t|float|double)')
+    def zero_initializer(value, pointer=False):
+        kind=value.get('kind');args=value.get('inner',[])
+        if kind=='InitListExpr':return not args
+        if kind=='CXXNullPtrLiteralExpr':return pointer
+        if kind=='IntegerLiteral':return not pointer and str(value.get('value'))=='0'
+        if kind=='CXXBoolLiteralExpr':return not pointer and value.get('value') is False
+        if kind in ('ImplicitCastExpr','ConstantExpr','ParenExpr') and len(args)==1:
+            if pointer and kind=='ImplicitCastExpr' and value.get('castKind')=='NullToPointer':
+                return args[0].get('kind') in ('IntegerLiteral','CXXNullPtrLiteralExpr') and (
+                    args[0].get('kind')=='CXXNullPtrLiteralExpr' or str(args[0].get('value'))=='0')
+            return zero_initializer(args[0],pointer)
+        return False
     for f in fields:
         t=f.get('type',{}).get('qualType','').strip()
         init=f.get('inner',[])
         if not f.get('name') or f.get('isBitfield') or f.get('mutable') or '&' in t:
             return False
-        if not (simple.fullmatch(t) or re.fullmatch(r'[A-Za-z_]\w*\s*\*',t)):
+        if not (simple.fullmatch(t) or re.fullmatch(r'[A-Za-z_]\w*(?:\s*\*)+',t)):
             return False
-        if len(init)!=1 or init[0].get('kind')!='InitListExpr' or init[0].get('inner'):
+        if len(init)!=1 or not zero_initializer(init[0],pointer='*' in t):
             return False
     return True
 
@@ -399,7 +412,8 @@ def demanded_header_records(ast,candidates,storage_records,aliases,normalize,sch
             if node.get('kind') in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
                 spelling=(node.get('type',{}).get('desugaredQualType') or
                           node.get('type',{}).get('qualType','')).strip()
-                if re.fullmatch(r'[A-Za-z_]\w*',spelling):needed.add(spelling)
+                selected=normalize(spelling,aliases)
+                if selected and re.fullmatch(r'[A-Za-z_]\w*',selected):needed.add(selected)
             raw=node.get('type',{}).get('desugaredQualType') or node.get('type',{}).get('qualType','')
             raw=re.sub(r'(?:\s*\[\s*\d+\s*\])+','',raw).rstrip(' &*').strip()
             # Prototype discovery must not fail on an unrelated Clang-unproven

@@ -326,8 +326,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\vfs.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 52,
-  "emitted": 51,
+  "found": 100,
+  "emitted": 99,
   "blocked": 1,
   "definitions": [
     {
@@ -2551,6 +2551,1541 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_d8336ed114b0",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "size_t (const char (&)[131072]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIcLm131072EEmRAT0__KT_",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_7c752513b708f6d5",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd9784e28",
+        "redeclaration_chain": [
+          "0x21dd9784e28"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_065b24449633456d",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd9784f40",
+        "redeclaration_chain": [
+          "0x21dd9784f40"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_32d80320de168f5c",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd9785070",
+        "redeclaration_chain": [
+          "0x21dd9785070"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "SILENCE_UNUSED__header_5119f34568fc",
+      "source_name": "SILENCE_UNUSED",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "void (const char &[40], char *const &) noexcept",
+      "clang_template_mangled_name": "_ZL14SILENCE_UNUSEDIJA40_cPcEEvDpRKT_",
+      "linkage": "internal",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "char *",
+            "const": true
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "addsearchpath_user",
+      "source_name": "addsearchpath_user",
+      "kind": "FunctionDecl",
+      "line": 147,
+      "original_type": "int32_t (const char *, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "Bcorrectfilename",
+        "__errno_location",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "maxsearchpathlen",
+        "searchpathhead",
+        "stat",
+        "strcat",
+        "strcpy",
+        "strlen",
+        "toupperlookup",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bd28db781fd61f721b55fb90",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "unsigned long",
+          "name": "maxsearchpathlen",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "name": "searchpathhead",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Bcorrectfilename",
+        "__errno_location",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "maxsearchpathlen",
+        "searchpathhead",
+        "stat",
+        "strcat",
+        "strcpy",
+        "strlen",
+        "toupperlookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildvfs_exists__header_a5d5ccb242c5",
+      "source_name": "buildvfs_exists",
+      "kind": "FunctionDecl",
+      "line": 140,
+      "original_type": "int (const char *)",
+      "linkage": "internal",
+      "source_references": [
+        "stat"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "stat"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildvfs_length__header_e629f4d97284",
+      "source_name": "buildvfs_length",
+      "kind": "FunctionDecl",
+      "line": 105,
+      "original_type": "int64_t (int)",
+      "linkage": "internal",
+      "source_references": [
+        "fstat"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "fstat"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "cache1d_file_fromzip",
+      "source_name": "cache1d_file_fromzip",
+      "kind": "FunctionDecl",
+      "line": 476,
+      "original_type": "int32_t (buildvfs_kfd)",
+      "linkage": "external",
+      "source_references": [
+        "filegrp"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3a9ab4328ffa236764eb60c3",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "name": "filegrp",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "filegrp"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "compressedDataStackBuf",
+      "source_name": "compressedDataStackBuf",
+      "kind": "VarDecl",
+      "line": 1445,
+      "original_type": "char[131072]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_614b4dff60c54bf98cd5634e",
+        "owner_source": "source/build/src/vfs.cpp",
+        "original_type": "char[131072]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            131072
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dfwrite_func",
+      "source_name": "dfwrite_func",
+      "kind": "FunctionDecl",
+      "line": 1430,
+      "original_type": "void (intptr_t, const void *, int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "fwrite"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "fwrite"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineDestroyAllocator__header_79eabc223f85",
+      "source_name": "engineDestroyAllocator",
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_deg_to_rad_mult__header_global_342c56765d0ecf88",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd978caf8",
+        "redeclaration_chain": [
+          "0x21dd978caf8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_21d6aac3559c4929",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd97852b0",
+        "redeclaration_chain": [
+          "0x21dd97852b0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_9128961a382e4351",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd97851a0",
+        "redeclaration_chain": [
+          "0x21dd97851a0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_rad_to_deg_mult__header_global_17aee3ec488220bb",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd978c650",
+        "redeclaration_chain": [
+          "0x21dd978c650"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_e312c204844933e8",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd97853c0",
+        "redeclaration_chain": [
+          "0x21dd97853c0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fopenfrompath",
+      "source_name": "fopenfrompath",
+      "kind": "FunctionDecl",
+      "line": 413,
+      "original_type": "buildvfs_FILE (const char *, const char *)",
+      "linkage": "external",
+      "source_references": [
+        "close",
+        "fdopen",
+        "openfrompath"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "close",
+        "fdopen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_503fe97fcec2796b",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd9d60d18",
+        "redeclaration_chain": [
+          "0x21dd9d60d18"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_503fe97fcec2796b",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "original_type": "const vec2_t[25]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_3bbf46f3f71d0c44",
+      "source_name": "g_keyAsciiTableShift",
+      "kind": "VarDecl",
+      "line": 196,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 6158,
+        "source_line": 196,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd9d647a0",
+        "redeclaration_chain": [
+          "0x21dd9d647a0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_7a7002f9793a4698ec4cc572",
+        "owner_source": "source/build/src/vfs.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_0f29854c4685af07",
+      "source_name": "g_keyAsciiTable",
+      "kind": "VarDecl",
+      "line": 188,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 5455,
+        "source_line": 188,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd9d62970",
+        "redeclaration_chain": [
+          "0x21dd9d62970"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_8f38dc2b9a75ed072e08b1d1",
+        "owner_source": "source/build/src/vfs.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_modDir",
+      "source_name": "g_modDir",
+      "kind": "VarDecl",
+      "line": 871,
+      "original_type": "char[256]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kdfread_func",
+      "source_name": "kdfread_func",
+      "kind": "FunctionDecl",
+      "line": 1425,
+      "original_type": "int32_t (intptr_t, void *, int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "kread"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kfileparent",
+      "source_name": "kfileparent",
+      "kind": "FunctionDecl",
+      "line": 835,
+      "original_type": "const char *(const int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "filegrp",
+        "groupfil",
+        "groupname"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3a9ab4328ffa236764eb60c3",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "name": "filegrp",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b077455bc7a20cfc79ce2bba",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[8]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              8
+            ]
+          },
+          "name": "groupfil",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupname",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "filegrp",
+        "groupfil",
+        "groupname"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "klistaddentry",
+      "source_name": "klistaddentry",
+      "kind": "FunctionDecl",
+      "line": 1070,
+      "original_type": "int32_t (BUILDVFS_FIND_REC **, const char *, int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "strcasecmp",
+        "strcmp",
+        "strcpy",
+        "strlen",
+        "xmalloc__header_74ee7b637863"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcasecmp",
+        "strcmp",
+        "strcpy",
+        "strlen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "klistfree",
+      "source_name": "klistfree",
+      "kind": "FunctionDecl",
+      "line": 1150,
+      "original_type": "void (BUILDVFS_FIND_REC *)",
+      "linkage": "external",
+      "source_references": [
+        "xfree__header_13edfa973cd4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kopen4loadfrommod",
+      "source_name": "kopen4loadfrommod",
+      "kind": "FunctionDecl",
+      "line": 873,
+      "original_type": "buildvfs_kfd (const char *, char)",
+      "linkage": "external",
+      "source_references": [
+        "g_modDir",
+        "kopen4load",
+        "snprintf"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "snprintf"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kpzbuf",
+      "source_name": "kpzbuf",
+      "kind": "VarDecl",
+      "line": 61,
+      "original_type": "char *",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+        "abi": "source-global-cell/2",
+        "original_type": "char *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kpzbufload",
+      "source_name": "kpzbufload",
+      "kind": "FunctionDecl",
+      "line": 81,
+      "original_type": "int32_t (const char *const)",
+      "linkage": "external",
+      "source_references": [
+        "kclose",
+        "kopen4load",
+        "kpzbufloadfil"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kpzbufloadfil",
+      "source_name": "kpzbufloadfil",
+      "kind": "FunctionDecl",
+      "line": 64,
+      "original_type": "int32_t (const buildvfs_kfd)",
+      "linkage": "external",
+      "source_references": [
+        "kfilelength",
+        "kpzbuf",
+        "kpzbufsiz",
+        "kread",
+        "xrealloc__header_9fb083e4a075"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "kpzbufsiz",
+      "source_name": "kpzbufsiz",
+      "kind": "VarDecl",
+      "line": 62,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_82fc53700c75bce13e04b518",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "krename",
+      "source_name": "krename",
+      "kind": "FunctionDecl",
+      "line": 830,
+      "original_type": "void (int32_t, int32_t, const char *)",
+      "linkage": "external",
+      "source_references": [
+        "gfilelist",
+        "strncpy"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "gfilelist",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "gfilelist",
+        "strncpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzclose__header_fa818b4f2176",
+      "source_name": "kzclose",
+      "kind": "FunctionDecl",
+      "line": 48,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "fclose",
+        "kzfs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "kzfs",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "fclose",
+        "kzfs"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kzfilelength__header_fa0b046b8508",
+      "source_name": "kzfilelength",
+      "kind": "FunctionDecl",
+      "line": 46,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "source_references": [
+        "kzfs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "kzfs",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "kzfs"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kztell__header_df1c549f3c13",
+      "source_name": "kztell",
+      "kind": "FunctionDecl",
+      "line": 44,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "source_references": [
+        "kzfs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "kzfs",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "kzfs"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "listsearchpath",
+      "source_name": "listsearchpath",
+      "kind": "FunctionDecl",
+      "line": 135,
+      "original_type": "char *(int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "searchpathhead"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "name": "searchpathhead",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "searchpathhead"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "openfrompath",
+      "source_name": "openfrompath",
+      "kind": "FunctionDecl",
+      "line": 402,
+      "original_type": "buildvfs_kfd (const char *, int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "openfrompath_internal",
+        "xfree__header_13edfa973cd4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_d21761740b3acbcf",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/vfs.cpp",
+        "clang_decl_id": "0x21dd8f3f708",
+        "redeclaration_chain": [
+          "0x21dd8f3f708"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_dc53f9bcff27df30109dbd73",
+        "owner_source": "source/build/src/vfs.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "removesearchpath",
+      "source_name": "removesearchpath",
+      "kind": "FunctionDecl",
+      "line": 196,
+      "original_type": "int32_t (const char *)",
+      "linkage": "external",
+      "source_references": [
+        "Bcorrectfilename",
+        "SILENCE_UNUSED__header_5119f34568fc",
+        "searchpathhead",
+        "strcat",
+        "strcpy",
+        "strlen",
+        "strncmp",
+        "toupperlookup",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "name": "searchpathhead",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Bcorrectfilename",
+        "searchpathhead",
+        "strcat",
+        "strcpy",
+        "strlen",
+        "strncmp",
+        "toupperlookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "removesearchpaths_withuser",
+      "source_name": "removesearchpaths_withuser",
+      "kind": "FunctionDecl",
+      "line": 247,
+      "original_type": "void (int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "searchpathhead",
+        "xfree__header_13edfa973cd4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "name": "searchpathhead",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "searchpathhead"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "uninitgroupfile",
+      "source_name": "uninitgroupfile",
+      "kind": "FunctionDecl",
+      "line": 659,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "close",
+        "filegrp",
+        "filehan",
+        "gfilelist",
+        "gfileoffs",
+        "groupfil",
+        "groupname",
+        "numgroupfiles",
+        "xfree__header_13edfa973cd4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3a9ab4328ffa236764eb60c3",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "name": "filegrp",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e58f38ca23a4c7031f169daa",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[64]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              64
+            ]
+          },
+          "name": "filehan",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b077455bc7a20cfc79ce2bba",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[8]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              8
+            ]
+          },
+          "name": "groupfil",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "numgroupfiles",
+          "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "gfilelist",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gfileoffs",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "int32_t *[]",
+          "original_type": "int32_t *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupname",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "close",
+        "filegrp",
+        "filehan",
+        "gfilelist",
+        "gfileoffs",
+        "groupfil",
+        "groupname",
+        "numgroupfiles"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_alloc__header_dfccd4cb96f1",
+      "source_name": "xaligned_alloc",
+      "kind": "FunctionDecl",
+      "line": 1428,
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_free__header_de7cc18f4b2c",
+      "source_name": "xaligned_free",
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xfree__header_13edfa973cd4",
+      "source_name": "xfree",
+      "kind": "FunctionDecl",
+      "line": 1449,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xmalloc__header_74ee7b637863",
+      "source_name": "xmalloc",
+      "kind": "FunctionDecl",
+      "line": 1392,
+      "original_type": "void *(const bsize_t)",
+      "linkage": "internal",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xrealloc__header_9fb083e4a075",
+      "source_name": "xrealloc",
+      "kind": "FunctionDecl",
+      "line": 1413,
+      "original_type": "void *(void *const, const bsize_t)",
+      "linkage": "internal",
+      "source_references": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xstrdup__header_54caacf0b3b5",
+      "source_name": "xstrdup",
+      "kind": "FunctionDecl",
+      "line": 1378,
+      "original_type": "char *(const char *)",
+      "linkage": "internal",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "strcpy",
+        "strlen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "strcpy",
+        "strlen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "klistpath",
+      "source_name": "klistpath",
+      "kind": "FunctionDecl",
+      "line": 1162,
+      "original_type": "BUILDVFS_FIND_REC *(const char *, const char *, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "Bclosedir",
+        "Bgetsystemdrives",
+        "Bopendir",
+        "Breaddir",
+        "gfilelist",
+        "gnumfiles",
+        "groupfil",
+        "klistaddentry",
+        "klistfree",
+        "kzfindfile",
+        "kzfindfilestart",
+        "memcpy",
+        "pathsearchmode",
+        "searchpathhead",
+        "strcat",
+        "strcpy",
+        "strlen",
+        "toupperlookup",
+        "wildmatch",
+        "xfree__header_13edfa973cd4",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40e26d32b6ca71fd78ad3b32",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "name": "gnumfiles",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b077455bc7a20cfc79ce2bba",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[8]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              8
+            ]
+          },
+          "name": "groupfil",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "pathsearchmode",
+          "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "name": "searchpathhead",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gfilelist",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 2,
+          "forward_goto": 5,
+          "nested_lexical_jumps": 1,
+          "shadowed_locals_renamed": 6,
+          "locals_checked": 13,
+          "exit_blocks": 2,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [
+        "Bclosedir",
+        "Bgetsystemdrives",
+        "Bopendir",
+        "Breaddir",
+        "gfilelist",
+        "gnumfiles",
+        "groupfil",
+        "kzfindfile",
+        "kzfindfilestart",
+        "memcpy",
+        "pathsearchmode",
+        "searchpathhead",
+        "strcat",
+        "strcpy",
+        "strlen",
+        "toupperlookup",
+        "wildmatch"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -3326,6 +4861,18 @@
       "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
       "abi": "source-global-cell/2",
       "original_type": "int"
+    },
+    {
+      "name": "kpzbuf",
+      "binding": "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+      "abi": "source-global-cell/2",
+      "original_type": "char *"
+    },
+    {
+      "name": "kpzbufsiz",
+      "binding": "__cxx_global_cell_82fc53700c75bce13e04b518",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
     }
   ],
   "private_storage_exports": [
@@ -3454,6 +5001,58 @@
       "binding": "__cxx_private_cell_c51318c3fc474f17943c1125",
       "owner_source": "source/build/src/vfs.cpp",
       "original_type": "int"
+    },
+    {
+      "name": "compressedDataStackBuf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_614b4dff60c54bf98cd5634e",
+      "owner_source": "source/build/src/vfs.cpp",
+      "original_type": "char[131072]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          131072
+        ]
+      }
+    },
+    {
+      "name": "pow2char__header_global_d21761740b3acbcf",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_dc53f9bcff27df30109dbd73",
+      "owner_source": "source/build/src/vfs.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_0f29854c4685af07",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_8f38dc2b9a75ed072e08b1d1",
+      "owner_source": "source/build/src/vfs.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_3bbf46f3f71d0c44",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_7a7002f9793a4698ec4cc572",
+      "owner_source": "source/build/src/vfs.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
     }
   ],
   "unreferenced_type_wrapper_blockers": [
@@ -4620,6 +6219,995 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "2569919cd4741358d85f0af40e1630e37076fbecc3236a46abaf2024f6e07c24"
+    },
+    {
+      "module": "source/build/src/_source_legacy_vfs_cpp_7e5b48d19af9.mjs",
+      "sha256": "7e5b48d19af97ed5ec7e1a41c86e4cf04662c54ec424bcb6892fc3e183724e04",
+      "original_source": "source/build/src/vfs.cpp",
+      "exports": [
+        "ARRAY_SIZE__header_d8336ed114b0",
+        "FIX16_MAX__header_global_7c752513b708f6d5",
+        "FIX16_MIN__header_global_065b24449633456d",
+        "FIX16_OVERFLOW__header_global_32d80320de168f5c",
+        "SILENCE_UNUSED__header_5119f34568fc",
+        "addsearchpath_user",
+        "buildvfs_exists__header_a5d5ccb242c5",
+        "buildvfs_length__header_e629f4d97284",
+        "cache1d_file_fromzip",
+        "compressedDataStackBuf",
+        "dfwrite_func",
+        "engineDestroyAllocator__header_79eabc223f85",
+        "fix16_deg_to_rad_mult__header_global_342c56765d0ecf88",
+        "fix16_half__header_global_21d6aac3559c4929",
+        "fix16_one__header_global_9128961a382e4351",
+        "fix16_rad_to_deg_mult__header_global_17aee3ec488220bb",
+        "flt_f161r__header_global_e312c204844933e8",
+        "fopenfrompath",
+        "g_defaultVideoModes__header_global_503fe97fcec2796b",
+        "g_keyAsciiTableShift__header_global_3bbf46f3f71d0c44",
+        "g_keyAsciiTable__header_global_0f29854c4685af07",
+        "g_modDir",
+        "kdfread_func",
+        "kfileparent",
+        "klistaddentry",
+        "klistfree",
+        "kopen4loadfrommod",
+        "kpzbuf",
+        "kpzbufload",
+        "kpzbufloadfil",
+        "kpzbufsiz",
+        "krename",
+        "kzclose__header_fa818b4f2176",
+        "kzfilelength__header_fa0b046b8508",
+        "kztell__header_df1c549f3c13",
+        "listsearchpath",
+        "openfrompath",
+        "pow2char__header_global_d21761740b3acbcf",
+        "removesearchpath",
+        "removesearchpaths_withuser",
+        "uninitgroupfile",
+        "xaligned_alloc__header_dfccd4cb96f1",
+        "xaligned_free__header_de7cc18f4b2c",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863",
+        "xrealloc__header_9fb083e4a075",
+        "xstrdup__header_54caacf0b3b5"
+      ],
+      "reexports": [
+        "ARRAY_SIZE__header_d8336ed114b0",
+        "FIX16_MAX__header_global_7c752513b708f6d5",
+        "FIX16_MIN__header_global_065b24449633456d",
+        "FIX16_OVERFLOW__header_global_32d80320de168f5c",
+        "SILENCE_UNUSED__header_5119f34568fc",
+        "addsearchpath_user",
+        "buildvfs_exists__header_a5d5ccb242c5",
+        "buildvfs_length__header_e629f4d97284",
+        "cache1d_file_fromzip",
+        "compressedDataStackBuf",
+        "dfwrite_func",
+        "engineDestroyAllocator__header_79eabc223f85",
+        "fix16_deg_to_rad_mult__header_global_342c56765d0ecf88",
+        "fix16_half__header_global_21d6aac3559c4929",
+        "fix16_one__header_global_9128961a382e4351",
+        "fix16_rad_to_deg_mult__header_global_17aee3ec488220bb",
+        "flt_f161r__header_global_e312c204844933e8",
+        "fopenfrompath",
+        "g_defaultVideoModes__header_global_503fe97fcec2796b",
+        "g_keyAsciiTableShift__header_global_3bbf46f3f71d0c44",
+        "g_keyAsciiTable__header_global_0f29854c4685af07",
+        "g_modDir",
+        "kdfread_func",
+        "kfileparent",
+        "klistaddentry",
+        "klistfree",
+        "kopen4loadfrommod",
+        "kpzbuf",
+        "kpzbufload",
+        "kpzbufloadfil",
+        "kpzbufsiz",
+        "krename",
+        "kzclose__header_fa818b4f2176",
+        "kzfilelength__header_fa0b046b8508",
+        "kztell__header_df1c549f3c13",
+        "listsearchpath",
+        "openfrompath",
+        "pow2char__header_global_d21761740b3acbcf",
+        "removesearchpath",
+        "removesearchpaths_withuser",
+        "uninitgroupfile",
+        "xaligned_alloc__header_dfccd4cb96f1",
+        "xaligned_free__header_de7cc18f4b2c",
+        "xfree__header_13edfa973cd4",
+        "xmalloc__header_74ee7b637863",
+        "xrealloc__header_9fb083e4a075",
+        "xstrdup__header_54caacf0b3b5",
+        "__cxx_private_cell_614b4dff60c54bf98cd5634e",
+        "__cxx_private_cell_7a7002f9793a4698ec4cc572",
+        "__cxx_private_cell_8f38dc2b9a75ed072e08b1d1",
+        "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+        "__cxx_global_cell_82fc53700c75bce13e04b518",
+        "__cxx_private_cell_dc53f9bcff27df30109dbd73"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bcorrectfilename",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrupr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__errno_location",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "close",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fclose",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fdopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "filegrp",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3a9ab4328ffa236764eb60c3",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filehan",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e58f38ca23a4c7031f169daa",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[64]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filenamsav",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0923db928126267627d131f",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "char[64][260]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64,
+              260
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filepos",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0e6a8863bdc69dd261cf550b",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "fstat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fwrite",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "gfilelist",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gfileoffs",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "int32_t *[]",
+          "original_type": "int32_t *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gnumfiles",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40e26d32b6ca71fd78ad3b32",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfil",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b077455bc7a20cfc79ce2bba",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[8]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfilgrp",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_22ad39b5d1fff4dd8ee9cb2a",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfilpos",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d14239ea2126a8005fdc7edd",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupname",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzaddstack",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzcurhand",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c51318c3fc474f17943c1125",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "kzfs",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+        },
+        {
+          "name": "kzopen",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzread",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzseek",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lseek",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "maxsearchpathlen",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bd28db781fd61f721b55fb90",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "unsigned long",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "memcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numgroupfiles",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "open",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pathsearchmode",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "read",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "searchpathhead",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "toupperlookup",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "76b2291d3e7337b3b3710daebb18a3504d14608b9a873bfd8bc22bafcb0aa4d5"
+    },
+    {
+      "module": "source/build/src/_source_legacy_vfs_cpp_a100ad340eb8.mjs",
+      "sha256": "a100ad340eb8c16b1670da1b86b8be86b52a2eeef5afaabd79e336395fd7d159",
+      "original_source": "source/build/src/vfs.cpp",
+      "exports": [
+        "klistpath"
+      ],
+      "reexports": [
+        "klistpath"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bclosedir",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bcorrectfilename",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bgetsystemdrives",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bopendir",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Breaddir",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrupr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__errno_location",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "close",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fclose",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fdopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "filegrp",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3a9ab4328ffa236764eb60c3",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filehan",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e58f38ca23a4c7031f169daa",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[64]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filenamsav",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0923db928126267627d131f",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "char[64][260]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64,
+              260
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filepos",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0e6a8863bdc69dd261cf550b",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "fstat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fwrite",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_modDir",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "gfilelist",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gfileoffs",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "int32_t *[]",
+          "original_type": "int32_t *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gnumfiles",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40e26d32b6ca71fd78ad3b32",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfil",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b077455bc7a20cfc79ce2bba",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[8]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfilgrp",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_22ad39b5d1fff4dd8ee9cb2a",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfilpos",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d14239ea2126a8005fdc7edd",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupname",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kpzbuf",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "kpzbufsiz",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_82fc53700c75bce13e04b518",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "kzaddstack",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzcurhand",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c51318c3fc474f17943c1125",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "kzfindfile",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzfindfilestart",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzfs",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+        },
+        {
+          "name": "kzopen",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzread",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzseek",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lseek",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "maxsearchpathlen",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bd28db781fd61f721b55fb90",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "unsigned long",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "memcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numgroupfiles",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "open",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pathsearchmode",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "read",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "searchpathhead",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "toupperlookup",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wildmatch",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "2fe76d914c8b0c86ab509e2c44dde31284356bc8a49648e2e0f1bc957560bcb3"
     }
   ],
   "superseded_module_fragments": [

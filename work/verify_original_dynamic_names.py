@@ -6,7 +6,8 @@ This verifies the original subsystem initializer, not whole-game startup.
 """
 import functools,hashlib,http.server,json,os,sqlite3,subprocess,tempfile,threading
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[1];__import__('sys').path.insert(0,str(ROOT/'tools'))
+from source_runtime_helpers import runtime_fingerprints
 PROFILE=json.loads((ROOT/'tools/browser_classic_profile.json').read_text())
 SOURCE=ROOT/PROFILE['prepared_source_root'];MODULES=ROOT/PROFILE['boot_module_root']
 UNIT='source/duke3d/src/dnames.cpp'
@@ -160,8 +161,7 @@ int main(){engineCreateAllocator();static_assert(sizeof(dynitem)==24,"original L
         'browser_version':version,'page_errors':errors,'gameplay_verified':False}
     report['artifacts']={path.relative_to(ROOT).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
         for path in sorted(MODULES.rglob('*.mjs'))}
-    report['runtime_artifacts']={path.relative_to(ROOT).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in [*sorted((ROOT/'runtime').rglob('*.mjs')),ROOT/'tools/source_address_runtime.mjs']}
+    report['runtime_artifacts']=runtime_fingerprints(ROOT)
     (ROOT/'reports/nov03-original-dynamic-initialization.json').write_bytes((json.dumps(report,indent=2)+'\n').encode())
     print(json.dumps({key:value for key,value in report.items() if key not in ('artifacts','runtime_artifacts')},indent=2))
 

@@ -5,6 +5,7 @@ an ABI export upgrade for saved source modules, not a recovered definition.
 """
 import argparse,hashlib,json,re,subprocess
 from pathlib import Path
+from source_runtime_helpers import embedded as embedded_runtime
 from source_ast_to_js import PRIVATE_STORAGE_ABI,private_storage_binding,private_address_binding
 from source_private_record_schema import private_record_schema_compatible
 
@@ -46,7 +47,7 @@ def expose(manifest_path,target,names,report_path):
         if contract.get('byte_record'):
             if not private_record_schema_compatible(contract['byte_record']):
                 raise ValueError('Unsupported private record storage schema: '+name)
-            helpers=normalized((Path(__file__).parent/'source_aggregate_runtime.mjs').read_text())
+            helpers=normalized(embedded_runtime(Path(__file__).parent/'source_aggregate_runtime.mjs'))
             # Scalar/pointer records and nested numeric unions execute the same
             # recursive constructor. Arrays, bitfields and overlapping pointer
             # alternatives are rejected by the shared eligibility gate above.

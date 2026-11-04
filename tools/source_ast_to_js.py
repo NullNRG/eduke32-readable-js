@@ -12,6 +12,8 @@ from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
+from source_runtime_helpers import embedded as embedded_runtime
+from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
 from source_byte_records import recover_byte_records, clean_type as clean_record_type, owned_anonymous_record_members, typedef_record_layouts
@@ -1093,6 +1095,9 @@ class Emit:
                         self.byte_literals[identity]=binding
                     return self.byte_literals[identity]
             result=self.expr(a[0])
+            if (k=='ImplicitCastExpr' and n.get('castKind')=='ArrayToPointerDecay'
+                    and kind(literal)=='MemberExpr' and re.fullmatch(r'(?:const )?(?:signed |unsigned )?char\[1\]',qual(literal))):
+                return 'cArrayDecay('+result+')'
             if k=='ImplicitCastExpr' and n.get('castKind') in ('IntegralCast','IntegralToFloating','FloatingToIntegral','IntegralToBoolean','FloatingToBoolean'):
                 return js_cast(result,qual(n))
             return result
@@ -1903,7 +1908,8 @@ class Emit:
                 self.used_class_constructors=getattr(self,'used_class_constructors',set())|{js_ident(cname)}
                 target=(f'({js_ident(cname)}())' if cname in getattr(self,'header_record_factories',set()) else js_ident(cname))
                 return f'{target}.{symbol}({self.constructor_arguments(n)})'
-            if not record and class_fields is None and cname not in getattr(self,'source_class_providers',set()):
+            if (not record and class_fields is None and cname not in getattr(self,'source_class_providers',set())
+                    and cname not in getattr(self,'header_record_factories',set())):
                 # An identifier match is not constructor evidence. C APIs can
                 # legally share a spelling with a record tag (for example a
                 # metadata query and its output record). Demand the actual
@@ -2749,9 +2755,36 @@ class Emit:
                     +pad+'  '+control+f'for (let {idx} = 0; {idx} < {span}.length; ++{idx}) {{\n'
                     +body+'\n'+pad+'  }\n'+pad+'}')
             if (len(original)!=1 or kind(original[0]) not in ('DeclRefExpr','MemberExpr')
-                or not re.search(r'\[\d+\]',qual(original[0]))
-                or '&' not in qual(ref)):
+                or not re.search(r'\[\d+\]',qual(original[0]))):
                 raise Unsupported('C++ range iteration requires bounded array and reference')
+            if '&' not in qual(ref):
+                # Built-in array iteration initializes a NEW scalar/pointer
+                # local for each element. Assigning to that local must never
+                # write the source slot, while pointer dereferences retain
+                # the original allocation identity.
+                base=re.sub(r'\b(const|volatile|restrict|__restrict)\b','',qual(ref)).strip()
+                pointer_value=bool(re.fullmatch(r'[^()\[\]&]+\*',base))
+                primitive=scalar_info(resolve_scalar_storage_alias(base,self.type_aliases))
+                extent=re.fullmatch(r'.+\[(\d+)\]',qual(original[0]))
+                if (not extent or len(re.findall(r'\[\d+\]',qual(original[0])))!=1
+                        or not (primitive or pointer_value)):
+                    raise Unsupported('C++ range by-value requires a bounded scalar or pointer array')
+                name=js_ident(ref.get('name',''))
+                if not ref.get('id') or not re.fullmatch(r'[A-Za-z_$][\w$]*',name):
+                    raise Unsupported('C++ range value lacks original declaration identity')
+                self.local_types[name]=qual(ref)
+                seq=self.range_sequence;self.range_sequence+=1
+                array=f'__cxx_range_array_{seq}';position=f'__cxx_range_index_{seq}'
+                source=self.expr(original[0]);local_ref=self.local_reference_declaration(ref,name)
+                body=self.statements(raw[7],level+2)
+                declaration='var' if self.goto_plan else 'let'
+                return (pad+'{\n'+pad+f'  const {array} = {source};\n'
+                    +pad+f'  if ({array}.length !== {int(extent[1])}) throw new RangeError("C array extent mismatch");\n'
+                    +(pad+f'  if (!{array}[Symbol.for("source-first.clang-pointer-array/1")]) throw new TypeError("C pointer array storage ABI missing");\n' if pointer_value else '')
+                    +pad+'  '+control+f'for (let {position} = 0; {position} < {int(extent[1])}; ++{position}) {{\n'
+                    +pad+f'    {declaration} {name} = {array}[{position}];\n'
+                    +(pad+'    '+declaration+' '+local_ref+';\n' if local_ref else '')
+                    +body+'\n'+pad+'  }\n'+pad+'}')
             loopname=js_ident(ref.get('name',''))
             if not re.fullmatch(r'[A-Za-z_$][\w$]*',loopname):
                 raise Unsupported('C++ range loop requires named reference')
@@ -3089,8 +3122,8 @@ class Emit:
         text='\n'.join(prefix)+('\n' if prefix else '')+text
         header=(name if method else 'export function '+name)
         return ('\n'.join(self.static_defs)+'\n' if self.static_defs else '')+f'{header}({", ".join(argnames)}) {{\n{text}\n}}'
-    def record(self,n):
-        name=js_ident(n.get('name',''))
+    def record(self,n,symbol=None):
+        name=symbol or js_ident(n.get('name',''))
         if not re.fullmatch(r'[A-Za-z_$][\w$]*',name):raise Unsupported('unnamed/invalid C++ record')
         fields=[v for v in kids(n) if kind(v)=='FieldDecl']
         record=self.aggregate_records.get(n.get('name'),{})
@@ -4053,7 +4086,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
     prove the original file by an EXACT, unique source-header byte offset.
     A matching name alone or declaration with no body is not sufficient.
     """
-    if source_root is None:return [],{},set()
+    if source_root is None:return [],{},set(),{}
     root=Path(source_root).resolve()
     sysroot=Path(os.environ['EDUKE32_SYSROOT']).resolve() if os.environ.get('EDUKE32_SYSROOT') else None
     known_by_id={};by_signature={};invalid=set()
@@ -4138,6 +4171,21 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
                 invalid.add(signature)
             else:by_signature[signature]=n
             known_by_id[identifier]=n
+    # Explicitly selected header bodies also need physical provenance when
+    # Clang elides a repeated filename. Preserve the same byte-origin witness
+    # used by dependency-discovered helpers; do not infer a header from a name.
+    selected_header_proofs={}
+    for n in candidates:
+        if kind(n)!='FunctionDecl' or n.get('id') not in known_by_id:continue
+        origin=verified_header(n)
+        if origin is None:continue
+        offset=n.get('loc',{}).get('offset')
+        if not isinstance(offset,int):continue
+        data=origin.read_bytes()
+        selected_header_proofs[id(n)]={'source_header':origin.relative_to(root).as_posix()
+            if origin.is_relative_to(root) else '@sysroot/'+origin.relative_to(sysroot).as_posix(),
+            'source_offset':offset,'source_line':data[:offset].count(b'\n')+1,
+            'header_sha256':hashlib.sha256(data).hexdigest()}
     added=[];odr_origins={};selected={n.get('id') for n in candidates};queue=list(candidates)
     # A whole-owner rebuild can explicitly request a previously exported
     # specialization even when none of its remaining functions calls it.
@@ -4184,7 +4232,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
             if n.get('storageClass')!='static':
                 odr_origins[id(n)]=(origin.relative_to(root).as_posix() if origin.is_relative_to(root)
                     else n['_source_toolchain_header']['source_header'])
-    return added,odr_origins,{id(n) for n in added if id(n) in template_ids}
+    return added,odr_origins,{id(n) for n in added if id(n) in template_ids},selected_header_proofs
 
 
 def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None, storage_assignment_nodes=None):
@@ -4369,7 +4417,7 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
         except OSError:continue
     return matches[0] if len(matches)==1 else None
 
-def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None):
+def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None):
     normalize_specializations(ast)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
     static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
@@ -4579,6 +4627,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             # translation unit when proven static/inline. This preserves their
             # source bodies rather than inserting handwritten replacements.
             inline_header=(include_header_inlines and k=='FunctionDecl'
+                           and (header_inline_names is None or node.get('name') in header_inline_names)
                            and not in_source and any(kind(v)=='CompoundStmt' for v in kids(node))
                            and any(x in node.get('storageClass','') or x in str(node.get('inline',False))
                                    for x in ('static','True')))
@@ -4669,9 +4718,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     candidates.extend(byte_constructors)
     candidates.extend(recover_byte_methods(ast,candidates,record_storage_views,aliases,normalized_record_name,
         source_root,source_rel,byte_method_sources,native_classes=native_byte_classes))
-    header_helpers,header_odr,header_templates=(recover_referenced_header_functions(ast,candidates,source_root,
+    header_helpers,header_odr,header_templates,header_function_proofs=(recover_referenced_header_functions(ast,candidates,source_root,
                     requested_templates=set(filters.split(',')) if filters and include_header_inlines else (),compile_as_cpp=compile_as_cpp)
-                    if header_dependency_closure else ([],{},set()))
+                    if header_dependency_closure else ([],{},set(),{}))
     header_helper_ids={id(n) for n in header_helpers if id(n) not in header_odr}
     candidates.extend(header_helpers)
     # Clang omits a repeated primary-input filename. A selected header's own
@@ -4700,11 +4749,12 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     header_ids={id(record) for record in header_records}
     candidates=[record for record in header_records if record['name'] not in project_symbols]+[
         candidate for candidate in candidates if id(candidate) not in header_ids]
-    extra_helpers,extra_odr,extra_templates=(recover_referenced_header_functions(ast,candidates,source_root,compile_as_cpp=compile_as_cpp)
-        if header_dependency_closure else ([],{},set()))
+    extra_helpers,extra_odr,extra_templates,extra_function_proofs=(recover_referenced_header_functions(ast,candidates,source_root,compile_as_cpp=compile_as_cpp)
+        if header_dependency_closure else ([],{},set(),{}))
     existing_ids={node.get('id') for node in candidates}
     candidates.extend(node for node in extra_helpers if node.get('id') not in existing_ids)
     header_odr.update(extra_odr);header_templates.update(extra_templates)
+    header_function_proofs.update(extra_function_proofs)
     header_helper_ids.update(id(node) for node in extra_helpers if id(node) not in extra_odr)
     candidates=order_constant_initialization(candidates,aliases)
     # A filtered original-source bootstrap can require a C++ class defined in
@@ -4829,7 +4879,31 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     ordered=sorted((candidates[position] for position in original_positions),
                    key=lambda node:node.get('loc',{}).get('offset',0))
     for position,node in zip(original_positions,ordered):candidates[position]=node
-    counts=Counter(js_ident(n.get('name')) for n in candidates if n.get('name'))
+    value_names={n.get('name') for n in candidates if kind(n)=='VarDecl'}
+    declaration_scopes={}
+    def index_tag_scopes(node,scope=None):
+        if kind(node)=='TranslationUnitDecl':scope=()
+        elif kind(node)=='NamespaceDecl' and scope is not None:
+            scope=(*scope,node.get('name') or '(anonymous namespace)')
+        if node.get('id') and scope is not None:declaration_scopes[node['id']]=scope
+        for child in kids(node):
+            index_tag_scopes(child,scope if kind(node) in ('TranslationUnitDecl','NamespaceDecl','LinkageSpecDecl') else None)
+    for tree in ast:index_tag_scopes(tree)
+    value_scopes={(n.get('name'),declaration_scopes[n['id']]) for n in candidates
+                  if kind(n)=='VarDecl' and n.get('id') in declaration_scopes}
+    # C++ has a distinct tag namespace: `struct cache {...} *cache` is legal.
+    # Separate only layout-proven trivial tags that need no authored lifetime
+    # or method dispatch. Nontrivial classes retain the existing ambiguity gate.
+    separate_tags={id(n) for n in candidates if kind(n)=='CXXRecordDecl'
+        and n.get('name') in value_names and n.get('completeDefinition')
+        and n.get('id') in declaration_scopes
+        and (n.get('name'),declaration_scopes[n['id']]) in value_scopes
+        and n.get('definitionData',{}).get('defaultCtor',{}).get('trivial') is True
+        and n.get('definitionData',{}).get('dtor',{}).get('trivial') is True
+        and record_storage_views.get(n.get('name'),{}).get('byte_schema')
+        and not any(kind(member) in ('CXXMethodDecl','CXXConversionDecl','CXXConstructorDecl','CXXDestructorDecl')
+                    and not member.get('isImplicit') for member in kids(n))}
+    counts=Counter(js_ident(n.get('name')) for n in candidates if n.get('name') and id(n) not in separate_tags)
     signatures=Counter((n.get('name'),qual(n)) for n in candidates if kind(n)=='FunctionDecl')
     # Preserve ambiguity as a blocker even if AST-clone deduplication happened
     # to collapse one repeated friend declaration.
@@ -4869,6 +4943,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if signatures[(name,qual(n))]!=1:continue
             try:symbol=operator_js_symbol(name,qual(n))
             except Unsupported:continue
+        elif id(n) in separate_tags:
+            identity=source_rel+'\0'+name+'\0'+str(n.get('loc',{}).get('offset'))
+            symbol=js_ident(name)+'__record_tag_'+hashlib.sha256(identity.encode()).hexdigest()[:12]
         elif name not in collision:symbol=js_ident(name)
         elif kind(n)=='FunctionDecl' and signatures[(name,qual(n))]==1:
             key=name+'\0'+qual(n)
@@ -4925,14 +5002,13 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         symbol=symbols.get(id(node));previous=(existing_source_storage or {}).get(symbol,{})
         proof=header_global_proofs.get(id(node),{});old=previous.get('header_global_definition',{})
         identity=('source_header','source_offset','translation_unit','linkage')
-        if (kind(node)=='VarDecl' and immutable_global(node) and proof and old
-                and scalar_info(resolve_scalar_storage_alias(qual(node),aliases))
+        if (kind(node)=='VarDecl' and proof and old
                 and previous.get('original_type')==qual(node)
                 and all(proof.get(key)==old.get(key) for key in identity)
                 and project_symbols.get(symbol)==source_rel):
             borrowed_header_values.add(id(node))
     # Keep the exact declaration-to-symbol bindings above, but emit no second
-    # storage definition. The main entry point admits these header values only
+    # scalar, array, or aggregate storage definition. The main entry point admits these header values only
     # when the complete original preprocessor dependency fingerprint matches.
     candidates=[node for node in candidates if id(node) not in borrowed_header_values]
     # Runtime lowering of is_constant_evaluated is false. A constant/static
@@ -4967,7 +5043,12 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if kind(record)=='CXXRecordDecl' and record.get('completeDefinition') and any(
             kind(member) in ('CXXConstructorDecl','CXXDestructorDecl') and not member.get('isImplicit')
             and any(kind(body)=='CompoundStmt' for body in kids(member)) for member in kids(record))}
+    # Selected header factories are managed source classes too, including
+    # implicit zero/null default constructors. Their methods receive the same
+    # JS `this`; layout evidence must not redirect it to detached byte storage.
+    managed_record_names.update(header_record_factories)
     all_declarations={node.get('id'):node for top in ast for node in descendants(top) if node.get('id')}
+    global_pointer_variables,global_pointer_records=record_pointer_identities(ast,record_storage_views,source_root)
     def libc_adapter(decl):
         scalar=verified_libc_scalar_symbol(decl,all_declarations.get(decl.get('id'),{}),project_symbols)
         if scalar:return scalar
@@ -5030,6 +5111,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     reserved_bindings=set(symbols.values())|set(project_symbols)
     def storage_metadata(node,name):
         metadata={'name':name,'binding':global_storage_binding(name),'abi':GLOBAL_STORAGE_ABI,'original_type':qual(node)}
+        pointer_proof=pointer_identity(all_declarations.get(node.get('id'),node),global_pointer_variables,global_pointer_records)
+        if pointer_proof:metadata['record_pointer_identity']=pointer_proof
         cls=normalized_record_name(qual(node),aliases)
         if cls in addressable_classes and target_type_layout(qual(node),record_layouts,aliases):
             layout=record_layouts.get(cls)
@@ -5140,6 +5223,11 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         row['linkage']=('internal' if n.get('storageClass')=='static'
                         or id(n) in header_helper_ids or id(n) in header_global_internal else 'external')
         source_path=n.get('loc',{}).get('file')
+        if id(n) in header_function_proofs:
+            proof=header_function_proofs[id(n)]
+            row['original_header_function']=proof
+            source_path=proof['source_header']
+            row['line']=proof['source_line']
         if n.get('_source_byte_method'):
             row['original_byte_method']=n['_source_byte_method']
             source_path=n['_source_byte_method']['source_header']
@@ -5298,7 +5386,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     and target_type_layout(qual(n),record_layouts,aliases) is None):
                 raise Unsupported('C++ global class address requires exact Clang layout: '+qual(n))
             code=(em.function(n,symbol=symbol) if kind(n)=='FunctionDecl' else
-                  em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n))
+                  em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n,symbol=symbol))
             if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
                 original='export class '+js_ident(name)+' {'
@@ -5381,6 +5469,12 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 if target in project_symbols]
             row['external_reference_imports'].extend({'name':target,'reference_class_abi':REFERENCE_ABI}
                 for target in sorted(getattr(em,'used_reference_classes',set())) if target in project_symbols)
+            for target in sorted(getattr(em,'used_class_constructors',set())):
+                if target not in project_symbols or target not in header_record_proofs:continue
+                dependency=next((item for item in row['external_reference_imports'] if item['name']==target),None)
+                if dependency is None:
+                    dependency={'name':target};row['external_reference_imports'].append(dependency)
+                dependency['header_record_proof']=header_record_proofs[target]
             if kind(n)=='VarDecl':
                 array_metadata=pointer_array_metadata(n,symbol)
                 if array_metadata:row['object_storage']=array_metadata
@@ -5537,6 +5631,7 @@ def main():
     parser.add_argument('--rebuild-owner-sha256',help='Exact existing owner hash; rebuild all original storage for a fresh runtime instead of importing it')
     parser.add_argument('--ast-cache-dir',type=Path,help='ephemeral shared Clang AST cache for repeated project link passes')
     parser.add_argument('--header-inlines',action='store_true',help='lower selected static inline header definitions as source JS')
+    parser.add_argument('--header-inline-filter',help='Explicit header inline names to retain in a whole-unit pass; referenced header closure remains automatic')
     parser.add_argument('--exact-filter',action='store_true',help='select exact initial declaration names; dependency closure still follows original references')
     parser.add_argument('--header-dependency-closure',action='store_true',
                         help='recover only Clang-resolved, source-defined original header inline dependencies')
@@ -5545,6 +5640,8 @@ def main():
                         help='maximum memoized original declaration queries per source unit; exhaustion remains an explicit blocker')
     parser.add_argument('--enum-closure',action='store_true',help='query Clang-verifiable enum constants omitted by a filtered AST')
     opt=parser.parse_args();root=opt.root.resolve();src=root/opt.source
+    if opt.header_inline_filter is not None and not opt.header_inlines:
+        parser.error('--header-inline-filter requires --header-inlines')
     if opt.dependency_query_limit<1:parser.error('--dependency-query-limit must be positive')
     if opt.import_root and opt.import_root.resolve()==opt.out_dir.resolve():
         parser.error('a module fragment must have a distinct existing import root')
@@ -5567,6 +5664,7 @@ def main():
                 owner_input_fingerprint=owner.get('ast_cache_inputs')
                 for definition in owner.get('definitions',[]):
                     if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('kind')=='VarDecl'
+                            and not definition.get('header_global_definition')
                             and (definition.get('physical_source',opt.source)==opt.source or
                                  definition.get('private_storage') or definition.get('global_storage'))):
                         existing_source_storage[definition['name']]=definition
@@ -5574,7 +5672,7 @@ def main():
                             and definition.get('kind')=='VarDecl' and definition.get('header_global_definition')):
                         existing_header_values[definition['name']]=definition
                     if (not opt.rebuild_owner_sha256 and definition.get('status')=='source-first' and definition.get('linkage')=='internal'
-                            and definition.get('private_storage')):
+                            and definition.get('private_storage') and not definition.get('header_global_definition')):
                         private_source_storage[definition['name']]=definition['private_storage']
     # A captured multi-unit program can replace global new/delete in another
     # unit (EDuke32 actually does). Never silently substitute the standalone
@@ -5600,6 +5698,15 @@ def main():
         ast_decode.append(decode);return declarations
     def produce_current(*args,**kwargs):
         nonlocal c_storage_scopes
+        flex_level=0
+        for flag in compiler_arguments:
+            if flag.startswith('-fstrict-flex-arrays='):flex_level=int(flag.rsplit('=',1)[1])
+            elif flag=='-fstrict-flex-arrays':flex_level=3
+            elif flag=='-fno-strict-flex-arrays':flex_level=0
+        for tree in args[0]:
+            for record in descendants(tree):
+                if kind(record) in ('RecordDecl','CXXRecordDecl'):
+                    record['_source_one_byte_tail_arrays']=flex_level<=1
         detached=[node for node in args[0] if kind(node)=='VarDecl' and node.get('storageClass')=='static']
         if opt.filter and not compile_as_cpp and detached:
             if c_storage_scopes is None:
@@ -5650,7 +5757,8 @@ def main():
                 c_allocator_query_cache,c_allocator_declarations)
         return produce(*args,**kwargs,standard_heap_runtime=bool(standard_heap_contract) or (comp is None and opt.project_symbols is None),
                        standard_c_heap_runtime=standard_c_heap_runtime,
-                       private_source_storage=private_source_storage,header_definition_owners=header_definition_owners,existing_source_storage=existing_source_storage)
+                       private_source_storage=private_source_storage,header_definition_owners=header_definition_owners,existing_source_storage=existing_source_storage,
+                       header_inline_names=set(opt.header_inline_filter.split(',')) if opt.header_inline_filter is not None else None)
     args=[]
     # Preserve the original compilation *language*, not the filename suffix.
     # EDuke32 builds several .c units with g++ and -std=gnu++14.
@@ -5677,6 +5785,8 @@ def main():
     if (ast_cache_inputs and ast_cache_inputs.get('preprocessor_verified') is True
             and owner_input_fingerprint==ast_cache_inputs):
         existing_source_storage.update(existing_header_values)
+        private_source_storage.update({name:definition['private_storage']
+            for name,definition in existing_header_values.items() if definition.get('private_storage')})
     cmd=[frontend,*language,'-Xclang','-ast-dump=json']
     if opt.filter:cmd+=['-Xclang','-ast-dump-filter='+opt.filter]
     cmd+=['-fsyntax-only',*args,opt.source]
@@ -6695,8 +6805,15 @@ def main():
     module_imports=[]
     storage_imports={item['name']:item for definition in report if definition['status']=='source-first'
                      for item in definition.get('external_storage_imports',[])}
-    reference_imports={item['name']:item for definition in report if definition['status']=='source-first'
-                       for item in definition.get('external_reference_imports',[])}
+    reference_imports={}
+    for definition in report:
+        if definition['status']!='source-first':continue
+        for item in definition.get('external_reference_imports',[]):
+            metadata=reference_imports.setdefault(item['name'],{})
+            for key,value in item.items():
+                if key in metadata and metadata[key]!=value:
+                    raise ValueError('Conflicting original reference/class import proof: '+item['name'])
+                metadata[key]=value
     for name in used_imports:
         target=(opt.import_root or opt.out_dir)/(index[name]+'.mjs')
         if opt.import_root:
@@ -6753,7 +6870,7 @@ const cStackAlloc = amount => {
 ''') if 'cStackAlloc(' in body else ''
     heap_helpers=(HERE/'tools/source_cpp_heap_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cxxHeap.' in body else ''
     atomic_helpers=(HERE/'tools/source_atomic_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cAtomic(' in body else ''
-    pointer_helpers=(HERE/'tools/source_pointer_runtime.mjs').read_text(encoding='utf-8')+'\n' if atomic_helpers or any(x in body for x in ('cTypedPointer(', 'cPointerOffset(', 'cDeref(', 'cPointerCompare(', 'cPointerDiff(', 'cStaticPointer(', 'cPointerElementRef(', 'cUMullOverflow(', 'cRecordPointer(', 'cScalarStorage(', 'cAlignedStorage(')) else ''
+    pointer_helpers=embedded_runtime(HERE/'tools/source_pointer_runtime.mjs')+'\n' if atomic_helpers or any(x in body for x in ('cArrayDecay(', 'cTypedPointer(', 'cPointerOffset(', 'cDeref(', 'cPointerCompare(', 'cPointerDiff(', 'cStaticPointer(', 'cPointerElementRef(', 'cUMullOverflow(', 'cRecordPointer(', 'cScalarStorage(', 'cAlignedStorage(')) else ''
     reference_helpers=('const cRecordObject = source => {\n'
                       +'  if (source?.__cDeferredPointer === true || source?.__cDeferredReference === true) return cRecordObject(source.resolve());\n'
                       +'  if (source?.__cReference === true) return source.value;\n'
@@ -6770,12 +6887,12 @@ const cStackAlloc = amount => {
                       +'const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });\n'
                       +'const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });\n') if any(helper in body for helper in ('cRef(', 'cArrayRef(', 'cRecordObject(', 'cObjectFieldRef(', 'cStaticReference(')) else ''
     span_helpers=(HERE/'tools/source_pointer_span_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cxxPointerSpan(' in body else ''
-    aggregate_helpers=(HERE/'tools/source_aggregate_runtime.mjs').read_text(encoding='utf-8')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(', 'cNativeArray(')) else ''
+    aggregate_helpers=embedded_runtime(HERE/'tools/source_aggregate_runtime.mjs')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(', 'cNativeArray(')) else ''
     # Embedded helpers have dependencies too: record references call
     # cPointerElementRef, and aggregate record views call cPointer. Selecting
     # helpers from original function bodies alone stranded those bindings.
     if not pointer_helpers and (reference_helpers or aggregate_helpers):
-        pointer_helpers=(HERE/'tools/source_pointer_runtime.mjs').read_text(encoding='utf-8')+'\n'
+        pointer_helpers=embedded_runtime(HERE/'tools/source_pointer_runtime.mjs')+'\n'
     assignment_helpers=(HERE/'tools/source_aggregate_assignment_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cAssignAggregate(' in body else ''
     variadic_helpers=(HERE/'tools/source_variadic_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cVariadic.' in body else ''
     memory_helpers=(HERE/'tools/source_byte_memory_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cByteMemory.' in body else ''
@@ -6824,6 +6941,7 @@ const cStackAlloc = amount => {
     result['dependency_layout_closure']=dependency_layout_closure
     result['ast_cache_inputs']=ast_cache_inputs
     result['ast_decode']=ast_decode
+    result['header_inline_filter']=opt.header_inline_filter.split(',') if opt.header_inline_filter is not None else None
     result['storage_exports']=[{'name':item['name'],**item['global_storage']} for item in report
                                if item['status']=='source-first' and item.get('global_storage')]
     result['private_storage_exports']=[{'name':item['name'],**item['private_storage']} for item in report

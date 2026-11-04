@@ -31,6 +31,16 @@ jobs:
           clang++ --version
           python tests/source_factory/verify_sourcefirst_typedef_packed_assignment.py
           python tests/source_factory/verify_sourcefirst_union_selection.py
+      - name: Verify boot container storage and original source namespaces
+        run: |
+          python tests/source_factory/verify_sourcefirst_template_zero_pointer_ctor.py
+          python tests/source_factory/verify_sourcefirst_header_array_fragment.py
+          python tests/source_factory/verify_sourcefirst_range_values.py
+          python tests/source_factory/verify_sourcefirst_tag_value_namespace.py
+          python tests/source_factory/verify_sourcefirst_byte_tail_array.py
+          python tests/source_factory/verify_sourcefirst_directory_bridge.py
+          python tests/source_factory/verify_sourcefirst_owner_header_aliases.py
+          python tests/source_factory/verify_sourcefirst_record_pointer_types.py
       - run: node --test tests/source_factory/runtime.test.mjs tests/source_factory/portability.test.mjs
       - name: Reject accidentally tracked game archives or generated pages
         shell: bash

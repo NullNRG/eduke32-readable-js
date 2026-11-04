@@ -580,6 +580,9 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 if dims:
                     if len(dims)==1:item['length'] = length
                     else:item['nativeArray']=ctor;item['dims']=dims
+                    if (dims==[1] and width==1 and field is fields[-1]
+                            and not result['union'] and record.get('_source_one_byte_tail_arrays')):
+                        item['oneByteTailArray']='clang-flex-arrays-0-or-1/1'
                     result['arrayAlign'] = max(result['arrayAlign'],width)
             elif len(dims)<=8 and (field.get('id') in field_records or base in unique):
                 # A template's anonymous type text can be identical across

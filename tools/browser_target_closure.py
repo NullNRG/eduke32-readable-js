@@ -6,7 +6,7 @@ are introspected from NativeRuntime and imported from executable adapter modules
 Original-source providers must be present in an emitted .mjs file and unique.
 """
 from __future__ import annotations
-import argparse,hashlib,json,re,subprocess,shutil
+import argparse,hashlib,json,os,re,subprocess,shutil
 from collections import defaultdict,Counter,deque
 from pathlib import Path
 from browser_target_abi import ROOT,build as build_sdl
@@ -66,10 +66,11 @@ def emitted_owners(folder):
     ambiguous={name:sorted(set(paths)) for name,paths in candidates.items() if len(set(paths))>1}
     return unique,ambiguous,blocked
 
-def runtime_module(names):
+def runtime_module(names,source_bytes_import):
     # Constructor source is actual existing runtime, not a synthesized service.
     content='''// Auto-generated from NativeRuntime's real, tested C ABI table.
 import {bindLoguruHeap} from './loguru_provider.mjs';
+import {sourceHeapAddress} from SOURCE_BYTES_IMPORT;
 let active=null;
 export const BROWSER_C_SYMBOLS=Object.freeze(LIST);
 export function bindBrowserC(runtime) {
@@ -120,11 +121,23 @@ const withCStrings=(args,indexes,fn)=>{
     return fn(copied);
   } finally {for(const p of owned)active.heap.free(p);}
 };
+// Directory handles and dirent results are borrowed ORIGINAL host-heap
+// allocations. Source pointer fields must store their real LP64 addresses;
+// raw host numbers cannot be treated as unrelated source address tokens.
+const sourceAllocatedPointer=ptr=>{
+  if(!ptr)return null;
+  const size=active.heap.allocations.get(ptr);
+  if(!Number.isSafeInteger(size)||size<1)throw new TypeError('Directory service returned no live allocation');
+  return active.heap.borrow(ptr,size);
+};
 const call=(name,args)=>{
   if (!active) throw new Error('Browser C ABI is not bound: '+name);
   const fn=active.symbols[name];
   if (typeof fn!=='function') throw new Error('Browser C ABI missing actual implementation: '+name);
-  if ((name==='chdir'||name==='mkdir'||name==='stat'||name==='open'||name==='unlink'||name==='opendir') && args[0] instanceof Uint8Array)
+  if(name==='opendir')return withCStrings(args,[0],a=>sourceAllocatedPointer(fn(...a)));
+  if(name==='readdir')return sourceAllocatedPointer(fn(sourceHeapAddress(args[0],active.heap)));
+  if(name==='closedir')return fn(sourceHeapAddress(args[0],active.heap));
+  if ((name==='chdir'||name==='mkdir'||name==='stat'||name==='open'||name==='unlink') && args[0] instanceof Uint8Array)
     return withCStrings(args,[0],a=>fn(...a));
   if (name==='getcwd' && args[0] instanceof Uint8Array){
     const out=args[0],count=Number(args[1]);
@@ -146,7 +159,7 @@ const call=(name,args)=>{
   }
   return fn(...args);
 };
-'''.replace('LIST',json.dumps(names))
+'''.replace('LIST',json.dumps(names)).replace('SOURCE_BYTES_IMPORT',json.dumps(source_bytes_import))
     for name in names:
         if not IDENT.fullmatch(name):continue
         if name in ('Bgethomedir','Bgetappdir'):
@@ -212,7 +225,9 @@ def build(snapshot,out,report_path,entry_source='source/duke3d/src/game.cpp',ent
     sd=build_sdl(out,sdl_report)
     c=libc_symbols()
     file=out/(OWNER+'.mjs');file.parent.mkdir(parents=True,exist_ok=True)
-    file.write_text(runtime_module(c),encoding='utf-8')
+    source_bytes_import=os.path.relpath(ROOT/'runtime/source_bytes.mjs',file.parent).replace('\\','/')
+    if not source_bytes_import.startswith('.'):source_bytes_import='./'+source_bytes_import
+    file.write_text(runtime_module(c,source_bytes_import),encoding='utf-8')
     source,ambiguous,blocked=emitted_owners(snapshot)
     # Preserve source-derived newly emitted functions from the browser target.
     # Accept only the same exact original TU owner and an actual export; a
