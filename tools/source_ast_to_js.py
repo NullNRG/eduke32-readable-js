@@ -14,6 +14,7 @@ from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
 from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
+from source_included_implementations import included_implementation_bytes
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -1078,23 +1079,7 @@ class Emit:
                 while kind(literal) in WRAPPERS and len(kids(literal))==1:
                     literal=kids(literal)[0]
                 if kind(literal)=='StringLiteral':
-                    # C string literals have static byte storage, NOT a JS
-                    # UTF-16 string. The original pointer can be indexed,
-                    # offset, compared or passed to libc byte functions.
-                    # Build once per Clang literal identity and preserve the
-                    # trailing NUL, including embedded high-bit/zero bytes.
-                    if not self.current_function:
-                        raise Unsupported('C string pointer requires static literal owner')
-                    if not hasattr(self,'byte_literals'):self.byte_literals={}
-                    identity=literal.get('id') or n.get('id')
-                    if not identity:
-                        raise Unsupported('unidentified C string literal pointer')
-                    if identity not in self.byte_literals:
-                        binding='__cxx_literal_'+hashlib.sha256((self.current_function+'\0'+str(identity)).encode()).hexdigest()[:20]
-                        payload=c_string_bytes(literal.get('value','""'))+b'\0'
-                        self.static_defs.append('const '+binding+' = Uint8Array.from('+json.dumps(list(payload))+');')
-                        self.byte_literals[identity]=binding
-                    return self.byte_literals[identity]
+                    return self.source_string_literal(literal)
             result=self.expr(a[0])
             if (k=='ImplicitCastExpr' and n.get('castKind')=='ArrayToPointerDecay'
                     and kind(literal)=='MemberExpr' and re.fullmatch(r'(?:const )?(?:signed |unsigned )?char\[1\]',qual(literal))):
@@ -2052,11 +2037,7 @@ class Emit:
             if layout is None:
                 raise Unsupported('sizeof/alignof record layout: '+arg_t)
             return str(layout[1] if n.get('name') in ('alignof','__alignof') else layout[0])
-        if k=='StringLiteral':
-            # C octal/hex escapes cannot be pasted unchanged into strict ESM.
-            # JSON-encode the decoded byte units, never raw Clang spelling.
-            raw=n.get('value','""')
-            return json.dumps(c_string_bytes(raw).decode('latin-1'))
+        if k=='StringLiteral':return self.source_string_literal(n)
         if k=='PredefinedExpr':
             # Clang resolves __func__, __FUNCTION__ and __PRETTY_FUNCTION__
             # to exact source-language string literals. Preserve that proven
@@ -2066,6 +2047,21 @@ class Emit:
             return self.expr(a[0])
         if k=='OpaqueValueExpr' and a:return self.expr(a[0])
         raise Unsupported(k)
+    def source_string_literal(self,literal):
+        # Array decay and C++ const char(&)[N] bind the same static bytes.
+        # UTF-16 strings have no native byte address and lose embedded bytes.
+        if not self.current_function:
+            raise Unsupported('C string pointer requires static literal owner')
+        identity=literal.get('id')
+        if not identity:raise Unsupported('unidentified C string literal pointer')
+        if not hasattr(self,'byte_literals'):self.byte_literals={}
+        if identity not in self.byte_literals:
+            binding='__cxx_literal_'+hashlib.sha256((self.current_function+'\0'+str(identity)).encode()).hexdigest()[:20]
+            payload=c_string_bytes(literal.get('value','""'))+b'\0'
+            self.static_defs.append('const '+binding+' = Uint8Array.from('+json.dumps(list(payload))+');')
+            self.byte_literals[identity]=binding
+        return self.byte_literals[identity]
+
     def proven_null_base_field_offset(self, cast):
         """Resolve a C source `(size_t)&((T*)0)->field` through target ABI.
 
@@ -4016,6 +4012,9 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
     """
     if source_root is None:return [],{}
     root=Path(source_root).resolve()
+    included_sources=included_implementation_bytes(ast,root)
+    included_paths={path for path,data in included_sources}
+    original_inputs=(*original_header_source_bytes(str(root)),*included_sources)
     declarations={node.get('id'):node for top in ast for node in descendants(top)
                   if node.get('id')}
     variables=[]
@@ -4042,13 +4041,13 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
             header=(header if header.is_absolute() else root/header).resolve()
             try:header.relative_to(root)
             except ValueError:continue
-            if header.suffix.lower() not in ('.h','.hpp','.hh','.hxx','.inc') or not header.is_file():continue
+            if (header.suffix.lower() not in ('.h','.hpp','.hh','.hxx','.inc') and header not in included_paths) or not header.is_file():continue
             data=header.read_bytes()
             if data[offset:offset+len(name_bytes)]==name_bytes:matches=[(header,data)]
         elif loc.get('includedFrom'):
             # includedFrom identifies the includer, never the actual header.
             # The identifier's exact unique byte offset proves the file.
-            for header,data in original_header_source_bytes(str(root)):
+            for header,data in original_inputs:
                 if data[offset:offset+len(name_bytes)]==name_bytes:
                     matches.append((header,data))
                     if len(matches)>1:break
@@ -4069,7 +4068,8 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
                'scope_evidence':'enclosing-Clang-namespace' if file_scope else
                    'complete-same-TU-lexical-context' if node.get('_source_file_scope') else 'nonlocal-native-mangling',
                'clang_initializer_kind':node.get('init'),
-               'physical_origin_proof':'unique-original-header-identifier-byte-offset'}
+               'physical_origin_proof':'unique-original-included-implementation-identifier-byte-offset' if header in included_paths else 'unique-original-header-identifier-byte-offset',
+               'source_kind':'included-implementation' if header in included_paths else 'header'}
         if node.get('inline'):
             proof['unsupported_semantics']='inline header variable requires shared ODR storage and initialization lifetime'
         if node.get('tls'):
@@ -4089,6 +4089,8 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
     """
     if source_root is None:return [],{},set(),{}
     root=Path(source_root).resolve()
+    included_sources=included_implementation_bytes(ast,root)
+    included_paths={path for path,data in included_sources}
     sysroot=Path(os.environ['EDUKE32_SYSROOT']).resolve() if os.environ.get('EDUKE32_SYSROOT') else None
     known_by_id={};by_signature={};invalid=set()
     origins={};template_ids=set()
@@ -4106,7 +4108,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
             return p if p.is_file() else None
         path=inside_root(physical) if physical else None
         offset=loc.get('offset');name=n.get('name');spelling=name.encode() if name else b''
-        if path and path.suffix.lower() in ('','.h','.hpp','.hh','.hxx','.inc','.tcc'):
+        if path and (path.suffix.lower() in ('','.h','.hpp','.hh','.hxx','.inc','.tcc') or path in included_paths):
             data=path.read_bytes()
             if isinstance(offset,int) and spelling and data[offset:offset+len(spelling)]==spelling:
                 origins[identifier]=path;return path
@@ -4117,7 +4119,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
         # bytes at the offset in each original header, accepting one match.
         if not physical and 'includedFrom' in loc and isinstance(offset,int) and name:
             matches=[]
-            inventories=[original_header_source_bytes(str(root))]
+            inventories=[(*original_header_source_bytes(str(root)),*included_sources)]
             if sysroot:inventories.append(toolchain_header_source_bytes(str(sysroot)))
             for inventory in inventories:
                 for header,data in inventory:

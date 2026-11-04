@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #define SF_EXPORT EMSCRIPTEN_KEEPALIVE
 _Static_assert(sizeof(void*) == 4, "Service ABI requires wasm32");
 _Static_assert(sizeof(SDL_Color) == 4, "Palette ABI requires RGBA bytes");
@@ -25,6 +26,12 @@ SF_EXPORT void sf_shutdown(void) { SDL_Quit(); audio_device=0; }
 SF_EXPORT uint64_t sf_counter(void) { return SDL_GetPerformanceCounter(); }
 SF_EXPORT uint64_t sf_frequency(void) { return SDL_GetPerformanceFrequency(); }
 SF_EXPORT uint64_t sf_ticks(void) { return SDL_GetTicks64(); }
+SF_EXPORT int32_t sf_add_controller_mappings(uint32_t bytes, uint32_t length) {
+    if (length > INT_MAX) return SDL_SetError("Controller database exceeds SDL buffer size");
+    SDL_RWops *input=SDL_RWFromConstMem((const void*)(uintptr_t)bytes,(int)length);
+    if (!input) return -1;
+    return SDL_GameControllerAddMappingsFromRW(input,1);
+}
 SF_EXPORT uint32_t sf_create_window(uint32_t title, int32_t width, int32_t height) {
     return (uint32_t)(uintptr_t)SDL_CreateWindow((const char*)(uintptr_t)title,
         SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,width,height,SDL_WINDOW_SHOWN);

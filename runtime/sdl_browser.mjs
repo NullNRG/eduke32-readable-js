@@ -1,11 +1,11 @@
 import { WebGL2Renderer } from './renderers.mjs';
-import { sourceByteView } from './source_bytes.mjs';
+import { sourceByteView, sourceSizedBytes, sourceHeapAddress } from './source_bytes.mjs';
 
 /** Partial SDL2 ABI backed by an actual HTML canvas and monotonic host clock.
  * No fabricated input, audio, GPU, or filesystem services. Unsupported SDL
  * subsystems report failure instead of returning success with no behavior.
  */
-export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=()=>globalThis.performance?.now?.(), gamepads=()=>globalThis.navigator?.getGamepads?.(), physicalDPI=null, framePresenter=null }={}) {
+export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=()=>globalThis.performance?.now?.(), gamepads=()=>globalThis.navigator?.getGamepads?.(), physicalDPI=null, framePresenter=null, controllerMappings=null }={}) {
   if(!heap)throw TypeError('SDL browser ABI requires a heap');
   const TIMER=0x1,AUDIO=0x10,VIDEO=0x20,EVENTS=0x4000;
   const eventTarget=canvas?.ownerDocument?.defaultView??canvas;
@@ -369,6 +369,7 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     SDL_Quit:()=>{detach();if(windowSurface){destroySurface(windowSurface);windowSurface=0;}
       if(originalFramePresenter && originalFramePresenter!==framePresenter)originalFramePresenter.destroy();
       originalFramePresenter=framePresenter?.backend==='webgl2'?framePresenter:null;displayAttempted=!!originalFramePresenter;
+      for(const handle of rwHandles.keys())heap.free(handle);rwHandles.clear();
       windows.clear();previousControllers.clear();for(const d of audioDevices.values()){d.node.disconnect();heap.free(d.buffer);}audioDevices.clear();audioContext?.close?.();audioContext=null;initialized=0;},
     SDL_PumpEvents:pumpControllers, // DOM listeners plus live gamepad state deltas.
     SDL_PollEvent:ptr=>{
@@ -687,7 +688,23 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     SDL_UnlockSurface:ptr=>{const sf=surfaceHandles.get(Number(ptr));if(!sf||!sf.locks)throw Error('Unlock of nonlocked SDL_Surface');sf.locks--;},
     SDL_RWFromConstMem:(ptr,size)=>{
       if(!Number.isSafeInteger(size)||size<0){setError('Invalid SDL_RWops buffer size');return 0;}
-      heap.check(ptr,size);const handle=heap.malloc(40);rwHandles.set(handle,{ptr,size,pos:0,readOnly:true});return handle;
+      const bytes=sourceSizedBytes(ptr,size,heap);const handle=heap.malloc(40);rwHandles.set(handle,{bytes,size,pos:0,readOnly:true});return handle;
+    },
+    SDL_RWclose:pointer=>{
+      const handle=sourceHeapAddress(pointer,heap);
+      if(!rwHandles.has(handle))return setError('Invalid or closed SDL_RWops');
+      rwHandles.delete(handle);heap.free(handle);return 0;
+    },
+    SDL_GameControllerAddMappingsFromRW:(pointer,freesrc)=>{
+      const handle=sourceHeapAddress(pointer,heap),rw=rwHandles.get(handle);
+      if(!rw)return setError('Invalid or closed SDL_RWops');
+      try{
+        if(typeof controllerMappings!=='function')return setError('Custom controller databases require the native SDL2 service');
+        const result=controllerMappings(rw.bytes.subarray(rw.pos));
+        if(!Number.isSafeInteger(result)||result<0)return setError('Native SDL2 controller database load failed');
+        rw.pos=rw.size;return result;
+      }catch(error){return setError('Native SDL2 controller database: '+error.message);}
+      finally{if(freesrc){rwHandles.delete(handle);heap.free(handle);}}
     },
     SDL_SetHint:(name,value)=>{const key=inputPtr(name);if(!key)return 0;
       hints.set(key,inputPtr(value));return 1;

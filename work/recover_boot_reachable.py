@@ -12,6 +12,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('names')
     parser.add_argument('--query-limit',type=int,default=256)
     parser.add_argument('--probe-only',action='store_true',help='Save a separate targeted frontier without installing partial work')
+    parser.add_argument('--included-functions',action='store_true',help='Explicitly select requested static/inline functions from Clang-proven included files')
     parser.add_argument('--whole-unit',action='store_true',help='Extract an original unit once; reuse existing storage and install only ABI-verified new definitions')
     parser.add_argument('--install-closed-leaves',action='store_true',help='Install verified dependencies while keeping a blocked requested root unresolved')
     parser.add_argument('--reuse-manifest',type=Path,help='Require current compiler and preprocessor content fingerprints before reusing an emission')
@@ -33,13 +34,14 @@ def main():
         print('Original declarations already linked: '+names);return 0
     build(out,out,base/'reports/browser-closure.json','source/build/src/engine.cpp','enginePreInit')
     providers=out/'browser-combined-symbol-owners.json'
-    key=hashlib.sha256(providers.read_bytes()+names.encode()+str((args.query_limit,args.whole_unit)).encode()+(ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest()[:16]
+    key=hashlib.sha256(providers.read_bytes()+names.encode()+str((args.query_limit,args.whole_unit,args.included_functions)).encode()+(ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest()[:16]
     stage=base/'boot-probes'/source.replace('/','_')/('reachable-'+key);stage.mkdir(parents=True,exist_ok=True)
     command=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',component.SOURCE,'--source',source,
         '--compile-commands',component.COMMANDS,'--out-dir',stage,
         '--dependency-closure','--header-dependency-closure','--enum-closure','--require-record-layouts',
         '--dependency-query-limit',str(args.query_limit),
         '--project-symbols',providers,'--import-root',out,'--ast-cache-dir',component.CACHE]
+    if args.included_functions:command+=['--header-inlines','--header-inline-filter',names]
     if not args.whole_unit:command+=['--filter',names,'--exact-filter']
     if args.reuse_manifest:
         from source_ast_to_js import compiler_runtime_revision
@@ -77,6 +79,7 @@ def main():
         'blocked':[{'name':row['name'],'reason':row.get('reason'),'dependencies':row.get('unresolved_references',[])}
             for row in doc['definitions'] if row['status']=='blocked'],'original_gameplay_verified':False}
     frontier.update(compiler_runtime_input_sha256=doc.get('compiler_runtime_input_sha256'),
+        provider_index_sha256=hashlib.sha256(providers.read_bytes()).hexdigest(),
         query_limit=args.query_limit,dependency_budget_exhausted=doc.get('dependency_closure',{}).get('budget_exhausted'),
         unqueried_references=doc.get('dependency_closure',{}).get('unqueried_references',[]),probe_only=args.probe_only)
     frontier_path.write_text(json.dumps(frontier,indent=2)+'\n')
@@ -121,8 +124,11 @@ def main():
         raise
     finally:sys.argv=arguments
     active=active_exports(owner)
-    report={'source':source,'requested':names.split(','),'requested_resolved':{name:name in active for name in names.split(',')},
-        'requested_still_unlinked':[name for name in names.split(',') if name not in active],'manifest':manifest.relative_to(ROOT).as_posix(),
+    owner_definitions=json.loads(owner_doc.read_text())['definitions']
+    bindings={name:sorted({row['name'] for row in owner_definitions if row.get('source_name',row['name'])==name and row['status']=='source-first' and row['name'] in active}) for name in names.split(',')}
+    resolved={name:name in active or len(bindings[name])==1 for name in names.split(',')}
+    report={'source':source,'requested':names.split(','),'requested_resolved':resolved,'requested_export_bindings':bindings,
+        'requested_still_unlinked':[name for name in names.split(',') if not resolved[name]],'manifest':manifest.relative_to(ROOT).as_posix(),
         'blocked':[{'name':row['name'],'reason':row.get('reason'),'dependencies':row.get('unresolved_references',[])}
             for row in doc['definitions'] if row['status']=='blocked'],'installed_closed_definitions':len(exports),'original_gameplay_verified':False}
     frontier_path.write_text(json.dumps(report,indent=2)+'\n')

@@ -18,7 +18,8 @@ async def main():
         assert hashlib.sha256((ROOT/item['path']).read_bytes()).hexdigest()==item['sha256']
     assert manifest['original_engine_translation_units']==[]
     from playwright.async_api import async_playwright
-    server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(ROOT)))
+    class Server(http.server.ThreadingHTTPServer):request_queue_size=128
+    server=Server(('127.0.0.1',0),functools.partial(Handler,directory=str(ROOT)))
     thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
     base='http://127.0.0.1:'+str(server.server_port)
     try:
@@ -48,6 +49,16 @@ async def main():
                   const indexed=Array.from(ctx.getImageData(20,20,1,1).data);
                   if(indexed.join(',')!=='41,83,127,255')throw Error('Native SDL indexed palette mismatch '+indexed);
                   const runtime=new NativeRuntime({nativeServices:services});runtime.bindSourceMemory();
+                  const database=new TextEncoder().encode('1234567890abcdef1234567890abcdef,SourceFactory native mapping,a:b0,b:b1,x:b2,y:b3,leftx:a0,lefty:a1,platform:Emscripten,\\n');
+                  const sdl=runtime.sdl.symbols,mappingAllocations=runtime.heap.allocations.size;
+                  let rw=sdl.SDL_RWFromConstMem(database,database.length);
+                  const addedMappings=sdl.SDL_GameControllerAddMappingsFromRW(rw,1);
+                  if(addedMappings!==1||runtime.heap.allocations.has(rw))throw Error('Native SDL mapping addition/ownership failed: '+addedMappings);
+                  rw=sdl.SDL_RWFromConstMem(database,database.length);
+                  const updatedMappings=sdl.SDL_GameControllerAddMappingsFromRW(rw,0);
+                  if(updatedMappings!==1||!runtime.heap.allocations.has(rw)||sdl.SDL_RWclose(rw)!==0)throw Error('Native SDL mapping replacement/ownership failed: '+updatedMappings);
+                  if(new TextDecoder().decode(database)!=='1234567890abcdef1234567890abcdef,SourceFactory native mapping,a:b0,b:b1,x:b2,y:b3,leftx:a0,lefty:a1,platform:Emscripten,\\n')throw Error('Native SDL database input changed');
+                  if(runtime.heap.allocations.size!==mappingAllocations)throw Error('Native SDL database bridge leaked engine allocations');
                   if(runtime.engineHost.symbols.timerInit(120)!==0)throw Error('Engine timer initialization failed');
                   const storage=runtime.heap.malloc(8);runtime.heap.u8.fill(173,storage,storage+8);
                   const engineBuffer=runtime.heap.buffer;
@@ -71,7 +82,7 @@ async def main():
                     services.queueAudio(device,samples);const before=services.queuedAudio(device);services.pauseAudio(device,false);
                     window.audioResult={device,before,frequency:device.frequency,channels:device.channels};window.audioReady=true;
                   };
-                  return {version,first,indexed,frequency:String(frequency),counter:String(counter),foreignRejected,
+                  return {version,first,indexed,controllerDatabase:{addedMappings,updatedMappings,originalInputUnchanged:true,engineAllocationsReleased:true},frequency:String(frequency),counter:String(counter),foreignRejected,
                     engineMemoryUnaffectedByServiceGrowth:true,runtimeManifest:runtime.manifest()};
                 }''')
                 await page.keyboard.press('ArrowRight');await page.mouse.move(20,20);await page.mouse.click(20,20)

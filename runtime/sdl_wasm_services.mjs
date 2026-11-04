@@ -13,7 +13,7 @@ export async function createSDLWasmServices(factory, options = {}) {
   const module=await factory(options);
   const exports=['service_version','sdl_version','alloc','free','error','init','shutdown','counter','frequency','ticks',
     'create_window','destroy_window','present_rgba','present_indexed','poll_event','audio_open',
-    'audio_frequency','audio_channels','audio_queue','audio_queued','audio_pause','audio_close'];
+    'audio_frequency','audio_channels','audio_queue','audio_queued','audio_pause','audio_close','add_controller_mappings'];
   for(const name of exports)if(typeof module['_sf_'+name]!=='function')throw new Error('Missing native SDL service '+name);
   if(module._sf_service_version()!==1)throw new Error('Unsupported native SDL service ABI');
   const windows=new Map(),audio=new Map();let closed=false;
@@ -52,6 +52,7 @@ export async function createSDLWasmServices(factory, options = {}) {
     init(flags){live();return checked(module._sf_init(flags>>>0));},
     version(){live();const version=module._sf_sdl_version()>>>0;return Object.freeze([version>>>16,(version>>>8)&255,version&255]);},
     counter(){live();return count(module._sf_counter());},frequency(){live();return count(module._sf_frequency());},ticks(){live();return count(module._sf_ticks());},
+    addControllerMappings(source){return copied(source,(p,length)=>checked(module._sf_add_controller_mappings(p,length)));},
     createWindow(title,width,height){
       if(!Number.isSafeInteger(width)||!Number.isSafeInteger(height)||width<=0||height<=0)throw new RangeError('Invalid SDL window size');
       const text=typeof title==='string'?new TextEncoder().encode(title+'\0'):bytes(title);

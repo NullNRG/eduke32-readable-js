@@ -22,9 +22,10 @@ export class NativeRuntime {
       homeDirectory, applicationDirectory });
     this.platform = new BrowserPlatform(canvas);
     this.renderer = canvas ? createRenderer(canvas, { preferred: renderer, THREE }) : null;
-    // The compiled original SDL ABI resolves to web-native browser services,
-    // not an SDL2 WASM binary or fake symbol stubs.
+    // Original source calls use the browser SDL table. Optional native SDL
+    // services remain isolated from the readable engine and its LP64 heap.
     this.sdl = createSDLBrowser({ heap: this.heap, canvas, callIndirect,
+      controllerMappings:nativeServices?.addControllerMappings ? bytes=>nativeServices.addControllerMappings(bytes) : null,
       framePresenter: this.renderer?.backend === 'webgl2' ? this.renderer : null });
     this.nativeServices=nativeServices;
     if(nativeServices){

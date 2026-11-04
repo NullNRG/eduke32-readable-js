@@ -2,6 +2,7 @@
  * All exported operations have a defined implementation; forbidden browser
  * system operations remain unresolved rather than receiving success stubs.
  */
+import {sourceByteView,sourceByteOffset,sourceCString} from './source_bytes.mjs';
 export function createCNumericExtra({heap,errnoLocation,random=Math.random}={}){
   if(!heap||!errnoLocation)throw TypeError('C numeric runtime needs ABI heap');
   const EINVAL=22,ERANGE=34;
@@ -9,7 +10,8 @@ export function createCNumericExtra({heap,errnoLocation,random=Math.random}={}){
   const err=e=>heap.write(errnoLocation(),'i32',e);
   const parseFloat=(input,endPtr)=>{
     if(!input){err(EINVAL);return 0;}
-    const original=heap.readCString(input);
+    const borrowed=sourceByteView(input);
+    const original=sourceCString(input,heap);
     const start=/^[\x09-\x0d\x20]*/.exec(original)[0].length;
     const text=original.slice(start);
     const special=/^[+-]?(?:inf(?:inity)?|nan(?:\([^)]*\))?)/i.exec(text);
@@ -27,7 +29,16 @@ export function createCNumericExtra({heap,errnoLocation,random=Math.random}={}){
     if(special && (!chosen||special[0].length>chosen.length)){
       chosen=special[0];value=/^[+-]?nan/i.test(chosen)?NaN:chosen[0]==='-'?-Infinity:Infinity;
     }
-    if(endPtr)heap.write(endPtr,'u64',BigInt(input+(chosen?start+chosen.length:0)));
+    if(endPtr){
+      const consumed=chosen?start+chosen.length:0;
+      const address=borrowed?(consumed===0?input:sourceByteOffset(input,consumed)):Number(input)+consumed;
+      if(endPtr.__cReference===true)endPtr.value=address;
+      else{
+        if(borrowed)throw TypeError('Source floating end pointer requires original reference storage');
+        if(typeof endPtr!=='number'&&typeof endPtr!=='bigint')throw TypeError('C floating end pointer lacks verified pointer storage');
+        heap.write(Number(endPtr),'u64',BigInt(address));
+      }
+    }
     if(!chosen)return 0;
     if(!special && !Number.isFinite(value))err(ERANGE);
     if(!special && value===0){

@@ -9,7 +9,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=ROOT/'factory-output/source-tree/eduke32-master'
 GAME='source/duke3d/src/game.cpp'
-def run(argv, cwd=ROOT, timeout=120):
+# The original game AST exceeded 120 s on the canonical 8 GB host.
+# Keep the same semantic assertions with a bounded extraction allowance.
+def run(argv, cwd=ROOT, timeout=240):
     p=subprocess.run(argv,cwd=cwd,capture_output=True,text=True,timeout=timeout)
     assert p.returncode==0,(argv,p.stdout[-900:],p.stderr[-1800:]);return p.stdout
 with tempfile.TemporaryDirectory(prefix='eduke_original_clockticks_') as tmp:
