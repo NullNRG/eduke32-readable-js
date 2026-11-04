@@ -44,10 +44,12 @@ def main():
     assert definitions and all(row['kind']=='FunctionDecl' or
         row['kind']=='VarDecl' and (row.get('physical_source',args.source)==args.source or
             args.whole_unit and row.get('header_global_definition')) or
-        args.whole_unit and row['kind']=='CXXRecordDecl' and row.get('header_record_factory') and row.get('odr_inline')
+        args.whole_unit and row['kind']=='CXXRecordDecl' and (
+            row.get('header_record_factory') and row.get('odr_inline') or
+            row['name'].startswith('__cxx_record_') and row.get('source_name'))
         for row in definitions),'Original source data/functions or attested header owners required'
-    names=sorted({row.get('source_name',row['name']) for row in definitions})
-    assert all(re.fullmatch(r'[A-Za-z_]\w*',name) for name in names)
+    names=sorted({row.get('source_name',row['name']) for row in definitions if row['kind']!='CXXRecordDecl'})
+    assert all(re.fullmatch(r'[A-Za-z_]\w*',name) or args.whole_unit and name.startswith('operator') and not any(c in name for c in ',\r\n') for name in names)
     build(out,out,base/'reports/browser-closure.json','source/build/src/engine.cpp','enginePreInit')
     owners=json.loads((out/'browser-combined-symbol-owners.json').read_text())
     owners={name:owner for name,owner in owners.items() if owner!=args.source and name not in old_exports}

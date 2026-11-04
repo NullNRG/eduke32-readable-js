@@ -14,6 +14,7 @@ from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
 from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
+from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
 from source_byte_records import recover_byte_records, clean_type as clean_record_type, owned_anonymous_record_members, typedef_record_layouts
@@ -6893,9 +6894,7 @@ const cStackAlloc = amount => {
                       +'  return source;\n'
                       +'};\n'
                       +'const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });\n'
-                      +'const cObjectFieldRef = (owner, field) => { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); };\n'
-                      +'const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });\n'
-                      +'const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });\n') if any(helper in body for helper in ('cRef(', 'cArrayRef(', 'cRecordObject(', 'cObjectFieldRef(', 'cStaticReference(')) else ''
+                      +emit_primitive_references()) if any(helper in body for helper in ('cRef(', 'cArrayRef(', 'cRecordObject(', 'cObjectFieldRef(', 'cStaticReference(')) else ''
     span_helpers=(HERE/'tools/source_pointer_span_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cxxPointerSpan(' in body else ''
     aggregate_helpers=embedded_runtime(HERE/'tools/source_aggregate_runtime.mjs')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(', 'cNativeArray(')) else ''
     # Embedded helpers have dependencies too: record references call
@@ -6915,13 +6914,7 @@ const cStackAlloc = amount => {
     address_helpers=((HERE/'tools/source_address_runtime.mjs').read_text(encoding='utf-8').replace('export { cSourceAddresses as sourceAddressSpace };','')+'\n'
                      if pointer_helpers or aggregate_helpers or c_heap_helpers or 'cSourceAddresses.' in body else '')
     process_helpers=(HERE/'tools/source_process_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cProcess.' in body else ''
-    casts={'i32':'const i32 = value => typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0;\n',
-           'u32':'const u32 = value => typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0;\n',
-           'i64':'const i64 = value => BigInt.asIntN(64, BigInt(value));\n',
-           'u64':'const u64 = value => BigInt.asUintN(64, BigInt(value));\n',
-           'i128':'const i128 = value => BigInt.asIntN(128, BigInt(value));\n',
-           'u128':'const u128 = value => BigInt.asUintN(128, BigInt(value));\n'}
-    casts_text=''.join(src for name,src in casts.items() if name+'(' in body)
+    casts_text=emit_scalar_helpers(body)
     libm_text=''.join(src+'\n' for name,src in LIBM.items() if name+'(' in body)
     if compiler_runtime_revision()!=compiler_revision:
         raise SystemExit('Compiler/runtime inputs changed during source emission; previous output preserved. Retry under one frozen revision.')
