@@ -59,8 +59,8 @@
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\osd.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
   "found": 150,
-  "emitted": 148,
-  "blocked": 2,
+  "emitted": 149,
+  "blocked": 1,
   "definitions": [
     {
       "name": "fix16_rad_to_deg_mult__header_global_1f20827e10fe1139",
@@ -2067,43 +2067,6 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
-    },
-    {
-      "name": "OSD_Draw",
-      "source_name": "OSD_Draw",
-      "kind": "FunctionDecl",
-      "line": 1596,
-      "original_type": "void ()",
-      "linkage": "external",
-      "source_references": [
-        "OSD_ShowDisplay",
-        "OSD_UpdateDrawBuffer",
-        "min__template_774131ccff66371d",
-        "osd",
-        "osdkeytime",
-        "osdrowscur",
-        "osdscrtime",
-        "sintable",
-        "tabledivide32_noinline",
-        "timer120",
-        "timerGetTicks",
-        "videoBeginDrawing",
-        "videoEndDrawing"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "tabledivide32_noinline",
-          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
-          "abi": "source-global-cell/2",
-          "original_type": "decltype(tabledivide32) *"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: timer120",
-      "unresolved_references": [
-        "timer120"
-      ]
     },
     {
       "name": "OSD_Printf",
@@ -4876,6 +4839,85 @@
         "current_revision_reemission": false,
         "additional_source_definitions": 0
       }
+    },
+    {
+      "name": "OSD_Draw",
+      "source_name": "OSD_Draw",
+      "kind": "FunctionDecl",
+      "line": 1596,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/osd.cpp",
+      "source_references": [
+        "OSD_ShowDisplay",
+        "OSD_UpdateDrawBuffer",
+        "min__template_774131ccff66371d",
+        "osd",
+        "osdkeytime",
+        "osdrowscur",
+        "osdscrtime",
+        "sintable",
+        "tabledivide32_noinline",
+        "timer120",
+        "timerGetTicks",
+        "videoBeginDrawing",
+        "videoEndDrawing"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_11b9de72122e863ace28b30e",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "unsigned int",
+          "name": "osdkeytime",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "name": "osdrowscur",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d5f99da07cc6d39f2823349f",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "unsigned int",
+          "name": "osdscrtime",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "tabledivide32_noinline",
+          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide32) *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_ShowDisplay",
+        "OSD_UpdateDrawBuffer",
+        "osd",
+        "osdkeytime",
+        "osdrowscur",
+        "osdscrtime",
+        "sintable",
+        "tabledivide32_noinline",
+        "timer120",
+        "timerGetTicks",
+        "videoBeginDrawing",
+        "videoEndDrawing"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -12068,6 +12110,104 @@
       },
       "current_revision_reemission": false,
       "additional_source_definitions": 0
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_osd_cpp_54f950ad9c14.mjs",
+      "sha256": "54f950ad9c14f3da5f81bc164d2cfc44743d16109698cd88770449b0834cb6ee",
+      "original_source": "source/build/src/osd.cpp",
+      "exports": [
+        "OSD_Draw"
+      ],
+      "reexports": [
+        "OSD_Draw"
+      ],
+      "imports": [
+        {
+          "name": "OSD_ShowDisplay",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_UpdateDrawBuffer",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdkeytime",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_11b9de72122e863ace28b30e",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "unsigned int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdrowscur",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ede42faad942fe375d467e7c",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "osdscrtime",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d5f99da07cc6d39f2823349f",
+          "owner_source": "source/build/src/osd.cpp",
+          "original_type": "unsigned int",
+          "consumer_source": "source/build/src/osd.cpp"
+        },
+        {
+          "name": "sintable",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tabledivide32_noinline",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide32) *"
+        },
+        {
+          "name": "timer120",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetTicks",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoBeginDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoEndDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "58085980ccd912abac6c0fe81b148ef6139aad6c0c1d70579505f35faf5501d9"
     }
   ]
 }

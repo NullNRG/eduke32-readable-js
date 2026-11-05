@@ -103,8 +103,9 @@ def main():
         assert result.returncode==0,'Source compilation failed: '+str(log)
     candidate=stage/(args.source+'.mjs');current=json.loads(candidate.with_suffix('.manifest.json').read_text())
     if args.whole_unit:
-        from source_header_factory_retention import retain
-        current,retained_code=retain(document,current,old.decode(),candidate.read_text())
+        from source_header_factory_retention import retain,retain_callable_names
+        current,callable_code=retain_callable_names(document,current,old_exports,candidate.read_text())
+        current,retained_code=retain(document,current,old.decode(),callable_code)
         candidate.write_text(retained_code,newline='\n')
     if args.prune_unconsumed_functions:
         assert args.whole_unit,'Function omission requires a whole original unit attempt'

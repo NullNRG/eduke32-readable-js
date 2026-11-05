@@ -47,7 +47,7 @@ def checkpoint():
    error=storage_import_error(dep,{dep['from']:{'manifest':document,'module':provider}},export_reader=verified_exports)
    if error:errors.append({'source':source,'import':dep,'reason':error})
  unique,ambiguous,blocked=emitted_owners(OUT)
- proof=ROOT/'reports/oct30-original-browser-component.json'
+ proof=ROOT/PROFILE.get('engine_execution_report','reports/oct30-original-browser-component.json')
  execution=json.loads(proof.read_text()) if proof.is_file() else {}
  actual_modules={p:d for p,d in artifacts.items() if p.endswith('.mjs')}
  runtime_artifacts=runtime_fingerprints(ROOT)
@@ -65,6 +65,7 @@ def checkpoint():
   'entry_exports':{name:name in unique for name in ('enginePreInit','engineInit','app_main')},'artifacts':artifacts,'runtime_artifacts':runtime_artifacts,
   'execution_report':proof.relative_to(ROOT).as_posix(),'execution_evidence_matches_modules':matches,
   'original_engine_startup_verified':bool(matches and execution.get('original_engine_startup_verified')),
+  'original_engine_video_verified':bool(matches and execution.get('component_passed') and execution.get('engine_initialization',{}).get('original_videoSetGameMode_executed')),
   'gameplay_verified':False,'standalone_player_verified':False}
  target=BASE/'component-manifest.json';tmp=target.with_suffix('.partial');tmp.write_text(json.dumps(report,indent=2)+'\n');os.replace(tmp,target)
  print(json.dumps({k:report[k] for k in ('source_units_with_partial_modules','entry_exports','execution_evidence_matches_modules','original_engine_startup_verified','gameplay_verified')},indent=2))

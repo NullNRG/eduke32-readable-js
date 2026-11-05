@@ -4168,3 +4168,6 @@ function cCopyTrivialClass(value, C, fields) {
   for (const field of fields) copy[field]=value[field];
   return copy;
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { OSD_Draw } from "./_source_legacy_osd_cpp_54f950ad9c14.mjs";

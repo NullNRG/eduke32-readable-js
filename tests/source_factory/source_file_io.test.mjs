@@ -74,3 +74,13 @@ test('binary search returns aliases of original byte storage and checks callback
  assert.equal(c.bsearch(10,p,5,4,(key,value)=>key-rt.heap.read(value,'i32')),p+12);
  }finally{rt.close();}
 });
+
+test('POSIX clocks write the original LP64 timespec through bounded source records',()=>{
+ const heap=new ABIHeap(),c=createStdlib({heap,clock:()=>1250.125,wallClock:()=>1760000000123}).symbols;
+ const bytes=new Uint8Array(24).fill(0xa5),record={[Symbol.for('source-first.original-byte-record-storage/1')]:{bytes:bytes.subarray(4,20)}};
+ assert.equal(c.clock_gettime(1,record),0);const view=new DataView(bytes.buffer);
+ assert.equal(view.getBigInt64(4,true),1n);assert.equal(view.getBigInt64(12,true),250125000n);
+ assert.ok([...bytes.subarray(0,4),...bytes.subarray(20)].every(b=>b===0xa5));
+ const output=new BigInt64Array(2);assert.equal(c.clock_gettime(0,output),0);assert.deepEqual([...output],[1760000000n,123000000n]);
+ assert.throws(()=>c.clock_gettime(1,bytes.subarray(9)),/bounds/);
+});

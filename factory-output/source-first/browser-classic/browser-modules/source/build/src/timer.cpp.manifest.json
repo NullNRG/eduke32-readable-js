@@ -1,18 +1,16 @@
 {
   "source": "source/build/src/timer.cpp",
   "dependency_closure": {
-    "enabled": true,
-    "additional_ast_filters": [
-      "timerGetTicks"
-    ],
-    "additional_ast_roots": 3,
-    "rounds": 1,
+    "enabled": false,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0,
     "query_limit": 256,
     "budget_exhausted": false,
     "unqueried_references": []
   },
   "enum_closure": {
-    "enabled": true,
+    "enabled": false,
     "queried": [],
     "proven_values": {},
     "rejected": {},
@@ -60,21 +58,35 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\timer.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 4,
-  "emitted": 4,
-  "blocked": 0,
+  "found": 44,
+  "emitted": 38,
+  "blocked": 6,
   "definitions": [
     {
-      "name": "timerGetTicks",
-      "source_name": "timerGetTicks",
-      "kind": "FunctionDecl",
-      "line": 119,
-      "original_type": "uint32_t ()",
-      "linkage": "external",
-      "physical_source": "source/build/src/timer.cpp",
-      "source_references": [
-        "timerGetTicks"
-      ],
+      "name": "fix16_rad_to_deg_mult__header_global_a6bb872a04076351",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c6698508a0",
+        "redeclaration_chain": [
+          "0x1c6698508a0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
@@ -82,17 +94,139 @@
       "unresolved_references": []
     },
     {
-      "name": "timerGetFractionalTicks",
-      "source_name": "timerGetFractionalTicks",
-      "kind": "FunctionDecl",
-      "line": 120,
-      "original_type": "double ()",
-      "linkage": "external",
-      "physical_source": "source/build/src/timer.cpp",
-      "source_references": [
-        "timerGetTicks"
-      ],
+      "name": "fix16_deg_to_rad_mult__header_global_d5c4539f10317c51",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669850d48",
+        "redeclaration_chain": [
+          "0x1c669850d48"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
       "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ClockTicks",
+      "source_name": "ClockTicks",
+      "kind": "CXXRecordDecl",
+      "line": 20,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 573,
+        "enclosing_record": "ClockTicks",
+        "type": "ClockTicks",
+        "semantic_sha256": "de8913d6a1d35fb59b02152d43d4905df13b8762f523c78ba320d82e6269cb17",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [
+        "ClockTicks",
+        "__cxx_operator_11a696315e969ab4",
+        "__cxx_operator_35d41574d9c68141",
+        "__cxx_operator_761c63d1e16e183f",
+        "__cxx_operator_9d5bfff63c86ec9c"
+      ],
+      "non_odr_static_constants": [
+        {
+          "value": 18446744073709486080,
+          "type": "unsigned long",
+          "name": "VALUE_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5231
+        },
+        {
+          "value": 18446744069414584320,
+          "type": "unsigned long",
+          "name": "WHOLE_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5309
+        },
+        {
+          "value": 4294901760,
+          "type": "unsigned long",
+          "name": "FRACTION_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5387
+        },
+        {
+          "value": 65535,
+          "type": "unsigned long",
+          "name": "FRACTION_16_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5465
+        }
+      ],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "emitted_constructor_providers": [
+        "ClockTicks"
+      ],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "sys_timer",
+      "source_name": "sys_timer",
+      "kind": "VarDecl",
+      "line": 38,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_db5d72e777887f5f0d3a283c",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clockLastSampleTime",
+      "source_name": "clockLastSampleTime",
+      "kind": "VarDecl",
+      "line": 39,
+      "original_type": "unsigned long",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c599d8eb562f5be0095fc09c",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned long"
+      },
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
@@ -105,7 +239,6 @@
       "line": 40,
       "original_type": "int",
       "linkage": "internal",
-      "physical_source": "source/build/src/timer.cpp",
       "source_references": [],
       "external_reference_imports": [],
       "private_storage": {
@@ -120,13 +253,339 @@
       "unresolved_references": []
     },
     {
-      "name": "timerGetNanoTickRate",
-      "source_name": "timerGetNanoTickRate",
+      "name": "usertimercallback",
+      "source_name": "usertimercallback",
+      "kind": "VarDecl",
+      "line": 42,
+      "original_type": "void (*)()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_bd2eb821dd4732a4c6521d79",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "void (*)()"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_a226ef84aef14cfe",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669849078",
+        "redeclaration_chain": [
+          "0x1c669849078"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_9656cdc4aba74063",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669849190",
+        "redeclaration_chain": [
+          "0x1c669849190"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_cbf1974a4f6c234f",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c6698492c0",
+        "redeclaration_chain": [
+          "0x1c6698492c0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_9192967480fb80ee",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c6698493f0",
+        "redeclaration_chain": [
+          "0x1c6698493f0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_18472cfcd5b6e4c6",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669849500",
+        "redeclaration_chain": [
+          "0x1c669849500"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_fec6e23d4b03cd06",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669849610",
+        "redeclaration_chain": [
+          "0x1c669849610"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tsc_freq",
+      "source_name": "tsc_freq",
+      "kind": "VarDecl",
+      "line": 45,
+      "original_type": "unsigned long",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_d19e19db8c1ff53a7d0a35de",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "unsigned long"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerFenceRDTSC",
+      "source_name": "timerFenceRDTSC",
       "kind": "FunctionDecl",
-      "line": 116,
+      "line": 47,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "_mm_lfence"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: _mm_lfence",
+      "unresolved_references": [
+        "_mm_lfence"
+      ]
+    },
+    {
+      "name": "timerSampleRDTSC",
+      "source_name": "timerSampleRDTSC",
+      "kind": "FunctionDecl",
+      "line": 95,
       "original_type": "uint64_t ()",
+      "linkage": "internal",
+      "source_references": [
+        "eduke32_rdtsc",
+        "timerFenceRDTSC"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: eduke32_rdtsc, timerFenceRDTSC",
+      "unresolved_references": [
+        "eduke32_rdtsc",
+        "timerFenceRDTSC"
+      ]
+    },
+    {
+      "name": "timerGetTicks__template_e183c9b37256997b",
+      "source_name": "timerGetTicks",
+      "kind": "FunctionDecl",
+      "line": 108,
+      "original_type": "unsigned long (unsigned long)",
+      "clang_template_mangled_name": "_Z13timerGetTicksImET_S0_",
       "linkage": "external",
-      "physical_source": "source/build/src/timer.cpp",
+      "source_references": [
+        "clock_gettime"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "clock_gettime"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetTicks__template_f973fb401fd07294",
+      "source_name": "timerGetTicks",
+      "kind": "FunctionDecl",
+      "line": 108,
+      "original_type": "unsigned int (unsigned int)",
+      "clang_template_mangled_name": "_Z13timerGetTicksIjET_S0_",
+      "linkage": "external",
+      "source_references": [
+        "clock_gettime"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "clock_gettime"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetTicks__template_7c00805d9207c137",
+      "source_name": "timerGetTicks",
+      "kind": "FunctionDecl",
+      "line": 108,
+      "original_type": "double (double)",
+      "clang_template_mangled_name": "_Z13timerGetTicksIdET_S0_",
+      "linkage": "external",
+      "source_references": [
+        "clock_gettime"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "clock_gettime"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetClockRate",
+      "source_name": "timerGetClockRate",
+      "kind": "FunctionDecl",
+      "line": 115,
+      "original_type": "int ()",
+      "linkage": "external",
       "source_references": [
         "clockTicksPerSecond"
       ],
@@ -135,9 +594,715 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "timerGetNanoTickRate",
+      "source_name": "timerGetNanoTickRate",
+      "kind": "FunctionDecl",
+      "line": 116,
+      "original_type": "uint64_t ()",
+      "linkage": "external",
+      "source_references": [
+        "clockTicksPerSecond"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetNanoTicks",
+      "source_name": "timerGetNanoTicks",
+      "kind": "FunctionDecl",
+      "line": 117,
+      "original_type": "uint64_t ()",
+      "linkage": "external",
+      "source_references": [
+        "timerGetNanoTickRate",
+        "timerGetTicks__template_e183c9b37256997b"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timer120",
+      "source_name": "timer120",
+      "kind": "FunctionDecl",
+      "line": 118,
+      "original_type": "uint32_t ()",
+      "linkage": "external",
+      "source_references": [
+        "timerGetTicks__template_f973fb401fd07294"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetTicks",
+      "source_name": "timerGetTicks",
+      "kind": "FunctionDecl",
+      "line": 119,
+      "original_type": "uint32_t ()",
+      "linkage": "external",
+      "source_references": [
+        "timerGetTicks__template_f973fb401fd07294"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": [],
+      "compiler_abi_name_retention": {
+        "previous_emitted_name": "timerGetTicks__cxx_ab3056dbb1b0",
+        "same_original_callable": true,
+        "same_tu_preprocessor_sha256": "63471c6840a9abbb447542a3dfe7985ba5b826e1e1d92017aa5b1dab9b50ea68",
+        "original_type": "uint32_t ()",
+        "original_line": 119,
+        "renamed_identifiers": 1,
+        "additional_source_definition": false
+      }
+    },
+    {
+      "name": "timerGetFractionalTicks",
+      "source_name": "timerGetFractionalTicks",
+      "kind": "FunctionDecl",
+      "line": 120,
+      "original_type": "double ()",
+      "linkage": "external",
+      "source_references": [
+        "timerGetTicks__template_7c00805d9207c137"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerUpdateClock",
+      "source_name": "timerUpdateClock",
+      "kind": "FunctionDecl",
+      "line": 122,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "ClockTicks",
+        "clockLastSampleTime",
+        "clockTicksPerSecond",
+        "lldiv",
+        "tabledivide64_noinline",
+        "timerGetNanoTickRate",
+        "timerGetNanoTicks",
+        "totalclock",
+        "usertimercallback"
+      ],
+      "external_reference_imports": [],
+      "emitted_constructor_providers": [
+        "ClockTicks"
+      ],
+      "external_storage_imports": [
+        {
+          "name": "tabledivide64_noinline",
+          "binding": "__cxx_global_cell_213561d609afbef0f650c8c9",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide64) *"
+        },
+        {
+          "name": "totalclock",
+          "binding": "__cxx_global_cell_37d96f0d18da4d1ab96cf9c5",
+          "abi": "source-global-cell/2",
+          "original_type": "ClockTicks",
+          "record_layout_sha256": "2de22bf10149fb2c9397c8a9345539b598a0f828a96017d44708a26e7df32df9"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "lldiv",
+        "tabledivide64_noinline",
+        "totalclock"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetCounterType",
+      "source_name": "timerGetCounterType",
+      "kind": "FunctionDecl",
+      "line": 144,
+      "original_type": "int ()",
+      "linkage": "internal",
+      "source_references": [
+        "sys_timer"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerGetPerformanceCounter",
+      "source_name": "timerGetPerformanceCounter",
+      "kind": "FunctionDecl",
+      "line": 173,
+      "original_type": "uint64_t ()",
+      "linkage": "external",
+      "source_references": [
+        "SDL_GetPerformanceCounter",
+        "timerGetCounterType",
+        "timerSampleRDTSC"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: timerSampleRDTSC",
+      "unresolved_references": [
+        "timerSampleRDTSC"
+      ]
+    },
+    {
+      "name": "timerGetPerformanceFrequency",
+      "source_name": "timerGetPerformanceFrequency",
+      "kind": "FunctionDecl",
+      "line": 195,
+      "original_type": "uint64_t ()",
+      "linkage": "external",
+      "source_references": [
+        "SDL_GetPerformanceFrequency",
+        "timerGetCounterType",
+        "tsc_freq"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "SDL_GetPerformanceFrequency"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdcmd_sys_timer",
+      "source_name": "osdcmd_sys_timer",
+      "kind": "FunctionDecl",
+      "line": 217,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "source_references": [
+        "OSD_ParsingScript",
+        "clockLastSampleTime",
+        "cpu",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osdcmd_cvar_set",
+        "sys_timer",
+        "timerGetNanoTicks",
+        "timerGetPerformanceFrequency"
+      ],
+      "status": "blocked",
+      "reason": "source control flow: goto target not at an original compound statement boundary"
+    },
+    {
+      "name": "timerInit",
+      "source_name": "timerInit",
+      "kind": "FunctionDecl",
+      "line": 254,
+      "original_type": "int (const int)",
+      "linkage": "external",
+      "source_references": [
+        "OSD_RegisterCvar",
+        "SDL_InitSubSystem",
+        "clockLastSampleTime",
+        "clockTicksPerSecond",
+        "osdcmd_sys_timer",
+        "sys_timer",
+        "timerGetFractionalTicks",
+        "timerGetNanoTicks",
+        "timerSampleRDTSC",
+        "tsc_freq",
+        "usertimercallback"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: osdcmd_sys_timer, timerSampleRDTSC",
+      "unresolved_references": [
+        "osdcmd_sys_timer",
+        "timerSampleRDTSC"
+      ]
+    },
+    {
+      "name": "timerSetCallback",
+      "source_name": "timerSetCallback",
+      "kind": "FunctionDecl",
+      "line": 302,
+      "original_type": "void (*(void (*)()))()",
+      "linkage": "external",
+      "source_references": [
+        "usertimercallback"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_ae8240e497c751e2",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c6690136e8",
+        "redeclaration_chain": [
+          "0x1c6690136e8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_b5cbbab21cd96105323e4aed",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_f9a9d5346e72ccf1",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669f2f048",
+        "redeclaration_chain": [
+          "0x1c669f2f048"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_f9a9d5346e72ccf1",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "original_type": "const vec2_t[25]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_1ca8e73931e8d34c",
+      "source_name": "g_keyAsciiTable",
+      "kind": "VarDecl",
+      "line": 188,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 5455,
+        "source_line": 188,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669f30ca0",
+        "redeclaration_chain": [
+          "0x1c669f30ca0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_769f8d3e259e24be3591862a",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_c3c8eda5ef072fe4",
+      "source_name": "g_keyAsciiTableShift",
+      "kind": "VarDecl",
+      "line": 196,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 6158,
+        "source_line": 196,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c669f32ad0",
+        "redeclaration_chain": [
+          "0x1c669f32ad0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_3eb06d31b5077bc4033cfc76",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2long__header_global_fd3772e69bb463c3",
+      "source_name": "pow2long",
+      "kind": "VarDecl",
+      "line": 895,
+      "original_type": "const const int32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26019,
+        "source_line": 895,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c66a00f6c8",
+        "redeclaration_chain": [
+          "0x1c66a00f6c8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_bbc555d94eebb6ab45ad19b3",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "const const int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2ulong__header_global_0fe2e05d190da00e",
+      "source_name": "pow2ulong",
+      "kind": "VarDecl",
+      "line": 907,
+      "original_type": "const const uint32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26350,
+        "source_line": 907,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c66a00fec8",
+        "redeclaration_chain": [
+          "0x1c66a00fec8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_a4d7e938d031a5f6c2deba2e",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "const const uint32_t[32]",
+        "scalar_array": {
+          "array": "Uint32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow264__header_global_c19b7bca9997f693",
+      "source_name": "pow264",
+      "kind": "VarDecl",
+      "line": 919,
+      "original_type": "const const int64_t[64]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26665,
+        "source_line": 919,
+        "translation_unit": "source/build/src/timer.cpp",
+        "clang_decl_id": "0x1c66a0109c8",
+        "redeclaration_chain": [
+          "0x1c66a0109c8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_d4fe434151bc823402035bff",
+        "owner_source": "source/build/src/timer.cpp",
+        "original_type": "const const int64_t[64]",
+        "scalar_array": {
+          "array": "BigInt64Array",
+          "dims": [
+            64
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "eduke32_rdtsc",
+      "source_name": "eduke32_rdtsc",
+      "kind": "FunctionDecl",
+      "line": 58,
+      "original_type": "uint64_t ()",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/rdtsc.h",
+        "source_offset": 2008,
+        "source_line": 58,
+        "header_sha256": "226857d2ca8a73c8c1a5e9ca9a2183a58fb5ad1f1201515890d1d05df4421d29"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/rdtsc.h",
+        "source_offset": 2008,
+        "enclosing_record": "(free inline function)",
+        "type": "uint64_t ()",
+        "semantic_sha256": "2f6c5599dd38cc2e866122aa3d0b68663323d2412b6b7b2bf320a7c48c918aae"
+      },
+      "physical_source": "source/build/include/rdtsc.h",
+      "source_references": [],
+      "status": "blocked",
+      "reason": "inline assembly"
+    },
+    {
+      "name": "__cxx_operator_761c63d1e16e183f",
+      "source_name": "operator-",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "ClockTicks (ClockTicks, const ClockTicks &)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 3242,
+        "enclosing_record": "ClockTicks",
+        "type": "ClockTicks (ClockTicks, const ClockTicks &)",
+        "semantic_sha256": "b564bd5757309e8e818f8d18f1b4c9e2ee953ca2cc1ae2dda22df0760ee98737"
+      },
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [
+        "ClockTicks"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_35d41574d9c68141",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "bool (const ClockTicks &, const ClockTicks &)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 3873,
+        "enclosing_record": "ClockTicks",
+        "type": "bool (const ClockTicks &, const ClockTicks &)",
+        "semantic_sha256": "ca9ba49139b0530dcda61f451450a9c48074a1598a6b68668fba7a2f1131e763"
+      },
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_11a696315e969ab4",
+      "source_name": "operator<",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "bool (const ClockTicks &, const ClockTicks &)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 4104,
+        "enclosing_record": "ClockTicks",
+        "type": "bool (const ClockTicks &, const ClockTicks &)",
+        "semantic_sha256": "a784b2b1e2c8bcccb2b185e8986102c9c104a65c6474b32715367092a74c0381"
+      },
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_9d5bfff63c86ec9c",
+      "source_name": "operator>",
+      "kind": "FunctionDecl",
+      "line": null,
+      "original_type": "bool (const ClockTicks &, const ClockTicks &)",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 4227,
+        "enclosing_record": "ClockTicks",
+        "type": "bool (const ClockTicks &, const ClockTicks &)",
+        "semantic_sha256": "6c27890d4c145bc6a29792b7c04edb376cfb41e2b4785fc9544b4e135d089f68"
+      },
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [
+        "__cxx_operator_11a696315e969ab4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
-  "imports": [],
+  "imports": [
+    {
+      "name": "SDL_GetPerformanceFrequency",
+      "from": "browser-abi/sdl_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "clock_gettime",
+      "from": "browser-abi/libc_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "lldiv",
+      "from": "browser-abi/libc_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "tabledivide64_noinline",
+      "from": "source/build/src/pragmas.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_213561d609afbef0f650c8c9",
+      "abi": "source-global-cell/2",
+      "original_type": "decltype(tabledivide64) *"
+    },
+    {
+      "name": "totalclock",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_37d96f0d18da4d1ab96cf9c5",
+      "abi": "source-global-cell/2",
+      "original_type": "ClockTicks",
+      "record_layout_sha256": "2de22bf10149fb2c9397c8a9345539b598a0f828a96017d44708a26e7df32df9"
+    }
+  ],
   "llvm_fallback_used": false,
   "control_flow": {
     "structured_functions": 0,
@@ -162,8 +1327,12 @@
     "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
     "abi_verified": true
   },
-  "initial_declaration_selection": "exact",
+  "initial_declaration_selection": "clang-substring",
   "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "47209e115b9cebaaf6b486a6b631ebec3f393040c1175c175e887e9f7920c64f",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765"
+  },
   "c_allocator_declarations": {
     "queried": [],
     "proven": [],
@@ -179,17 +1348,32 @@
     "queried": false,
     "status": "not-required"
   },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "2c480bb05e75cee54fab1d7df9e6af90fe633aa645f8cfd35e4bf3856c757f22",
+  "compiler_runtime_inputs_unchanged": true,
   "standard_heap_contract": {
-    "contract_sha256": "23dccd6e1d870b82edd82f5b5c5ed06b10957df9a519fce1a6199081c4e0fc5b",
-    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "contract_sha256": "37126a839720cb73113028f84f1920a1dfc1620537a12d278660d7ec8e66d74d",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
     "selected_units": 111,
     "original_global_replacements_absent": true,
     "original_c_allocators_absent": true
   },
   "record_layout_extraction": {
-    "explicitly_required": false,
-    "records": 0,
-    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    "explicitly_required": true,
+    "records": 4464,
+    "sha256": "b515aa10588ff2dc7a88cbd2144af7f7c4046bf44ef51eb8adbfbfcbab882650",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts-complete",
+        "returncode": 0,
+        "stdout_sha256": "253d149f0885d82be1cbda5f07ac4c7baf6def4e69cd8a344087a0d0f60c000d",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
   },
   "module_fragment": {
     "import_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules",
@@ -198,6 +1382,10 @@
   "full_type_closure": {
     "attempted": false,
     "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
   },
   "ast_cache_inputs": {
     "format": "source-ast-clang-dependencies/1",
@@ -211,82 +1399,166 @@
       "format": "source-ast-stream/1",
       "backend": "yajl2_c",
       "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 24,
-      "ranges_omitted": 9,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 3,
-      "include_metadata_reuses": 0,
+      "roots": 1,
+      "objects": 745644,
+      "ranges_omitted": 167861,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1767,
+      "semantic_barrier_ranges_retained": 251,
+      "instance_method_ranges_retained": 8015,
+      "type_metadata_reuses": 135059,
+      "include_metadata_reuses": 152152,
       "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 1456,
-      "cache_storage": "json",
-      "cache_entry_bytes": 5382,
+      "capture_stored_bytes": 28167773,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 28167773,
       "cache_hit": false,
-      "json_bytes": 5382,
+      "json_bytes": 313803244,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 468442023,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 3,
-      "objects": 500,
-      "ranges_omitted": 157,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 151,
-      "include_metadata_reuses": 8,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 25313,
-      "cache_storage": "json",
-      "cache_entry_bytes": 178833,
-      "cache_hit": false,
-      "json_bytes": 178833,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 468620856,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
+      "cache_retained_bytes": 119881513,
+      "cache_evicted_entries": 10,
+      "cache_evicted_bytes": 42427105,
+      "cache_retention_reason": "compressed-retained"
     }
   ],
-  "storage_exports": [],
+  "header_inline_filter": [
+    "timer120",
+    "timerGetFractionalTicks",
+    "timerGetNanoTickRate",
+    "timerGetTicks"
+  ],
+  "storage_exports": [
+    {
+      "name": "clockLastSampleTime",
+      "binding": "__cxx_global_cell_c599d8eb562f5be0095fc09c",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned long"
+    }
+  ],
   "private_storage_exports": [
+    {
+      "name": "sys_timer",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_db5d72e777887f5f0d3a283c",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "int"
+    },
     {
       "name": "clockTicksPerSecond",
       "abi": "source-private-cell/1",
       "binding": "__cxx_private_cell_9bf3f9df2ac908b4b68699d4",
       "owner_source": "source/build/src/timer.cpp",
       "original_type": "int"
+    },
+    {
+      "name": "usertimercallback",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_bd2eb821dd4732a4c6521d79",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "void (*)()"
+    },
+    {
+      "name": "tsc_freq",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_d19e19db8c1ff53a7d0a35de",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "unsigned long"
+    },
+    {
+      "name": "pow2char__header_global_ae8240e497c751e2",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_b5cbbab21cd96105323e4aed",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_1ca8e73931e8d34c",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_769f8d3e259e24be3591862a",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_c3c8eda5ef072fe4",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_3eb06d31b5077bc4033cfc76",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "pow2long__header_global_fd3772e69bb463c3",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_bbc555d94eebb6ab45ad19b3",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "const const int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow2ulong__header_global_0fe2e05d190da00e",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_a4d7e938d031a5f6c2deba2e",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "const const uint32_t[32]",
+      "scalar_array": {
+        "array": "Uint32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow264__header_global_c19b7bca9997f693",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_d4fe434151bc823402035bff",
+      "owner_source": "source/build/src/timer.cpp",
+      "original_type": "const const int64_t[64]",
+      "scalar_array": {
+        "array": "BigInt64Array",
+        "dims": [
+          64
+        ]
+      }
     }
   ],
-  "module_fragments": [
+  "retained_original_callable_names": [
     {
-      "module": "source/build/src/_source_legacy_timer_cpp_bd47cf9eac81.mjs",
-      "sha256": "bd47cf9eac811645d0265a46b80a08b8a99ea2d85763c845699ee0a0c92d97bf",
-      "original_source": "source/build/src/timer.cpp",
-      "exports": [
-        "clockTicksPerSecond",
-        "timerGetNanoTickRate"
-      ],
-      "reexports": [
-        "clockTicksPerSecond",
-        "timerGetNanoTickRate",
-        "__cxx_private_cell_9bf3f9df2ac908b4b68699d4"
-      ],
-      "imports": [],
-      "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "c7792a002ff108d0bb3bb65bad5c6d1b2ee1abce54916293c8e0e2cddc629e97"
+      "name": "timerGetTicks",
+      "previous_emitted_name": "timerGetTicks__cxx_ab3056dbb1b0",
+      "same_original_callable": true,
+      "same_tu_preprocessor_sha256": "63471c6840a9abbb447542a3dfe7985ba5b826e1e1d92017aa5b1dab9b50ea68",
+      "original_type": "uint32_t ()",
+      "original_line": 119,
+      "renamed_identifiers": 1,
+      "additional_source_definition": false
     }
-  ]
+  ],
+  "unconsumed_legacy_export_omissions": [],
+  "unreferenced_type_wrapper_blockers": [],
+  "recompiled_owner_sha256": "f078f37289264afd14eb25749cb336cba25392962d0febc1fee1bf44faa323b4",
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration."
 }

@@ -37,8 +37,15 @@
     "format": "readable-engine-native-services/1",
     "engine_language": "readable-javascript",
     "native_service_backend": "sdl2-wasm32",
-    "native_allowed_roles": ["sdl2", "platform", "timing", "audio-backend"],
-    "native_allowed_project_sources": ["runtime/native_services/sdl_services.c"],
+    "native_allowed_roles": [
+      "sdl2",
+      "platform",
+      "timing",
+      "audio-backend"
+    ],
+    "native_allowed_project_sources": [
+      "runtime/native_services/sdl_services.c"
+    ],
     "original_game_or_build_engine_in_wasm": false,
     "engine_abi": "source-lp64-addresses/2",
     "service_pointer_bits": 32,
@@ -52,5 +59,6 @@
   "gameplay_verified": false,
   "preparation_tool": "tools/prepare_browser_classic.py",
   "prepared_source_root": "factory-output/browser-classic/source-tree/eduke32-master",
-  "browser_define": "EDUKE32_BROWSER"
+  "browser_define": "EDUKE32_BROWSER",
+  "engine_execution_report": "reports/browser-classic-original-engine-video.json"
 }

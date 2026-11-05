@@ -1024,7 +1024,7 @@ export { pow2char__header_global_712730224f5e2862, qsetmode, xdim, ydim, ylookup
 export { inpreparemirror, mirrorBuffer, palookup, __cxx_global_cell_9541123d8c6d2c52896ac26a, __cxx_global_cell_96cc27380f17556df4ccc300 } from "./_source_legacy_engine_cpp_bb4ab6fdc107.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
-export { printext256 } from "./_source_legacy_engine_cpp_871b318f6522.mjs";
+export { printext256 } from "./_source_legacy_engine_cpp_c106aed1475b.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { __atomic_add, __atomic_add_single, __cxx_operator_11a696315e969ab4, __cxx_operator_35d41574d9c68141, __cxx_operator_9d5bfff63c86ec9c, __exchange_and_add, __exchange_and_add_single, __gthread_active_p, __gthread_mutex_lock, __gthread_mutex_unlock, __gthread_recursive_mutex_lock, __gthread_recursive_mutex_unlock, __is_constant_evaluated, _mm_and_si128, _mm_or_si128, _mm_xor_si128, fix16_from_dbl, fix16_from_float, fix16_from_int, fix16_half__header_global_32abdaf38138b574, fix16_mod, fix16_one__header_global_1ff90da45b33318d, fix16_to_dbl, fix16_to_float, fix16_to_int, flt_f161r__header_global_08ad66003e737fed, libdivide_128_div_128_to_64, libdivide_32_div_16_to_16, libdivide_count_leading_zeros16, libdivide_count_leading_zeros32, libdivide_count_leading_zeros64, libdivide_mullhi_s16, libdivide_mullhi_s32, libdivide_mullhi_s64, libdivide_mullhi_u16, libdivide_mullhi_u32, libdivide_mullhi_u64, min, operator_delete___ZdlPvS_, operator_delete_array___ZdaPvS_, tabledivide32 } from "./_source_legacy_engine_cpp_8b5d59287bf2.mjs";

@@ -1132,61 +1132,6 @@
       "unresolved_references": []
     },
     {
-      "name": "printext256",
-      "source_name": "printext256",
-      "kind": "FunctionDecl",
-      "line": 14804,
-      "original_type": "void (int32_t, int32_t, int16_t, int16_t, const char *, char)",
-      "linkage": "external",
-      "physical_source": "source/build/src/engine.cpp",
-      "source_references": [
-        "frameplace",
-        "isdigit",
-        "pow2char__header_global_712730224f5e2862",
-        "smalltextfont",
-        "strtol",
-        "textfont",
-        "videoBeginDrawing",
-        "videoEndDrawing",
-        "xdim",
-        "ylookup"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "frameplace",
-          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
-          "abi": "source-global-cell/2",
-          "original_type": "long"
-        },
-        {
-          "name": "xdim",
-          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        },
-        {
-          "name": "ylookup",
-          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
-          "abi": "source-global-cell/2",
-          "original_type": "intptr_t *"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "frameplace",
-        "isdigit",
-        "smalltextfont",
-        "strtol",
-        "textfont",
-        "videoBeginDrawing",
-        "videoEndDrawing",
-        "xdim",
-        "ylookup"
-      ],
-      "unresolved_references": []
-    },
-    {
       "name": "__atomic_add",
       "source_name": "__atomic_add",
       "kind": "FunctionDecl",
@@ -24299,6 +24244,86 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "printext256",
+      "source_name": "printext256",
+      "kind": "FunctionDecl",
+      "line": 14804,
+      "original_type": "void (int32_t, int32_t, int16_t, int16_t, const char *, char)",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "frameplace",
+        "isdigit",
+        "pow2char",
+        "smalltextfont",
+        "strtol",
+        "textfont",
+        "videoBeginDrawing",
+        "videoEndDrawing",
+        "xdim",
+        "ylookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "frameplace",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_06afb7607c36925d71b82247",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "name": "pow2char",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "xdim",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        }
+      ],
+      "status": "source-first",
+      "terminal_body_pointer_steps": [
+        {
+          "abi": "source-private-terminal-body-pointer-step/1",
+          "pointer_name": "ptr",
+          "pointer_declaration": "0x1c8c218b340",
+          "counter_declaration": "0x1c8c218b0f8",
+          "outside_uses": "unobserved-or-reset-only",
+          "source_location": null
+        }
+      ],
+      "external_imports": [
+        "frameplace",
+        "isdigit",
+        "pow2char",
+        "smalltextfont",
+        "strtol",
+        "textfont",
+        "videoBeginDrawing",
+        "videoEndDrawing",
+        "xdim",
+        "ylookup"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -26748,75 +26773,6 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "df44af67a11a71917ad5570ab5affd3fa6608f7b91f0797435a3e1df04bb6ec9"
-    },
-    {
-      "module": "source/build/src/_source_legacy_engine_cpp_871b318f6522.mjs",
-      "sha256": "871b318f6522cfe8dc61cdd56d806c9829fd38317d483870f857beb9d5cf767b",
-      "original_source": "source/build/src/engine.cpp",
-      "exports": [
-        "printext256"
-      ],
-      "reexports": [
-        "printext256"
-      ],
-      "imports": [
-        {
-          "name": "frameplace",
-          "from": "source/build/src/sdlayer.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2",
-          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
-          "abi": "source-global-cell/2",
-          "original_type": "long"
-        },
-        {
-          "name": "isdigit",
-          "from": "browser-abi/libc_provider",
-          "native_pointer_abi": "source-lp64-addresses/2"
-        },
-        {
-          "name": "smalltextfont",
-          "from": "source/build/src/smalltextfont.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2"
-        },
-        {
-          "name": "strtol",
-          "from": "browser-abi/libc_provider",
-          "native_pointer_abi": "source-lp64-addresses/2"
-        },
-        {
-          "name": "textfont",
-          "from": "source/build/src/textfont.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2"
-        },
-        {
-          "name": "videoBeginDrawing",
-          "from": "source/build/src/sdlayer.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2"
-        },
-        {
-          "name": "videoEndDrawing",
-          "from": "source/build/src/sdlayer.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2"
-        },
-        {
-          "name": "xdim",
-          "from": "source/build/src/engine.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2",
-          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        },
-        {
-          "name": "ylookup",
-          "from": "source/build/src/engine.cpp",
-          "native_pointer_abi": "source-lp64-addresses/2",
-          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
-          "abi": "source-global-cell/2",
-          "original_type": "intptr_t *"
-        }
-      ],
-      "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "0c2ee6cf2d5b9d8eb40113a22da20b5f40fdb558c8222a7025231e061362770b"
     },
     {
       "module": "source/build/src/_source_legacy_engine_cpp_8b5d59287bf2.mjs",
@@ -33499,6 +33455,91 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "78cdb60130f09a272d34756c51bb7edbc6371b8371e1177de717ee4107cfe6a8"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_c106aed1475b.mjs",
+      "sha256": "c106aed1475b13e2b8c3f6b6895a5a5d51687633c541be147c839a04a39442ac",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "printext256"
+      ],
+      "reexports": [
+        "printext256"
+      ],
+      "imports": [
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pow2char",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_06afb7607c36925d71b82247",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "smalltextfont",
+          "from": "source/build/src/smalltextfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "textfont",
+          "from": "source/build/src/textfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoBeginDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoEndDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "b71d551216b61b705797022f274239b175e82483286a43bd0d2278fa7fc8a447"
     }
   ],
   "superseded_module_fragments": [
@@ -33526,6 +33567,160 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "d5ce3ec0ea0a617f3eab2bc44519b2ab4300c5b371879d04902e425fe5cda663"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_871b318f6522.mjs",
+      "sha256": "871b318f6522cfe8dc61cdd56d806c9829fd38317d483870f857beb9d5cf767b",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "printext256"
+      ],
+      "reexports": [
+        "printext256"
+      ],
+      "imports": [
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "smalltextfont",
+          "from": "source/build/src/smalltextfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "textfont",
+          "from": "source/build/src/textfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoBeginDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoEndDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "0c2ee6cf2d5b9d8eb40113a22da20b5f40fdb558c8222a7025231e061362770b"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_a749fb7183ea.mjs",
+      "sha256": "a749fb7183ea1c72b74c50f566c0ead2460d927c9f9e988d267bff32d52d0b47",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "printext256"
+      ],
+      "reexports": [
+        "printext256"
+      ],
+      "imports": [
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pow2char",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_06afb7607c36925d71b82247",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "smalltextfont",
+          "from": "source/build/src/smalltextfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "textfont",
+          "from": "source/build/src/textfont.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoBeginDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoEndDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "22d3b01aa304d11ad161f5c361c2d52dd92a4dbd57696d0d24a558115e7e20b7"
     }
   ]
 }

@@ -36,3 +36,39 @@ for(const name of names){const choices=ast.statements.filter(s=>ts.isFunctionDec
  doc['retained_original_header_factory_closures']=[{'factories':roots,**proof}]
  doc['source_definitions_emitted_before_retention']=doc['emitted'];doc['found']+=len(chosen);doc['emitted']+=len(chosen)
  return doc,code
+
+
+def retain_callable_names(previous,current,old_exports,code):
+    """Retain a legacy public name for the exact rebuilt original callable.
+    Rename the actual JS binding, preserving function-pointer identity; never
+    select an overload by argument count or fabricate an implementation.
+    """
+    assert previous['source']==current['source']
+    existing={r['name'] for r in current['definitions'] if r['status']=='source-first'}
+    doc=copy.deepcopy(current);renames=[]
+    for old in previous['definitions']:
+        legacy=old['name']
+        if old['status']!='source-first' or old['kind']!='FunctionDecl' or legacy not in old_exports or legacy in existing or legacy!=old.get('source_name',legacy) or not re.fullmatch(r'[A-Za-z_]\w*',legacy):continue
+        assert previous['ast_cache_inputs']==current['ast_cache_inputs'] and current['ast_cache_inputs']['preprocessor_verified']
+        matches=[r for r in doc['definitions'] if r['status']=='source-first' and r['kind']=='FunctionDecl' and r.get('source_name')==legacy and r.get('original_type')==old.get('original_type') and r.get('line')==old.get('line') and r.get('physical_source',current['source'])==old.get('physical_source',previous['source'])]
+        if not matches:continue
+        assert len(matches)==1,('Rebuilt original callable ambiguous',legacy)
+        actual=matches[0]['name'];assert actual!=legacy and actual not in old_exports
+        parser="""import ts from 'typescript';let text='';for await(const c of process.stdin)text+=c;
+const {code,actual,legacy}=JSON.parse(text),file='retained.mjs',options={allowJs:true,noResolve:true,noLib:true,target:ts.ScriptTarget.Latest},host=ts.createCompilerHost(options);
+host.getSourceFile=(name)=>name===file?ts.createSourceFile(file,code,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS):undefined;host.fileExists=n=>n===file;host.readFile=n=>n===file?code:undefined;
+const program=ts.createProgram([file],options,host),ast=program.getSourceFile(file),checker=program.getTypeChecker();
+const definitions=ast.statements.filter(s=>ts.isFunctionDeclaration(s)&&s.name?.text===actual);if(definitions.length!==1)throw Error('No unique original function binding');
+const symbol=checker.getSymbolAtLocation(definitions[0].name),changes=[];if(!symbol)throw Error('Original function binding unproved');
+function walk(n){if(ts.isIdentifier(n)&&n.text===actual&&checker.getSymbolAtLocation(n)===symbol)changes.push([n.getStart(ast),n.end]);ts.forEachChild(n,walk);}walk(ast);
+let output=code;for(const [a,b]of changes.sort((a,b)=>b[0]-a[0]))output=output.slice(0,a)+legacy+output.slice(b);process.stdout.write(JSON.stringify({code:output,renamed_identifiers:changes.length}));"""
+        result=subprocess.run(['node','--input-type=module','-e',parser],input=json.dumps({'code':code,'actual':actual,'legacy':legacy}),cwd=ROOT,text=True,capture_output=True,timeout=90);assert result.returncode==0,result.stderr
+        data=json.loads(result.stdout);assert data['renamed_identifiers']>=1;code=data['code']
+        proof={'previous_emitted_name':actual,'same_original_callable':True,'same_tu_preprocessor_sha256':current['ast_cache_inputs']['sha256'],'original_type':old['original_type'],'original_line':old['line'],'renamed_identifiers':data['renamed_identifiers'],'additional_source_definition':False}
+        matches[0]['name']=legacy;matches[0]['compiler_abi_name_retention']=proof
+        for row in doc['definitions']:
+            for key in ('source_references','external_imports','unresolved_references'):
+                if key in row:row[key]=[legacy if n==actual else n for n in row[key]]
+        existing.add(legacy);renames.append({'name':legacy,**proof})
+    if renames:doc['retained_original_callable_names']=renames
+    return doc,code

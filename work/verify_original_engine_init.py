@@ -33,7 +33,8 @@ setup=r'''
       if(!matches(sourceSizedBytes(engine.blendtable[0],65536,runtime.heap),rawPalette.subarray(770+shadeBytes,770+shadeBytes+65536)))throw Error('Original translucency table differs from the archive');
       engineInitialization={original_engineInit_executed:true,original_native_trig_crc_constants_passed:true,palette_and_lookup_bytes_verified:768+shadeBytes+65536,original_palette_loaded:true,grp_entries:vfs.gnumfiles[0],palette_flags:palette.paletteloaded,palette_shades:palette.numshades,original_app_main_executed:false,original_CON_executed:false,original_world_rendered:false};
 '''
-if '--video-mode' in sys.argv:
+video_mode_probe='--video-mode' in sys.argv
+if video_mode_probe:
     sys.argv.remove('--video-mode')
     setup+=r'''
       const consoleModule=await import(base+'/source/build/src/osd.cpp.mjs');
@@ -47,6 +48,32 @@ if '--video-mode' in sys.argv:
       if(engine.xdim!==640||engine.ydim!==480)throw Error('Original video dimensions differ');
 '''
 script=script.replace('const trace=[];let runtime=', 'const trace=[];let engineInitialization=null;let runtime=').replace('component_passed:false,trace,error:', 'component_passed:false,trace,engine_initialization:engineInitialization,error:')
+draw_console='--draw-console' in sys.argv
+if draw_console:
+    sys.argv.remove('--draw-console')
+    setup+=r'''
+      const text=value=>Uint8Array.from([...new TextEncoder().encode(value),0]);
+      await enter('OSD_Puts original console diagnostic',()=>consoleModule.OSD_Puts(text('Original Build engine - readable JavaScript startup\nGame menu and level are not linked yet.\n')));
+      await enter('OSD_WritePendingLines',()=>consoleModule.OSD_WritePendingLines());
+      await enter('OSD_HandleScanCode console toggle',()=>consoleModule.OSD_HandleScanCode(41,1));
+      await enter('OSD_Draw',()=>consoleModule.OSD_Draw());
+      await enter('videoShowFrame',()=>videoPlatform.videoShowFrame(0));
+      const pixels=document.querySelector('canvas').getContext('2d').getImageData(0,0,640,480).data;
+      let visible=0;for(let i=0;i<pixels.length;i+=4)if(pixels[i]||pixels[i+1]||pixels[i+2])visible++;
+      if(visible<100)throw Error('Original console did not render visible pixels');
+      engineInitialization.original_console_rendered=true;engineInitialization.console_visible_pixels=visible;
+      globalThis.__sourceOriginalConsoleCapture=document.querySelector('canvas').toDataURL('image/png');
+'''
+screenshot=None
+if '--screenshot' in sys.argv:
+    index=sys.argv.index('--screenshot');screenshot=Path(sys.argv[index+1]).resolve();del sys.argv[index:index+2];screenshot.parent.mkdir(parents=True,exist_ok=True)
+    class Capture(ast.NodeTransformer):
+        def visit_Expr(self,node):
+            if isinstance(node.value,ast.Call) and isinstance(node.value.func,ast.Attribute) and isinstance(node.value.func.value,ast.Name) and node.value.func.value.id=='browser' and node.value.func.attr=='close':
+                capture=ast.parse("if result.get('engine_initialization',{}).get('original_console_rendered'):Path("+repr(str(screenshot))+").write_bytes(__import__('base64').b64decode(page.evaluate('globalThis.__sourceOriginalConsoleCapture').split(',',1)[1]))").body[0]
+                return [capture,node]
+            return self.generic_visit(node)
+    tree=Capture().visit(tree)
 scripts[0].value=script.replace(anchor,anchor+setup).replace('fresh_startup_without_precalled_helpers:true','fresh_startup_without_precalled_helpers:true,engine_initialization:engineInitialization')
 if '--report' not in sys.argv:sys.argv+=['--report','reports/nov04-original-engine-init.json']
 report=Path(sys.argv[sys.argv.index('--report')+1])
@@ -55,4 +82,6 @@ except SystemExit:
     if report.is_file():
         d=json.loads(report.read_text());d['original_engine_init_probe']={'script':Path(__file__).relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'manual_game_state_initialized':False,'original_app_main_executed':False,'gameplay_verified':False}
         report.write_bytes((json.dumps(d,indent=2)+'\n').encode())
+        if video_mode_probe and not draw_console:
+            profile=json.loads((ROOT/'tools/browser_classic_profile.json').read_text());target=ROOT/profile['engine_execution_report'];temporary=target.with_suffix('.tmp');temporary.write_bytes((json.dumps(d,indent=2)+'\n').encode());temporary.replace(target)
     raise

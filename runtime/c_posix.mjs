@@ -1,4 +1,4 @@
-import {sourceByteView,sourceByteOffset} from './source_bytes.mjs';
+import {sourceByteView,sourceByteOffset,sourceSizedBytes} from './source_bytes.mjs';
 /** POSIX/C host-backed calls for a single-threaded, x86-64 SysV ABI heap.
  * A clock domain that the host cannot supply is an explicit error (never fake time).
  */
@@ -15,9 +15,9 @@ export function createPosixRuntime({heap, errnoLocation, callIndirect,
     return BigInt(Math.trunc(v*1000)); // integer microseconds, no floating bigint truncation
   }
   function writeTimeSpec(ptr,microseconds){
-    heap.check(ptr,16);
-    heap.write(ptr,'i64',microseconds/1000000n);
-    heap.write(ptr+8,'i64',(microseconds%1000000n)*1000n);
+    const bytes=sourceSizedBytes(ptr,16,heap),view=new DataView(bytes.buffer,bytes.byteOffset,16);
+    view.setBigInt64(0,microseconds/1000000n,true);
+    view.setBigInt64(8,(microseconds%1000000n)*1000n,true);
   }
   // Linux x86-64 glibc signal ABI: sigaction size 152, handler +0,
   // sigset_t (128 bytes) +8, flags +136, restorer +144. All registrations

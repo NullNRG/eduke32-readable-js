@@ -17,7 +17,7 @@ from source_record_pointer_identity import identities as record_pointer_identiti
 from source_included_implementations import included_implementation_bytes
 from source_record_data_access import layout_contract as record_field_layout, field_access_contract
 from source_record_layout_extraction import extract as extract_record_layouts
-from source_terminal_pointer_steps import plan as terminal_pointer_steps
+from source_terminal_pointer_steps import plan as terminal_pointer_steps, plan_body_tail as terminal_body_pointer_steps
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -1036,6 +1036,12 @@ class Emit:
             return self.raw_record_receiver(kids(expression)[0],expression.get('isArrow',False))
         return False
     def expr(self,n):
+        terminal=getattr(self,'terminal_body_pointer_steps',{}).pop(id(n),None)
+        if terminal is not None:
+            expression=self.expr(n)
+            self.used_terminal_body_pointer_steps=getattr(self,'used_terminal_body_pointer_steps',[])+[{
+                'abi':'source-private-terminal-body-pointer-step/1',**{key:value for key,value in terminal.items() if key!='condition'}}]
+            return '('+self.expr(terminal['condition'])+' ? ('+expression+') : void 0)'
         k=kind(n); a=kids(n)
         if n.get('castKind')=='IntegralToPointer' and re.search(r'\(\s*\*\s*(?:const\s*)?\)',qual(n)):
             if len(a)!=1:raise Unsupported('Integer/function pointer conversion requires original operand')
@@ -3117,6 +3123,7 @@ class Emit:
             raise Unsupported('variadic function lacks Clang-verified fixed signature')
         self.local_types={js_ident(p.get('name','')):qual(p) for p in params};self.local_types['!return']=qual(n).split('(')[0].strip();self.static_locals={};self.static_defs=[];self.byte_literals={};self.current_function=name
         self.terminal_pointer_steps=terminal_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
+        self.terminal_body_pointer_steps=terminal_body_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.local_reference_cells=self.plan_local_reference_cells(n)
         self.byte_scalar_cells=self.plan_byte_scalar_cells(n)
         argnames=[]
@@ -5607,6 +5614,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 code=f'// C/C++ source: {row.get("physical_source",source_rel)}:{location["line"]}\n'+code
             row['status']='source-first'
             if getattr(em,'used_terminal_pointer_steps',None):row['terminal_pointer_steps']=em.used_terminal_pointer_steps
+            if getattr(em,'used_terminal_body_pointer_steps',None):row['terminal_body_pointer_steps']=em.used_terminal_body_pointer_steps
             if getattr(em,'byte_scalar_goto_lifetime',None):row['byte_scalar_goto_lifetime']=em.byte_scalar_goto_lifetime
             if em.last_flow_report:row['control_flow']=em.last_flow_report
             source.append((n,code,row))

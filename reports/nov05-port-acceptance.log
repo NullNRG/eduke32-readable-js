@@ -1,0 +1,23 @@
+{
+  "all_acceptance_criteria_passed": false,
+  "original_game_playable_verified": false,
+  "failed_checks": [
+    "uniform_selected_unit_attempts",
+    "complete_source_semantics",
+    "startup_dependency_closure",
+    "linked_javascript_integrity",
+    "reachable_gameplay_recovery",
+    "self_contained_offline_game"
+  ],
+  "unverified_checks": [
+    "historical_recovery_ninety_percent",
+    "original_browser_gameplay",
+    "native_engine_comparison",
+    "reproducible_one_command_build"
+  ],
+  "resume_commands": [
+    "npm run compile:game",
+    "node tools/run_python.mjs tools/source_recovery_compare.py",
+    "node tools/run_python.mjs tools/verify_port_acceptance.py --strict"
+  ]
+}
