@@ -16,6 +16,7 @@ from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_included_implementations import included_implementation_bytes
 from source_record_data_access import layout_contract as record_field_layout, field_access_contract
+from source_record_layout_extraction import extract as extract_record_layouts
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -6040,9 +6041,13 @@ def main():
         layout_cache=opt.ast_cache_dir/('layouts-'+hashlib.sha256(json.dumps([str(root),cmd,toolchain,
             ast_cache_inputs,hashlib.sha256(Path(__file__).read_bytes()).hexdigest()],sort_keys=True).encode()).hexdigest()+'.json')
     layouts=json.loads(layout_cache.read_text()) if layout_cache and layout_cache.exists() else {}
+    layout_extraction_attempts=[]
+    def query_record_layouts():
+        result=extract_record_layouts(frontend,language,args,opt.source,root)
+        layout_extraction_attempts.extend(result.layout_attempts)
+        return result
     if opt.require_record_layouts:
-        layout_result=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
-            '-fsyntax-only',*args,opt.source],cwd=root,capture_output=True,text=True,timeout=45)
+        layout_result=query_record_layouts()
         if layout_result.returncode:
             raise SystemExit('Required Clang record-layout extraction failed: '+layout_result.stderr[-2000:])
         layouts.update(parse_clang_record_layouts(layout_result.stdout+'\n'+layout_result.stderr))
@@ -6361,10 +6366,8 @@ def main():
                           or r.get('reason','').startswith('record field requires verified native storage:')
                           or r.get('reason','').startswith('unsupported global array element type ')
                           for r in report):
-        layout_cmd=[frontend,*language,'-Xclang','-fdump-record-layouts-complete',
-                    '-fsyntax-only',*args,opt.source]
         try:
-            got=subprocess.run(layout_cmd,cwd=root,capture_output=True,text=True,timeout=45)
+            got=query_record_layouts()
             if got.returncode==0:
                 layouts.update(parse_clang_record_layouts(got.stdout+'\n'+got.stderr))
         except (subprocess.TimeoutExpired,OSError):
@@ -6648,10 +6651,8 @@ def main():
             'pointer arithmetic/comparison requires bounded memory view')) for x in report):
         # Retry ONLY when source declarations actually need the target ABI.
         # No inferred record padding or arbitrary zero-byte approximations.
-        layout_cmd=[frontend,*language,'-Xclang','-fdump-record-layouts-complete',
-                    '-fsyntax-only',*args,opt.source]
         try:
-            layout_result=subprocess.run(layout_cmd,cwd=root,capture_output=True,text=True,timeout=45)
+            layout_result=query_record_layouts()
             if layout_result.returncode==0:
                 discovered=parse_clang_record_layouts(layout_result.stdout+'\n'+layout_result.stderr)
                 if discovered:
@@ -6748,8 +6749,7 @@ def main():
                 for row in report):
             dependency_layout_closure['attempted']=True
             try:
-                query=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
-                    '-fsyntax-only',*args,opt.source],cwd=root,capture_output=True,text=True,timeout=45)
+                query=query_record_layouts()
                 if query.returncode:raise ValueError(query.stderr[-1500:])
                 discovered=parse_clang_record_layouts(query.stdout+'\n'+query.stderr)
                 dependency_layout_closure['records_added']=len(discovered)
@@ -6817,8 +6817,7 @@ def main():
     if prototype_layout_closure['requested']:
         prototype_layout_closure['queried']=True
         try:
-            query=subprocess.run([frontend,*language,'-Xclang','-fdump-record-layouts-complete',
-                '-fsyntax-only',*args,opt.source],cwd=root,capture_output=True,text=True,timeout=45)
+            query=query_record_layouts()
             discovered=parse_clang_record_layouts(query.stdout+'\n'+query.stderr) if query.returncode==0 else {}
             prototype_layout_closure['status']='extracted' if discovered else 'unavailable'
             if discovered:
@@ -6961,7 +6960,8 @@ const cStackAlloc = amount => {
     result['compiler_runtime_inputs_unchanged']=True
     if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
-        'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest()}
+        'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest(),
+        'attempts':layout_extraction_attempts}
     if opt.import_root:result['module_fragment']={'import_root':str(opt.import_root.resolve()),'provider_exports_and_storage_abi_verified':True}
     result['full_type_closure']=full_type_closure
     result['dependency_layout_closure']=dependency_layout_closure
