@@ -269,6 +269,33 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 physical_proofs[identity]=next(iter(physicals))
                 for spelling in matched:register(record,[spelling])
 
+    # Clang versions spell local anonymous types differently in AST and
+    # layout dumps ("(unnamed union at ...)" versus "union (unnamed at ...)").
+    # Join only a single token/offset-proven original declaration. Multiple
+    # template specializations at the same source location remain ambiguous.
+    if source:
+        proven_locations={}
+        def physical_key(spelling):
+            match=re.fullmatch(r'(.+):(\d+):(\d+)',anonymous_location(spelling) or '')
+            if not match:return None
+            path=Path(match[1]);path=(path if path.is_absolute() else source/path).resolve()
+            if not path.is_relative_to(source):return None
+            return (path,int(match[2]),int(match[3]))
+        for identity,proof in physical_proofs.items():
+            if not isinstance(proof,str):continue
+            key=physical_key('(unnamed at '+proof+')')
+            if key:proven_locations.setdefault(key,set()).add(identity)
+        for tree in ast:
+            for node in descendants(tree):
+                spelling=clean_type(node.get('type',{}).get('desugaredQualType') or node.get('type',{}).get('qualType',''))
+                if has_outer_indirection(spelling) or not spelling.endswith(')'):continue
+                owners=proven_locations.get(physical_key(spelling),set())
+                if len(owners)!=1:continue
+                identity=next(iter(owners))
+                tag=re.search(r'\((?:anonymous|unnamed) (struct|class|union) at ',spelling)
+                if tag and tag[1]!=records[identity].get('tagUsed'):continue
+                register(records[identity],[spelling])
+
     field_bindings={}
     def declaration_shape(value):
         # Clang query-local IDs and use markers differ between independent
