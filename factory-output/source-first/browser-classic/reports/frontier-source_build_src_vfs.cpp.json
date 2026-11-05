@@ -1,0 +1,49 @@
+{
+  "source": "source/build/src/vfs.cpp",
+  "requested": [
+    "klistpath"
+  ],
+  "requested_resolved": {
+    "klistpath": true
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_vfs.cpp/reachable-905542a332f1d6e9/source/build/src/vfs.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "_searchpath",
+      "reason": "class pointer/reference field requires ownership/alias lowering",
+      "dependencies": []
+    },
+    {
+      "name": "kdfread",
+      "reason": "unlinked identifiers: klzw_read_compressed",
+      "dependencies": [
+        "klzw_read_compressed"
+      ]
+    },
+    {
+      "name": "kdfread_LZ4",
+      "reason": "unlinked identifiers: LZ4_decompress_safe",
+      "dependencies": [
+        "LZ4_decompress_safe"
+      ]
+    },
+    {
+      "name": "dfwrite",
+      "reason": "unlinked identifiers: klzw_write_compressed",
+      "dependencies": [
+        "klzw_write_compressed"
+      ]
+    },
+    {
+      "name": "dfwrite_LZ4",
+      "reason": "unlinked identifiers: LZ4_compressBound, LZ4_compress_fast",
+      "dependencies": [
+        "LZ4_compressBound",
+        "LZ4_compress_fast"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 1,
+  "original_gameplay_verified": false
+}

@@ -1,6 +1,6 @@
 {
   "format": "source-first-clang-semantic-index/1",
-  "fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
+  "fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
   "extraction_backend": "libclang cursor API",
   "libclang_package": "18.1.1",
   "emission_frontend_is_distinct": true,
@@ -40,10 +40,10 @@
   "unit_statuses": {
     "parsed": 111
   },
-  "declarations": 262445,
-  "declaration_observations": 1252337,
-  "reference_observations": 1830884,
-  "unique_reference_edges": 1029993,
+  "declarations": 262440,
+  "declaration_observations": 1252332,
+  "reference_observations": 1830752,
+  "unique_reference_edges": 1029861,
   "all_selected_units_parsed_without_errors": true,
   "complete_semantic_extraction": false,
   "limitations": [
@@ -52,5 +52,22 @@
     "Implicit template/lifetime details limited to libclang cursor API",
     "Clang JSON emitter does not yet attach these USRs automatically"
   ],
-  "playable_game": false
+  "playable_game": false,
+  "incremental_refresh": {
+    "format": "source-primary-semantic-delta/1",
+    "source": "source/build/src/sdlayer.cpp",
+    "previous_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
+    "fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
+    "before_sha256": "7a41f424bcf08843bf659189ad4baa4b4a67ff0eef0845986bc608581228d541",
+    "after_sha256": "b9c871672774f36c7a244cffd61bc5a016af8f18c7927b76abe27c70c1c2bcda",
+    "unchanged_units_reused": 110,
+    "primary_source_parse_errors": 0,
+    "declaration_observations": 20515,
+    "reference_observations": 22876,
+    "native_header_declarations_and_references_identical": true,
+    "unchanged_unit_checkpoints_identical": true,
+    "extractor_unchanged": true,
+    "elapsed_seconds": 125.478,
+    "gameplay_verified": false
+  }
 }

@@ -1,0 +1,4 @@
+// Original-source facade; definitions are supplied by verified source fragments.
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Decode, Encode, FIX16_MAX__header_global_4b22e943b2c72750, FIX16_MIN__header_global_189c304b809f693e, FIX16_OVERFLOW__header_global_4c455b120c4bda2a, MD4Transform, PADDING, fix16_deg_to_rad_mult__header_global_8d765a2e9a6920d2, fix16_half__header_global_48c4e0a0bca11efd, fix16_one__header_global_8f84c3c6c2ca5c2b, fix16_rad_to_deg_mult__header_global_5ab366c579bb2a57, flt_f161r__header_global_a5438668d669bde3, md4block, md4finish, md4init, md4once, pow2char__header_global_ad2f229ff61f5485, __cxx_private_cell_12b01a39373a47962d1b951b, __cxx_private_cell_eb275fa2f421b4cab9576381 } from "./_source_legacy_md4_cpp_39050d18db03.mjs";

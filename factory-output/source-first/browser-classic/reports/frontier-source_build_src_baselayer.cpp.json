@@ -1,0 +1,51 @@
+{
+  "source": "source/build/src/baselayer.cpp",
+  "requested": [
+    "keySetCallback",
+    "keystatus",
+    "inputchecked",
+    "g_mouseBits",
+    "g_mouseLockedToWindow",
+    "mouseReadButtons"
+  ],
+  "requested_resolved": {
+    "keySetCallback": true,
+    "keystatus": true,
+    "inputchecked": false,
+    "g_mouseBits": true,
+    "g_mouseLockedToWindow": true,
+    "mouseReadButtons": false
+  },
+  "requested_export_bindings": {
+    "keySetCallback": [
+      "keySetCallback"
+    ],
+    "keystatus": [
+      "keystatus"
+    ],
+    "inputchecked": [],
+    "g_mouseBits": [
+      "g_mouseBits"
+    ],
+    "g_mouseLockedToWindow": [
+      "g_mouseLockedToWindow"
+    ],
+    "mouseReadButtons": []
+  },
+  "requested_still_unlinked": [
+    "inputchecked",
+    "mouseReadButtons"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_baselayer.cpp/reachable-122b9115420c02d6/source/build/src/baselayer.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "mouseReadButtons",
+      "reason": "unlinked identifiers: appactive",
+      "dependencies": [
+        "appactive"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 6,
+  "original_gameplay_verified": false
+}

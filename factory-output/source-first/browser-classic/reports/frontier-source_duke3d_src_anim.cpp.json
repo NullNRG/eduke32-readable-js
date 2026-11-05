@@ -1,0 +1,80 @@
+{
+  "source": "source/duke3d/src/anim.cpp",
+  "requested": [
+    "Anim_Init",
+    "Anim_Create",
+    "Anim_Find"
+  ],
+  "requested_resolved": {
+    "Anim_Init": false,
+    "Anim_Create": true,
+    "Anim_Find": true
+  },
+  "requested_still_unlinked": [
+    "Anim_Init"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_anim.cpp/reachable-e2f8c68acfdeb54b/source/duke3d/src/anim.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "Anim_Init",
+      "reason": "global array initializer is not a C list",
+      "dependencies": []
+    },
+    {
+      "name": "Anim_Play",
+      "reason": "scalar byte alias across goto requires proven storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "gameHandleEvents__header_f335bd3e1bad",
+      "reason": "unlinked identifiers: handleevents",
+      "dependencies": [
+        "handleevents"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_a4eedf6b2f71",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "rotatesprite_fs__header_09febea0d30e",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_b6758f853833",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_dd0847964702",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_caafa91a8556",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_059d138689ae",
+      "dependencies": [
+        "FX_SetErrorCode__header_059d138689ae"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_059d138689ae",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 805,
+  "original_gameplay_verified": false
+}

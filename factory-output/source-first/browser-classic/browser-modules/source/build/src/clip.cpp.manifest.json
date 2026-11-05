@@ -74,8 +74,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\clip.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 14,
-  "emitted": 14,
+  "found": 15,
+  "emitted": 15,
   "blocked": 0,
   "definitions": [
     {
@@ -590,6 +590,26 @@
         "tempictoidx"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "quickloadboard",
+      "source_name": "quickloadboard",
+      "kind": "VarDecl",
+      "line": 70,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/clip.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_135b27d87941a5cb2fdb33a1",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -777,7 +797,14 @@
       "cache_retention_reason": "cache-hit"
     }
   ],
-  "storage_exports": [],
+  "storage_exports": [
+    {
+      "name": "quickloadboard",
+      "binding": "__cxx_global_cell_135b27d87941a5cb2fdb33a1",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    }
+  ],
   "private_storage_exports": [
     {
       "name": "clipmapinfo",
@@ -1086,6 +1113,21 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "317c9480a10baeaa264a7f3a0cc21c21e9a90cd064218779c781f52fe266dad9"
+    },
+    {
+      "module": "source/build/src/_source_legacy_clip_cpp_78b4c0255927.mjs",
+      "sha256": "78b4c02559277faaf2ea798e71b2dd6737fc65d1b337c2011f3b1efa5f4f115d",
+      "original_source": "source/build/src/clip.cpp",
+      "exports": [
+        "quickloadboard"
+      ],
+      "reexports": [
+        "quickloadboard",
+        "__cxx_global_cell_135b27d87941a5cb2fdb33a1"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "0762cfd50dce4ccfefe7eb05894bcb711c6a568e82e19ea3460640f7725de61e"
     }
   ],
   "superseded_module_fragments": [

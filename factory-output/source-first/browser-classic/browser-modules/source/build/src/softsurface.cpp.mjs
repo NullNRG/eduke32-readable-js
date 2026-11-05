@@ -24,7 +24,7 @@ const cSourceAddresses = (() => {
   globalThis[abiKey]=abi;
   const key=Symbol.for(abi);
   if(globalThis[key])return globalThis[key];
-  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map();
+  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map(),functionAddresses=new Map();
   let nextRegion=0x10000000000n,nextOpaque=0xffff000000000000n;
   const heapKey=Symbol.for('source-first.native-C-heap/2');
   const heap=()=>globalThis[heapKey];
@@ -95,6 +95,7 @@ const cSourceAddresses = (() => {
         seen.add(value);value=value.resolve();
       }
       if(value===null)return 0n;
+      if(value?.__cFunctionAddress===true&&functionAddresses.get(value.bits)===value)return value.bits;
       const item=canonical(value);
       if(item.buffer){
         const region=regionFor(item.buffer);liveBounds(item.buffer,item.offset);
@@ -125,10 +126,24 @@ const cSourceAddresses = (() => {
       for(const region of regions){
         const offset=bits-region.base;
         if(offset<0n||offset>BigInt(region.buffer.byteLength))continue;
-        const at=Number(offset),bounds=liveBounds(region.buffer,at);
+        const at=Number(offset);let bounds;
+        try{bounds=liveBounds(region.buffer,at);}
+        catch(error){if(functionAddresses.has(bits))return functionAddresses.get(bits);throw error;}
         return {__cPointer:true,buffer:region.buffer,offset:at,array:false,...bounds};
       }
+      if(functionAddresses.has(bits))return functionAddresses.get(bits);
       throw new TypeError('Unknown original C pointer address');
+    },
+    functionFromInteger(value){
+      if(typeof value!=='bigint'&&!(typeof value==='number'&&Number.isSafeInteger(value)))
+        throw new TypeError('Function address must be exactly representable');
+      const bits=BigInt.asUintN(64,BigInt(value));
+      if(bits===0n)return null;
+      if(typeof byBits.get(bits)==='function')return byBits.get(bits);
+      // Source-defined sentinel bits are values, not executable callbacks or
+      // allocations. They can be stored/compared/round-tripped, never invoked.
+      if(!functionAddresses.has(bits))functionAddresses.set(bits,Object.freeze({__cFunctionAddress:true,bits}));
+      return functionAddresses.get(bits);
     },
     assert(buffer,offset,width=0){liveBounds(buffer,offset,width);},
     forgetHeap(base,size){
@@ -163,6 +178,7 @@ const cSourceAddresses = (() => {
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
+  if(source?.__cFunctionAddress===true)throw new TypeError('Function address has no readable data storage');
   if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
   if (source && source.__cPointer === true) {
@@ -192,6 +208,10 @@ const cPointer = source => {
 // source owner on use, after module initialization; do not read an ESM binding
 // early while merely constructing a forward/static pointer initializer.
 const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+// A GNU trailing char[1] keeps its declared array size. Only pointer decay
+// may borrow the remaining ORIGINAL complete heap allocation, as Clang's
+// configured flexible-array mode allows; ordinary member arrays stay bounded.
+const cArrayDecay = source => source?.[Symbol.for('source-first.clang-byte-tail-pointer/1')] || source;
 const cPointerElementRef = (source,index) => {
   if (source?.__cDeferredPointer===true || source?.__cDeferredReference===true)
     return cPointerElementRef(source.resolve(),index);
@@ -250,8 +270,18 @@ const cTypedPointer = (source, Type) => {
   return pointer;
 };
 const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
-  const initial=cPointer(source);
-  const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
+  if(source?.__cDeferredReference===true)source=source.resolve();
+  if(source?.__cReference===true&&source.__cPointer!==true&&
+      !source.value?.[Symbol.for('source-first.original-byte-record-storage/1')]){
+    if((delta===0||delta===0n)&&Number.isSafeInteger(stride)&&stride>0)return source;
+    throw new RangeError('C scalar reference arithmetic requires original byte storage');
+  }
+  // Native record/row arrays expose readable JS indices over one existing
+  // byte allocation. Address arithmetic must retain that allocation and its
+  // actual subarray offset, rather than turn it into detached object slots.
+  const arrayBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
+  const initial=cPointer(arrayBytes||source);
+  const p=Array.isArray(source)&&!arrayBytes ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
   const outside=next<p.lower||next>p.upper;
@@ -293,8 +323,21 @@ const cDeref = (source, Type) => {
 };
 // An address-reinterpreted scalar has one native byte allocation. Reads via
 // its source identifier and all typed/byte aliases share the same DataView.
+// A host I/O boundary can marshal an explicitly typed scalar lvalue while
+// preserving its original identity and committing writes through its setter.
+// This does not grant the lvalue malloc ownership or invent a native buffer.
+function cScalarLValueIO(reference, Type) {
+  const types=[Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,BigInt64Array,BigUint64Array,Float32Array,Float64Array];
+  if(reference?.__cReference!==true || !types.includes(Type))throw new TypeError('Source scalar I/O requires a typed original lvalue');
+  const key=Symbol.for('source-first.scalar-lvalue-io/1'),old=reference[key];
+  if(old && (old.abi!=='source-scalar-lvalue-io/1'||old.Type!==Type))throw new TypeError('Conflicting scalar lvalue I/O type');
+  if(!old)Object.defineProperty(reference,key,{value:Object.freeze({abi:'source-scalar-lvalue-io/1',Type})});
+  return reference;
+}
 const cScalarStorage = (Type, initial) => {
-  const array=new Type([initial]),pointer=cPointer(array),reference=cDeref(pointer,Type);
+  // An output-only automatic object owns bytes before its original callee
+  // writes them. Omitting initial does not emit a C/C++ zero initializer.
+  const array=initial===undefined?new Type(1):new Type([initial]),pointer=cPointer(array),reference=cDeref(pointer,Type);
   return {...pointer,__cReference:true,
     get value(){return reference.value;},set value(value){reference.value=value;}};
 };
@@ -305,6 +348,11 @@ const cPointerCompare = (left,right,op) => {
   if (right?.__cDeferredReference===true) right=right.resolve();
   if(left?.__cReference===true&&left.__cPointer!==true&&left.value?.[Symbol.for('source-first.original-byte-record-storage/1')])left=left.value;
   if(right?.__cReference===true&&right.__cPointer!==true&&right.value?.[Symbol.for('source-first.original-byte-record-storage/1')])right=right.value;
+  if(left?.__cFunctionAddress===true||right?.__cFunctionAddress===true){
+    if(op!=='=='&&op!=='!=')throw new TypeError('Cannot order integer-derived function addresses');
+    const equal=cSourceAddresses.encode(left)===cSourceAddresses.encode(right);
+    return op==='=='?equal:!equal;
+  }
   if (left===null || right===null) {
     if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
     throw new TypeError('Cannot order a null C pointer');
@@ -384,9 +432,9 @@ const cRecordObject = source => {
   return source;
 };
 const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });
-const cObjectFieldRef = (owner, field) => { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); };
-const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });
-const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });
+function cObjectFieldRef(owner, field) { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); }
+function cRef(read, write) { return ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } }); }
+function cArrayRef(array, index) { return cRef(() => array[index], v => { array[index] = v; }); }
 // Numeric POD records use original Clang field offsets and shared byte storage.
 // Overlapping union alternatives are views of the SAME bytes, never independent
 // JS properties. This target's ABI has verified little-endian object storage.
@@ -411,6 +459,33 @@ const cByteRecordNative = {
   Uint32Array:[Uint32Array,'Uint32'], Int32Array:[Int32Array,'Int32'],
   Float32Array:[Float32Array,'Float32'], Float64Array:[Float64Array,'Float64'],
   BigInt64Array:[BigInt64Array,'BigInt64'], BigUint64Array:[BigUint64Array,'BigUint64']
+};
+// A native multidimensional array has ONE allocation. Each readable JS row
+// is a typed view into that allocation, so host byte operations and row
+// pointers observe exactly the same C storage and original row strides.
+const cNativeArray = (type,dims,initializers=[]) => {
+  const C=cByteRecordNative[type]?.[0];
+  if(!C||!Array.isArray(dims)||!dims.length||dims.length>8||
+      dims.some(n=>!Number.isSafeInteger(n)||n<0||n>1000000)||
+      dims.reduce((a,b)=>a*b,1)>1000000)
+    throw new TypeError('Native C array requires verified dimensions and scalar width');
+  const bytes=new Uint8Array(dims.reduce((a,b)=>a*b,1)*C.BYTES_PER_ELEMENT);
+  let offset=0;
+  const build=(depth,values)=>{
+    const length=dims[depth],start=offset;
+    if(!(Array.isArray(values)||depth===dims.length-1&&values instanceof C)||values.length>length)
+      throw new TypeError('Native C array initializer differs from original dimensions');
+    if(depth===dims.length-1){
+      const row=new C(bytes.buffer,offset,length);row.set(values);offset+=row.byteLength;return row;
+    }
+    const rows=Array.from({length},(_,i)=>build(depth+1,values[i]??[]));
+    Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),
+      {value:bytes.subarray(start,offset)});
+    Object.defineProperty(rows,Symbol.for('source-first.native-array-layout/1'),
+      {value:JSON.stringify({array:type,dims:dims.slice(depth)})});
+    return rows;
+  };
+  return build(0,initializers);
 };
 // Pointer fields and uintptr_t share the verified LP64 source address space.
 const cByteRecordPointers = cSourceAddresses;
@@ -477,7 +552,10 @@ const cByteArrayMember = (field,bytes,prototypes,values=[]) => {
   Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),{value:bytes});
   return rows;
 };
-const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
+const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocation=null) => {
+  if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
+      !values || Object.keys(values).length || schema.prototype))
+    throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
   if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>1048576 ||
       !schema.fields || typeof schema.fields!=='object')
     throw new TypeError('Unverified Clang byte-record schema');
@@ -551,6 +629,19 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
             (bytes.byteOffset+field.offset)%C.BYTES_PER_ELEMENT)
           throw new TypeError('Unaligned or invalid native array field');
         const array=new C(bytes.buffer,bytes.byteOffset+field.offset,field.length);
+        if(field.oneByteTailArray==='clang-flex-arrays-0-or-1/1' && field.length===1 && C.BYTES_PER_ELEMENT===1 && allocation){
+          const heap=globalThis[Symbol.for('source-first.native-C-heap/2')];
+          // Original allocators can return a payload after their own header.
+          // Retain that one live allocation's bounds rather than requiring
+          // the source object to start at the raw host malloc address.
+          const complete=heap?.buffer===bytes.buffer && [...heap.allocations].find(([base,size])=>
+            base<=bytes.byteOffset && allocation.lower>=base && allocation.upper<=base+size);
+          if(complete && allocation.offset===bytes.byteOffset &&
+              allocation.upper>=bytes.byteOffset+schema.size && allocation.upper>=bytes.byteOffset+field.offset+field.size)
+            Object.defineProperty(array,Symbol.for('source-first.clang-byte-tail-pointer/1'),{value:{
+              __cPointer:true,array:false,buffer:bytes.buffer,lower:bytes.byteOffset+field.offset,
+              offset:bytes.byteOffset+field.offset,upper:allocation.upper}});
+        }
         Object.defineProperty(result,name,{value:array,enumerable:true});
       } else {
         if (field.size!==C.BYTES_PER_ELEMENT) throw new TypeError('Native scalar width differs from Clang');
@@ -601,6 +692,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
 // strides, and overlapping-union aliasing between consecutive C records.
 const cByteRecordArrayStorage = Symbol.for('source-first.clang-byte-record-array/1');
 const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if (!Number.isSafeInteger(count) || count < 1 || count > 1000000 ||
       !Number.isSafeInteger(schema?.size) || schema.size < 1 ||
       schema.size > 1048576 || count * schema.size > 268435456)
@@ -646,6 +739,7 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       initialize();
       const i = indexOf(key);
       if (i < 0) throw new RangeError('C record array index outside original extent');
+      if(schema.projection)throw new TypeError('Nontrivial C++ array assignment requires original operator');
       const source = cByteRecordStorage.get(value);
       if (!source || source.schema !== signature)
         throw new TypeError('C record array assignment requires identical Clang byte layout');
@@ -659,6 +753,8 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
 
 // Every row and element in a multidimensional C array shares one allocation.
 const cByteRecordNDArray = (schema,dims,prototypes={},initializers=[],storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if(!Array.isArray(dims)||dims.length<1||dims.length>8||
       dims.some(n=>!Number.isSafeInteger(n)||n<1||n>1000000)||
       !Number.isSafeInteger(schema?.size)||schema.size<1||
@@ -695,6 +791,7 @@ const cRecordPointerViews = (()=>{
   if(globalThis[key])return globalThis[key];
   const buffers=new WeakMap(),fieldReferences=new WeakMap();
   const api={
+    protocol:'source-record-pointer-views/2',
     fieldReference(owner,name){
       const storage=cByteRecordStorage.get(owner),field=storage&&JSON.parse(storage.schema).fields[name];
       if(!field)throw new TypeError('Field address requires original Clang storage');
@@ -714,9 +811,10 @@ const cRecordPointerViews = (()=>{
       const p=pointer,schema=p.recordSchema;
       if(p.__cPointer!==true||p.__cRecordPointer!==true||p.array||!schema||p.offset<p.lower||p.offset+schema.size>p.upper)
         throw new RangeError('C record dereference escapes original byte allocation');
-      const identity=p.offset+':'+JSON.stringify(schema);
+      const tail=Object.values(schema.fields).some(field=>field.oneByteTailArray);
+      const identity=p.offset+':'+JSON.stringify(schema)+(tail?':'+p.lower+':'+p.upper:'');
       let views=buffers.get(p.buffer);if(!views){views=new Map();buffers.set(p.buffer,views);}
-      if(!views.has(identity))views.set(identity,cInitByteRecord(schema,{},new Uint8Array(p.buffer,p.offset,schema.size),p.recordPrototypes));
+      if(!views.has(identity))views.set(identity,cInitByteRecord(schema,{},new Uint8Array(p.buffer,p.offset,schema.size),p.recordPrototypes,p));
       return views.get(identity);
     },
     element(pointer,index){
@@ -724,6 +822,7 @@ const cRecordPointerViews = (()=>{
       if(!Number.isSafeInteger(offset))throw new RangeError('Record-pointer index is not exactly representable');
       const item={...pointer,offset},record=api.deref(item);
       return {get value(){return record;},set value(next){
+        if(pointer.recordSchema.projection)throw new TypeError('Nontrivial C++ record assignment requires original operator');
         const source=cByteRecordStorage.get(next),destination=cByteRecordStorage.get(record);
         if(!source||source.schema!==destination.schema)throw new TypeError('Record-pointer assignment requires identical Clang layout');
         destination.bytes.set(source.bytes);
@@ -747,7 +846,7 @@ const cRecordPointer = (source,schema,prototypes={}) => {
   // example libdivide). Preserve the SAME object rather than serialize a
   // detached copy. Byte casts/copies and pointer arithmetic still require
   // native storage; this facade never acquires a fabricated heap address.
-  if(!bytes && source && typeof source==='object' &&
+  if(!schema.projection && !bytes && source && typeof source==='object' &&
       (Object.getPrototypeOf(source)===Object.prototype||Object.getPrototypeOf(source)===null) &&
       source.__cPointer!==true && !schema.union &&
       Object.entries(schema.fields).every(([name,field])=>
@@ -759,6 +858,7 @@ const cRecordPointer = (source,schema,prototypes={}) => {
   // Keep that original owner and stride; do not reinterpret those slots as
   // heap bytes or detach their fields by constructing a new record view.
   if(pointer.array){
+    if(schema.projection)throw new TypeError('Nontrivial C++ field view requires original byte storage');
     const owned=Array.isArray(source)
       ? {...pointer,upper:source.length*schema.size,stride:schema.size} : pointer;
     if(owned.stride!==schema.size || owned.lower%owned.stride || owned.offset%owned.stride ||
@@ -780,6 +880,8 @@ const cRecordPointer = (source,schema,prototypes={}) => {
 // Readable JS representation of Clang-proven pointer-free C/C++ POD copies.
 // Fail closed if external storage has not been materialized in the agreed type.
 const cCopyAggregate = (value, schema) => {
+  if(schema.byteRecord?.projection || schema.recordArray?.projection)
+    throw new TypeError('Nontrivial C++ copy requires original constructor');
   if(schema.recordArray){
     const bytes=value?.[cByteRecordArrayStorage];
     if(!bytes||value[Symbol.for('source-first.byte-record-array-layout/1')]!==JSON.stringify({schema:schema.recordArray,dims:schema.dims}))
@@ -862,8 +964,7 @@ const cZeroAggregate = (schema, prototypes={}) => {
         schema.dims.reduce((a,b) => a*b, 1) > 1000000)
       throw new TypeError('Unverified C aggregate zero-array extent');
     if (schema.dims.length === 1) return new C(schema.dims[0]);
-    return Array.from({length:schema.dims[0]}, () =>
-      cZeroAggregate({array:schema.array,dims:schema.dims.slice(1)}));
+    return cNativeArray(schema.array,schema.dims);
   }
   if (Object.hasOwn(schema, 'record')) {
     const result = cMarkAggregate({});
@@ -899,7 +1000,27 @@ const cZeroAggregate = (schema, prototypes={}) => {
 // references to its fields, arrays and overlapping union views retain identity.
 // cCopyAggregate validates exact Clang storage schemas and snapshots the source
 // before any mutation, including self-assignment or overlapping storage.
-const cAssignAggregate = (destination, source, schema) => {
+const cAssignAggregate = (destination, source, schema, assignmentProof=null) => {
+  if(assignmentProof!==null){
+    // Only a same-record assignment selected by the original Clang AST may
+    // take this path. A JS method prototype occupies no native object bytes.
+    // Constructors, authored assignment and generic object copies stay strict.
+    const p=assignmentProof,expected=schema.byteRecord;
+    if(p.abi!=='source-clang-trivial-record-assignment/1'||!p.clang_method_id||
+       !p.record_name||p.record_name!==p.source_record||
+       !['copyAssign','moveAssign','clang-trivial-implicit-byte-copy'].includes(p.assignment_mode)||
+       p.native_layout?.abi!=='source-record-field-storage/1'||!expected||expected.projection)
+      throw TypeError('Trivial record assignment lacks its original Clang proof');
+    const stable=value=>Array.isArray(value)?value.map(stable):value&&typeof value==='object'?
+      Object.fromEntries(Object.keys(value).sort().map(k=>[k,stable(value[k])])):value;
+    const native=value=>JSON.stringify(stable(Object.fromEntries(Object.entries(value).filter(([k])=>k!=='prototype'))));
+    const target=cByteRecordStorage.get(destination),input=cByteRecordStorage.get(source);
+    if(!target||!input||target.bytes.length!==expected.size||input.bytes.length!==expected.size||
+       native(JSON.parse(target.schema))!==native(expected)||native(JSON.parse(input.schema))!==native(expected))
+      throw TypeError('Trivial record assignment differs from its original native layout');
+    target.bytes.set(new Uint8Array(input.bytes));
+    return destination;
+  }
   const snapshot = cCopyAggregate(source, schema);
   cCopyAggregate(destination, schema);
   const commit = (target, value, shape) => {
@@ -920,10 +1041,10 @@ const cAssignAggregate = (destination, source, schema) => {
   return destination;
 };
 
-const i32 = value => typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0;
-const u32 = value => typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0;
-const i64 = value => BigInt.asIntN(64, BigInt(value));
-const u64 = value => BigInt.asUintN(64, BigInt(value));
+function i32(value) { return typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0; }
+function u32(value) { return typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0; }
+function i64(value) { return BigInt.asIntN(64, BigInt(value)); }
+function u64(value) { return BigInt.asUintN(64, BigInt(value)); }
 
 
 const clz64 = value => {let v=BigInt.asUintN(64,BigInt(value));if(v===0n)return 64;let n=0;while((v&(1n<<63n))===0n){v<<=1n;n++;}return n;};
@@ -932,6 +1053,26 @@ const popcnt = value => {let v=value,n=0;while(v){v&=v-1n;n++;}return n;};
 
 const __builtin_ctz = x => ctz64(BigInt.asUintN(32,BigInt(x)),32);
 const __builtin_unreachable = () => { throw new Error("C++ undefined behavior: reached __builtin_unreachable"); };
+// C/C++ source: source/build/include/fix16.h:111
+export const fix16_rad_to_deg_mult__header_global_698c286a2f4f8a2b = i32(3754936);
+function __cxx_static_address_7a1d6d8c0e44f9cdbe442cd6() {
+  return __cxx_static_address_7a1d6d8c0e44f9cdbe442cd6.reference || (__cxx_static_address_7a1d6d8c0e44f9cdbe442cd6.reference = {
+    __cReference: true,
+    get value() { return fix16_rad_to_deg_mult__header_global_698c286a2f4f8a2b; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:114
+export const fix16_deg_to_rad_mult__header_global_0bd9b9044d351fd2 = i32(1144);
+function __cxx_static_address_adc6279e0a8c584855c5fd8d() {
+  return __cxx_static_address_adc6279e0a8c584855c5fd8d.reference || (__cxx_static_address_adc6279e0a8c584855c5fd8d.reference = {
+    __cReference: true,
+    get value() { return fix16_deg_to_rad_mult__header_global_0bd9b9044d351fd2; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
 // C/C++ source: source/build/src/softsurface.cpp:13
 export let bufferSize = 0;
 function __cxx_static_address_9f73b17afb8d3bdea273f5de() {
@@ -975,6 +1116,66 @@ function __cxx_static_address_39086bb08ff7f166b84a978a() {
   });
 }
 export function __cxx_private_cell_39086bb08ff7f166b84a978a() { return __cxx_static_address_39086bb08ff7f166b84a978a(); }
+
+// C/C++ source: source/build/include/fix16.h:31
+export const FIX16_MAX__header_global_6ba06d1e76dabb12 = i32(2147483647);
+function __cxx_static_address_2723a25143b06a871b4c1738() {
+  return __cxx_static_address_2723a25143b06a871b4c1738.reference || (__cxx_static_address_2723a25143b06a871b4c1738.reference = {
+    __cReference: true,
+    get value() { return FIX16_MAX__header_global_6ba06d1e76dabb12; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:32
+export const FIX16_MIN__header_global_7b9731e96b0472ef = i32(2147483648);
+function __cxx_static_address_9f9f01d9fa4f448e7624c55d() {
+  return __cxx_static_address_9f9f01d9fa4f448e7624c55d.reference || (__cxx_static_address_9f9f01d9fa4f448e7624c55d.reference = {
+    __cReference: true,
+    get value() { return FIX16_MIN__header_global_7b9731e96b0472ef; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:33
+export const FIX16_OVERFLOW__header_global_55339f2c089bcfd4 = i32(2147483648);
+function __cxx_static_address_3969d4523fcb0353e44641b0() {
+  return __cxx_static_address_3969d4523fcb0353e44641b0.reference || (__cxx_static_address_3969d4523fcb0353e44641b0.reference = {
+    __cReference: true,
+    get value() { return FIX16_OVERFLOW__header_global_55339f2c089bcfd4; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:35
+export const fix16_one__header_global_19b0fa2baa39c118 = i32(65536);
+function __cxx_static_address_c2a95a0ed7ede72cf282fd48() {
+  return __cxx_static_address_c2a95a0ed7ede72cf282fd48.reference || (__cxx_static_address_c2a95a0ed7ede72cf282fd48.reference = {
+    __cReference: true,
+    get value() { return fix16_one__header_global_19b0fa2baa39c118; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:36
+export const fix16_half__header_global_2e27fb7edba16e34 = i32(32768);
+function __cxx_static_address_e3369024475e8119aea033a0() {
+  return __cxx_static_address_e3369024475e8119aea033a0.reference || (__cxx_static_address_e3369024475e8119aea033a0.reference = {
+    __cReference: true,
+    get value() { return fix16_half__header_global_2e27fb7edba16e34; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:37
+export const flt_f161r__header_global_fae0450e50eaff48 = Math.fround(Math.fround((Math.fround(1) / Math.fround(65536))));
+function __cxx_static_address_97dcba53c43574c2388bc051() {
+  return __cxx_static_address_97dcba53c43574c2388bc051.reference || (__cxx_static_address_97dcba53c43574c2388bc051.reference = {
+    __cReference: true,
+    get value() { return flt_f161r__header_global_fae0450e50eaff48; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
 
 // C/C++ source: source/build/src/softsurface.cpp:19
 export let xScale16 = 0;
@@ -1020,19 +1221,6 @@ function __cxx_static_address_a769d375d1a430bdc3b558b9() {
 }
 export function __cxx_private_cell_a769d375d1a430bdc3b558b9() { return __cxx_static_address_a769d375d1a430bdc3b558b9(); }
 
-// C/C++ source: source/build/include/pragmas.h:164
-export function divscale(eax, ebx, ecx) {
-  return i32(tabledivide64(i64((BigInt(i64(eax)) << BigInt(i32((u32((u32(ecx) & 255)) & 255))))), i64(ebx)));
-}
-
-export function divscale16(eax, ebx) {
-  return i32(divscale(eax, ebx, 16));
-}
-
-export function mulscale16(eax, edx) {
-  return i32(i64((BigInt(i64((BigInt(i64(eax)) * BigInt(i64(edx))))) >> BigInt(i32((u32((u32(16) & 255)) & 255))))));
-}
-
 // C/C++ source: source/build/src/softsurface.cpp:26
 export let scanPosLookupTable = null;
 function __cxx_static_address_e96f4c9f64e9aa93954a8ea2() {
@@ -1045,7 +1233,7 @@ function __cxx_static_address_e96f4c9f64e9aa93954a8ea2() {
 export function __cxx_private_cell_e96f4c9f64e9aa93954a8ea2() { return __cxx_static_address_e96f4c9f64e9aa93954a8ea2(); }
 
 // C/C++ source: source/build/src/softsurface.cpp:29
-export function roundUp(num) {
+export function roundUp__template_e0f6b4ec69ee6eec(num) {
   return u32(Math.imul(Math.trunc(u32((u32((num + u32(16))) - u32(1))) / u32(16)), u32(16)));
 }
 
@@ -1059,14 +1247,14 @@ export function softsurface_initialize(bufferResolution, destBufferResolution) {
   if (buffer) {
     softsurface_destroy();
   }
-  cAssignAggregate(bufferRes, bufferResolution, {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}});
-  cAssignAggregate(destBufferRes, destBufferResolution, {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}});
-  (xScale16 = u32(divscale16(destBufferRes.x, bufferRes.x)));
-  (yScale16 = u32(divscale16(destBufferRes.y, bufferRes.y)));
-  (recXScale16 = u32(divscale16(bufferRes.x, destBufferRes.x)));
-  let newBufferSize = u32(roundUp(u32(i32(Math.imul(bufferRes.x, bufferRes.y)))));
+  cAssignAggregate(bufferRes, bufferResolution, {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}}, {"abi": "source-clang-trivial-record-assignment/1", "assignment_mode": "copyAssign", "clang_assignment_signature": "vec2<int> &(const vec2<int> &) noexcept", "clang_method_id": "0x1d1ddc34e80", "native_layout": {"abi": "source-record-field-storage/1", "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"}, "record_name": "__cxx_record_vec2_2150e186aab2ebda", "source_record": "__cxx_record_vec2_2150e186aab2ebda"});
+  cAssignAggregate(destBufferRes, destBufferResolution, {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}}, {"abi": "source-clang-trivial-record-assignment/1", "assignment_mode": "copyAssign", "clang_assignment_signature": "vec2<int> &(const vec2<int> &) noexcept", "clang_method_id": "0x1d1ddc34e80", "native_layout": {"abi": "source-record-field-storage/1", "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"}, "record_name": "__cxx_record_vec2_2150e186aab2ebda", "source_record": "__cxx_record_vec2_2150e186aab2ebda"});
+  (xScale16 = u32(divscale16__header_635bf9eed54a(destBufferRes.x, bufferRes.x)));
+  (yScale16 = u32(divscale16__header_635bf9eed54a(destBufferRes.y, bufferRes.y)));
+  (recXScale16 = u32(divscale16__header_635bf9eed54a(bufferRes.x, destBufferRes.x)));
+  let newBufferSize = u32(roundUp__template_e0f6b4ec69ee6eec(u32(i32(Math.imul(bufferRes.x, bufferRes.y)))));
   (bufferSize = i32(u64((BigInt(u64(newBufferSize)) + BigInt(u64((BigInt(2) * BigInt(u64(destBufferRes.x)))))))));
-  (buffer = cTypedPointer(xmalloc(u64(bufferSize)), Uint8Array));
+  (buffer = cTypedPointer(xmalloc__header_6cff6d21a77a(u64(bufferSize)), Uint8Array));
   (scanPosLookupTable = cTypedPointer(cPointerOffset(buffer, newBufferSize, Uint8Array.BYTES_PER_ELEMENT), Uint16Array));
   let incr = u32(recXScale16);
   for (let i = i32(0); (i < destBufferRes.x); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return next; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
@@ -1082,15 +1270,15 @@ export function softsurface_destroy() {
     return;
   }
   do {
-    xfree(buffer);
+    xfree__header_cc293a2008e9(buffer);
     (buffer = null);
   } while (Boolean(0));
   (scanPosLookupTable = null);
   (xScale16 = u32(0));
   (yScale16 = u32(0));
   (recXScale16 = u32(0));
-  cAssignAggregate(bufferRes, cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, {}, null, {}), {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}});
-  cAssignAggregate(destBufferRes, cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, {}, null, {}), {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}});
+  cAssignAggregate(bufferRes, cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, {}, null, {}), {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}}, {"abi": "source-clang-trivial-record-assignment/1", "assignment_mode": "moveAssign", "clang_assignment_signature": "vec2<int> &(vec2<int> &&) noexcept", "clang_method_id": "0x1d1ddc35080", "native_layout": {"abi": "source-record-field-storage/1", "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"}, "record_name": "__cxx_record_vec2_2150e186aab2ebda", "source_record": "__cxx_record_vec2_2150e186aab2ebda"});
+  cAssignAggregate(destBufferRes, cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, {}, null, {}), {"byteRecord": {"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}}, {"abi": "source-clang-trivial-record-assignment/1", "assignment_mode": "moveAssign", "clang_assignment_signature": "vec2<int> &(vec2<int> &&) noexcept", "clang_method_id": "0x1d1ddc35080", "native_layout": {"abi": "source-record-field-storage/1", "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"}, "record_name": "__cxx_record_vec2_2150e186aab2ebda", "source_record": "__cxx_record_vec2_2150e186aab2ebda"});
 }
 
 // C/C++ source: source/build/src/softsurface.cpp:99
@@ -1129,11 +1317,11 @@ export function softsurface_getDestinationBufferResolution() {
 }
 
 // C/C++ source: source/build/src/softsurface.cpp:148
-let __static_softsurface_blitBufferInternal__cxx_e79e5d7bde48_MASK16 = u32(i32((i32((1 << 16)) - 1)));
-export function softsurface_blitBufferInternal__cxx_e79e5d7bde48(destBuffer) {
+let __static_softsurface_blitBufferInternal__template_60486c8b54de0181_MASK16 = u32(i32((i32((1 << 16)) - 1)));
+export function softsurface_blitBufferInternal__template_60486c8b54de0181(destBuffer) {
   let pSrc = buffer;
   let pDst = destBuffer;
-  let pEnd = cPointerOffset(destBuffer, i32(Math.imul(destBufferRes.x, mulscale16(i32(yScale16), bufferRes.y))), Uint16Array.BYTES_PER_ELEMENT);
+  let pEnd = cPointerOffset(destBuffer, i32(Math.imul(destBufferRes.x, mulscale16__header_c2e24fcafbc8(i32(yScale16), bufferRes.y))), Uint16Array.BYTES_PER_ELEMENT);
   let remainder = u32(0);
   while (cPointerCompare(pDst, pEnd, "<")) {
     let pScanPos = scanPosLookupTable;
@@ -1217,7 +1405,7 @@ export function softsurface_blitBufferInternal__cxx_e79e5d7bde48(destBuffer) {
     const __cxx_lvalue_0 = cRef(() => linesCopied, __cxx_lvalue_6 => { linesCopied = u32(__cxx_lvalue_6); });
     let linesToCopy = u32((yScale16 + remainder));
     const __cxx_lvalue_1 = cRef(() => linesToCopy, __cxx_lvalue_7 => { linesToCopy = u32(__cxx_lvalue_7); });
-    (remainder = u32((linesToCopy & __static_softsurface_blitBufferInternal__cxx_e79e5d7bde48_MASK16)));
+    (remainder = u32((linesToCopy & __static_softsurface_blitBufferInternal__template_60486c8b54de0181_MASK16)));
     (linesToCopy = u32(((linesToCopy >>> 16) - u32(1))));
     let pScanLineSrc = cPointerOffset(pDst, -(destBufferRes.x), Uint16Array.BYTES_PER_ELEMENT);
     while (Boolean(linesToCopy)) {
@@ -1230,11 +1418,11 @@ export function softsurface_blitBufferInternal__cxx_e79e5d7bde48(destBuffer) {
 }
 
 // C/C++ source: source/build/src/softsurface.cpp:148
-let __static_softsurface_blitBufferInternal__cxx_20afa4774575_MASK16 = u32(i32((i32((1 << 16)) - 1)));
-export function softsurface_blitBufferInternal__cxx_20afa4774575(destBuffer) {
+let __static_softsurface_blitBufferInternal__template_14626825f2306f40_MASK16 = u32(i32((i32((1 << 16)) - 1)));
+export function softsurface_blitBufferInternal__template_14626825f2306f40(destBuffer) {
   let pSrc = buffer;
   let pDst = destBuffer;
-  let pEnd = cPointerOffset(destBuffer, i32(Math.imul(destBufferRes.x, mulscale16(i32(yScale16), bufferRes.y))), Uint32Array.BYTES_PER_ELEMENT);
+  let pEnd = cPointerOffset(destBuffer, i32(Math.imul(destBufferRes.x, mulscale16__header_c2e24fcafbc8(i32(yScale16), bufferRes.y))), Uint32Array.BYTES_PER_ELEMENT);
   let remainder = u32(0);
   while (cPointerCompare(pDst, pEnd, "<")) {
     let pScanPos = scanPosLookupTable;
@@ -1318,7 +1506,7 @@ export function softsurface_blitBufferInternal__cxx_20afa4774575(destBuffer) {
     const __cxx_lvalue_0 = cRef(() => linesCopied, __cxx_lvalue_6 => { linesCopied = u32(__cxx_lvalue_6); });
     let linesToCopy = u32((yScale16 + remainder));
     const __cxx_lvalue_1 = cRef(() => linesToCopy, __cxx_lvalue_7 => { linesToCopy = u32(__cxx_lvalue_7); });
-    (remainder = u32((linesToCopy & __static_softsurface_blitBufferInternal__cxx_20afa4774575_MASK16)));
+    (remainder = u32((linesToCopy & __static_softsurface_blitBufferInternal__template_14626825f2306f40_MASK16)));
     (linesToCopy = u32(((linesToCopy >>> 16) - u32(1))));
     let pScanLineSrc = cPointerOffset(pDst, -(destBufferRes.x), Uint32Array.BYTES_PER_ELEMENT);
     while (Boolean(linesToCopy)) {
@@ -1341,12 +1529,12 @@ export function softsurface_blitBuffer(destBuffer, destBpp) {
   switch (destBpp) {
     case u32(15):
     case u32(16): {
-      softsurface_blitBufferInternal__cxx_e79e5d7bde48(cTypedPointer(destBuffer, Uint16Array));
+      softsurface_blitBufferInternal__template_60486c8b54de0181(cTypedPointer(destBuffer, Uint16Array));
     }
     break;
     case u32(24):
     case u32(32): {
-      softsurface_blitBufferInternal__cxx_20afa4774575(destBuffer);
+      softsurface_blitBufferInternal__template_14626825f2306f40(destBuffer);
     }
     break;
     default: {
@@ -1355,22 +1543,88 @@ export function softsurface_blitBuffer(destBuffer, destBpp) {
   }
 }
 
-// C/C++ source: source/build/include/pragmas.h:111
-export function tabledivide64(n, d) {
+// C/C++ source: source/build/include/compat.h:1169
+export const pow2char__header_global_a1a6f487d8e63069 = new Uint8Array([(u32(1) & 255), (u32(2) & 255), (u32(4) & 255), (u32(8) & 255), (u32(16) & 255), (u32(32) & 255), (u32(64) & 255), (u32(128) & 255)]);
+function __cxx_static_address_a643ca562464cfafe68caae8() {
+  return __cxx_static_address_a643ca562464cfafe68caae8.reference || (__cxx_static_address_a643ca562464cfafe68caae8.reference = {
+    __cReference: true,
+    get value() { return pow2char__header_global_a1a6f487d8e63069; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_a643ca562464cfafe68caae8() { return __cxx_static_address_a643ca562464cfafe68caae8(); }
 
-  if (Boolean(i32((i32((d != __cxx_global_cell_f8287b2e627d0e3f51b90c55().value)) & i32((!(u64(d) < u64(16384)))))))) {
-    cAssignAggregate((cPointerElementRef(divtable64, 0).value), libdivide_s64_gen((__cxx_global_cell_f8287b2e627d0e3f51b90c55().value = i64(d))), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}});
-  }
-  return i64(libdivide_s64_do(n, cPointerOffset(divtable64, i64((BigInt(i64((u64(d) < u64(16384)))) * BigInt(d))), 9)));
+// C/C++ source: source/build/include/baselayer.h:172
+export const g_defaultVideoModes__header_global_ed5cc4d61b2d0974 = cByteRecordNDArray({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, [25], {}, cStaticInitializerValues([cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 2560, "y": 1440}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 2560, "y": 1200}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 2560, "y": 1080}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1920, "y": 1440}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1920, "y": 1200}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1920, "y": 1080}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1680, "y": 1050}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1600, "y": 1200}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1600, "y": 900}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1366, "y": 768}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1280, "y": 1024}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1280, "y": 960}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1280, "y": 720}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1152, "y": 864}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1024, "y": 768}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 1024, "y": 600}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 800, "y": 600}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 640, "y": 480}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 640, "y": 400}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 512, "y": 384}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 480, "y": 360}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 400, "y": 300}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 320, "y": 240}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 320, "y": 200}), null, {}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "size": 8, "union": false}, cStaticInitializerValues({"x": 0, "y": 0}), null, {})]));
+function __cxx_static_address_d5cb6b71198b9d26c0edb855() {
+  return __cxx_static_address_d5cb6b71198b9d26c0edb855.reference || (__cxx_static_address_d5cb6b71198b9d26c0edb855.reference = {
+    __cReference: true,
+    get value() { return g_defaultVideoModes__header_global_ed5cc4d61b2d0974; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
 }
 
-// C/C++ source: source/build/include/compat.h:1449
-export function xfree(ptr) {
-  Free__cxx_static_0dfd3f42f0dc2c05(__cxx_global_cell_11016d3c7177543e564ab46c().value, ptr);
+// C/C++ source: source/build/include/baselayer.h:188
+export const g_keyAsciiTable__header_global_47692ceb40803efd = new Uint8Array([(u32(0) & 255), (u32(0) & 255), 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, (u32(0) & 255), (u32(0) & 255), 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, (u32(0) & 255), (u32(0) & 255), 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, (u32(39) & 255), 96, (u32(0) & 255), (u32(92) & 255), 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, (u32(0) & 255), 42, (u32(0) & 255), (u32(32) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), 55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46, (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255)]);
+function __cxx_static_address_9338070320669f3337a6275e() {
+  return __cxx_static_address_9338070320669f3337a6275e.reference || (__cxx_static_address_9338070320669f3337a6275e.reference = {
+    __cReference: true,
+    get value() { return g_keyAsciiTable__header_global_47692ceb40803efd; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_9338070320669f3337a6275e() { return __cxx_static_address_9338070320669f3337a6275e(); }
+
+// C/C++ source: source/build/include/baselayer.h:196
+export const g_keyAsciiTableShift__header_global_1427d32d4d76ed8a = new Uint8Array([(u32(0) & 255), (u32(0) & 255), 33, 64, 35, 36, 37, 94, 38, 42, 40, 41, 95, 43, (u32(0) & 255), (u32(0) & 255), 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, (u32(0) & 255), (u32(0) & 255), 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 34, 126, (u32(0) & 255), 124, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63, (u32(0) & 255), 42, (u32(0) & 255), (u32(32) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), 55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46, (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255)]);
+function __cxx_static_address_dd81e4dc235e5109012ce74f() {
+  return __cxx_static_address_dd81e4dc235e5109012ce74f.reference || (__cxx_static_address_dd81e4dc235e5109012ce74f.reference = {
+    __cReference: true,
+    get value() { return g_keyAsciiTableShift__header_global_1427d32d4d76ed8a; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_dd81e4dc235e5109012ce74f() { return __cxx_static_address_dd81e4dc235e5109012ce74f(); }
+
+// C/C++ source: source/build/include/build.h:895
+export const pow2long__header_global_247c758915ab5511 = new Int32Array([1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 16777216, 33554432, 67108864, 134217728, 268435456, 536870912, 1073741824, 2147483647]);
+function __cxx_static_address_56b7c0d82583d0c219dd527f() {
+  return __cxx_static_address_56b7c0d82583d0c219dd527f.reference || (__cxx_static_address_56b7c0d82583d0c219dd527f.reference = {
+    __cReference: true,
+    get value() { return pow2long__header_global_247c758915ab5511; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_56b7c0d82583d0c219dd527f() { return __cxx_static_address_56b7c0d82583d0c219dd527f(); }
+
+// C/C++ source: source/build/include/build.h:907
+export const pow2ulong__header_global_ccc9d447d3423832 = new Uint32Array([u32(1), u32(2), u32(4), u32(8), u32(16), u32(32), u32(64), u32(128), u32(256), u32(512), u32(1024), u32(2048), u32(4096), u32(8192), u32(16384), u32(32768), u32(65536), u32(131072), u32(262144), u32(524288), u32(1048576), u32(2097152), u32(4194304), u32(8388608), u32(16777216), u32(33554432), u32(67108864), u32(134217728), u32(268435456), u32(536870912), u32(1073741824), u32(2147483648n)]);
+function __cxx_static_address_102680ba66fa78fbea14a9a4() {
+  return __cxx_static_address_102680ba66fa78fbea14a9a4.reference || (__cxx_static_address_102680ba66fa78fbea14a9a4.reference = {
+    __cReference: true,
+    get value() { return pow2ulong__header_global_ccc9d447d3423832; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_102680ba66fa78fbea14a9a4() { return __cxx_static_address_102680ba66fa78fbea14a9a4(); }
+
+// C/C++ source: source/build/include/build.h:919
+export const pow264__header_global_214641fc3d9cbe79 = new BigInt64Array([BigInt(i64(1)), BigInt(i64(2)), BigInt(i64(4)), BigInt(i64(8)), BigInt(i64(16)), BigInt(i64(32)), BigInt(i64(64)), BigInt(i64(128)), BigInt(i64(256)), BigInt(i64(512)), BigInt(i64(1024)), BigInt(i64(2048)), BigInt(i64(4096)), BigInt(i64(8192)), BigInt(i64(16384)), BigInt(i64(32768)), BigInt(i64(65536)), BigInt(i64(131072)), BigInt(i64(262144)), BigInt(i64(524288)), BigInt(i64(1048576)), BigInt(i64(2097152)), BigInt(i64(4194304)), BigInt(i64(8388608)), BigInt(i64(16777216)), BigInt(i64(33554432)), BigInt(i64(67108864)), BigInt(i64(134217728)), BigInt(i64(268435456)), BigInt(i64(536870912)), BigInt(i64(1073741824)), BigInt(2147483648n), BigInt(4294967296n), BigInt(8589934592n), BigInt(17179869184n), BigInt(34359738368n), BigInt(68719476736n), BigInt(137438953472n), BigInt(274877906944n), BigInt(549755813888n), BigInt(1099511627776n), BigInt(2199023255552n), BigInt(4398046511104n), BigInt(8796093022208n), BigInt(17592186044416n), BigInt(35184372088832n), BigInt(70368744177664n), BigInt(140737488355328n), BigInt(281474976710656n), BigInt(562949953421312n), BigInt(1125899906842624n), BigInt(2251799813685248n), BigInt(4503599627370496n), BigInt(9007199254740992n), BigInt(18014398509481984n), BigInt(36028797018963968n), BigInt(72057594037927936n), BigInt(144115188075855872n), BigInt(288230376151711744n), BigInt(576460752303423488n), BigInt(1152921504606846976n), BigInt(2305843009213693952n), BigInt(4611686018427387904n), BigInt(9223372036854775807n)]);
+function __cxx_static_address_d62436101f0af3287a61a06f() {
+  return __cxx_static_address_d62436101f0af3287a61a06f.reference || (__cxx_static_address_d62436101f0af3287a61a06f.reference = {
+    __cReference: true,
+    get value() { return pow264__header_global_214641fc3d9cbe79; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_d62436101f0af3287a61a06f() { return __cxx_static_address_d62436101f0af3287a61a06f(); }
+
+export function divscale16__header_635bf9eed54a(eax, ebx) {
+  return i32(divscale__header_81717700ed52(eax, ebx, 16));
 }
 
 // C/C++ source: source/build/include/compat.h:1392
-export function xmalloc(size) {
+export function xmalloc__header_6cff6d21a77a(size) {
   let ptr = Alloc__cxx_static_e0036cfb06bcfe42(__cxx_global_cell_11016d3c7177543e564ab46c().value, size, u64(16));
   if (cPointerCompare(ptr, null, "!=")) {
     return ptr;
@@ -1379,10 +1633,33 @@ export function xmalloc(size) {
   __builtin_unreachable();
 }
 
+// C/C++ source: source/build/include/compat.h:1449
+export function xfree__header_cc293a2008e9(ptr) {
+  Free__cxx_static_0dfd3f42f0dc2c05(__cxx_global_cell_11016d3c7177543e564ab46c().value, ptr);
+}
+
+export function mulscale16__header_c2e24fcafbc8(eax, edx) {
+  return i32(i64((BigInt(i64((BigInt(i64(eax)) * BigInt(i64(edx))))) >> BigInt(i32((u32((u32(16) & 255)) & 255))))));
+}
+
 // C/C++ source: @sysroot/usr/include/c++/12/bits/stl_algobase.h:230
 export function min__template_c5ffcfb092321e6b(__a, __b) {
   if ((__b.value < __a.value)) {
     return __b;
   }
   return __a;
+}
+
+// C/C++ source: source/build/include/pragmas.h:164
+export function divscale__header_81717700ed52(eax, ebx, ecx) {
+  return i32(tabledivide64__header_9123d1422a6f(i64((BigInt(i64(eax)) << BigInt(i32((u32((u32(ecx) & 255)) & 255))))), i64(ebx)));
+}
+
+// C/C++ source: source/build/include/pragmas.h:111
+export function tabledivide64__header_9123d1422a6f(n, d) {
+
+  if (Boolean(i32((i32((d != __cxx_global_cell_f8287b2e627d0e3f51b90c55().value)) & i32((!(u64(d) < u64(16384)))))))) {
+    cAssignAggregate((cPointerElementRef(cRecordPointer(divtable64, {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}, {}), 0).value), libdivide_s64_gen((__cxx_global_cell_f8287b2e627d0e3f51b90c55().value = i64(d))), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}}, {"abi": "source-clang-trivial-record-assignment/1", "assignment_mode": "moveAssign", "clang_assignment_signature": "libdivide_s64_t &(libdivide_s64_t &&) noexcept", "clang_method_id": "0x1d1dd48acc0", "native_layout": {"abi": "source-record-field-storage/1", "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"}, "record_name": "libdivide::libdivide_s64_t", "source_record": "libdivide::libdivide_s64_t"});
+  }
+  return i64(libdivide_s64_do(n, cPointerOffset(divtable64, i64((BigInt(i64((u64(d) < u64(16384)))) * BigInt(d))), 9)));
 }

@@ -1,0 +1,42 @@
+{
+  "source": "source/build/src/common.cpp",
+  "requested": [
+    "getatoken",
+    "fnlist_getnames",
+    "fnlist_clearnames"
+  ],
+  "requested_resolved": {
+    "getatoken": true,
+    "fnlist_getnames": true,
+    "fnlist_clearnames": true
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_common.cpp/reachable-290ab86eee0e2eeb/source/build/src/common.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "PrintBuildInfo",
+      "reason": "unlinked identifiers: buildprint, s_buildTimestamp",
+      "dependencies": [
+        "buildprint",
+        "s_buildTimestamp"
+      ]
+    },
+    {
+      "name": "ldist",
+      "reason": "unlinked identifiers: enginecompatibilitymode",
+      "dependencies": [
+        "enginecompatibilitymode"
+      ]
+    },
+    {
+      "name": "COMMON_clearbackground",
+      "reason": "unlinked identifiers: blackcol, clearbuf",
+      "dependencies": [
+        "blackcol",
+        "clearbuf"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 5,
+  "original_gameplay_verified": false
+}

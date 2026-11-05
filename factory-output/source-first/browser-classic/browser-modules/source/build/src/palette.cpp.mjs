@@ -2,6 +2,49 @@
 // Original translation unit: source/build/src/palette.cpp
 // Status: partial STRICT semantic conversion, not a full engine module.
 // Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.
+import { Alloc__cxx_static_e0036cfb06bcfe42 } from "./smmalloc_generic.cpp.mjs";
+import { Destroy__cxx_static_777d0ae31c789182 } from "./smmalloc_generic.cpp.mjs";
+import { Free__cxx_static_0dfd3f42f0dc2c05 } from "./smmalloc_generic.cpp.mjs";
+import { XXH3_64bits } from "../../../browser-abi/xxhash_source.mjs";
+import { __cxx_record_vec2_2150e186aab2ebda } from "./clip.cpp.mjs";
+import { __cxx_global_cell_e493776e01f353d2a6806578 } from "./engine.cpp.mjs";
+import { blendtable } from "./engine.cpp.mjs";
+import { britable } from "./engine.cpp.mjs";
+import { current_verbosity_cutoff } from "./loguru.cpp.mjs";
+import { divtable64 } from "./pragmas.cpp.mjs";
+import { __cxx_global_cell_f0c9c3446e396d6353338d7e } from "./sdlayer.cpp.mjs";
+import { __cxx_global_cell_11016d3c7177543e564ab46c } from "./compat.cpp.mjs";
+import { handle_memerr } from "./compat.cpp.mjs";
+import { initprintf } from "./baselayer.cpp.mjs";
+import { kclose } from "./vfs.cpp.mjs";
+import { kfilelength } from "./vfs.cpp.mjs";
+import { kopen4load } from "./vfs.cpp.mjs";
+import { kread } from "./vfs.cpp.mjs";
+import { __cxx_global_cell_f8287b2e627d0e3f51b90c55 } from "./pragmas.cpp.mjs";
+import { libdivide_s64_do } from "../../../browser-abi/libdivide_source.mjs";
+import { libdivide_s64_gen } from "../../../browser-abi/libdivide_provider.mjs";
+import { loguru_log } from "../../../browser-abi/loguru_provider.mjs";
+import { memcmp } from "../../../browser-abi/libc_provider.mjs";
+import { memcpy } from "../../../browser-abi/libc_provider.mjs";
+import { memset } from "../../../browser-abi/libc_provider.mjs";
+import { __cxx_global_cell_98d4df84d94f4e1b0e9e0c4b } from "./engine.cpp.mjs";
+import { __cxx_global_cell_14c13a42eb4ff2885eee0cc2 } from "./engine.cpp.mjs";
+import { offscreenrendering } from "./sdlayer.cpp.mjs";
+import { palette } from "./engine.cpp.mjs";
+import { paletteGetClosestColorWithBlacklist } from "./colmatch.cpp.mjs";
+import { paletteInitClosestColorGrid } from "./colmatch.cpp.mjs";
+import { paletteInitClosestColorMap } from "./colmatch.cpp.mjs";
+import { paletteInitClosestColorScale } from "./colmatch.cpp.mjs";
+import { __cxx_global_cell_2ecdb66f06cb14d421e278fc } from "./engine.cpp.mjs";
+import { palookup } from "./engine.cpp.mjs";
+import { videoBeginDrawing } from "./sdlayer.cpp.mjs";
+import { videoEndDrawing } from "./sdlayer.cpp.mjs";
+import { videoSetGamma } from "./sdlayer.cpp.mjs";
+import { videoUpdatePalette } from "./sdlayer.cpp.mjs";
+import { wm_msgbox } from "./sdlayer.cpp.mjs";
+import { __cxx_global_cell_22f848239c12c0d9f2b6f9e3 } from "./engine.cpp.mjs";
+import { __cxx_global_cell_ce636929c03d679219ea2982 } from "./engine.cpp.mjs";
+
 // LP64 source object addresses over native JavaScript storage. No instructions
 // or virtual machine are executed. Pointer slots and uintptr_t use these SAME
 // bits; arithmetic remains ordinary generated JavaScript/BigInt arithmetic.
@@ -14,7 +57,7 @@ const cSourceAddresses = (() => {
   globalThis[abiKey]=abi;
   const key=Symbol.for(abi);
   if(globalThis[key])return globalThis[key];
-  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map();
+  const byBuffer=new WeakMap(),regions=[],opaque=new WeakMap(),byBits=new Map(),functionAddresses=new Map();
   let nextRegion=0x10000000000n,nextOpaque=0xffff000000000000n;
   const heapKey=Symbol.for('source-first.native-C-heap/2');
   const heap=()=>globalThis[heapKey];
@@ -38,6 +81,12 @@ const cSourceAddresses = (() => {
     if(cpp&&!cpp.live)throw new RangeError('C pointer addresses deleted C++ storage');
     const native=heap();
     if(native?.buffer===buffer){
+      // An address can be both one-past one allocation and the beginning
+      // of its neighbour. A raw malloc address must select its live owner.
+      if(native.allocations.has(offset)){
+        const size=native.allocations.get(offset);
+        if(width<=size)return {lower:offset,upper:offset+size};
+      }
       for(const [base,size] of native.allocations){
         if(offset>=base&&offset+width<=base+size)return {lower:base,upper:base+size};
       }
@@ -79,6 +128,7 @@ const cSourceAddresses = (() => {
         seen.add(value);value=value.resolve();
       }
       if(value===null)return 0n;
+      if(value?.__cFunctionAddress===true&&functionAddresses.get(value.bits)===value)return value.bits;
       const item=canonical(value);
       if(item.buffer){
         const region=regionFor(item.buffer);liveBounds(item.buffer,item.offset);
@@ -97,6 +147,9 @@ const cSourceAddresses = (() => {
         throw new TypeError('C integer address must be exactly representable');
       const bits=BigInt.asUintN(64,BigInt(value));
       if(bits===0n)return null;
+      // The browser may bind its heap before the first compiled module loads.
+      // Register that real address region before decoding a malloc result.
+      const native=heap();if(native)regionFor(native.buffer);
       if(byBits.has(bits)){
         const value=byBits.get(bits),allocation=globalThis[Symbol.for('source-first.cpp-heap/1')]?.objects.get(value);
         if(allocation&&!allocation.live)throw new RangeError('C address refers to a destroyed C++ object');
@@ -106,10 +159,24 @@ const cSourceAddresses = (() => {
       for(const region of regions){
         const offset=bits-region.base;
         if(offset<0n||offset>BigInt(region.buffer.byteLength))continue;
-        const at=Number(offset),bounds=liveBounds(region.buffer,at);
+        const at=Number(offset);let bounds;
+        try{bounds=liveBounds(region.buffer,at);}
+        catch(error){if(functionAddresses.has(bits))return functionAddresses.get(bits);throw error;}
         return {__cPointer:true,buffer:region.buffer,offset:at,array:false,...bounds};
       }
+      if(functionAddresses.has(bits))return functionAddresses.get(bits);
       throw new TypeError('Unknown original C pointer address');
+    },
+    functionFromInteger(value){
+      if(typeof value!=='bigint'&&!(typeof value==='number'&&Number.isSafeInteger(value)))
+        throw new TypeError('Function address must be exactly representable');
+      const bits=BigInt.asUintN(64,BigInt(value));
+      if(bits===0n)return null;
+      if(typeof byBits.get(bits)==='function')return byBits.get(bits);
+      // Source-defined sentinel bits are values, not executable callbacks or
+      // allocations. They can be stored/compared/round-tripped, never invoked.
+      if(!functionAddresses.has(bits))functionAddresses.set(bits,Object.freeze({__cFunctionAddress:true,bits}));
+      return functionAddresses.get(bits);
     },
     assert(buffer,offset,width=0){liveBounds(buffer,offset,width);},
     forgetHeap(base,size){
@@ -140,12 +207,15 @@ const cSourceAddresses = (() => {
   globalThis[key]=api;return api;
 })();
 
+
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
 const cPointer = source => {
+  if(source?.__cFunctionAddress===true)throw new TypeError('Function address has no readable data storage');
+  if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
   if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
   if (source && source.__cPointer === true) {
-    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.offset);
+    if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.__cAddressOnly?source.lower:source.offset);
     return source;
   }
   if(source?.__cReference===true&&source.value?.[Symbol.for('source-first.original-byte-record-storage/1')])
@@ -171,6 +241,10 @@ const cPointer = source => {
 // source owner on use, after module initialization; do not read an ESM binding
 // early while merely constructing a forward/static pointer initializer.
 const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+// A GNU trailing char[1] keeps its declared array size. Only pointer decay
+// may borrow the remaining ORIGINAL complete heap allocation, as Clang's
+// configured flexible-array mode allows; ordinary member arrays stay bounded.
+const cArrayDecay = source => source?.[Symbol.for('source-first.clang-byte-tail-pointer/1')] || source;
 const cPointerElementRef = (source,index) => {
   if (source?.__cDeferredPointer===true || source?.__cDeferredReference===true)
     return cPointerElementRef(source.resolve(),index);
@@ -217,7 +291,7 @@ const cPointerElementRef = (source,index) => {
 };
 const cTypedPointer = (source, Type) => {
   if (!Type || !Number.isSafeInteger(Type.BYTES_PER_ELEMENT)) throw new TypeError('Unsupported pointer element type');
-  if (source===null) return null;
+  if (source===null||source===0||source===0n) return null;
   const pointerBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
   if(pointerBytes)return cPointer(pointerBytes);
   if (Array.isArray(source)) return { ...cPointer(source), upper:source.length*Type.BYTES_PER_ELEMENT, stride:Type.BYTES_PER_ELEMENT };
@@ -228,19 +302,30 @@ const cTypedPointer = (source, Type) => {
   }
   return pointer;
 };
-const cPointerOffset = (source, delta, stride=1) => {
-  const initial=cPointer(source);
-  const p=Array.isArray(source) ? {...initial, upper:source.length*stride, stride} : initial;
+const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
+  if(source?.__cDeferredReference===true)source=source.resolve();
+  if(source?.__cReference===true&&source.__cPointer!==true&&
+      !source.value?.[Symbol.for('source-first.original-byte-record-storage/1')]){
+    if((delta===0||delta===0n)&&Number.isSafeInteger(stride)&&stride>0)return source;
+    throw new RangeError('C scalar reference arithmetic requires original byte storage');
+  }
+  // Native record/row arrays expose readable JS indices over one existing
+  // byte allocation. Address arithmetic must retain that allocation and its
+  // actual subarray offset, rather than turn it into detached object slots.
+  const arrayBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
+  const initial=cPointer(arrayBytes||source);
+  const p=Array.isArray(source)&&!arrayBytes ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
-  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || next<p.lower || next>p.upper)
+  const outside=next<p.lower||next>p.upper;
+  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || outside&&!addressOnly)
     throw new RangeError('C pointer escapes original array bounds');
   if(p.__cPointer===true&&p.__cReference===true){
     if(next===p.offset)return p;
     return {__cPointer:true,buffer:p.buffer,array:p.array,lower:p.lower,upper:p.upper,offset:next,
-      ...(p.array?{stride:p.stride}: {})};
+      ...(p.array?{stride:p.stride}: {}),...(outside?{__cAddressOnly:true}: {})};
   }
-  const result={...p,offset:next};
+  const result={...p,offset:next,__cAddressOnly:outside};
   return result;
 };
 const cDeref = (source, Type) => {
@@ -248,14 +333,14 @@ const cDeref = (source, Type) => {
       typeof source==='object' && 'value' in source) return source;
   const p=cPointer(source);
   if (p.array) {
-    if (p.offset>=p.upper) throw new RangeError('C array pointer dereferences one-past-end');
+    if (p.offset<p.lower||p.offset>=p.upper) throw new RangeError('C array pointer dereferences outside its original bounds');
     if (Type.BYTES_PER_ELEMENT!==p.stride || p.offset%p.stride!==0)
       throw new TypeError('Array element type does not match original pointer stride');
     const index=p.offset/p.stride;
     return {get value(){return p.buffer[index];}, set value(value){p.buffer[index]=value;}};
   }
   const width=Type?.BYTES_PER_ELEMENT;
-  if (!Number.isSafeInteger(width) || width<=0 || p.offset+width>p.upper)
+  if (!Number.isSafeInteger(width) || width<=0 || p.offset<p.lower || p.offset+width>p.upper)
     throw new RangeError('C typed pointer dereference out of bounds');
   const access=new Map([
     [Uint8Array,['getUint8','setUint8']], [Int8Array,['getInt8','setInt8']],
@@ -271,16 +356,36 @@ const cDeref = (source, Type) => {
 };
 // An address-reinterpreted scalar has one native byte allocation. Reads via
 // its source identifier and all typed/byte aliases share the same DataView.
+// A host I/O boundary can marshal an explicitly typed scalar lvalue while
+// preserving its original identity and committing writes through its setter.
+// This does not grant the lvalue malloc ownership or invent a native buffer.
+function cScalarLValueIO(reference, Type) {
+  const types=[Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,BigInt64Array,BigUint64Array,Float32Array,Float64Array];
+  if(reference?.__cReference!==true || !types.includes(Type))throw new TypeError('Source scalar I/O requires a typed original lvalue');
+  const key=Symbol.for('source-first.scalar-lvalue-io/1'),old=reference[key];
+  if(old && (old.abi!=='source-scalar-lvalue-io/1'||old.Type!==Type))throw new TypeError('Conflicting scalar lvalue I/O type');
+  if(!old)Object.defineProperty(reference,key,{value:Object.freeze({abi:'source-scalar-lvalue-io/1',Type})});
+  return reference;
+}
 const cScalarStorage = (Type, initial) => {
-  const array=new Type([initial]),pointer=cPointer(array),reference=cDeref(pointer,Type);
+  // An output-only automatic object owns bytes before its original callee
+  // writes them. Omitting initial does not emit a C/C++ zero initializer.
+  const array=initial===undefined?new Type(1):new Type([initial]),pointer=cPointer(array),reference=cDeref(pointer,Type);
   return {...pointer,__cReference:true,
     get value(){return reference.value;},set value(value){reference.value=value;}};
 };
 const cPointerCompare = (left,right,op) => {
+  if(left===0||left===0n)left=null;
+  if(right===0||right===0n)right=null;
   if (left?.__cDeferredReference===true) left=left.resolve();
   if (right?.__cDeferredReference===true) right=right.resolve();
   if(left?.__cReference===true&&left.__cPointer!==true&&left.value?.[Symbol.for('source-first.original-byte-record-storage/1')])left=left.value;
   if(right?.__cReference===true&&right.__cPointer!==true&&right.value?.[Symbol.for('source-first.original-byte-record-storage/1')])right=right.value;
+  if(left?.__cFunctionAddress===true||right?.__cFunctionAddress===true){
+    if(op!=='=='&&op!=='!=')throw new TypeError('Cannot order integer-derived function addresses');
+    const equal=cSourceAddresses.encode(left)===cSourceAddresses.encode(right);
+    return op==='=='?equal:!equal;
+  }
   if (left===null || right===null) {
     if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
     throw new TypeError('Cannot order a null C pointer');
@@ -348,6 +453,21 @@ const cAlignedStorage = (storage, alignment) => {
   return storage;
 };
 
+const cRecordObject = source => {
+  if (source?.__cDeferredPointer === true || source?.__cDeferredReference === true) return cRecordObject(source.resolve());
+  if (source?.__cReference === true) return source.value;
+  if (Array.isArray(source)) { if (!source.length) throw new RangeError("C record pointer dereferences empty array"); return source[0]; }
+  if (source?.__cRecordPointer === true) return globalThis[Symbol.for("source-first.record-pointer-views/1")].deref(source);
+  if (source?.__cPointer === true) {
+    if (!source.array) throw new TypeError("C record pointer requires source-backed object slots");
+    return cPointerElementRef(source,0).value;
+  }
+  return source;
+};
+const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });
+function cObjectFieldRef(owner, field) { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); }
+function cRef(read, write) { return ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } }); }
+function cArrayRef(array, index) { return cRef(() => array[index], v => { array[index] = v; }); }
 // Numeric POD records use original Clang field offsets and shared byte storage.
 // Overlapping union alternatives are views of the SAME bytes, never independent
 // JS properties. This target's ABI has verified little-endian object storage.
@@ -372,6 +492,33 @@ const cByteRecordNative = {
   Uint32Array:[Uint32Array,'Uint32'], Int32Array:[Int32Array,'Int32'],
   Float32Array:[Float32Array,'Float32'], Float64Array:[Float64Array,'Float64'],
   BigInt64Array:[BigInt64Array,'BigInt64'], BigUint64Array:[BigUint64Array,'BigUint64']
+};
+// A native multidimensional array has ONE allocation. Each readable JS row
+// is a typed view into that allocation, so host byte operations and row
+// pointers observe exactly the same C storage and original row strides.
+const cNativeArray = (type,dims,initializers=[]) => {
+  const C=cByteRecordNative[type]?.[0];
+  if(!C||!Array.isArray(dims)||!dims.length||dims.length>8||
+      dims.some(n=>!Number.isSafeInteger(n)||n<0||n>1000000)||
+      dims.reduce((a,b)=>a*b,1)>1000000)
+    throw new TypeError('Native C array requires verified dimensions and scalar width');
+  const bytes=new Uint8Array(dims.reduce((a,b)=>a*b,1)*C.BYTES_PER_ELEMENT);
+  let offset=0;
+  const build=(depth,values)=>{
+    const length=dims[depth],start=offset;
+    if(!(Array.isArray(values)||depth===dims.length-1&&values instanceof C)||values.length>length)
+      throw new TypeError('Native C array initializer differs from original dimensions');
+    if(depth===dims.length-1){
+      const row=new C(bytes.buffer,offset,length);row.set(values);offset+=row.byteLength;return row;
+    }
+    const rows=Array.from({length},(_,i)=>build(depth+1,values[i]??[]));
+    Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),
+      {value:bytes.subarray(start,offset)});
+    Object.defineProperty(rows,Symbol.for('source-first.native-array-layout/1'),
+      {value:JSON.stringify({array:type,dims:dims.slice(depth)})});
+    return rows;
+  };
+  return build(0,initializers);
 };
 // Pointer fields and uintptr_t share the verified LP64 source address space.
 const cByteRecordPointers = cSourceAddresses;
@@ -438,7 +585,10 @@ const cByteArrayMember = (field,bytes,prototypes,values=[]) => {
   Object.defineProperty(rows,Symbol.for('source-first.clang-byte-record-array/1'),{value:bytes});
   return rows;
 };
-const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
+const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocation=null) => {
+  if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
+      !values || Object.keys(values).length || schema.prototype))
+    throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
   if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>1048576 ||
       !schema.fields || typeof schema.fields!=='object')
     throw new TypeError('Unverified Clang byte-record schema');
@@ -512,6 +662,19 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
             (bytes.byteOffset+field.offset)%C.BYTES_PER_ELEMENT)
           throw new TypeError('Unaligned or invalid native array field');
         const array=new C(bytes.buffer,bytes.byteOffset+field.offset,field.length);
+        if(field.oneByteTailArray==='clang-flex-arrays-0-or-1/1' && field.length===1 && C.BYTES_PER_ELEMENT===1 && allocation){
+          const heap=globalThis[Symbol.for('source-first.native-C-heap/2')];
+          // Original allocators can return a payload after their own header.
+          // Retain that one live allocation's bounds rather than requiring
+          // the source object to start at the raw host malloc address.
+          const complete=heap?.buffer===bytes.buffer && [...heap.allocations].find(([base,size])=>
+            base<=bytes.byteOffset && allocation.lower>=base && allocation.upper<=base+size);
+          if(complete && allocation.offset===bytes.byteOffset &&
+              allocation.upper>=bytes.byteOffset+schema.size && allocation.upper>=bytes.byteOffset+field.offset+field.size)
+            Object.defineProperty(array,Symbol.for('source-first.clang-byte-tail-pointer/1'),{value:{
+              __cPointer:true,array:false,buffer:bytes.buffer,lower:bytes.byteOffset+field.offset,
+              offset:bytes.byteOffset+field.offset,upper:allocation.upper}});
+        }
         Object.defineProperty(result,name,{value:array,enumerable:true});
       } else {
         if (field.size!==C.BYTES_PER_ELEMENT) throw new TypeError('Native scalar width differs from Clang');
@@ -562,6 +725,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}) => {
 // strides, and overlapping-union aliasing between consecutive C records.
 const cByteRecordArrayStorage = Symbol.for('source-first.clang-byte-record-array/1');
 const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if (!Number.isSafeInteger(count) || count < 1 || count > 1000000 ||
       !Number.isSafeInteger(schema?.size) || schema.size < 1 ||
       schema.size > 1048576 || count * schema.size > 268435456)
@@ -607,6 +772,7 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
       initialize();
       const i = indexOf(key);
       if (i < 0) throw new RangeError('C record array index outside original extent');
+      if(schema.projection)throw new TypeError('Nontrivial C++ array assignment requires original operator');
       const source = cByteRecordStorage.get(value);
       if (!source || source.schema !== signature)
         throw new TypeError('C record array assignment requires identical Clang byte layout');
@@ -620,6 +786,8 @@ const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage
 
 // Every row and element in a multidimensional C array shares one allocation.
 const cByteRecordNDArray = (schema,dims,prototypes={},initializers=[],storage=null) => {
+  if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
+    throw new TypeError('Nontrivial C++ array view cannot construct objects');
   if(!Array.isArray(dims)||dims.length<1||dims.length>8||
       dims.some(n=>!Number.isSafeInteger(n)||n<1||n>1000000)||
       !Number.isSafeInteger(schema?.size)||schema.size<1||
@@ -656,6 +824,7 @@ const cRecordPointerViews = (()=>{
   if(globalThis[key])return globalThis[key];
   const buffers=new WeakMap(),fieldReferences=new WeakMap();
   const api={
+    protocol:'source-record-pointer-views/2',
     fieldReference(owner,name){
       const storage=cByteRecordStorage.get(owner),field=storage&&JSON.parse(storage.schema).fields[name];
       if(!field)throw new TypeError('Field address requires original Clang storage');
@@ -675,9 +844,10 @@ const cRecordPointerViews = (()=>{
       const p=pointer,schema=p.recordSchema;
       if(p.__cPointer!==true||p.__cRecordPointer!==true||p.array||!schema||p.offset<p.lower||p.offset+schema.size>p.upper)
         throw new RangeError('C record dereference escapes original byte allocation');
-      const identity=p.offset+':'+JSON.stringify(schema);
+      const tail=Object.values(schema.fields).some(field=>field.oneByteTailArray);
+      const identity=p.offset+':'+JSON.stringify(schema)+(tail?':'+p.lower+':'+p.upper:'');
       let views=buffers.get(p.buffer);if(!views){views=new Map();buffers.set(p.buffer,views);}
-      if(!views.has(identity))views.set(identity,cInitByteRecord(schema,{},new Uint8Array(p.buffer,p.offset,schema.size),p.recordPrototypes));
+      if(!views.has(identity))views.set(identity,cInitByteRecord(schema,{},new Uint8Array(p.buffer,p.offset,schema.size),p.recordPrototypes,p));
       return views.get(identity);
     },
     element(pointer,index){
@@ -685,6 +855,7 @@ const cRecordPointerViews = (()=>{
       if(!Number.isSafeInteger(offset))throw new RangeError('Record-pointer index is not exactly representable');
       const item={...pointer,offset},record=api.deref(item);
       return {get value(){return record;},set value(next){
+        if(pointer.recordSchema.projection)throw new TypeError('Nontrivial C++ record assignment requires original operator');
         const source=cByteRecordStorage.get(next),destination=cByteRecordStorage.get(record);
         if(!source||source.schema!==destination.schema)throw new TypeError('Record-pointer assignment requires identical Clang layout');
         destination.bytes.set(source.bytes);
@@ -694,14 +865,45 @@ const cRecordPointerViews = (()=>{
   Object.defineProperty(globalThis,key,{value:api});return api;
 })();
 const cRecordPointer = (source,schema,prototypes={}) => {
-  if(source===null)return null;
+  if(!Number.isSafeInteger(schema?.size)||schema.size<1||!schema.fields||
+      !Number.isSafeInteger(schema.align)||schema.align<1)
+    throw new TypeError('Record pointer requires an original Clang schema');
+  if(source===null||source===0||source===0n)return null;
   if(source?.__cDeferredPointer||source?.__cDeferredReference)return cRecordPointer(source.resolve(),schema,prototypes);
   if(source?.__cReference&&source.__cPointer!==true)return cRecordPointer(source.value,schema,prototypes);
   const owner=source?.[Symbol.for('source-first.record-field-owner/1')],owned=owner&&cByteRecordStorage.get(owner);
   if(owned&&source.offset===owned.bytes.byteOffset&&JSON.stringify(schema)===owned.schema)
     return cRecordPointer(owner,schema,prototypes);
   const bytes=cByteRecordStorage.get(source)?.bytes||source?.[cByteRecordArrayStorage];
+  // A host may borrow a flat readable record for field-only C APIs (for
+  // example libdivide). Preserve the SAME object rather than serialize a
+  // detached copy. Byte casts/copies and pointer arithmetic still require
+  // native storage; this facade never acquires a fabricated heap address.
+  if(!schema.projection && !bytes && source && typeof source==='object' &&
+      (Object.getPrototypeOf(source)===Object.prototype||Object.getPrototypeOf(source)===null) &&
+      source.__cPointer!==true && !schema.union &&
+      Object.entries(schema.fields).every(([name,field])=>
+        (field.pointer||field.native&&!Object.hasOwn(field,'length')) &&
+        Object.hasOwn(Object.getOwnPropertyDescriptor(source,name)||{},'value')))
+    return {__cReference:true,get value(){return source;}};
   const pointer=cPointer(bytes||source);
+  // Source arrays can retain object slots instead of a serialized POD layout.
+  // Keep that original owner and stride; do not reinterpret those slots as
+  // heap bytes or detach their fields by constructing a new record view.
+  if(pointer.array){
+    if(schema.projection)throw new TypeError('Nontrivial C++ field view requires original byte storage');
+    const owned=Array.isArray(source)
+      ? {...pointer,upper:source.length*schema.size,stride:schema.size} : pointer;
+    if(owned.stride!==schema.size || owned.lower%owned.stride || owned.offset%owned.stride ||
+        owned.upper%owned.stride || !Array.isArray(owned.buffer))
+      throw new TypeError('Record pointer differs from original object-array stride');
+    if(owned.offset<owned.lower || owned.offset>=owned.upper)
+      throw new RangeError('Record pointer dereferences outside original object slots');
+    const value=owned.buffer[owned.offset/owned.stride];
+    if(value===null || typeof value!=='object' || ArrayBuffer.isView(value))
+      throw new TypeError('Record pointer requires original record object slots');
+    return owned;
+  }
   if(pointer.array||!Number.isSafeInteger(schema?.size)||schema.size<1||
       !Number.isSafeInteger(schema.align)||schema.align<1||pointer.offset%schema.align)
     throw new TypeError('Record pointer requires aligned Clang-proven original bytes');
@@ -711,6 +913,8 @@ const cRecordPointer = (source,schema,prototypes={}) => {
 // Readable JS representation of Clang-proven pointer-free C/C++ POD copies.
 // Fail closed if external storage has not been materialized in the agreed type.
 const cCopyAggregate = (value, schema) => {
+  if(schema.byteRecord?.projection || schema.recordArray?.projection)
+    throw new TypeError('Nontrivial C++ copy requires original constructor');
   if(schema.recordArray){
     const bytes=value?.[cByteRecordArrayStorage];
     if(!bytes||value[Symbol.for('source-first.byte-record-array-layout/1')]!==JSON.stringify({schema:schema.recordArray,dims:schema.dims}))
@@ -793,8 +997,7 @@ const cZeroAggregate = (schema, prototypes={}) => {
         schema.dims.reduce((a,b) => a*b, 1) > 1000000)
       throw new TypeError('Unverified C aggregate zero-array extent');
     if (schema.dims.length === 1) return new C(schema.dims[0]);
-    return Array.from({length:schema.dims[0]}, () =>
-      cZeroAggregate({array:schema.array,dims:schema.dims.slice(1)}));
+    return cNativeArray(schema.array,schema.dims);
   }
   if (Object.hasOwn(schema, 'record')) {
     const result = cMarkAggregate({});
@@ -826,6 +1029,126 @@ const cZeroAggregate = (schema, prototypes={}) => {
   throw new TypeError('C zero aggregate requires nonoverlapping proven field layout');
 };
 
+// Implicit trivial C++ assignment changes destination storage in place. Existing
+// references to its fields, arrays and overlapping union views retain identity.
+// cCopyAggregate validates exact Clang storage schemas and snapshots the source
+// before any mutation, including self-assignment or overlapping storage.
+const cAssignAggregate = (destination, source, schema) => {
+  const snapshot = cCopyAggregate(source, schema);
+  cCopyAggregate(destination, schema);
+  const commit = (target, value, shape) => {
+    if (Object.hasOwn(shape, 'byteRecord')) {
+      cByteRecordStorage.get(target).bytes.set(cByteRecordStorage.get(value).bytes);
+    } else if (Object.hasOwn(shape,'pointerArray')) {
+      target[Symbol.for('source-first.clang-byte-record-array/1')].set(value[Symbol.for('source-first.clang-byte-record-array/1')]);
+    } else if (Object.hasOwn(shape, 'bytes') || Object.hasOwn(shape, 'array')) {
+      target.set(value);
+    } else if (Object.hasOwn(shape, 'record')) {
+      for (const [name, field] of Object.entries(shape.record)) {
+        if (Object.hasOwn(field, 'scalar') || Object.hasOwn(field, 'pointer')) target[name] = value[name];
+        else commit(target[name], value[name], field);
+      }
+    } else throw new TypeError('C++ assignment requires original aggregate storage');
+  };
+  commit(destination, snapshot, schema);
+  return destination;
+};
+
+// Browser-hosted termination for an exactly verified ISO C exit(int) ABI.
+// Throwing stops the current stack; the launcher decides whether to close the
+// native browser runtime. This does not emulate a CPU or import an SDL library.
+const cProcess = Object.freeze({
+  exit(status) {
+    const code = Number(status);
+    if (!Number.isFinite(code) || !Number.isSafeInteger(code))
+      throw new TypeError('C exit status must be an integer');
+    const stopped = new Error(`C process terminated with status ${code | 0}`);
+    stopped.name = 'CProcessExit';
+    stopped.status = code | 0;
+    throw stopped;
+  }
+});
+
+function i32(value) { return typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0; }
+function u32(value) { return typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0; }
+function i64(value) { return BigInt.asIntN(64, BigInt(value)); }
+function u64(value) { return BigInt.asUintN(64, BigInt(value)); }
+
+
+const clz64 = value => {let v=BigInt.asUintN(64,BigInt(value));if(v===0n)return 64;let n=0;while((v&(1n<<63n))===0n){v<<=1n;n++;}return n;};
+const ctz64 = (value,width) => {let v=BigInt.asUintN(width,BigInt(value));if(v===0n)return width;let n=0;while((v&1n)===0n){v>>=1n;n++;}return n;};
+const popcnt = value => {let v=value,n=0;while(v){v&=v-1n;n++;}return n;};
+
+const __builtin_unreachable = () => { throw new Error("C++ undefined behavior: reached __builtin_unreachable"); };
+// C/C++ source: source/build/include/fix16.h:111
+export const fix16_rad_to_deg_mult__header_global_e3208603905f7f08 = i32(3754936);
+function __cxx_static_address_fcafbc40f46ae5932e40cb5b() {
+  return __cxx_static_address_fcafbc40f46ae5932e40cb5b.reference || (__cxx_static_address_fcafbc40f46ae5932e40cb5b.reference = {
+    __cReference: true,
+    get value() { return fix16_rad_to_deg_mult__header_global_e3208603905f7f08; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:114
+export const fix16_deg_to_rad_mult__header_global_82f40ae9b461b6b5 = i32(1144);
+function __cxx_static_address_f07b0d1ea236d312ff3a1d42() {
+  return __cxx_static_address_f07b0d1ea236d312ff3a1d42.reference || (__cxx_static_address_f07b0d1ea236d312ff3a1d42.reference = {
+    __cReference: true,
+    get value() { return fix16_deg_to_rad_mult__header_global_82f40ae9b461b6b5; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:21
+export let basepaltable = cPointerArray(256, () => [cStaticPointer(() => palette)]);
+function __cxx_static_address_63bedf995b18f22120b570b8() {
+  return __cxx_static_address_63bedf995b18f22120b570b8.reference || (__cxx_static_address_63bedf995b18f22120b570b8.reference = {
+    __cReference: true,
+    get value() { return basepaltable; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:22
+export let basepalreset = (u32((u32(1) & 255)) & 255);
+export function __cxx_global_cell_8c784fcd98ff8a6365ed10e5() {
+  return __cxx_global_cell_8c784fcd98ff8a6365ed10e5.reference || (__cxx_global_cell_8c784fcd98ff8a6365ed10e5.reference = {
+    __cReference: true,
+    get value() { return basepalreset; },
+    set value(__cxx_lvalue_0) { basepalreset = (u32(__cxx_lvalue_0) & 255); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:23
+export let curbasepal = 0;
+export function __cxx_global_cell_780811cb53e28b659b6616eb() {
+  return __cxx_global_cell_780811cb53e28b659b6616eb.reference || (__cxx_global_cell_780811cb53e28b659b6616eb.reference = {
+    __cReference: true,
+    get value() { return curbasepal; },
+    set value(__cxx_lvalue_0) { curbasepal = (u32(__cxx_lvalue_0) & 255); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:24
+export let globalblend = 0;
+export function __cxx_global_cell_9a5f899abe816221fc68b39b() {
+  return __cxx_global_cell_9a5f899abe816221fc68b39b.reference || (__cxx_global_cell_9a5f899abe816221fc68b39b.reference = {
+    __cReference: true,
+    get value() { return globalblend; },
+    set value(__cxx_lvalue_0) { globalblend = i32(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:26
+export let g_lastpalettesum = u64(0);
+export function __cxx_global_cell_2e274c3f41eaa4a44d62a6ff() {
+  return __cxx_global_cell_2e274c3f41eaa4a44d62a6ff.reference || (__cxx_global_cell_2e274c3f41eaa4a44d62a6ff.reference = {
+    __cReference: true,
+    get value() { return g_lastpalettesum; },
+    set value(__cxx_lvalue_0) { g_lastpalettesum = u64(__cxx_lvalue_0); }
+  });
+}
 
 // C/C++ source: source/build/src/palette.cpp:27
 export let curpalette = cByteRecordNDArray({"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, [256], {}, cStaticInitializerValues([]));
@@ -837,11 +1160,780 @@ function __cxx_static_address_6b40a5c7d992e38a673b4c6e() {
   });
 }
 
-// Original Clang-generated fragment; imports existing owner storage.
-export { basepalreset, clamp__header_7fdbead6febc, curbasepal, curbrightness, curpalettefaded, g_lastpalettesum, gammabrightness, palfadedelta, palfadergb, __cxx_global_cell_8c784fcd98ff8a6365ed10e5, __cxx_global_cell_780811cb53e28b659b6616eb, __cxx_global_cell_4e6755afec0ef38c6a67f61a, __cxx_global_cell_2e274c3f41eaa4a44d62a6ff, __cxx_global_cell_a8e62b4a4ba82cd2a9215fe2, __cxx_global_cell_fba044f5949b228db52cb0a4, __cxx_global_cell_226fe25bac1ac7d5f7db4e7a } from "./_source_legacy_palette_cpp_8bee4cb3c31d.mjs";
+// C/C++ source: source/build/src/palette.cpp:28
+export let curpalettefaded = cByteRecordNDArray({"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, [256], {}, cStaticInitializerValues([]));
+function __cxx_static_address_d45c8927561e710d46178f12() {
+  return __cxx_static_address_d45c8927561e710d46178f12.reference || (__cxx_static_address_d45c8927561e710d46178f12.reference = {
+    __cReference: true,
+    get value() { return curpalettefaded; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:29
+export let palfadergb = cInitByteRecord({"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, cStaticInitializerValues({"r": (u32(0) & 255), "g": (u32(0) & 255), "b": (u32(0) & 255), "f": (u32(0) & 255)}), null, {});
+export function __cxx_global_cell_226fe25bac1ac7d5f7db4e7a() {
+  return __cxx_global_cell_226fe25bac1ac7d5f7db4e7a.reference || (__cxx_global_cell_226fe25bac1ac7d5f7db4e7a.reference = {
+    __cReference: true,
+    get value() { return palfadergb; },
+    set value(__cxx_lvalue_0) { throw new TypeError("record address cannot replace original object storage"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:30
+export let palfadedelta = (u32((u32(0) & 255)) & 255);
+export function __cxx_global_cell_fba044f5949b228db52cb0a4() {
+  return __cxx_global_cell_fba044f5949b228db52cb0a4.reference || (__cxx_global_cell_fba044f5949b228db52cb0a4.reference = {
+    __cReference: true,
+    get value() { return palfadedelta; },
+    set value(__cxx_lvalue_0) { palfadedelta = (u32(__cxx_lvalue_0) & 255); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:31
+export const FIX16_MAX__header_global_2e902fc0f726dfe1 = i32(2147483647);
+function __cxx_static_address_4ee442c2c29ad09081972d95() {
+  return __cxx_static_address_4ee442c2c29ad09081972d95.reference || (__cxx_static_address_4ee442c2c29ad09081972d95.reference = {
+    __cReference: true,
+    get value() { return FIX16_MAX__header_global_2e902fc0f726dfe1; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:32
+export const FIX16_MIN__header_global_1e3895ec79c4043a = i32(2147483648);
+function __cxx_static_address_8749e415723c2ad18d1fb9d2() {
+  return __cxx_static_address_8749e415723c2ad18d1fb9d2.reference || (__cxx_static_address_8749e415723c2ad18d1fb9d2.reference = {
+    __cReference: true,
+    get value() { return FIX16_MIN__header_global_1e3895ec79c4043a; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:33
+export const FIX16_OVERFLOW__header_global_7c6250ba21daf054 = i32(2147483648);
+function __cxx_static_address_0f5784c8ba00a7a236ff9e1a() {
+  return __cxx_static_address_0f5784c8ba00a7a236ff9e1a.reference || (__cxx_static_address_0f5784c8ba00a7a236ff9e1a.reference = {
+    __cReference: true,
+    get value() { return FIX16_OVERFLOW__header_global_7c6250ba21daf054; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:35
+export const fix16_one__header_global_c6e686a6153312e4 = i32(65536);
+function __cxx_static_address_d69c0252ec436ccad03ff765() {
+  return __cxx_static_address_d69c0252ec436ccad03ff765.reference || (__cxx_static_address_d69c0252ec436ccad03ff765.reference = {
+    __cReference: true,
+    get value() { return fix16_one__header_global_c6e686a6153312e4; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:36
+export const fix16_half__header_global_df4037cd7223ad64 = i32(32768);
+function __cxx_static_address_f19f9ffb0081646fb7515be8() {
+  return __cxx_static_address_f19f9ffb0081646fb7515be8.reference || (__cxx_static_address_f19f9ffb0081646fb7515be8.reference = {
+    __cReference: true,
+    get value() { return fix16_half__header_global_df4037cd7223ad64; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/fix16.h:37
+export const flt_f161r__header_global_b03ab1e0a44547d5 = Math.fround(Math.fround((Math.fround(1) / Math.fround(65536))));
+function __cxx_static_address_2b41f073f4554956c3db3161() {
+  return __cxx_static_address_2b41f073f4554956c3db3161.reference || (__cxx_static_address_2b41f073f4554956c3db3161.reference = {
+    __cReference: true,
+    get value() { return flt_f161r__header_global_b03ab1e0a44547d5; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:32
+export let realmaxshade = 0;
+export function __cxx_global_cell_bbb41de444ddeca3a5d3580e() {
+  return __cxx_global_cell_bbb41de444ddeca3a5d3580e.reference || (__cxx_global_cell_bbb41de444ddeca3a5d3580e.reference = {
+    __cReference: true,
+    get value() { return realmaxshade; },
+    set value(__cxx_lvalue_0) { realmaxshade = i32(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:33
+export let frealmaxshade = 0;
+export function __cxx_global_cell_cdfec18967deabe5b3ba3b50() {
+  return __cxx_global_cell_cdfec18967deabe5b3ba3b50.reference || (__cxx_global_cell_cdfec18967deabe5b3ba3b50.reference = {
+    __cReference: true,
+    get value() { return frealmaxshade; },
+    set value(__cxx_lvalue_0) { frealmaxshade = Math.fround(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:42
+export let g_noFloorPal = new Int8Array(256);
+function __cxx_static_address_8b1496ddd9923c6007a4a29e() {
+  return __cxx_static_address_8b1496ddd9923c6007a4a29e.reference || (__cxx_static_address_8b1496ddd9923c6007a4a29e.reference = {
+    __cReference: true,
+    get value() { return g_noFloorPal; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:44
+export let curbrightness = i32(0);
+export function __cxx_global_cell_4e6755afec0ef38c6a67f61a() {
+  return __cxx_global_cell_4e6755afec0ef38c6a67f61a.reference || (__cxx_global_cell_4e6755afec0ef38c6a67f61a.reference = {
+    __cReference: true,
+    get value() { return curbrightness; },
+    set value(__cxx_lvalue_0) { curbrightness = i32(__cxx_lvalue_0); }
+  });
+}
+
+export let gammabrightness = i32(0);
+export function __cxx_global_cell_a8e62b4a4ba82cd2a9215fe2() {
+  return __cxx_global_cell_a8e62b4a4ba82cd2a9215fe2.reference || (__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2.reference = {
+    __cReference: true,
+    get value() { return gammabrightness; },
+    set value(__cxx_lvalue_0) { gammabrightness = i32(__cxx_lvalue_0); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:80
+export function videoFadeToBlack(moreopaquep) {
+  {
+    void 0;
+    videoBeginDrawing();
+    let p = cTypedPointer(cSourceAddresses.decode(__cxx_global_cell_f0c9c3446e396d6353338d7e().value), Uint8Array);
+    let trans = (cPointerElementRef(blendtable, 0).value);
+    let shiftamnt = i32(Math.imul(i32((!(!Boolean(moreopaquep)))), 8));
+    let dimprod = i32(Math.imul(__cxx_global_cell_22f848239c12c0d9f2b6f9e3().value, __cxx_global_cell_ce636929c03d679219ea2982().value));
+    let i = i32(0);
+    for (; (i < i32((dimprod - 4))); (i = i32((Number(i) + Number(4))))) {
+      ((cDeref(cPointerOffset(p, i, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(trans, i32((i32((cDeref(cPointerOffset(p, i, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) << shiftamnt)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+      ((cDeref(cPointerOffset(p, i32((i + 1)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(trans, i32((i32((cDeref(cPointerOffset(p, i32((i + 1)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) << shiftamnt)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+      ((cDeref(cPointerOffset(p, i32((i + 2)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(trans, i32((i32((cDeref(cPointerOffset(p, i32((i + 2)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) << shiftamnt)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+      ((cDeref(cPointerOffset(p, i32((i + 3)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(trans, i32((i32((cDeref(cPointerOffset(p, i32((i + 3)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) << shiftamnt)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+    }
+    for (; (i < dimprod); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
+      ((cDeref(cPointerOffset(p, i, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(trans, i32((i32((cDeref(cPointerOffset(p, i, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) << shiftamnt)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+    }
+    videoEndDrawing();
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:130
+export function alloc_palookup(pal) {
+  ((cPointerElementRef(palookup, pal).value) = cTypedPointer(xaligned_alloc__header_349c3e01dff0(u64(16), u64(i32(Math.imul(i32((i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value) + 1)), 256)))), Uint8Array));
+  memset((cPointerElementRef(palookup, pal).value), 0, u64(i32(Math.imul(i32((i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value) + 1)), 256))));
+}
+
+// C/C++ source: source/build/src/palette.cpp:144
+const __cxx_literal_7bff21022fac470c4fe4 = Uint8Array.from([112, 97, 108, 101, 116, 116, 101, 46, 100, 97, 116, 0]);
+const __cxx_literal_d3f2b5a7748fce3c7cbe = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_9f5b738606e3f0495a31 = Uint8Array.from([105, 110, 118, 97, 108, 105, 100, 32, 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 115, 104, 97, 100, 101, 115, 32, 105, 110, 32, 34, 112, 97, 108, 101, 116, 116, 101, 46, 100, 97, 116, 34, 33, 0]);
+const __cxx_literal_37129621e186d28420e8 = Uint8Array.from([77, 111, 114, 101, 66, 108, 101, 110, 100, 84, 97, 98, 0]);
+const __cxx_literal_05140de75496091ae248 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_5a7ade52b74c6c68e3ad = Uint8Array.from([102, 97, 105, 108, 101, 100, 32, 114, 101, 97, 100, 105, 110, 103, 32, 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 32, 98, 108, 101, 110, 100, 105, 110, 103, 32, 116, 97, 98, 108, 101, 32, 99, 111, 117, 110, 116, 0]);
+const __cxx_literal_8502f4eb17cd2da27990 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_9d62ede00672b068590a = Uint8Array.from([102, 97, 105, 108, 101, 100, 32, 114, 101, 97, 100, 105, 110, 103, 32, 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 32, 98, 108, 101, 110, 100, 105, 110, 103, 32, 116, 97, 98, 108, 101, 32, 105, 110, 100, 101, 120, 0]);
+const __cxx_literal_bfcfb1bf7ece4c5eded0 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_e3884f7eb91534d7d800 = Uint8Array.from([100, 117, 112, 108, 105, 99, 97, 116, 101, 32, 98, 108, 101, 110, 100, 105, 110, 103, 32, 116, 97, 98, 108, 101, 32, 105, 110, 100, 101, 120, 32, 37, 51, 100, 32, 101, 110, 99, 111, 117, 110, 116, 101, 114, 101, 100, 0]);
+const __cxx_literal_49de4c0ee26cd5eac9c3 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_4d999e1dc4c900b4e958 = Uint8Array.from([102, 97, 105, 108, 101, 100, 32, 114, 101, 97, 100, 105, 110, 103, 32, 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 32, 98, 108, 101, 110, 100, 105, 110, 103, 32, 116, 97, 98, 108, 101, 0]);
+const __cxx_literal_08251686d36470d7ad91 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_0e1957f0302de1d04be0 = Uint8Array.from([105, 110, 118, 97, 108, 105, 100, 32, 108, 111, 103, 110, 117, 109, 97, 108, 112, 104, 97, 116, 97, 98, 115, 32, 118, 97, 108, 117, 101, 44, 32, 109, 117, 115, 116, 32, 98, 101, 32, 105, 110, 32, 91, 49, 32, 46, 46, 32, 55, 93, 0]);
+export function paletteLoadFromDisk() {
+  paletteInitClosestColorScale(30, 59, 11);
+  paletteInitClosestColorGrid();
+  let fil;
+  if (((fil = i32(kopen4load(__cxx_literal_7bff21022fac470c4fe4, (u32(0) & 255)))) == (-1))) {
+    return;
+  }
+  if ((kread(fil, palette, 768) != i32(768))) {
+    return kclose(fil);
+  }
+  {
+    const __cxx_range_array_0 = palette;
+    if (__cxx_range_array_0.length !== 768) throw new RangeError("C array extent mismatch");
+    for (let __cxx_range_index_0 = 0; __cxx_range_index_0 < 768; ++__cxx_range_index_0) {
+      (__cxx_range_array_0[__cxx_range_index_0] = (u32((__cxx_range_array_0[__cxx_range_index_0] << 2)) & 255));
+    }
+  }
+  paletteInitClosestColorMap(palette);
+  (__cxx_global_cell_2ecdb66f06cb14d421e278fc().value = (u32((__cxx_global_cell_2ecdb66f06cb14d421e278fc().value | i32(1))) & 255));
+  let lamedukep = i32(0);
+  if ((kfilelength(fil) == 41600)) {
+    (__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value = ((u32(((u32(32) << 16) >> 16)) << 16) >> 16));
+    (lamedukep = i32(1));
+  } else {
+    if ((kread(fil, cScalarLValueIO(__cxx_global_cell_14c13a42eb4ff2885eee0cc2(), Int16Array), 2) != i32(2))) {
+      return kclose(fil);
+    }
+    (__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value = ((u32(B_PASS16__header_06653fd2d9bb(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value)) << 16) >> 16));
+    if ((i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value) <= 1)) {
+      ((i32(-1) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-1), __cxx_literal_d3f2b5a7748fce3c7cbe, u32(190), __cxx_literal_9f5b738606e3f0495a31));
+      (__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value = ((u32(((u32(0) << 16) >> 16)) << 16) >> 16));
+      return kclose(fil);
+    }
+  }
+  maybe_alloc_palookup(0);
+  if ((kread(fil, (cPointerElementRef(palookup, 0).value), i32((i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value) << 8))) != i32((i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value) << 8)))) {
+    return kclose(fil);
+  }
+  (__cxx_global_cell_2ecdb66f06cb14d421e278fc().value = (u32((__cxx_global_cell_2ecdb66f06cb14d421e278fc().value | i32(2))) & 255));
+  let transluc = ((cPointerElementRef(blendtable, 0).value) = cTypedPointer(xcalloc__header_f81d3cc9a249(u64(256), u64(256)), Uint8Array));
+  if (Boolean(lamedukep)) {
+    for (let i = i64(0); (i < i64(255)); ((__cxx_lvalue_3) => { const previous = __cxx_lvalue_3.value; const next = i64((previous + 1n)); __cxx_lvalue_3.value = next; return previous; })(cRef(() => i, __cxx_lvalue_4 => { i = __cxx_lvalue_4; }))) {
+      if ((kread(fil, cPointerOffset(transluc, i64((BigInt(i64((BigInt(i64((BigInt(i64(256)) * BigInt(i)))) + BigInt(i)))) + BigInt(i64(1)))), Uint8Array.BYTES_PER_ELEMENT), i32(i64((BigInt(i64(255)) - BigInt(i))))) != i32(i64((BigInt(i64(255)) - BigInt(i)))))) {
+        return kclose(fil);
+      }
+      for (let j = i64((BigInt(i) + BigInt(i64(1)))); (j < i64(256)); ((__cxx_lvalue_5) => { const previous = __cxx_lvalue_5.value; const next = i64((previous + 1n)); __cxx_lvalue_5.value = next; return previous; })(cRef(() => j, __cxx_lvalue_6 => { j = __cxx_lvalue_6; }))) {
+        ((cDeref(cPointerOffset(transluc, i64((BigInt(i64((BigInt(i64(256)) * BigInt(j)))) + BigInt(i))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(transluc, i64((BigInt(i64((BigInt(i64(256)) * BigInt(i)))) + BigInt(j))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+      }
+    }
+    for (let i = i64(0); (i < i64(256)); ((__cxx_lvalue_7) => { const previous = __cxx_lvalue_7.value; const next = i64((previous + 1n)); __cxx_lvalue_7.value = next; return previous; })(cRef(() => i, __cxx_lvalue_8 => { i = __cxx_lvalue_8; }))) {
+      ((cDeref(cPointerOffset(transluc, i64((BigInt(i64((BigInt(i64(256)) * BigInt(i)))) + BigInt(i))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((u32(i) & 255)) & 255));
+    }
+  } else {
+    if ((kread(fil, transluc, 65536) != i32(65536))) {
+      return kclose(fil);
+    }
+  }
+  (__cxx_global_cell_2ecdb66f06cb14d421e278fc().value = (u32((__cxx_global_cell_2ecdb66f06cb14d421e278fc().value | i32(4))) & 255));
+  let magic = cZeroAggregate({"array": "Uint8Array", "dims": [12]});
+  if (((!(kread(fil, magic, i32(12)) != i32(12))) && (!Boolean(memcmp(magic, __cxx_literal_37129621e186d28420e8, 12))))) {
+    let addblendtabs;
+    const __cxx_lvalue_0 = cScalarStorage(Uint8Array);
+    if ((kread(fil, __cxx_lvalue_0, 1) != i32(1))) {
+      ((i32(-1) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-1), __cxx_literal_05140de75496091ae248, u32(244), __cxx_literal_5a7ade52b74c6c68e3ad));
+      return kclose(fil);
+    }
+    let blendnum;
+    const __cxx_lvalue_1 = cScalarStorage(Uint8Array);
+    let tab = cTypedPointer(xmalloc__header_0218f37c8068(u64(i32(Math.imul(256, 256)))), Uint8Array);
+    for (let i = i64(0); (i < i64(__cxx_lvalue_0.value)); ((__cxx_lvalue_9) => { const previous = __cxx_lvalue_9.value; const next = i64((previous + 1n)); __cxx_lvalue_9.value = next; return previous; })(cRef(() => i, __cxx_lvalue_10 => { i = __cxx_lvalue_10; }))) {
+      if ((kread(fil, __cxx_lvalue_1, 1) != i32(1))) {
+        ((i32(-1) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-1), __cxx_literal_8502f4eb17cd2da27990, u32(254), __cxx_literal_9d62ede00672b068590a));
+        xfree__header_4e66c3713f53(tab);
+        return kclose(fil);
+      }
+      if (cPointerCompare((cPointerElementRef(blendtable, __cxx_lvalue_1.value).value), null, "!=")) {
+        ((i32(-1) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-1), __cxx_literal_bfcfb1bf7ece4c5eded0, u32(260), __cxx_literal_e3884f7eb91534d7d800, i32(__cxx_lvalue_1.value)));
+      }
+      if ((kread(fil, tab, i32(Math.imul(256, 256))) != i32(Math.imul(256, 256)))) {
+        ((i32(-1) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-1), __cxx_literal_49de4c0ee26cd5eac9c3, u32(264), __cxx_literal_4d999e1dc4c900b4e958));
+        xfree__header_4e66c3713f53(tab);
+        return kclose(fil);
+      }
+      paletteSetBlendTable(i32(__cxx_lvalue_1.value), tab);
+    }
+    xfree__header_4e66c3713f53(tab);
+    let lognumalphatabs;
+    const __cxx_lvalue_2 = cScalarStorage(Uint8Array);
+    if ((!(kread(fil, __cxx_lvalue_2, 1) != i32(1)))) {
+      if ((!((i32(__cxx_lvalue_2.value) >= 1) && (i32(__cxx_lvalue_2.value) <= 7)))) {
+        ((i32(-2) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-2), __cxx_literal_08251686d36470d7ad91, u32(278), __cxx_literal_0e1957f0302de1d04be0));
+      } else {
+        (__cxx_global_cell_98d4df84d94f4e1b0e9e0c4b().value = (u32((u32(i32((1 << i32(__cxx_lvalue_2.value)))) & 255)) & 255));
+      }
+    }
+  }
+  kclose(fil);
+}
+
+// C/C++ source: source/build/src/palette.cpp:287
+export let PaletteIndexFullbright = new Uint8Array(32);
+function __cxx_static_address_031f4d6a0634e182365eff79() {
+  return __cxx_static_address_031f4d6a0634e182365eff79.reference || (__cxx_static_address_031f4d6a0634e182365eff79.reference = {
+    __cReference: true,
+    get value() { return PaletteIndexFullbright; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/src/palette.cpp:357
+export function paletteFixTranslucencyMask() {
+  {
+    const __cxx_range_array_0 = palookup;
+    if (__cxx_range_array_0.length !== 256) throw new RangeError("C array extent mismatch");
+    if (!__cxx_range_array_0[Symbol.for("source-first.clang-pointer-array/1")]) throw new TypeError("C pointer array storage ABI missing");
+    for (let __cxx_range_index_0 = 0; __cxx_range_index_0 < 256; ++__cxx_range_index_0) {
+      let thispalookup = __cxx_range_array_0[__cxx_range_index_0];
+      if (cPointerCompare(thispalookup, null, "==")) {
+        continue;
+      }
+      for (let j = i64(0); (j < i64(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value)); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i64((previous + 1n)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => j, __cxx_lvalue_1 => { j = __cxx_lvalue_1; }))) {
+        ((cDeref(cPointerOffset(thispalookup, i64((BigInt(i64((BigInt(j) << BigInt(8)))) + BigInt(i64(255)))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((u32(255) & 255)) & 255));
+      }
+    }
+  }
+  {
+    const __cxx_range_array_1 = blendtable;
+    if (__cxx_range_array_1.length !== 256) throw new RangeError("C array extent mismatch");
+    if (!__cxx_range_array_1[Symbol.for("source-first.clang-pointer-array/1")]) throw new TypeError("C pointer array storage ABI missing");
+    for (let __cxx_range_index_1 = 0; __cxx_range_index_1 < 256; ++__cxx_range_index_1) {
+      let transluc = __cxx_range_array_1[__cxx_range_index_1];
+      if (cPointerCompare(transluc, null, "==")) {
+        continue;
+      }
+      for (let j = i64(0); (j < i64(255)); ((__cxx_lvalue_2) => { const previous = __cxx_lvalue_2.value; const next = i64((previous + 1n)); __cxx_lvalue_2.value = next; return previous; })(cRef(() => j, __cxx_lvalue_3 => { j = __cxx_lvalue_3; }))) {
+        ((cDeref(cPointerOffset(transluc, i64((BigInt(i64(i32((255 << 8)))) + BigInt(j))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(transluc, i64((BigInt(i64(i32((i32(__cxx_global_cell_e493776e01f353d2a6806578().value) << 8)))) + BigInt(j))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+        ((cDeref(cPointerOffset(transluc, i64((BigInt(i64(255)) + BigInt(i64((BigInt(j) << BigInt(8)))))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(transluc, i64((BigInt(i64(__cxx_global_cell_e493776e01f353d2a6806578().value)) + BigInt(i64((BigInt(j) << BigInt(8)))))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+      }
+      ((cDeref(cPointerOffset(transluc, i32((i32((255 << 8)) + 255)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(transluc, i32((i32((i32(__cxx_global_cell_e493776e01f353d2a6806578().value) << 8)) + i32(__cxx_global_cell_e493776e01f353d2a6806578().value))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+    }
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:392
+const __cxx_literal_77adcc200cd5b7f154b8 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_5fdf29ca6a441b2f0da9 = Uint8Array.from([97, 116, 116, 101, 109, 112, 116, 32, 116, 111, 32, 108, 111, 97, 100, 32, 108, 111, 111, 107, 117, 112, 32, 102, 111, 114, 32, 114, 101, 115, 101, 114, 118, 101, 100, 32, 112, 97, 108, 32, 37, 100, 0]);
+export function paletteLoadLookupTable(fp) {
+  let numlookups;
+  const __cxx_lvalue_0 = cScalarStorage(Uint8Array);
+  let remapbuf = cZeroAggregate({"array": "Uint8Array", "dims": [256]});
+  if ((kread(fp, __cxx_lvalue_0, 1) != i32(1))) {
+    return i32((-1));
+  }
+  for (let j = i64(0); (j < i64(__cxx_lvalue_0.value)); ((__cxx_lvalue_2) => { const previous = __cxx_lvalue_2.value; const next = i64((previous + 1n)); __cxx_lvalue_2.value = next; return previous; })(cRef(() => j, __cxx_lvalue_3 => { j = __cxx_lvalue_3; }))) {
+    let palnum;
+    const __cxx_lvalue_1 = cScalarStorage(Uint8Array);
+    if ((kread(fp, __cxx_lvalue_1, 1) != i32(1))) {
+      return i32((-1));
+    }
+    if ((i32(__cxx_lvalue_1.value) >= i32((256 - 4)))) {
+      ((i32(-2) > current_verbosity_cutoff()) ? void 0 : loguru_log(i32(-2), __cxx_literal_77adcc200cd5b7f154b8, u32(409), __cxx_literal_5fdf29ca6a441b2f0da9, i32(__cxx_lvalue_1.value)));
+      return i32((-2));
+    }
+    if ((kread(fp, remapbuf, 256) != i32(256))) {
+      return i32((-1));
+    }
+    paletteMakeLookupTable(i32(__cxx_lvalue_1.value), remapbuf, (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255));
+  }
+  return i32(0);
+}
+
+// C/C++ source: source/build/src/palette.cpp:422
+export function paletteSetupDefaultFog() {
+  for (let j = i64(1); (j <= i64(i32((255 - 3)))); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i64((previous + 1n)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => j, __cxx_lvalue_1 => { j = __cxx_lvalue_1; }))) {
+    if (((((!(cPointerElementRef(palookup, j).value)) && (!(cPointerElementRef(palookup, i64((BigInt(j) + BigInt(i64(1))))).value))) && (!(cPointerElementRef(palookup, i64((BigInt(j) + BigInt(i64(2))))).value))) && (!(cPointerElementRef(palookup, i64((BigInt(j) + BigInt(i64(3))))).value)))) {
+      paletteMakeLookupTable(i32(j), null, (u32(60) & 255), (u32(60) & 255), (u32(60) & 255), (u32(1) & 255));
+      paletteMakeLookupTable(i32(i64((BigInt(j) + BigInt(i64(1))))), null, (u32(60) & 255), (u32(0) & 255), (u32(0) & 255), (u32(1) & 255));
+      paletteMakeLookupTable(i32(i64((BigInt(j) + BigInt(i64(2))))), null, (u32(0) & 255), (u32(60) & 255), (u32(0) & 255), (u32(1) & 255));
+      paletteMakeLookupTable(i32(i64((BigInt(j) + BigInt(i64(3))))), null, (u32(0) & 255), (u32(0) & 255), (u32(60) & 255), (u32(1) & 255));
+      break;
+    }
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:438
+export function palettePostLoadLookups() {
+  for (let j = i64(1); (j < i64(256)); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i64((previous + 1n)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => j, __cxx_lvalue_1 => { j = __cxx_lvalue_1; }))) {
+    if ((((cPointerElementRef(palookup, j).value) && cPointerCompare((cPointerElementRef(palookup, j).value), (cPointerElementRef(palookup, 0).value), "!=")) && (!Boolean(memcmp((cPointerElementRef(palookup, 0).value), (cPointerElementRef(palookup, j).value), u64(i32(Math.imul(256, i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value))))))))) {
+      paletteFreeLookupTable(i32(j));
+    }
+    if ((!(cPointerElementRef(palookup, j).value))) {
+      paletteMakeLookupTable(i32(j), null, (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(1) & 255));
+    }
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:452
+export function palookup_isdefault(palnum) {
+  return i32((cPointerCompare((cPointerElementRef(palookup, palnum).value), null, "==") || ((palnum != 0) && cPointerCompare((cPointerElementRef(palookup, palnum).value), (cPointerElementRef(palookup, 0).value), "=="))));
+}
+
+// C/C++ source: source/build/src/palette.cpp:457
+const __cxx_literal_3dfd2951329afbdd656b = Uint8Array.from([102, 97, 116, 97, 108, 95, 101, 120, 105, 116, 40, 37, 115, 41, 32, 97, 116, 32, 37, 115, 58, 37, 100, 32, 105, 110, 32, 37, 115, 40, 41, 10, 0]);
+const __cxx_literal_ea958282e92b5ef55247 = Uint8Array.from([78, 85, 76, 76, 32, 112, 97, 108, 101, 116, 116, 101, 33, 0]);
+const __cxx_literal_5e3a1712a8079c022743 = Uint8Array.from([115, 111, 117, 114, 99, 101, 47, 98, 117, 105, 108, 100, 47, 115, 114, 99, 47, 112, 97, 108, 101, 116, 116, 101, 46, 99, 112, 112, 0]);
+const __cxx_literal_ff11e4d3d4d0b27688b6 = Uint8Array.from([109, 97, 121, 98, 101, 95, 97, 108, 108, 111, 99, 95, 112, 97, 108, 111, 111, 107, 117, 112, 0]);
+const __cxx_literal_78717135fb925c6eb120 = Uint8Array.from([70, 97, 116, 97, 108, 32, 69, 114, 114, 111, 114, 0]);
+const __cxx_literal_8ae2773b9a2314eec1dd = Uint8Array.from([37, 115, 0]);
+const __cxx_literal_71283a8d1e85ec657028 = Uint8Array.from([78, 85, 76, 76, 32, 112, 97, 108, 101, 116, 116, 101, 33, 0]);
+export function maybe_alloc_palookup(palnum) {
+  if (Boolean(palookup_isdefault(palnum))) {
+    alloc_palookup(palnum);
+    if (cPointerCompare((cPointerElementRef(palookup, palnum).value), null, "==")) {
+      do {
+        initprintf(__cxx_literal_3dfd2951329afbdd656b, __cxx_literal_ea958282e92b5ef55247, __cxx_literal_5e3a1712a8079c022743, 463, __cxx_literal_ff11e4d3d4d0b27688b6);
+        engineDestroyAllocator__header_52f1d3bd8eaa();
+        do {
+          wm_msgbox(__cxx_literal_78717135fb925c6eb120, __cxx_literal_8ae2773b9a2314eec1dd, __cxx_literal_71283a8d1e85ec657028);
+          cProcess.exit(1);
+        } while (Boolean(0));
+      } while (Boolean(0));
+    }
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:467
+export function paletteSetBlendTable(blend, tab) {
+  if (cPointerCompare((cPointerElementRef(blendtable, blend).value), null, "==")) {
+    ((cPointerElementRef(blendtable, blend).value) = cTypedPointer(xmalloc__header_0218f37c8068(u64(i32(Math.imul(256, 256)))), Uint8Array));
+  }
+  memcpy((cPointerElementRef(blendtable, blend).value), tab, u64(i32(Math.imul(256, 256))));
+}
+
+// C/C++ source: source/build/src/palette.cpp:474
+export function paletteFreeBlendTable(blend) {
+  do {
+    xfree__header_4e66c3713f53((cPointerElementRef(blendtable, blend).value));
+    ((cPointerElementRef(blendtable, blend).value) = null);
+  } while (Boolean(0));
+}
+
+// C/C++ source: source/build/src/palette.cpp:524
+export function paletteSetLookupTable(palnum, shtab) {
+  if (cPointerCompare(shtab, null, "!=")) {
+    maybe_alloc_palookup(palnum);
+    memcpy((cPointerElementRef(palookup, palnum).value), shtab, u64(i32(Math.imul(256, i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value)))));
+  }
+  return i32(0);
+}
+
+// C/C++ source: source/build/src/palette.cpp:535
+export function paletteFreeLookupTable(palnum) {
+  if (((palnum == 0) && cPointerCompare((cPointerElementRef(palookup, palnum).value), null, "!="))) {
+    for (let i = i64(1); (i < i64(256)); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i64((previous + 1n)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
+      if (cPointerCompare((cPointerElementRef(palookup, i).value), (cPointerElementRef(palookup, palnum).value), "==")) {
+        ((cPointerElementRef(palookup, i).value) = null);
+      }
+    }
+    do {
+      xaligned_free__header_5e5407cd5249((cPointerElementRef(palookup, palnum).value));
+      ((cPointerElementRef(palookup, palnum).value) = null);
+    } while (Boolean(0));
+  } else {
+    if (cPointerCompare((cPointerElementRef(palookup, palnum).value), (cPointerElementRef(palookup, 0).value), "==")) {
+      ((cPointerElementRef(palookup, palnum).value) = null);
+    } else {
+      do {
+        xaligned_free__header_5e5407cd5249((cPointerElementRef(palookup, palnum).value));
+        ((cPointerElementRef(palookup, palnum).value) = null);
+      } while (Boolean(0));
+    }
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:554
+let __static_paletteMakeLookupTable_idmap = (() => { const items = new Uint8Array(256); items.set([(u32(1) & 255)]); return items; })();
+export function paletteMakeLookupTable(palnum, remapbuf, r, g, b, noFloorPal) {
+  let i;
+  let j;
+
+  if ((i32(__cxx_global_cell_2ecdb66f06cb14d421e278fc().value) == 0)) {
+    return;
+  }
+  if ((u32(palnum) >= u32(256))) {
+    return;
+  }
+  ((cDeref(cPointerOffset(g_noFloorPal, palnum, Int8Array.BYTES_PER_ELEMENT), Int8Array).value) = ((u32(((u32(noFloorPal) << 24) >> 24)) << 24) >> 24));
+  if (cPointerCompare(remapbuf, null, "==")) {
+    if ((i32((i32((i32(r) | i32(g))) | i32(b))) == 0)) {
+      ((cPointerElementRef(palookup, palnum).value) = (cPointerElementRef(palookup, 0).value));
+      return;
+    }
+    if ((i32((cDeref(cPointerOffset(__static_paletteMakeLookupTable_idmap, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) == 1)) {
+      for ((i = i32(0)); (i < 256); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
+        ((cDeref(cPointerOffset(__static_paletteMakeLookupTable_idmap, i, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((u32(i) & 255)) & 255));
+      }
+    }
+    (remapbuf = __static_paletteMakeLookupTable_idmap);
+  }
+  maybe_alloc_palookup(palnum);
+  if ((i32((i32((i32(r) | i32(g))) | i32(b))) == 0)) {
+    for ((j = i32(0)); (j < i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value)); ((__cxx_lvalue_2) => { const previous = __cxx_lvalue_2.value; const next = i32((previous + 1)); __cxx_lvalue_2.value = next; return previous; })(cRef(() => j, __cxx_lvalue_3 => { j = __cxx_lvalue_3; }))) {
+      for ((i = i32(0)); (i < 256); ((__cxx_lvalue_4) => { const previous = __cxx_lvalue_4.value; const next = i32((previous + 1)); __cxx_lvalue_4.value = next; return previous; })(cRef(() => i, __cxx_lvalue_5 => { i = __cxx_lvalue_5; }))) {
+        let src = (cPointerElementRef(palookup, 0).value);
+        ((cDeref(cPointerOffset((cPointerElementRef(palookup, palnum).value), i32((i32(Math.imul(256, j)) + i)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(src, i32((i32(Math.imul(256, j)) + i32((cDeref(cPointerOffset(remapbuf, i, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)))), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+      }
+    }
+  } else {
+    let ptr2 = (cPointerElementRef(palookup, palnum).value);
+    for ((i = i32(0)); (i < i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value)); ((__cxx_lvalue_6) => { const previous = __cxx_lvalue_6.value; const next = i32((previous + 1)); __cxx_lvalue_6.value = next; return previous; })(cRef(() => i, __cxx_lvalue_7 => { i = __cxx_lvalue_7; }))) {
+      let palscale = i32(divscale16__header_571d2cb68101(i, i32((i32(__cxx_global_cell_14c13a42eb4ff2885eee0cc2().value) - 1))));
+      for ((j = i32(0)); (j < 256); ((__cxx_lvalue_8) => { const previous = __cxx_lvalue_8.value; const next = i32((previous + 1)); __cxx_lvalue_8.value = next; return previous; })(cRef(() => j, __cxx_lvalue_9 => { j = __cxx_lvalue_9; }))) {
+        let ptr = cTypedPointer(cPointerOffset(palette, i32(Math.imul(i32((cDeref(cPointerOffset(remapbuf, j, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)), 3)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array);
+        ((cDeref(((__cxx_lvalue_10) => { const previous = __cxx_lvalue_10.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_10.value = next; return previous; })(cRef(() => ptr2, __cxx_lvalue_11 => { ptr2 = __cxx_lvalue_11; })), Uint8Array).value) = (u32((u32(paletteGetClosestColor__header_3c04f458eaf6(i32((i32((cDeref(cPointerOffset(ptr, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) + mulscale16__header_4949d534b340(i32((i32(r) - i32((cDeref(cPointerOffset(ptr, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)))), palscale))), i32((i32((cDeref(cPointerOffset(ptr, 1, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) + mulscale16__header_4949d534b340(i32((i32(g) - i32((cDeref(cPointerOffset(ptr, 1, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)))), palscale))), i32((i32((cDeref(cPointerOffset(ptr, 2, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) + mulscale16__header_4949d534b340(i32((i32(b) - i32((cDeref(cPointerOffset(ptr, 2, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)))), palscale))))) & 255)) & 255));
+      }
+    }
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:627
+export function paletteSetColorTable(id, table) {
+  if (cPointerCompare((cPointerElementRef(basepaltable, id).value), null, "==")) {
+    ((cPointerElementRef(basepaltable, id).value) = cTypedPointer(xmalloc__header_0218f37c8068(u64(768)), Uint8Array));
+  }
+  memcpy((cPointerElementRef(basepaltable, id).value), table, u64(768));
+}
+
+// C/C++ source: source/build/src/palette.cpp:642
+export function paletteFreeColorTable(id) {
+  if ((id == 0)) {
+    memset((cPointerElementRef(basepaltable, id).value), 0, u64(768));
+  } else {
+    do {
+      xfree__header_4e66c3713f53((cPointerElementRef(basepaltable, id).value));
+      ((cPointerElementRef(basepaltable, id).value) = null);
+    } while (Boolean(0));
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:659
+let __static_videoSetPalette_lastpalettesum = u64(0);
+export function videoSetPalette(dabrightness, dapalid, flags) {
+  let i;
+  let j;
+  let dapal;
+  let palsumdidchange;
+  if (cPointerCompare((cPointerElementRef(basepaltable, dapalid).value), null, "==")) {
+    (dapalid = (u32((u32(0) & 255)) & 255));
+  }
+  (curbasepal = (u32(dapalid) & 255));
+  (basepalreset = (u32((u32(0) & 255)) & 255));
+  (dapal = (cPointerElementRef(basepaltable, curbasepal).value));
+  if ((!Boolean(i32((i32(flags) & 4))))) {
+    (curbrightness = i32(clamp__header_7fdbead6febc(dabrightness, 0, 15)));
+  }
+  videoSetGamma();
+  (j = i32(((!Boolean(gammabrightness)) ? curbrightness : 0)));
+  for ((i = i32(0)); (i < 256); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i32((previous + 1)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
+    ((cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).r = (u32((u32((cDeref(cPointerOffset(dapal, i32((i32(Math.imul(i, 3)) + 0)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).g = (u32((u32((cDeref(cPointerOffset(dapal, i32((i32(Math.imul(i, 3)) + 1)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).b = (u32((u32((cDeref(cPointerOffset(dapal, i32((i32(Math.imul(i, 3)) + 2)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).f = (u32((u32(0) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).b = (u32((cDeref(cPointerOffset((cPointerElementRef(britable, j).value), (cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).b, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).g = (u32((cDeref(cPointerOffset((cPointerElementRef(britable, j).value), (cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).g, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).r = (u32((cDeref(cPointerOffset((cPointerElementRef(britable, j).value), (cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).r, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).f = (u32((u32(0) & 255)) & 255));
+  }
+  if ((Boolean(i32((i32(flags) & 16))) && Boolean(palfadedelta))) {
+    paletteSetFade((u32(i32((i32(palfadedelta) >> 2))) & 255));
+  }
+
+  let newpalettesum = u64(XXH3_64bits(cTypedPointer(curpalettefaded, Uint8Array), 1024));
+  (palsumdidchange = i32((newpalettesum != __static_videoSetPalette_lastpalettesum)));
+  if ((Boolean(palsumdidchange) || (newpalettesum != g_lastpalettesum))) {
+    videoUpdatePalette(0, 256);
+  }
+  (g_lastpalettesum = u64((__static_videoSetPalette_lastpalettesum = u64(newpalettesum))));
+  if ((i32((i32(flags) & 16)) == 0)) {
+    (palfadergb.r = (u32((palfadergb.g = (u32((palfadergb.b = (u32((u32(0) & 255)) & 255))) & 255))) & 255));
+    (palfadedelta = (u32((u32(0) & 255)) & 255));
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:752
+export function paletteGetColor(col) {
+  if ((!Boolean(gammabrightness))) {
+    let p = cInitByteRecord({"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {"r": (cDeref(cPointerOffset((cPointerElementRef(britable, curbrightness).value), (cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), col).value).r, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value), "g": (cDeref(cPointerOffset((cPointerElementRef(britable, curbrightness).value), (cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), col).value).g, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value), "b": (cDeref(cPointerOffset((cPointerElementRef(britable, curbrightness).value), (cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), col).value).b, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value), "f": (u32(0) & 255)}, null, {});
+    return cCopyAggregate(p, {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}});
+  }
+  return cCopyAggregate((cPointerElementRef(cRecordPointer(curpalette, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), col).value), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}});
+}
+
+// C/C++ source: source/build/src/palette.cpp:764
+export function paletteSetFade(offset) {
+  for (let i = i64(0); (i < i64(256)); ((__cxx_lvalue_0) => { const previous = __cxx_lvalue_0.value; const next = i64((previous + 1n)); __cxx_lvalue_0.value = next; return previous; })(cRef(() => i, __cxx_lvalue_1 => { i = __cxx_lvalue_1; }))) {
+    let p = cCopyAggregate(paletteGetColor(i32(i)), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}});
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).b = (u32((u32(i32((i32(p.b) + i32((i32(Math.imul(i32((i32(palfadergb.b) - i32(p.b))), i32(offset))) >> 8))))) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).g = (u32((u32(i32((i32(p.g) + i32((i32(Math.imul(i32((i32(palfadergb.g) - i32(p.g))), i32(offset))) >> 8))))) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).r = (u32((u32(i32((i32(p.r) + i32((i32(Math.imul(i32((i32(palfadergb.r) - i32(p.r))), i32(offset))) >> 8))))) & 255)) & 255));
+    ((cPointerElementRef(cRecordPointer(curpalettefaded, {"align": 1, "arrayAlign": 1, "fields": {"b": {"native": "Uint8Array", "offset": 2, "size": 1}, "f": {"native": "Uint8Array", "offset": 3, "size": 1}, "g": {"native": "Uint8Array", "offset": 1, "size": 1}, "r": {"native": "Uint8Array", "offset": 0, "size": 1}}, "overlaps": false, "size": 4, "union": false}, {}), i).value).f = (u32((u32(0) & 255)) & 255));
+  }
+}
+
+// C/C++ source: source/build/src/palette.cpp:782
+let __static_videoFadePalette_lastpalettesum = u64(0);
+export function videoFadePalette(r, g, b, offset) {
+  (palfadergb.r = (u32((u32(r) & 255)) & 255));
+  (palfadergb.g = (u32((u32(g) & 255)) & 255));
+  (palfadergb.b = (u32((u32(b) & 255)) & 255));
+  (palfadedelta = (u32((u32(offset) & 255)) & 255));
+  paletteSetFade(offset);
+
+  let newpalettesum = u64(XXH3_64bits(cTypedPointer(curpalettefaded, Uint8Array), 1024));
+  if (((newpalettesum != __static_videoFadePalette_lastpalettesum) || (newpalettesum != g_lastpalettesum))) {
+    videoUpdatePalette(0, 256);
+  }
+  (g_lastpalettesum = u64((__static_videoFadePalette_lastpalettesum = u64(newpalettesum))));
+}
+
+// C/C++ source: source/build/include/compat.h:1169
+export const pow2char__header_global_83ba9914e9a89c77 = new Uint8Array([(u32(1) & 255), (u32(2) & 255), (u32(4) & 255), (u32(8) & 255), (u32(16) & 255), (u32(32) & 255), (u32(64) & 255), (u32(128) & 255)]);
+function __cxx_static_address_930478ccd26b089def82a43f() {
+  return __cxx_static_address_930478ccd26b089def82a43f.reference || (__cxx_static_address_930478ccd26b089def82a43f.reference = {
+    __cReference: true,
+    get value() { return pow2char__header_global_83ba9914e9a89c77; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_930478ccd26b089def82a43f() { return __cxx_static_address_930478ccd26b089def82a43f(); }
+
+// C/C++ source: source/build/include/baselayer.h:172
+export const g_defaultVideoModes__header_global_5bde7c800cc4148c = cByteRecordNDArray({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, [25], {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}, cStaticInitializerValues([cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 2560, "y": 1440}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 2560, "y": 1200}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 2560, "y": 1080}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1920, "y": 1440}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1920, "y": 1200}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1920, "y": 1080}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1680, "y": 1050}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1600, "y": 1200}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1600, "y": 900}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1366, "y": 768}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1280, "y": 1024}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1280, "y": 960}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1280, "y": 720}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1152, "y": 864}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1024, "y": 768}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 1024, "y": 600}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 800, "y": 600}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 640, "y": 480}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 640, "y": 400}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 512, "y": 384}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 480, "y": 360}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 400, "y": 300}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 320, "y": 240}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 320, "y": 200}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype}), cInitByteRecord({"align": 4, "arrayAlign": 1, "fields": {"x": {"native": "Int32Array", "offset": 0, "size": 4}, "y": {"native": "Int32Array", "offset": 4, "size": 4}}, "overlaps": false, "prototype": "__cxx_record_vec2_2150e186aab2ebda", "size": 8, "union": false}, cStaticInitializerValues({"x": 0, "y": 0}), null, {"__cxx_record_vec2_2150e186aab2ebda": () => __cxx_record_vec2_2150e186aab2ebda().prototype})]));
+function __cxx_static_address_68e0f1d8ad03baff5b791b75() {
+  return __cxx_static_address_68e0f1d8ad03baff5b791b75.reference || (__cxx_static_address_68e0f1d8ad03baff5b791b75.reference = {
+    __cReference: true,
+    get value() { return g_defaultVideoModes__header_global_5bde7c800cc4148c; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+
+// C/C++ source: source/build/include/baselayer.h:188
+export const g_keyAsciiTable__header_global_2863c7ff1d9a60bb = new Uint8Array([(u32(0) & 255), (u32(0) & 255), 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, (u32(0) & 255), (u32(0) & 255), 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, (u32(0) & 255), (u32(0) & 255), 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, (u32(39) & 255), 96, (u32(0) & 255), (u32(92) & 255), 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, (u32(0) & 255), 42, (u32(0) & 255), (u32(32) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), 55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46, (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255)]);
+function __cxx_static_address_5d6aaf6439c6fad145249174() {
+  return __cxx_static_address_5d6aaf6439c6fad145249174.reference || (__cxx_static_address_5d6aaf6439c6fad145249174.reference = {
+    __cReference: true,
+    get value() { return g_keyAsciiTable__header_global_2863c7ff1d9a60bb; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_5d6aaf6439c6fad145249174() { return __cxx_static_address_5d6aaf6439c6fad145249174(); }
+
+// C/C++ source: source/build/include/baselayer.h:196
+export const g_keyAsciiTableShift__header_global_d389bf6fa0ee8cc6 = new Uint8Array([(u32(0) & 255), (u32(0) & 255), 33, 64, 35, 36, 37, 94, 38, 42, 40, 41, 95, 43, (u32(0) & 255), (u32(0) & 255), 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, (u32(0) & 255), (u32(0) & 255), 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 34, 126, (u32(0) & 255), 124, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63, (u32(0) & 255), 42, (u32(0) & 255), (u32(32) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), 55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46, (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255), (u32(0) & 255)]);
+function __cxx_static_address_67e0ef89947425200912d656() {
+  return __cxx_static_address_67e0ef89947425200912d656.reference || (__cxx_static_address_67e0ef89947425200912d656.reference = {
+    __cReference: true,
+    get value() { return g_keyAsciiTableShift__header_global_d389bf6fa0ee8cc6; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_67e0ef89947425200912d656() { return __cxx_static_address_67e0ef89947425200912d656(); }
+
+// C/C++ source: source/build/include/build.h:895
+export const pow2long__header_global_04d14feeb8158ada = new Int32Array([1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 16777216, 33554432, 67108864, 134217728, 268435456, 536870912, 1073741824, 2147483647]);
+function __cxx_static_address_380c34ba3bb90e0059e21b80() {
+  return __cxx_static_address_380c34ba3bb90e0059e21b80.reference || (__cxx_static_address_380c34ba3bb90e0059e21b80.reference = {
+    __cReference: true,
+    get value() { return pow2long__header_global_04d14feeb8158ada; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_380c34ba3bb90e0059e21b80() { return __cxx_static_address_380c34ba3bb90e0059e21b80(); }
+
+// C/C++ source: source/build/include/build.h:907
+export const pow2ulong__header_global_8a392e4206d94a43 = new Uint32Array([u32(1), u32(2), u32(4), u32(8), u32(16), u32(32), u32(64), u32(128), u32(256), u32(512), u32(1024), u32(2048), u32(4096), u32(8192), u32(16384), u32(32768), u32(65536), u32(131072), u32(262144), u32(524288), u32(1048576), u32(2097152), u32(4194304), u32(8388608), u32(16777216), u32(33554432), u32(67108864), u32(134217728), u32(268435456), u32(536870912), u32(1073741824), u32(2147483648n)]);
+function __cxx_static_address_46230636f9210d8a0affa0e6() {
+  return __cxx_static_address_46230636f9210d8a0affa0e6.reference || (__cxx_static_address_46230636f9210d8a0affa0e6.reference = {
+    __cReference: true,
+    get value() { return pow2ulong__header_global_8a392e4206d94a43; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_46230636f9210d8a0affa0e6() { return __cxx_static_address_46230636f9210d8a0affa0e6(); }
+
+// C/C++ source: source/build/include/build.h:919
+export const pow264__header_global_0e607c4a9a7f99da = new BigInt64Array([BigInt(i64(1)), BigInt(i64(2)), BigInt(i64(4)), BigInt(i64(8)), BigInt(i64(16)), BigInt(i64(32)), BigInt(i64(64)), BigInt(i64(128)), BigInt(i64(256)), BigInt(i64(512)), BigInt(i64(1024)), BigInt(i64(2048)), BigInt(i64(4096)), BigInt(i64(8192)), BigInt(i64(16384)), BigInt(i64(32768)), BigInt(i64(65536)), BigInt(i64(131072)), BigInt(i64(262144)), BigInt(i64(524288)), BigInt(i64(1048576)), BigInt(i64(2097152)), BigInt(i64(4194304)), BigInt(i64(8388608)), BigInt(i64(16777216)), BigInt(i64(33554432)), BigInt(i64(67108864)), BigInt(i64(134217728)), BigInt(i64(268435456)), BigInt(i64(536870912)), BigInt(i64(1073741824)), BigInt(2147483648n), BigInt(4294967296n), BigInt(8589934592n), BigInt(17179869184n), BigInt(34359738368n), BigInt(68719476736n), BigInt(137438953472n), BigInt(274877906944n), BigInt(549755813888n), BigInt(1099511627776n), BigInt(2199023255552n), BigInt(4398046511104n), BigInt(8796093022208n), BigInt(17592186044416n), BigInt(35184372088832n), BigInt(70368744177664n), BigInt(140737488355328n), BigInt(281474976710656n), BigInt(562949953421312n), BigInt(1125899906842624n), BigInt(2251799813685248n), BigInt(4503599627370496n), BigInt(9007199254740992n), BigInt(18014398509481984n), BigInt(36028797018963968n), BigInt(72057594037927936n), BigInt(144115188075855872n), BigInt(288230376151711744n), BigInt(576460752303423488n), BigInt(1152921504606846976n), BigInt(2305843009213693952n), BigInt(4611686018427387904n), BigInt(9223372036854775807n)]);
+function __cxx_static_address_45789c4f4d51be3721a10b91() {
+  return __cxx_static_address_45789c4f4d51be3721a10b91.reference || (__cxx_static_address_45789c4f4d51be3721a10b91.reference = {
+    __cReference: true,
+    get value() { return pow264__header_global_0e607c4a9a7f99da; },
+    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
+  });
+}
+export function __cxx_private_cell_45789c4f4d51be3721a10b91() { return __cxx_static_address_45789c4f4d51be3721a10b91(); }
+
+// C/C++ source: source/build/include/compat.h:1428
+export function xaligned_alloc__header_349c3e01dff0(alignment, size) {
+  let ptr = Alloc__cxx_static_e0036cfb06bcfe42(__cxx_global_cell_11016d3c7177543e564ab46c().value, size, alignment);
+  if (cPointerCompare(ptr, null, "!=")) {
+    return ptr;
+  }
+  handle_memerr(i32(size));
+  __builtin_unreachable();
+}
+
+export function B_PASS16__header_06653fd2d9bb(x) {
+  return ((u32(x) << 16) >> 16);
+}
+
+// C/C++ source: source/build/include/compat.h:1400
+export function xcalloc__header_f81d3cc9a249(nmemb, size) {
+  let siz = u64((BigInt(nmemb) * BigInt(size)));
+  let ptr = Alloc__cxx_static_e0036cfb06bcfe42(__cxx_global_cell_11016d3c7177543e564ab46c().value, siz, u64(16));
+  if (cPointerCompare(ptr, null, "!=")) {
+    memset(ptr, 0, siz);
+    return ptr;
+  }
+  handle_memerr(i32(size));
+  __builtin_unreachable();
+}
+
+// C/C++ source: source/build/include/compat.h:1392
+export function xmalloc__header_0218f37c8068(size) {
+  let ptr = Alloc__cxx_static_e0036cfb06bcfe42(__cxx_global_cell_11016d3c7177543e564ab46c().value, size, u64(16));
+  if (cPointerCompare(ptr, null, "!=")) {
+    return ptr;
+  }
+  handle_memerr(i32(size));
+  __builtin_unreachable();
+}
+
+// C/C++ source: source/build/include/compat.h:1449
+export function xfree__header_4e66c3713f53(ptr) {
+  Free__cxx_static_0dfd3f42f0dc2c05(__cxx_global_cell_11016d3c7177543e564ab46c().value, ptr);
+}
+
+// C/C++ source: source/build/include/colmatch.h:25
+export function paletteGetClosestColor__header_3c04f458eaf6(r, g, b) {
+  return i32(paletteGetClosestColorUpToIndex__header_160f3cd5c17c(r, g, b, 255));
+}
+
+export function bitmap_set__header_174f60c1e3ab(ptr, n) {
+
+  ((__cxx_lvalue_0) => (__cxx_lvalue_0.value = (u32((__cxx_lvalue_0.value | i32((cDeref(cPointerOffset(pow2char__header_global_83ba9914e9a89c77, i32((n & 7)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)))) & 255)))(cDeref(cPointerOffset(ptr, i32((n >> 3)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array));
+}
+
+export function bitmap_test__header_93c95c6d1cf8(ptr, n) {
+
+  return Boolean((i32((i32((cDeref(cPointerOffset(ptr, i32((n >> 3)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & i32((cDeref(cPointerOffset(pow2char__header_global_83ba9914e9a89c77, i32((n & 7)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)))) == i32((cDeref(cPointerOffset(pow2char__header_global_83ba9914e9a89c77, i32((n & 7)), Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value))));
+}
+
+// C/C++ source: source/build/include/compat.h:1367
+export function engineDestroyAllocator__header_52f1d3bd8eaa() {
+  Destroy__cxx_static_777d0ae31c789182(__cxx_global_cell_11016d3c7177543e564ab46c().value);
+}
+
+// C/C++ source: source/build/include/compat.h:1450
+export function xaligned_free__header_5e5407cd5249(ptr) {
+  Free__cxx_static_0dfd3f42f0dc2c05(__cxx_global_cell_11016d3c7177543e564ab46c().value, ptr);
+}
+
+export function divscale16__header_571d2cb68101(eax, ebx) {
+  return i32(divscale__header_e39f5df9445e(eax, ebx, 16));
+}
+
+export function mulscale16__header_4949d534b340(eax, edx) {
+  return i32(i64((BigInt(i64((BigInt(i64(eax)) * BigInt(i64(edx))))) >> BigInt(i32((u32((u32(16) & 255)) & 255))))));
+}
+
+export function clamp__header_7fdbead6febc(__cxx_in, min, max) {
+  return (u32(((i32(__cxx_in) <= i32((u32((u32(min) & 255)) & 255))) ? (u32((u32(min) & 255)) & 255) : ((i32(__cxx_in) >= i32((u32((u32(max) & 255)) & 255))) ? (u32((u32(max) & 255)) & 255) : __cxx_in))) & 255);
+}
+
+// C/C++ source: source/build/include/colmatch.h:16
+export function paletteGetClosestColorUpToIndex__header_160f3cd5c17c(r, g, b, lastokcol) {
+  return i32(paletteGetClosestColorWithBlacklist(r, g, b, lastokcol, null));
+}
+
+// C/C++ source: source/build/include/pragmas.h:164
+export function divscale__header_e39f5df9445e(eax, ebx, ecx) {
+  return i32(tabledivide64__header_1d23ded2fe07(i64((BigInt(i64(eax)) << BigInt(i32((u32((u32(ecx) & 255)) & 255))))), i64(ebx)));
+}
+
+// C/C++ source: source/build/include/pragmas.h:111
+export function tabledivide64__header_1d23ded2fe07(n, d) {
+
+  if (Boolean(i32((i32((d != __cxx_global_cell_f8287b2e627d0e3f51b90c55().value)) & i32((!(u64(d) < u64(16384)))))))) {
+    cAssignAggregate((cPointerElementRef(cRecordPointer(divtable64, {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}, {}), 0).value), libdivide_s64_gen((__cxx_global_cell_f8287b2e627d0e3f51b90c55().value = i64(d))), {"byteRecord": {"align": 1, "arrayAlign": 1, "fields": {"magic": {"native": "BigInt64Array", "offset": 0, "size": 8}, "more": {"native": "Uint8Array", "offset": 8, "size": 1}}, "overlaps": false, "size": 9, "union": false}});
+  }
+  return i64(libdivide_s64_do(n, cPointerOffset(divtable64, i64((BigInt(i64((u64(d) < u64(16384)))) * BigInt(d))), 9)));
+}
 
 // Original Clang-generated fragment; imports existing owner storage.
-export { basepaltable } from "./_source_legacy_palette_cpp_c3b40e10a5b8.mjs";
-
-// Original Clang-generated fragment; imports existing owner storage.
-export { paletteGetColor, paletteSetFade, videoSetPalette } from "./_source_legacy_palette_cpp_5e9a604d6d50.mjs";
+export { palettePostLoadTables, setup_blend } from "./_source_legacy_palette_cpp_7d324bff8c26.mjs";

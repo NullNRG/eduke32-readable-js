@@ -1,0 +1,149 @@
+{
+  "source": "source/mact/src/control.cpp",
+  "requested": [
+    "CONTROL_Startup"
+  ],
+  "requested_resolved": {
+    "CONTROL_Startup": true
+  },
+  "requested_export_bindings": {
+    "CONTROL_Startup": [
+      "CONTROL_Startup"
+    ]
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_mact_src_control.cpp/reachable-5f9e2aa01affb9f4/source/mact/src/control.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "controlUpdateMouseState",
+      "reason": "unlinked identifiers: mouseReadPos",
+      "dependencies": [
+        "mouseReadPos"
+      ]
+    },
+    {
+      "name": "CONTROL_MapAnalogAxis",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "JOYSTICK_SetDeadZone",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "CONTROL_SetAnalogAxisScale",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "CONTROL_SetAnalogAxisSensitivity",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "CONTROL_SetAnalogAxisInvert",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "CONTROL_MapDigitalAxis",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "CONTROL_ClearAssignments",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "controlUpdateButtonStates",
+      "reason": "unlinked identifiers: JOYSTICK_GetButtons",
+      "dependencies": [
+        "JOYSTICK_GetButtons"
+      ]
+    },
+    {
+      "name": "controllerDigitizeAxis",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "joydist",
+      "reason": "unlinked identifiers: ksqrt",
+      "dependencies": [
+        "ksqrt"
+      ]
+    },
+    {
+      "name": "controlUpdateAxisState",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "controlPollDevices",
+      "reason": "unlinked identifiers: controlUpdateAxisState, controlUpdateButtonStates, controlUpdateMouseState, handleevents",
+      "dependencies": [
+        "controlUpdateAxisState",
+        "controlUpdateButtonStates",
+        "controlUpdateMouseState",
+        "handleevents"
+      ]
+    },
+    {
+      "name": "controlUpdateFlagsFromAxes",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "controlUpdateGameFunctions",
+      "reason": "unlinked identifiers: controlUpdateFlagsFromAxes",
+      "dependencies": [
+        "controlUpdateFlagsFromAxes"
+      ]
+    },
+    {
+      "name": "CONTROL_GetInput",
+      "reason": "unlinked identifiers: controlPollDevices, controlUpdateGameFunctions, inputchecked",
+      "dependencies": [
+        "controlPollDevices",
+        "controlUpdateGameFunctions",
+        "inputchecked"
+      ]
+    },
+    {
+      "name": "CONTROL_Shutdown",
+      "reason": "unlinked identifiers: uninitinput",
+      "dependencies": [
+        "uninitinput"
+      ]
+    },
+    {
+      "name": "CONTROL_GetUserInput",
+      "reason": "private array storage requires verified owner ABI: joyAxes",
+      "dependencies": []
+    },
+    {
+      "name": "CONTROL_ClearUserInput",
+      "reason": "record field requires verified native storage: UserInput::dir",
+      "dependencies": []
+    },
+    {
+      "name": "Blrintf__header_58aa0dedf1d1",
+      "reason": "unlinked identifiers: _mm_cvtss_si32, _mm_load_ss",
+      "dependencies": [
+        "_mm_cvtss_si32",
+        "_mm_load_ss"
+      ]
+    },
+    {
+      "name": "MOUSE_GetButtons__header_44c92e2c7630",
+      "reason": "unlinked identifiers: mouseReadButtons",
+      "dependencies": [
+        "mouseReadButtons"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 7,
+  "original_gameplay_verified": false
+}

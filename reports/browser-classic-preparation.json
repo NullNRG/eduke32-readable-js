@@ -222,6 +222,12 @@
       "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
       "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
       "reason": "Exclude unused pool and thread-cache units from original Make browser selection"
+    },
+    {
+      "file": "source/build/src/sdlayer.cpp",
+      "original_sha256": "7a41f424bcf08843bf659189ad4baa4b4a67ff0eef0845986bc608581228d541",
+      "browser_sha256": "b9c871672774f36c7a244cffd61bc5a016af8f18c7927b76abe27c70c1c2bcda",
+      "reason": "Exclude editor ImGui interception/cleanup and native controller haptics from the classic browser platform; preserve original software video, event translation and device input"
     }
   ],
   "allocator_backend": "original-sm-GenericAllocator",
@@ -230,5 +236,8 @@
     "source/build/src/smmalloc_tls.cpp"
   ],
   "source_compilation_verified": false,
-  "gameplay_verified": false
+  "gameplay_verified": false,
+  "semantic_index_requires_refresh_for_changed_sources": [],
+  "incremental_semantic_refresh_report": "reports/nov05-sdl-semantic-delta.json",
+  "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765"
 }

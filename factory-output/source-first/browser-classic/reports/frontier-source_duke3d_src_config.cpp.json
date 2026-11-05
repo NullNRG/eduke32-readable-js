@@ -1,0 +1,100 @@
+{
+  "source": "source/duke3d/src/config.cpp",
+  "requested": [
+    "CONFIG_ReadSetup",
+    "CONFIG_SetupMouse",
+    "CONFIG_SetupJoystick",
+    "CONFIG_WriteSetup",
+    "CONFIG_SetDefaults"
+  ],
+  "requested_resolved": {
+    "CONFIG_ReadSetup": false,
+    "CONFIG_SetupMouse": true,
+    "CONFIG_SetupJoystick": true,
+    "CONFIG_WriteSetup": false,
+    "CONFIG_SetDefaults": false
+  },
+  "requested_still_unlinked": [
+    "CONFIG_ReadSetup",
+    "CONFIG_WriteSetup",
+    "CONFIG_SetDefaults"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_config.cpp/reachable-e48a26f2e5b95ec7/source/duke3d/src/config.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "CONFIG_SetDefaults",
+      "reason": "unlinked identifiers: CONFIG_SetGameControllerDefaults, CommandName, g_myAimMode",
+      "dependencies": [
+        "CONFIG_SetGameControllerDefaults",
+        "CommandName",
+        "g_myAimMode"
+      ]
+    },
+    {
+      "name": "CONFIG_SetGameControllerAxesModern",
+      "reason": "function-static aggregate methods require original initialization lifetime: const GameControllerAnalogAxisSetting",
+      "dependencies": []
+    },
+    {
+      "name": "CONFIG_SetGameControllerDefaults",
+      "reason": "function-static aggregate methods require original initialization lifetime: const GameControllerButtonSetting",
+      "dependencies": []
+    },
+    {
+      "name": "CONFIG_ReadSetup",
+      "reason": "unlinked identifiers: CONFIG_SetDefaults, CommandName, g_noSetup, g_windowPos, g_windowPosValid, localeSetCurrent, wm_ynbox",
+      "dependencies": [
+        "CONFIG_SetDefaults",
+        "CommandName",
+        "g_noSetup",
+        "g_windowPos",
+        "g_windowPosValid",
+        "localeSetCurrent",
+        "wm_ynbox"
+      ]
+    },
+    {
+      "name": "CONFIG_WriteSettings",
+      "reason": "unlinked identifiers: CrosshairColors, DefaultCrosshairColors, g_crosshairSum",
+      "dependencies": [
+        "CrosshairColors",
+        "DefaultCrosshairColors",
+        "g_crosshairSum"
+      ]
+    },
+    {
+      "name": "CONFIG_WriteSetup",
+      "reason": "unlinked identifiers: CONFIG_WriteSettings, CommandName, g_windowPos, g_windowPosValid, localeGetCurrent",
+      "dependencies": [
+        "CONFIG_WriteSettings",
+        "CommandName",
+        "g_windowPos",
+        "g_windowPosValid",
+        "localeGetCurrent"
+      ]
+    },
+    {
+      "name": "CONFIG_GetGameFuncOnJoystick",
+      "reason": "unlinked identifiers: joyGetName",
+      "dependencies": [
+        "joyGetName"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_113b22de5320",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "dependencies": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_ba688cb33ca2",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 4,
+  "original_gameplay_verified": false
+}

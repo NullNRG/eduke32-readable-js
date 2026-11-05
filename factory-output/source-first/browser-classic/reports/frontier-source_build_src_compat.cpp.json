@@ -1,0 +1,33 @@
+{
+  "source": "source/build/src/compat.cpp",
+  "requested": [
+    "Bopendir",
+    "Breaddir",
+    "Bclosedir",
+    "Bgetsystemdrives"
+  ],
+  "requested_resolved": {
+    "Bopendir": true,
+    "Breaddir": true,
+    "Bclosedir": true,
+    "Bgetsystemdrives": true
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_compat.cpp/reachable-edb7f47930cd9f9e/source/build/src/compat.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "Bgetappdir",
+      "reason": "unlinked identifiers: readlink",
+      "dependencies": [
+        "readlink"
+      ]
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    }
+  ],
+  "installed_closed_definitions": 33,
+  "original_gameplay_verified": false
+}

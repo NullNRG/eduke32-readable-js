@@ -1,0 +1,3507 @@
+{
+  "source": "source/mact/src/control.cpp",
+  "dependency_closure": {
+    "enabled": false,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": false,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\mact\\src\\control.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 85,
+  "emitted": 85,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "ARRAY_SIZE__header_106279cee3be",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const float (&)[2]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIfLm2EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_BindKey",
+      "source_name": "CONTROL_BindKey",
+      "kind": "FunctionDecl",
+      "line": 80,
+      "original_type": "void (int, const char *const, int, const char *const)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_KeyBinds",
+        "xfree__header_d80c6822a623",
+        "xstrdup__header_79c9466b293b"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_BindMouse",
+      "source_name": "CONTROL_BindMouse",
+      "kind": "FunctionDecl",
+      "line": 85,
+      "original_type": "void (int, const char *const, int, const char *const)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_KeyBinds",
+        "xfree__header_d80c6822a623",
+        "xstrdup__header_79c9466b293b"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_BindsEnabled",
+      "source_name": "CONTROL_BindsEnabled",
+      "kind": "VarDecl",
+      "line": 67,
+      "original_type": "bool",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_1e65dc992d264e8759155996",
+        "abi": "source-global-cell/2",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ButtonFlags",
+      "source_name": "CONTROL_ButtonFlags",
+      "kind": "VarDecl",
+      "line": 65,
+      "original_type": "int32_t[64]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ButtonHeldState",
+      "source_name": "CONTROL_ButtonHeldState",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "unsigned long",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_b8312e111f6fe15957946ec8",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned long"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ButtonState",
+      "source_name": "CONTROL_ButtonState",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "unsigned long",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_8dc312bd7532d829a4303d41",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned long"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ClearAllBinds",
+      "source_name": "CONTROL_ClearAllBinds",
+      "kind": "FunctionDecl",
+      "line": 72,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_FreeKeyBind",
+        "CONTROL_FreeMouseBind"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ClearAllButtons",
+      "source_name": "CONTROL_ClearAllButtons",
+      "kind": "FunctionDecl",
+      "line": 642,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_ButtonHeldState",
+        "CONTROL_ButtonState",
+        "CONTROL_Flags"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ClearAssignments",
+      "source_name": "CONTROL_ClearAssignments",
+      "kind": "FunctionDecl",
+      "line": 351,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_KeyMapping",
+        "CONTROL_MouseAxesSensitivity",
+        "joyAxes",
+        "joyButtons",
+        "memset",
+        "mouseButtons"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ClearButton",
+      "source_name": "CONTROL_ClearButton",
+      "kind": "FunctionDecl",
+      "line": 630,
+      "original_type": "void (int)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_ButtonState",
+        "CONTROL_Flags"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_DefineFlag",
+      "source_name": "CONTROL_DefineFlag",
+      "kind": "FunctionDecl",
+      "line": 169,
+      "original_type": "void (int, int)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_Flags"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_DoubleClickSpeed",
+      "source_name": "CONTROL_DoubleClickSpeed",
+      "kind": "VarDecl",
+      "line": 63,
+      "original_type": "unsigned char",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "unsigned char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_Flags",
+      "source_name": "CONTROL_Flags",
+      "kind": "VarDecl",
+      "line": 50,
+      "original_type": "ControlFunctionFlags_t[64]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "CONTROL_Flags",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          64
+        ],
+        "schema_sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a",
+        "original_type": "ControlFunctionFlags_t[64]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_FreeKeyBind",
+      "source_name": "CONTROL_FreeKeyBind",
+      "kind": "FunctionDecl",
+      "line": 90,
+      "original_type": "void (int)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_KeyBinds",
+        "xfree__header_d80c6822a623"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_FreeMouseBind",
+      "source_name": "CONTROL_FreeMouseBind",
+      "kind": "FunctionDecl",
+      "line": 95,
+      "original_type": "void (int)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_KeyBinds",
+        "xfree__header_d80c6822a623"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_JoyPresent",
+      "source_name": "CONTROL_JoyPresent",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "bool",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+        "abi": "source-global-cell/2",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_JoySensitivityUnit",
+      "source_name": "CONTROL_JoySensitivityUnit",
+      "kind": "VarDecl",
+      "line": 44,
+      "original_type": "float",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_13fe4069a00cd4e00ddcfee4",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_JoystickEnabled",
+      "source_name": "CONTROL_JoystickEnabled",
+      "kind": "VarDecl",
+      "line": 34,
+      "original_type": "bool",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+        "abi": "source-global-cell/2",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_KeyBinds",
+      "source_name": "CONTROL_KeyBinds",
+      "kind": "VarDecl",
+      "line": 66,
+      "original_type": "ConsoleKeyBind_t[266]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "CONTROL_KeyBinds",
+        "abi": "source-byte-record-array/1",
+        "stride": 24,
+        "dimensions": [
+          266
+        ],
+        "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+        "original_type": "ConsoleKeyBind_t[266]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_KeyMapping",
+      "source_name": "CONTROL_KeyMapping",
+      "kind": "VarDecl",
+      "line": 52,
+      "original_type": "ControlKeyMap_t[64]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "CONTROL_KeyMapping",
+        "abi": "source-byte-record-array/1",
+        "stride": 2,
+        "dimensions": [
+          64
+        ],
+        "schema_sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5",
+        "original_type": "ControlKeyMap_t[64]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_LastSeenInput",
+      "source_name": "CONTROL_LastSeenInput",
+      "kind": "VarDecl",
+      "line": 39,
+      "original_type": "LastSeenInput",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+        "abi": "source-global-cell/2",
+        "original_type": "LastSeenInput"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MapAnalogAxis",
+      "source_name": "CONTROL_MapAnalogAxis",
+      "kind": "FunctionDecl",
+      "line": 254,
+      "original_type": "void (int, int)",
+      "linkage": "external",
+      "source_references": [
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MapButton",
+      "source_name": "CONTROL_MapButton",
+      "kind": "FunctionDecl",
+      "line": 224,
+      "original_type": "void (int, int, int, controldevice)",
+      "linkage": "external",
+      "source_references": [
+        "joyButtons",
+        "mouseButtons"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MapDigitalAxis",
+      "source_name": "CONTROL_MapDigitalAxis",
+      "kind": "FunctionDecl",
+      "line": 330,
+      "original_type": "void (int32_t, int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MapKey",
+      "source_name": "CONTROL_MapKey",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "void (int32_t, kb_scancode, kb_scancode)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_KeyMapping"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MouseAxesSensitivity",
+      "source_name": "CONTROL_MouseAxesSensitivity",
+      "kind": "VarDecl",
+      "line": 41,
+      "original_type": "float[2]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MouseEnabled",
+      "source_name": "CONTROL_MouseEnabled",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "bool",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_86fecaa07f75517afdefdaa7",
+        "abi": "source-global-cell/2",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MousePresent",
+      "source_name": "CONTROL_MousePresent",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "bool",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_b9b68728d746171839cea44e",
+        "abi": "source-global-cell/2",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MouseSensitivity",
+      "source_name": "CONTROL_MouseSensitivity",
+      "kind": "VarDecl",
+      "line": 42,
+      "original_type": "float",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_193dab9403d93f8a48781171",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_MouseSensitivityUnit",
+      "source_name": "CONTROL_MouseSensitivityUnit",
+      "kind": "VarDecl",
+      "line": 43,
+      "original_type": "float",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_704184617e9508f023e26f36",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_NumJoyAxes",
+      "source_name": "CONTROL_NumJoyAxes",
+      "kind": "VarDecl",
+      "line": 48,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_NumJoyButtons",
+      "source_name": "CONTROL_NumJoyButtons",
+      "kind": "VarDecl",
+      "line": 47,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_NumMouseButtons",
+      "source_name": "CONTROL_NumMouseButtons",
+      "kind": "VarDecl",
+      "line": 46,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_SetAnalogAxisInvert",
+      "source_name": "CONTROL_SetAnalogAxisInvert",
+      "kind": "FunctionDecl",
+      "line": 324,
+      "original_type": "void (int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_SetAnalogAxisScale",
+      "source_name": "CONTROL_SetAnalogAxisScale",
+      "kind": "FunctionDecl",
+      "line": 270,
+      "original_type": "void (int32_t, int32_t, controldevice)",
+      "linkage": "external",
+      "source_references": [
+        "ARRAY_SIZE__header_106279cee3be",
+        "CONTROL_MouseAxesSensitivity",
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_SetAnalogAxisSensitivity",
+      "source_name": "CONTROL_SetAnalogAxisSensitivity",
+      "kind": "FunctionDecl",
+      "line": 297,
+      "original_type": "void (int32_t, float, controldevice)",
+      "linkage": "external",
+      "source_references": [
+        "ARRAY_SIZE__header_106279cee3be",
+        "CONTROL_MouseAxesSensitivity",
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_Started",
+      "source_name": "CONTROL_Started",
+      "kind": "VarDecl",
+      "line": 30,
+      "original_type": "bool",
+      "linkage": "external",
+      "physical_source": "source/mact/src/control.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_2688171c8879a106600f1781",
+        "abi": "source-global-cell/2",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ExtGetTime",
+      "source_name": "ExtGetTime",
+      "kind": "VarDecl",
+      "line": 61,
+      "original_type": "int32_t (*)()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_e0779d8c54d730200ae85183",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "int32_t (*)()"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_57e6e5761424b79c",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705eb6e98",
+        "redeclaration_chain": [
+          "0x24705eb6e98"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_92d0971f0e13286d",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705eb6fb0",
+        "redeclaration_chain": [
+          "0x24705eb6fb0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_c6ff0280e399ded2",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705eb70e0",
+        "redeclaration_chain": [
+          "0x24705eb70e0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "JOYSTICK_SetDeadZone",
+      "source_name": "JOYSTICK_SetDeadZone",
+      "kind": "FunctionDecl",
+      "line": 264,
+      "original_type": "void (int32_t, uint16_t, uint16_t)",
+      "linkage": "external",
+      "source_references": [
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "SILENCE_UNUSED__header_2ebdc4f6e1ec",
+      "source_name": "SILENCE_UNUSED",
+      "kind": "FunctionDecl",
+      "line": 136,
+      "original_type": "void (const char &[15]) noexcept",
+      "clang_template_mangled_name": "_ZL14SILENCE_UNUSEDIJA15_cEEvDpRKT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 3487,
+        "source_line": 136,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "UserInputState",
+      "source_name": "UserInputState",
+      "kind": "CXXRecordDecl",
+      "line": 131,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/mact/include/_control.h",
+        "source_offset": 3613,
+        "enclosing_record": "UserInputState",
+        "type": "UserInputState",
+        "semantic_sha256": "25c8bc029bf70be4dfed8c6974babdf3fe02d815038854c04715f2834cce88dd",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/mact/include/_control.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clamp__header_e9a9456e345c",
+      "source_name": "clamp",
+      "kind": "FunctionDecl",
+      "line": 1093,
+      "original_type": "float (float, int, int)",
+      "clang_template_mangled_name": "_ZL5clampIfiiET_S0_T0_T1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 29810,
+        "source_line": 1093,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "controlGetTime",
+      "source_name": "controlGetTime",
+      "kind": "FunctionDecl",
+      "line": 112,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "controlHandleClickStates",
+      "source_name": "controlHandleClickStates",
+      "kind": "FunctionDecl",
+      "line": 379,
+      "original_type": "int (int32_t, int32_t, int32_t, ControlButtonState_t *const)",
+      "linkage": "internal",
+      "source_references": [
+        "CONTROL_DoubleClickSpeed"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "controlSetFlag",
+      "source_name": "controlSetFlag",
+      "kind": "FunctionDecl",
+      "line": 119,
+      "original_type": "void (int, int)",
+      "linkage": "internal",
+      "source_references": [
+        "CONTROL_Flags"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "controlUpdateFlagsFromAxes",
+      "source_name": "controlUpdateFlagsFromAxes",
+      "kind": "FunctionDecl",
+      "line": 540,
+      "original_type": "void (int32_t *const)",
+      "linkage": "internal",
+      "source_references": [
+        "CONTROL_LastSeenInput",
+        "CONTROL_NumJoyAxes",
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "controlUpdateFlagsFromButtons",
+      "source_name": "controlUpdateFlagsFromButtons",
+      "kind": "FunctionDecl",
+      "line": 568,
+      "original_type": "void (int32_t *const)",
+      "linkage": "internal",
+      "source_references": [
+        "CONTROL_BindsEnabled",
+        "CONTROL_KeyBinds",
+        "CONTROL_LastSeenInput",
+        "CONTROL_NumJoyButtons",
+        "CONTROL_NumMouseButtons",
+        "OSD_Dispatch",
+        "joyButtons",
+        "mouseButtons"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_Dispatch"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "controllerDigitizeAxis",
+      "source_name": "controllerDigitizeAxis",
+      "kind": "FunctionDecl",
+      "line": 442,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "source_references": [
+        "joyAxes"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_deg_to_rad_mult__header_global_a4db6622df338738",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705ec13c8",
+        "redeclaration_chain": [
+          "0x24705ec13c8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_69830a0e56ab151b",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705eb7320",
+        "redeclaration_chain": [
+          "0x24705eb7320"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_34f70bfb45d24435",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705eb7210",
+        "redeclaration_chain": [
+          "0x24705eb7210"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_rad_to_deg_mult__header_global_63825e52269a1085",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705ec0f20",
+        "redeclaration_chain": [
+          "0x24705ec0f20"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_ce51c85b2c9aff88",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24705eb7430",
+        "redeclaration_chain": [
+          "0x24705eb7430"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_27b8cad88ead23c5",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x247064905f8",
+        "redeclaration_chain": [
+          "0x247064905f8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_27b8cad88ead23c5",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "original_type": "const vec2_t[25]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_4a7aaf6c61fc3b93",
+      "source_name": "g_keyAsciiTableShift",
+      "kind": "VarDecl",
+      "line": 196,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 6158,
+        "source_line": 196,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24706494080",
+        "redeclaration_chain": [
+          "0x24706494080"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_c19c484b56b4c6df4a1f1199",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_13247ae225701fd3",
+      "source_name": "g_keyAsciiTable",
+      "kind": "VarDecl",
+      "line": 188,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 5455,
+        "source_line": 188,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x24706492250",
+        "redeclaration_chain": [
+          "0x24706492250"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_18809b1c407a8eb63e902132",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "joyAxes",
+      "source_name": "joyAxes",
+      "kind": "VarDecl",
+      "line": 54,
+      "original_type": "ControllerAxis_t[9]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "joyButtons",
+      "source_name": "joyButtons",
+      "kind": "VarDecl",
+      "line": 57,
+      "original_type": "ControlButtonState_t[32]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "joyButtons",
+        "abi": "source-byte-record-array/1",
+        "stride": 24,
+        "dimensions": [
+          32
+        ],
+        "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+        "original_type": "ControlButtonState_t[32]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "klabs__header_bbb008442228",
+      "source_name": "klabs",
+      "kind": "FunctionDecl",
+      "line": 321,
+      "original_type": "int32_t (const int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 10206,
+        "source_line": 321,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ksgn__header_47c00fdfb968",
+      "source_name": "ksgn",
+      "kind": "FunctionDecl",
+      "line": 328,
+      "original_type": "int (int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 10363,
+        "source_line": 328,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_774131ccff66371d",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const int &(const int &, const int &)",
+      "clang_template_mangled_name": "_ZSt3minIiERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "827cd33afddd28371f9c9f66a8a152fff75298a0687de7e950037779fe554e49"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mouseButtons",
+      "source_name": "mouseButtons",
+      "kind": "VarDecl",
+      "line": 56,
+      "original_type": "ControlButtonState_t[10]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "mouseButtons",
+        "abi": "source-byte-record-array/1",
+        "stride": 24,
+        "dimensions": [
+          10
+        ],
+        "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+        "original_type": "ControlButtonState_t[10]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow264__header_global_8e0cd082eb4a1fe2",
+      "source_name": "pow264",
+      "kind": "VarDecl",
+      "line": 919,
+      "original_type": "const const int64_t[64]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26665,
+        "source_line": 919,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x247066ac5b8",
+        "redeclaration_chain": [
+          "0x247066ac5b8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_e2a79a2cb18473a8b94c1bd7",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "const const int64_t[64]",
+        "scalar_array": {
+          "array": "BigInt64Array",
+          "dims": [
+            64
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_40cb3de37650d9cd",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x247056d56e8",
+        "redeclaration_chain": [
+          "0x247056d56e8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_fc267edcd91a1bd64803fc9e",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2long__header_global_fc01932e5e0269a6",
+      "source_name": "pow2long",
+      "kind": "VarDecl",
+      "line": 895,
+      "original_type": "const const int32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26019,
+        "source_line": 895,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x247066ab2b8",
+        "redeclaration_chain": [
+          "0x247066ab2b8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_a0b217710d0e8f66ef9f649e",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "const const int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2ulong__header_global_408d729c39d6207f",
+      "source_name": "pow2ulong",
+      "kind": "VarDecl",
+      "line": 907,
+      "original_type": "const const uint32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26350,
+        "source_line": 907,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x247066abab8",
+        "redeclaration_chain": [
+          "0x247066abab8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_4326b10511633296cc0ebd41",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "const const uint32_t[32]",
+        "scalar_array": {
+          "array": "Uint32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "sctokeylut__header_global_057facea8ec54ebd",
+      "source_name": "sctokeylut",
+      "kind": "VarDecl",
+      "line": 47,
+      "original_type": "const struct (unnamed at source/mact/include/keyboard.h:43:8)[102]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/mact/include/keyboard.h",
+        "source_offset": 1488,
+        "source_line": 47,
+        "translation_unit": "source/mact/src/control.cpp",
+        "clang_decl_id": "0x247064ba688",
+        "redeclaration_chain": [
+          "0x247064ba688"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset"
+      },
+      "physical_source": "source/mact/include/keyboard.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "sctokeylut__header_global_057facea8ec54ebd",
+        "abi": "source-byte-record-array/1",
+        "stride": 16,
+        "dimensions": [
+          102
+        ],
+        "schema_sha256": "26599ec8250c7fc40618a1a93d8d3e82e84dc5c88d05718d9968c58196f2ac91",
+        "original_type": "const struct (unnamed at source/mact/include/keyboard.h:43:8)[102]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ticrate",
+      "source_name": "ticrate",
+      "kind": "VarDecl",
+      "line": 62,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_2cb0b96bc87c3c66bc327f51",
+        "owner_source": "source/mact/src/control.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "userInput",
+      "source_name": "userInput",
+      "kind": "VarDecl",
+      "line": 59,
+      "original_type": "struct UserInputState",
+      "linkage": "internal",
+      "source_references": [
+        "UserInputState"
+      ],
+      "external_reference_imports": [],
+      "emitted_constructor_providers": [
+        "UserInputState"
+      ],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xfree__header_d80c6822a623",
+      "source_name": "xfree",
+      "kind": "FunctionDecl",
+      "line": 1449,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39659,
+        "source_line": 1449,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xstrdup__header_79c9466b293b",
+      "source_name": "xstrdup",
+      "kind": "FunctionDecl",
+      "line": 1378,
+      "original_type": "char *(const char *)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37269,
+        "source_line": 1378,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "strcpy",
+        "strlen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "strcpy",
+        "strlen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ResetJoystickValues",
+      "source_name": "CONTROL_ResetJoystickValues",
+      "kind": "FunctionDecl",
+      "line": 708,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "CONTROL_JoyPresent",
+        "CONTROL_JoystickEnabled",
+        "CONTROL_NumJoyAxes",
+        "CONTROL_NumJoyButtons",
+        "inputdevices",
+        "joystick",
+        "min__template_774131ccff66371d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "CONTROL_JoyPresent",
+          "binding": "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_JoystickEnabled",
+          "binding": "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "name": "CONTROL_NumJoyAxes",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "name": "CONTROL_NumJoyButtons",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "inputdevices",
+          "binding": "__cxx_global_cell_816e78cbc24a2eb6f3b7a4ee",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "joystick",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "CONTROL_JoyPresent",
+        "CONTROL_JoystickEnabled",
+        "CONTROL_NumJoyAxes",
+        "CONTROL_NumJoyButtons",
+        "inputdevices",
+        "joystick"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ScanForControllers",
+      "source_name": "CONTROL_ScanForControllers",
+      "kind": "FunctionDecl",
+      "line": 715,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_ResetJoystickValues",
+        "joyScanDevices"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "joyScanDevices"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "KB_KeyEvent__header_1c45b77fadfb",
+      "source_name": "KB_KeyEvent",
+      "kind": "FunctionDecl",
+      "line": 96,
+      "original_type": "void (int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/mact/include/keyboard.h",
+        "source_offset": 4548,
+        "source_line": 96,
+        "header_sha256": "1c9fbae4aa9fa781ab6cf2b2d9f9cb156a3150c6f867d562012e93b81c64495f"
+      },
+      "physical_source": "source/mact/include/keyboard.h",
+      "source_references": [
+        "KB_LastScan"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "KB_LastScan",
+          "binding": "__cxx_global_cell_d04bbf920f464be9986867b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "KB_LastScan"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_ProcessBinds",
+      "source_name": "CONTROL_ProcessBinds",
+      "kind": "FunctionDecl",
+      "line": 651,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_BindsEnabled",
+        "CONTROL_KeyBinds",
+        "CONTROL_LastSeenInput",
+        "OSD_Dispatch",
+        "keystatus"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "CONTROL_BindsEnabled",
+          "binding": "__cxx_global_cell_1e65dc992d264e8759155996",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_LastSeenInput",
+          "binding": "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+          "abi": "source-global-cell/2",
+          "original_type": "LastSeenInput"
+        },
+        {
+          "name": "CONTROL_KeyBinds",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            266
+          ],
+          "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+          "original_type": "ConsoleKeyBind_t[266]",
+          "consumer_source": "source/mact/src/control.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "CONTROL_BindsEnabled",
+        "CONTROL_KeyBinds",
+        "CONTROL_LastSeenInput",
+        "OSD_Dispatch",
+        "keystatus"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_Startup",
+      "source_name": "CONTROL_Startup",
+      "kind": "FunctionDecl",
+      "line": 721,
+      "original_type": "bool (controltype, int32_t (*)(), int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_ButtonHeldState",
+        "CONTROL_ButtonState",
+        "CONTROL_DoubleClickSpeed",
+        "CONTROL_Flags",
+        "CONTROL_JoySensitivityUnit",
+        "CONTROL_MouseAxesSensitivity",
+        "CONTROL_MouseEnabled",
+        "CONTROL_MousePresent",
+        "CONTROL_MouseSensitivity",
+        "CONTROL_MouseSensitivityUnit",
+        "CONTROL_NumMouseButtons",
+        "CONTROL_ResetJoystickValues",
+        "CONTROL_ScanForControllers",
+        "CONTROL_Started",
+        "ExtGetTime",
+        "KB_Startup__header_2b3cccba17f3",
+        "MOUSE_Startup__header_6c13e1130efe",
+        "OSD_RegisterCvar",
+        "SILENCE_UNUSED__header_2ebdc4f6e1ec",
+        "controlGetTime",
+        "initinput",
+        "osdcmd_cvar_set",
+        "ticrate"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "CONTROL_ButtonHeldState",
+          "binding": "__cxx_global_cell_b8312e111f6fe15957946ec8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_ButtonState",
+          "binding": "__cxx_global_cell_8dc312bd7532d829a4303d41",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "unsigned char",
+          "name": "CONTROL_DoubleClickSpeed",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_JoySensitivityUnit",
+          "binding": "__cxx_global_cell_13fe4069a00cd4e00ddcfee4",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_MouseEnabled",
+          "binding": "__cxx_global_cell_86fecaa07f75517afdefdaa7",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_MousePresent",
+          "binding": "__cxx_global_cell_b9b68728d746171839cea44e",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_MouseSensitivity",
+          "binding": "__cxx_global_cell_193dab9403d93f8a48781171",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_MouseSensitivityUnit",
+          "binding": "__cxx_global_cell_704184617e9508f023e26f36",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "name": "CONTROL_NumMouseButtons",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Started",
+          "binding": "__cxx_global_cell_2688171c8879a106600f1781",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0779d8c54d730200ae85183",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int32_t (*)()",
+          "name": "ExtGetTime",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2cb0b96bc87c3c66bc327f51",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "name": "ticrate",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Flags",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a",
+          "original_type": "ControlFunctionFlags_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "CONTROL_ButtonHeldState",
+        "CONTROL_ButtonState",
+        "CONTROL_DoubleClickSpeed",
+        "CONTROL_Flags",
+        "CONTROL_JoySensitivityUnit",
+        "CONTROL_MouseAxesSensitivity",
+        "CONTROL_MouseEnabled",
+        "CONTROL_MousePresent",
+        "CONTROL_MouseSensitivity",
+        "CONTROL_MouseSensitivityUnit",
+        "CONTROL_NumMouseButtons",
+        "CONTROL_Started",
+        "ExtGetTime",
+        "OSD_RegisterCvar",
+        "initinput",
+        "osdcmd_cvar_set",
+        "ticrate"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "KB_Startup__header_2b3cccba17f3",
+      "source_name": "KB_Startup",
+      "kind": "FunctionDecl",
+      "line": 102,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/mact/include/keyboard.h",
+        "source_offset": 4674,
+        "source_line": 102,
+        "header_sha256": "1c9fbae4aa9fa781ab6cf2b2d9f9cb156a3150c6f867d562012e93b81c64495f"
+      },
+      "physical_source": "source/mact/include/keyboard.h",
+      "source_references": [
+        "KB_KeyEvent__header_1c45b77fadfb",
+        "keySetCallback"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "keySetCallback"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "MOUSE_ClearButton__header_5d3d96eb9d9e",
+      "source_name": "MOUSE_ClearButton",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "void (int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/mact/include/mouse.h",
+        "source_offset": 1813,
+        "source_line": 60,
+        "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+      },
+      "physical_source": "source/mact/include/mouse.h",
+      "source_references": [
+        "g_mouseBits"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_mouseBits",
+          "binding": "__cxx_global_cell_1e0923736d676262c5e9d588",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_mouseBits"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "MOUSE_Shutdown__header_16a2f79379f6",
+      "source_name": "MOUSE_Shutdown",
+      "kind": "FunctionDecl",
+      "line": 58,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/mact/include/mouse.h",
+        "source_offset": 1661,
+        "source_line": 58,
+        "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+      },
+      "physical_source": "source/mact/include/mouse.h",
+      "source_references": [
+        "mouseUninit"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "mouseUninit"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "MOUSE_Startup__header_6c13e1130efe",
+      "source_name": "MOUSE_Startup",
+      "kind": "FunctionDecl",
+      "line": 52,
+      "original_type": "bool ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/mact/include/mouse.h",
+        "source_offset": 1543,
+        "source_line": 52,
+        "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+      },
+      "physical_source": "source/mact/include/mouse.h",
+      "source_references": [
+        "inputdevices",
+        "mouseInit"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "inputdevices",
+          "binding": "__cxx_global_cell_816e78cbc24a2eb6f3b7a4ee",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "inputdevices",
+        "mouseInit"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "controlKeyboardFunctionPressed",
+      "source_name": "controlKeyboardFunctionPressed",
+      "kind": "FunctionDecl",
+      "line": 136,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "CONTROL_Flags",
+        "CONTROL_KeyBinds",
+        "CONTROL_KeyMapping",
+        "keystatus"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "CONTROL_Flags",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a",
+          "original_type": "ControlFunctionFlags_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_KeyBinds",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            266
+          ],
+          "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+          "original_type": "ConsoleKeyBind_t[266]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_KeyMapping",
+          "abi": "source-byte-record-array/1",
+          "stride": 2,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5",
+          "original_type": "ControlKeyMap_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "CONTROL_Flags",
+        "CONTROL_KeyBinds",
+        "CONTROL_KeyMapping",
+        "keystatus"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "clang-substring",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "0a6e9a6b60fac1d93ff771c94047a043262c3c57f5a986532a03cc4b13d1dfe9",
+    "semantic_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058"
+  },
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [
+      "UserInputState",
+      "struct ControllerAxis"
+    ],
+    "queried": true,
+    "status": "extracted"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "aa0d8cb4544f2488398b693c10060a7c000518f8620af95811edbe136bb928ca",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "85e7bb97419f80987e3e8118eccd113561bd6e20041836b976bcd7c17bd6b757",
+    "semantic_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 4212,
+    "sha256": "8f008cd7b524a910046596461a5c80eb45f5ebd1d49e900a9f4003fa2f46d69f"
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "0ddf00ac746778b389a3be5a6cfaaccd49333e929a6a1855d7baed0cffff11fb",
+    "dependency_count": 353,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 750049,
+      "ranges_omitted": 169476,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1767,
+      "semantic_barrier_ranges_retained": 252,
+      "instance_method_ranges_retained": 7927,
+      "type_metadata_reuses": 137870,
+      "include_metadata_reuses": 150543,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 28422206,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 28422206,
+      "cache_hit": false,
+      "json_bytes": 316295476,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 129024111,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "compressed-retained"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [
+    {
+      "name": "CONTROL_Started",
+      "binding": "__cxx_global_cell_2688171c8879a106600f1781",
+      "abi": "source-global-cell/2",
+      "original_type": "bool"
+    },
+    {
+      "name": "CONTROL_MouseEnabled",
+      "binding": "__cxx_global_cell_86fecaa07f75517afdefdaa7",
+      "abi": "source-global-cell/2",
+      "original_type": "bool"
+    },
+    {
+      "name": "CONTROL_MousePresent",
+      "binding": "__cxx_global_cell_b9b68728d746171839cea44e",
+      "abi": "source-global-cell/2",
+      "original_type": "bool"
+    },
+    {
+      "name": "CONTROL_JoyPresent",
+      "binding": "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+      "abi": "source-global-cell/2",
+      "original_type": "bool"
+    },
+    {
+      "name": "CONTROL_JoystickEnabled",
+      "binding": "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+      "abi": "source-global-cell/2",
+      "original_type": "bool"
+    },
+    {
+      "name": "CONTROL_ButtonState",
+      "binding": "__cxx_global_cell_8dc312bd7532d829a4303d41",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned long"
+    },
+    {
+      "name": "CONTROL_ButtonHeldState",
+      "binding": "__cxx_global_cell_b8312e111f6fe15957946ec8",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned long"
+    },
+    {
+      "name": "CONTROL_LastSeenInput",
+      "binding": "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+      "abi": "source-global-cell/2",
+      "original_type": "LastSeenInput"
+    },
+    {
+      "name": "CONTROL_MouseSensitivity",
+      "binding": "__cxx_global_cell_193dab9403d93f8a48781171",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "CONTROL_MouseSensitivityUnit",
+      "binding": "__cxx_global_cell_704184617e9508f023e26f36",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "CONTROL_JoySensitivityUnit",
+      "binding": "__cxx_global_cell_13fe4069a00cd4e00ddcfee4",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
+    },
+    {
+      "name": "CONTROL_BindsEnabled",
+      "binding": "__cxx_global_cell_1e65dc992d264e8759155996",
+      "abi": "source-global-cell/2",
+      "original_type": "bool"
+    }
+  ],
+  "private_storage_exports": [
+    {
+      "name": "CONTROL_NumMouseButtons",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "CONTROL_NumJoyButtons",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "CONTROL_NumJoyAxes",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "ExtGetTime",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_e0779d8c54d730200ae85183",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "int32_t (*)()"
+    },
+    {
+      "name": "ticrate",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_2cb0b96bc87c3c66bc327f51",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "CONTROL_DoubleClickSpeed",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "unsigned char"
+    },
+    {
+      "name": "pow2char__header_global_40cb3de37650d9cd",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_fc267edcd91a1bd64803fc9e",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_13247ae225701fd3",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_18809b1c407a8eb63e902132",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_4a7aaf6c61fc3b93",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_c19c484b56b4c6df4a1f1199",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "pow2long__header_global_fc01932e5e0269a6",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_a0b217710d0e8f66ef9f649e",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "const const int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow2ulong__header_global_408d729c39d6207f",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_4326b10511633296cc0ebd41",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "const const uint32_t[32]",
+      "scalar_array": {
+        "array": "Uint32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow264__header_global_8e0cd082eb4a1fe2",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_e2a79a2cb18473a8b94c1bd7",
+      "owner_source": "source/mact/src/control.cpp",
+      "original_type": "const const int64_t[64]",
+      "scalar_array": {
+        "array": "BigInt64Array",
+        "dims": [
+          64
+        ]
+      }
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/mact/src/_source_legacy_control_cpp_b212d6f1c9fa.mjs",
+      "sha256": "b212d6f1c9faf15ab17e9737b242257acb9ab077d7ddb70fb5a443db18ee141c",
+      "original_source": "source/mact/src/control.cpp",
+      "exports": [
+        "ARRAY_SIZE__header_106279cee3be",
+        "CONTROL_BindKey",
+        "CONTROL_BindMouse",
+        "CONTROL_BindsEnabled",
+        "CONTROL_ButtonFlags",
+        "CONTROL_ButtonHeldState",
+        "CONTROL_ButtonState",
+        "CONTROL_ClearAllBinds",
+        "CONTROL_ClearAllButtons",
+        "CONTROL_ClearAssignments",
+        "CONTROL_ClearButton",
+        "CONTROL_DefineFlag",
+        "CONTROL_DoubleClickSpeed",
+        "CONTROL_Flags",
+        "CONTROL_FreeKeyBind",
+        "CONTROL_FreeMouseBind",
+        "CONTROL_JoyPresent",
+        "CONTROL_JoySensitivityUnit",
+        "CONTROL_JoystickEnabled",
+        "CONTROL_KeyBinds",
+        "CONTROL_KeyMapping",
+        "CONTROL_LastSeenInput",
+        "CONTROL_MapAnalogAxis",
+        "CONTROL_MapButton",
+        "CONTROL_MapDigitalAxis",
+        "CONTROL_MapKey",
+        "CONTROL_MouseAxesSensitivity",
+        "CONTROL_MouseEnabled",
+        "CONTROL_MousePresent",
+        "CONTROL_MouseSensitivity",
+        "CONTROL_MouseSensitivityUnit",
+        "CONTROL_NumJoyAxes",
+        "CONTROL_NumJoyButtons",
+        "CONTROL_NumMouseButtons",
+        "CONTROL_SetAnalogAxisInvert",
+        "CONTROL_SetAnalogAxisScale",
+        "CONTROL_SetAnalogAxisSensitivity",
+        "CONTROL_Started",
+        "ExtGetTime",
+        "FIX16_MAX__header_global_57e6e5761424b79c",
+        "FIX16_MIN__header_global_92d0971f0e13286d",
+        "FIX16_OVERFLOW__header_global_c6ff0280e399ded2",
+        "JOYSTICK_SetDeadZone",
+        "SILENCE_UNUSED__header_2ebdc4f6e1ec",
+        "UserInputState",
+        "clamp__header_e9a9456e345c",
+        "controlGetTime",
+        "controlHandleClickStates",
+        "controlSetFlag",
+        "controlUpdateFlagsFromAxes",
+        "controlUpdateFlagsFromButtons",
+        "controllerDigitizeAxis",
+        "fix16_deg_to_rad_mult__header_global_a4db6622df338738",
+        "fix16_half__header_global_69830a0e56ab151b",
+        "fix16_one__header_global_34f70bfb45d24435",
+        "fix16_rad_to_deg_mult__header_global_63825e52269a1085",
+        "flt_f161r__header_global_ce51c85b2c9aff88",
+        "g_defaultVideoModes__header_global_27b8cad88ead23c5",
+        "g_keyAsciiTableShift__header_global_4a7aaf6c61fc3b93",
+        "g_keyAsciiTable__header_global_13247ae225701fd3",
+        "joyAxes",
+        "joyButtons",
+        "klabs__header_bbb008442228",
+        "ksgn__header_47c00fdfb968",
+        "min__template_774131ccff66371d",
+        "mouseButtons",
+        "pow264__header_global_8e0cd082eb4a1fe2",
+        "pow2char__header_global_40cb3de37650d9cd",
+        "pow2long__header_global_fc01932e5e0269a6",
+        "pow2ulong__header_global_408d729c39d6207f",
+        "sctokeylut__header_global_057facea8ec54ebd",
+        "ticrate",
+        "userInput",
+        "xfree__header_d80c6822a623",
+        "xstrdup__header_79c9466b293b"
+      ],
+      "reexports": [
+        "ARRAY_SIZE__header_106279cee3be",
+        "CONTROL_BindKey",
+        "CONTROL_BindMouse",
+        "CONTROL_BindsEnabled",
+        "CONTROL_ButtonFlags",
+        "CONTROL_ButtonHeldState",
+        "CONTROL_ButtonState",
+        "CONTROL_ClearAllBinds",
+        "CONTROL_ClearAllButtons",
+        "CONTROL_ClearAssignments",
+        "CONTROL_ClearButton",
+        "CONTROL_DefineFlag",
+        "CONTROL_DoubleClickSpeed",
+        "CONTROL_Flags",
+        "CONTROL_FreeKeyBind",
+        "CONTROL_FreeMouseBind",
+        "CONTROL_JoyPresent",
+        "CONTROL_JoySensitivityUnit",
+        "CONTROL_JoystickEnabled",
+        "CONTROL_KeyBinds",
+        "CONTROL_KeyMapping",
+        "CONTROL_LastSeenInput",
+        "CONTROL_MapAnalogAxis",
+        "CONTROL_MapButton",
+        "CONTROL_MapDigitalAxis",
+        "CONTROL_MapKey",
+        "CONTROL_MouseAxesSensitivity",
+        "CONTROL_MouseEnabled",
+        "CONTROL_MousePresent",
+        "CONTROL_MouseSensitivity",
+        "CONTROL_MouseSensitivityUnit",
+        "CONTROL_NumJoyAxes",
+        "CONTROL_NumJoyButtons",
+        "CONTROL_NumMouseButtons",
+        "CONTROL_SetAnalogAxisInvert",
+        "CONTROL_SetAnalogAxisScale",
+        "CONTROL_SetAnalogAxisSensitivity",
+        "CONTROL_Started",
+        "ExtGetTime",
+        "FIX16_MAX__header_global_57e6e5761424b79c",
+        "FIX16_MIN__header_global_92d0971f0e13286d",
+        "FIX16_OVERFLOW__header_global_c6ff0280e399ded2",
+        "JOYSTICK_SetDeadZone",
+        "SILENCE_UNUSED__header_2ebdc4f6e1ec",
+        "UserInputState",
+        "clamp__header_e9a9456e345c",
+        "controlGetTime",
+        "controlHandleClickStates",
+        "controlSetFlag",
+        "controlUpdateFlagsFromAxes",
+        "controlUpdateFlagsFromButtons",
+        "controllerDigitizeAxis",
+        "fix16_deg_to_rad_mult__header_global_a4db6622df338738",
+        "fix16_half__header_global_69830a0e56ab151b",
+        "fix16_one__header_global_34f70bfb45d24435",
+        "fix16_rad_to_deg_mult__header_global_63825e52269a1085",
+        "flt_f161r__header_global_ce51c85b2c9aff88",
+        "g_defaultVideoModes__header_global_27b8cad88ead23c5",
+        "g_keyAsciiTableShift__header_global_4a7aaf6c61fc3b93",
+        "g_keyAsciiTable__header_global_13247ae225701fd3",
+        "joyAxes",
+        "joyButtons",
+        "klabs__header_bbb008442228",
+        "ksgn__header_47c00fdfb968",
+        "min__template_774131ccff66371d",
+        "mouseButtons",
+        "pow264__header_global_8e0cd082eb4a1fe2",
+        "pow2char__header_global_40cb3de37650d9cd",
+        "pow2long__header_global_fc01932e5e0269a6",
+        "pow2ulong__header_global_408d729c39d6207f",
+        "sctokeylut__header_global_057facea8ec54ebd",
+        "ticrate",
+        "userInput",
+        "xfree__header_d80c6822a623",
+        "xstrdup__header_79c9466b293b",
+        "__cxx_global_cell_1e65dc992d264e8759155996",
+        "__cxx_global_cell_b8312e111f6fe15957946ec8",
+        "__cxx_global_cell_8dc312bd7532d829a4303d41",
+        "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+        "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+        "__cxx_global_cell_13fe4069a00cd4e00ddcfee4",
+        "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+        "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+        "__cxx_global_cell_86fecaa07f75517afdefdaa7",
+        "__cxx_global_cell_b9b68728d746171839cea44e",
+        "__cxx_global_cell_193dab9403d93f8a48781171",
+        "__cxx_global_cell_704184617e9508f023e26f36",
+        "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+        "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+        "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+        "__cxx_global_cell_2688171c8879a106600f1781",
+        "__cxx_private_cell_e0779d8c54d730200ae85183",
+        "__cxx_private_cell_c19c484b56b4c6df4a1f1199",
+        "__cxx_private_cell_18809b1c407a8eb63e902132",
+        "__cxx_private_cell_e2a79a2cb18473a8b94c1bd7",
+        "__cxx_private_cell_fc267edcd91a1bd64803fc9e",
+        "__cxx_private_cell_a0b217710d0e8f66ef9f649e",
+        "__cxx_private_cell_4326b10511633296cc0ebd41",
+        "__cxx_private_cell_2cb0b96bc87c3c66bc327f51"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_Dispatch",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "594c267a755d4809c3e8db6f88433cfaf2ff9e56cd079d458c68daecd046e76d"
+    },
+    {
+      "module": "source/mact/src/_source_legacy_control_cpp_ba6c60c81f66.mjs",
+      "sha256": "ba6c60c81f664456899b55b7efc06fa8309df1cb524cc6cf2c0f70b2440160f2",
+      "original_source": "source/mact/src/control.cpp",
+      "exports": [
+        "CONTROL_ResetJoystickValues",
+        "CONTROL_ScanForControllers",
+        "KB_KeyEvent__header_1c45b77fadfb"
+      ],
+      "reexports": [
+        "CONTROL_ResetJoystickValues",
+        "CONTROL_ScanForControllers",
+        "KB_KeyEvent__header_1c45b77fadfb"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_BindsEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1e65dc992d264e8759155996",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_ButtonHeldState",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b8312e111f6fe15957946ec8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_ButtonState",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8dc312bd7532d829a4303d41",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_DoubleClickSpeed",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "unsigned char",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Flags",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a",
+          "original_type": "ControlFunctionFlags_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_JoyPresent",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_JoystickEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_KeyBinds",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            266
+          ],
+          "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+          "original_type": "ConsoleKeyBind_t[266]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_KeyMapping",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 2,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5",
+          "original_type": "ControlKeyMap_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_LastSeenInput",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+          "abi": "source-global-cell/2",
+          "original_type": "LastSeenInput"
+        },
+        {
+          "name": "CONTROL_NumJoyAxes",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_NumJoyButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_NumMouseButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_LastScan",
+          "from": "source/mact/src/keyboard.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d04bbf920f464be9986867b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "OSD_Dispatch",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inputdevices",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_816e78cbc24a2eb6f3b7a4ee",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "joyButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            32
+          ],
+          "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+          "original_type": "ControlButtonState_t[32]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "joyScanDevices",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+        },
+        {
+          "name": "mouseButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            10
+          ],
+          "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+          "original_type": "ControlButtonState_t[10]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "705dd03f06854c6e3ee0749b9b2b1e062ef715e119cac2dd28931185f91fb88b"
+    },
+    {
+      "module": "source/mact/src/_source_legacy_control_cpp_e536f4961d52.mjs",
+      "sha256": "e536f4961d5203bd09919fba40f2318bf53111677a3d8623f80193e3e3c1492c",
+      "original_source": "source/mact/src/control.cpp",
+      "exports": [
+        "CONTROL_ProcessBinds",
+        "CONTROL_Startup",
+        "KB_Startup__header_2b3cccba17f3",
+        "MOUSE_ClearButton__header_5d3d96eb9d9e",
+        "MOUSE_Shutdown__header_16a2f79379f6",
+        "MOUSE_Startup__header_6c13e1130efe",
+        "controlKeyboardFunctionPressed"
+      ],
+      "reexports": [
+        "CONTROL_ProcessBinds",
+        "CONTROL_Startup",
+        "KB_Startup__header_2b3cccba17f3",
+        "MOUSE_ClearButton__header_5d3d96eb9d9e",
+        "MOUSE_Shutdown__header_16a2f79379f6",
+        "MOUSE_Startup__header_6c13e1130efe",
+        "controlKeyboardFunctionPressed"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_BindsEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1e65dc992d264e8759155996",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_ButtonHeldState",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b8312e111f6fe15957946ec8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_ButtonState",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8dc312bd7532d829a4303d41",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_DoubleClickSpeed",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "unsigned char",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Flags",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a",
+          "original_type": "ControlFunctionFlags_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_JoyPresent",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_JoySensitivityUnit",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_13fe4069a00cd4e00ddcfee4",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_JoystickEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_KeyBinds",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            266
+          ],
+          "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+          "original_type": "ConsoleKeyBind_t[266]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_KeyMapping",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 2,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5",
+          "original_type": "ControlKeyMap_t[64]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_LastSeenInput",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+          "abi": "source-global-cell/2",
+          "original_type": "LastSeenInput"
+        },
+        {
+          "name": "CONTROL_MouseAxesSensitivity",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_MouseEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_86fecaa07f75517afdefdaa7",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_MousePresent",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b9b68728d746171839cea44e",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_MouseSensitivity",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_193dab9403d93f8a48781171",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_MouseSensitivityUnit",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_704184617e9508f023e26f36",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_NumJoyAxes",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_NumJoyButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_NumMouseButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Started",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2688171c8879a106600f1781",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "ExtGetTime",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0779d8c54d730200ae85183",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int32_t (*)()",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_LastScan",
+          "from": "source/mact/src/keyboard.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d04bbf920f464be9986867b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "OSD_Dispatch",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_RegisterCvar",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_mouseBits",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1e0923736d676262c5e9d588",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initinput",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inputdevices",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_816e78cbc24a2eb6f3b7a4ee",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "joyButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            32
+          ],
+          "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+          "original_type": "ControlButtonState_t[32]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "joyScanDevices",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 3,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1f7200e2d78",
+                "fields": [
+                  {
+                    "id": "0x1f7200e2128",
+                    "name": "numHats"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1f7200e2d78",
+                "fields": [
+                  {
+                    "id": "0x1f7200e20c0",
+                    "name": "numButtons"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1f7200e2d78",
+                "fields": [
+                  {
+                    "id": "0x1f7200e1ff0",
+                    "name": "numAxes"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "keySetCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "keystatus",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mouseButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            10
+          ],
+          "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+          "original_type": "ControlButtonState_t[10]",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "mouseInit",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mouseUninit",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ticrate",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2cb0b96bc87c3c66bc327f51",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "6f2cfcbd9732f27fa762894f1753069c1a00c662811a40b2b33048674cf1dd54"
+    }
+  ]
+}

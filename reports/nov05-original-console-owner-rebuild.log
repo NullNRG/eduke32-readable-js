@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\work\rebuild_source_owner.py", line 190, in <module>
+    with component.component_lock():main()
+                                    ~~~~^^
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\work\rebuild_source_owner.py", line 101, in main
+    assert not missing & (live|consumed),('An original caller still requires omitted exports',sorted(missing & (live|consumed)))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('An original caller still requires omitted exports', ['ClockTicks'])

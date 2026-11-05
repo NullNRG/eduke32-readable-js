@@ -1,0 +1,67 @@
+{
+  "source": "source/build/src/kplib.cpp",
+  "requested": [
+    "kzfindfile",
+    "kzfindfilestart",
+    "wildmatch"
+  ],
+  "requested_resolved": {
+    "kzfindfile": true,
+    "kzfindfilestart": true,
+    "wildmatch": true
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_kplib.cpp/reachable-37bdafaf5bc070ba/source/build/src/kplib.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "trnsrgb",
+      "reason": "UsedAttr",
+      "dependencies": []
+    },
+    {
+      "name": "rgbhlineasm",
+      "reason": "unlinked identifiers: trnsrgb",
+      "dependencies": [
+        "trnsrgb"
+      ]
+    },
+    {
+      "name": "putbuf",
+      "reason": "unlinked identifiers: rgbhlineasm",
+      "dependencies": [
+        "rgbhlineasm"
+      ]
+    },
+    {
+      "name": "kpngrend",
+      "reason": "unlinked identifiers: putbuf, trnsrgb",
+      "dependencies": [
+        "putbuf",
+        "trnsrgb"
+      ]
+    },
+    {
+      "name": "kprender",
+      "reason": "unlinked identifiers: kpngrend",
+      "dependencies": [
+        "kpngrend"
+      ]
+    },
+    {
+      "name": "kpzdecode",
+      "reason": "unlinked identifiers: kprender",
+      "dependencies": [
+        "kprender"
+      ]
+    },
+    {
+      "name": "kpzload",
+      "reason": "unlinked identifiers: kpzdecode",
+      "dependencies": [
+        "kpzdecode"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 140,
+  "original_gameplay_verified": false
+}

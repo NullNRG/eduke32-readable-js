@@ -1,7 +1,7 @@
 {
   "source": "source/build/src/palette.cpp",
   "dependency_closure": {
-    "enabled": true,
+    "enabled": false,
     "additional_ast_filters": [],
     "additional_ast_roots": 0,
     "rounds": 0,
@@ -10,7 +10,7 @@
     "unqueried_references": []
   },
   "enum_closure": {
-    "enabled": true,
+    "enabled": false,
     "queried": [],
     "proven_values": {},
     "rejected": {},
@@ -27,12 +27,8 @@
     "rejected": {}
   },
   "pod_record_closure": {
-    "queried": [
-      "palette_t"
-    ],
-    "proven": [
-      "palette_t"
-    ],
+    "queried": [],
+    "proven": [],
     "rejected": {}
   },
   "friend_closure": {
@@ -62,211 +58,67 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\palette.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 14,
-  "emitted": 14,
+  "found": 68,
+  "emitted": 68,
   "blocked": 0,
   "definitions": [
     {
-      "name": "curpalette",
-      "source_name": "curpalette",
+      "name": "fix16_rad_to_deg_mult__header_global_e3208603905f7f08",
+      "source_name": "fix16_rad_to_deg_mult",
       "kind": "VarDecl",
-      "line": 27,
-      "original_type": "palette_t[256]",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "object_storage": {
-        "name": "curpalette",
-        "abi": "source-byte-record-array/1",
-        "stride": 4,
-        "dimensions": [
-          256
-        ],
-        "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
-        "original_type": "palette_t[256]"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "basepalreset",
-      "source_name": "basepalreset",
-      "kind": "VarDecl",
-      "line": 22,
-      "original_type": "unsigned char",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_8c784fcd98ff8a6365ed10e5",
-        "abi": "source-global-cell/2",
-        "original_type": "unsigned char"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "clamp__header_7fdbead6febc",
-      "source_name": "clamp",
-      "kind": "FunctionDecl",
-      "line": null,
-      "original_type": "char (char, int, int)",
-      "clang_template_mangled_name": "_ZL5clampIciiET_S0_T0_T1_",
+      "line": 111,
+      "original_type": "const int",
       "linkage": "internal",
-      "source_references": [],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "curbasepal",
-      "source_name": "curbasepal",
-      "kind": "VarDecl",
-      "line": 23,
-      "original_type": "unsigned char",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_780811cb53e28b659b6616eb",
-        "abi": "source-global-cell/2",
-        "original_type": "unsigned char"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "curbrightness",
-      "source_name": "curbrightness",
-      "kind": "VarDecl",
-      "line": 44,
-      "original_type": "int",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_4e6755afec0ef38c6a67f61a",
-        "abi": "source-global-cell/2",
-        "original_type": "int"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "curpalettefaded",
-      "source_name": "curpalettefaded",
-      "kind": "VarDecl",
-      "line": 28,
-      "original_type": "palette_t[256]",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "object_storage": {
-        "name": "curpalettefaded",
-        "abi": "source-byte-record-array/1",
-        "stride": 4,
-        "dimensions": [
-          256
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34ea6f0",
+        "redeclaration_chain": [
+          "0x1a3f34ea6f0"
         ],
-        "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
-        "original_type": "palette_t[256]"
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
       },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
     },
     {
-      "name": "g_lastpalettesum",
-      "source_name": "g_lastpalettesum",
+      "name": "fix16_deg_to_rad_mult__header_global_82f40ae9b461b6b5",
+      "source_name": "fix16_deg_to_rad_mult",
       "kind": "VarDecl",
-      "line": 26,
-      "original_type": "unsigned long",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34eab98",
+        "redeclaration_chain": [
+          "0x1a3f34eab98"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
       "source_references": [],
       "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_2e274c3f41eaa4a44d62a6ff",
-        "abi": "source-global-cell/2",
-        "original_type": "unsigned long"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "gammabrightness",
-      "source_name": "gammabrightness",
-      "kind": "VarDecl",
-      "line": 44,
-      "original_type": "int",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2",
-        "abi": "source-global-cell/2",
-        "original_type": "int"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "palfadedelta",
-      "source_name": "palfadedelta",
-      "kind": "VarDecl",
-      "line": 30,
-      "original_type": "char",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_fba044f5949b228db52cb0a4",
-        "abi": "source-global-cell/2",
-        "original_type": "char"
-      },
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "palfadergb",
-      "source_name": "palfadergb",
-      "kind": "VarDecl",
-      "line": 29,
-      "original_type": "struct palette_t",
-      "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
-      "source_references": [],
-      "external_reference_imports": [],
-      "global_storage": {
-        "binding": "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a",
-        "abi": "source-global-cell/2",
-        "original_type": "struct palette_t",
-        "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
-      },
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
@@ -300,103 +152,1076 @@
       "unresolved_references": []
     },
     {
-      "name": "paletteGetColor",
-      "source_name": "paletteGetColor",
-      "kind": "FunctionDecl",
-      "line": 752,
-      "original_type": "palette_t (int32_t)",
+      "name": "basepalreset",
+      "source_name": "basepalreset",
+      "kind": "VarDecl",
+      "line": 22,
+      "original_type": "unsigned char",
       "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_8c784fcd98ff8a6365ed10e5",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "curbasepal",
+      "source_name": "curbasepal",
+      "kind": "VarDecl",
+      "line": 23,
+      "original_type": "unsigned char",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_780811cb53e28b659b6616eb",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "globalblend",
+      "source_name": "globalblend",
+      "kind": "VarDecl",
+      "line": 24,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9a5f899abe816221fc68b39b",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_lastpalettesum",
+      "source_name": "g_lastpalettesum",
+      "kind": "VarDecl",
+      "line": 26,
+      "original_type": "unsigned long",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_2e274c3f41eaa4a44d62a6ff",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned long"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "curpalette",
+      "source_name": "curpalette",
+      "kind": "VarDecl",
+      "line": 27,
+      "original_type": "palette_t[256]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "curpalette",
+        "abi": "source-byte-record-array/1",
+        "stride": 4,
+        "dimensions": [
+          256
+        ],
+        "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+        "original_type": "palette_t[256]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "curpalettefaded",
+      "source_name": "curpalettefaded",
+      "kind": "VarDecl",
+      "line": 28,
+      "original_type": "palette_t[256]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "curpalettefaded",
+        "abi": "source-byte-record-array/1",
+        "stride": 4,
+        "dimensions": [
+          256
+        ],
+        "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+        "original_type": "palette_t[256]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "palfadergb",
+      "source_name": "palfadergb",
+      "kind": "VarDecl",
+      "line": 29,
+      "original_type": "struct palette_t",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a",
+        "abi": "source-global-cell/2",
+        "original_type": "struct palette_t",
+        "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+        "byte_record_native_layout": {
+          "abi": "source-record-field-storage/1",
+          "sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "palfadedelta",
+      "source_name": "palfadedelta",
+      "kind": "VarDecl",
+      "line": 30,
+      "original_type": "char",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_fba044f5949b228db52cb0a4",
+        "abi": "source-global-cell/2",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_2e902fc0f726dfe1",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34e2ec8",
+        "redeclaration_chain": [
+          "0x1a3f34e2ec8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_1e3895ec79c4043a",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34e2fe0",
+        "redeclaration_chain": [
+          "0x1a3f34e2fe0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_7c6250ba21daf054",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34e3110",
+        "redeclaration_chain": [
+          "0x1a3f34e3110"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_c6e686a6153312e4",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34e3240",
+        "redeclaration_chain": [
+          "0x1a3f34e3240"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_df4037cd7223ad64",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34e3350",
+        "redeclaration_chain": [
+          "0x1a3f34e3350"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_b03ab1e0a44547d5",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f34e3460",
+        "redeclaration_chain": [
+          "0x1a3f34e3460"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "realmaxshade",
+      "source_name": "realmaxshade",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_bbb41de444ddeca3a5d3580e",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "frealmaxshade",
+      "source_name": "frealmaxshade",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "float",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_cdfec18967deabe5b3ba3b50",
+        "abi": "source-global-cell/2",
+        "original_type": "float"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_noFloorPal",
+      "source_name": "g_noFloorPal",
+      "kind": "VarDecl",
+      "line": 42,
+      "original_type": "int8_t[256]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "curbrightness",
+      "source_name": "curbrightness",
+      "kind": "VarDecl",
+      "line": 44,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4e6755afec0ef38c6a67f61a",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "gammabrightness",
+      "source_name": "gammabrightness",
+      "kind": "VarDecl",
+      "line": null,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoFadeToBlack",
+      "source_name": "videoFadeToBlack",
+      "kind": "FunctionDecl",
+      "line": 80,
+      "original_type": "void (int32_t)",
+      "linkage": "external",
       "source_references": [
-        "britable",
-        "curbrightness",
-        "curpalette",
-        "gammabrightness"
+        "blendtable",
+        "frameplace",
+        "offscreenrendering",
+        "videoBeginDrawing",
+        "videoEndDrawing",
+        "xdim",
+        "ydim"
       ],
       "external_reference_imports": [],
       "external_storage_imports": [
         {
-          "name": "curbrightness",
-          "binding": "__cxx_global_cell_4e6755afec0ef38c6a67f61a",
+          "name": "frameplace",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "xdim",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
           "abi": "source-global-cell/2",
           "original_type": "int"
         },
         {
-          "name": "gammabrightness",
-          "binding": "__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2",
+          "name": "ydim",
+          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
           "abi": "source-global-cell/2",
           "original_type": "int"
         },
         {
-          "name": "britable",
-          "abi": "source-native-array/1",
-          "array": "Uint8Array",
-          "dimensions": [
-            16,
-            256
-          ],
-          "original_type": "char[16][256]",
-          "consumer_source": "source/build/src/palette.cpp"
-        },
-        {
-          "name": "curpalette",
-          "abi": "source-byte-record-array/1",
-          "stride": 4,
-          "dimensions": [
-            256
-          ],
-          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
-          "original_type": "palette_t[256]",
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
           "consumer_source": "source/build/src/palette.cpp"
         }
       ],
       "status": "source-first",
       "external_imports": [
-        "britable",
-        "curbrightness",
-        "curpalette",
-        "gammabrightness"
+        "blendtable",
+        "frameplace",
+        "offscreenrendering",
+        "videoBeginDrawing",
+        "videoEndDrawing",
+        "xdim",
+        "ydim"
       ],
       "unresolved_references": []
     },
     {
-      "name": "paletteSetFade",
-      "source_name": "paletteSetFade",
+      "name": "alloc_palookup",
+      "source_name": "alloc_palookup",
       "kind": "FunctionDecl",
-      "line": 764,
-      "original_type": "void (uint8_t)",
+      "line": 130,
+      "original_type": "void (int32_t)",
       "linkage": "internal",
-      "physical_source": "source/build/src/palette.cpp",
       "source_references": [
-        "curpalettefaded",
-        "paletteGetColor",
-        "palfadergb"
+        "memset",
+        "numshades",
+        "palookup",
+        "xaligned_alloc__header_349c3e01dff0"
       ],
       "external_reference_imports": [],
       "external_storage_imports": [
         {
-          "name": "palfadergb",
-          "binding": "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a",
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
           "abi": "source-global-cell/2",
-          "original_type": "struct palette_t",
-          "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+          "original_type": "short"
         },
         {
-          "name": "curpalettefaded",
-          "abi": "source-byte-record-array/1",
-          "stride": 4,
-          "dimensions": [
-            256
-          ],
-          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
-          "original_type": "palette_t[256]",
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
           "consumer_source": "source/build/src/palette.cpp"
         }
       ],
       "status": "source-first",
       "external_imports": [
-        "curpalettefaded",
-        "palfadergb"
+        "memset",
+        "numshades",
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteLoadFromDisk",
+      "source_name": "paletteLoadFromDisk",
+      "kind": "FunctionDecl",
+      "line": 144,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "B_PASS16__header_06653fd2d9bb",
+        "blendtable",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "kopen4load",
+        "kread",
+        "loguru_log",
+        "maybe_alloc_palookup",
+        "memcmp",
+        "numalphatabs",
+        "numshades",
+        "palette",
+        "paletteInitClosestColorGrid",
+        "paletteInitClosestColorMap",
+        "paletteInitClosestColorScale",
+        "paletteSetBlendTable",
+        "paletteloaded",
+        "palookup",
+        "xcalloc__header_f81d3cc9a249",
+        "xfree__header_4e66c3713f53",
+        "xmalloc__header_0218f37c8068"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "numalphatabs",
+          "binding": "__cxx_global_cell_98d4df84d94f4e1b0e9e0c4b",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "paletteloaded",
+          "binding": "__cxx_global_cell_2ecdb66f06cb14d421e278fc",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        },
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "blendtable",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kfilelength",
+        "kopen4load",
+        "kread",
+        "loguru_log",
+        "memcmp",
+        "numalphatabs",
+        "numshades",
+        "palette",
+        "paletteInitClosestColorGrid",
+        "paletteInitClosestColorMap",
+        "paletteInitClosestColorScale",
+        "paletteloaded",
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "PaletteIndexFullbright",
+      "source_name": "PaletteIndexFullbright",
+      "kind": "VarDecl",
+      "line": 287,
+      "original_type": "uint8_t[32]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteFixTranslucencyMask",
+      "source_name": "paletteFixTranslucencyMask",
+      "kind": "FunctionDecl",
+      "line": 357,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "blackcol",
+        "blendtable",
+        "numshades",
+        "palookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "blackcol",
+          "binding": "__cxx_global_cell_e493776e01f353d2a6806578",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        },
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "blackcol",
+        "blendtable",
+        "numshades",
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteLoadLookupTable",
+      "source_name": "paletteLoadLookupTable",
+      "kind": "FunctionDecl",
+      "line": 392,
+      "original_type": "int32_t (buildvfs_kfd)",
+      "linkage": "external",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "kread",
+        "loguru_log",
+        "paletteMakeLookupTable"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "kread",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteSetupDefaultFog",
+      "source_name": "paletteSetupDefaultFog",
+      "kind": "FunctionDecl",
+      "line": 422,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "paletteMakeLookupTable",
+        "palookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "palettePostLoadLookups",
+      "source_name": "palettePostLoadLookups",
+      "kind": "FunctionDecl",
+      "line": 438,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "memcmp",
+        "numshades",
+        "paletteFreeLookupTable",
+        "paletteMakeLookupTable",
+        "palookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "memcmp",
+        "numshades",
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "palookup_isdefault",
+      "source_name": "palookup_isdefault",
+      "kind": "FunctionDecl",
+      "line": 452,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "palookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "maybe_alloc_palookup",
+      "source_name": "maybe_alloc_palookup",
+      "kind": "FunctionDecl",
+      "line": 457,
+      "original_type": "void (int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "alloc_palookup",
+        "engineDestroyAllocator__header_52f1d3bd8eaa",
+        "initprintf",
+        "palookup",
+        "palookup_isdefault",
+        "wm_msgbox"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "initprintf",
+        "palookup",
+        "wm_msgbox"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteSetBlendTable",
+      "source_name": "paletteSetBlendTable",
+      "kind": "FunctionDecl",
+      "line": 467,
+      "original_type": "void (int32_t, const char *)",
+      "linkage": "external",
+      "source_references": [
+        "blendtable",
+        "memcpy",
+        "xmalloc__header_0218f37c8068"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "blendtable",
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteFreeBlendTable",
+      "source_name": "paletteFreeBlendTable",
+      "kind": "FunctionDecl",
+      "line": 474,
+      "original_type": "void (const int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "blendtable",
+        "xfree__header_4e66c3713f53"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "blendtable"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteSetLookupTable",
+      "source_name": "paletteSetLookupTable",
+      "kind": "FunctionDecl",
+      "line": 524,
+      "original_type": "int32_t (int32_t, const uint8_t *)",
+      "linkage": "external",
+      "source_references": [
+        "maybe_alloc_palookup",
+        "memcpy",
+        "numshades",
+        "palookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy",
+        "numshades",
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteFreeLookupTable",
+      "source_name": "paletteFreeLookupTable",
+      "kind": "FunctionDecl",
+      "line": 535,
+      "original_type": "void (const int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "palookup",
+        "xaligned_free__header_5e5407cd5249"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteMakeLookupTable",
+      "source_name": "paletteMakeLookupTable",
+      "kind": "FunctionDecl",
+      "line": 554,
+      "original_type": "void (int32_t, const char *, uint8_t, uint8_t, uint8_t, char)",
+      "linkage": "external",
+      "source_references": [
+        "divscale16__header_571d2cb68101",
+        "g_noFloorPal",
+        "maybe_alloc_palookup",
+        "mulscale16__header_4949d534b340",
+        "numshades",
+        "palette",
+        "paletteGetClosestColor__header_3c04f458eaf6",
+        "paletteloaded",
+        "palookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "paletteloaded",
+          "binding": "__cxx_global_cell_2ecdb66f06cb14d421e278fc",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "numshades",
+        "palette",
+        "paletteloaded",
+        "palookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteSetColorTable",
+      "source_name": "paletteSetColorTable",
+      "kind": "FunctionDecl",
+      "line": 627,
+      "original_type": "void (int32_t, const uint8_t *const)",
+      "linkage": "external",
+      "source_references": [
+        "basepaltable",
+        "memcpy",
+        "xmalloc__header_0218f37c8068"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteFreeColorTable",
+      "source_name": "paletteFreeColorTable",
+      "kind": "FunctionDecl",
+      "line": 642,
+      "original_type": "void (const int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "basepaltable",
+        "memset",
+        "xfree__header_4e66c3713f53"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
       ],
       "unresolved_references": []
     },
@@ -407,7 +1232,6 @@
       "line": 659,
       "original_type": "void (char, uint8_t, uint8_t)",
       "linkage": "external",
-      "physical_source": "source/build/src/palette.cpp",
       "source_references": [
         "XXH3_64bits",
         "basepalreset",
@@ -429,57 +1253,41 @@
       "external_reference_imports": [],
       "external_storage_imports": [
         {
-          "name": "basepalreset",
-          "binding": "__cxx_global_cell_8c784fcd98ff8a6365ed10e5",
-          "abi": "source-global-cell/2",
-          "original_type": "unsigned char"
-        },
-        {
-          "name": "curbasepal",
-          "binding": "__cxx_global_cell_780811cb53e28b659b6616eb",
-          "abi": "source-global-cell/2",
-          "original_type": "unsigned char"
-        },
-        {
-          "name": "curbrightness",
-          "binding": "__cxx_global_cell_4e6755afec0ef38c6a67f61a",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        },
-        {
-          "name": "g_lastpalettesum",
-          "binding": "__cxx_global_cell_2e274c3f41eaa4a44d62a6ff",
-          "abi": "source-global-cell/2",
-          "original_type": "unsigned long"
-        },
-        {
-          "name": "gammabrightness",
-          "binding": "__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        },
-        {
-          "name": "palfadedelta",
-          "binding": "__cxx_global_cell_fba044f5949b228db52cb0a4",
-          "abi": "source-global-cell/2",
-          "original_type": "char"
-        },
-        {
-          "name": "palfadergb",
-          "binding": "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a",
-          "abi": "source-global-cell/2",
-          "original_type": "struct palette_t",
-          "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
-        },
-        {
-          "name": "basepaltable",
-          "abi": "source-pointer-array/1",
-          "stride": 8,
-          "extent": 256,
-          "element_declaration": "uint8_t *[]",
-          "original_type": "uint8_t *[256]",
+          "name": "britable",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            16,
+            256
+          ],
+          "original_type": "char[16][256]",
           "consumer_source": "source/build/src/palette.cpp"
-        },
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "XXH3_64bits",
+        "britable",
+        "videoSetGamma",
+        "videoUpdatePalette"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteGetColor",
+      "source_name": "paletteGetColor",
+      "kind": "FunctionDecl",
+      "line": 752,
+      "original_type": "palette_t (int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "britable",
+        "curbrightness",
+        "curpalette",
+        "gammabrightness"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
         {
           "name": "britable",
           "abi": "source-native-array/1",
@@ -490,56 +1298,1346 @@
           ],
           "original_type": "char[16][256]",
           "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "britable"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteSetFade",
+      "source_name": "paletteSetFade",
+      "kind": "FunctionDecl",
+      "line": 764,
+      "original_type": "void (uint8_t)",
+      "linkage": "internal",
+      "source_references": [
+        "curpalettefaded",
+        "paletteGetColor",
+        "palfadergb"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoFadePalette",
+      "source_name": "videoFadePalette",
+      "kind": "FunctionDecl",
+      "line": 782,
+      "original_type": "void (uint8_t, uint8_t, uint8_t, uint8_t)",
+      "linkage": "external",
+      "source_references": [
+        "XXH3_64bits",
+        "curpalettefaded",
+        "g_lastpalettesum",
+        "paletteSetFade",
+        "palfadedelta",
+        "palfadergb",
+        "videoUpdatePalette"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "XXH3_64bits",
+        "videoUpdatePalette"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_83ba9914e9a89c77",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f2c996e8",
+        "redeclaration_chain": [
+          "0x1a3f2c996e8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_930478ccd26b089def82a43f",
+        "owner_source": "source/build/src/palette.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_5bde7c800cc4148c",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f3bc4278",
+        "redeclaration_chain": [
+          "0x1a3f3bc4278"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "ceabb2edfdab5a508c5473aa5b5a6525b35c4e28155f1e512200157ae33cba6f",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        }
+      ],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_5bde7c800cc4148c",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "0b4ac5bb65f1a001ecfc6adbe40655837304669bb85384b269243c02c374d1ca",
+        "original_type": "const vec2_t[25]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_2863c7ff1d9a60bb",
+      "source_name": "g_keyAsciiTable",
+      "kind": "VarDecl",
+      "line": 188,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 5455,
+        "source_line": 188,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f3bc5ed0",
+        "redeclaration_chain": [
+          "0x1a3f3bc5ed0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_5d6aaf6439c6fad145249174",
+        "owner_source": "source/build/src/palette.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_d389bf6fa0ee8cc6",
+      "source_name": "g_keyAsciiTableShift",
+      "kind": "VarDecl",
+      "line": 196,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 6158,
+        "source_line": 196,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f3bc7d00",
+        "redeclaration_chain": [
+          "0x1a3f3bc7d00"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_67e0ef89947425200912d656",
+        "owner_source": "source/build/src/palette.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2long__header_global_04d14feeb8158ada",
+      "source_name": "pow2long",
+      "kind": "VarDecl",
+      "line": 895,
+      "original_type": "const const int32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26019,
+        "source_line": 895,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f3ca6958",
+        "redeclaration_chain": [
+          "0x1a3f3ca6958"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_380c34ba3bb90e0059e21b80",
+        "owner_source": "source/build/src/palette.cpp",
+        "original_type": "const const int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2ulong__header_global_8a392e4206d94a43",
+      "source_name": "pow2ulong",
+      "kind": "VarDecl",
+      "line": 907,
+      "original_type": "const const uint32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26350,
+        "source_line": 907,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f3ca7158",
+        "redeclaration_chain": [
+          "0x1a3f3ca7158"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_46230636f9210d8a0affa0e6",
+        "owner_source": "source/build/src/palette.cpp",
+        "original_type": "const const uint32_t[32]",
+        "scalar_array": {
+          "array": "Uint32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow264__header_global_0e607c4a9a7f99da",
+      "source_name": "pow264",
+      "kind": "VarDecl",
+      "line": 919,
+      "original_type": "const const int64_t[64]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26665,
+        "source_line": 919,
+        "translation_unit": "source/build/src/palette.cpp",
+        "clang_decl_id": "0x1a3f3ca7c58",
+        "redeclaration_chain": [
+          "0x1a3f3ca7c58"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_45789c4f4d51be3721a10b91",
+        "owner_source": "source/build/src/palette.cpp",
+        "original_type": "const const int64_t[64]",
+        "scalar_array": {
+          "array": "BigInt64Array",
+          "dims": [
+            64
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_alloc__header_349c3e01dff0",
+      "source_name": "xaligned_alloc",
+      "kind": "FunctionDecl",
+      "line": 1428,
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 38920,
+        "source_line": 1428,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS16__header_06653fd2d9bb",
+      "source_name": "B_PASS16",
+      "kind": "FunctionDecl",
+      "line": 988,
+      "original_type": "take_sign_t<int16_t, short> (short)",
+      "clang_template_mangled_name": "_ZL8B_PASS16IsENSt11conditionalIXsr9is_signedIT_EE5valueEstE4typeES1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 25843,
+        "source_line": 988,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xcalloc__header_f81d3cc9a249",
+      "source_name": "xcalloc",
+      "kind": "FunctionDecl",
+      "line": 1400,
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37938,
+        "source_line": 1400,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xmalloc__header_0218f37c8068",
+      "source_name": "xmalloc",
+      "kind": "FunctionDecl",
+      "line": 1392,
+      "original_type": "void *(const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37660,
+        "source_line": 1392,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xfree__header_4e66c3713f53",
+      "source_name": "xfree",
+      "kind": "FunctionDecl",
+      "line": 1449,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39659,
+        "source_line": 1449,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteGetClosestColor__header_3c04f458eaf6",
+      "source_name": "paletteGetClosestColor",
+      "kind": "FunctionDecl",
+      "line": 25,
+      "original_type": "int32_t (int32_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/colmatch.h",
+        "source_offset": 1022,
+        "source_line": 25,
+        "header_sha256": "b07937e19df5152c01af2c5dcfb7885c759baa09e3574d53d2a76178e9371670"
+      },
+      "physical_source": "source/build/include/colmatch.h",
+      "source_references": [
+        "paletteGetClosestColorUpToIndex__header_160f3cd5c17c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_set__header_174f60c1e3ab",
+      "source_name": "bitmap_set",
+      "kind": "FunctionDecl",
+      "line": 1177,
+      "original_type": "void (unsigned char *const, const int)",
+      "clang_template_mangled_name": "_ZL10bitmap_setIhEvPT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32536,
+        "source_line": 1177,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char__header_global_83ba9914e9a89c77"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_test__header_93c95c6d1cf8",
+      "source_name": "bitmap_test",
+      "kind": "FunctionDecl",
+      "line": 1198,
+      "original_type": "bool (const unsigned char *const, const int)",
+      "clang_template_mangled_name": "_ZL11bitmap_testIhEbPKT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33127,
+        "source_line": 1198,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char__header_global_83ba9914e9a89c77"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineDestroyAllocator__header_52f1d3bd8eaa",
+      "source_name": "engineDestroyAllocator",
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37066,
+        "source_line": 1367,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_free__header_5e5407cd5249",
+      "source_name": "xaligned_free",
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39756,
+        "source_line": 1450,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "divscale16__header_571d2cb68101",
+      "source_name": "divscale16",
+      "kind": "FunctionDecl",
+      "line": 171,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "macro_header_definition": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 5838,
+        "source_line": 171,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+        "expansion_token": "EDUKE32_GENERATE_PRAGMAS",
+        "clang_spelling_location": {
+          "offset": 636,
+          "file": "<scratch space>",
+          "line": 37,
+          "col": 1,
+          "tokLen": 10
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "ade35d1154590d12aa4db222ba5a6fd5318b72338503a4be7ba346a9ae5afd32"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "divscale__header_e39f5df9445e"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mulscale16__header_4949d534b340",
+      "source_name": "mulscale16",
+      "kind": "FunctionDecl",
+      "line": 228,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "macro_header_definition": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 8063,
+        "source_line": 228,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+        "expansion_token": "EDUKE32_GENERATE_PRAGMAS",
+        "clang_spelling_location": {
+          "offset": 1383,
+          "file": "<scratch space>",
+          "line": 99,
+          "col": 1,
+          "tokLen": 10
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "5768914ff298188ebab3bb4e1e9b2966503224786e8f201cbc2ef5eafc6024d5"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clamp__header_7fdbead6febc",
+      "source_name": "clamp",
+      "kind": "FunctionDecl",
+      "line": 1093,
+      "original_type": "char (char, int, int)",
+      "clang_template_mangled_name": "_ZL5clampIciiET_S0_T0_T1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 29810,
+        "source_line": 1093,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "paletteGetClosestColorUpToIndex__header_160f3cd5c17c",
+      "source_name": "paletteGetClosestColorUpToIndex",
+      "kind": "FunctionDecl",
+      "line": 16,
+      "original_type": "int32_t (int32_t, int32_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/colmatch.h",
+        "source_offset": 627,
+        "source_line": 16,
+        "header_sha256": "b07937e19df5152c01af2c5dcfb7885c759baa09e3574d53d2a76178e9371670"
+      },
+      "physical_source": "source/build/include/colmatch.h",
+      "source_references": [
+        "paletteGetClosestColorWithBlacklist"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "paletteGetClosestColorWithBlacklist"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "divscale__header_e39f5df9445e",
+      "source_name": "divscale",
+      "kind": "FunctionDecl",
+      "line": 164,
+      "original_type": "int32_t (int32_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 5472,
+        "source_line": 164,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "tabledivide64__header_1d23ded2fe07"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tabledivide64__header_1d23ded2fe07",
+      "source_name": "tabledivide64",
+      "kind": "FunctionDecl",
+      "line": 111,
+      "original_type": "int64_t (const int64_t, const int64_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 3523,
+        "source_line": 111,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "divtable64",
+        "lastd_s64",
+        "libdivide_s64_do",
+        "libdivide_s64_gen"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s64",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
         },
         {
-          "name": "curpalette",
+          "name": "divtable64",
           "abi": "source-byte-record-array/1",
-          "stride": 4,
+          "stride": 9,
           "dimensions": [
-            256
+            16384
           ],
-          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
-          "original_type": "palette_t[256]",
-          "consumer_source": "source/build/src/palette.cpp"
-        },
-        {
-          "name": "curpalettefaded",
-          "abi": "source-byte-record-array/1",
-          "stride": 4,
-          "dimensions": [
-            256
-          ],
-          "schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
-          "original_type": "palette_t[256]",
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
           "consumer_source": "source/build/src/palette.cpp"
         }
       ],
       "status": "source-first",
       "external_imports": [
-        "XXH3_64bits",
-        "basepalreset",
-        "basepaltable",
-        "britable",
-        "curbasepal",
-        "curbrightness",
-        "curpalette",
-        "curpalettefaded",
-        "g_lastpalettesum",
-        "gammabrightness",
-        "palfadedelta",
-        "palfadergb",
-        "videoSetGamma",
-        "videoUpdatePalette"
+        "divtable64",
+        "lastd_s64",
+        "libdivide_s64_do",
+        "libdivide_s64_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "palettePostLoadTables",
+      "source_name": "palettePostLoadTables",
+      "kind": "FunctionDecl",
+      "line": 289,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "PaletteIndexFullbright",
+        "bitmap_set__header_174f60c1e3ab",
+        "bitmap_test__header_93c95c6d1cf8",
+        "blackcol",
+        "blendtable",
+        "editorcolors",
+        "editorcolorsdef",
+        "fixtransluscence",
+        "frealmaxshade",
+        "globalpal",
+        "globalpalwritten",
+        "memcmp",
+        "numshades",
+        "palette",
+        "paletteGetClosestColorWithBlacklist",
+        "paletteGetClosestColor__header_3c04f458eaf6",
+        "palookup",
+        "realmaxshade",
+        "redcol",
+        "setpalookupaddress",
+        "vgapal16",
+        "whitecol"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "blackcol",
+          "binding": "__cxx_global_cell_e493776e01f353d2a6806578",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "frealmaxshade",
+          "binding": "__cxx_global_cell_cdfec18967deabe5b3ba3b50",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "globalpal",
+          "binding": "__cxx_global_cell_d3e2cd8ae72fbf8d494238da",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "globalpalwritten",
+          "binding": "__cxx_global_cell_094ba97ebf4fa8da86d8ce6f",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "numshades",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "realmaxshade",
+          "binding": "__cxx_global_cell_bbb41de444ddeca3a5d3580e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "redcol",
+          "binding": "__cxx_global_cell_3cf6aa8792595191f9ca195d",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "whitecol",
+          "binding": "__cxx_global_cell_741c460e893f5c54c47c5ab5",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        },
+        {
+          "name": "palookup",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 2,
+          "forward_goto": 2,
+          "nested_lexical_jumps": 2,
+          "shadowed_locals_renamed": 4,
+          "locals_checked": 10,
+          "exit_blocks": 2,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [
+        "PaletteIndexFullbright",
+        "blackcol",
+        "blendtable",
+        "editorcolors",
+        "editorcolorsdef",
+        "fixtransluscence",
+        "frealmaxshade",
+        "globalpal",
+        "globalpalwritten",
+        "memcmp",
+        "numshades",
+        "palette",
+        "paletteGetClosestColorWithBlacklist",
+        "palookup",
+        "realmaxshade",
+        "redcol",
+        "setpalookupaddress",
+        "vgapal16",
+        "whitecol"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "setup_blend",
+      "source_name": "setup_blend",
+      "kind": "FunctionDecl",
+      "line": 113,
+      "original_type": "void (int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "blendtable",
+        "fixtransluscence",
+        "globalblend",
+        "settransnormal",
+        "settransreverse"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "globalblend",
+          "binding": "__cxx_global_cell_9a5f899abe816221fc68b39b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "blendtable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "blendtable",
+        "fixtransluscence",
+        "globalblend",
+        "settransnormal",
+        "settransreverse"
       ],
       "unresolved_references": []
     }
   ],
-  "imports": [],
+  "imports": [
+    {
+      "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+      "from": "source/build/src/smmalloc_generic.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "Destroy__cxx_static_777d0ae31c789182",
+      "from": "source/build/src/smmalloc_generic.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+      "from": "source/build/src/smmalloc_generic.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "XXH3_64bits",
+      "from": "browser-abi/xxhash_source",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "__cxx_record_vec2_2150e186aab2ebda",
+      "from": "source/build/src/clip.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "header_record_proof": {
+        "source_header": "source/build/include/vec.h",
+        "source_offset": 116,
+        "enclosing_record": "vec2<int>",
+        "type": "vec2<int>",
+        "semantic_sha256": "ceabb2edfdab5a508c5473aa5b5a6525b35c4e28155f1e512200157ae33cba6f",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "leaf_prototype": {
+          "format": "source-leaf-record-prototype/1",
+          "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+          "method_bodies": {
+            "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+          }
+        }
+      }
+    },
+    {
+      "name": "blackcol",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_e493776e01f353d2a6806578",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned char"
+    },
+    {
+      "name": "blendtable",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "abi": "source-pointer-array/1",
+      "stride": 8,
+      "extent": 256,
+      "element_declaration": "char *[]",
+      "original_type": "char *[256]",
+      "consumer_source": "source/build/src/palette.cpp"
+    },
+    {
+      "name": "britable",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "abi": "source-native-array/1",
+      "array": "Uint8Array",
+      "dimensions": [
+        16,
+        256
+      ],
+      "original_type": "char[16][256]",
+      "consumer_source": "source/build/src/palette.cpp"
+    },
+    {
+      "name": "current_verbosity_cutoff",
+      "from": "source/build/src/loguru.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "divtable64",
+      "from": "source/build/src/pragmas.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "abi": "source-byte-record-array/1",
+      "stride": 9,
+      "dimensions": [
+        16384
+      ],
+      "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+      "original_type": "libdivide::libdivide_s64_t[16384]",
+      "consumer_source": "source/build/src/palette.cpp"
+    },
+    {
+      "name": "frameplace",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+      "abi": "source-global-cell/2",
+      "original_type": "long"
+    },
+    {
+      "name": "g_sm_heap",
+      "from": "source/build/src/compat.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+      "abi": "source-global-cell/2",
+      "original_type": "void *"
+    },
+    {
+      "name": "handle_memerr",
+      "from": "source/build/src/compat.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "initprintf",
+      "from": "source/build/src/baselayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "kclose",
+      "from": "source/build/src/vfs.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "kfilelength",
+      "from": "source/build/src/vfs.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "kopen4load",
+      "from": "source/build/src/vfs.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "kread",
+      "from": "source/build/src/vfs.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "lastd_s64",
+      "from": "source/build/src/pragmas.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+      "abi": "source-global-cell/2",
+      "original_type": "long"
+    },
+    {
+      "name": "libdivide_s64_do",
+      "from": "browser-abi/libdivide_source",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "libdivide_s64_gen",
+      "from": "browser-abi/libdivide_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "loguru_log",
+      "from": "browser-abi/loguru_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "memcmp",
+      "from": "browser-abi/libc_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "memcpy",
+      "from": "browser-abi/libc_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "memset",
+      "from": "browser-abi/libc_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "numalphatabs",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_98d4df84d94f4e1b0e9e0c4b",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned char"
+    },
+    {
+      "name": "numshades",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+      "abi": "source-global-cell/2",
+      "original_type": "short"
+    },
+    {
+      "name": "offscreenrendering",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "palette",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "paletteGetClosestColorWithBlacklist",
+      "from": "source/build/src/colmatch.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "paletteInitClosestColorGrid",
+      "from": "source/build/src/colmatch.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "paletteInitClosestColorMap",
+      "from": "source/build/src/colmatch.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "paletteInitClosestColorScale",
+      "from": "source/build/src/colmatch.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "paletteloaded",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_2ecdb66f06cb14d421e278fc",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned char"
+    },
+    {
+      "name": "palookup",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "abi": "source-pointer-array/1",
+      "stride": 8,
+      "extent": 256,
+      "element_declaration": "char *[]",
+      "original_type": "char *[256]",
+      "consumer_source": "source/build/src/palette.cpp"
+    },
+    {
+      "name": "videoBeginDrawing",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "videoEndDrawing",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "videoSetGamma",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "videoUpdatePalette",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "wm_msgbox",
+      "from": "source/build/src/sdlayer.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    },
+    {
+      "name": "xdim",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "ydim",
+      "from": "source/build/src/engine.cpp",
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    }
+  ],
   "llvm_fallback_used": false,
   "control_flow": {
     "structured_functions": 0,
-    "recognized_goto_functions": 0,
-    "recognized_goto_edges": 0
+    "recognized_goto_functions": 1,
+    "recognized_goto_edges": 2
   },
   "toolchain": {
     "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
@@ -559,8 +2657,12 @@
     "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
     "abi_verified": true
   },
-  "initial_declaration_selection": "exact",
+  "initial_declaration_selection": "clang-substring",
   "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "0a6e9a6b60fac1d93ff771c94047a043262c3c57f5a986532a03cc4b13d1dfe9",
+    "semantic_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058"
+  },
   "c_allocator_declarations": {
     "queried": [],
     "proven": [],
@@ -576,17 +2678,32 @@
     "queried": false,
     "status": "not-required"
   },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "a20b21be632d64cb3143e223ddffaf7e58609f99cb30ca3137c5560edb95d321",
+  "compiler_runtime_inputs_unchanged": true,
   "standard_heap_contract": {
-    "contract_sha256": "23dccd6e1d870b82edd82f5b5c5ed06b10957df9a519fce1a6199081c4e0fc5b",
-    "semantic_fingerprint": "ddc36a2ab14491643b2f8a86b492280a01a9b95639dffe264f9dacd4464fa92e",
+    "contract_sha256": "85e7bb97419f80987e3e8118eccd113561bd6e20041836b976bcd7c17bd6b757",
+    "semantic_fingerprint": "b801d9e2b82229629ddaa6e5276a35396458b2a6526ecc0cc11599eefaf93058",
     "selected_units": 111,
     "original_global_replacements_absent": true,
     "original_c_allocators_absent": true
   },
   "record_layout_extraction": {
-    "explicitly_required": false,
+    "explicitly_required": true,
     "records": 4168,
-    "sha256": "d76edbaeaf8b29f1fbb832232243ac294b9fe808d08822c066cfb5a795c5df24"
+    "sha256": "577fbd6741225e00703c34611a91de9717163fad9277e2cd58563832e9822a5d",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts-complete",
+        "returncode": 0,
+        "stdout_sha256": "06f11733baef914cb166330c53e526ecc7fa9e3a9dffcdd4775bdcd5fa7ce558",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
   },
   "module_fragment": {
     "import_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules",
@@ -595,6 +2712,10 @@
   "full_type_closure": {
     "attempted": false,
     "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
   },
   "ast_cache_inputs": {
     "format": "source-ast-clang-dependencies/1",
@@ -608,80 +2729,31 @@
       "format": "source-ast-stream/1",
       "backend": "yajl2_c",
       "retained_source_ranges": false,
-      "roots": 10,
-      "objects": 639,
-      "ranges_omitted": 208,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 178,
-      "include_metadata_reuses": 33,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 32681,
-      "cache_storage": "json",
-      "cache_entry_bytes": 290045,
-      "cache_hit": false,
-      "json_bytes": 290045,
+      "roots": 1,
+      "objects": 750321,
+      "ranges_omitted": 169441,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1767,
+      "semantic_barrier_ranges_retained": 251,
+      "instance_method_ranges_retained": 7880,
+      "type_metadata_reuses": 138144,
+      "include_metadata_reuses": 151000,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 28474947,
+      "cache_hit": true,
+      "json_bytes": 316969361,
       "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
+      "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 431248686,
+      "cache_retained_bytes": 97760479,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 4,
-      "objects": 20,
-      "ranges_omitted": 6,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 6,
-      "include_metadata_reuses": 1,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 910,
-      "cache_storage": "json",
-      "cache_entry_bytes": 3640,
-      "cache_hit": false,
-      "json_bytes": 3640,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 431252326,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
-    },
-    {
-      "format": "source-ast-stream/1",
-      "backend": "yajl2_c",
-      "retained_source_ranges": false,
-      "roots": 2,
-      "objects": 236,
-      "ranges_omitted": 43,
-      "allocator_body_ranges_retained": 0,
-      "macro_declaration_ranges_retained": 0,
-      "semantic_barrier_ranges_retained": 0,
-      "type_metadata_reuses": 46,
-      "include_metadata_reuses": 43,
-      "capture_storage": "streamed-gzip",
-      "capture_stored_bytes": 5181,
-      "cache_storage": "json",
-      "cache_entry_bytes": 45456,
-      "cache_hit": false,
-      "json_bytes": 45456,
-      "cache_policy_revision": "source-ast-disk-cache/2",
-      "cache_budget_bytes": 536870912,
-      "cache_retained": true,
-      "cache_retained_bytes": 431297782,
-      "cache_evicted_entries": 0,
-      "cache_evicted_bytes": 0,
-      "cache_retention_reason": "retained"
+      "cache_retention_reason": "cache-hit"
     }
+  ],
+  "header_inline_filter": [
+    "paletteLoadFromDisk",
+    "videoSetPalette"
   ],
   "storage_exports": [
     {
@@ -697,6 +2769,12 @@
       "original_type": "unsigned char"
     },
     {
+      "name": "globalblend",
+      "binding": "__cxx_global_cell_9a5f899abe816221fc68b39b",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
       "name": "g_lastpalettesum",
       "binding": "__cxx_global_cell_2e274c3f41eaa4a44d62a6ff",
       "abi": "source-global-cell/2",
@@ -707,13 +2785,29 @@
       "binding": "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a",
       "abi": "source-global-cell/2",
       "original_type": "struct palette_t",
-      "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+      "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+      "byte_record_native_layout": {
+        "abi": "source-record-field-storage/1",
+        "sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+      }
     },
     {
       "name": "palfadedelta",
       "binding": "__cxx_global_cell_fba044f5949b228db52cb0a4",
       "abi": "source-global-cell/2",
       "original_type": "char"
+    },
+    {
+      "name": "realmaxshade",
+      "binding": "__cxx_global_cell_bbb41de444ddeca3a5d3580e",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "frealmaxshade",
+      "binding": "__cxx_global_cell_cdfec18967deabe5b3ba3b50",
+      "abi": "source-global-cell/2",
+      "original_type": "float"
     },
     {
       "name": "curbrightness",
@@ -728,80 +2822,124 @@
       "original_type": "int"
     }
   ],
-  "private_storage_exports": [],
-  "module_fragments": [
+  "private_storage_exports": [
     {
-      "module": "source/build/src/_source_legacy_palette_cpp_8bee4cb3c31d.mjs",
-      "sha256": "8bee4cb3c31da2a643616338845be6354e3d0a0e722dbdd048eed389ba0f57c1",
-      "original_source": "source/build/src/palette.cpp",
-      "exports": [
-        "basepalreset",
-        "clamp__header_7fdbead6febc",
-        "curbasepal",
-        "curbrightness",
-        "curpalettefaded",
-        "g_lastpalettesum",
-        "gammabrightness",
-        "palfadedelta",
-        "palfadergb"
-      ],
-      "reexports": [
-        "basepalreset",
-        "clamp__header_7fdbead6febc",
-        "curbasepal",
-        "curbrightness",
-        "curpalettefaded",
-        "g_lastpalettesum",
-        "gammabrightness",
-        "palfadedelta",
-        "palfadergb",
-        "__cxx_global_cell_8c784fcd98ff8a6365ed10e5",
-        "__cxx_global_cell_780811cb53e28b659b6616eb",
-        "__cxx_global_cell_4e6755afec0ef38c6a67f61a",
-        "__cxx_global_cell_2e274c3f41eaa4a44d62a6ff",
-        "__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2",
-        "__cxx_global_cell_fba044f5949b228db52cb0a4",
-        "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a"
-      ],
-      "imports": [],
-      "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "5e8248836ac62cd3712008b2fed8c28bef4168eab7c309195548bde3abba22a5"
+      "name": "pow2char__header_global_83ba9914e9a89c77",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_930478ccd26b089def82a43f",
+      "owner_source": "source/build/src/palette.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
     },
     {
-      "module": "source/build/src/_source_legacy_palette_cpp_c3b40e10a5b8.mjs",
-      "sha256": "c3b40e10a5b863fd38b01fbc66b9078e27cb9ea6bf6a17e82417a2b0990ab9bf",
+      "name": "g_keyAsciiTable__header_global_2863c7ff1d9a60bb",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_5d6aaf6439c6fad145249174",
+      "owner_source": "source/build/src/palette.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_d389bf6fa0ee8cc6",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_67e0ef89947425200912d656",
+      "owner_source": "source/build/src/palette.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "pow2long__header_global_04d14feeb8158ada",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_380c34ba3bb90e0059e21b80",
+      "owner_source": "source/build/src/palette.cpp",
+      "original_type": "const const int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow2ulong__header_global_8a392e4206d94a43",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_46230636f9210d8a0affa0e6",
+      "owner_source": "source/build/src/palette.cpp",
+      "original_type": "const const uint32_t[32]",
+      "scalar_array": {
+        "array": "Uint32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow264__header_global_0e607c4a9a7f99da",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_45789c4f4d51be3721a10b91",
+      "owner_source": "source/build/src/palette.cpp",
+      "original_type": "const const int64_t[64]",
+      "scalar_array": {
+        "array": "BigInt64Array",
+        "dims": [
+          64
+        ]
+      }
+    }
+  ],
+  "unconsumed_legacy_export_omissions": [],
+  "unreferenced_type_wrapper_blockers": [],
+  "recompiled_owner_sha256": "625e9fedf5feb8461f0542cb3ac496f0b1202030bc6dd0db4849ca629440a9c7",
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration.",
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_palette_cpp_7d324bff8c26.mjs",
+      "sha256": "7d324bff8c26cf3b7d727f5300870203eea16db146218f34da0de1a41c40f50e",
       "original_source": "source/build/src/palette.cpp",
       "exports": [
-        "basepaltable"
+        "palettePostLoadTables",
+        "setup_blend"
       ],
       "reexports": [
-        "basepaltable"
+        "palettePostLoadTables",
+        "setup_blend"
       ],
       "imports": [
         {
-          "name": "palette",
-          "from": "source/build/src/engine.cpp",
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
           "native_pointer_abi": "source-lp64-addresses/2"
-        }
-      ],
-      "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "8bad149b489848eec2d7297ef7cfebf546d4dd8c24a55381d2d9c3f73201f8a4"
-    },
-    {
-      "module": "source/build/src/_source_legacy_palette_cpp_5e9a604d6d50.mjs",
-      "sha256": "5e9a604d6d50241436543f18ad1cba8b6769bd962820ba39c7453431b6fce047",
-      "original_source": "source/build/src/palette.cpp",
-      "exports": [
-        "paletteGetColor",
-        "paletteSetFade",
-        "videoSetPalette"
-      ],
-      "reexports": [
-        "paletteGetColor",
-        "paletteSetFade",
-        "videoSetPalette"
-      ],
-      "imports": [
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PaletteIndexFullbright",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
         {
           "name": "XXH3_64bits",
           "from": "browser-abi/xxhash_source",
@@ -827,6 +2965,25 @@
           "consumer_source": "source/build/src/palette.cpp"
         },
         {
+          "name": "blackcol",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e493776e01f353d2a6806578",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "blendtable",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        },
+        {
           "name": "britable",
           "from": "source/build/src/engine.cpp",
           "native_pointer_abi": "source-lp64-addresses/2",
@@ -882,6 +3039,55 @@
           "consumer_source": "source/build/src/palette.cpp"
         },
         {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "consumer_source": "source/build/src/palette.cpp"
+        },
+        {
+          "name": "editorcolors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "editorcolorsdef",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fixtransluscence",
+          "from": "source/build/src/a-c.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "frameplace",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0c9c3446e396d6353338d7e",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "frealmaxshade",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cdfec18967deabe5b3ba3b50",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
           "name": "g_lastpalettesum",
           "from": "source/build/src/palette.cpp",
           "native_pointer_abi": "source-lp64-addresses/2",
@@ -890,12 +3096,171 @@
           "original_type": "unsigned long"
         },
         {
+          "name": "g_noFloorPal",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
           "name": "gammabrightness",
           "from": "source/build/src/palette.cpp",
           "native_pointer_abi": "source-lp64-addresses/2",
           "binding": "__cxx_global_cell_a8e62b4a4ba82cd2a9215fe2",
           "abi": "source-global-cell/2",
           "original_type": "int"
+        },
+        {
+          "name": "globalblend",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9a5f899abe816221fc68b39b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "globalpal",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d3e2cd8ae72fbf8d494238da",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "globalpalwritten",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_094ba97ebf4fa8da86d8ce6f",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initprintf",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kfilelength",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4load",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numalphatabs",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_98d4df84d94f4e1b0e9e0c4b",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "numshades",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_14c13a42eb4ff2885eee0cc2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "offscreenrendering",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "palette",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteGetClosestColorWithBlacklist",
+          "from": "source/build/src/colmatch.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteInitClosestColorGrid",
+          "from": "source/build/src/colmatch.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteInitClosestColorMap",
+          "from": "source/build/src/colmatch.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteInitClosestColorScale",
+          "from": "source/build/src/colmatch.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteloaded",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2ecdb66f06cb14d421e278fc",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
         },
         {
           "name": "palfadedelta",
@@ -912,7 +3277,109 @@
           "binding": "__cxx_global_cell_226fe25bac1ac7d5f7db4e7a",
           "abi": "source-global-cell/2",
           "original_type": "struct palette_t",
-          "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+          "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 3,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1a3f3d26058",
+                "fields": [
+                  {
+                    "id": "0x1a3f3c66378",
+                    "name": "b"
+                  }
+                ],
+                "result_type": "char"
+              },
+              {
+                "clang_reference_id": "0x1a3f3d26058",
+                "fields": [
+                  {
+                    "id": "0x1a3f3c66318",
+                    "name": "g"
+                  }
+                ],
+                "result_type": "char"
+              },
+              {
+                "clang_reference_id": "0x1a3f3d26058",
+                "fields": [
+                  {
+                    "id": "0x1a3f3c662b8",
+                    "name": "r"
+                  }
+                ],
+                "result_type": "char"
+              }
+            ]
+          }
+        },
+        {
+          "name": "palookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "char *[]",
+          "original_type": "char *[256]",
+          "consumer_source": "source/build/src/palette.cpp"
+        },
+        {
+          "name": "pow2char__header_global_83ba9914e9a89c77",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "realmaxshade",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bbb41de444ddeca3a5d3580e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "redcol",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3cf6aa8792595191f9ca195d",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "setpalookupaddress",
+          "from": "source/build/src/a-c.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "settransnormal",
+          "from": "source/build/src/a-c.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "settransreverse",
+          "from": "source/build/src/a-c.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vgapal16",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoBeginDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoEndDrawing",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
         },
         {
           "name": "videoSetGamma",
@@ -923,10 +3390,39 @@
           "name": "videoUpdatePalette",
           "from": "source/build/src/sdlayer.cpp",
           "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "whitecol",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_741c460e893f5c54c47c5ab5",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "wm_msgbox",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ydim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
         }
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "72aede26e95cc1375b27303356b04c870f27b8af2f43bf11298fcaa4422a60bc"
+      "source_manifest_sha256": "0fa22f8c7379be024eb157af0479dd01b62846cafef498d3aad4876bb96ca90e"
     }
   ]
 }

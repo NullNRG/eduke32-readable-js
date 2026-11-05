@@ -1,0 +1,64 @@
+{
+  "source": "source/build/src/engine.cpp",
+  "requested": [
+    "calc_sector_reachability",
+    "engineFinishLoadBoard"
+  ],
+  "requested_resolved": {
+    "calc_sector_reachability": false,
+    "engineFinishLoadBoard": false
+  },
+  "requested_export_bindings": {
+    "calc_sector_reachability": [],
+    "engineFinishLoadBoard": []
+  },
+  "requested_still_unlinked": [
+    "calc_sector_reachability",
+    "engineFinishLoadBoard"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-10558faec07df555/source/build/src/engine.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "calc_sector_reachability",
+      "reason": "unlinked identifiers: bfirst_search_init, bfirst_search_try",
+      "dependencies": [
+        "bfirst_search_init",
+        "bfirst_search_try"
+      ]
+    },
+    {
+      "name": "engineFinishLoadBoard",
+      "reason": "unlinked identifiers: calc_sector_reachability",
+      "dependencies": [
+        "calc_sector_reachability"
+      ]
+    },
+    {
+      "name": "updatesector",
+      "reason": "unlinked identifiers: updatesectorneighbor",
+      "dependencies": [
+        "updatesectorneighbor"
+      ]
+    },
+    {
+      "name": "updatesectorneighbor",
+      "reason": "unlinked identifiers: bfirst_search_init, bfirst_search_try",
+      "dependencies": [
+        "bfirst_search_init",
+        "bfirst_search_try"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 1,
+  "original_gameplay_verified": false
+}

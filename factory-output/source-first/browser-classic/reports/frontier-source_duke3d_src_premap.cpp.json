@@ -1,0 +1,363 @@
+{
+  "source": "source/duke3d/src/premap.cpp",
+  "requested": [
+    "G_UpdateScreenArea"
+  ],
+  "requested_resolved": {
+    "G_UpdateScreenArea": false
+  },
+  "requested_still_unlinked": [
+    "G_UpdateScreenArea"
+  ],
+  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_duke3d_src_premap.cpp\\5ab4d4bea6c9\\source\\duke3d\\src\\premap.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "fragbarheight",
+      "reason": "unlinked identifiers: FRAGBAR, connectpoint2, g_gametypeFlags, g_netServer, tilesiz",
+      "dependencies": [
+        "FRAGBAR",
+        "connectpoint2",
+        "g_gametypeFlags",
+        "g_netServer",
+        "tilesiz"
+      ]
+    },
+    {
+      "name": "_mm_add_epi16",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(8 * sizeof(unsigned short)))) unsigned short",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_add_epi32",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(4 * sizeof(unsigned int)))) unsigned int",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_add_epi64",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(2 * sizeof(unsigned long long)))) unsigned long long",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_adds_epu16",
+      "reason": "builtin __builtin_elementwise_add_sat",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_mulhi_epi16",
+      "reason": "builtin __builtin_ia32_pmulhw128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_mulhi_epu16",
+      "reason": "builtin __builtin_ia32_pmulhuw128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_mul_epu32",
+      "reason": "builtin __builtin_ia32_pmuludq128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_sub_epi16",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(8 * sizeof(unsigned short)))) unsigned short",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_sub_epi32",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(4 * sizeof(unsigned int)))) unsigned int",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_sub_epi64",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: __attribute__((__vector_size__(2 * sizeof(unsigned long long)))) unsigned long long",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_subs_epu16",
+      "reason": "builtin __builtin_elementwise_sub_sat",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_srai_epi16",
+      "reason": "builtin __builtin_ia32_psrawi128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_srai_epi32",
+      "reason": "builtin __builtin_ia32_psradi128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_srli_epi16",
+      "reason": "builtin __builtin_ia32_psrlwi128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_srli_epi32",
+      "reason": "builtin __builtin_ia32_psrldi128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_srli_epi64",
+      "reason": "builtin __builtin_ia32_psrlqi128",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_set_epi64x",
+      "reason": "unary __extension__",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_set_epi32",
+      "reason": "unary __extension__",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_set_epi16",
+      "reason": "unary __extension__",
+      "dependencies": []
+    },
+    {
+      "name": "_mm_set1_epi64x",
+      "reason": "unlinked identifiers: _mm_set_epi64x",
+      "dependencies": [
+        "_mm_set_epi64x"
+      ]
+    },
+    {
+      "name": "_mm_set1_epi32",
+      "reason": "unlinked identifiers: _mm_set_epi32",
+      "dependencies": [
+        "_mm_set_epi32"
+      ]
+    },
+    {
+      "name": "_mm_set1_epi16",
+      "reason": "unlinked identifiers: _mm_set_epi16",
+      "dependencies": [
+        "_mm_set_epi16"
+      ]
+    },
+    {
+      "name": "__gthread_cond_broadcast",
+      "reason": "unlinked identifiers: pthread_cond_broadcast",
+      "dependencies": [
+        "pthread_cond_broadcast"
+      ]
+    },
+    {
+      "name": "__gthread_cond_wait",
+      "reason": "unlinked identifiers: pthread_cond_wait",
+      "dependencies": [
+        "pthread_cond_wait"
+      ]
+    },
+    {
+      "name": "__gthread_cond_wait_recursive",
+      "reason": "unlinked identifiers: __gthread_cond_wait",
+      "dependencies": [
+        "__gthread_cond_wait"
+      ]
+    },
+    {
+      "name": "__is_single_threaded",
+      "reason": "unlinked identifiers: __libc_single_threaded",
+      "dependencies": [
+        "__libc_single_threaded"
+      ]
+    },
+    {
+      "name": "__exchange_and_add_dispatch",
+      "reason": "unlinked identifiers: __is_single_threaded",
+      "dependencies": [
+        "__is_single_threaded"
+      ]
+    },
+    {
+      "name": "__atomic_add_dispatch",
+      "reason": "unlinked identifiers: __is_single_threaded",
+      "dependencies": [
+        "__is_single_threaded"
+      ]
+    },
+    {
+      "name": "__throw_concurrence_lock_error",
+      "reason": "builtin __builtin_abort",
+      "dependencies": []
+    },
+    {
+      "name": "__throw_concurrence_unlock_error",
+      "reason": "builtin __builtin_abort",
+      "dependencies": []
+    },
+    {
+      "name": "__throw_concurrence_broadcast_error",
+      "reason": "builtin __builtin_abort",
+      "dependencies": []
+    },
+    {
+      "name": "__throw_concurrence_wait_error",
+      "reason": "builtin __builtin_abort",
+      "dependencies": []
+    },
+    {
+      "name": "__throw_bad_weak_ptr",
+      "reason": "builtin __builtin_abort",
+      "dependencies": []
+    },
+    {
+      "name": "libdivide_64_div_32_to_32",
+      "reason": "inline assembly",
+      "dependencies": []
+    },
+    {
+      "name": "libdivide_128_div_64_to_64",
+      "reason": "inline assembly",
+      "dependencies": []
+    },
+    {
+      "name": "libdivide_internal_u16_gen",
+      "reason": "unlinked identifiers: stderr",
+      "dependencies": [
+        "stderr"
+      ]
+    },
+    {
+      "name": "libdivide_internal_u32_gen",
+      "reason": "unlinked identifiers: libdivide_64_div_32_to_32, stderr",
+      "dependencies": [
+        "libdivide_64_div_32_to_32",
+        "stderr"
+      ]
+    },
+    {
+      "name": "libdivide_internal_u64_gen",
+      "reason": "unlinked identifiers: libdivide_128_div_64_to_64, stderr",
+      "dependencies": [
+        "libdivide_128_div_64_to_64",
+        "stderr"
+      ]
+    },
+    {
+      "name": "libdivide_internal_s16_gen",
+      "reason": "unlinked identifiers: stderr",
+      "dependencies": [
+        "stderr"
+      ]
+    },
+    {
+      "name": "libdivide_internal_s32_gen",
+      "reason": "unlinked identifiers: libdivide_64_div_32_to_32, stderr",
+      "dependencies": [
+        "libdivide_64_div_32_to_32",
+        "stderr"
+      ]
+    },
+    {
+      "name": "libdivide_internal_s64_gen",
+      "reason": "unlinked identifiers: libdivide_128_div_64_to_64, stderr",
+      "dependencies": [
+        "libdivide_128_div_64_to_64",
+        "stderr"
+      ]
+    },
+    {
+      "name": "libdivide_s64_signbits_vec128",
+      "reason": "builtin __builtin_ia32_pshufd",
+      "dependencies": []
+    },
+    {
+      "name": "libdivide_s64_shift_right_vec128",
+      "reason": "unlinked identifiers: _mm_set1_epi64x, _mm_srli_epi64, _mm_sub_epi64",
+      "dependencies": [
+        "_mm_set1_epi64x",
+        "_mm_srli_epi64",
+        "_mm_sub_epi64"
+      ]
+    },
+    {
+      "name": "libdivide_mullhi_u32_vec128",
+      "reason": "unlinked identifiers: _mm_mul_epu32, _mm_set_epi32, _mm_srli_epi64",
+      "dependencies": [
+        "_mm_mul_epu32",
+        "_mm_set_epi32",
+        "_mm_srli_epi64"
+      ]
+    },
+    {
+      "name": "libdivide_mullhi_s32_vec128",
+      "reason": "unlinked identifiers: _mm_srai_epi32, _mm_sub_epi32, libdivide_mullhi_u32_vec128",
+      "dependencies": [
+        "_mm_srai_epi32",
+        "_mm_sub_epi32",
+        "libdivide_mullhi_u32_vec128"
+      ]
+    },
+    {
+      "name": "libdivide_mullhi_u64_vec128",
+      "reason": "builtin __builtin_ia32_pshufd",
+      "dependencies": []
+    },
+    {
+      "name": "libdivide_mullhi_s64_vec128",
+      "reason": "unlinked identifiers: _mm_sub_epi64, libdivide_mullhi_u64_vec128, libdivide_s64_signbits_vec128",
+      "dependencies": [
+        "_mm_sub_epi64",
+        "libdivide_mullhi_u64_vec128",
+        "libdivide_s64_signbits_vec128"
+      ]
+    },
+    {
+      "name": "__clp2",
+      "reason": "unlinked identifiers: __digits",
+      "dependencies": [
+        "__digits"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue, VM_HaveEvent",
+      "dependencies": [
+        "VM_ExecuteEventWithValue",
+        "VM_HaveEvent"
+      ]
+    },
+    {
+      "name": "G_UpdateScreenArea",
+      "reason": "unlinked identifiers: CrosshairColors, G_GetCrosshairColor, G_SetCrosshairColor, VM_HaveEvent, VM_OnEventWithReturn, fragbarheight, g_player, pub, pus, renderFlushPerms, screenpeek, tilesiz",
+      "dependencies": [
+        "CrosshairColors",
+        "G_GetCrosshairColor",
+        "G_SetCrosshairColor",
+        "VM_HaveEvent",
+        "VM_OnEventWithReturn",
+        "fragbarheight",
+        "g_player",
+        "pub",
+        "pus",
+        "renderFlushPerms",
+        "screenpeek",
+        "tilesiz",
+        "videoSetViewableArea"
+      ]
+    },
+    {
+      "name": "sbartile",
+      "reason": "unlinked identifiers: BOTTOMSTATUSBAR, WIDESCREENSTATUSBAR, g_gameType, g_scriptVersion",
+      "dependencies": [
+        "BOTTOMSTATUSBAR",
+        "WIDESCREENSTATUSBAR",
+        "g_gameType",
+        "g_scriptVersion"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false
+}

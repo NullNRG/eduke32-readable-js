@@ -929,3 +929,6 @@ export function xfree(ptr) {
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { engineInitClipMaps } from "./_source_legacy_clip_cpp_06cfae3de65b.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { quickloadboard, __cxx_global_cell_135b27d87941a5cb2fdb33a1 } from "./_source_legacy_clip_cpp_78b4c0255927.mjs";

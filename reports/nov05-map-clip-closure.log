@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\work\recover_boot_reachable.py", line 138, in <module>
+    with component.component_lock():raise SystemExit(main())
+                                                     ~~~~^^
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\work\recover_boot_reachable.py", line 73, in main
+    with (stage/'compile.log').open('w') as log:subprocess.run(list(map(str,command)),cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
+                                                ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['C:\\Python314\\python.exe', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\tools\\source_ast_to_js.py', '--root', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\source-tree\\eduke32-master', '--source', 'source/build/src/clip.cpp', '--compile-commands', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\browser-classic\\compile_commands.json', '--out-dir', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_clip.cpp\\reachable-fa30562987bba4d1', '--dependency-closure', '--header-dependency-closure', '--enum-closure', '--require-record-layouts', '--dependency-query-limit', '256', '--project-symbols', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\browser-combined-symbol-owners.json', '--import-root', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules', '--ast-cache-dir', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\work\\ast\\f3f73c89e7558265637b0512990774fe2bdcc6ec733701b88b4869ed0334ea68\\shard-00']' returned non-zero exit status 1.
