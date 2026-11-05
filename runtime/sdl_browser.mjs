@@ -127,11 +127,18 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     if(!Number.isSafeInteger(ptr)||ptr<0)throw new TypeError('SDL string must be a C heap address or NUL-terminated bytes');
     return heap.readCString(ptr);
   };
-  const writeInt=(ptr,val)=>{if(ptr)heap.write(ptr,'i32',val|0);};
+  const writeInt=(ptr,val)=>{
+    if(!ptr)return;
+    if(ptr.__cReference===true){ptr.value=val|0;return;}
+    const bytes=sourceSizedBytes(ptr,4,heap);
+    new DataView(bytes.buffer,bytes.byteOffset,4).setInt32(0,val|0,true);
+  };
   const begin=flags=>{
     flags=flags>>>0;
     if(flags & ~supported)return setError('SDL subsystem unavailable in browser runtime: 0x'+(flags&~supported).toString(16));
-    initialized|=flags;if(flags&GAMECONTROLLER)initialized|=JOYSTICK;if(initialized&EVENTS)attach();return 0;
+    initialized|=flags;if(flags&GAMECONTROLLER)initialized|=JOYSTICK;
+    // SDL video and joystick initialization imply the event subsystem.
+    if(initialized&(VIDEO|JOYSTICK))initialized|=EVENTS;if(initialized&EVENTS)attach();return 0;
   };
   const monotonic=()=>{
     const now=clock();
@@ -370,6 +377,7 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
       if(originalFramePresenter && originalFramePresenter!==framePresenter)originalFramePresenter.destroy();
       originalFramePresenter=framePresenter?.backend==='webgl2'?framePresenter:null;displayAttempted=!!originalFramePresenter;
       for(const handle of rwHandles.keys())heap.free(handle);rwHandles.clear();
+      for(const [ptr,win] of windows){win.observer?.disconnect();heap.free(ptr);}
       windows.clear();previousControllers.clear();for(const d of audioDevices.values()){d.node.disconnect();heap.free(d.buffer);}audioDevices.clear();audioContext?.close?.();audioContext=null;initialized=0;},
     SDL_PumpEvents:pumpControllers, // DOM listeners plus live gamepad state deltas.
     SDL_PollEvent:ptr=>{
@@ -420,9 +428,10 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     SDL_CreateWindow:(titlePtr,x,y,w,h,flags)=>{
       if(!(initialized & VIDEO)){setError('SDL video subsystem is not initialized');return 0;}
       if(!Number.isInteger(w)||!Number.isInteger(h)||w<=0||h<=0){setError('Invalid SDL window dimensions');return 0;}
-      // Accept only OPENGL (0x2) and SHOWN (0x4). Do not claim to
-      // implement fullscreen, borderless, hidden, resizable or Vulkan.
-      const unsupported=(flags>>>0)&~(0x2|0x4);
+      // Browser window decorations belong to the host. BORDERLESS maps to
+      // the canvas border; RESIZABLE uses actual observed CSS dimensions.
+      // Exclusive fullscreen, hidden and Vulkan remain unsupported here.
+      const unsupported=(flags>>>0)&~(0x2|0x4|0x10|0x20);
       if(unsupported){setError('Unsupported SDL window flags 0x'+unsupported.toString(16));return 0;}
       if(flags&0x2){
         if(typeof canvas?.getContext!=='function'||!canvas.getContext('webgl2')){
@@ -430,14 +439,31 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
         }
       }
       if(windows.size){setError('Only one canvas-backed SDL window is supported');return 0;}
+      const Observer=canvas?.ownerDocument?.defaultView?.ResizeObserver;
+      if((flags&0x20) && (!canvas?.style || typeof Observer!=='function')){
+        setError('Resizable canvas requires DOM style and ResizeObserver');return 0;
+      }
       const ptr=heap.malloc(16),id=nextID++;
       const title=inputPtr(titlePtr);
       canvas.width=w;canvas.height=h;
       if(typeof canvas.setAttribute==='function')canvas.setAttribute('aria-label',title);
-      windows.set(ptr,{id,w,h,title,flags:flags>>>0});
+      const win={id,w,h,title,flags:flags>>>0,observer:null};windows.set(ptr,win);
+      if(flags&0x10)canvas.style.border='none';
+      if(flags&0x20){
+        Object.assign(canvas.style,{resize:'both',overflow:'hidden',width:w+'px',height:h+'px'});
+        win.observer=new Observer(entries=>{
+          const entry=entries.find(e=>e.target===canvas);if(!entry||!windows.has(ptr))return;
+          const w=Math.round(entry.contentRect.width),h=Math.round(entry.contentRect.height);
+          if(w<=0||h<=0||w>32768||h>32768||(win.w===w&&win.h===h))return;
+          if(windowSurface){destroySurface(windowSurface);windowSurface=0;}
+          win.w=w;win.h=h;canvas.width=w;canvas.height=h;
+          const event=makeEvent(0x200);event.bytes[12]=5;
+          event.view.setInt32(16,w,true);event.view.setInt32(20,h,true);enqueue(event.bytes);
+        });win.observer.observe(canvas);
+      }
       return ptr;
     },
-    SDL_DestroyWindow:ptr=>{getWindow(ptr);windows.delete(ptr);heap.free(ptr);},
+    SDL_DestroyWindow:ptr=>{getWindow(ptr).observer?.disconnect();windows.delete(ptr);heap.free(ptr);},
     SDL_GetWindowID:ptr=>getWindow(ptr).id,
     SDL_GetWindowFlags:ptr=>{
       const win=getWindow(ptr);
@@ -450,7 +476,9 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
       const win=getWindow(ptr);
       if(!Number.isInteger(w)||!Number.isInteger(h)||w<=0||h<=0)
         throw RangeError('Invalid SDL window dimensions');
+      if(win.w===w&&win.h===h)return;
       if(windowSurface){destroySurface(windowSurface);windowSurface=0;}win.w=w;win.h=h;canvas.width=w;canvas.height=h;
+      if(win.flags&0x20)Object.assign(canvas.style,{width:w+'px',height:h+'px'});
     },
     SDL_SetWindowTitle:(ptr,titlePtr)=>{
       const win=getWindow(ptr);win.title=inputPtr(titlePtr);
@@ -490,7 +518,7 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     SDL_GetRelativeMouseMode:()=>+(canvas?.ownerDocument?.pointerLockElement===canvas),
     SDL_GetCurrentVideoDriver:()=>initialized&VIDEO?cachedString('canvas'):0,
     SDL_GetRevision:()=>cachedString('EDuke32-SourceFactory-SDL2-browser-adapter'),
-    SDL_GetVersion:ptr=>{heap.check(ptr,3);heap.u8.set([2,0,5],ptr);},
+    SDL_GetVersion:ptr=>{sourceSizedBytes(ptr,3,heap).set([2,0,5]);},
     SDL_GetKeyName:key=>{
       key=Number(key)|0;
       if(key>=32&&key<=126)return cachedString(String.fromCharCode(key).toUpperCase());
@@ -726,7 +754,8 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     SDL_GetMouseFocus:()=>canvas?.ownerDocument?.activeElement===canvas?[...windows.keys()][0]??0:0,
     SDL_GetGlobalMouseState:(x,y)=>{writeInt(x,mouseX);writeInt(y,mouseY);return mouseButtons;},
     SDL_SetWindowBordered:(ptr,bordered)=>{
-      getWindow(ptr);if(canvas?.style)canvas.style.border=bordered?'initial':'none';
+      const win=getWindow(ptr);if(canvas?.style)canvas.style.border=bordered?'initial':'none';
+      win.flags=bordered?win.flags&~0x10:win.flags|0x10;
     },
     SDL_SetWindowGrab:(ptr,grab)=>{
       getWindow(ptr);if(canvas){canvas.tabIndex=0;if(grab)canvas.focus?.();else canvas.blur?.();}

@@ -68,6 +68,30 @@ def browser_display_controls(data):
                   b'    OSD_RegisterCvar(&displayindex, osdcmd_displayindex);')
     return replace_once(data,registration,
         b'#if !defined(EDUKE32_BROWSER)\n'+registration+b'\n#endif')
+def browser_classic_sdl(data):
+    """Keep original software video/input; exclude editor GUI and native haptics."""
+    def within(data,begin,end,change):
+        if data.count(begin)!=1 or data.count(end)!=1:raise ValueError('Original SDL feature boundary changed')
+        first=data.index(begin);last=data.index(end,first)
+        return data[:first]+change(data[first:last])+data[last:]
+    def mouse(block):
+        if block.count(b'#if SDL_MAJOR_VERSION >= 2')!=2:raise ValueError('Original editor mouse guards changed')
+        return block.replace(b'#if SDL_MAJOR_VERSION >= 2',b'#if SDL_MAJOR_VERSION >= 2 && !defined(EDUKE32_BROWSER)')
+    data=within(data,b'void mouseLockToWindow(char a)',b'// All things Video',mouse)
+    def destroy(block):
+        first=block.index(b'    if (g_ImGui_IO)');last=block.index(b'    if (sdl_window)',first)
+        return block[:first]+b'#if !defined(EDUKE32_BROWSER)\n'+block[first:last]+b'#endif\n'+block[last:]
+    data=within(data,b'static void destroy_window_resources()',b'bool g_ImGuiFrameActive;',destroy)
+    def events(block):
+        first=block.index(b'    if (g_ImGui_IO)');last=block.index(b'    while (SDL_PollEvent(&ev))',first)
+        block=block[:first]+b'#if !defined(EDUKE32_BROWSER)\n'+block[first:last]+b'#endif\n\n'+block[last:]
+        first=block.index(b'        if (g_ImGui_IO)',last);last=block.index(b'        switch (ev.type)',first)
+        return block[:first]+b'#if !defined(EDUKE32_BROWSER)\n'+block[first:last]+b'#endif\n\n'+block[last:]
+    # Restrict this adaptation to the SDL2 implementation, not its prototype.
+    data=within(data,b'int32_t handleevents_pollsdl(void)\n{',b'int32_t handleevents(void)',events)
+    return replace_once(data,b'#if SDL_VERSION_ATLEAST(2, 0, 9)\n    if (g_ImGuiFrameActive)',
+        b'#if SDL_VERSION_ATLEAST(2, 0, 9) && !defined(EDUKE32_BROWSER)\n    if (g_ImGuiFrameActive)')
+
 def browser_make(data):
     return replace_once(data,b'engine_objs := \\\n',
         b'# Browser allocations use smmalloc_generic.cpp; pool/TLS optimizations are excluded.\n'
@@ -80,6 +104,8 @@ ADAPTATIONS=(
     (SMALLOC,browser_allocator_statistics,'Exclude pool statistics when the browser profile does not use a pool'),
     ('source/build/src/baselayer.cpp',browser_display_controls,
      'Exclude desktop output-monitor selection from the browser console; retain original video mode and rendering paths'),
+    ('source/build/src/sdlayer.cpp',browser_classic_sdl,
+     'Exclude editor ImGui interception/cleanup and native controller haptics from the classic browser platform; preserve original software video, event translation and device input'),
     ('GNUmakefile',browser_make,'Exclude unused pool and thread-cache units from original Make browser selection'),
 )
 def restore_source_archive(archive,destination,expected_sha):

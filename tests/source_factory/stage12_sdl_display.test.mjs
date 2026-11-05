@@ -71,3 +71,36 @@ test('SDL gamma source pointers preserve byte bounds, offsets and output aliases
  assert.ok(valid.every(v=>v===77)); // All outputs validate before writing.
  assert.throws(()=>s.SDL_SetWindowGammaRamp(win,{...pointer(4),upper:bytes.byteLength+1},null,null),/bounds/);
 });
+
+test('SDL version output borrows byte-backed C records and preserves pointer bounds',()=>{
+ const heap=new ABIHeap(),s=createSDLBrowser({heap}).symbols;
+ const bytes=new Uint8Array(12).fill(0xa5);
+ const record={[Symbol.for('source-first.original-byte-record-storage/1')]:{bytes:bytes.subarray(4,7)}};
+ s.SDL_GetVersion(record);
+ assert.deepEqual([...bytes],[165,165,165,165,2,0,5,165,165,165,165,165]);
+ const pointer={__cPointer:true,buffer:bytes.buffer,lower:7,upper:10,offset:7,array:false};
+ s.SDL_GetVersion(pointer);assert.deepEqual([...bytes.subarray(7,10)],[2,0,5]);
+ assert.throws(()=>s.SDL_GetVersion({...pointer,upper:9}),/bounds/);
+ const native=heap.malloc(3);s.SDL_GetVersion(native);assert.deepEqual([...heap.bytes(native,3)],[2,0,5]);
+});
+
+test('SDL canvas window uses observed resizes, preserves unchanged surfaces and releases observers',()=>{
+ const heap=new ABIHeap(),captures=[],observers=[];
+ class Resize {constructor(fn){this.fn=fn;this.disconnected=false;observers.push(this);}observe(target){this.target=target;}disconnect(){this.disconnected=true;}}
+ const context={createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),putImageData:frame=>captures.push(frame.data)};
+ const canvas={width:640,height:480,style:{},getContext:()=>context,ownerDocument:{defaultView:{ResizeObserver:Resize,addEventListener(){},removeEventListener(){}}}};
+ const s=createSDLBrowser({heap,canvas}).symbols;s.SDL_Init(0x20);assert.equal(s.SDL_WasInit(0x4000),0x4000);
+ const win=s.SDL_CreateWindow(heap.writeCString('original video flags'),0,0,640,480,0x30);
+ assert.ok(win);assert.equal(canvas.style.border,'none');assert.equal(canvas.style.resize,'both');
+ const surface=s.SDL_GetWindowSurface(win),format=heap.read(surface+8,'u64');
+ s.SDL_SetWindowSize(win,640,480);assert.equal(s.SDL_GetWindowSurface(win),surface);assert.equal(heap.read(surface+8,'u64'),format);
+ const x=new Int32Array(1),y=new Int32Array(1);s.SDL_GetWindowSize(win,x,y);assert.equal(x[0],640);assert.equal(y[0],480);
+ observers[0].fn([{target:canvas,contentRect:{width:800,height:600}}]);
+ assert.equal(canvas.width,800);assert.equal(canvas.height,600);s.SDL_GetWindowSize(win,x,y);assert.equal(x[0],800);assert.equal(y[0],600);
+ const event=heap.malloc(56);assert.equal(s.SDL_PollEvent(event),1);assert.equal(heap.read(event,'u32'),0x200);assert.equal(heap.read(event+12,'u8'),5);
+ assert.equal(heap.read(event+16,'i32'),800);assert.equal(heap.read(event+20,'i32'),600);
+ s.SDL_SetWindowBordered(win,1);assert.equal(s.SDL_GetWindowFlags(win)&0x10,0);
+ s.SDL_DestroyWindow(win);assert.ok(observers[0].disconnected);s.SDL_Quit();
+ const absent=createSDLBrowser({heap,canvas:{width:1,height:1}}).symbols;absent.SDL_Init(0x20);
+ assert.equal(absent.SDL_CreateWindow(heap.writeCString('unsupported'),0,0,1,1,0x20),0);
+});

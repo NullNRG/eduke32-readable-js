@@ -1,9 +1,9 @@
 """Verify every exported semantic row without creating a second multi-GB DB."""
-import gzip,hashlib,json
+import argparse,gzip,hashlib,json
 from pathlib import Path
 from portable_semantic_checkpoint import digest,line,schema
 ROOT=Path(__file__).resolve().parents[1]
-payload=ROOT/'reports/semantic-browser-checkpoint/index.jsonl.gz'
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--payload',type=Path,default=ROOT/'reports/semantic-browser-checkpoint/index.jsonl.gz');parser.add_argument('--report',type=Path,default=ROOT/'reports/oct29-current-semantic-payload-verification.json');args=parser.parse_args();payload=args.payload.resolve()
 metadata=json.loads(payload.with_suffix('.json').read_text())
 assert digest(payload)==metadata['payload_sha256']
 assert hashlib.sha256(schema().encode()).hexdigest()==metadata['schema_sha256']
@@ -24,5 +24,5 @@ report={'format':'semantic-continuation-payload-verification/1','passed':True,
  'semantic_fingerprint':metadata['semantic_fingerprint'],'selected_units':summary['selected_units'],
  'table_rows':counts,'logical_table_sha256':actual,'all_rows_verified':True,
  'new_sqlite_restoration_tested':False,'gameplay_verified':False}
-(ROOT/'reports/oct29-current-semantic-payload-verification.json').write_text(json.dumps(report,indent=2)+'\n')
+args.report.write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({key:report[key] for key in ('passed','selected_units','all_rows_verified','new_sqlite_restoration_tested')},indent=2))

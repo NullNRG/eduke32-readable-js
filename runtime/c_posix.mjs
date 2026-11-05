@@ -120,6 +120,32 @@ export function createPosixRuntime({heap, errnoLocation, callIndirect,
       sink(encoder.encode(`compiled(${name}) [0x${address.toString(16)}]\n`));
     }
   }
+  function bsearch(key,base,count,width,compare){
+    count=Number(count);width=Number(width);
+    if(!Number.isSafeInteger(count)||count<0||!Number.isSafeInteger(width)||width<1||
+      !Number.isSafeInteger(count*width)||count*width>heap.maxBytes)throw RangeError('Invalid bsearch element extent');
+    if(count===0)return 0;
+    const direct=typeof compare==='function';
+    if(!direct&&typeof callIndirect!=='function')throw Error('bsearch comparator dispatch not connected');
+    const source=sourceByteView(base);
+    if(source&&source.byteLength<count*width)throw RangeError('bsearch exceeds original source allocation');
+    if(!source)heap.check(base,count*width);
+    const recordLayout=base?.[Symbol.for('source-first.byte-record-array-layout/1')];
+    const original=recordLayout?JSON.parse(recordLayout):null;
+    const typed=original?.dims?.length===1&&original.schema?.size===width;
+    let lower=0,upper=count;
+    while(lower<upper){
+      const index=lower+Math.floor((upper-lower)/2);
+      let pointer=source?sourceByteOffset(base,index*width):base+index*width;
+      if(typed)pointer={...pointer,__cRecordPointer:true,recordSchema:original.schema,
+        recordPrototypes:base[Symbol.for('source-first.byte-record-array-prototypes/1')]||{}};
+      const value=direct?compare(key,pointer):callIndirect(Number(compare),[key,pointer]);
+      if(!Number.isFinite(Number(value)))throw Error('Invalid C bsearch comparator result');
+      if(Number(value)===0)return pointer;
+      if(Number(value)<0)upper=index;else lower=index+1;
+    }
+    return 0;
+  }
   function qsort(base,count,width,compare){
     count=Number(count);width=Number(width);
     if(!Number.isSafeInteger(count)||count<0||!Number.isSafeInteger(width)||width<1 ||
@@ -175,6 +201,7 @@ export function createPosixRuntime({heap, errnoLocation, callIndirect,
       return fail(EINVAL);
     },
     qsort,
+    bsearch,
     signal:signalSet,
     sigaction,
     raise,

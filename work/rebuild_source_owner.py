@@ -15,7 +15,9 @@ from source_owner_aliases import retain_header_aliases
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source');parser.add_argument('--expected-sha256',required=True)
+    parser.add_argument('--reuse-emission',type=Path,help='Reuse an exact current compiler/preprocessor-verified whole-owner emission')
     parser.add_argument('--whole-unit',action='store_true',help='Rebuild all original declarations, retaining every previous executable/storage export')
+    parser.add_argument('--prune-unconsumed-functions',action='store_true',help='Explicitly omit obsolete function-only exports when neither emitted code nor any existing consumer uses them; preserve their original evidence separately')
     parser.add_argument('--interface-before-sha256',help='Use a verified saved owner interface; every current consumer still must pass before unused exports can be dropped')
     args=parser.parse_args();out=component.OUT;base=component.BASE
     assert args.source in {row['file'] for row in json.loads(component.COMMANDS.read_text())}
@@ -62,12 +64,78 @@ def main():
         '--dependency-closure','--header-dependency-closure','--header-inlines','--enum-closure',
         '--require-record-layouts','--rebuild-owner-sha256',digest,'--ast-cache-dir',str(component.CACHE)]
     if not args.whole_unit:command+=['--filter',','.join(names),'--exact-filter']
-    else:command+=['--header-inline-filter',','.join(sorted({row.get('source_name',row['name']) for row in definitions if row['kind']=='FunctionDecl'}))]
+    else:
+        required_headers=None
+        if args.prune_unconsumed_functions:
+            required_headers=set()
+            for path in out.rglob('*.manifest.json'):
+                consumer=json.loads(path.read_text())
+                if consumer.get('source')==args.source:continue
+                for dep in [*consumer.get('imports',[]),*[d for f in consumer.get('module_fragments',[]) for d in f.get('imports',[])]]:
+                    if dep['from']==args.source:required_headers.update([dep['name'],dep.get('binding',dep['name'])])
+        command+=['--header-inline-filter',','.join(sorted({row.get('source_name',row['name']) for row in definitions
+            if row['kind']=='FunctionDecl' and (required_headers is None or row['name'] in required_headers)}))]
+
     log=stage/'compile.log'
-    with log.open('w') as stream:
-        result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=900)
-    assert result.returncode==0,'Source compilation failed: '+str(log)
+    if args.reuse_emission:
+        from source_ast_cache_paths import source_ast_input_fingerprint
+        from source_first_toolchain import frontend_config
+        saved=json.loads(args.reuse_emission.read_text())
+        assert saved.get('source')==args.source and saved.get('compiler_runtime_input_sha256')==compiler_runtime_revision(),'Saved compiler revision differs'
+        selected=next(r for r in json.loads(component.COMMANDS.read_text()) if r['file']==args.source)
+        cpp='++' in Path(selected['arguments'][0]).name
+        frontend,target=frontend_config(cpp);raw=selected['arguments'][1:];flags=[];i=0
+        while i<len(raw):
+            value=raw[i]
+            if value in ('-c','-MMD','-MP','-M','-MM','-o','-MF','-MT','-MQ'):
+                i+=2 if value in ('-o','-MF','-MT','-MQ') else 1;continue
+            if value==args.source or value.startswith(('-O','-flto','-march','-mfpmath','-funswitch','-fomit','-fjump')):
+                i+=1;continue
+            flags.append(value);i+=1
+        flags+=['-Iplatform/Windows/include','-Iplatform/Windows/include/SDL2','-Wno-unknown-warning-option',*target]
+        actual=source_ast_input_fingerprint(component.SOURCE,frontend,['-x','c++' if cpp else 'c'],flags,args.source)
+        assert actual.get('preprocessor_verified') and actual==saved.get('ast_cache_inputs'),'Saved source/header/configuration differs'
+        assert Path(saved['module_fragment']['import_root']).resolve()==out.resolve(),'Saved providers belong to another graph'
+        stage=args.reuse_emission.resolve().parents[len(Path(args.source).parts)-1]
+    else:
+        with log.open('w') as stream:
+            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=900)
+        assert result.returncode==0,'Source compilation failed: '+str(log)
     candidate=stage/(args.source+'.mjs');current=json.loads(candidate.with_suffix('.manifest.json').read_text())
+    if args.whole_unit:
+        from source_header_factory_retention import retain
+        current,retained_code=retain(document,current,old.decode(),candidate.read_text())
+        candidate.write_text(retained_code,newline='\n')
+    if args.prune_unconsumed_functions:
+        assert args.whole_unit,'Function omission requires a whole original unit attempt'
+        missing=old_exports-active_exports(candidate)
+        live={name for row in current['definitions'] if row['status']=='source-first'
+              for name in row.get('source_references',[])}
+        consumed=set()
+        for path in out.rglob('*.manifest.json'):
+            consumer=json.loads(path.read_text())
+            if consumer.get('source')==args.source:continue
+            for dep in [*consumer.get('imports',[]),*[d for f in consumer.get('module_fragments',[]) for d in f.get('imports',[])]]:
+                if dep['from']==args.source:consumed.update([dep['name'],dep.get('binding',dep['name'])])
+        pattern=r"(?m)^\s*(?:import|export)\s*(\{[^;\n}]*\}|\*\s+as\s+[A-Za-z_$][\w$]*)\s*from\s*['\"](\.{1,2}/[^'\"]+)['\"]"
+        for path in out.rglob('*.mjs'):
+            if path==module:continue
+            for group,relative in re.findall(pattern,path.read_text(encoding='utf-8')):
+                if (path.parent/relative).resolve()!=module.resolve():continue
+                if group.startswith('*'):consumed.update(old_exports)
+                else:consumed.update(re.findall(r'[A-Za-z_$][\w$]*',group))
+        assert not missing & (live|consumed),('An original caller still requires omitted exports',sorted(missing & (live|consumed)))
+        previous={row['name']:row for row in definitions}
+        assert all(name in previous and previous[name]['kind']=='FunctionDecl' for name in missing),'Original storage or class factories cannot be omitted'
+        current['unconsumed_legacy_export_omissions']=[{
+            'name':name,'source_name':previous[name].get('source_name',name),
+            'original_type':previous[name]['original_type'],'previous_owner_sha256':digest,
+            'previous_preprocessor_inputs':document.get('ast_cache_inputs'),
+            'emitted_references':False,'existing_consumers':False,
+            'current_revision_recovery_claimed':False,'original_evidence_preserved_in_owner_history':True}
+            for name in sorted(missing)]
+        pruned+=sorted(missing);old_exports-=missing
+        definitions=[row for row in definitions if row['name'] not in missing]
     if args.whole_unit:
         current,code=retain_header_aliases(document,current,old_exports-active_exports(candidate),candidate.read_text())
         candidate.write_text(code,encoding='utf-8',newline='\n')

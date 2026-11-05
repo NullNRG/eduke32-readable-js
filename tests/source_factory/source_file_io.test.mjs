@@ -58,3 +58,19 @@ test('captured stream output owns the bytes emitted by write and fwrite',()=>{
   bytes[0]=90;heap.u8[address]=91;
   assert.deepEqual(captured.map(value=>[...value]),[[65,66],[67,68]]);
 });
+
+test('binary search returns aliases of original byte storage and checks callback/extent errors',()=>{
+ const rt=new NativeRuntime();try{
+ const c=rt.library.symbols,raw=new Int32Array([-20,-4,3,9,25]);
+ const compare=(key,value)=>key-new DataView(value.buffer,value.offset,4).getInt32(0,true);
+ const found=c.bsearch(9,raw,5,4,compare);
+ assert.equal(found.buffer,raw.buffer);assert.equal(found.offset,12);
+ new DataView(found.buffer).setInt32(found.offset,10,true);assert.equal(raw[3],10);
+ assert.equal(c.bsearch(-3,raw,5,4,compare),0);assert.equal(c.bsearch(null,null,0,4,null),0);
+ assert.throws(()=>c.bsearch(1,raw,6,4,compare),/allocation/);
+ assert.throws(()=>c.bsearch(1,raw,-1,4,compare),/extent/);
+ assert.throws(()=>c.bsearch(1,raw,5,4,()=>NaN),/comparator/);
+ const p=rt.heap.malloc(20);rt.heap.u8.set(new Uint8Array(raw.buffer),p);
+ assert.equal(c.bsearch(10,p,5,4,(key,value)=>key-rt.heap.read(value,'i32')),p+12);
+ }finally{rt.close();}
+});

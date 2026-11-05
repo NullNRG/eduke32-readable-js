@@ -21,7 +21,7 @@ def stateless_function_owner(module,manifest):
   raise ValueError('Whole-owner replacement would reset original static storage')
 def checkpoint():
  from source_fragment_storage import audit as storage_ownership_audit
- from source_first_global_link import storage_import_error
+ from source_first_global_link import storage_import_error,exported_names
  from browser_target_closure import emitted_owners
  artifacts={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(OUT.rglob('*')) if p.is_file() and (p.suffix=='.mjs' or p.name.endswith('.manifest.json'))}
@@ -29,13 +29,22 @@ def checkpoint():
  for p in OUT.rglob('*.manifest.json'):
   d=json.loads(p.read_text());source=d.get('source')
   if source:units[source]={'manifest':d,'module':OUT/(source+'.mjs')}
- errors=[]
+ # All providers remain immutable during this component-lock-held audit.
+ # Read each actual ESM export graph once; retain every storage ABI check.
+ verified_export_cache={}
+ def verified_exports(path):
+  path=path.resolve()
+  if path not in verified_export_cache:verified_export_cache[path]=exported_names(path)
+  return verified_export_cache[path]
+ errors=[];provider_cache={};export_cache={}
  for source,unit in units.items():
   for dep in [*unit['manifest'].get('imports',[]),*[dep for fragment in unit['manifest'].get('module_fragments',[]) for dep in fragment.get('imports',[])]]:
    provider=OUT/(dep['from']+'.mjs');binding=dep.get('binding',dep['name'])
-   if not provider.is_file() or binding not in active_exports(provider):errors.append({'source':source,'import':dep,'reason':'missing actual export'});continue
-   document=json.loads(provider.with_suffix('.manifest.json').read_text())
-   error=storage_import_error(dep,{dep['from']:{'manifest':document,'module':provider}})
+   if provider not in export_cache:export_cache[provider]=active_exports(provider) if provider.is_file() else set()
+   if binding not in export_cache[provider]:errors.append({'source':source,'import':dep,'reason':'missing actual export'});continue
+   if provider not in provider_cache:provider_cache[provider]=json.loads(provider.with_suffix('.manifest.json').read_text())
+   document=provider_cache[provider]
+   error=storage_import_error(dep,{dep['from']:{'manifest':document,'module':provider}},export_reader=verified_exports)
    if error:errors.append({'source':source,'import':dep,'reason':error})
  unique,ambiguous,blocked=emitted_owners(OUT)
  proof=ROOT/'reports/oct30-original-browser-component.json'
@@ -53,7 +62,7 @@ def checkpoint():
   'whole_selected_program_compiled_under_current_revision':False,'invalid_imports':errors,'ambiguous_export_groups':ambiguous,
   'storage_ownership_conflicts':storage_conflicts,
   'original_storage_ownership_verified':not storage_conflicts,
-  'entry_exports':{name:name in unique for name in ('enginePreInit','app_main')},'artifacts':artifacts,'runtime_artifacts':runtime_artifacts,
+  'entry_exports':{name:name in unique for name in ('enginePreInit','engineInit','app_main')},'artifacts':artifacts,'runtime_artifacts':runtime_artifacts,
   'execution_report':proof.relative_to(ROOT).as_posix(),'execution_evidence_matches_modules':matches,
   'original_engine_startup_verified':bool(matches and execution.get('original_engine_startup_verified')),
   'gameplay_verified':False,'standalone_player_verified':False}

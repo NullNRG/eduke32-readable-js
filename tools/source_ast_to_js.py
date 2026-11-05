@@ -17,6 +17,7 @@ from source_record_pointer_identity import identities as record_pointer_identiti
 from source_included_implementations import included_implementation_bytes
 from source_record_data_access import layout_contract as record_field_layout, field_access_contract
 from source_record_layout_extraction import extract as extract_record_layouts
+from source_terminal_pointer_steps import plan as terminal_pointer_steps
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -946,8 +947,26 @@ class Emit:
                     if not parameter.endswith('*') or re.search(r'\bconst\b',parameter.rsplit('*',1)[0]):
                         raise Unsupported('uninitialized scalar byte alias requires tracked object initialization')
                 selected[identity]=native
-        if selected and (needs_cfg(function) or any(kind(node)=='GotoStmt' for node in descendants(function))):
+        if selected and needs_cfg(function):
             raise Unsupported('scalar byte alias across goto requires proven storage lifetime')
+        if selected and any(kind(node)=='GotoStmt' for node in descendants(function)):
+            body=next((node for node in kids(function) if kind(node)=='CompoundStmt'),{})
+            statements=kids(body)
+            first_entry=min((index for index,stmt in enumerate(statements)
+                if any(kind(v) in ('GotoStmt','LabelStmt') for v in descendants(stmt))),default=0)
+            direct={decl.get('id'):index for index,stmt in enumerate(statements) if kind(stmt)=='DeclStmt'
+                for decl in kids(stmt) if kind(decl)=='VarDecl'}
+            # Parameters are materialized in the function prefix. An automatic
+            # scalar is safe only when its direct function-scope declaration
+            # precedes EVERY source label/jump. Nested/bypassed or re-entered
+            # declarations remain blocked; SourceFlowPlan still checks all
+            # nontrivial C++ lifetimes independently.
+            if not all(kind(declarations[identity])=='ParmVarDecl' or
+                    identity in direct and direct[identity]<first_entry for identity in selected):
+                raise Unsupported('scalar byte alias across goto requires proven storage lifetime')
+            self.byte_scalar_goto_lifetime={'abi':'source-dominating-scalar-byte-storage/1',
+                'declarations':sorted(selected),'all_storage_precedes_labels_and_jumps':True}
+
         for identity in selected:
             if identity not in self.local_reference_cells:self.local_reference_cells[identity]=self.expression_temp()
         return selected
@@ -1486,7 +1505,9 @@ class Emit:
                         if shape and ('byteRecord' in shape or 'pointerArray' in shape or
                                 'array' in shape):
                             return self.expr(node)
-                        return address['binding']+'()'
+                        native=self.pointer_type(qual(node)+' *')
+                        reference=address['binding']+'()'
+                        return 'cScalarLValueIO('+reference+', '+native+')' if native else reference
                     declaration=node.get('referencedDecl',{})
                     if (declaration.get('kind')=='VarDecl' and
                             identity not in getattr(self,'lexical_local_ids',set()) and
@@ -1587,6 +1608,15 @@ class Emit:
                         raise Unsupported('trivial assignment requires matching Clang-proven pointer-free storage: '+str(key))
                     destination,source_value=self.expr(a[1]),self.expr(a[2])
                     self.storage_assignment_nodes=getattr(self,'storage_assignment_nodes',set())|{id(n)}
+                    if 'byteRecord' in schema and assignment.get('mode') in ('copyAssign','moveAssign','clang-trivial-implicit-byte-copy'):
+                        proof={'abi':'source-clang-trivial-record-assignment/1',
+                            'record_name':receiver,'source_record':argument,
+                            'clang_method_id':decl.get('id'),'clang_assignment_signature':decl.get('type',{}).get('qualType'),
+                            'assignment_mode':assignment['mode'],
+                            'native_layout':record_field_layout(schema['byteRecord'])}
+                        if not proof['clang_method_id']:raise Unsupported('trivial record assignment lacks original Clang method identity')
+                        em_proofs=getattr(self,'trivial_record_assignment_proofs',[]);em_proofs.append(proof);self.trivial_record_assignment_proofs=em_proofs
+                        return f'cAssignAggregate({destination}, {source_value}, {json.dumps(schema,sort_keys=True)}, {json.dumps(proof,sort_keys=True)})'
                     return f'cAssignAggregate({destination}, {source_value}, {json.dumps(schema,sort_keys=True)})'
                 method=self.member_operators.get(key)
                 if not method:
@@ -2906,6 +2936,17 @@ class Emit:
             if len(raw)<5:raise Unsupported('for shape')
             init,condvar,cond,inc,body=raw[:5]
             if condvar:raise Unsupported('for condition-variable')
+            terminal=getattr(self,'terminal_pointer_steps',{}).get(id(n))
+            def increment():
+                if not inc:return ''
+                if not terminal:return self.expr(inc)
+                self.used_terminal_pointer_steps=getattr(self,'used_terminal_pointer_steps',[])+[{
+                    'abi':'source-private-terminal-pointer-step/1',
+                    'pointer_declaration':terminal['pointer_declaration'],
+                    'counter_declaration':terminal['counter_declaration'],
+                    'pointer_name':terminal['pointer_name']}]
+                return '('+self.expr(terminal['counter_step'])+', ('+self.expr(cond)+' ? '+self.expr(terminal['pointer_step'])+' : void 0))'
+
             declarations=kids(init) if init and kind(init)=='DeclStmt' else []
             owned=[node for node in declarations if kind(node)=='VarDecl' and self.lifetime_class(qual(node))]
             if owned:
@@ -2930,7 +2971,7 @@ class Emit:
                     inner='  '*(level+1)
                     initialization=self.statements(init,level+1)
                     return (pad+'{\n'+initialization+'\n'+inner+control+'for (; '+(self.expr(cond) if cond else '')+'; '
-                            +(self.expr(inc) if inc else '')+') {\n'+self.statements(body,level+2)+'\n'+inner+'}\n'+pad+'}')
+                            +(increment())+') {\n'+self.statements(body,level+2)+'\n'+inner+'}\n'+pad+'}')
                 if not declarations:raise Unsupported('empty declaration in for initializer')
                 if len(declarations)!=len(kids(init)):
                     raise Unsupported('mixed declaration and expression in for initializer')
@@ -2951,7 +2992,7 @@ class Emit:
                     if reference:parts.append(reference)
                 ini=(', '.join(parts) if self.goto_plan else 'let '+', '.join(parts))
             else:ini=self.expr(init) if init else ''
-            return pad+control+f'for ({ini}; {self.expr(cond) if cond else ""}; {self.expr(inc) if inc else ""}) {{\n{self.statements(body,level+1)}\n{pad}}}'
+            return pad+control+f'for ({ini}; {self.expr(cond) if cond else ""}; {increment()}) {{\n{self.statements(body,level+1)}\n{pad}}}'
         if k=='SwitchStmt':
             # C permits Duff's-device/coroutine case labels inside arbitrary
             # nested statements. JavaScript accepts case labels only as direct
@@ -3075,6 +3116,7 @@ class Emit:
         if self.c_variadic and (not params or '...' not in qual(n)):
             raise Unsupported('variadic function lacks Clang-verified fixed signature')
         self.local_types={js_ident(p.get('name','')):qual(p) for p in params};self.local_types['!return']=qual(n).split('(')[0].strip();self.static_locals={};self.static_defs=[];self.byte_literals={};self.current_function=name
+        self.terminal_pointer_steps=terminal_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.local_reference_cells=self.plan_local_reference_cells(n)
         self.byte_scalar_cells=self.plan_byte_scalar_cells(n)
         argnames=[]
@@ -4015,7 +4057,7 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
     root=Path(source_root).resolve()
     included_sources=included_implementation_bytes(ast,root)
     included_paths={path for path,data in included_sources}
-    original_inputs=(*original_header_source_bytes(str(root)),*included_sources)
+    original_inputs=None
     declarations={node.get('id'):node for top in ast for node in descendants(top)
                   if node.get('id')}
     variables=[]
@@ -4048,6 +4090,8 @@ def recover_original_header_globals(ast, source_root, source_rel, compile_as_cpp
         elif loc.get('includedFrom'):
             # includedFrom identifies the includer, never the actual header.
             # The identifier's exact unique byte offset proves the file.
+            # Read the inventory only for an actual elided header location.
+            if original_inputs is None:original_inputs=(*original_header_source_bytes(str(root)),*included_sources)
             for header,data in original_inputs:
                 if data[offset:offset+len(name_bytes)]==name_bytes:
                     matches.append((header,data))
@@ -5448,6 +5492,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     storage_assignment_nodes=getattr(em,'storage_assignment_nodes',set())))
                 row['storage_constructor_count']=len(getattr(em,'storage_constructor_nodes',set()))
                 row['storage_assignment_count']=len(getattr(em,'storage_assignment_nodes',set()))
+                if getattr(em,'trivial_record_assignment_proofs',None):row['trivial_record_assignment_proofs']=em.trivial_record_assignment_proofs
             resolved_references=set(row.get('source_references',[]))|getattr(em,'used_aggregate_prototypes',set())
             # A filtered C++ class definition is emitted as its bare ES class
             # identifier; the same Clang AST references it by its qualified
@@ -5561,6 +5606,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if location.get('line'):
                 code=f'// C/C++ source: {row.get("physical_source",source_rel)}:{location["line"]}\n'+code
             row['status']='source-first'
+            if getattr(em,'used_terminal_pointer_steps',None):row['terminal_pointer_steps']=em.used_terminal_pointer_steps
+            if getattr(em,'byte_scalar_goto_lifetime',None):row['byte_scalar_goto_lifetime']=em.byte_scalar_goto_lifetime
             if em.last_flow_report:row['control_flow']=em.last_flow_report
             source.append((n,code,row))
         except Unsupported as e:
@@ -6903,7 +6950,7 @@ const cStackAlloc = amount => {
 ''') if 'cStackAlloc(' in body else ''
     heap_helpers=(HERE/'tools/source_cpp_heap_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cxxHeap.' in body else ''
     atomic_helpers=(HERE/'tools/source_atomic_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cAtomic(' in body else ''
-    pointer_helpers=embedded_runtime(HERE/'tools/source_pointer_runtime.mjs')+'\n' if atomic_helpers or any(x in body for x in ('cArrayDecay(', 'cTypedPointer(', 'cPointerOffset(', 'cDeref(', 'cPointerCompare(', 'cPointerDiff(', 'cStaticPointer(', 'cPointerElementRef(', 'cUMullOverflow(', 'cRecordPointer(', 'cScalarStorage(', 'cAlignedStorage(')) else ''
+    pointer_helpers=embedded_runtime(HERE/'tools/source_pointer_runtime.mjs')+'\n' if atomic_helpers or any(x in body for x in ('cArrayDecay(', 'cTypedPointer(', 'cPointerOffset(', 'cDeref(', 'cPointerCompare(', 'cPointerDiff(', 'cStaticPointer(', 'cPointerElementRef(', 'cUMullOverflow(', 'cRecordPointer(', 'cScalarStorage(', 'cScalarLValueIO(', 'cAlignedStorage(')) else ''
     reference_helpers=('const cRecordObject = source => {\n'
                       +'  if (source?.__cDeferredPointer === true || source?.__cDeferredReference === true) return cRecordObject(source.resolve());\n'
                       +'  if (source?.__cReference === true) return source.value;\n'

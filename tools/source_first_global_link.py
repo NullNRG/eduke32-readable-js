@@ -50,7 +50,7 @@ def missing_exports(names, file):
     defined=exported_names(file)
     return {name for name in names if js_ident(name) not in defined}
 
-def storage_import_error(dependency,units):
+def storage_import_error(dependency,units,*,export_reader=exported_names):
     actual_provider=units.get(dependency['from'])
     expected_record=dependency.get('header_record_proof')
     if expected_record is not None:
@@ -81,7 +81,7 @@ def storage_import_error(dependency,units):
               if row['name']==dependency['name'] and row['status']=='source-first']
         if len(rows)!=1 or rows[0].get('cpp_reference_abi')!=reference_class:
             return 'C++ reference-class provider lacks source alias ABI'
-        if not provider.get('module') or dependency['name'] not in exported_names(provider['module']):
+        if not provider.get('module') or dependency['name'] not in export_reader(provider['module']):
             return 'C++ reference-class absent from actual provider JavaScript'
     contract=dependency.get('reference_contract')
     if contract is not None:
@@ -91,7 +91,7 @@ def storage_import_error(dependency,units):
               if row['name']==dependency['name'] and row['status']=='source-first']
         if len(rows)!=1 or rows[0].get('cpp_reference_contract')!=contract:
             return 'C++ reference-call provider lacks identical source calling contract'
-        if not provider.get('module') or dependency['name'] not in exported_names(provider['module']):
+        if not provider.get('module') or dependency['name'] not in export_reader(provider['module']):
             return 'C++ reference-call absent from actual provider JavaScript'
     """Prove supplementary lvalue ABI exports without counting them as C code."""
     if dependency.get('abi')==PRIVATE_STORAGE_ABI:
@@ -109,7 +109,7 @@ def storage_import_error(dependency,units):
         if rows[0].get('private_storage')!=metadata:return 'private storage provider contract differs'
         if {'name':name,**metadata} not in provider['manifest'].get('private_storage_exports',[]):
             return 'private storage export absent from provider manifest'
-        if not provider.get('module') or dependency['binding'] not in exported_names(provider['module']):
+        if not provider.get('module') or dependency['binding'] not in export_reader(provider['module']):
             return 'private storage address absent from actual provider JavaScript'
         return None
     if dependency.get('abi')=='source-native-array/1':
@@ -125,7 +125,7 @@ def storage_import_error(dependency,units):
         dimensions=dependency.get('dimensions',[]);actual=metadata.get('dimensions',[])
         if len(dimensions)!=len(actual) or any(a is not None and a!=b for a,b in zip(dimensions,actual)):
             return 'native array dimensions differ across translation units'
-        if not provider.get('module') or js_ident(name) not in exported_names(provider['module']):
+        if not provider.get('module') or js_ident(name) not in export_reader(provider['module']):
             return 'native array absent from actual provider JavaScript'
         return None
     if dependency.get('abi')=='source-byte-record-array/1':
@@ -141,7 +141,7 @@ def storage_import_error(dependency,units):
         dimensions=dependency.get('dimensions',[]);actual=metadata.get('dimensions',[])
         if len(dimensions)!=len(actual) or any(a is not None and a!=b for a,b in zip(dimensions,actual)):
             return 'record array dimensions differ across translation units'
-        if not provider.get('module') or js_ident(name) not in exported_names(provider['module']):
+        if not provider.get('module') or js_ident(name) not in export_reader(provider['module']):
             return 'record array absent from actual provider JavaScript'
         return None
     if dependency.get('abi')=='source-pointer-array/1':
@@ -159,7 +159,7 @@ def storage_import_error(dependency,units):
             return 'pointer array element type differs across translation units'
         if dependency.get('extent') is not None and dependency['extent']!=metadata.get('extent'):
             return 'pointer array extent differs across translation units'
-        if not provider.get('module') or js_ident(name) not in exported_names(provider['module']):
+        if not provider.get('module') or js_ident(name) not in export_reader(provider['module']):
             return 'pointer array absent from actual provider JavaScript'
         return None
     binding=dependency.get('binding')
@@ -188,7 +188,7 @@ def storage_import_error(dependency,units):
     if not any(d.get('name')==name and d.get('binding')==binding and d.get('abi')==GLOBAL_STORAGE_ABI
                for d in manifest.get('storage_exports',[])):
         return 'global storage export absent from provider manifest'
-    if not provider.get('module') or binding not in exported_names(provider['module']):
+    if not provider.get('module') or binding not in export_reader(provider['module']):
         return 'global storage binding absent from actual provider JavaScript'
     return None
 
