@@ -411,9 +411,9 @@ const cRecordObject = source => {
   return source;
 };
 const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });
-const cObjectFieldRef = (owner, field) => { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); };
-const cRef = (read, write) => ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } });
-const cArrayRef = (array, index) => cRef(() => array[index], v => { array[index] = v; });
+function cObjectFieldRef(owner, field) { const storage=owner?.[Symbol.for("source-first.original-byte-record-storage/1")]; if(storage)return globalThis[Symbol.for("source-first.record-pointer-views/1")].fieldReference(owner,field); const key=Symbol.for("source-object-field-references/1"); if (!Object.hasOwn(owner,key)) Object.defineProperty(owner,key,{value:new Map()}); const refs=owner[key]; if (!refs.has(field)) refs.set(field,{__cReference:true,get value(){return owner[field];},set value(value){owner[field]=value;}}); return refs.get(field); }
+function cRef(read, write) { return ({ __cReference:true, get value() { return read(); }, set value(v) { write(v); } }); }
+function cArrayRef(array, index) { return cRef(() => array[index], v => { array[index] = v; }); }
 // Numeric POD records use original Clang field offsets and shared byte storage.
 // Overlapping union alternatives are views of the SAME bytes, never independent
 // JS properties. This target's ABI has verified little-endian object storage.
@@ -975,12 +975,12 @@ const cZeroAggregate = (schema, prototypes={}) => {
   throw new TypeError('C zero aggregate requires nonoverlapping proven field layout');
 };
 
-const i32 = value => typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0;
-const u32 = value => typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0;
-const i64 = value => BigInt.asIntN(64, BigInt(value));
-const u64 = value => BigInt.asUintN(64, BigInt(value));
-const i128 = value => BigInt.asIntN(128, BigInt(value));
-const u128 = value => BigInt.asUintN(128, BigInt(value));
+function i32(value) { return typeof value === "bigint" ? Number(BigInt.asIntN(32,value)) : Number(value) | 0; }
+function u32(value) { return typeof value === "bigint" ? Number(BigInt.asUintN(32,value)) : Number(value) >>> 0; }
+function i64(value) { return BigInt.asIntN(64, BigInt(value)); }
+function u64(value) { return BigInt.asUintN(64, BigInt(value)); }
+function i128(value) { return BigInt.asIntN(128, BigInt(value)); }
+function u128(value) { return BigInt.asUintN(128, BigInt(value)); }
 
 // C/C++ source: source/build/include/libdivide.h:321
 export function libdivide_mullhi_u32(x, y) {

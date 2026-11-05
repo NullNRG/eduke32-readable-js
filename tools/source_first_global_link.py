@@ -13,6 +13,8 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import Counter, defaultdict
 from functools import lru_cache
 import hashlib
+from source_record_data_access import compatible as compatible_record_field_storage
+from source_header_records import compatible_factory_proof
 from source_ast_to_js import js_ident, GLOBAL_STORAGE_ABI, global_storage_binding, PRIVATE_STORAGE_ABI, private_storage_binding
 from source_first_toolchain import fingerprint_toolchain
 import json
@@ -57,7 +59,7 @@ def storage_import_error(dependency,units):
                  if row['name']==dependency['name'] and row.get('status')=='source-first']
         if (len(records)!=1 or not records[0].get('header_record_factory')
                 or expected_record.get('prototype_factory_abi')!='source-header-record-factory/1'
-                or records[0].get('odr_inline')!=expected_record):
+                or not compatible_factory_proof(expected_record,records[0].get('odr_inline',{}))):
             return 'source header constructor requires identical original specialization and methods'
     if actual_provider and (dependency.get('native_pointer_abi') or actual_provider['manifest'].get('native_pointer_abi')):
         if dependency.get('native_pointer_abi')!=actual_provider['manifest'].get('native_pointer_abi'):
@@ -181,7 +183,7 @@ def storage_import_error(dependency,units):
         return 'global pointer record identity or target layout differs across translation units'
     if dependency.get('record_layout_sha256')!=metadata.get('record_layout_sha256'):
         return 'global record address target layout differs across translation units'
-    if dependency.get('byte_record_schema_sha256')!=metadata.get('byte_record_schema_sha256'):
+    if dependency.get('byte_record_schema_sha256')!=metadata.get('byte_record_schema_sha256') and not compatible_record_field_storage(dependency,metadata):
         return 'global record provider lacks identical Clang byte representation'
     if not any(d.get('name')==name and d.get('binding')==binding and d.get('abi')==GLOBAL_STORAGE_ABI
                for d in manifest.get('storage_exports',[])):

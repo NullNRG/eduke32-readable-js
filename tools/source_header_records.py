@@ -436,3 +436,24 @@ def demanded_header_records(ast,candidates,storage_records,aliases,normalize,sch
             else:records[name]=node;proofs[name]=proof
     for name in conflicts:records.pop(name,None);proofs.pop(name,None)
     return [records[name] for name in sorted(records)],proofs
+
+
+def compatible_factory_proof(expected,actual):
+    """A real scalar template provider may contain more instantiated methods.
+
+    Exact proofs cover all existing class kinds. The subset case is limited
+    to the existing leaf-prototype ABI, which hashes original header bytes,
+    all declarations, native layout and every instantiated method body.
+    """
+    if expected==actual:return True
+    anchors=('source_header','source_offset','enclosing_record','type','prototype_factory_abi')
+    if any(expected.get(k) is None or expected.get(k)!=actual.get(k) for k in anchors):return False
+    if expected.get('prototype_factory_abi')!='source-header-record-factory/1':return False
+    wanted=expected.get('leaf_prototype',{});offered=actual.get('leaf_prototype',{})
+    if wanted.get('format')!='source-leaf-record-prototype/1' or offered.get('format')!=wanted['format']:return False
+    digest=wanted.get('storage_and_declarations_sha256')
+    if not isinstance(digest,str) or not re.fullmatch(r'[a-f0-9]{64}',digest) or offered.get('storage_and_declarations_sha256')!=digest:return False
+    required=wanted.get('method_bodies');available=offered.get('method_bodies')
+    if not isinstance(required,dict) or not isinstance(available,dict):return False
+    if any(not isinstance(k,str) or not isinstance(v,str) or not re.fullmatch(r'[a-f0-9]{64}',v) for rows in (required,available) for k,v in rows.items()):return False
+    return all(available.get(key)==value for key,value in required.items())

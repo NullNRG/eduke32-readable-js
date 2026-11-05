@@ -1,0 +1,39 @@
+{
+  "format": "original-engine-recovery-checkpoint/1",
+  "compiler_runtime_input_sha256": "9a8cce9a106bc320ef14fea1a826814aa38462b178b2a79a26100d9884ae070a",
+  "original_game_booted": false,
+  "original_app_main_linked": false,
+  "gameplay_verified": false,
+  "engine_init_linked": false,
+  "engine_recovery_frontier": "factory-output\\source-first\\browser-classic\\reports\\frontier-source_build_src_engine.cpp.json",
+  "new_closed_engine_definitions": 591,
+  "engine_init_remaining_at_probe": [
+    "clearbuf (subsequently linked)",
+    "engineLoadTables -> anonymous local union (compiler regression now passes; original retry pending)",
+    "paletteLoadFromDisk (recovery in progress)"
+  ],
+  "focused_regressions": [
+    {
+      "report": "reports/nov04-storage-template-regression.json",
+      "sha256": "aaa19d4f59e57362ec2a1dc5a688d35430aeacfee399217232e2f8e53cbe40b6",
+      "selected": 8,
+      "passed": 8,
+      "complete": true,
+      "inputs_unchanged_during_run": true
+    },
+    {
+      "report": "reports/nov04-union-prototype-regression.json",
+      "sha256": "f7a85e1ce7d1c4e437dacfc4d63789ee3f1e2c7d2ce2a1006baa6052b26f70df",
+      "selected": 9,
+      "passed": 9,
+      "complete": true,
+      "inputs_unchanged_during_run": true
+    }
+  ],
+  "current_complete_regression_passed": false,
+  "historical_full_regression": "reports/nov04-boot-provider-full-regression.json",
+  "notes": [
+    "Focused tests are component/compiler evidence; they do not attest app_main or gameplay.",
+    "The first shared-startup focused run failed its original-source NTTP test at its internal 180-second limit; it remains a recorded failed run. The bound is now 360 seconds and must be rerun."
+  ]
+}

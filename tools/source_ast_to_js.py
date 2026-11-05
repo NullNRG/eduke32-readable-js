@@ -15,6 +15,7 @@ from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
 from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_included_implementations import included_implementation_bytes
+from source_record_data_access import layout_contract as record_field_layout, field_access_contract
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -1878,7 +1879,6 @@ class Emit:
             # checksum states. Methods still require their original prototype;
             # authored construction/lifetime cannot use this path.
             if (not a and ctor in ('void ()','void () noexcept') and record
-                    and not record.get('union')
                     and record.get('trivial_default_constructor')
                     and record.get('trivial_destructor') and record.get('byte_schema')
                     and not record['byte_schema'].get('prototype')):
@@ -4250,6 +4250,16 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
     type_aliases=type_aliases or {}
     result=set()
     local_ids=set()
+    def emitted_children(n):
+        children=semantic_kids(n)
+        if kind(node)=='CXXRecordDecl':
+            # Emit.record lowers authored members, field initializers and
+            # verified storage copies, not compiler-synthesized method bodies.
+            # Their incidental anonymous-union operator= calls are not imports.
+            # Actual calls within authored methods still undergo normal checks.
+            children=[child for child in children if not (child.get('isImplicit')
+                and kind(child) in ('CXXConstructorDecl','CXXDestructorDecl','CXXMethodDecl','CXXConversionDecl'))]
+        return children
     def collect(n, parent_kind=None):
         k=kind(n)
         if k=='ParmVarDecl' and n.get('id'):
@@ -4259,7 +4269,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
             # locals. A top-level VarDecl (including its initializer) is not.
             if parent_kind not in (None,'TranslationUnitDecl','NamespaceDecl','LinkageSpecDecl'):
                 local_ids.add(n['id'])
-        for child in semantic_kids(n):collect(child,k)
+        for child in emitted_children(n):collect(child,k)
     collect(node)
     def walk(n):
         if allocation_dependencies and kind(n) in ('CXXNewExpr','CXXDeleteExpr'):
@@ -4297,7 +4307,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
                     else:name=js_ident(name)
                     if not name.startswith(('cByteMemory.','cProcess.','cCHeap.')):
                         result.add(name)
-        for child in semantic_kids(n):walk(child)
+        for child in emitted_children(n):walk(child)
     walk(node)
     return result
 
@@ -4598,6 +4608,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if supported:addressable_classes.add(name)
     project_symbols=project_symbols or {}
     template_source_bytes=None
+    source_template_ids=set()
     def scan(node,file_scope=False):
         nonlocal template_source_bytes
         k=kind(node)
@@ -4619,6 +4630,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     if (kind(child)=='FunctionDecl' and child.get('mangledName') and
                         any(kind(arg)=='TemplateArgument' for arg in kids(child)) and
                         any(kind(body)=='CompoundStmt' for body in kids(child))):
+                        source_template_ids.add(id(child))
                         scan(child,file_scope)
             return
         if k in ('FunctionDecl','CXXRecordDecl','VarDecl'):
@@ -4939,7 +4951,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             # Never claim a project-global owner or collide across TUs.
             symbol=js_ident(name)+'__header_'+hashlib.sha256(
                 (source_rel+'\0'+name+'\0'+qual(n)).encode()).hexdigest()[:12]
-        elif id(n) in header_templates:
+        elif id(n) in header_templates or id(n) in source_template_ids:
             # A template specialization must have a stable, type-qualified
             # owner even when one TU instantiates 1 overload and another 4.
             # Clang's ABI symbol also disambiguates namespaces and non-type
@@ -4949,6 +4961,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             mangled=n.get('mangledName')
             identity=('clang-mangled\0'+mangled if mangled else
                       'template-args\0'+name+'\0'+qual(n)+'\0'+canonical)
+            if id(n) in source_template_ids and n.get('storageClass')=='static':
+                identity=source_rel+'\0'+identity
             symbol=js_ident(name)+'__template_'+hashlib.sha256(
                 identity.encode()).hexdigest()[:16]
         elif kind(n)=='FunctionDecl' and re.fullmatch(r'operator(?:\[\]|\(\)|[+*/%\-=&|^!<>~]+)', name) is not None:
@@ -5132,6 +5146,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         record=global_storage_records.get(cls,{})
         if record.get('byte_schema'):
             metadata['byte_record_schema_sha256']=hashlib.sha256(json.dumps(record['byte_schema'],sort_keys=True).encode()).hexdigest()
+            metadata['byte_record_native_layout']=record_field_layout(record['byte_schema'])
         return metadata
     def private_scalar_array(node):
         schema=aggregate_type_schema(qual(node),global_storage_records,aliases,record_layouts,
@@ -5390,6 +5405,12 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 record_address=addressable_record_global(decl,global_storage_records,aliases,record_layouts,enum_types,addressable_classes)
                 if mutable_scalar_global(decl,aliases,enum_types) or record_address:
                     em.external_global_cells[refid]=storage_metadata(decl,refname)
+                    if record_address:
+                        related={part.get('referencedDecl',{}).get('id') for part in descendants(n)
+                            if kind(part)=='DeclRefExpr' and part.get('referencedDecl',{}).get('kind')=='VarDecl'
+                            and part.get('referencedDecl',{}).get('id') not in local_ids and resolve(part['referencedDecl'])==refname}
+                        access=field_access_contract(n,related,all_declarations,lambda typ:resolve_scalar_storage_alias(typ,aliases))
+                        if access:em.external_global_cells[refid]['byte_record_data_access']=access
                     em.global_address_cells[refid]=em.external_global_cells[refid]
                     if record_address:em.external_aggregate_globals.add(refid)
                 elif not immutable_global(decl) and '[' not in qual(decl):
@@ -5482,7 +5503,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 if target in project_symbols]
             row['external_reference_imports'].extend({'name':target,'reference_class_abi':REFERENCE_ABI}
                 for target in sorted(getattr(em,'used_reference_classes',set())) if target in project_symbols)
-            for target in sorted(getattr(em,'used_class_constructors',set())):
+            for target in sorted(getattr(em,'used_class_constructors',set())|getattr(em,'used_aggregate_prototypes',set())):
                 if target not in project_symbols or target not in header_record_proofs:continue
                 dependency=next((item for item in row['external_reference_imports'] if item['name']==target),None)
                 if dependency is None:
