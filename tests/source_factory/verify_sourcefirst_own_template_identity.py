@@ -17,10 +17,9 @@ extern "C" int exercise(int n){return mix<3>(n)+mix<7>(n);}
         instances=[row for row in document['definitions'] if row.get('source_name')=='mix']
         assert len(instances)==2 and len({row['clang_template_mangled_name'] for row in instances})==2,instances
         entry=next(row for row in document['definitions'] if row['name']=='exercise')
-        if entry['status']=='source-first':
-            driver=root/(name+'.mjs');driver.write_text('import {exercise} from '+json.dumps(module.as_uri())+';for(let n=-32;n<32;n++)console.log(exercise(n));')
-            assert run(['node',driver]).splitlines()==[str(n*10)for n in range(-32,32)]
-        else:
-            assert not module.is_file() or 'export function exercise(' not in module.read_text()
-            assert all(row['status']=='blocked' for row in instances),instances
-print('PASS: full/filtered own-TU NTTP identities stay distinct; unsupported same-signature instances remain blocked rather than execute the wrong body')
+        assert entry['status']=='source-first' and all(row['status']=='source-first' for row in instances),document
+        driver=root/(name+'.mjs');driver.write_text('import {exercise} from '+json.dumps(module.as_uri())+';for(let n=-32;n<32;n++)console.log(exercise(n));')
+        native_driver=root/'main.cpp';native_driver.write_text('#include <cstdio>\nextern "C" int exercise(int);\nint main(){for(int n=-32;n<32;n++)printf("%d\\n",exercise(n));}')
+        run(['clang++',root/'unit.cpp',native_driver,'-o',root/'native'])
+        assert run(['node',driver]).splitlines()==run([root/'native']).splitlines()
+print('PASS: 128 native/full/filtered same-signature NTTP results; Clang-selected instances remain distinct')

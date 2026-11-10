@@ -1,104 +1,19 @@
 {
   "source": "source/build/src/sdlayer.cpp",
   "requested": [
-    "videoSetMode"
+    "system_getcvars"
   ],
   "requested_resolved": {
-    "videoSetMode": false
+    "system_getcvars": true
   },
   "requested_export_bindings": {
-    "videoSetMode": []
+    "system_getcvars": [
+      "system_getcvars"
+    ]
   },
-  "requested_still_unlinked": [
-    "videoSetMode"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_sdlayer.cpp/reachable-8fc621a60ab7e6da/source/build/src/sdlayer.cpp.manifest.json",
-  "blocked": [
-    {
-      "name": "sighandler",
-      "reason": "unlinked identifiers: app_crashhandler, stderr",
-      "dependencies": [
-        "app_crashhandler",
-        "stderr"
-      ]
-    },
-    {
-      "name": "main",
-      "reason": "unlinked identifiers: SDL_SetMemoryFunctions, app_main, engineSetupLogging, maybe_redirect_outputs, sighandler",
-      "dependencies": [
-        "SDL_SetMemoryFunctions",
-        "app_main",
-        "engineSetupLogging",
-        "maybe_redirect_outputs",
-        "sighandler"
-      ]
-    },
-    {
-      "name": "videoSetVsync",
-      "reason": "unlinked identifiers: videoSetGameMode",
-      "dependencies": [
-        "videoSetGameMode"
-      ]
-    },
-    {
-      "name": "system_getcvars",
-      "reason": "unlinked identifiers: videoSetVsync",
-      "dependencies": [
-        "videoSetVsync"
-      ]
-    },
-    {
-      "name": "mouseLockToWindow",
-      "reason": "record field requires verified native storage: ImGuiIO::WantCaptureMouse",
-      "dependencies": []
-    },
-    {
-      "name": "destroy_window_resources",
-      "reason": "unlinked identifiers: DestroyContext, ImGui_ImplSDL2_Shutdown, SDL_GL_DeleteContext",
-      "dependencies": [
-        "DestroyContext",
-        "ImGui_ImplSDL2_Shutdown",
-        "SDL_GL_DeleteContext"
-      ]
-    },
-    {
-      "name": "engineBeginImGuiFrame",
-      "reason": "unlinked identifiers: ImGui_ImplSDL2_NewFrame, NewFrame",
-      "dependencies": [
-        "ImGui_ImplSDL2_NewFrame",
-        "NewFrame"
-      ]
-    },
-    {
-      "name": "engineEndImGuiInput",
-      "reason": "unlinked identifiers: GetIO",
-      "dependencies": [
-        "GetIO"
-      ]
-    },
-    {
-      "name": "engineSetupImGui",
-      "reason": "address-of requires a stable lvalue",
-      "dependencies": []
-    },
-    {
-      "name": "videoSetMode",
-      "reason": "unlinked identifiers: destroy_window_resources",
-      "dependencies": [
-        "destroy_window_resources"
-      ]
-    },
-    {
-      "name": "handleevents_pollsdl",
-      "reason": "record field requires verified native storage: ImGuiIO::WantCaptureKeyboard",
-      "dependencies": []
-    },
-    {
-      "name": "handleevents",
-      "reason": "record copy/move requires Clang-proven trivial semantics: (lambda at source/build/src/sdlayer.cpp:2812:29)",
-      "dependencies": []
-    }
-  ],
-  "installed_closed_definitions": 61,
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_sdlayer.cpp/reachable-ccec6f45ecaf3ee0/source/build/src/sdlayer.cpp.manifest.json",
+  "blocked": [],
+  "installed_closed_definitions": 2,
   "original_gameplay_verified": false
 }

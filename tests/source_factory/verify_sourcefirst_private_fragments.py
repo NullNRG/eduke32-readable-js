@@ -52,7 +52,9 @@ extern "C" int fragment_step(int x){
     for name,cell in cells.items():code=code.replace('export function '+cell['binding']+'() { return '+private_address_binding('owner.cpp',name)+'(); }','')
     old.pop('private_storage_exports')
     for row in old['definitions']:row.pop('private_storage',None)
+    from source_scalar_helpers import declaration as scalar_declaration
     for case,changed in [('initializer',code.replace('65000','64999',1)),
+                         ('narrowing',code.replace(scalar_declaration('u32'),scalar_declaration('u32').replace('>>> 0','| 0'))),
                          ('getter',code.replace('get value() { return state; }','get value() { return state + 1; }'))]:
         if changed==code:raise AssertionError('Negative fixture did not change original storage')
         bad=temp/('bad-'+case);bad.mkdir()

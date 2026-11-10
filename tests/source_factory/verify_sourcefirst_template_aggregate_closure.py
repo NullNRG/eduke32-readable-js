@@ -2,6 +2,7 @@
 """Clang-concrete template POD aggregation: exact specialization, native/Node/Chromium parity."""
 import asyncio
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -79,7 +80,7 @@ for(let x=-32;x<=32;x+=4)console.log(`${signed_point(x,19)},${unsigned_point(x>>
     assert actual==expected,(expected,actual)
     async def browser_check():
         async with async_playwright() as playwright:
-            browser=await playwright.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox'])
+            browser=await playwright.chromium.launch(executable_path=os.environ.get('EDUKE_CHROMIUM_EXECUTABLE') or shutil.which('chromium'),headless=True,args=['--no-sandbox'])
             try:
                 page=await browser.new_page();errors=[]
                 page.on('pageerror',lambda error:errors.append(str(error)))

@@ -1,43 +1,19 @@
-# Current EDuke32 readable JavaScript port — November 5, 2026
+# Current EDuke32 readable JavaScript port â€” November 10, 2026
 
-**The original game is not yet playable.** No verified JavaScript menu, E1L1 image, 60-second gameplay session or standalone playable `dist/index.html` exists. Do not present native screenshots or diagnostic canvases as JavaScript gameplay.
+**The original game is not yet playable.** Original `app_main`, a game menu, E1L1 world rendering, sustained gameplay and a playable standalone `dist/index.html` remain unverified. Console diagnostics are not gameplay screenshots.
 
-Actual Chromium execution has reached original `engineSetupAllocator → enginePreInit → initgroupfile → engineInit → OSD_Init → enginePostInit → videoSetGameMode`. All listed functions now return successfully in Chromium; the original 640×480 video mode passes without page exceptions. Original engine initialization verified the native trigonometric CRC constants and 74,496 original palette/shade/translucency bytes from the supplied 456-entry GRP. These are engine-component proofs, not `app_main`, CON or world rendering.
+The canonical classic NOASM single-player profile remains `tools/browser_classic_profile.json`, selecting 111 original units. Original engine allocation/startup, GRP initialization, palette/trigonometric tables, console initialization, post-initialization and 640Ã—480 video mode execute in Chromium. The new `reports/nov10-original-bfirst-search.json` repeats this path successfully with no page exceptions and compares 512 native executions of the unchanged original `compat.h` breadth-first search helpers to their recovered JavaScript in Chromium.
 
-The implicit C++ vector assignment at `softsurface_initialize` is fixed through a dedicated Clang-proven trivial-assignment path. It passes 512 native/JS cases and a frozen 12/12 assignment/union integration suite. The regenerated original surface owner and complete engine/video component now execute successfully. World rendering, game/menu startup and gameplay remain blocked.
+The original `calc_sector_reachability`, `engineFinishLoadBoard`, `updatesector` and `updatesectorneighbor` now link through the original search-template bodies. This resolves the previous search-template dependency chain; it is not evidence of loading a level. Original `system_getcvars` and its video-sync dependency now link too. Full map loading, ART/cache initialization and original game startup still need completion. The active map-loader frontier is `factory-output/source-first/browser-classic/reports/frontier-source_build_src_engine.cpp.json`.
 
-Implemented shared fixes also cover terminal private-pointer steps, typed scalar lvalue reads, dominated scalar-byte storage across goto, lazy header inventory, actual SDL structure writes, canvas window resize/border flags, unchanged-size surface lifetime, video-implied events, bounded `bsearch`, and cached actual-export audits. The original MD4, map-hack search and clip-map initialization storage have been linked. The complete map loader is still blocked.
+Shared compiler repairs preserve concrete template identity across independent filtered Clang queries. The join requires the same original owning body, source callsite and Clang-selected mangled instance; it never selects by name or argument count. Implicit header template instances no longer require an explicit `inline` token. Private-storage upgrades accept the exact canonical hoisted narrowing helpers while rejecting changed behavior. Predefined-name parity now reads the emitted original bytes as well as checking their native sizes. The affected compiler/private-storage/template suite passes **17/17** under unchanged inputs (`reports/nov10-template-private-regression.json`). New header-template fixtures compare 1,024 full/filtered results with native C++ and reject conflicting/source-site selections.
 
-A frozen targeted regression checkpoint passed 10/10 tests before the latest trivial-assignment change. Host I/O/display tests passed 9/9. The latest assignment integration suite is separate; inspect its report. A complete current compiler regression run remains required. Historical full-suite success is not current verification.
+The last completed broad regression attempt was **243/247**, with four failures (`reports/nov05-current-full-regression.json`). Those four focused tests now pass. This does not replace a complete regression run under the new compiler revision. A separate browser test was corrected to honor the existing configured Chromium executable and now passes too. Public GitHub CI passed for checkpoint `72759a6`; inspect the next commit's own run before claiming it passed.
 
-The classic NOASM single-player profile selects 111 original units. All have native semantic observations, with a verified SDL-only semantic delta reusing 110 unchanged units. Semantic fingerprint: `21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765`. The refreshed private compressed checkpoint has every table row checked; it is not a complete indirect-call/dataflow model.
+The existing genuine original-engine console capture is `reports/evidence/nov05-original-js-engine-console.png`. It explicitly states that the menu and level are not linked. The original software text renderer and indexed framebuffer produced that diagnostic; no game screenshot exists.
 
-The generated game graph remains partial and contains unresolved/ambiguous ownership. `app_main` is not linked. The root launcher is a developer interface; `npm run compile:game` is not yet a reproducible playable-release pipeline. Original Build/game code must stay readable JS; low-level browser/native services may use the previously authorized separate WASM service.
+The source semantic fingerprint remains `21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765`. All 111 selected units have native semantic observations; the SDL delta reused 110 unchanged units. The private compressed checkpoint has every table row checked. This is not a complete indirect-call/dataflow model or proof that every selected unit compiles under the latest emitter.
 
-Evidence: `reports/nov05-shared-boot-regression.json`, `reports/nov05-host-io-display-regression.log`, `reports/nov05-trivial-record-assignment-regression.log`, `reports/nov05-original-engine-video.json`, `reports/nov05-sdl-semantic-delta.json`, and `reports/nov05-semantic-payload-verification.json`.
+Remaining implementation work includes original map/ART/cache and CON/menu/game initialization, source-accurate out-of-line `cache1d` methods, event/private-storage ownership, remaining record-array ABI/ownership conflicts and the original browser-yielding game loop. The partial graph still has ambiguous ownership; no complete original startup/gameplay closure exists. The root launcher is a developer interface, and `npm run compile:game` is not yet a reproducible playable-release pipeline.
 
-# Continue the canonical project
-
-Read `CURRENT_PORT_STATUS.md`, `HANDOFF_SNAPSHOT.json` and the latest actual Chromium report. Preserve the existing project and all original source/license notices. The port is incomplete; do not claim a playable artifact or show native/diagnostic images as game screenshots.
-
-PowerShell, from the canonical project:
-
-```powershell
-. work/session-env.ps1
-python work/verify_original_engine_init.py --video-mode --report reports/nov05-original-engine-video.json
-```
-
-The active rebuild/probe command is logged in `reports/nov05-proven-software-assignment-rebuild.log` and `reports/nov05-original-engine-video.log`. Do not run a second heavy Clang job concurrently. `work/rebuild_source_owner.py` requires the actual current SHA-256 of the owner. It preserves storage and current consumers; header-factory retention preserves original closed implementations rather than introducing initialization cycles. Reuse requires the exact compiler and preprocessing fingerprints.
-
-The last verified shared fix is Clang-proven implicit trivial-record assignment. After the current owner rebuild, retry the original video path. Retain all native layout, lifetime and authored-method checks. Next resolve `bfirst_search_init`/`bfirst_search_try` template recovery, complete `engineFinishLoadBoard` and original map/ART/cache initialization. `cache1d` out-of-line nonstatic methods still need reusable compiler lowering. Reprobe original `app_main`; never substitute a boot stub or fill game state manually.
-
-The SDL event fragment retry failed because internal `sdl_resize` was not imported through a valid original storage provider. Preserve that diagnostic; fix same-TU private ownership or rebuild its complete owner. The broad clip retry rejected a `tilesiz` record-array prototype/storage mismatch; the scalar `quickloadboard` recovery succeeded separately. Do not weaken either ABI check.
-
-After changes stabilize:
-
-```powershell
-python tools/verify_recovery_suite.py --jobs 1 --timeout 1200 --report reports/nov05-current-full-regression.json
-python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --out reports/nov05-port-acceptance.json --strict
-```
-
-The strict acceptance gate is expected to fail until real original menu, level, input, audio, gameplay and offline evidence exist. Produce genuine Chromium menu/E1L1 screenshots only when those states render. The current repository excludes GRPs, toolchains, AST/SQLite caches and the 362 MB private semantic payload. Local input data remains private.
+Git excludes private GRPs, downloaded toolchains, AST/SQLite caches and the 362 MB private semantic payload. Original Build/game code remains readable JavaScript; no game engine has been substituted.

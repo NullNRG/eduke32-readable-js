@@ -8,6 +8,7 @@ from pathlib import Path
 from source_runtime_helpers import embedded as embedded_runtime
 from source_ast_to_js import PRIVATE_STORAGE_ABI,private_storage_binding,private_address_binding
 from source_private_record_schema import private_record_schema_compatible
+from source_scalar_helpers import OPERATIONS, declaration, legacy_declaration
 
 def normalized(text):
     # Some historical modules were saved with doubled Windows newlines.
@@ -60,8 +61,22 @@ def expose(manifest_path,target,names,report_path):
         # Verify the scalar narrowing helper too, when the factory uses one.
         for helper in ('i32','u32','i64','u64','f32'):
             if re.search(r'\b'+helper+r'\(',matches[0]):
-                helpers=re.findall(r'^const '+helper+r' = [^\n]+;',generated,re.M)
-                if len(helpers)!=1 or existing.count(helpers[0])!=1:raise ValueError('Scalar storage helper differs: '+helper)
+                if helper in OPERATIONS:
+                    # Hoisted functions and the exact historical arrow helper
+                    # implement the same operation. Verify complete top-level
+                    # lines; substring presence could accept a changed helper.
+                    allowed={declaration(helper),legacy_declaration(helper)}
+                    fresh_lines=[line for line in generated.splitlines() if line in allowed]
+                    owner_lines=[line for line in existing.splitlines() if line in allowed]
+                    bindings=r'^(?:function '+helper+r'\(|const '+helper+r'\s*=)'
+                    if (len(fresh_lines)!=1 or len(owner_lines)!=1 or
+                            len(re.findall(bindings,generated,re.M))!=1 or
+                            len(re.findall(bindings,existing,re.M))!=1):
+                        raise ValueError('Scalar storage helper differs: '+helper)
+                else:
+                    helpers=re.findall(r'^const '+helper+r' = [^\n]+;',generated,re.M)
+                    if len(helpers)!=1 or existing.count(helpers[0])!=1:
+                        raise ValueError('Scalar storage helper differs: '+helper)
         if re.search(r'export\s+(?:function\s+'+re.escape(binding)+r'\b|\{[^}]*\b'+re.escape(binding)+r'\b)',existing):
             raise ValueError('Storage already exported')
         old['private_storage']=contract

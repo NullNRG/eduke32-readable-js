@@ -1058,3 +1058,9 @@ export { applyVoxelColorMap, ceilspritehline, ceilspritescan, hline, nonpow2_thl
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { pow2char, __cxx_private_cell_06afb7607c36925d71b82247 } from "./_source_legacy_engine_cpp_9db8937f37d9.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { bfirst_search_init__template_bac72b9f4bd83b32, bfirst_search_try__template_422b1d52b4ee4d34, calc_sector_reachability, engineFinishLoadBoard, updatesector, updatesectorneighbor } from "./_source_legacy_engine_cpp_ab395e6bd4e1.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { check_sprite } from "./_source_legacy_engine_cpp_fc91a4910d27.mjs";

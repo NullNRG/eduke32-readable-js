@@ -94,8 +94,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\oct29-browser-startup-leaf-project\\source\\build\\src\\engine.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 776,
-  "emitted": 774,
+  "found": 783,
+  "emitted": 781,
   "blocked": 2,
   "definitions": [
     {
@@ -24324,6 +24324,471 @@
         "ylookup"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "bfirst_search_init__template_bac72b9f4bd83b32",
+      "source_name": "bfirst_search_init",
+      "kind": "FunctionDecl",
+      "line": 1206,
+      "original_type": "void (short *const, uint8_t *const, short *const, const int, const int)",
+      "clang_template_mangled_name": "_Z18bfirst_search_initIsEvPT_PhS1_ii",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33358,
+        "source_line": 1206,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33358,
+        "enclosing_record": "(free inline function)",
+        "type": "void (short *const, uint8_t *const, short *const, const int, const int)",
+        "semantic_sha256": "94b120f93eed8a06e0a99f9e7d48086a7278687c3ea7ed29f713e2afa24fcb9d"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "bitmap_set__header_3ddae889b678",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "bfirst_search_try__template_422b1d52b4ee4d34",
+      "source_name": "bfirst_search_try",
+      "kind": "FunctionDecl",
+      "line": 1216,
+      "original_type": "void (short *const, uint8_t *const, short *const, const int)",
+      "clang_template_mangled_name": "_Z17bfirst_search_tryIsEvPT_PhS1_i",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33641,
+        "source_line": 1216,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33641,
+        "enclosing_record": "(free inline function)",
+        "type": "void (short *const, uint8_t *const, short *const, const int)",
+        "semantic_sha256": "75945841e0f95d823a3cbeb79372618ebcbac19d0fed74287d2357bbc1e9f59d"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "bitmap_set__header_3ddae889b678",
+        "bitmap_test__header_955f0b2ebc45"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "calc_sector_reachability",
+      "source_name": "calc_sector_reachability",
+      "kind": "FunctionDecl",
+      "line": 10841,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "bfirst_search_init__template_bac72b9f4bd83b32",
+        "bfirst_search_try__template_422b1d52b4ee4d34",
+        "bitmap_test__header_955f0b2ebc45",
+        "getcrc16__header_6717f56e8526",
+        "getreachabilitybitmap",
+        "getreachabilitybitmapsegmentsize",
+        "getreachabilitybitmapsize",
+        "memcpy",
+        "memset",
+        "numsectors",
+        "reachablesectors",
+        "sector",
+        "wall",
+        "wallsect",
+        "xcalloc__header_63bbae275ae4",
+        "xfree__header_196f14a5f8eb",
+        "yax_vnextsec"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "fcd30f0e3dcfc078203cf01d0972cbd023d9490e9c10975d693dd33350582b1a",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[671,\"operator-\",\"const vec2<int> (const vec2<int>) const\"]": "4e3904580d3e7313f2d456a5d17c760e615eef8ae938c3098cfb2d08cdf71427",
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "numsectors",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_896db579dcea810a995205f6",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "uint8_t *",
+          "name": "reachablesectors",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "wall",
+          "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+          "abi": "source-global-cell/2",
+          "original_type": "walltype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "memcpy",
+        "memset",
+        "numsectors",
+        "reachablesectors",
+        "sector",
+        "wall",
+        "wallsect",
+        "yax_vnextsec"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineFinishLoadBoard",
+      "source_name": "engineFinishLoadBoard",
+      "kind": "FunctionDecl",
+      "line": 10931,
+      "original_type": "int32_t (const vec3_t *, int16_t *, int16_t, char)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "Numsprites",
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "__cxx_record_vec2_8ca824f0ac397ec5",
+        "calc_sector_reachability",
+        "deletesprite",
+        "guniqhudid",
+        "insertsprite",
+        "memset",
+        "quickloadboard",
+        "sprite",
+        "spriteext",
+        "tilecols",
+        "updatesector",
+        "wallext"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "fcd30f0e3dcfc078203cf01d0972cbd023d9490e9c10975d693dd33350582b1a",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[671,\"operator-\",\"const vec2<int> (const vec2<int>) const\"]": "4e3904580d3e7313f2d456a5d17c760e615eef8ae938c3098cfb2d08cdf71427",
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        },
+        {
+          "name": "__cxx_record_vec2_8ca824f0ac397ec5",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<short>",
+            "type": "vec2<short>",
+            "semantic_sha256": "0fc2ecf24391b123c5c97e89cb06a290402d387f798c84c795b328ac66523233",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "2a40edecb07c5f649497a782576bb3abf115589310733109a56319e170d735a5",
+              "method_bodies": {
+                "[232,\"operator!=\",\"bool (const vec2<short>)\"]": "ae3b9a21781c770c171a5c5213b6eb6b9a04f379d50e568780aa175f34386a20"
+              }
+            }
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "Numsprites",
+          "binding": "__cxx_global_cell_4e6f24ae9c3dade74700992b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "guniqhudid",
+          "binding": "__cxx_global_cell_c7f67e27827c40ee873f6392",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "quickloadboard",
+          "binding": "__cxx_global_cell_135b27d87941a5cb2fdb33a1",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "sprite",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "spriteext",
+          "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+          "abi": "source-global-cell/2",
+          "original_type": "spriteext_t *"
+        },
+        {
+          "name": "wallext",
+          "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+          "abi": "source-global-cell/2",
+          "original_type": "wallext_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Numsprites",
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "__cxx_record_vec2_8ca824f0ac397ec5",
+        "deletesprite",
+        "guniqhudid",
+        "insertsprite",
+        "memset",
+        "quickloadboard",
+        "sprite",
+        "spriteext",
+        "tilecols",
+        "wallext"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "updatesector",
+      "source_name": "updatesector",
+      "kind": "FunctionDecl",
+      "line": 13356,
+      "original_type": "void (const int32_t, const int32_t, int16_t *const)",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "enginecompatibilitymode",
+        "updatesector_compat",
+        "updatesector_tryremaining",
+        "updatesectorneighbor"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "enginecompatibilitymode",
+          "binding": "__cxx_global_cell_bb20f7f3674f33a33d515ebc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "enginecompatibilitymode",
+        "updatesector_compat",
+        "updatesector_tryremaining"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "updatesectorneighbor",
+      "source_name": "updatesectorneighbor",
+      "kind": "FunctionDecl",
+      "line": 13507,
+      "original_type": "void (const int32_t, const int32_t, int16_t *const, int32_t, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "bfirst_search_init__template_bac72b9f4bd83b32",
+        "bfirst_search_try__template_422b1d52b4ee4d34",
+        "bitmap_test__header_955f0b2ebc45",
+        "getsectordist",
+        "inside_p__header_6c2c67bc1240",
+        "memset",
+        "numsectors",
+        "sector",
+        "updatesectorneighborlist",
+        "updatesectorneighbormap",
+        "wall"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "fcd30f0e3dcfc078203cf01d0972cbd023d9490e9c10975d693dd33350582b1a",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[671,\"operator-\",\"const vec2<int> (const vec2<int>) const\"]": "4e3904580d3e7313f2d456a5d17c760e615eef8ae938c3098cfb2d08cdf71427",
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "numsectors",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "wall",
+          "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+          "abi": "source-global-cell/2",
+          "original_type": "walltype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "getsectordist",
+        "memset",
+        "numsectors",
+        "sector",
+        "updatesectorneighborlist",
+        "updatesectorneighbormap",
+        "wall"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "check_sprite",
+      "source_name": "check_sprite",
+      "kind": "FunctionDecl",
+      "line": 11029,
+      "original_type": "void (int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/engine.cpp",
+      "source_references": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "__cxx_record_vec2_8ca824f0ac397ec5",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "numsectors",
+        "remove_sprite",
+        "sprite",
+        "updatesector"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "fcd30f0e3dcfc078203cf01d0972cbd023d9490e9c10975d693dd33350582b1a",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[671,\"operator-\",\"const vec2<int> (const vec2<int>) const\"]": "4e3904580d3e7313f2d456a5d17c760e615eef8ae938c3098cfb2d08cdf71427",
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        },
+        {
+          "name": "__cxx_record_vec2_8ca824f0ac397ec5",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<short>",
+            "type": "vec2<short>",
+            "semantic_sha256": "0fc2ecf24391b123c5c97e89cb06a290402d387f798c84c795b328ac66523233",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "2a40edecb07c5f649497a782576bb3abf115589310733109a56319e170d735a5",
+              "method_bodies": {
+                "[232,\"operator!=\",\"bool (const vec2<short>)\"]": "ae3b9a21781c770c171a5c5213b6eb6b9a04f379d50e568780aa175f34386a20"
+              }
+            }
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "numsectors",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "sprite",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "__cxx_record_vec2_2150e186aab2ebda",
+        "__cxx_record_vec2_8ca824f0ac397ec5",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "numsectors",
+        "sprite",
+        "updatesector"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -33540,6 +34005,509 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "b71d551216b61b705797022f274239b175e82483286a43bd0d2278fa7fc8a447"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_ab395e6bd4e1.mjs",
+      "sha256": "ab395e6bd4e16efec2614ce7722d205c22e883fdbc86adb699102ad9156693e6",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "bfirst_search_init__template_bac72b9f4bd83b32",
+        "bfirst_search_try__template_422b1d52b4ee4d34",
+        "calc_sector_reachability",
+        "engineFinishLoadBoard",
+        "updatesector",
+        "updatesectorneighbor"
+      ],
+      "reexports": [
+        "bfirst_search_init__template_bac72b9f4bd83b32",
+        "bfirst_search_try__template_422b1d52b4ee4d34",
+        "calc_sector_reachability",
+        "engineFinishLoadBoard",
+        "updatesector",
+        "updatesectorneighbor"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Numsprites",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4e6f24ae9c3dade74700992b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "fcd30f0e3dcfc078203cf01d0972cbd023d9490e9c10975d693dd33350582b1a",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[671,\"operator-\",\"const vec2<int> (const vec2<int>) const\"]": "4e3904580d3e7313f2d456a5d17c760e615eef8ae938c3098cfb2d08cdf71427",
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        },
+        {
+          "name": "__cxx_record_vec2_8ca824f0ac397ec5",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<short>",
+            "type": "vec2<short>",
+            "semantic_sha256": "0fc2ecf24391b123c5c97e89cb06a290402d387f798c84c795b328ac66523233",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "2a40edecb07c5f649497a782576bb3abf115589310733109a56319e170d735a5",
+              "method_bodies": {
+                "[232,\"operator!=\",\"bool (const vec2<short>)\"]": "ae3b9a21781c770c171a5c5213b6eb6b9a04f379d50e568780aa175f34386a20"
+              }
+            }
+          }
+        },
+        {
+          "name": "crctab16",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "deletesprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "enginecompatibilitymode",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bb20f7f3674f33a33d515ebc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "getsectordist",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "guniqhudid",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c7f67e27827c40ee873f6392",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "insertsprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inside",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numsectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "pow2char",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_06afb7607c36925d71b82247",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "quickloadboard",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_135b27d87941a5cb2fdb33a1",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "reachablesectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_896db579dcea810a995205f6",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "uint8_t *",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "sector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "spriteext",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+          "abi": "source-global-cell/2",
+          "original_type": "spriteext_t *"
+        },
+        {
+          "name": "tilecols",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "updatesector_compat",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "updatesector_tryremaining",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "updatesectorneighborlist",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "updatesectorneighbormap",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wall",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+          "abi": "source-global-cell/2",
+          "original_type": "walltype *"
+        },
+        {
+          "name": "wallext",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+          "abi": "source-global-cell/2",
+          "original_type": "wallext_t *"
+        },
+        {
+          "name": "wallsect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "yax_vnextsec",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "75ebf30ad2352d43381295aeb53fa193157dc56bdb608ea350a24fdb7fb3c75a"
+    },
+    {
+      "module": "source/build/src/_source_legacy_engine_cpp_fc91a4910d27.mjs",
+      "sha256": "fc91a4910d2747762ec8711d7b6bfa26533716adcd0a659067ac375c5ad2c170",
+      "original_source": "source/build/src/engine.cpp",
+      "exports": [
+        "check_sprite"
+      ],
+      "reexports": [
+        "check_sprite"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Numsprites",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4e6f24ae9c3dade74700992b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "__cxx_record_vec2_2150e186aab2ebda",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<int>",
+            "type": "vec2<int>",
+            "semantic_sha256": "fcd30f0e3dcfc078203cf01d0972cbd023d9490e9c10975d693dd33350582b1a",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "0aceda36135356db8c018a73f39b4e2aa39ceb311c8d2934e876f1893b986f2f",
+              "method_bodies": {
+                "[671,\"operator-\",\"const vec2<int> (const vec2<int>) const\"]": "4e3904580d3e7313f2d456a5d17c760e615eef8ae938c3098cfb2d08cdf71427",
+                "[771,\"operator*\",\"const vec2<int> (const vec2<int>) const\"]": "7dcbc093d7de0199cfb5b00e7f71df8fcadd8cd0d8d722f32d5d43dd4920d215"
+              }
+            }
+          }
+        },
+        {
+          "name": "__cxx_record_vec2_8ca824f0ac397ec5",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "header_record_proof": {
+            "source_header": "source/build/include/vec.h",
+            "source_offset": 116,
+            "enclosing_record": "vec2<short>",
+            "type": "vec2<short>",
+            "semantic_sha256": "0fc2ecf24391b123c5c97e89cb06a290402d387f798c84c795b328ac66523233",
+            "prototype_factory_abi": "source-header-record-factory/1",
+            "leaf_prototype": {
+              "format": "source-leaf-record-prototype/1",
+              "storage_and_declarations_sha256": "2a40edecb07c5f649497a782576bb3abf115589310733109a56319e170d735a5",
+              "method_bodies": {
+                "[232,\"operator!=\",\"bool (const vec2<short>)\"]": "ae3b9a21781c770c171a5c5213b6eb6b9a04f379d50e568780aa175f34386a20"
+              }
+            }
+          }
+        },
+        {
+          "name": "calc_sector_reachability",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "deletesprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "editwall",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "guniqhudid",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c7f67e27827c40ee873f6392",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initspritelists",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "insertsprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mapversion",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cb2e0a258fc01cfd6ce86a21",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numsectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "quickloadboard",
+          "from": "source/build/src/clip.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_135b27d87941a5cb2fdb33a1",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "reachablesectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_896db579dcea810a995205f6",
+          "owner_source": "source/build/src/engine.cpp",
+          "original_type": "uint8_t *",
+          "consumer_source": "source/build/src/engine.cpp"
+        },
+        {
+          "name": "show2dsector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "show2dsprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "show2dwall",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "spriteext",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e6d5c05c99c236717ba2a685",
+          "abi": "source-global-cell/2",
+          "original_type": "spriteext_t *"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strrchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilecols",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "updatesector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wallext",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64b1dd24a985c284baf44a16",
+          "abi": "source-global-cell/2",
+          "original_type": "wallext_t *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "ecb02cf57e826d3a4bce93542a51b2f676e826706ae8679bb8b708255c13ed62"
     }
   ],
   "superseded_module_fragments": [

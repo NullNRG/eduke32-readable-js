@@ -90,6 +90,10 @@ def main():
             'semantic_blockers':[row for row in frontier['blocked'] if not row.get('reason','').startswith('unlinked identifiers:')],
             'frontier':frontier_path.relative_to(ROOT).as_posix(),'original_gameplay_verified':False},indent=2))
         return 0 if compiled else 1
+    if doc['emitted']==0:
+        print(json.dumps({'installed':False,'blocked_definitions':len(frontier['blocked']),
+            'frontier':frontier_path.relative_to(ROOT).as_posix(),'original_gameplay_verified':False},indent=2))
+        return 1
     emitted=active_exports(stage/(source+'.mjs'))
     exports=sorted({row['name'] for row in doc['definitions'] if row['status']=='source-first' and row['name'] in emitted-existing})
     if not exports:

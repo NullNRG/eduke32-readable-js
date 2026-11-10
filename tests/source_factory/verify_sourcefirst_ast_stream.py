@@ -37,7 +37,11 @@ static_ref={'kind':'DeclRefExpr','range':{'begin':{'offset':20,'tokLen':4},'end'
     'referencedDecl':{'id':'method','kind':'CXXMethodDecl','name':'run','type':{'qualType':'int (int)'}}}
 static_decoded,static_stats=parse_ast_file(BytesIO(json.dumps(static_ref).encode()))
 assert static_decoded==[static_ref] and static_stats['semantic_barrier_ranges_retained']==1,static_stats
-for invalid in (b'{"kind":',b'{"kind":"A"} garbage',b'{"kind":"A","inner":[}'): 
+template_ref={**static_ref,'referencedDecl':{'id':'instance','kind':'FunctionDecl','name':'mix','type':{'qualType':'int (int)'}},
+    'foundReferencedDecl':{'id':'primary','kind':'FunctionTemplateDecl','name':'mix'}}
+template_decoded,template_stats=parse_ast_file(BytesIO(json.dumps(template_ref).encode()))
+assert template_decoded==[template_ref] and template_stats['semantic_barrier_ranges_retained']==1,template_stats
+for invalid in (b'{"kind":',b'{"kind":"A"} garbage',b'{"kind":"A","inner":[}'):
     try:parse_ast_file(BytesIO(invalid))
     except (ValueError,Exception) as error:assert error is not None
     else:raise AssertionError('malformed AST accepted')

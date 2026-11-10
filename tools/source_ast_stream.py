@@ -294,9 +294,12 @@ def parse_ast_file(stream, *, retain_ranges=False):
                     stats['ranges_omitted']+=1
                 # A qualified static-method reference also needs its exact
                 # source callsite when a filtered dump omits the owning class.
-                # Ordinary variable/function refs retain no extra span data.
+                # Free-template refs also need a callsite span: identical
+                # function types cannot distinguish non-type specializations.
+                # Other variable/function refs retain no extra span data.
                 if (not retain_ranges and node.get('kind')=='DeclRefExpr' and 'range' in node
-                        and node.get('referencedDecl',{}).get('kind')!='CXXMethodDecl'):
+                        and node.get('referencedDecl',{}).get('kind')!='CXXMethodDecl'
+                        and node.get('foundReferencedDecl',{}).get('kind')!='FunctionTemplateDecl'):
                     node.pop('range')
                     stats['semantic_barrier_ranges_retained']-=1
                     stats['ranges_omitted']+=1

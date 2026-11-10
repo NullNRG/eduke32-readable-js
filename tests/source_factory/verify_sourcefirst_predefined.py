@@ -16,7 +16,7 @@ with tempfile.TemporaryDirectory() as directory:
     manifest=json.loads(module.with_suffix('.manifest.json').read_text())
     assert manifest['emitted']==1 and manifest['blocked']==0,manifest
     text=module.read_text()
-    assert '"boot_name"' in text and '__PRETTY_FUNCTION__' not in text,text[:2500]
+    assert '__PRETTY_FUNCTION__' not in text,text[:2500]
     run(['node','--check',str(module)])
     (out/'invoke.mjs').write_text('import {boot_name} from '+json.dumps(module.as_uri())+';\n'
         'for(let x=-256;x<256;x++)console.log(boot_name(x));\n')

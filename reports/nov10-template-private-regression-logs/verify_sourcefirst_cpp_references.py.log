@@ -1,0 +1,27 @@
+{
+  "format": "source-cpp-borrowed-reference-parity/1",
+  "passed": true,
+  "native_node_cases": 512,
+  "native_chromium_cases": 512,
+  "compared_values": 5120,
+  "cross_translation_unit_cases": 512,
+  "original_std_lock_guard_body_translated": true,
+  "checks": [
+    "mutable scalar and pointer references",
+    "const scalar temporary lifetime",
+    "returned reference lvalues",
+    "stable local, global and array element addresses",
+    "single evaluation of side-effecting arguments",
+    "borrowed reference member RAII",
+    "original standard-library lock_guard constructor/destructor",
+    "indirect and member reference calls",
+    "loop declaration aliases",
+    "cross-unit ABI attestation and rejection of historical incompatible providers",
+    "Clang-validated goto scopes, shadowed reference aliases and repeated declarations"
+  ],
+  "browser_version": "156.0.4314.58",
+  "compiler_sha256": "0fe0cdf16ca3e3a2897cf8090fd30f909aa898c4842b8c9d9bf97f3b6e40ae90",
+  "gameplay_verified": false
+}
+
+--- stderr ---

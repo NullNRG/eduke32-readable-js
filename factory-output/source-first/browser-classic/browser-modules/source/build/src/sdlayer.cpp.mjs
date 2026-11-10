@@ -3261,3 +3261,6 @@ export function min__template_c237f4424e2bda8a(__a, __b) {
   }
   return __a;
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { system_getcvars, videoSetVsync } from "./_source_legacy_sdlayer_cpp_f0278981403a.mjs";

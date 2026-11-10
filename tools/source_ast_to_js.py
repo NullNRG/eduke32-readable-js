@@ -41,6 +41,7 @@ from source_static_members import recover as recover_out_of_line_static_members,
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
+from source_template_bindings import ABI as TEMPLATE_SELECTION_ABI, rebind as rebind_template_references, contexts as template_function_contexts
 from source_field_bindings import index as index_source_fields, rebind as rebind_source_fields
 from source_header_definitions import load as load_header_definitions, match as match_header_definition
 from source_byte_methods import recover as recover_byte_methods
@@ -4145,7 +4146,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
     included_paths={path for path,data in included_sources}
     sysroot=Path(os.environ['EDUKE32_SYSROOT']).resolve() if os.environ.get('EDUKE32_SYSROOT') else None
     known_by_id={};by_signature={};invalid=set()
-    origins={};template_ids=set()
+    origins={};template_ids=set();implicit_template_ids=set()
 
     def verified_header(n):
         identifier=n.get('id')
@@ -4194,9 +4195,19 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
             if k=='FunctionTemplateDecl':
                 # Clang's monomorphized FunctionDecl bodies live UNDER the
                 # template node, not among ordinary namespace declarations.
+                patterns=[child for child in kids(n) if kind(child)=='FunctionDecl'
+                    and not any(kind(arg)=='TemplateArgument' for arg in kids(child))]
                 for specialization in kids(n):
                     if kind(specialization)=='FunctionDecl':
                         template_ids.add(id(specialization))
+                        # Instantiated primary-template bodies obey the header
+                        # ODR without spelling `inline`. Explicit specializations
+                        # have their own source location and remain source-owned.
+                        if (len(patterns)==1 and specialization.get('mangledName') and
+                                any(kind(arg)=='TemplateArgument' for arg in kids(specialization)) and
+                                {key:value for key,value in specialization.get('loc',{}).items() if key not in ('line','col')}==
+                                {key:value for key,value in patterns[0].get('loc',{}).items() if key not in ('line','col')}):
+                            implicit_template_ids.add(id(specialization))
                         stack.append((specialization,file_scope))
                 continue
             # Both source-defined callable helpers and TU-private header
@@ -4209,7 +4220,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
                     not any(kind(x)=='CompoundStmt' for x in kids(n))):
                 continue
             external_inline=(n.get('storageClass')!='static' and
-                (n.get('inline') is True or n.get('constexpr') is True))
+                (n.get('inline') is True or n.get('constexpr') is True or id(n) in implicit_template_ids))
             if n.get('storageClass')!='static' and not external_inline:continue
             # Function-local statics must have one shared C++ object across TUs.
             # Until that lifetime/identity is represented in JS, reject them.
@@ -4241,6 +4252,11 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
             if origin.is_relative_to(root) else '@sysroot/'+origin.relative_to(sysroot).as_posix(),
             'source_offset':offset,'source_line':data[:offset].count(b'\n')+1,
             'header_sha256':hashlib.sha256(data).hexdigest()}
+    known_template_abis={}
+    for node in known_by_id.values():
+        if id(node) in template_ids and node.get('mangledName'):
+            key=(node.get('name'),qual(node),node['mangledName'])
+            known_template_abis.setdefault(key,[]).append(node)
     added=[];odr_origins={};selected={n.get('id') for n in candidates};queue=list(candidates)
     # A whole-owner rebuild can explicitly request a previously exported
     # specialization even when none of its remaining functions calls it.
@@ -4273,6 +4289,11 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
             if ref.get('kind') not in ('FunctionDecl','VarDecl'):continue
             if ref.get('kind')=='VarDecl' and ref.get('id') in local_ids:continue
             n=known_by_id.get(ref.get('id'))
+            proof=ref.get('_source_template_selection',{})
+            if (n is None and proof.get('abi')==TEMPLATE_SELECTION_ABI and
+                    proof.get('mangled_name')==ref.get('mangledName')):
+                choices=known_template_abis.get((ref.get('name'),qual(ref),ref.get('mangledName')),[])
+                if len(choices)==1:n=choices[0]
             signature=(ref.get('kind'),ref.get('name'),ref.get('type',{}).get('qualType'))
             if n is None and signature not in invalid:n=by_signature.get(signature)
             if n is None or n.get('id') in selected:continue
@@ -5033,6 +5054,29 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if n.get('id'):by_id[n['id']]=symbol
         if kind(n)=='FunctionDecl' and signatures[(name,qual(n))]==1:
             by_signature[(name,qual(n))]=symbol
+    # Filtered queries have different declaration IDs. Only a same-TU,
+    # unchanged-body callsite proof may reconnect a selected template ABI to
+    # an actual source definition. Never choose by shared name/function type.
+    template_symbols={}
+    for candidate in candidates:
+        if (kind(candidate)=='FunctionDecl' and id(candidate) in symbols and
+                any(kind(arg)=='TemplateArgument' for arg in kids(candidate)) and candidate.get('mangledName')):
+            key=(candidate.get('name'),qual(candidate),candidate['mangledName'])
+            template_symbols.setdefault(key,set()).add(symbols[id(candidate)])
+    for tree in ast:
+        for reference in descendants(tree):
+            declaration=reference.get('referencedDecl',{})
+            proof=declaration.get('_source_template_selection',{})
+            if (kind(reference)!='DeclRefExpr' or declaration.get('kind')!='FunctionDecl'
+                    or proof.get('abi')!=TEMPLATE_SELECTION_ABI
+                    or proof.get('mangled_name')!=declaration.get('mangledName')):continue
+            key=(declaration.get('name'),qual(declaration),declaration.get('mangledName'))
+            selected=template_symbols.get(key,set())
+            if len(selected)==1 and declaration.get('id'):
+                symbol=next(iter(selected))
+                if declaration['id'] in by_id and by_id[declaration['id']]!=symbol:
+                    raise Unsupported('conflicting original template callsite identity')
+                by_id[declaration['id']]=symbol
     # Operator selection references in CXXNewExpr/CXXDeleteExpr carry Clang IDs,
     # often without mangling. Recover identities from the exact global declarations.
     for root in ast:
@@ -5839,6 +5883,7 @@ def main():
             rebind_static_references(args[0],static_reference_context)
             rebind_explicit_operators(args[0],static_reference_context)
             rebind_c_function_references(args[0],static_reference_context)
+            rebind_template_references(args[0],static_reference_context)
         if field_selection_index:
             count=rebind_source_fields(args[0],field_selection_index)
             full_type_closure['field_references_rebound']=full_type_closure.get('field_references_rebound',0)+count
@@ -6300,7 +6345,12 @@ def main():
         explicit_members=has_unresolved_explicit_operators(ast)
         static_members=any(row.get('reason','').startswith('method reference lacks exact static class owner:') for row in report)
         heap_types=any(row.get('reason','').startswith('C++ heap object needs complete original class construction/destruction:') for row in report)
-        c_overloads=any('ambiguous C++ overload call:' in row.get('reason','') for row in report)
+        missing_template_names={name for row in report for name in row.get('unresolved_references',[])}
+        template_call_selection=any(kind(node)=='DeclRefExpr' and
+            node.get('foundReferencedDecl',{}).get('kind')=='FunctionTemplateDecl' and
+            node.get('referencedDecl',{}).get('name') in missing_template_names
+            for tree in ast for node in descendants(tree))
+        c_overloads=template_call_selection or any('ambiguous C++ overload call:' in row.get('reason','') for row in report)
         unresolved_enums=bool(enum_closure['rejected'])
         # A named POD query can prove fields while omitting its namespace.
         # Keep the original same-TU declaration context before joining its
@@ -6385,7 +6435,7 @@ def main():
                 # wrapper that calls a static method or explicit operator. Retain its exact
                 # same-TU selection evidence, without retaining the full
                 # game function AST or reparsing every selected unit.
-                call_context=[*c_function_contexts(complete),*[node for tree in complete for node in descendants(tree)
+                call_context=[*c_function_contexts(complete),*template_function_contexts(complete),*[node for tree in complete for node in descendants(tree)
                     if kind(node)=='FunctionDecl' and id(node) not in retained_ids
                     and any(explicit_operator(ref) or
                             kind(ref)=='DeclRefExpr' and ref.get('referencedDecl',{}).get('kind')=='CXXMethodDecl'
@@ -6641,6 +6691,13 @@ def main():
                 if reason.startswith('unlinked identifiers:'):
                     names.update(row['unresolved_references'] if 'unresolved_references' in row else
                         (x.strip() for x in reason.partition(':')[2].split(',') if x.strip()))
+                reference_conflict=re.fullmatch(r'conflicting C\+\+ reference call contracts: ([A-Za-z_]\w*)',reason)
+                if reference_conflict and reference_conflict[1] in row.get('source_references',[]):
+                    # Independently queried template instances can share a
+                    # spelling while requiring different lvalue-reference ABIs.
+                    # Fetch their original declarations; retain the conflict
+                    # until exact typed/mangled callable resolution succeeds.
+                    names.add(reference_conflict[1])
                 if reason.startswith('static pointer initializer requires a proven original source address:'):
                     # A filtered table's callback providers can be absent
                     # before its static relocation is authorized. Query only

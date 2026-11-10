@@ -59,8 +59,8 @@
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\sdlayer.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
   "found": 133,
-  "emitted": 124,
-  "blocked": 9,
+  "emitted": 126,
+  "blocked": 7,
   "definitions": [
     {
       "name": "fix16_rad_to_deg_mult__header_global_ee3d6a8a30e73686",
@@ -1317,41 +1317,6 @@
       ]
     },
     {
-      "name": "videoSetVsync",
-      "source_name": "videoSetVsync",
-      "kind": "FunctionDecl",
-      "line": 602,
-      "original_type": "int32_t (int32_t)",
-      "linkage": "external",
-      "source_references": [
-        "bpp",
-        "current_verbosity_cutoff",
-        "fullscreen",
-        "loguru_log",
-        "upscalefactor",
-        "videoResetMode",
-        "videoSetGameMode",
-        "vsync_renderlayer",
-        "vsync_unsupported",
-        "xres",
-        "yres"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "upscalefactor",
-          "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: videoSetGameMode",
-      "unresolved_references": [
-        "videoSetGameMode"
-      ]
-    },
-    {
       "name": "sdlayer_checkversion",
       "source_name": "sdlayer_checkversion",
       "kind": "FunctionDecl",
@@ -1464,32 +1429,6 @@
         "SDL_Quit"
       ],
       "unresolved_references": []
-    },
-    {
-      "name": "system_getcvars",
-      "source_name": "system_getcvars",
-      "kind": "FunctionDecl",
-      "line": 788,
-      "original_type": "void ()",
-      "linkage": "external",
-      "source_references": [
-        "videoSetVsync",
-        "vsync"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "vsync",
-          "binding": "__cxx_global_cell_f60600beda8cdf07cf996425",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: videoSetVsync",
-      "unresolved_references": [
-        "videoSetVsync"
-      ]
     },
     {
       "name": "debugprintf",
@@ -4595,6 +4534,119 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "system_getcvars",
+      "source_name": "system_getcvars",
+      "kind": "FunctionDecl",
+      "line": 788,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "videoSetVsync",
+        "vsync"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "vsync",
+          "binding": "__cxx_global_cell_f60600beda8cdf07cf996425",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "vsync"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "videoSetVsync",
+      "source_name": "videoSetVsync",
+      "kind": "FunctionDecl",
+      "line": 602,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/sdlayer.cpp",
+      "source_references": [
+        "bpp",
+        "current_verbosity_cutoff",
+        "fullscreen",
+        "loguru_log",
+        "upscalefactor",
+        "videoResetMode",
+        "videoSetGameMode",
+        "vsync_renderlayer",
+        "vsync_unsupported",
+        "xres",
+        "yres"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "bpp",
+          "binding": "__cxx_global_cell_b3926346e92cac557f00175c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "fullscreen",
+          "binding": "__cxx_global_cell_b58ae57ccd52d0f91d0874d6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "upscalefactor",
+          "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4aa781b00af78a297342921a",
+          "owner_source": "source/build/src/sdlayer.cpp",
+          "original_type": "int",
+          "name": "vsync_renderlayer",
+          "consumer_source": "source/build/src/sdlayer.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0cb7862380d719c241f6375a",
+          "owner_source": "source/build/src/sdlayer.cpp",
+          "original_type": "int",
+          "name": "vsync_unsupported",
+          "consumer_source": "source/build/src/sdlayer.cpp"
+        },
+        {
+          "name": "xres",
+          "binding": "__cxx_global_cell_56bd65d018548900199db93f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "yres",
+          "binding": "__cxx_global_cell_18fd7bea782d2fdc86805764",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "bpp",
+        "current_verbosity_cutoff",
+        "fullscreen",
+        "loguru_log",
+        "upscalefactor",
+        "videoResetMode",
+        "videoSetGameMode",
+        "vsync_renderlayer",
+        "vsync_unsupported",
+        "xres",
+        "yres"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -6789,5 +6841,112 @@
   ],
   "unreferenced_type_wrapper_blockers": [],
   "recompiled_owner_sha256": "6db47afbafd1cf5bc1da05a1fed8c54540692c331596d37eb708726d8ca49d74",
-  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration."
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration.",
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_sdlayer_cpp_f0278981403a.mjs",
+      "sha256": "f0278981403ad110ce78ffa3e1b6aa6f5cc492c8662de4d7b47358082d74ef70",
+      "original_source": "source/build/src/sdlayer.cpp",
+      "exports": [
+        "system_getcvars",
+        "videoSetVsync"
+      ],
+      "reexports": [
+        "system_getcvars",
+        "videoSetVsync"
+      ],
+      "imports": [
+        {
+          "name": "bpp",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b3926346e92cac557f00175c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fullscreen",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b58ae57ccd52d0f91d0874d6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "upscalefactor",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_46fbe924187022a575efe0a8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "videoResetMode",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "videoSetGameMode",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vsync",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f60600beda8cdf07cf996425",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "vsync_renderlayer",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4aa781b00af78a297342921a",
+          "owner_source": "source/build/src/sdlayer.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/sdlayer.cpp"
+        },
+        {
+          "name": "vsync_unsupported",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0cb7862380d719c241f6375a",
+          "owner_source": "source/build/src/sdlayer.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/sdlayer.cpp"
+        },
+        {
+          "name": "xres",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_56bd65d018548900199db93f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "yres",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_18fd7bea782d2fdc86805764",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "5f00b7c08c8aa4ed5a284161da1d71826fa14991ceaa293464ae30561dc78605"
+    }
+  ]
 }
