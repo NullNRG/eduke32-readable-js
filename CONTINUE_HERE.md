@@ -12,7 +12,7 @@ python work/verify_original_lz4_compression.py --video-mode --report reports/nov
 python tools/recover_browser_component.py --snapshot
 ```
 
-E1L1 now genuinely loads through original `engineLoadBoard`, matching full sector/wall bytes, sprite coordinates and original start, with original `inside` verification. The current shared-semantics regression is 15/15; it covers native layout finalization, pointer/raw unions, exact anonymous owners, array data ABI, deferred pure pointer limits and fragment replacement. It does not replace a complete suite run or gameplay acceptance.
+E1L1 now genuinely loads through original `engineLoadBoard`, matching full sector/wall bytes, sprite coordinates and original start, with original `inside` verification. The current CI-reproduction regression is 46/46, Node browser/runtime tests are 22/22 and GitHub CI passed `ff0f700`; it covers native layout finalization, pointer/raw unions, exact anonymous owners, array data ABI, deferred pure pointer limits and fragment replacement. It does not replace a complete suite run or gameplay acceptance.
 
 The next original dependency chain is base ART textures and cache allocation:
 
@@ -20,7 +20,7 @@ The next original dependency chain is base ART textures and cache allocation:
 python work/recover_boot_reachable.py source/build/src/tiles.cpp artLoadFiles,tileLoad --install-closed-leaves
 ```
 
-Complete the generic source-defined out-of-line `cache1d` methods and global object construction, then recover original `drawrooms`/`drawmasks` and `app_main`/CON/menu initialization. Do not replace cache/renderer/game routines with stubs or independent implementations. `artSetupMapArt` is linked, but is not base ART initialization. The native source remains the behavior oracle.
+See `reports/nov11-art-cache-root-causes.json` and the fresh targeted ART frontier. Complete the generic source-defined out-of-line `cache1d` methods and global object construction, then recover original `drawrooms`/`drawmasks` and `app_main`/CON/menu initialization. Do not replace cache/renderer/game routines with stubs or independent implementations. `artSetupMapArt` is linked, but is not base ART initialization. The native source remains the behavior oracle.
 
 Heavy Clang jobs must stay serial. Reuse only matching compiler/source/preprocessor/ABI fingerprints. Refreshes preserve the exact previous fragment interface and all original storage; additional compiler-emitted helpers do not become owner exports. The strict fragment installer still audits all emitted code/imports/storage. Missing native anonymous fields must stay blocked instead of emitting undefined field reads.
 

@@ -1,0 +1,52 @@
+{
+  "source": "source/build/src/tiles.cpp",
+  "requested": [
+    "artLoadFiles",
+    "tileLoad"
+  ],
+  "requested_resolved": {
+    "artLoadFiles": false,
+    "tileLoad": false
+  },
+  "requested_compiled": {
+    "artLoadFiles": false,
+    "tileLoad": false
+  },
+  "requested_still_unlinked": [
+    "artLoadFiles",
+    "tileLoad"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_tiles.cpp/reachable-cbe77bb9d3dbba66/source/build/src/tiles.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "artLoadFiles",
+      "reason": "unlinked identifiers: g_cache",
+      "dependencies": [
+        "g_cache"
+      ]
+    },
+    {
+      "name": "tileLoad",
+      "reason": "unlinked identifiers: g_cache",
+      "dependencies": [
+        "g_cache"
+      ]
+    },
+    {
+      "name": "tileLoadData",
+      "reason": "unlinked identifiers: LZ4_decompress_safe, engineUnInit, tileLoad",
+      "dependencies": [
+        "LZ4_decompress_safe",
+        "engineUnInit",
+        "tileLoad"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "026661865f39df38ffac45cc54659f5f7ec5c9f42c9ba50d220a191254ceeae8",
+  "provider_index_sha256": "e0172629ab58630ea1be9c326cd0448b3afb76baeda21dbcdf42453cba4ba8a5",
+  "query_limit": 256,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": true
+}
