@@ -313,6 +313,17 @@ const cDeref = (source, Type) => {
 };
 // An address-reinterpreted scalar has one native byte allocation. Reads via
 // its source identifier and all typed/byte aliases share the same DataView.
+// A host I/O boundary can marshal an explicitly typed scalar lvalue while
+// preserving its original identity and committing writes through its setter.
+// This does not grant the lvalue malloc ownership or invent a native buffer.
+function cScalarLValueIO(reference, Type) {
+  const types=[Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,BigInt64Array,BigUint64Array,Float32Array,Float64Array];
+  if(reference?.__cReference!==true || !types.includes(Type))throw new TypeError('Source scalar I/O requires a typed original lvalue');
+  const key=Symbol.for('source-first.scalar-lvalue-io/1'),old=reference[key];
+  if(old && (old.abi!=='source-scalar-lvalue-io/1'||old.Type!==Type))throw new TypeError('Conflicting scalar lvalue I/O type');
+  if(!old)Object.defineProperty(reference,key,{value:Object.freeze({abi:'source-scalar-lvalue-io/1',Type})});
+  return reference;
+}
 const cScalarStorage = (Type, initial) => {
   // An output-only automatic object owns bytes before its original callee
   // writes them. Omitting initial does not emit a C/C++ zero initializer.

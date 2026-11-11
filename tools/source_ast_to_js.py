@@ -16,8 +16,10 @@ from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_included_implementations import included_implementation_bytes
 from source_record_data_access import layout_contract as record_field_layout, field_access_contract
-from source_record_layout_extraction import extract as extract_record_layouts
+from source_record_array_storage import metadata as record_array_storage_metadata
+from source_record_layout_extraction import extract as extract_record_layouts, REVISION as RECORD_LAYOUT_REVISION
 from source_terminal_pointer_steps import plan as terminal_pointer_steps, plan_body_tail as terminal_body_pointer_steps
+from source_deferred_pointer_limits import plan as deferred_pointer_limits
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -1307,6 +1309,11 @@ class Emit:
                         for record in self.aggregate_records.values()}
                     physical_names.discard(None)
                     if len(physical_names)==1:name=next(iter(physical_names))
+            if self.raw_record_receiver(a[0],n.get('isArrow',False)) and name:
+                owner=normalized_record_name(qual(a[0]).rstrip(' *&'),self.type_aliases)
+                schema=getattr(self,'record_storage_views',{}).get(owner,{}).get('byte_schema',{})
+                if name not in schema.get('fields',{}):
+                    raise Unsupported('record field requires verified native storage: '+str(owner)+'::'+name)
             if not re.match(r'^[\w$]+$',name):
                 if explicit_operator(n):
                     declaration=(n.get('_source_member_declaration') or
@@ -2602,7 +2609,20 @@ class Emit:
                     raise Unsupported('va_list initializer requires explicit source va_copy semantics')
                 return pad+(f'{name} = cVariadic.empty();' if self.goto_plan else f'let {name} = cVariadic.empty();')
             if a:
-                value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
+                deferred=getattr(self,'deferred_pointer_limits',{}).get(n.get('id'))
+                if deferred:
+                    base_id=deferred['base_declaration_ids'][0]
+                    references=[node for node in descendants(a[-1]) if kind(node)=='DeclRefExpr'
+                        and node.get('referencedDecl',{}).get('id')==base_id]
+                    captured=self.expr(references[0]);temporary=self.expression_temp()
+                    previous=self.range_aliases.get(base_id);self.range_aliases[base_id]=temporary
+                    try:value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
+                    finally:
+                        if previous is None:self.range_aliases.pop(base_id,None)
+                        else:self.range_aliases[base_id]=previous
+                    value='(('+temporary+') => cStaticPointer(() => '+value+'))('+captured+')'
+                    self.used_deferred_pointer_limits=getattr(self,'used_deferred_pointer_limits',[])+[{**deferred,'base_value_captured_at_declaration':True}]
+                else:value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
                 text=pad+(f'{name} = {value};' if self.goto_plan else f'let {name} = {value};')
                 reference=self.local_reference_declaration(n,name)
                 return text+('\n'+pad+('' if self.goto_plan else 'const ')+reference+';' if reference else '')
@@ -3125,6 +3145,7 @@ class Emit:
         self.local_types={js_ident(p.get('name','')):qual(p) for p in params};self.local_types['!return']=qual(n).split('(')[0].strip();self.static_locals={};self.static_defs=[];self.byte_literals={};self.current_function=name
         self.terminal_pointer_steps=terminal_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.terminal_body_pointer_steps=terminal_body_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
+        self.deferred_pointer_limits=deferred_pointer_limits(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.local_reference_cells=self.plan_local_reference_cells(n)
         self.byte_scalar_cells=self.plan_byte_scalar_cells(n)
         argnames=[]
@@ -3176,6 +3197,13 @@ class Emit:
         fields=[v for v in kids(n) if kind(v)=='FieldDecl']
         record=self.aggregate_records.get(n.get('name'),{})
         byte_schema=record.get('byte_schema') if not record.get('opaque_union') else None
+        if n.get('tagUsed')=='union':
+            authored=any(kind(member) in ('CXXConstructorDecl','CXXDestructorDecl','CXXMethodDecl','CXXConversionDecl')
+                and not member.get('isImplicit') for member in kids(n))
+            if (not byte_schema or authored or not record.get('trivial_default_constructor') or
+                    not record.get('trivial_destructor') or byte_schema.get('prototype')):
+                raise Unsupported('C++ union construction requires verified overlapping native storage: '+n.get('name',''))
+            return 'export class '+name+' { constructor() { return '+self.zero_aggregate({'byteRecord':byte_schema})+'; } }'
         if any(not v.get('name') for v in fields) and not byte_schema:
             raise Unsupported('anonymous record fields require exact Clang byte layout')
         if n.get('bases'):raise Unsupported('C++ inheritance requires a source-level inheritance lowering pass')
@@ -4388,10 +4416,10 @@ def parse_clang_record_layouts(output):
     """Only accept exact sizes/alignments reported by target Clang ABI."""
     parsed={}
     for block in output.split('*** Dumping AST Record Layout'):
-        header=re.search(r'^\s*0\s+\|\s+(?:struct|class|union)\s+([^\n]+)',block,re.M)
+        header=re.search(r'^\s*0\s+\| ([^\s][^\n]*)$',block,re.M)
         summary=re.search(r'\[sizeof=(\d+),[^\]]*?align=(\d+)',block,re.S)
         if not header or not summary:continue
-        name=header.group(1).strip()
+        name=re.sub(r'^(?:struct|class|union)\s+','',header.group(1).strip())
         layout={'size':int(summary.group(1)),'align':int(summary.group(2))}
         # Direct fields only. Bit ranges are reported by target Clang, never
         # reconstructed from host packing rules or an assumed storage unit.
@@ -5271,7 +5299,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             return {'name':name,'abi':'source-byte-record-array/1','stride':schema['recordArray']['size'],
                 'dimensions':[None if incomplete and i==0 else extent for i,extent in enumerate(schema['dims'])],
                 'schema_sha256':hashlib.sha256(json.dumps(schema['recordArray'],sort_keys=True).encode()).hexdigest(),
-                'original_type':typ}
+                'original_type':typ,**record_array_storage_metadata(schema['recordArray'])}
         if not schema or 'pointerArray' not in schema:return None
         return {'name':name,'abi':'source-pointer-array/1','stride':8,
             'extent':None if incomplete else schema['pointerArray'],
@@ -5657,6 +5685,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if location.get('line'):
                 code=f'// C/C++ source: {row.get("physical_source",source_rel)}:{location["line"]}\n'+code
             row['status']='source-first'
+            if getattr(em,'used_deferred_pointer_limits',None):row['deferred_pointer_initializers']=em.used_deferred_pointer_limits
             if getattr(em,'used_terminal_pointer_steps',None):row['terminal_pointer_steps']=em.used_terminal_pointer_steps
             if getattr(em,'used_terminal_body_pointer_steps',None):row['terminal_body_pointer_steps']=em.used_terminal_body_pointer_steps
             if getattr(em,'byte_scalar_goto_lifetime',None):row['byte_scalar_goto_lifetime']=em.byte_scalar_goto_lifetime
@@ -6139,7 +6168,7 @@ def main():
     layout_cache=None
     if opt.ast_cache_dir:
         layout_cache=opt.ast_cache_dir/('layouts-'+hashlib.sha256(json.dumps([str(root),cmd,toolchain,
-            ast_cache_inputs,hashlib.sha256(Path(__file__).read_bytes()).hexdigest()],sort_keys=True).encode()).hexdigest()+'.json')
+            ast_cache_inputs,RECORD_LAYOUT_REVISION,hashlib.sha256(Path(__file__).read_bytes()).hexdigest()],sort_keys=True).encode()).hexdigest()+'.json')
     layouts=json.loads(layout_cache.read_text()) if layout_cache and layout_cache.exists() else {}
     layout_extraction_attempts=[]
     def query_record_layouts():
@@ -6151,7 +6180,8 @@ def main():
         if layout_result.returncode:
             raise SystemExit('Required Clang record-layout extraction failed: '+layout_result.stderr[-2000:])
         layouts.update(parse_clang_record_layouts(layout_result.stdout+'\n'+layout_result.stderr))
-        if not layouts:raise SystemExit('Required Clang record-layout extraction produced no layouts')
+        # A numeric-only unit can have no used records. Any actual storage
+        # operation still requires its own exact layout during emission.
     emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
                            project_symbols=index,record_layouts=layouts,source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
     # A filtered Clang AST often omits typedef declarations required to
@@ -6214,7 +6244,7 @@ def main():
             # A layout dump proves offsets, but not the declarations of nested
             # record fields omitted by a filtered AST. Route such failures
             # through the same source type closure as aggregate initialization.
-            layout_type=re.fullmatch(r'(?:sizeof/alignof record layout|record copy/move requires Clang-proven trivial semantics|record pointer member requires original byte layout): (?:struct |class |union )?([A-Za-z_]\w*)',reason)
+            layout_type=re.fullmatch(r'(?:sizeof/alignof record layout|empty aggregate initializer requires layout|record copy/move requires Clang-proven trivial semantics|record pointer member requires original byte layout): (?:struct |class |union )?([A-Za-z_]\w*)',reason)
             if layout_type:unresolved_types.add(layout_type.group(1))
             field_owner=re.fullmatch(r'record field requires verified native storage: ([A-Za-z_]\w*)::[A-Za-z_]\w*',reason)
             if field_owner:unresolved_types.add(field_owner.group(1))
@@ -6358,6 +6388,7 @@ def main():
         unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
             'record field requires verified native storage:',
             'global aggregate array requires verified storage shape:',
+            'aggregate copy requires verified pointer-free field shape:',
             'nontrivial byte-view method requires original class prototype:')) for row in report)
         ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
         implicit_assignment_types=any(row.get('required_record_types') and row.get('reason','').startswith(

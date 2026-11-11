@@ -12,10 +12,11 @@ with tempfile.TemporaryDirectory() as d:
     mod=out/(SRC+'.mjs');data=json.loads(mod.with_suffix('.manifest.json').read_text())
     defs={x['name']:x for x in data['definitions']}
     assert defs['roundtrip_union']['status']=='source-first',defs['roundtrip_union']
-    assert defs['pointer_union_must_block']['status']=='blocked',defs['pointer_union_must_block']
+    assert defs['pointer_union_must_block']['status']=='source-first',defs['pointer_union_must_block']
     code=mod.read_text();assert '"bytes": 16' in code,code[-2500:]
     run(['node','--check',str(mod)])
-    (out/'js.mjs').write_text('import {roundtrip_union} from '+json.dumps(mod.as_uri())+';\n'
+    (out/'js.mjs').write_text('import {roundtrip_union,pointer_union_must_block,BadUnion} from '+json.dumps(mod.as_uri())+';\n'
+        'const zero=new BadUnion(),copy=pointer_union_must_block(zero);if(copy.storage.pointer!==null||copy.storage.bits!==0n)throw Error("Pointer union zero copy differs");copy.storage.bits=123n;if(zero.storage.bits!==0n)throw Error("Pointer union copy aliases source bytes");\n'
         'for(let i=0;i<256;i++){const b=Uint8Array.from({length:16},(_,j)=>(i*13+j*19)&255);console.log([...roundtrip_union(b)].join(","));}\n'
         'try {roundtrip_union(new Uint8Array(15));throw new Error("bounds not enforced");}catch(e){if(!(e instanceof TypeError))throw e;}\n')
     observed=run(['node',str(out/'js.mjs')]).splitlines()
@@ -29,4 +30,4 @@ View16 v=roundtrip_union(b);for(int j=0;j<16;j++)printf("%s%u",j?",":"",(unsigne
     run(['clang++','-std=c++14',str(ROOT/SRC),str(out/'main.cpp'),'-o',str(out/'native')])
     expected=run([str(out/'native')]).splitlines()
     assert expected==observed,next(((i,a,b) for i,(a,b) in enumerate(zip(expected,observed)) if a!=b),None)
-    print('PASS: 256 original native C++/JS overlapping-union byte copies, incorrect sizes and pointer unions rejected')
+    print('PASS: 256 original native C++/JS overlapping-union byte copies, incorrect sizes rejected and independent zero pointer-union storage retained')

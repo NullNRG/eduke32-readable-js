@@ -1,0 +1,23 @@
+{
+  "format": "clang-contiguous-record-array-members/1",
+  "native_js_cases": 512,
+  "compared_values": 3072,
+  "native_chromium_cases": 512,
+  "checks": [
+    "nested record arrays",
+    "multidimensional scalar arrays",
+    "multiple pointer-array fields sharing one record",
+    "explicit local and global initializers",
+    "whole-object memcpy",
+    "independent aggregate copies",
+    "row byte aliases",
+    "pointer-slot addresses, pointer-to-pointer arithmetic and original pointer-field lvalue dereference",
+    "mixed numeric/pointer unions reject unallocated addresses"
+  ],
+  "passed": true,
+  "gameplay_verified": false,
+  "browser_version": "157.0.4341.42",
+  "compiler_sha256": "a232b7576aeb553facf86ecdc183ef8d56c4fdce6ce3495921a53c1ff4495e25"
+}
+
+--- stderr ---

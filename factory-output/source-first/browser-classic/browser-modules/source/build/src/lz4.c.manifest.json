@@ -1,0 +1,1828 @@
+{
+  "source": "source/build/src/lz4.c",
+  "dependency_closure": {
+    "enabled": false,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": false,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\lz4.c.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 92,
+  "emitted": 78,
+  "blocked": 14,
+  "definitions": [
+    {
+      "name": "LZ4_stream_u",
+      "source_name": "LZ4_stream_u",
+      "kind": "CXXRecordDecl",
+      "line": 728,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/lz4.h",
+        "source_offset": 36792,
+        "enclosing_record": "LZ4_stream_u",
+        "type": "LZ4_stream_u",
+        "semantic_sha256": "989120698f5138d3180978185c0eee604dccdb301855f21d62b272ae9a1ca872",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/lz4.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_minLength",
+      "source_name": "LZ4_minLength",
+      "kind": "VarDecl",
+      "line": 249,
+      "original_type": "const int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/lz4.c",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_isAligned",
+      "source_name": "LZ4_isAligned",
+      "kind": "FunctionDecl",
+      "line": 292,
+      "original_type": "int (const void *, size_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_isLittleEndian",
+      "source_name": "LZ4_isLittleEndian",
+      "kind": "FunctionDecl",
+      "line": 363,
+      "original_type": "unsigned int ()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_read16",
+      "source_name": "LZ4_read16",
+      "kind": "FunctionDecl",
+      "line": 393,
+      "original_type": "U16 (const void *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_read32",
+      "source_name": "LZ4_read32",
+      "kind": "FunctionDecl",
+      "line": 394,
+      "original_type": "U32 (const void *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_read_ARCH",
+      "source_name": "LZ4_read_ARCH",
+      "kind": "FunctionDecl",
+      "line": 395,
+      "original_type": "reg_t (const void *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_write16",
+      "source_name": "LZ4_write16",
+      "kind": "FunctionDecl",
+      "line": 397,
+      "original_type": "void (void *, U16)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_write32",
+      "source_name": "LZ4_write32",
+      "kind": "FunctionDecl",
+      "line": 398,
+      "original_type": "void (void *, U32)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_readLE16",
+      "source_name": "LZ4_readLE16",
+      "kind": "FunctionDecl",
+      "line": 430,
+      "original_type": "U16 (const void *)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_isLittleEndian",
+        "LZ4_read16"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_writeLE16",
+      "source_name": "LZ4_writeLE16",
+      "kind": "FunctionDecl",
+      "line": 452,
+      "original_type": "void (void *, U16)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_isLittleEndian",
+        "LZ4_write16"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_wildCopy8",
+      "source_name": "LZ4_wildCopy8",
+      "kind": "FunctionDecl",
+      "line": 465,
+      "original_type": "void (void *, const void *, void *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "inc32table",
+      "source_name": "inc32table",
+      "kind": "VarDecl",
+      "line": 474,
+      "original_type": "const unsigned int[8]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_f78572ce39d8f17ed1236330",
+        "owner_source": "source/build/src/lz4.c",
+        "original_type": "const unsigned int[8]",
+        "scalar_array": {
+          "array": "Uint32Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dec64table",
+      "source_name": "dec64table",
+      "kind": "VarDecl",
+      "line": 475,
+      "original_type": "const int[8]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_8c16797373e68664dfc186f3",
+        "owner_source": "source/build/src/lz4.c",
+        "original_type": "const int[8]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_memcpy_using_offset_base",
+      "source_name": "LZ4_memcpy_using_offset_base",
+      "kind": "FunctionDecl",
+      "line": 496,
+      "original_type": "void (BYTE *, const BYTE *, BYTE *, const size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_wildCopy8",
+        "LZ4_write32",
+        "dec64table",
+        "inc32table"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_wildCopy32",
+      "source_name": "LZ4_wildCopy32",
+      "kind": "FunctionDecl",
+      "line": 522,
+      "original_type": "void (void *, const void *, void *)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_memcpy_using_offset",
+      "source_name": "LZ4_memcpy_using_offset",
+      "kind": "FunctionDecl",
+      "line": 535,
+      "original_type": "void (BYTE *, const BYTE *, BYTE *, const size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_memcpy_using_offset_base",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_NbCommonBytes",
+      "source_name": "LZ4_NbCommonBytes",
+      "kind": "FunctionDecl",
+      "line": 579,
+      "original_type": "unsigned int (reg_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_isLittleEndian"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_count",
+      "source_name": "LZ4_count",
+      "kind": "FunctionDecl",
+      "line": 680,
+      "original_type": "unsigned int (const BYTE *, const BYTE *, const BYTE *)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_NbCommonBytes",
+        "LZ4_read16",
+        "LZ4_read32",
+        "LZ4_read_ARCH"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_64Klimit",
+      "source_name": "LZ4_64Klimit",
+      "kind": "VarDecl",
+      "line": 710,
+      "original_type": "const int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_skipTrigger",
+      "source_name": "LZ4_skipTrigger",
+      "kind": "VarDecl",
+      "line": 711,
+      "original_type": "const unsigned int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_versionNumber",
+      "source_name": "LZ4_versionNumber",
+      "kind": "FunctionDecl",
+      "line": 749,
+      "original_type": "int ()",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_versionString",
+      "source_name": "LZ4_versionString",
+      "kind": "FunctionDecl",
+      "line": 750,
+      "original_type": "const char *()",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compressBound",
+      "source_name": "LZ4_compressBound",
+      "kind": "FunctionDecl",
+      "line": 751,
+      "original_type": "int (int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_sizeofState",
+      "source_name": "LZ4_sizeofState",
+      "kind": "FunctionDecl",
+      "line": 752,
+      "original_type": "int ()",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_hash4",
+      "source_name": "LZ4_hash4",
+      "kind": "FunctionDecl",
+      "line": 777,
+      "original_type": "U32 (U32, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_hash5",
+      "source_name": "LZ4_hash5",
+      "kind": "FunctionDecl",
+      "line": 785,
+      "original_type": "U32 (U64, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_isLittleEndian"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_hashPosition",
+      "source_name": "LZ4_hashPosition",
+      "kind": "FunctionDecl",
+      "line": 797,
+      "original_type": "U32 (const void *const, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_hash4",
+        "LZ4_hash5",
+        "LZ4_read32",
+        "LZ4_read_ARCH"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_clearHash",
+      "source_name": "LZ4_clearHash",
+      "kind": "FunctionDecl",
+      "line": 808,
+      "original_type": "void (U32, void *, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_putIndexOnHash",
+      "source_name": "LZ4_putIndexOnHash",
+      "kind": "FunctionDecl",
+      "line": 820,
+      "original_type": "void (U32, U32, void *, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_putPositionOnHash",
+      "source_name": "LZ4_putPositionOnHash",
+      "kind": "FunctionDecl",
+      "line": 833,
+      "original_type": "void (const BYTE *, U32, void *, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_putPosition",
+      "source_name": "LZ4_putPosition",
+      "kind": "FunctionDecl",
+      "line": 841,
+      "original_type": "void (const BYTE *, void *, tableType_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_hashPosition",
+        "LZ4_putPositionOnHash"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_getIndexOnHash",
+      "source_name": "LZ4_getIndexOnHash",
+      "kind": "FunctionDecl",
+      "line": 853,
+      "original_type": "U32 (U32, const void *, tableType_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_getPositionOnHash",
+      "source_name": "LZ4_getPositionOnHash",
+      "kind": "FunctionDecl",
+      "line": 869,
+      "original_type": "const BYTE *(U32, const void *, tableType_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_getPosition",
+      "source_name": "LZ4_getPosition",
+      "kind": "FunctionDecl",
+      "line": 876,
+      "original_type": "const BYTE *(const BYTE *, const void *, tableType_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_getPositionOnHash",
+        "LZ4_hashPosition"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_prepareTable",
+      "source_name": "LZ4_prepareTable",
+      "kind": "FunctionDecl",
+      "line": 884,
+      "original_type": "void (LZ4_stream_t_internal *const, const int, const tableType_t)",
+      "linkage": "internal",
+      "source_references": [
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_generic_validated",
+      "source_name": "LZ4_compress_generic_validated",
+      "kind": "FunctionDecl",
+      "line": 930,
+      "original_type": "int (LZ4_stream_t_internal *const, const char *const, char *const, const int, int *, const int, const limitedOutput_directive, const tableType_t, const dict_directive, const dictIssue_directive, const int)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_clearHash",
+        "LZ4_count",
+        "LZ4_getIndexOnHash",
+        "LZ4_getPosition",
+        "LZ4_getPositionOnHash",
+        "LZ4_hashPosition",
+        "LZ4_minLength",
+        "LZ4_putIndexOnHash",
+        "LZ4_putPosition",
+        "LZ4_putPositionOnHash",
+        "LZ4_read32",
+        "LZ4_skipTrigger",
+        "LZ4_wildCopy8",
+        "LZ4_write32",
+        "LZ4_writeLE16"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "deferred_pointer_initializers": [
+        {
+          "abi": "source-pure-const-pointer-initializer/1",
+          "declaration": "mflimitPlusOne",
+          "base_declaration_ids": [
+            "0x17e5934fa88"
+          ],
+          "original_memory_checks_retained": true,
+          "base_value_captured_at_declaration": true
+        },
+        {
+          "abi": "source-pure-const-pointer-initializer/1",
+          "declaration": "matchlimit",
+          "base_declaration_ids": [
+            "0x17e5934fa88"
+          ],
+          "original_memory_checks_retained": true,
+          "base_value_captured_at_declaration": true
+        }
+      ],
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 2,
+          "forward_goto": 5,
+          "backward_goto": 2,
+          "nested_lexical_jumps": 2,
+          "shadowed_locals_renamed": 10,
+          "locals_checked": 40,
+          "exit_blocks": 1,
+          "natural_loops": 1,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_generic",
+      "source_name": "LZ4_compress_generic",
+      "kind": "FunctionDecl",
+      "line": 1344,
+      "original_type": "int (LZ4_stream_t_internal *const, const char *const, char *const, const int, int *, const int, const limitedOutput_directive, const tableType_t, const dict_directive, const dictIssue_directive, const int)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_compress_generic_validated"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_fast_extState",
+      "source_name": "LZ4_compress_fast_extState",
+      "kind": "FunctionDecl",
+      "line": 1382,
+      "original_type": "int (void *, const char *, char *, int, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_64Klimit",
+        "LZ4_compressBound",
+        "LZ4_compress_generic",
+        "LZ4_initStream"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_fast_extState_fastReset",
+      "source_name": "LZ4_compress_fast_extState_fastReset",
+      "kind": "FunctionDecl",
+      "line": 1414,
+      "original_type": "int (void *, const char *, char *, int, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_64Klimit",
+        "LZ4_compressBound",
+        "LZ4_compress_generic",
+        "LZ4_prepareTable"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_fast",
+      "source_name": "LZ4_compress_fast",
+      "kind": "FunctionDecl",
+      "line": 1453,
+      "original_type": "int (const char *, char *, int, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_fast_extState"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_default",
+      "source_name": "LZ4_compress_default",
+      "kind": "FunctionDecl",
+      "line": 1472,
+      "original_type": "int (const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_fast"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_destSize_extState_internal",
+      "source_name": "LZ4_compress_destSize_extState_internal",
+      "kind": "FunctionDecl",
+      "line": 1481,
+      "original_type": "int (LZ4_stream_t *, const char *, char *, int *, int, int)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_64Klimit",
+        "LZ4_compressBound",
+        "LZ4_compress_fast_extState",
+        "LZ4_compress_generic",
+        "LZ4_initStream"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_destSize_extState",
+      "source_name": "LZ4_compress_destSize_extState",
+      "kind": "FunctionDecl",
+      "line": 1497,
+      "original_type": "int (void *, const char *, char *, int *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_destSize_extState_internal",
+        "LZ4_initStream"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_destSize",
+      "source_name": "LZ4_compress_destSize",
+      "kind": "FunctionDecl",
+      "line": 1506,
+      "original_type": "int (const char *, char *, int *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_destSize_extState_internal"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_stream_t_alignment",
+      "source_name": "LZ4_stream_t_alignment",
+      "kind": "FunctionDecl",
+      "line": 1542,
+      "original_type": "size_t ()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_initStream",
+      "source_name": "LZ4_initStream",
+      "kind": "FunctionDecl",
+      "line": 1552,
+      "original_type": "LZ4_stream_t *(void *, size_t)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_isAligned",
+        "LZ4_stream_t_alignment",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_resetStream",
+      "source_name": "LZ4_resetStream",
+      "kind": "FunctionDecl",
+      "line": 1564,
+      "original_type": "void (LZ4_stream_t *)",
+      "linkage": "external",
+      "source_references": [
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_resetStream_fast",
+      "source_name": "LZ4_resetStream_fast",
+      "kind": "FunctionDecl",
+      "line": 1570,
+      "original_type": "void (LZ4_stream_t *)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_prepareTable"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_loadDict_internal",
+      "source_name": "LZ4_loadDict_internal",
+      "kind": "FunctionDecl",
+      "line": 1587,
+      "original_type": "int (LZ4_stream_t *, const char *, int, LoadDict_mode_e)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_getIndexOnHash",
+        "LZ4_hashPosition",
+        "LZ4_putIndexOnHash",
+        "LZ4_resetStream"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_loadDict",
+      "source_name": "LZ4_loadDict",
+      "kind": "FunctionDecl",
+      "line": 1648,
+      "original_type": "int (LZ4_stream_t *, const char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_loadDict_internal"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_loadDictSlow",
+      "source_name": "LZ4_loadDictSlow",
+      "kind": "FunctionDecl",
+      "line": 1653,
+      "original_type": "int (LZ4_stream_t *, const char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_loadDict_internal"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_attach_dictionary",
+      "source_name": "LZ4_attach_dictionary",
+      "kind": "FunctionDecl",
+      "line": 1658,
+      "original_type": "void (LZ4_stream_t *, const LZ4_stream_t *)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_renormDictT",
+      "source_name": "LZ4_renormDictT",
+      "kind": "FunctionDecl",
+      "line": 1687,
+      "original_type": "void (LZ4_stream_t_internal *, int)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_fast_continue",
+      "source_name": "LZ4_compress_fast_continue",
+      "kind": "FunctionDecl",
+      "line": 1707,
+      "original_type": "int (LZ4_stream_t *, const char *, char *, int, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_generic",
+        "LZ4_renormDictT"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_forceExtDict",
+      "source_name": "LZ4_compress_forceExtDict",
+      "kind": "FunctionDecl",
+      "line": 1787,
+      "original_type": "int (LZ4_stream_t *, const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_generic",
+        "LZ4_renormDictT"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_saveDict",
+      "source_name": "LZ4_saveDict",
+      "kind": "FunctionDecl",
+      "line": 1814,
+      "original_type": "int (LZ4_stream_t *, char *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "read_long_length_no_check",
+      "source_name": "read_long_length_no_check",
+      "kind": "FunctionDecl",
+      "line": 1852,
+      "original_type": "size_t (const BYTE **)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_unsafe_generic",
+      "source_name": "LZ4_decompress_unsafe_generic",
+      "kind": "FunctionDecl",
+      "line": 1870,
+      "original_type": "int (const BYTE *const, BYTE *const, int, size_t, const BYTE *const, const size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_readLE16",
+        "read_long_length_no_check"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "rvl_error",
+      "source_name": "rvl_error",
+      "kind": "VarDecl",
+      "line": 1977,
+      "original_type": "const unsigned long",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "read_variable_length",
+      "source_name": "read_variable_length",
+      "kind": "FunctionDecl",
+      "line": 1979,
+      "original_type": "Rvl_t (const BYTE **, const BYTE *, int)",
+      "linkage": "internal",
+      "source_references": [
+        "rvl_error"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_generic",
+      "source_name": "LZ4_decompress_generic",
+      "kind": "FunctionDecl",
+      "line": 2023,
+      "original_type": "int (const char *const, char *const, int, int, earlyEnd_directive, dict_directive, const BYTE *const, const BYTE *const, const size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_memcpy_using_offset",
+        "LZ4_readLE16",
+        "LZ4_wildCopy32",
+        "LZ4_wildCopy8",
+        "LZ4_write32",
+        "dec64table",
+        "inc32table",
+        "read_variable_length",
+        "rvl_error"
+      ],
+      "status": "blocked",
+      "reason": "source control flow: goto enters a different lexical scope"
+    },
+    {
+      "name": "LZ4_decompress_safe",
+      "source_name": "LZ4_decompress_safe",
+      "kind": "FunctionDecl",
+      "line": 2451,
+      "original_type": "int (const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_safe_partial",
+      "source_name": "LZ4_decompress_safe_partial",
+      "kind": "FunctionDecl",
+      "line": 2459,
+      "original_type": "int (const char *, char *, int, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_fast",
+      "source_name": "LZ4_decompress_fast",
+      "kind": "FunctionDecl",
+      "line": 2468,
+      "original_type": "int (const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_unsafe_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_safe_withPrefix64k",
+      "source_name": "LZ4_decompress_safe_withPrefix64k",
+      "kind": "FunctionDecl",
+      "line": 2479,
+      "original_type": "int (const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_safe_partial_withPrefix64k",
+      "source_name": "LZ4_decompress_safe_partial_withPrefix64k",
+      "kind": "FunctionDecl",
+      "line": 2487,
+      "original_type": "int (const char *, char *, int, int, int)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_fast_withPrefix64k",
+      "source_name": "LZ4_decompress_fast_withPrefix64k",
+      "kind": "FunctionDecl",
+      "line": 2496,
+      "original_type": "int (const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_unsafe_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_safe_withSmallPrefix",
+      "source_name": "LZ4_decompress_safe_withSmallPrefix",
+      "kind": "FunctionDecl",
+      "line": 2504,
+      "original_type": "int (const char *, char *, int, int, size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_safe_partial_withSmallPrefix",
+      "source_name": "LZ4_decompress_safe_partial_withSmallPrefix",
+      "kind": "FunctionDecl",
+      "line": 2513,
+      "original_type": "int (const char *, char *, int, int, int, size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_safe_forceExtDict",
+      "source_name": "LZ4_decompress_safe_forceExtDict",
+      "kind": "FunctionDecl",
+      "line": 2523,
+      "original_type": "int (const char *, char *, int, int, const void *, size_t)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_safe_partial_forceExtDict",
+      "source_name": "LZ4_decompress_safe_partial_forceExtDict",
+      "kind": "FunctionDecl",
+      "line": 2534,
+      "original_type": "int (const char *, char *, int, int, int, const void *, size_t)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_fast_extDict",
+      "source_name": "LZ4_decompress_fast_extDict",
+      "kind": "FunctionDecl",
+      "line": 2545,
+      "original_type": "int (const char *, char *, int, const void *, size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_decompress_unsafe_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_safe_doubleDict",
+      "source_name": "LZ4_decompress_safe_doubleDict",
+      "kind": "FunctionDecl",
+      "line": 2558,
+      "original_type": "int (const char *, char *, int, int, size_t, const void *, size_t)",
+      "linkage": "internal",
+      "source_references": [
+        "LZ4_decompress_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_generic",
+      "unresolved_references": [
+        "LZ4_decompress_generic"
+      ]
+    },
+    {
+      "name": "LZ4_setStreamDecode",
+      "source_name": "LZ4_setStreamDecode",
+      "kind": "FunctionDecl",
+      "line": 2589,
+      "original_type": "int (LZ4_streamDecode_t *, const char *, int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decoderRingBufferSize",
+      "source_name": "LZ4_decoderRingBufferSize",
+      "kind": "FunctionDecl",
+      "line": 2615,
+      "original_type": "int (int)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_safe_continue",
+      "source_name": "LZ4_decompress_safe_continue",
+      "kind": "FunctionDecl",
+      "line": 2631,
+      "original_type": "int (LZ4_streamDecode_t *, const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_safe",
+        "LZ4_decompress_safe_doubleDict",
+        "LZ4_decompress_safe_forceExtDict",
+        "LZ4_decompress_safe_withPrefix64k",
+        "LZ4_decompress_safe_withSmallPrefix"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_safe, LZ4_decompress_safe_doubleDict, LZ4_decompress_safe_forceExtDict, LZ4_decompress_safe_withPrefix64k, LZ4_decompress_safe_withSmallPrefix",
+      "unresolved_references": [
+        "LZ4_decompress_safe",
+        "LZ4_decompress_safe_doubleDict",
+        "LZ4_decompress_safe_forceExtDict",
+        "LZ4_decompress_safe_withPrefix64k",
+        "LZ4_decompress_safe_withSmallPrefix"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_fast_continue",
+      "source_name": "LZ4_decompress_fast_continue",
+      "kind": "FunctionDecl",
+      "line": 2671,
+      "original_type": "int (LZ4_streamDecode_t *, const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_fast",
+        "LZ4_decompress_fast_extDict",
+        "LZ4_decompress_unsafe_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_decompress_safe_usingDict",
+      "source_name": "LZ4_decompress_safe_usingDict",
+      "kind": "FunctionDecl",
+      "line": 2719,
+      "original_type": "int (const char *, char *, int, int, const char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_safe",
+        "LZ4_decompress_safe_forceExtDict",
+        "LZ4_decompress_safe_withPrefix64k",
+        "LZ4_decompress_safe_withSmallPrefix"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_safe, LZ4_decompress_safe_forceExtDict, LZ4_decompress_safe_withPrefix64k, LZ4_decompress_safe_withSmallPrefix",
+      "unresolved_references": [
+        "LZ4_decompress_safe",
+        "LZ4_decompress_safe_forceExtDict",
+        "LZ4_decompress_safe_withPrefix64k",
+        "LZ4_decompress_safe_withSmallPrefix"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_safe_partial_usingDict",
+      "source_name": "LZ4_decompress_safe_partial_usingDict",
+      "kind": "FunctionDecl",
+      "line": 2734,
+      "original_type": "int (const char *, char *, int, int, int, const char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_safe_partial",
+        "LZ4_decompress_safe_partial_forceExtDict",
+        "LZ4_decompress_safe_partial_withPrefix64k",
+        "LZ4_decompress_safe_partial_withSmallPrefix"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_safe_partial, LZ4_decompress_safe_partial_forceExtDict, LZ4_decompress_safe_partial_withPrefix64k, LZ4_decompress_safe_partial_withSmallPrefix",
+      "unresolved_references": [
+        "LZ4_decompress_safe_partial",
+        "LZ4_decompress_safe_partial_forceExtDict",
+        "LZ4_decompress_safe_partial_withPrefix64k",
+        "LZ4_decompress_safe_partial_withSmallPrefix"
+      ]
+    },
+    {
+      "name": "LZ4_decompress_fast_usingDict",
+      "source_name": "LZ4_decompress_fast_usingDict",
+      "kind": "FunctionDecl",
+      "line": 2749,
+      "original_type": "int (const char *, char *, int, const char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_fast_extDict",
+        "LZ4_decompress_unsafe_generic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_limitedOutput",
+      "source_name": "LZ4_compress_limitedOutput",
+      "kind": "FunctionDecl",
+      "line": 2764,
+      "original_type": "int (const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_default"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress",
+      "source_name": "LZ4_compress",
+      "kind": "FunctionDecl",
+      "line": 2768,
+      "original_type": "int (const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compressBound",
+        "LZ4_compress_default"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_limitedOutput_withState",
+      "source_name": "LZ4_compress_limitedOutput_withState",
+      "kind": "FunctionDecl",
+      "line": 2772,
+      "original_type": "int (void *, const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_fast_extState"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_withState",
+      "source_name": "LZ4_compress_withState",
+      "kind": "FunctionDecl",
+      "line": 2776,
+      "original_type": "int (void *, const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compressBound",
+        "LZ4_compress_fast_extState"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_limitedOutput_continue",
+      "source_name": "LZ4_compress_limitedOutput_continue",
+      "kind": "FunctionDecl",
+      "line": 2780,
+      "original_type": "int (LZ4_stream_t *, const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compress_fast_continue"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_compress_continue",
+      "source_name": "LZ4_compress_continue",
+      "kind": "FunctionDecl",
+      "line": 2784,
+      "original_type": "int (LZ4_stream_t *, const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_compressBound",
+        "LZ4_compress_fast_continue"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_uncompress",
+      "source_name": "LZ4_uncompress",
+      "kind": "FunctionDecl",
+      "line": 2795,
+      "original_type": "int (const char *, char *, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_fast"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_uncompress_unknownOutputSize",
+      "source_name": "LZ4_uncompress_unknownOutputSize",
+      "kind": "FunctionDecl",
+      "line": 2799,
+      "original_type": "int (const char *, char *, int, int)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_decompress_safe"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "blocked",
+      "reason": "unlinked identifiers: LZ4_decompress_safe",
+      "unresolved_references": [
+        "LZ4_decompress_safe"
+      ]
+    },
+    {
+      "name": "LZ4_sizeofStreamState",
+      "source_name": "LZ4_sizeofStreamState",
+      "kind": "FunctionDecl",
+      "line": 2806,
+      "original_type": "int ()",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_resetStreamState",
+      "source_name": "LZ4_resetStreamState",
+      "kind": "FunctionDecl",
+      "line": 2808,
+      "original_type": "int (void *, char *)",
+      "linkage": "external",
+      "source_references": [
+        "LZ4_resetStream"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LZ4_slideInputBuffer",
+      "source_name": "LZ4_slideInputBuffer",
+      "kind": "FunctionDecl",
+      "line": 2823,
+      "original_type": "char *(void *)",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [
+    {
+      "name": "memset",
+      "from": "browser-abi/libc_provider",
+      "native_pointer_abi": "source-lp64-addresses/2"
+    }
+  ],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 1,
+    "recognized_goto_functions": 1,
+    "recognized_goto_edges": 7
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "clang-substring",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "47209e115b9cebaaf6b486a6b631ebec3f393040c1175c175e887e9f7920c64f",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765"
+  },
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "90c3a1c37beafaed68e7b443afc17692729c3c9920ace6797436c4a30d50e0c8",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "37126a839720cb73113028f84f1920a1dfc1620537a12d278660d7ec8e66d74d",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 36,
+    "sha256": "2636db82094f107842a055b11974331ce4bab947763918561cf69977448d9bef",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/1",
+        "returncode": 0,
+        "stdout_sha256": "a2c0679b2622a7abca9d8bc0dd561a7fd579bdedad1c86f408a6d1419ff52b33",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "module_fragment": {
+    "import_root": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules",
+    "provider_exports_and_storage_abi_verified": true
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "c2c74226695cce9bc104c9c0473ef85968bf32dd387d621866c86b2a81242467",
+    "dependency_count": 42,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 39347,
+      "ranges_omitted": 12063,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 3,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 26,
+      "type_metadata_reuses": 12456,
+      "include_metadata_reuses": 1120,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 1702702,
+      "cache_hit": true,
+      "json_bytes": 18168315,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 123137617,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    }
+  ],
+  "header_inline_filter": [
+    ""
+  ],
+  "storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "inc32table",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_f78572ce39d8f17ed1236330",
+      "owner_source": "source/build/src/lz4.c",
+      "original_type": "const unsigned int[8]",
+      "scalar_array": {
+        "array": "Uint32Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "dec64table",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_8c16797373e68664dfc186f3",
+      "owner_source": "source/build/src/lz4.c",
+      "original_type": "const int[8]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          8
+        ]
+      }
+    }
+  ],
+  "unconsumed_legacy_export_omissions": [],
+  "unreferenced_type_wrapper_blockers": [],
+  "recompiled_owner_sha256": "b56e1c1ae22c9419c0e7f770617fdae135c4762274239986a02bb057278e7e14",
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration."
+}

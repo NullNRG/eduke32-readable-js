@@ -85,16 +85,16 @@ printf("%u,%u,%u,%u,%u,%u\n",named(x),anonymous(x),packed(x),floatbits(x),initia
     rows = {row['source_name']: row for row in report['definitions']}
     for name in ('named', 'anonymous', 'packed', 'floatbits', 'initialized', 'globals', 'empty', 'bitfield_value'):
         assert rows[name]['status'] == 'source-first', (name, rows[name])
-    for name in ('reject_pointer',):
-        assert rows[name]['status'] == 'blocked', (name, rows[name])
+    assert rows['reject_pointer']['status']=='source-first',rows['reject_pointer']
     run(['node', '--check', str(module)], directory)
     (directory/'runner.mjs').write_text('import * as s from '+json.dumps(module.as_uri())+';\n'+r'''
 for(let i=0;i<1024;i++){
   const x=Math.imul(i,0x9e3779b9)>>>0;
+  if(s.reject_pointer(x)!==x)throw Error('Numeric union member changed through a pointer alternative');
   console.log([s.named(x),s.anonymous(x),s.packed(x),s.floatbits(x),s.initialized(x),s.bitfield_value(x)].join(','));
 }
 ''')
     observed = run(['node', 'runner.mjs'], directory).splitlines()
     assert observed == expected, next(((i,a,b) for i,(a,b) in enumerate(zip(observed,expected))
                                       if a != b), ('different output lengths',len(observed),len(expected)))
-    print('PASS 6144 native C++/JavaScript values: overlapping named/anonymous unions, packed offsets, independent copies, float representation and global storage; mixed numeric/pointer unions blocked; bitfield masking verified')
+    print('PASS 6144 native C++/JavaScript values: overlapping named/anonymous unions, packed offsets, independent copies, float representation and global storage; numeric members of pointer unions preserve bytes; bitfield masking verified')

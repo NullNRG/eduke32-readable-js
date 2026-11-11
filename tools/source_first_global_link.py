@@ -14,6 +14,7 @@ from collections import Counter, defaultdict
 from functools import lru_cache
 import hashlib
 from source_record_data_access import compatible as compatible_record_field_storage
+from source_record_array_storage import compatible as compatible_record_array_storage
 from source_header_records import compatible_factory_proof
 from source_ast_to_js import js_ident, GLOBAL_STORAGE_ABI, global_storage_binding, PRIVATE_STORAGE_ABI, private_storage_binding
 from source_first_toolchain import fingerprint_toolchain
@@ -136,7 +137,8 @@ def storage_import_error(dependency,units,*,export_reader=exported_names):
         if rows[0].get('linkage')=='internal' and dependency.get('consumer_source')!=dependency['from']:
             return 'private record array cannot cross original translation-unit ownership'
         metadata=rows[0].get('object_storage',{})
-        if metadata.get('abi')!='source-byte-record-array/1' or any(dependency.get(key)!=metadata.get(key) for key in ('stride','schema_sha256')):
+        if (metadata.get('abi')!='source-byte-record-array/1' or dependency.get('stride')!=metadata.get('stride') or
+                dependency.get('schema_sha256')!=metadata.get('schema_sha256') and not compatible_record_array_storage(dependency,metadata)):
             return 'record array provider lacks identical contiguous Clang storage'
         dimensions=dependency.get('dimensions',[]);actual=metadata.get('dimensions',[])
         if len(dimensions)!=len(actual) or any(a is not None and a!=b for a,b in zip(dimensions,actual)):

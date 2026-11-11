@@ -1,0 +1,5243 @@
+{
+  "source": "source/build/src/tiles.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "ALLOC_MAPART_ARRAY",
+      "ALLOC_MAPART_ARRAY__template_0841d4c33e4d0967",
+      "ALLOC_MAPART_ARRAY__template_433761804f69b625",
+      "ALLOC_MAPART_ARRAY__template_49c435aacc2c9d61",
+      "ALLOC_MAPART_ARRAY__template_616102752a7d5487",
+      "ALLOC_MAPART_ARRAY__template_6ebe96997b16d25f",
+      "ALLOC_MAPART_ARRAY__template_a9a9b9000a384f45",
+      "ALLOC_MAPART_ARRAY__template_ef1f66dc290e2ca2",
+      "ARRAY_SIZE",
+      "append_ext_UNSAFE",
+      "artClearMapArt",
+      "artClearMapArtFilename",
+      "artGetIndexedFileName",
+      "artReadIndexedFile",
+      "artUpdateManifest",
+      "g_bakFakeTile",
+      "g_bakFakeTileData",
+      "artfilename",
+      "g_bakPicAnm",
+      "g_bakRottile",
+      "g_bakTileFileNum",
+      "g_bakTileFileOffs",
+      "g_bakTileSiz",
+      "mapartfilename",
+      "mapartfnXXofs",
+      "tileUpdatePicSiz",
+      "tilefileoffs",
+      "xmalloc",
+      "pow2long",
+      "xmalloc__header_eec43dbcdbe1",
+      "RESTORE_MAPART_ARRAY",
+      "artPreloadFile",
+      "artPreloadFileSafe",
+      "artReadHeader",
+      "artReadManifest",
+      "bitmap_test",
+      "xfree",
+      "B_PASS16",
+      "B_PASS32",
+      "artfil",
+      "artfilnum",
+      "artfilplc",
+      "bitmap_set",
+      "maybe_grow_buffer",
+      "pow2char",
+      "tileConvertAnimFormat",
+      "tileDelete",
+      "tileSetData",
+      "tileSetDataSafe",
+      "tileSoftDelete",
+      "xcalloc",
+      "LZ4_compressBound",
+      "LZ4_compress_default",
+      "bitmap_clear",
+      "xrealloc"
+    ],
+    "additional_ast_roots": 57,
+    "rounds": 7,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [
+      "CACHE1D_FREE"
+    ],
+    "proven_values": {
+      "CACHE1D_FREE": 1,
+      "CACHE1D_UNLOCKED": 199,
+      "CACHE1D_LOCKED": 200,
+      "CACHE1D_PERMANENT": 255,
+      "Verbosity_INFO": 0,
+      "Verbosity_WARNING": -1,
+      "denorm_absent": 0,
+      "round_toward_zero": 0,
+      "denorm_present": 1,
+      "round_to_nearest": 1,
+      "__get_type_info": 0,
+      "__get_functor_ptr": 1,
+      "__clone_functor": 2,
+      "__destroy_functor": 3,
+      "F_OWNER_PGRP": 2,
+      "_SC_UIO_MAXIOV": 60,
+      "_SC_LEVEL1_ICACHE_SIZE": 185,
+      "memory_order_seq_cst": 5,
+      "__memory_order_mask": 65535,
+      "memory_order_acquire": 2,
+      "memory_order_acq_rel": 4,
+      "memory_order_consume": 1,
+      "memory_order_release": 3,
+      "PTHREAD_MUTEX_TIMED_NP": 0,
+      "PTHREAD_MUTEX_RECURSIVE_NP": 1,
+      "PTHREAD_MUTEX_ERRORCHECK_NP": 2,
+      "PTHREAD_MUTEX_NORMAL": 0,
+      "PTHREAD_MUTEX_STALLED": 0,
+      "PTHREAD_MUTEX_ROBUST": 1,
+      "PTHREAD_RWLOCK_PREFER_READER_NP": 0,
+      "memory_order_relaxed": 0,
+      "BRANCHFULL": 0,
+      "SIGNED": 0,
+      "UNSIGNED": 1,
+      "BRANCHFREE": 1,
+      "Verbosity_INVALID": -10,
+      "RF_INIT": 1,
+      "RF_FREE": 2,
+      "SDL_PIXELTYPE_INDEX1": 1,
+      "SDL_BITMAPORDER_4321": 1,
+      "SDL_BITMAPORDER_1234": 2,
+      "SDL_PIXELTYPE_INDEX2": 12,
+      "SDL_PIXELTYPE_INDEX4": 2,
+      "SDL_PIXELTYPE_INDEX8": 3,
+      "SDL_PIXELTYPE_PACKED8": 4,
+      "SDL_PACKEDORDER_XRGB": 1,
+      "SDL_PACKEDLAYOUT_332": 1,
+      "SDL_PIXELTYPE_PACKED16": 5,
+      "SDL_PACKEDLAYOUT_4444": 2,
+      "SDL_PIXELFORMAT_XRGB4444": 353504258,
+      "SDL_PACKEDORDER_XBGR": 5,
+      "SDL_PIXELFORMAT_XBGR4444": 357698562,
+      "SDL_PACKEDLAYOUT_1555": 3,
+      "SDL_PIXELFORMAT_XRGB1555": 353570562,
+      "SDL_PIXELFORMAT_XBGR1555": 357764866,
+      "SDL_PACKEDORDER_ARGB": 3,
+      "SDL_PACKEDORDER_RGBA": 4,
+      "SDL_PACKEDORDER_ABGR": 7,
+      "SDL_PACKEDORDER_BGRA": 8,
+      "SDL_PACKEDLAYOUT_5551": 4,
+      "SDL_PACKEDLAYOUT_565": 5,
+      "SDL_PIXELTYPE_ARRAYU8": 7,
+      "SDL_ARRAYORDER_RGB": 1,
+      "SDL_ARRAYORDER_BGR": 4,
+      "SDL_PIXELTYPE_PACKED32": 6,
+      "SDL_PACKEDLAYOUT_8888": 6,
+      "SDL_PIXELFORMAT_XRGB8888": 370546692,
+      "SDL_PACKEDORDER_RGBX": 2,
+      "SDL_PIXELFORMAT_XBGR8888": 374740996,
+      "SDL_PACKEDORDER_BGRX": 6,
+      "SDL_PACKEDLAYOUT_2101010": 7,
+      "SDL_PIXELFORMAT_ABGR8888": 376840196,
+      "SDL_PIXELFORMAT_BGRA8888": 377888772,
+      "SDL_PIXELFORMAT_ARGB8888": 372645892,
+      "SDL_PIXELFORMAT_RGBA8888": 373694468,
+      "SDL_PIXELFORMAT_BGRX8888": 375789572,
+      "SDL_PIXELFORMAT_RGBX8888": 371595268,
+      "SDL_WINDOW_FULLSCREEN": 1,
+      "SDL_WINDOW_MOUSE_GRABBED": 256,
+      "SDL_SCANCODE_CAPSLOCK": 57,
+      "SDL_SCANCODE_F1": 58,
+      "SDL_SCANCODE_F2": 59,
+      "SDL_SCANCODE_F3": 60,
+      "SDL_SCANCODE_F4": 61,
+      "SDL_SCANCODE_F5": 62,
+      "SDL_SCANCODE_F6": 63,
+      "SDL_SCANCODE_F7": 64,
+      "SDL_SCANCODE_F8": 65,
+      "SDL_SCANCODE_F9": 66,
+      "SDL_SCANCODE_F10": 67,
+      "SDL_SCANCODE_F11": 68,
+      "SDL_SCANCODE_F12": 69,
+      "SDL_SCANCODE_PRINTSCREEN": 70,
+      "SDL_SCANCODE_SCROLLLOCK": 71,
+      "SDL_SCANCODE_PAUSE": 72,
+      "SDL_SCANCODE_INSERT": 73,
+      "SDL_SCANCODE_HOME": 74,
+      "SDL_SCANCODE_PAGEUP": 75,
+      "SDL_SCANCODE_END": 77,
+      "SDL_SCANCODE_PAGEDOWN": 78,
+      "SDL_SCANCODE_RIGHT": 79,
+      "SDL_SCANCODE_LEFT": 80,
+      "SDL_SCANCODE_DOWN": 81,
+      "SDL_SCANCODE_UP": 82,
+      "SDL_SCANCODE_NUMLOCKCLEAR": 83,
+      "SDL_SCANCODE_KP_DIVIDE": 84,
+      "SDL_SCANCODE_KP_MULTIPLY": 85,
+      "SDL_SCANCODE_KP_MINUS": 86,
+      "SDL_SCANCODE_KP_PLUS": 87,
+      "SDL_SCANCODE_KP_ENTER": 88,
+      "SDL_SCANCODE_KP_1": 89,
+      "SDL_SCANCODE_KP_2": 90,
+      "SDL_SCANCODE_KP_3": 91,
+      "SDL_SCANCODE_KP_4": 92,
+      "SDL_SCANCODE_KP_5": 93,
+      "SDL_SCANCODE_KP_6": 94,
+      "SDL_SCANCODE_KP_7": 95,
+      "SDL_SCANCODE_KP_8": 96,
+      "SDL_SCANCODE_KP_9": 97,
+      "SDL_SCANCODE_KP_0": 98,
+      "SDL_SCANCODE_KP_PERIOD": 99,
+      "SDL_SCANCODE_APPLICATION": 101,
+      "SDL_SCANCODE_POWER": 102,
+      "SDL_SCANCODE_KP_EQUALS": 103,
+      "SDL_SCANCODE_F13": 104,
+      "SDL_SCANCODE_F14": 105,
+      "SDL_SCANCODE_F15": 106,
+      "SDL_SCANCODE_F16": 107,
+      "SDL_SCANCODE_F17": 108,
+      "SDL_SCANCODE_F18": 109,
+      "SDL_SCANCODE_F19": 110,
+      "SDL_SCANCODE_F20": 111,
+      "SDL_SCANCODE_F21": 112,
+      "SDL_SCANCODE_F22": 113,
+      "SDL_SCANCODE_F23": 114,
+      "SDL_SCANCODE_F24": 115,
+      "SDL_SCANCODE_EXECUTE": 116,
+      "SDL_SCANCODE_HELP": 117,
+      "SDL_SCANCODE_MENU": 118,
+      "SDL_SCANCODE_SELECT": 119,
+      "SDL_SCANCODE_STOP": 120,
+      "SDL_SCANCODE_AGAIN": 121,
+      "SDL_SCANCODE_UNDO": 122,
+      "SDL_SCANCODE_CUT": 123,
+      "SDL_SCANCODE_COPY": 124,
+      "SDL_SCANCODE_PASTE": 125,
+      "SDL_SCANCODE_FIND": 126,
+      "SDL_SCANCODE_MUTE": 127,
+      "SDL_SCANCODE_VOLUMEUP": 128,
+      "SDL_SCANCODE_VOLUMEDOWN": 129,
+      "SDL_SCANCODE_KP_COMMA": 133,
+      "SDL_SCANCODE_KP_EQUALSAS400": 134,
+      "SDL_SCANCODE_ALTERASE": 153,
+      "SDL_SCANCODE_SYSREQ": 154,
+      "SDL_SCANCODE_CANCEL": 155,
+      "SDL_SCANCODE_CLEAR": 156,
+      "SDL_SCANCODE_PRIOR": 157,
+      "SDL_SCANCODE_RETURN2": 158,
+      "SDL_SCANCODE_SEPARATOR": 159,
+      "SDL_SCANCODE_OUT": 160,
+      "SDL_SCANCODE_OPER": 161,
+      "SDL_SCANCODE_CLEARAGAIN": 162,
+      "SDL_SCANCODE_CRSEL": 163,
+      "SDL_SCANCODE_EXSEL": 164,
+      "SDL_SCANCODE_KP_00": 176,
+      "SDL_SCANCODE_KP_000": 177,
+      "SDL_SCANCODE_THOUSANDSSEPARATOR": 178,
+      "SDL_SCANCODE_DECIMALSEPARATOR": 179,
+      "SDL_SCANCODE_CURRENCYUNIT": 180,
+      "SDL_SCANCODE_CURRENCYSUBUNIT": 181,
+      "SDL_SCANCODE_KP_LEFTPAREN": 182,
+      "SDL_SCANCODE_KP_RIGHTPAREN": 183,
+      "SDL_SCANCODE_KP_LEFTBRACE": 184,
+      "SDL_SCANCODE_KP_RIGHTBRACE": 185,
+      "SDL_SCANCODE_KP_TAB": 186,
+      "SDL_SCANCODE_KP_BACKSPACE": 187,
+      "SDL_SCANCODE_KP_A": 188,
+      "SDL_SCANCODE_KP_B": 189,
+      "SDL_SCANCODE_KP_C": 190,
+      "SDL_SCANCODE_KP_D": 191,
+      "SDL_SCANCODE_KP_E": 192,
+      "SDL_SCANCODE_KP_F": 193,
+      "SDL_SCANCODE_KP_XOR": 194,
+      "SDL_SCANCODE_KP_POWER": 195,
+      "SDL_SCANCODE_KP_PERCENT": 196,
+      "SDL_SCANCODE_KP_LESS": 197,
+      "SDL_SCANCODE_KP_GREATER": 198,
+      "SDL_SCANCODE_KP_AMPERSAND": 199,
+      "SDL_SCANCODE_KP_DBLAMPERSAND": 200,
+      "SDL_SCANCODE_KP_VERTICALBAR": 201,
+      "SDL_SCANCODE_KP_DBLVERTICALBAR": 202,
+      "SDL_SCANCODE_KP_COLON": 203,
+      "SDL_SCANCODE_KP_HASH": 204,
+      "SDL_SCANCODE_KP_SPACE": 205,
+      "SDL_SCANCODE_KP_AT": 206,
+      "SDL_SCANCODE_KP_EXCLAM": 207,
+      "SDL_SCANCODE_KP_MEMSTORE": 208,
+      "SDL_SCANCODE_KP_MEMRECALL": 209,
+      "SDL_SCANCODE_KP_MEMCLEAR": 210,
+      "SDL_SCANCODE_KP_MEMADD": 211,
+      "SDL_SCANCODE_KP_MEMSUBTRACT": 212,
+      "SDL_SCANCODE_KP_MEMMULTIPLY": 213,
+      "SDL_SCANCODE_KP_MEMDIVIDE": 214,
+      "SDL_SCANCODE_KP_PLUSMINUS": 215,
+      "SDL_SCANCODE_KP_CLEAR": 216,
+      "SDL_SCANCODE_KP_CLEARENTRY": 217,
+      "SDL_SCANCODE_KP_BINARY": 218,
+      "SDL_SCANCODE_KP_OCTAL": 219,
+      "SDL_SCANCODE_KP_DECIMAL": 220,
+      "SDL_SCANCODE_KP_HEXADECIMAL": 221,
+      "SDL_SCANCODE_LCTRL": 224,
+      "SDL_SCANCODE_LSHIFT": 225,
+      "SDL_SCANCODE_LALT": 226,
+      "SDL_SCANCODE_LGUI": 227,
+      "SDL_SCANCODE_RCTRL": 228,
+      "SDL_SCANCODE_RSHIFT": 229,
+      "SDL_SCANCODE_RALT": 230,
+      "SDL_SCANCODE_RGUI": 231,
+      "SDL_SCANCODE_MODE": 257,
+      "SDL_SCANCODE_AUDIONEXT": 258,
+      "SDL_SCANCODE_AUDIOPREV": 259,
+      "SDL_SCANCODE_AUDIOSTOP": 260,
+      "SDL_SCANCODE_AUDIOPLAY": 261,
+      "SDL_SCANCODE_AUDIOMUTE": 262,
+      "SDL_SCANCODE_MEDIASELECT": 263,
+      "SDL_SCANCODE_WWW": 264,
+      "SDL_SCANCODE_MAIL": 265,
+      "SDL_SCANCODE_CALCULATOR": 266,
+      "SDL_SCANCODE_COMPUTER": 267,
+      "SDL_SCANCODE_AC_SEARCH": 268,
+      "SDL_SCANCODE_AC_HOME": 269,
+      "SDL_SCANCODE_AC_BACK": 270,
+      "SDL_SCANCODE_AC_FORWARD": 271,
+      "SDL_SCANCODE_AC_STOP": 272,
+      "SDL_SCANCODE_AC_REFRESH": 273,
+      "SDL_SCANCODE_AC_BOOKMARKS": 274,
+      "SDL_SCANCODE_BRIGHTNESSDOWN": 275,
+      "SDL_SCANCODE_BRIGHTNESSUP": 276,
+      "SDL_SCANCODE_DISPLAYSWITCH": 277,
+      "SDL_SCANCODE_KBDILLUMTOGGLE": 278,
+      "SDL_SCANCODE_KBDILLUMDOWN": 279,
+      "SDL_SCANCODE_KBDILLUMUP": 280,
+      "SDL_SCANCODE_EJECT": 281,
+      "SDL_SCANCODE_SLEEP": 282,
+      "SDL_SCANCODE_APP1": 283,
+      "SDL_SCANCODE_APP2": 284,
+      "SDL_SCANCODE_AUDIOREWIND": 285,
+      "SDL_SCANCODE_AUDIOFASTFORWARD": 286,
+      "SDL_SCANCODE_SOFTLEFT": 287,
+      "SDL_SCANCODE_SOFTRIGHT": 288,
+      "SDL_SCANCODE_CALL": 289,
+      "SDL_SCANCODE_ENDCALL": 290,
+      "KMOD_LCTRL": 64,
+      "KMOD_RCTRL": 128,
+      "KMOD_LSHIFT": 1,
+      "KMOD_RSHIFT": 2,
+      "KMOD_LALT": 256,
+      "KMOD_RALT": 512,
+      "KMOD_LGUI": 1024,
+      "KMOD_RGUI": 2048,
+      "KMOD_SCROLL": 32768,
+      "CVAR_INT": 2,
+      "CVAR_UINT": 4,
+      "CVAR_BOOL": 8,
+      "CVAR_FLOAT": 1,
+      "CVAR_DOUBLE": 32,
+      "CVAR_INTTYPES": 14,
+      "CVAR_STRING": 16,
+      "RS_TRANS1": 1,
+      "RS_TRANS2": 32,
+      "RS_ALIGN_L": 256,
+      "RS_ALIGN_R": 512,
+      "CUTSCENE_FORCEFILTER": 1,
+      "CUTSCENE_FORCENOFILTER": 2,
+      "CUTSCENE_TEXTUREFILTER": 4,
+      "_S_categories_size": 12,
+      "_S_left": 32,
+      "_S_right": 128,
+      "_S_internal": 16,
+      "_S_dec": 2,
+      "_S_oct": 64,
+      "_S_hex": 8,
+      "_S_scientific": 256,
+      "_S_fixed": 4,
+      "stream": 1,
+      "_S_boolalpha": 1,
+      "_S_showbase": 512,
+      "_S_showpoint": 1024,
+      "_S_showpos": 2048,
+      "_S_skipws": 4096,
+      "_S_unitbuf": 8192,
+      "_S_uppercase": 16384,
+      "_S_adjustfield": 176,
+      "_S_basefield": 74,
+      "_S_floatfield": 260,
+      "_S_badbit": 1,
+      "_S_eofbit": 2,
+      "_S_failbit": 4,
+      "_S_goodbit": 0,
+      "_S_app": 1,
+      "_S_ate": 2,
+      "_S_bin": 4,
+      "_S_in": 8,
+      "_S_out": 16,
+      "_S_trunc": 32,
+      "_S_noreplace": 64,
+      "_S_beg": 0,
+      "_S_cur": 1,
+      "_S_end": 2,
+      "map_entire_file": 0,
+      "read": 0,
+      "write": 1,
+      "__memory_order_modifier_mask": 4294901760,
+      "LIBDIVIDE_ADD_MARKER": 64,
+      "LIBDIVIDE_16_SHIFT_MASK": 31,
+      "LIBDIVIDE_32_SHIFT_MASK": 31,
+      "LIBDIVIDE_64_SHIFT_MASK": 63,
+      "LIBDIVIDE_NEGATIVE_DIVISOR": 128,
+      "Verbosity_ERROR": -2,
+      "PICANM_ANIMTYPE_MASK": 192
+    },
+    "rejected": {},
+    "rounds": 1
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [
+      "struct artheader_t"
+    ],
+    "proven": [],
+    "rejected": {
+      "struct artheader_t": "no unambiguous trivial POD/byte record declaration"
+    }
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\tiles.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 66,
+  "emitted": 66,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_0841d4c33e4d0967",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (unsigned char &[30720], unsigned char *&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA30720_hPhEvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_9cc9c6105966",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "unsigned char *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_433761804f69b625",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (char &[3840], char *&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA3840_cPcEvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_97f1c35348b8",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "char *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_49c435aacc2c9d61",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (picanm_t &[30720], picanm_t *&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA30720_8picanm_tPS0_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_aca1259acf77",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "picanm_t *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_616102752a7d5487",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (vec2<short> &[30720], vec2<short> *&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA30720_4vec2IsEPS1_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_313a1edf4465",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "vec2<short> *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_6ebe96997b16d25f",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (int &[30720], int *&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA30720_iPiEvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_63804b76c9fc",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "int *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_a9a9b9000a384f45",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (rottile_t &[30720], rottile_t *&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA30720_9rottile_tPS0_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_3d84e9297d09",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "rottile_t *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ALLOC_MAPART_ARRAY__template_ef1f66dc290e2ca2",
+      "source_name": "ALLOC_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (char *&[30720], char **&)",
+      "clang_template_mangled_name": "_ZL18ALLOC_MAPART_ARRAYIA30720_PcPS0_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_2a6d1ddb9500",
+        "memcpy",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "char **",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memcpy"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_2a6d1ddb9500",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (char *const (&)[30720]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIPcLm30720EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_313a1edf4465",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const vec2<short> (&)[30720]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEI4vec2IsELm30720EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_3d84e9297d09",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const rottile_t (&)[30720]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEI9rottile_tLm30720EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_63804b76c9fc",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const int (&)[30720]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIiLm30720EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_97f1c35348b8",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const char (&)[3840]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIcLm3840EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_9cc9c6105966",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const unsigned char (&)[30720]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEIhLm30720EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ARRAY_SIZE__header_aca1259acf77",
+      "source_name": "ARRAY_SIZE",
+      "kind": "FunctionDecl",
+      "line": 902,
+      "original_type": "size_t (const picanm_t (&)[30720]) noexcept",
+      "clang_template_mangled_name": "_ZL10ARRAY_SIZEI8picanm_tLm30720EEmRAT0__KT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 23037,
+        "source_line": 902,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS16__header_fbba2904eb7c",
+      "source_name": "B_PASS16",
+      "kind": "FunctionDecl",
+      "line": 988,
+      "original_type": "take_sign_t<int16_t, short> (short)",
+      "clang_template_mangled_name": "_ZL8B_PASS16IsENSt11conditionalIXsr9is_signedIT_EE5valueEstE4typeES1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 25843,
+        "source_line": 988,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS32__header_645b384948af",
+      "source_name": "B_PASS32",
+      "kind": "FunctionDecl",
+      "line": 993,
+      "original_type": "take_sign_t<int32_t, unsigned int> (unsigned int)",
+      "clang_template_mangled_name": "_ZL8B_PASS32IjENSt11conditionalIXsr9is_signedIT_EE5valueEijE4typeES1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 25996,
+        "source_line": 993,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "B_PASS32__header_f2d50e1f4d61",
+      "source_name": "B_PASS32",
+      "kind": "FunctionDecl",
+      "line": 993,
+      "original_type": "take_sign_t<int32_t, int> (int)",
+      "clang_template_mangled_name": "_ZL8B_PASS32IiENSt11conditionalIXsr9is_signedIT_EE5valueEijE4typeES1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 25996,
+        "source_line": 993,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "RESTORE_MAPART_ARRAY__template_0b9d91c69c3d07e1",
+      "source_name": "RESTORE_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 67,
+      "original_type": "void (rottile_t &[30720], rottile_t *&)",
+      "clang_template_mangled_name": "_ZL20RESTORE_MAPART_ARRAYIA30720_9rottile_tPS0_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_3d84e9297d09",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "rottile_t",
+          "source_record": "rottile_t",
+          "clang_method_id": "0x241cb5bf360",
+          "clang_assignment_signature": "rottile_t &(const rottile_t &) noexcept",
+          "assignment_mode": "clang-trivial-implicit-byte-copy",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          }
+        }
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "rottile_t *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "RESTORE_MAPART_ARRAY__template_5e69e1856ccb4b0a",
+      "source_name": "RESTORE_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 67,
+      "original_type": "void (unsigned char &[30720], unsigned char *&)",
+      "clang_template_mangled_name": "_ZL20RESTORE_MAPART_ARRAYIA30720_hPhEvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_9cc9c6105966",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "unsigned char *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "RESTORE_MAPART_ARRAY__template_7e4bade9baa8cc93",
+      "source_name": "RESTORE_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 67,
+      "original_type": "void (picanm_t &[30720], picanm_t *&)",
+      "clang_template_mangled_name": "_ZL20RESTORE_MAPART_ARRAYIA30720_8picanm_tPS0_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_aca1259acf77",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "picanm_t",
+          "source_record": "picanm_t",
+          "clang_method_id": "0x241cb6a85f0",
+          "clang_assignment_signature": "picanm_t &(const picanm_t &) noexcept",
+          "assignment_mode": "clang-trivial-implicit-byte-copy",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          }
+        }
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "picanm_t *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "RESTORE_MAPART_ARRAY__template_7ef05b9923f906af",
+      "source_name": "RESTORE_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 67,
+      "original_type": "void (int &[30720], int *&)",
+      "clang_template_mangled_name": "_ZL20RESTORE_MAPART_ARRAYIA30720_iPiEvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_63804b76c9fc",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5"
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "int *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "RESTORE_MAPART_ARRAY__template_a0da2710d5412af8",
+      "source_name": "RESTORE_MAPART_ARRAY",
+      "kind": "FunctionDecl",
+      "line": 67,
+      "original_type": "void (vec2<short> &[30720], vec2<short> *&)",
+      "clang_template_mangled_name": "_ZL20RESTORE_MAPART_ARRAYIA30720_4vec2IsEPS1_EvRT_RT0_",
+      "linkage": "internal",
+      "source_references": [
+        "ARRAY_SIZE__header_313a1edf4465",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "__cxx_record_vec2_8ca824f0ac397ec5",
+          "source_record": "__cxx_record_vec2_8ca824f0ac397ec5",
+          "clang_method_id": "0x241cac56c90",
+          "clang_assignment_signature": "vec2<short> &(const vec2<short> &) noexcept",
+          "assignment_mode": "clang-trivial-implicit-byte-copy",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          }
+        }
+      ],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "vec2<short> *",
+            "const": false
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "append_ext_UNSAFE__header_b53b1105498c",
+      "source_name": "append_ext_UNSAFE",
+      "kind": "FunctionDecl",
+      "line": 1249,
+      "original_type": "void (char *, const char *)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 34710,
+        "source_line": 1249,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "strcat",
+        "strcpy",
+        "strrchr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcat",
+        "strcpy",
+        "strrchr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artClearMapArt",
+      "source_name": "artClearMapArt",
+      "kind": "FunctionDecl",
+      "line": 83,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "ARRAY_SIZE__header_97f1c35348b8",
+        "RESTORE_MAPART_ARRAY__template_0b9d91c69c3d07e1",
+        "RESTORE_MAPART_ARRAY__template_5e69e1856ccb4b0a",
+        "RESTORE_MAPART_ARRAY__template_7e4bade9baa8cc93",
+        "RESTORE_MAPART_ARRAY__template_7ef05b9923f906af",
+        "RESTORE_MAPART_ARRAY__template_a0da2710d5412af8",
+        "artClearMapArtFilename",
+        "artUpdateManifest",
+        "artfil",
+        "artfilnum",
+        "artfilplc",
+        "faketile",
+        "faketiledata",
+        "g_bakFakeTile",
+        "g_bakFakeTileData",
+        "g_bakPicAnm",
+        "g_bakRottile",
+        "g_bakTileFileNum",
+        "g_bakTileFileOffs",
+        "g_bakTileSiz",
+        "kclose",
+        "memcpy",
+        "picanm",
+        "rottile",
+        "tilefilenum",
+        "tilefileoffs",
+        "tilesiz",
+        "walock",
+        "waloff",
+        "xfree__header_eef6e15431f5"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "faketiledata",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "picanm",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "faketile",
+        "faketiledata",
+        "kclose",
+        "memcpy",
+        "picanm",
+        "rottile",
+        "tilefilenum",
+        "tilesiz",
+        "walock",
+        "waloff"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artClearMapArtFilename",
+      "source_name": "artClearMapArtFilename",
+      "kind": "FunctionDecl",
+      "line": 54,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "mapartfilename",
+        "mapartfnXXofs",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artGetIndexedFileName",
+      "source_name": "artGetIndexedFileName",
+      "kind": "FunctionDecl",
+      "line": 485,
+      "original_type": "const char *(int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "artfilename",
+        "mapartfilename",
+        "mapartfnXXofs"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "artReadHeader",
+      "source_name": "artReadHeader",
+      "kind": "FunctionDecl",
+      "line": 302,
+      "original_type": "int32_t (const buildvfs_kfd, const char *const, artheader_t *const)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "B_PASS32__header_f2d50e1f4d61",
+        "current_verbosity_cutoff",
+        "kclose",
+        "kread",
+        "loguru_log"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "kclose",
+        "kread",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artReadManifest",
+      "source_name": "artReadManifest",
+      "kind": "FunctionDecl",
+      "line": 396,
+      "original_type": "void (const buildvfs_kfd, artheader_t *const)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "B_PASS16__header_fbba2904eb7c",
+        "B_PASS32__header_645b384948af",
+        "bitmap_set__header_d05b7db180cb",
+        "kread",
+        "tileConvertAnimFormat",
+        "tilesiz",
+        "xcalloc__header_b365286d1f9b",
+        "xfree__header_eef6e15431f5",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "kread",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artUpdateManifest",
+      "source_name": "artUpdateManifest",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "tileUpdatePicSiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "artfil",
+      "source_name": "artfil",
+      "kind": "VarDecl",
+      "line": 46,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "artfilename",
+      "source_name": "artfilename",
+      "kind": "VarDecl",
+      "line": 42,
+      "original_type": "char[20]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_49f8b635f5658e37d4793857",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "char[20]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            20
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "artfilnum",
+      "source_name": "artfilnum",
+      "kind": "VarDecl",
+      "line": 45,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "artfilplc",
+      "source_name": "artfilplc",
+      "kind": "VarDecl",
+      "line": 45,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "artheader_t",
+      "source_name": "artheader_t",
+      "kind": "CXXRecordDecl",
+      "line": 1211,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 36265,
+        "enclosing_record": "artheader_t",
+        "type": "artheader_t",
+        "semantic_sha256": "289e3b6fff4c7ff0678fb3300dfb0593721bbfb47c260d251141d186ae986f21",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_clear__header_7f4df0b931f7",
+      "source_name": "bitmap_clear",
+      "kind": "FunctionDecl",
+      "line": 1184,
+      "original_type": "void (char *const, const int)",
+      "clang_template_mangled_name": "_ZL12bitmap_clearIcEvPT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32722,
+        "source_line": 1184,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_set__header_6f439e8e9f02",
+      "source_name": "bitmap_set",
+      "kind": "FunctionDecl",
+      "line": 1177,
+      "original_type": "void (char *const, const int)",
+      "clang_template_mangled_name": "_ZL10bitmap_setIcEvPT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32536,
+        "source_line": 1177,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_set__header_d05b7db180cb",
+      "source_name": "bitmap_set",
+      "kind": "FunctionDecl",
+      "line": 1177,
+      "original_type": "void (unsigned char *const, const int)",
+      "clang_template_mangled_name": "_ZL10bitmap_setIhEvPT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32536,
+        "source_line": 1177,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_test__header_4c4d1147f324",
+      "source_name": "bitmap_test",
+      "kind": "FunctionDecl",
+      "line": 1198,
+      "original_type": "bool (const unsigned char *const, const int)",
+      "clang_template_mangled_name": "_ZL11bitmap_testIhEbPKT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33127,
+        "source_line": 1198,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_test__header_77191c72aca8",
+      "source_name": "bitmap_test",
+      "kind": "FunctionDecl",
+      "line": 1198,
+      "original_type": "bool (const char *const, const int)",
+      "clang_template_mangled_name": "_ZL11bitmap_testIcEbPKT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33127,
+        "source_line": 1198,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakFakeTile",
+      "source_name": "g_bakFakeTile",
+      "kind": "VarDecl",
+      "line": 34,
+      "original_type": "char *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_54f03dc6196fbb438dc5445a",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "char *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakFakeTileData",
+      "source_name": "g_bakFakeTileData",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "char **",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_024350fd09631b840c32f98a",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "char **"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakPicAnm",
+      "source_name": "g_bakPicAnm",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "picanm_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_fa29520477133ff471ce1588",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "picanm_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakRottile",
+      "source_name": "g_bakRottile",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "rottile_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_2f268b2eb6cc3718b6a6ba34",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "rottile_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakTileFileNum",
+      "source_name": "g_bakTileFileNum",
+      "kind": "VarDecl",
+      "line": 30,
+      "original_type": "uint8_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_d6a8a2609fb65c732043e519",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "uint8_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakTileFileOffs",
+      "source_name": "g_bakTileFileOffs",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "int32_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_147722db913725b849d188b7",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int32_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_bakTileSiz",
+      "source_name": "g_bakTileSiz",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "vec2_16_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_0a20913887b63f624c2dd577",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "vec2_16_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mapartfilename",
+      "source_name": "mapartfilename",
+      "kind": "VarDecl",
+      "line": 43,
+      "original_type": "char[256]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_5da10504affffa8ed7408a80",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "char[256]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            256
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mapartfnXXofs",
+      "source_name": "mapartfnXXofs",
+      "kind": "VarDecl",
+      "line": 44,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "maybe_grow_buffer__header_6aef293e08a0",
+      "source_name": "maybe_grow_buffer",
+      "kind": "FunctionDecl",
+      "line": 1592,
+      "original_type": "void (char **const, int32_t *const, const int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 44312,
+        "source_line": 1592,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "xrealloc__header_7d514cbc3a06"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/tiles.cpp",
+        "clang_decl_id": "0x248692cb708",
+        "redeclaration_chain": [
+          "0x248692cb708"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_0fb45789337dc97de93d19c4",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2long__header_global_78b9d4e05b059437",
+      "source_name": "pow2long",
+      "kind": "VarDecl",
+      "line": 895,
+      "original_type": "const const int32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26019,
+        "source_line": 895,
+        "translation_unit": "source/build/src/tiles.cpp",
+        "clang_decl_id": "0x1ce098982f8",
+        "redeclaration_chain": [
+          "0x1ce098982f8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_3f560b2f3db80ef84d83ebf5",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "const const int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileConvertAnimFormat",
+      "source_name": "tileConvertAnimFormat",
+      "kind": "FunctionDecl",
+      "line": 385,
+      "original_type": "void (const int32_t, const uint32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "picanm"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "picanm",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "picanm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileDelete",
+      "source_name": "tileDelete",
+      "kind": "FunctionDecl",
+      "line": 264,
+      "original_type": "void (const int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "faketiledata",
+        "tileSoftDelete",
+        "vox_undefine",
+        "xfree__header_eef6e15431f5"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "faketiledata",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "faketiledata",
+        "vox_undefine"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileSoftDelete",
+      "source_name": "tileSoftDelete",
+      "kind": "FunctionDecl",
+      "line": 249,
+      "original_type": "void (const int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "bitmap_clear__header_7f4df0b931f7",
+        "faketile",
+        "memset",
+        "picanm",
+        "picsiz",
+        "tilesiz",
+        "walock",
+        "waloff"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "picanm",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "faketile",
+        "memset",
+        "picanm",
+        "picsiz",
+        "tilesiz",
+        "walock",
+        "waloff"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileUpdatePicSiz",
+      "source_name": "tileUpdatePicSiz",
+      "kind": "FunctionDecl",
+      "line": 280,
+      "original_type": "void (int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "picsiz",
+        "pow2long__header_global_78b9d4e05b059437",
+        "tilesiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "picsiz",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilefileoffs",
+      "source_name": "tilefileoffs",
+      "kind": "VarDecl",
+      "line": 26,
+      "original_type": "int32_t[30720]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int32_t[30720]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            30720
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xcalloc__header_b365286d1f9b",
+      "source_name": "xcalloc",
+      "kind": "FunctionDecl",
+      "line": 1400,
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37938,
+        "source_line": 1400,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xfree__header_eef6e15431f5",
+      "source_name": "xfree",
+      "kind": "FunctionDecl",
+      "line": 1449,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39659,
+        "source_line": 1449,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xmalloc__header_eec43dbcdbe1",
+      "source_name": "xmalloc",
+      "kind": "FunctionDecl",
+      "line": 1392,
+      "original_type": "void *(const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37660,
+        "source_line": 1392,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xrealloc__header_7d514cbc3a06",
+      "source_name": "xrealloc",
+      "kind": "FunctionDecl",
+      "line": 1413,
+      "original_type": "void *(void *const, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 38329,
+        "source_line": 1413,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Realloc__cxx_static_478d5da25b6b3923",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artPreloadFile",
+      "source_name": "artPreloadFile",
+      "kind": "FunctionDecl",
+      "line": 431,
+      "original_type": "void (const buildvfs_kfd, artheader_t *const)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "bitmap_test__header_4c4d1147f324",
+        "kread",
+        "maybe_grow_buffer__header_6aef293e08a0",
+        "tileDelete",
+        "tileSetData",
+        "tilesiz",
+        "xfree__header_eef6e15431f5"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "kread",
+        "tileDelete",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artPreloadFileSafe",
+      "source_name": "artPreloadFileSafe",
+      "kind": "FunctionDecl",
+      "line": 458,
+      "original_type": "void (const buildvfs_kfd, artheader_t *const)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "bitmap_test__header_4c4d1147f324",
+        "kread",
+        "maybe_grow_buffer__header_6aef293e08a0",
+        "tileSetDataSafe",
+        "tileSoftDelete",
+        "tilesiz",
+        "xfree__header_eef6e15431f5"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "kread",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artReadIndexedFile",
+      "source_name": "artReadIndexedFile",
+      "kind": "FunctionDecl",
+      "line": 512,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "artGetIndexedFileName",
+        "artPreloadFile",
+        "artPreloadFileSafe",
+        "artReadHeader",
+        "artReadManifest",
+        "bitmap_test__header_4c4d1147f324",
+        "bitmap_test__header_77191c72aca8",
+        "cache1d_file_fromzip",
+        "current_verbosity_cutoff",
+        "faketile",
+        "kclose",
+        "kopen4load",
+        "ktell",
+        "loguru_log",
+        "memset",
+        "tilefilenum",
+        "tilefileoffs",
+        "tilesiz",
+        "walock",
+        "waloff",
+        "xfree__header_eef6e15431f5"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t[30720]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              30720
+            ]
+          },
+          "name": "tilefileoffs",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "artReadHeader",
+        "artReadManifest",
+        "cache1d_file_fromzip",
+        "current_verbosity_cutoff",
+        "faketile",
+        "kclose",
+        "kopen4load",
+        "ktell",
+        "loguru_log",
+        "memset",
+        "tilefilenum",
+        "tilefileoffs",
+        "tilesiz",
+        "walock",
+        "waloff"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "artSetupMapArt",
+      "source_name": "artSetupMapArt",
+      "kind": "FunctionDecl",
+      "line": 144,
+      "original_type": "void (const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "ALLOC_MAPART_ARRAY__template_0841d4c33e4d0967",
+        "ALLOC_MAPART_ARRAY__template_433761804f69b625",
+        "ALLOC_MAPART_ARRAY__template_49c435aacc2c9d61",
+        "ALLOC_MAPART_ARRAY__template_616102752a7d5487",
+        "ALLOC_MAPART_ARRAY__template_6ebe96997b16d25f",
+        "ALLOC_MAPART_ARRAY__template_a9a9b9000a384f45",
+        "ALLOC_MAPART_ARRAY__template_ef1f66dc290e2ca2",
+        "append_ext_UNSAFE__header_b53b1105498c",
+        "artClearMapArt",
+        "artClearMapArtFilename",
+        "artGetIndexedFileName",
+        "artReadIndexedFile",
+        "artUpdateManifest",
+        "faketile",
+        "faketiledata",
+        "g_bakFakeTile",
+        "g_bakFakeTileData",
+        "g_bakPicAnm",
+        "g_bakRottile",
+        "g_bakTileFileNum",
+        "g_bakTileFileOffs",
+        "g_bakTileSiz",
+        "kclose",
+        "kopen4loadfrommod",
+        "mapartfilename",
+        "mapartfnXXofs",
+        "picanm",
+        "rottile",
+        "strcpy",
+        "strlen",
+        "tilefilenum",
+        "tilefileoffs",
+        "tilesiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_54f03dc6196fbb438dc5445a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char *",
+          "name": "g_bakFakeTile",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_024350fd09631b840c32f98a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char **",
+          "name": "g_bakFakeTileData",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_fa29520477133ff471ce1588",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "picanm_t *",
+          "name": "g_bakPicAnm",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2f268b2eb6cc3718b6a6ba34",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "rottile_t *",
+          "name": "g_bakRottile",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d6a8a2609fb65c732043e519",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "uint8_t *",
+          "name": "g_bakTileFileNum",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_147722db913725b849d188b7",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t *",
+          "name": "g_bakTileFileOffs",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0a20913887b63f624c2dd577",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "vec2_16_t *",
+          "name": "g_bakTileSiz",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5da10504affffa8ed7408a80",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "name": "mapartfilename",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "mapartfnXXofs",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t[30720]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              30720
+            ]
+          },
+          "name": "tilefileoffs",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "faketiledata",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "picanm",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "artClearMapArt",
+        "faketile",
+        "faketiledata",
+        "g_bakFakeTile",
+        "g_bakFakeTileData",
+        "g_bakPicAnm",
+        "g_bakRottile",
+        "g_bakTileFileNum",
+        "g_bakTileFileOffs",
+        "g_bakTileSiz",
+        "kclose",
+        "kopen4loadfrommod",
+        "mapartfilename",
+        "mapartfnXXofs",
+        "picanm",
+        "rottile",
+        "strcpy",
+        "strlen",
+        "tilefilenum",
+        "tilefileoffs",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileSetData",
+      "source_name": "tileSetData",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "void (const int32_t, int32_t, const char *const)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "LZ4_compressBound",
+        "LZ4_compress_default",
+        "bitmap_clear__header_7f4df0b931f7",
+        "bitmap_set__header_6f439e8e9f02",
+        "faketile",
+        "faketiledata",
+        "faketilesize",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5",
+        "xrealloc__header_7d514cbc3a06"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "faketiledata",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "LZ4_compressBound",
+        "LZ4_compress_default",
+        "faketile",
+        "faketiledata",
+        "faketilesize",
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileSetDataSafe",
+      "source_name": "tileSetDataSafe",
+      "kind": "FunctionDecl",
+      "line": 212,
+      "original_type": "void (const int32_t, int32_t, const char *const)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "LZ4_compressBound",
+        "LZ4_compress_default",
+        "bitmap_set__header_6f439e8e9f02",
+        "faketile",
+        "faketiledata",
+        "faketilesize",
+        "tilefilenum",
+        "xfree__header_eef6e15431f5",
+        "xmalloc__header_eec43dbcdbe1",
+        "xrealloc__header_7d514cbc3a06"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "faketiledata",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "LZ4_compressBound",
+        "LZ4_compress_default",
+        "faketile",
+        "faketiledata",
+        "faketilesize",
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "exact",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "47209e115b9cebaaf6b486a6b631ebec3f393040c1175c175e887e9f7920c64f",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765"
+  },
+  "c_allocator_declarations": {
+    "queried": [
+      "calloc",
+      "free"
+    ],
+    "proven": [
+      "calloc",
+      "free"
+    ],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "1982471d02c86605605853e9c7c07de55a399fd72c4bd662f3903d0d0a3b78d6",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "37126a839720cb73113028f84f1920a1dfc1620537a12d278660d7ec8e66d74d",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 5288,
+    "sha256": "2ef23a1fb33cce58c54e3b92d6f57d085b56047e3615e11501d1c4dd84d9aa31",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts-complete",
+        "returncode": 0,
+        "stdout_sha256": "40b2de37e70531ace25abc7c1fe854d9e0caf1c8ad65e5a91b445d8f39d06760",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "mode": "-fdump-record-layouts-complete",
+        "returncode": 0,
+        "stdout_sha256": "40b2de37e70531ace25abc7c1fe854d9e0caf1c8ad65e5a91b445d8f39d06760",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "full_type_closure": {
+    "attempted": true,
+    "retained_type_roots": 190,
+    "anonymous_typedef_trivial_assignment_names": 91,
+    "explicit_member_calls_rebound": 0,
+    "static_member_references_rebound": 1,
+    "retained_method_function_dependencies": 189,
+    "field_selection_sites": 1504,
+    "static_callsite_context_roots": 454,
+    "ast_decode": {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 906874,
+      "ranges_omitted": 201181,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1788,
+      "semantic_barrier_ranges_retained": 596,
+      "instance_method_ranges_retained": 10711,
+      "type_metadata_reuses": 171171,
+      "include_metadata_reuses": 179727,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 34190143,
+      "cache_hit": true,
+      "json_bytes": 381226713,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    "reason": "anonymous or transitively aliased original record omitted by named filter",
+    "field_references_rebound": 1053
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "3e4d27afdd7c92f1e65cafc1b71138de01efe03fd5b34e2adef1ebe85b48210b",
+    "dependency_count": 386,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 575,
+      "ranges_omitted": 151,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 7,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 133,
+      "include_metadata_reuses": 6,
+      "cache_storage": "json",
+      "cache_entry_bytes": 162478,
+      "cache_hit": true,
+      "json_bytes": 162478,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 1312,
+      "ranges_omitted": 329,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 14,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 376,
+      "include_metadata_reuses": 27,
+      "cache_storage": "json",
+      "cache_entry_bytes": 395217,
+      "cache_hit": true,
+      "json_bytes": 395217,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 211,
+      "ranges_omitted": 73,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 30,
+      "include_metadata_reuses": 27,
+      "cache_storage": "json",
+      "cache_entry_bytes": 71269,
+      "cache_hit": true,
+      "json_bytes": 71269,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 151,
+      "ranges_omitted": 33,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 28,
+      "include_metadata_reuses": 27,
+      "cache_storage": "json",
+      "cache_entry_bytes": 41416,
+      "cache_hit": true,
+      "json_bytes": 41416,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 3,
+      "objects": 882,
+      "ranges_omitted": 246,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 6,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 235,
+      "include_metadata_reuses": 10,
+      "cache_storage": "json",
+      "cache_entry_bytes": 314598,
+      "cache_hit": true,
+      "json_bytes": 314598,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 57,
+      "ranges_omitted": 16,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 9,
+      "include_metadata_reuses": 1,
+      "cache_storage": "json",
+      "cache_entry_bytes": 13472,
+      "cache_hit": true,
+      "json_bytes": 13472,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 306,
+      "ranges_omitted": 111,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 110,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 111405,
+      "cache_hit": true,
+      "json_bytes": 111405,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 1332,
+      "ranges_omitted": 372,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 2,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 366,
+      "include_metadata_reuses": 16,
+      "cache_storage": "json",
+      "cache_entry_bytes": 626944,
+      "cache_hit": true,
+      "json_bytes": 626944,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 61,
+      "ranges_omitted": 21,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 13,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 19247,
+      "cache_hit": true,
+      "json_bytes": 19247,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 6,
+      "ranges_omitted": 2,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 1013,
+      "cache_hit": true,
+      "json_bytes": 1013,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 511,
+      "cache_hit": true,
+      "json_bytes": 511,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 6,
+      "ranges_omitted": 2,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 1005,
+      "cache_hit": true,
+      "json_bytes": 1005,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 502,
+      "cache_hit": true,
+      "json_bytes": 502,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 505,
+      "cache_hit": true,
+      "json_bytes": 505,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 508,
+      "cache_hit": true,
+      "json_bytes": 508,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 513,
+      "cache_hit": true,
+      "json_bytes": 513,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 505,
+      "cache_hit": true,
+      "json_bytes": 505,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 506,
+      "cache_hit": true,
+      "json_bytes": 506,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 575,
+      "cache_hit": true,
+      "json_bytes": 575,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 267,
+      "ranges_omitted": 81,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 83,
+      "include_metadata_reuses": 1,
+      "cache_storage": "json",
+      "cache_entry_bytes": 75287,
+      "cache_hit": true,
+      "json_bytes": 75287,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 504,
+      "cache_hit": true,
+      "json_bytes": 504,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 146,
+      "ranges_omitted": 36,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 21,
+      "include_metadata_reuses": 24,
+      "cache_storage": "json",
+      "cache_entry_bytes": 48649,
+      "cache_hit": true,
+      "json_bytes": 48649,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 70,
+      "ranges_omitted": 34,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 32,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 23848,
+      "cache_hit": true,
+      "json_bytes": 23848,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 12,
+      "objects": 144,
+      "ranges_omitted": 46,
+      "allocator_body_ranges_retained": 2,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 23,
+      "include_metadata_reuses": 25,
+      "cache_storage": "json",
+      "cache_entry_bytes": 36462,
+      "cache_hit": true,
+      "json_bytes": 36462,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 15,
+      "objects": 601,
+      "ranges_omitted": 149,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 2,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 125,
+      "include_metadata_reuses": 102,
+      "cache_storage": "json",
+      "cache_entry_bytes": 194091,
+      "cache_hit": true,
+      "json_bytes": 194091,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 123,
+      "objects": 9795,
+      "ranges_omitted": 2552,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 6,
+      "instance_method_ranges_retained": 48,
+      "type_metadata_reuses": 2363,
+      "include_metadata_reuses": 1669,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 382610,
+      "cache_hit": true,
+      "json_bytes": 3351899,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 1521,
+      "ranges_omitted": 425,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 8,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 425,
+      "include_metadata_reuses": 15,
+      "cache_storage": "json",
+      "cache_entry_bytes": 635609,
+      "cache_hit": true,
+      "json_bytes": 635609,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 3,
+      "objects": 1060,
+      "ranges_omitted": 303,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 2,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 299,
+      "include_metadata_reuses": 9,
+      "cache_storage": "json",
+      "cache_entry_bytes": 385845,
+      "cache_hit": true,
+      "json_bytes": 385845,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 524,
+      "ranges_omitted": 150,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 130,
+      "include_metadata_reuses": 3,
+      "cache_storage": "json",
+      "cache_entry_bytes": 191787,
+      "cache_hit": true,
+      "json_bytes": 191787,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 4,
+      "objects": 1754,
+      "ranges_omitted": 447,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 10,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 477,
+      "include_metadata_reuses": 54,
+      "cache_storage": "json",
+      "cache_entry_bytes": 775685,
+      "cache_hit": true,
+      "json_bytes": 775685,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 885,
+      "ranges_omitted": 235,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 4,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 236,
+      "include_metadata_reuses": 17,
+      "cache_storage": "json",
+      "cache_entry_bytes": 332630,
+      "cache_hit": true,
+      "json_bytes": 332630,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 429,
+      "ranges_omitted": 139,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 120,
+      "include_metadata_reuses": 52,
+      "cache_storage": "json",
+      "cache_entry_bytes": 221466,
+      "cache_hit": true,
+      "json_bytes": 221466,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 3,
+      "objects": 62,
+      "ranges_omitted": 15,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 7,
+      "include_metadata_reuses": 10,
+      "cache_storage": "json",
+      "cache_entry_bytes": 13548,
+      "cache_hit": true,
+      "json_bytes": 13548,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 58,
+      "ranges_omitted": 19,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 7,
+      "include_metadata_reuses": 9,
+      "cache_storage": "json",
+      "cache_entry_bytes": 17567,
+      "cache_hit": true,
+      "json_bytes": 17567,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 87,
+      "ranges_omitted": 28,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 12,
+      "include_metadata_reuses": 13,
+      "cache_storage": "json",
+      "cache_entry_bytes": 26530,
+      "cache_hit": true,
+      "json_bytes": 26530,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 5,
+      "objects": 15,
+      "ranges_omitted": 5,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2696,
+      "cache_hit": true,
+      "json_bytes": 2696,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 564,
+      "cache_hit": true,
+      "json_bytes": 564,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 564,
+      "cache_hit": true,
+      "json_bytes": 564,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 317,
+      "ranges_omitted": 98,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 86,
+      "include_metadata_reuses": 40,
+      "cache_storage": "json",
+      "cache_entry_bytes": 147345,
+      "cache_hit": true,
+      "json_bytes": 147345,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 149,
+      "ranges_omitted": 40,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 28,
+      "include_metadata_reuses": 24,
+      "cache_storage": "json",
+      "cache_entry_bytes": 52050,
+      "cache_hit": true,
+      "json_bytes": 52050,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 42,
+      "ranges_omitted": 19,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 14,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 14678,
+      "cache_hit": true,
+      "json_bytes": 14678,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 245,
+      "ranges_omitted": 80,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 71,
+      "include_metadata_reuses": 2,
+      "cache_storage": "json",
+      "cache_entry_bytes": 78662,
+      "cache_hit": true,
+      "json_bytes": 78662,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 147,
+      "ranges_omitted": 39,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 29,
+      "include_metadata_reuses": 2,
+      "cache_storage": "json",
+      "cache_entry_bytes": 56360,
+      "cache_hit": true,
+      "json_bytes": 56360,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 3,
+      "objects": 815,
+      "ranges_omitted": 220,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 3,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 236,
+      "include_metadata_reuses": 14,
+      "cache_storage": "json",
+      "cache_entry_bytes": 280667,
+      "cache_hit": true,
+      "json_bytes": 280667,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 319,
+      "ranges_omitted": 87,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 74,
+      "include_metadata_reuses": 5,
+      "cache_storage": "json",
+      "cache_entry_bytes": 101283,
+      "cache_hit": true,
+      "json_bytes": 101283,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 229,
+      "ranges_omitted": 64,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 55,
+      "include_metadata_reuses": 1,
+      "cache_storage": "json",
+      "cache_entry_bytes": 55006,
+      "cache_hit": true,
+      "json_bytes": 55006,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 227,
+      "ranges_omitted": 54,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 40,
+      "include_metadata_reuses": 39,
+      "cache_storage": "json",
+      "cache_entry_bytes": 73086,
+      "cache_hit": true,
+      "json_bytes": 73086,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 38,
+      "ranges_omitted": 12,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 11,
+      "cache_storage": "json",
+      "cache_entry_bytes": 11178,
+      "cache_hit": true,
+      "json_bytes": 11178,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 80,
+      "ranges_omitted": 25,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 24,
+      "cache_storage": "json",
+      "cache_entry_bytes": 23450,
+      "cache_hit": true,
+      "json_bytes": 23450,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 218,
+      "ranges_omitted": 69,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 57,
+      "include_metadata_reuses": 27,
+      "cache_storage": "json",
+      "cache_entry_bytes": 104923,
+      "cache_hit": true,
+      "json_bytes": 104923,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 190,
+      "ranges_omitted": 46,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 32,
+      "include_metadata_reuses": 32,
+      "cache_storage": "json",
+      "cache_entry_bytes": 67947,
+      "cache_hit": true,
+      "json_bytes": 67947,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 116824729,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "tilefileoffs",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int32_t[30720]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          30720
+        ]
+      }
+    },
+    {
+      "name": "g_bakTileFileNum",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_d6a8a2609fb65c732043e519",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "uint8_t *"
+    },
+    {
+      "name": "g_bakTileFileOffs",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_147722db913725b849d188b7",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int32_t *"
+    },
+    {
+      "name": "g_bakTileSiz",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_0a20913887b63f624c2dd577",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "vec2_16_t *"
+    },
+    {
+      "name": "g_bakPicAnm",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_fa29520477133ff471ce1588",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "picanm_t *"
+    },
+    {
+      "name": "g_bakFakeTile",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_54f03dc6196fbb438dc5445a",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "char *"
+    },
+    {
+      "name": "g_bakFakeTileData",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_024350fd09631b840c32f98a",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "char **"
+    },
+    {
+      "name": "g_bakRottile",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_2f268b2eb6cc3718b6a6ba34",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "rottile_t *"
+    },
+    {
+      "name": "artfilename",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_49f8b635f5658e37d4793857",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "char[20]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          20
+        ]
+      }
+    },
+    {
+      "name": "mapartfilename",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_5da10504affffa8ed7408a80",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "char[256]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          256
+        ]
+      }
+    },
+    {
+      "name": "mapartfnXXofs",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "artfilnum",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "artfilplc",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "artfil",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "pow2long__header_global_78b9d4e05b059437",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_3f560b2f3db80ef84d83ebf5",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "const const int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow2char",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_0fb45789337dc97de93d19c4",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_tiles_cpp_03102072c0e9.mjs",
+      "sha256": "03102072c0e9ed0a9c2cb9b3e23bfba711937dd50360eac68c30c208221c2090",
+      "original_source": "source/build/src/tiles.cpp",
+      "exports": [
+        "ALLOC_MAPART_ARRAY__template_0841d4c33e4d0967",
+        "ALLOC_MAPART_ARRAY__template_433761804f69b625",
+        "ALLOC_MAPART_ARRAY__template_49c435aacc2c9d61",
+        "ALLOC_MAPART_ARRAY__template_616102752a7d5487",
+        "ALLOC_MAPART_ARRAY__template_6ebe96997b16d25f",
+        "ALLOC_MAPART_ARRAY__template_a9a9b9000a384f45",
+        "ALLOC_MAPART_ARRAY__template_ef1f66dc290e2ca2",
+        "ARRAY_SIZE__header_2a6d1ddb9500",
+        "ARRAY_SIZE__header_313a1edf4465",
+        "ARRAY_SIZE__header_3d84e9297d09",
+        "ARRAY_SIZE__header_63804b76c9fc",
+        "ARRAY_SIZE__header_97f1c35348b8",
+        "ARRAY_SIZE__header_9cc9c6105966",
+        "ARRAY_SIZE__header_aca1259acf77",
+        "B_PASS16__header_fbba2904eb7c",
+        "B_PASS32__header_645b384948af",
+        "B_PASS32__header_f2d50e1f4d61",
+        "RESTORE_MAPART_ARRAY__template_0b9d91c69c3d07e1",
+        "RESTORE_MAPART_ARRAY__template_5e69e1856ccb4b0a",
+        "RESTORE_MAPART_ARRAY__template_7e4bade9baa8cc93",
+        "RESTORE_MAPART_ARRAY__template_7ef05b9923f906af",
+        "RESTORE_MAPART_ARRAY__template_a0da2710d5412af8",
+        "append_ext_UNSAFE__header_b53b1105498c",
+        "artClearMapArt",
+        "artClearMapArtFilename",
+        "artGetIndexedFileName",
+        "artReadHeader",
+        "artReadManifest",
+        "artUpdateManifest",
+        "artfil",
+        "artfilename",
+        "artfilnum",
+        "artfilplc",
+        "artheader_t",
+        "bitmap_clear__header_7f4df0b931f7",
+        "bitmap_set__header_6f439e8e9f02",
+        "bitmap_set__header_d05b7db180cb",
+        "bitmap_test__header_4c4d1147f324",
+        "bitmap_test__header_77191c72aca8",
+        "g_bakFakeTile",
+        "g_bakFakeTileData",
+        "g_bakPicAnm",
+        "g_bakRottile",
+        "g_bakTileFileNum",
+        "g_bakTileFileOffs",
+        "g_bakTileSiz",
+        "mapartfilename",
+        "mapartfnXXofs",
+        "maybe_grow_buffer__header_6aef293e08a0",
+        "pow2char",
+        "pow2long__header_global_78b9d4e05b059437",
+        "tileConvertAnimFormat",
+        "tileDelete",
+        "tileSoftDelete",
+        "tileUpdatePicSiz",
+        "tilefileoffs",
+        "xcalloc__header_b365286d1f9b",
+        "xfree__header_eef6e15431f5",
+        "xmalloc__header_eec43dbcdbe1",
+        "xrealloc__header_7d514cbc3a06"
+      ],
+      "reexports": [
+        "ALLOC_MAPART_ARRAY__template_0841d4c33e4d0967",
+        "ALLOC_MAPART_ARRAY__template_433761804f69b625",
+        "ALLOC_MAPART_ARRAY__template_49c435aacc2c9d61",
+        "ALLOC_MAPART_ARRAY__template_616102752a7d5487",
+        "ALLOC_MAPART_ARRAY__template_6ebe96997b16d25f",
+        "ALLOC_MAPART_ARRAY__template_a9a9b9000a384f45",
+        "ALLOC_MAPART_ARRAY__template_ef1f66dc290e2ca2",
+        "ARRAY_SIZE__header_2a6d1ddb9500",
+        "ARRAY_SIZE__header_313a1edf4465",
+        "ARRAY_SIZE__header_3d84e9297d09",
+        "ARRAY_SIZE__header_63804b76c9fc",
+        "ARRAY_SIZE__header_97f1c35348b8",
+        "ARRAY_SIZE__header_9cc9c6105966",
+        "ARRAY_SIZE__header_aca1259acf77",
+        "B_PASS16__header_fbba2904eb7c",
+        "B_PASS32__header_645b384948af",
+        "B_PASS32__header_f2d50e1f4d61",
+        "RESTORE_MAPART_ARRAY__template_0b9d91c69c3d07e1",
+        "RESTORE_MAPART_ARRAY__template_5e69e1856ccb4b0a",
+        "RESTORE_MAPART_ARRAY__template_7e4bade9baa8cc93",
+        "RESTORE_MAPART_ARRAY__template_7ef05b9923f906af",
+        "RESTORE_MAPART_ARRAY__template_a0da2710d5412af8",
+        "append_ext_UNSAFE__header_b53b1105498c",
+        "artClearMapArt",
+        "artClearMapArtFilename",
+        "artGetIndexedFileName",
+        "artReadHeader",
+        "artReadManifest",
+        "artUpdateManifest",
+        "artfil",
+        "artfilename",
+        "artfilnum",
+        "artfilplc",
+        "artheader_t",
+        "bitmap_clear__header_7f4df0b931f7",
+        "bitmap_set__header_6f439e8e9f02",
+        "bitmap_set__header_d05b7db180cb",
+        "bitmap_test__header_4c4d1147f324",
+        "bitmap_test__header_77191c72aca8",
+        "g_bakFakeTile",
+        "g_bakFakeTileData",
+        "g_bakPicAnm",
+        "g_bakRottile",
+        "g_bakTileFileNum",
+        "g_bakTileFileOffs",
+        "g_bakTileSiz",
+        "mapartfilename",
+        "mapartfnXXofs",
+        "maybe_grow_buffer__header_6aef293e08a0",
+        "pow2char",
+        "pow2long__header_global_78b9d4e05b059437",
+        "tileConvertAnimFormat",
+        "tileDelete",
+        "tileSoftDelete",
+        "tileUpdatePicSiz",
+        "tilefileoffs",
+        "xcalloc__header_b365286d1f9b",
+        "xfree__header_eef6e15431f5",
+        "xmalloc__header_eec43dbcdbe1",
+        "xrealloc__header_7d514cbc3a06",
+        "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+        "__cxx_private_cell_49f8b635f5658e37d4793857",
+        "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+        "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+        "__cxx_private_cell_54f03dc6196fbb438dc5445a",
+        "__cxx_private_cell_024350fd09631b840c32f98a",
+        "__cxx_private_cell_fa29520477133ff471ce1588",
+        "__cxx_private_cell_2f268b2eb6cc3718b6a6ba34",
+        "__cxx_private_cell_d6a8a2609fb65c732043e519",
+        "__cxx_private_cell_147722db913725b849d188b7",
+        "__cxx_private_cell_0a20913887b63f624c2dd577",
+        "__cxx_private_cell_5da10504affffa8ed7408a80",
+        "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+        "__cxx_private_cell_0fb45789337dc97de93d19c4",
+        "__cxx_private_cell_3f560b2f3db80ef84d83ebf5",
+        "__cxx_private_cell_39baa93c964b88601f88442a"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketiledata",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "picanm",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "picsiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "rottile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strrchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefilenum",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "vox_undefine",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "walock",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "waloff",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "0cda9f4d750065232ecb4ed2d91ad677af85abf7b35a7ad81aabd4d3bb1d0abc"
+    },
+    {
+      "module": "source/build/src/_source_legacy_tiles_cpp_8a018f4a5810.mjs",
+      "sha256": "8a018f4a5810f55e86f7ebed60c4f0e6ede782e01a5fe897771190759f60f35e",
+      "original_source": "source/build/src/tiles.cpp",
+      "exports": [
+        "artPreloadFile",
+        "artPreloadFileSafe",
+        "artReadIndexedFile",
+        "artSetupMapArt",
+        "tileSetData",
+        "tileSetDataSafe"
+      ],
+      "reexports": [
+        "artPreloadFile",
+        "artPreloadFileSafe",
+        "artReadIndexedFile",
+        "artSetupMapArt",
+        "tileSetData",
+        "tileSetDataSafe"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_compressBound",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_compress_default",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artClearMapArt",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artReadHeader",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artReadManifest",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artfilename",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_49f8b635f5658e37d4793857",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[20]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              20
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "cache1d_file_fromzip",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketiledata",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "faketilesize",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_bakFakeTile",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_54f03dc6196fbb438dc5445a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_bakFakeTileData",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_024350fd09631b840c32f98a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char **",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_bakPicAnm",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_fa29520477133ff471ce1588",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "picanm_t *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_bakRottile",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2f268b2eb6cc3718b6a6ba34",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "rottile_t *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_bakTileFileNum",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d6a8a2609fb65c732043e519",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "uint8_t *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_bakTileFileOffs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_147722db913725b849d188b7",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_bakTileSiz",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0a20913887b63f624c2dd577",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "vec2_16_t *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4load",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4loadfrommod",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ktell",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mapartfilename",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5da10504affffa8ed7408a80",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "mapartfnXXofs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "picanm",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "picsiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pow2char",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0fb45789337dc97de93d19c4",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strrchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tileDelete",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tileUpdatePicSiz",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefilenum",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefileoffs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t[30720]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              30720
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "walock",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "waloff",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "f8690ca2edb6566403a971fea5306bac51d4e3afdfb6e99454a5b439dd7f5f72"
+    }
+  ]
+}

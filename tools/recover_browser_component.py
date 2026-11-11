@@ -141,6 +141,10 @@ def main():
   emitted=active_exports(stage/(a.source+'.mjs'))
   new=sorted({row['name'] for row in document['definitions'] if row['status']=='source-first'
               and (row['name'] not in existing or a.refresh_fragment_sha256 and row['name'] in requested) and row['name'] in emitted})
+  # Refresh only the exact prior interface. Dependency/header recovery may
+  # emit additional helpers; the installer still audits all emitted code and
+  # storage, but must not turn those helpers into new owner re-exports.
+  if a.refresh_fragment_sha256:new=[name for name in new if name in requested]
   if new:
    install=[sys.executable,str(ROOT/'tools/install_verified_fragment.py'),'--manifest',str(manifest),
      '--target',str(OUT),'--exports',*new,'--report',str(BASE/'reports'/('fragment-'+epoch+'.json'))]

@@ -56,6 +56,19 @@ def anonymous_location(spelling):
     found = re.search(r'\((?:anonymous|unnamed)(?: (?:struct|class|union))? at (.+)\)', spelling)
     return found.group(1).replace('\\', '/') if found else None
 
+
+def anonymous_layout_spelling(spelling):
+    """Keep the native enclosing owner while normalizing Clang's tag printer.
+
+    A multiply included header can declare several anonymous tags at the SAME
+    physical location. The complete enclosing typedef/template scope remains
+    part of their identity; a location-only join must not mix those layouts.
+    """
+    spelling=cpp_layout_type(spelling)
+    return re.sub(r'\((?:anonymous|unnamed)(?: (?:struct|class|union))? at ',
+                  '(anonymous at ',spelling)
+
+
 def typedef_record_layouts(ast,layouts,source_root):
     """Prove sizeof/alignof aliases independently of object-storage support.
 
@@ -92,13 +105,30 @@ def typedef_record_layouts(ast,layouts,source_root):
         tag_location=record.get('loc',{});alias_location=declaration.get('loc',{})
         offset=tag_location.get('offset');alias_offset=alias_location.get('offset');name=declaration['name']
         token=record.get('tagUsed','').encode()
-        if not isinstance(offset,int) or not isinstance(alias_offset,int) or not token:continue
+        expansion=tag_location.get('expansionLoc',{})
+        spelling=tag_location.get('spellingLoc',{})
+        macro=(offset is None and expansion.get('isMacroArgExpansion') is True)
+        layout_offset=expansion.get('offset') if macro else offset
+        if macro:offset=spelling.get('offset')
+        if not all(isinstance(value,int) for value in (offset,layout_offset,alias_offset)) or not token:continue
         matches={}
         for path,position,layout in locations:
-            if position!=offset:continue
+            if position!=layout_offset:continue
             data=files[path]
             if data[offset:offset+len(token)]!=token or data[alias_offset:alias_offset+len(name)]!=name.encode():continue
-            physical=tag_location.get('file') or alias_location.get('file')
+            if macro:
+                # Clang prints the macro expansion's location for this tag,
+                # while the actual struct token is a spelled macro argument.
+                # Prove both original tokens in one physical source file;
+                # generated tags, scratch buffers and object-like macros stay
+                # outside this source-byte join.
+                length=expansion.get('tokLen')
+                if (not isinstance(length,int) or not 0<=layout_offset<offset<alias_offset or
+                        not re.fullmatch(rb'[A-Za-z_]\w*',data[layout_offset:layout_offset+length]) or
+                        not re.match(rb'\s*\(',data[layout_offset+length:])):continue
+                explicit=[location.get('file') for location in (spelling,expansion,alias_location) if location.get('file')]
+                if any((Path(value) if Path(value).is_absolute() else root/value).resolve()!=path for value in explicit):continue
+            physical=tag_location.get('file') or spelling.get('file') or alias_location.get('file')
             if physical:
                 actual=Path(physical);actual=(actual if actual.is_absolute() else root/actual).resolve()
                 if actual!=path:continue
@@ -227,12 +257,64 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 if tag.get('id') in records:
                     names.setdefault(node['name'], set()).add(tag['id'])
 
+    # Macro-argument typedefs can acquire a typedef name in finalized layout
+    # dumps. Reconcile repeated AST tags only when BOTH the spelled tag and
+    # its invoking macro, plus the original typedef token, agree in one file.
+    macro_typedef_proofs={}
+    if source_root:
+        root=Path(source_root).resolve()
+        for tree in ast:
+            for declaration in descendants(tree):
+                if declaration.get('kind')!='TypedefDecl' or not declaration.get('name'):continue
+                name=declaration['name'];alias_loc=declaration.get('loc',{});alias_offset=alias_loc.get('offset')
+                ids={part.get('ownedTagDecl',{}).get('id') or part.get('decl',{}).get('id')
+                     for part in descendants(declaration) if part.get('ownedTagDecl') or
+                     part.get('kind')=='RecordType' and part.get('isTagOwned') is True}
+                ids.discard(None)
+                if len(ids)!=1:continue
+                identity=next(iter(ids));record=records.get(identity,{})
+                loc=record.get('loc',{});expanded=loc.get('expansionLoc',{})
+                macro=expanded.get('isMacroArgExpansion') is True
+                spelled=loc.get('spellingLoc',{}) if macro else loc
+                offset=spelled.get('offset');start=expanded.get('offset') if macro else offset
+                length=expanded.get('tokLen') if macro else spelled.get('tokLen')
+                if (record.get('name') or not all(isinstance(value,int) for value in (offset,start,length,alias_offset)) or
+                        not 0<=offset<alias_offset or macro and not 0<=start<offset):continue
+                physical=spelled.get('file') or expanded.get('file') or alias_loc.get('file')
+                if not physical and source_rel and not any(value.get('includedFrom') for value in (spelled,expanded,alias_loc)):
+                    physical=source_rel
+                tag=record.get('tagUsed','').encode()
+                if not tag:continue
+                if not physical:
+                    # Elided header filenames require a unique pair of exact
+                    # original tag/alias tokens. Never use includedFrom as the
+                    # physical declaration's path.
+                    matches=[]
+                    for candidate in root.rglob('*'):
+                        if candidate.suffix.lower() not in ('.h','.hpp','.hh','.hxx') or not candidate.is_file():continue
+                        raw=candidate.read_bytes()
+                        if raw[offset:offset+len(tag)]==tag and raw[alias_offset:alias_offset+len(name)]==name.encode():matches.append(candidate)
+                        if len(matches)>1:break
+                    if len(matches)!=1:continue
+                    physical=matches[0]
+                path=Path(physical);path=(path if path.is_absolute() else root/path).resolve()
+                if not path.is_relative_to(root) or not path.is_file():continue
+                raw=path.read_bytes()
+                if raw[offset:offset+len(tag)]!=tag or raw[alias_offset:alias_offset+len(name)]!=name.encode():continue
+                if macro and (not re.fullmatch(rb'[A-Za-z_]\w*',raw[start:start+length]) or not re.match(rb'\s*\(',raw[start+length:])):continue
+                explicit=[value.get('file') for value in (spelled,expanded,alias_loc) if value.get('file')]
+                if any((Path(value) if Path(value).is_absolute() else root/value).resolve()!=path for value in explicit):continue
+                proof=(path,offset,start)
+                if identity in macro_typedef_proofs and macro_typedef_proofs[identity]!=proof:
+                    macro_typedef_proofs[identity]=None
+                else:macro_typedef_proofs[identity]=proof
+
     # Clang may omit an anonymous typedef tag's repeated filename. Its exact
     # layout still records physical file:line:column. Join only original
     # source files whose bytes prove the SAME AST offset and tag token; do
     # not infer a layout from the typedef name or from its fields.
     physical_layouts={}
-    physical_proofs={}
+    physical_proofs={identity:proof for identity,proof in macro_typedef_proofs.items() if proof is not None}
     source=Path(source_root).resolve() if source_root else None
     source_bytes={}
     if source:
@@ -247,18 +329,33 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             if not (1<=line<=len(lines) and 1<=col<=len(lines[line-1])):continue
             offset=sum(map(len,lines[:line-1]))+col-1
             token=re.match(rb'(struct|class|union)\b',lines[line-1][col-1:])
-            if not token:continue
-            physical_layouts.setdefault(offset,[]).append((path,line,col,token[1].decode(),spelling))
+            # An anonymous macro-argument tag is printed at its invocation.
+            # Keep that candidate, but accept it only through the explicit
+            # spelled/expanded source-byte proof below.
+            physical_layouts.setdefault(offset,[]).append((path,line,col,token[1].decode() if token else None,spelling))
         for identity,record in records.items():
             if record.get('name'):continue
             loc=record.get('loc',{});scope=template_scopes.get(identity)
             explicit=loc.get('file')
             if explicit:
                 explicit=Path(explicit);explicit=(explicit if explicit.is_absolute() else source/explicit).resolve()
+            expansion=loc.get('expansionLoc',{});spelled=loc.get('spellingLoc',{})
+            macro=loc.get('offset') is None and expansion.get('isMacroArgExpansion') is True
+            position=expansion if macro else loc
             matched=[]
-            for path,line,col,tag,spelling in physical_layouts.get(loc.get('offset'),[]):
-                if tag!=record.get('tagUsed') or explicit and path!=explicit:continue
-                if loc.get('line') and loc['line']!=line or loc.get('col') and loc['col']!=col:continue
+            for path,line,col,tag,spelling in physical_layouts.get(position.get('offset'),[]):
+                if explicit and path!=explicit:continue
+                if macro:
+                    raw=path.read_bytes();start=expansion.get('offset');offset=spelled.get('offset');length=expansion.get('tokLen')
+                    original_tag=record.get('tagUsed','').encode()
+                    if (not all(isinstance(value,int) for value in (start,offset,length)) or not 0<=start<offset or
+                            not original_tag or raw[offset:offset+len(original_tag)]!=original_tag or
+                            not re.fullmatch(rb'[A-Za-z_]\w*',raw[start:start+length]) or
+                            not re.match(rb'\s*\(',raw[start+length:])):continue
+                    files=[value.get('file') for value in (spelled,expansion) if value.get('file')]
+                    if any((Path(value) if Path(value).is_absolute() else source/value).resolve()!=path for value in files):continue
+                elif tag!=record.get('tagUsed'):continue
+                if position.get('line') and position['line']!=line or position.get('col') and position['col']!=col:continue
                 if scope and not clean_type(spelling).startswith(scope+'::'):continue
                 matched.append(spelling)
             # Multiple spelling aliases of one exact layout are acceptable;
@@ -413,6 +510,11 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
     for name,layout in layouts.items():
         normalized_layouts.setdefault(cpp_layout_type(name),{})[repr(layout)]=layout
 
+    anonymous_layouts={}
+    for name,layout in layouts.items():
+        if anonymous_location(name):
+            anonymous_layouts.setdefault(anonymous_layout_spelling(name),{})[repr(layout)]=layout
+
     def build(identity):
         if identity in cached:
             return cached[identity]
@@ -464,7 +566,16 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         # in the AST and layout dump, but the exact file:line:column is shared.
         physical = {anonymous_location(name) for name in record_spellings.get(identity, [])}
         physical.discard(None)
-        if physical:
+        # Prefer the complete Clang-owned spelling. An anonymous union in
+        # Wall and UWall may have the same source location but different
+        # native child declarations. Only a genuinely unique physical layout
+        # can supply the fallback when Clang elides its enclosing scope.
+        exact={}
+        for spelling in record_spellings.get(identity,()):
+            for key,candidate in anonymous_layouts.get(anonymous_layout_spelling(spelling),{}).items():
+                if 'fields' in candidate:exact[key]=candidate
+        if exact:evidence=list(exact.values())
+        if physical and not exact:
             evidence += [layout for name, layout in layouts.items()
                          if anonymous_location(name) in physical and 'fields' in layout
                          and (not template_scopes.get(identity) or
@@ -480,10 +591,10 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                 while spelling in aliases and spelling not in seen:
                     seen.add(spelling);spelling=clean_type(aliases[spelling])
                 pointer_members.append(has_outer_indirection(spelling,'*'))
-            # Reinterpreting integers as pointers needs a complete integer
-            # address-space model. Identity-preserving borrowed pointer slots
-            # authorize pointer-only alternatives, never mixed numeric unions.
-            if any(pointer_members) and not all(pointer_members):valid=False
+            # Overlapping pointer bytes use the same checked 64-bit address
+            # representation as all other native pointer slots. The schema
+            # below attests that representation; unknown addresses still fail
+            # when decoded/dereferenced rather than inventing an allocation.
         if not valid or not layout or not (fields or storage_views and record.get('bases')) or not (0 < layout['size'] <= 1048576):
             active.remove(identity)
             cached[identity] = None
@@ -650,10 +761,10 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                     kinds.update(storage_kinds(field.get('byteRecord') or field['recordArray']))
                 else:kinds.add('numeric')
             return kinds
-        # A pointer hidden in a nested aggregate/array is still a pointer
-        # object representation. Do not let that nesting bypass the existing
-        # rejection of unions that reinterpret pointers as integer bits.
-        if result['union'] and storage_kinds(result)=={'pointer','numeric'}:valid=False
+        # This includes pointer slots inside nested structs/arrays, as used
+        # by original native codec contexts overlaid with raw byte storage.
+        if result['union'] and storage_kinds(result)=={'pointer','numeric'}:
+            result['pointerEncoding']='source-lp64-addresses/2'
         result['overlaps'] = overlaps
         active.remove(identity)
         cached[identity] = result if valid else None

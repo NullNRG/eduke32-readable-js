@@ -17,8 +17,8 @@ with tempfile.TemporaryDirectory(prefix='eduke-record-array-members-') as temp:
  module=out/'unit.cpp.mjs';manifest=json.loads(module.with_suffix('.manifest.json').read_text())
  rows={r['name']:r for r in manifest['definitions']}
  for name in (*FUNCTIONS,'global_bundle'):assert rows[name]['status']=='source-first',rows[name]
- for name in ('rejected_mixed','rejected_nested_mixed'):assert rows[name]['status']=='blocked',rows[name]
- js='async url=>{const m=await import(url),rows=[];for(let n=0;n<512;n++)rows.push(['+','.join('m.'+f+'(n)' for f in FUNCTIONS)+'].join(","));return rows;}'
+ for name in ('rejected_mixed','rejected_nested_mixed'):assert rows[name]['status']=='source-first',rows[name]
+ js='async url=>{const m=await import(url),rows=[];for(const name of ["rejected_mixed","rejected_nested_mixed"]){let rejected=false;try{m[name](23)}catch{rejected=true;}if(!rejected)throw Error("Unallocated pointer union address accepted");}for(let n=0;n<512;n++)rows.push(['+','.join('m.'+f+'(n)' for f in FUNCTIONS)+'].join(","));return rows;}'
  driver=root/'run.mjs';driver.write_text('console.log((await ('+js+')('+json.dumps(module.as_uri())+')).join("\\n"));')
  observed=run(['node',str(driver)],root).splitlines()
  assert observed==expected,next(((i,a,b)for i,(a,b)in enumerate(zip(observed,expected))if a!=b),('length',len(observed),len(expected)))
@@ -31,6 +31,6 @@ with tempfile.TemporaryDirectory(prefix='eduke-record-array-members-') as temp:
  report={'format':'clang-contiguous-record-array-members/1','native_js_cases':512,'compared_values':3072,'native_chromium_cases':512,
   'checks':['nested record arrays','multidimensional scalar arrays','multiple pointer-array fields sharing one record',
     'explicit local and global initializers','whole-object memcpy','independent aggregate copies','row byte aliases',
-    'pointer-slot addresses, pointer-to-pointer arithmetic and original pointer-field lvalue dereference','mixed numeric/pointer unions remain rejected'],
+    'pointer-slot addresses, pointer-to-pointer arithmetic and original pointer-field lvalue dereference','mixed numeric/pointer unions reject unallocated addresses'],
   'passed':True,'gameplay_verified':False,'browser_version':version,'compiler_sha256':hashlib.sha256((ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest()}
  (ROOT/'reports/oct16-array-members-parity.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

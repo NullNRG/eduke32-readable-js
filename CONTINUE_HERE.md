@@ -1,33 +1,34 @@
-# Continue the canonical project
+# Continue the canonical EDuke32 project
 
-Read `CURRENT_PORT_STATUS.md`, `HANDOFF_SNAPSHOT.json` and the latest actual Chromium report. Preserve the existing project and all original source/license notices. The port is incomplete; do not claim a playable artifact or show native/diagnostic images as game screenshots.
+Read `CURRENT_PORT_STATUS.md`, `HANDOFF_SNAPSHOT.json` and the exact current Chromium report. Preserve this codebase, original source/license notices, native storage identity and the classic browser profile. The game is incomplete; do not label a diagnostic/native screenshot as JavaScript gameplay.
 
-PowerShell, from the canonical project:
+From the canonical project in PowerShell:
 
 ```powershell
 . work/session-env.ps1
-python work/verify_original_bfirst_search.py --video-mode --report reports/nov10-original-bfirst-search.json
+python work/verify_original_map_load.py --report reports/nov11-original-e1l1-map-load.json
+python work/verify_original_map_load.py --all-grp-maps --report reports/nov11-original-campaign-map-load.json
+python work/verify_original_lz4_compression.py --video-mode --report reports/nov11-original-lz4-compression-parity.json
+python tools/recover_browser_component.py --snapshot
 ```
 
-The successful rebuild/probe commands are logged in `reports/nov05-proven-software-assignment-rebuild.log` and `reports/nov05-original-engine-video.log`. Do not run a second heavy Clang job concurrently. `work/rebuild_source_owner.py` requires the actual current SHA-256 of the owner. It preserves storage and current consumers; header-factory retention preserves original closed implementations rather than introducing initialization cycles. Reuse requires the exact compiler and preprocessing fingerprints.
+E1L1 now genuinely loads through original `engineLoadBoard`, matching full sector/wall bytes, sprite coordinates and original start, with original `inside` verification. The current shared-semantics regression is 15/15; it covers native layout finalization, pointer/raw unions, exact anonymous owners, array data ABI, deferred pure pointer limits and fragment replacement. It does not replace a complete suite run or gameplay acceptance.
 
-The latest verified compiler checkpoint fixes filtered template-instance identities, implicit non-inline header template recovery and exact private-storage scalar-helper attestation. The affected suite passes 17/17 with unchanged inputs. Original `bfirst_search_init` and `bfirst_search_try` pass 512 native/Chromium comparisons after real engine/GRP/video initialization. `calc_sector_reachability`, `engineFinishLoadBoard`, `updatesector` and `updatesectorneighbor` are linked. See `reports/nov10-original-bfirst-search.json` and `reports/nov10-map-reachability-closure.log`.
-
-Continue the full original map-loader frontier, then ART/cache and `app_main`; do not fill game state manually. The active recovery command is:
+The next original dependency chain is base ART textures and cache allocation:
 
 ```powershell
-python work/recover_boot_reachable.py source/build/src/engine.cpp engineLoadBoard,engineLoadBoardV5V6 --install-closed-leaves
+python work/recover_boot_reachable.py source/build/src/tiles.cpp artLoadFiles,tileLoad --install-closed-leaves
 ```
 
-`cache1d` out-of-line nonstatic methods still need reusable source lowering. The last broad regression attempt was 243/247; all four focused failures now pass, but the complete suite must be rerun under the new revision.
+Complete the generic source-defined out-of-line `cache1d` methods and global object construction, then recover original `drawrooms`/`drawmasks` and `app_main`/CON/menu initialization. Do not replace cache/renderer/game routines with stubs or independent implementations. `artSetupMapArt` is linked, but is not base ART initialization. The native source remains the behavior oracle.
 
-The SDL event fragment retry failed because internal `sdl_resize` was not imported through a valid original storage provider. Preserve that diagnostic; fix same-TU private ownership or rebuild its complete owner. The broad clip retry rejected a `tilesiz` record-array prototype/storage mismatch; the scalar `quickloadboard` recovery succeeded separately. Do not weaken either ABI check.
+Heavy Clang jobs must stay serial. Reuse only matching compiler/source/preprocessor/ABI fingerprints. Refreshes preserve the exact previous fragment interface and all original storage; additional compiler-emitted helpers do not become owner exports. The strict fragment installer still audits all emitted code/imports/storage. Missing native anonymous fields must stay blocked instead of emitting undefined field reads.
 
-After changes stabilize:
+After shared changes stabilize:
 
 ```powershell
-python tools/verify_recovery_suite.py --jobs 1 --timeout 1200 --report reports/nov10-current-full-regression.json
-python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --out reports/nov05-port-acceptance.json --strict
+python tools/verify_recovery_suite.py --jobs 1 --timeout 1200 --report reports/nov11-current-full-regression.json
+python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --out reports/nov11-port-acceptance.json --strict
 ```
 
-The strict acceptance gate is expected to fail until real original menu, level, input, audio, gameplay and offline evidence exist. Produce genuine Chromium menu/E1L1 screenshots only when those states render. The current repository excludes GRPs, toolchains, AST/SQLite caches and the 362 MB private semantic payload. Local input data remains private.
+Strict gameplay acceptance is expected to fail until original menu, world rendering, input, audio, saves, offline operation and 60-second gameplay evidence exist. No verified playable `dist/index.html` exists. No real game screenshot exists. Never prepopulate world/game state to bypass original initialization.

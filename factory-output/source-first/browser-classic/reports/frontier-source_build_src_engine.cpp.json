@@ -1,22 +1,18 @@
 {
   "source": "source/build/src/engine.cpp",
   "requested": [
-    "engineLoadBoard",
-    "engineLoadBoardV5V6"
+    "engineLoadBoard"
   ],
   "requested_resolved": {
-    "engineLoadBoard": false,
-    "engineLoadBoardV5V6": false
+    "engineLoadBoard": true
   },
   "requested_export_bindings": {
-    "engineLoadBoard": [],
-    "engineLoadBoardV5V6": []
+    "engineLoadBoard": [
+      "engineLoadBoard"
+    ]
   },
-  "requested_still_unlinked": [
-    "engineLoadBoard",
-    "engineLoadBoardV5V6"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-cf47a810b824cce9/source/build/src/engine.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-a9c20d09be64c46b/source/build/src/engine.cpp.manifest.json",
   "blocked": [
     {
       "name": "<anonymous>",
@@ -26,19 +22,6 @@
     {
       "name": "<anonymous>",
       "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
-      "dependencies": []
-    },
-    {
-      "name": "engineLoadBoard",
-      "reason": "unlinked identifiers: artSetupMapArt, system_getcvars",
-      "dependencies": [
-        "artSetupMapArt",
-        "system_getcvars"
-      ]
-    },
-    {
-      "name": "engineLoadBoardV5V6",
-      "reason": "scalar byte alias across goto requires proven storage lifetime",
       "dependencies": []
     }
   ],

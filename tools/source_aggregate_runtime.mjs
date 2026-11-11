@@ -118,6 +118,9 @@ const cByteArrayMember = (field,bytes,prototypes,values=[]) => {
   return rows;
 };
 const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocation=null) => {
+  if(schema.pointerEncoding && (schema.pointerEncoding!=='source-lp64-addresses/2' ||
+      globalThis[Symbol.for('source-first.native-pointer-abi')]!==schema.pointerEncoding))
+    throw new TypeError('Overlapping pointer union requires the verified source address ABI');
   if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
       !values || Object.keys(values).length || schema.prototype))
     throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
