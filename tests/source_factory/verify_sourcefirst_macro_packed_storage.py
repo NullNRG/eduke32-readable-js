@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
 from source_ast_to_js import parse_json_stream, parse_clang_record_layouts
-from source_byte_records import typedef_record_layouts
+from source_byte_records import typedef_record_layouts, descendants
 
 
 def run(args):
@@ -71,12 +71,24 @@ int main(){for(unsigned n=0;n<256;n++){
                               + 'const value=exercise(bytes,n);console.log(value+" "+Array.from(bytes,v=>v.toString(16).padStart(2,"0")).join(""));}')
             assert run(['node', runner]).splitlines() == expected
         ast = parse_json_stream(run([frontend, '-Xclang', '-ast-dump=json', '-fsyntax-only', source]))
+        # Exercise the anonymous physical-name join in isolation. These early
+        # dump aliases test provenance only; actual byte/ABI parity above uses
+        # the production finalized-layout extractor, not complete-dump sizes.
         layouts = parse_clang_record_layouts(run([frontend, '-Xclang', '-fdump-record-layouts-complete', '-fsyntax-only', source]))
         assert all(name in typedef_record_layouts(ast, layouts, root) for name in ('Read16', 'Read32', 'Read64'))
         for field in ('spellingLoc', 'expansionLoc'):
             changed = copy.deepcopy(ast)
-            record = next(row for tree in changed for row in tree.get('inner', [])
-                          if row.get('kind') in ('RecordDecl', 'CXXRecordDecl') and row.get('loc', {}).get('expansionLoc'))
+            # System headers can introduce earlier macro-created records on
+            # another Clang version. Mutate the exact Read16-owned tag ID.
+            nodes = [row for tree in changed for row in descendants(tree)]
+            alias = next(row for row in nodes if row.get('kind') == 'TypedefDecl' and row.get('name') == 'Read16')
+            identities = {row.get('ownedTagDecl', {}).get('id') or row.get('decl', {}).get('id')
+                          for row in descendants(alias) if row.get('ownedTagDecl') or
+                          row.get('kind') == 'RecordType' and row.get('isTagOwned') is True}
+            identities.discard(None)
+            assert len(identities) == 1, identities
+            record = next(row for row in nodes if row.get('id') in identities and row.get('completeDefinition'))
+            assert record.get('loc', {}).get('expansionLoc'), record
             record['loc'][field]['offset'] += 1
             assert 'Read16' not in typedef_record_layouts(changed, layouts, root)
 print('PASS: 1024 native/full/filtered C/C++ packed-macro cases; every byte/canary compared; changed spelling/expansion proofs rejected')

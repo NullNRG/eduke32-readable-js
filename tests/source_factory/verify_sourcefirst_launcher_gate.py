@@ -1,5 +1,5 @@
 """The developer Play action requires evidence for the exact candidate bytes."""
-import hashlib,json,sys,tempfile
+import hashlib,json,os,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools'))
 from project_launcher import Project,JOBS
@@ -27,8 +27,18 @@ with tempfile.TemporaryDirectory(prefix='eduke-launcher-gate-') as temporary:
     evidence={'original_engine_startup_verified':True,'fresh_startup_without_precalled_helpers':True,
               'artifacts':modules,'runtime_artifacts':runtimes,'page_errors':[]}
     probe.write_text(json.dumps(evidence));assert project.status()['engine']['verified']
-    runtime.write_text('export const abi=2;');assert not project.status()['engine']['verified']
-    runtime.write_text('export const abi=1;');assert project.status()['engine']['verified']
+    original_stat=runtime.stat()
+    runtime.write_text('export const abi=2;')
+    os.utime(runtime,ns=(original_stat.st_atime_ns,original_stat.st_mtime_ns))
+    assert not project.status()['engine']['verified']
+    runtime.write_text('export const abi=1;')
+    os.utime(runtime,ns=(original_stat.st_atime_ns,original_stat.st_mtime_ns))
+    assert project.status()['engine']['verified']
+    profile=root/'tools/browser_classic_profile.json';profile.parent.mkdir()
+    profile.write_text(json.dumps({'engine_execution_report':'reports/current-engine.json'}))
+    current_probe=root/'reports/current-engine.json';probe.rename(current_probe);probe=current_probe
+    state=project.status();assert state['engine']['verified'] and state['engine']['report_url']=='/reports/current-engine.json'
+
     evidence['page_errors']=['real browser error'];probe.write_text(json.dumps(evidence))
     assert not project.status()['engine']['verified']
     evidence['page_errors']=[];evidence['fresh_startup_without_precalled_helpers']=False

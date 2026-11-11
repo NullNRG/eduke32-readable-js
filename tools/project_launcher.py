@@ -20,14 +20,13 @@ JOBS = {
 class Project:
     def __init__(self, root=ROOT):
         self.root=root.resolve(); self.token=secrets.token_urlsafe(32); self.lock=threading.Lock(); self.job=None; self.process=None
-        self.hash_cache={}
     def unchanged_artifact(self, name, digest):
         path=(self.root/name).resolve()
         if not path.is_relative_to(self.root) or not path.is_file():return False
-        stat=path.stat(); stamp=(stat.st_mtime_ns,stat.st_ctime_ns,stat.st_size)
-        previous=self.hash_cache.get(name)
-        if not previous or previous[0]!=stamp:self.hash_cache[name]=(stamp,sha(path))
-        return self.hash_cache[name][1]==digest
+        # Timestamp/size equality does not prove unchanged bytes. Rapid
+        # Windows rewrites can preserve that tuple; verification gates must
+        # also reject deliberately restored timestamps on changed contents.
+        return sha(path)==digest
     def start(self, name):
         if name not in JOBS: raise ValueError('Unknown project action')
         with self.lock:
@@ -61,7 +60,10 @@ class Project:
         acceptance=read('reports/port-acceptance.json') or {}
         profile=read('tools/browser_classic_profile.json') or {}
         component=read('factory-output/source-first/browser-classic/component-manifest.json') or {}
-        proof=read('reports/oct30-original-browser-component.json') or {}
+        proof_name=profile.get('engine_execution_report','reports/oct30-original-browser-component.json')
+        proof_path=Path(proof_name)
+        proof=read(proof_name) if not proof_path.is_absolute() and '..' not in proof_path.parts else None
+        proof=proof or {}
         artifacts={**proof.get('artifacts',{}),**proof.get('runtime_artifacts',{})}
         attested_modules={name:digest for name,digest in component.get('artifacts',{}).items() if name.endswith('.mjs')}
         engine_verified=bool(proof.get('original_engine_startup_verified')
@@ -83,7 +85,7 @@ class Project:
             'job':job,'token':self.token}
         result['engine']={'available':engine_available,'verified':engine_verified,
             'url':'/engine-startup.html' if engine_available else None,
-            'report_url':'/reports/oct30-original-browser-component.json' if proof else None,
+            'report_url':'/'+proof_path.as_posix() if proof else None,
             'message':'Original enginePreInit returned 0; recorded module and runtime bytes match' if engine_verified else 'Startup evidence is absent or stale; run verification for current bytes',
             'partial_units':component.get('source_units_with_partial_modules'),
             'selected_units':component.get('selected_source_units'),
