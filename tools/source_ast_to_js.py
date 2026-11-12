@@ -11,7 +11,7 @@ from collections import Counter
 from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from source_control_flow import SourceFlowPlan, ControlFlowUnsupported
+from source_control_flow import SourceFlowPlan, ControlFlowUnsupported, recover_loop_terminal_jumps
 from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_included_implementations import included_implementation_bytes
@@ -3161,7 +3161,7 @@ class Emit:
         immutable=immutable_global(n)
         if not immutable:
             return f'export let {name} = {global_initializer(n, self.enum_values, self.record_layouts, self.global_storage_records, self.type_aliases, self.enum_types, self)};'
-        value=next((v for v in kids(n) if kind(v) not in ('FullComment','DeprecatedAttr')),None)
+        value=next((v for v in kids(n) if kind(v) not in ('FullComment','DeprecatedAttr','UsedAttr','UnusedAttr','AsmLabelAttr')),None)
         if not value:raise Unsupported('constant initializer unavailable')
         # const original POD globals must follow identical zero/aggregate
         # semantics to mutable originals, not a JS default class constructor.
@@ -3198,6 +3198,11 @@ class Emit:
         if any(kind(v)=='GotoStmt' for v in descendants(bodies[-1])):
             resume=recover_resume_dispatch(bodies[-1],self.expression_temp())
             if resume:bodies=[resume['body']]
+        terminal_jumps=recover_loop_terminal_jumps(bodies[-1],self.trivial_destructors,
+            lambda name:normalized_record_name(name,self.type_aliases))
+        if terminal_jumps:
+            bodies=[terminal_jumps['body']]
+            self.last_flow_report={key:value for key,value in terminal_jumps.items() if key!='body'}
         if needs_cfg(bodies[-1]):
             try:
                 lowering=CoroutineCFG(bodies[-1],self)
@@ -3925,7 +3930,10 @@ def global_initializer(n, enum_values=None, record_layouts=None, aggregate_recor
         built=build(0,initializer)
         return ('cNativeArray('+json.dumps(typ)+', '+json.dumps(dims)+', '+built+')'
                 if typ and len(dims)>1 else built)
-    init=next((v for v in kids(n) if kind(v) not in ('FullComment','DeprecatedAttr')),None)
+    # Retention/link-label metadata does not initialize scalar or pointer
+    # objects. Preserve normal zero initialization when only these are present.
+    # Unknown attributes and alignment requirements keep their existing checks.
+    init=next((v for v in kids(n) if kind(v) not in ('FullComment','DeprecatedAttr','UsedAttr','UnusedAttr','AsmLabelAttr')),None)
     if init:
         record_schema=aggregate_type_schema(t,aggregate_records or {},type_aliases or {},record_layouts or {},allow_pointer_storage=True,enum_types=enum_types)
         if record_schema and ('record' in record_schema or 'byteRecord' in record_schema):

@@ -34,6 +34,23 @@ def main():
         print('Original declarations already linked: '+names);return 0
     build(out,out,base/'reports/browser-closure.json','source/build/src/engine.cpp','enginePreInit')
     providers=out/'browser-combined-symbol-owners.json'
+    # A header factory can legitimately exist in several translation units.
+    # The global index must retain that ambiguity. This unit may still reuse
+    # its OWN already-installed, source-proven class factory; do not select an
+    # arbitrary competing owner or duplicate its object representation.
+    if owner.is_file():
+        previous=json.loads(owner.with_suffix('.manifest.json').read_text())
+        symbols=json.loads(providers.read_text());local={}
+        for row in previous.get('definitions',[]):
+            proof=row.get('odr_inline',{})
+            if (row.get('status')=='source-first' and row.get('kind')=='CXXRecordDecl'
+                    and row.get('header_record_factory') and row['name'] in existing
+                    and row['name'] not in symbols
+                    and proof.get('prototype_factory_abi')=='source-header-record-factory/1'):
+                local[row['name']]=source
+        if local:
+            providers=base/'reports'/('local-factory-providers-'+source.replace('/','_')+'.json')
+            providers.write_text(json.dumps({**symbols,**local},indent=2)+'\n')
     key=hashlib.sha256(providers.read_bytes()+names.encode()+str((args.query_limit,args.whole_unit,args.included_functions)).encode()+(ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest()[:16]
     stage=base/'boot-probes'/source.replace('/','_')/('reachable-'+key);stage.mkdir(parents=True,exist_ok=True)
     command=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',component.SOURCE,'--source',source,

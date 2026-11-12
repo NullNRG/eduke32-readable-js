@@ -8,6 +8,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from collections import Counter
 import re
+import copy
 
 class ControlFlowUnsupported(Exception):
     pass
@@ -18,6 +19,76 @@ def children(node): return [n for n in node.get('inner',[]) if n]
 def descendants(node):
     yield node
     for child in children(node): yield from descendants(child)
+
+def recover_loop_terminal_jumps(body, trivial_destructors=(), canonical_type=lambda value:value):
+    """Inline a source cleanup suffix ending in continue to the SAME loop.
+
+    This permits sibling-branch error/visibility exits without a program counter
+    or changed lexical storage. No declarations are duplicated. Reject captured
+    target locals, shadowed bindings, different loop ownership and any source
+    lifetime that would need destruction before the cloned suffix executes.
+    Only an entirely proven set of jumps is rewritten; other CFGs stay strict.
+    """
+    paths={};labels={};jumps=[]
+    loops={'ForStmt','WhileStmt','DoStmt','CXXForRangeStmt'}
+    def scan(node,path=()):
+        paths[id(node)]=path
+        if kind(node)=='LambdaExpr':return
+        if kind(node)=='GotoStmt':jumps.append(node)
+        if kind(node)=='CompoundStmt':
+            seq=children(node)
+            for i,stmt in enumerate(seq):
+                if kind(stmt)=='LabelStmt' and stmt.get('declId'):
+                    labels[stmt['declId']]={'kind':'CompoundStmt','inner':[*children(stmt),*seq[i+1:]]}
+        for child in children(node):scan(child,(*path,node))
+    scan(body)
+    if not jumps:return None
+    label_nodes={node.get('declId'):node for node in descendants(body) if kind(node)=='LabelStmt'}
+    def terminal(node):
+        if kind(node)=='ContinueStmt':return True
+        seq=children(node)
+        return kind(node)=='CompoundStmt' and bool(seq) and terminal(seq[-1])
+    def trivial(variable):
+        typ=variable.get('type',{}).get('desugaredQualType') or variable.get('type',{}).get('qualType','')
+        if '*' in typ or typ.rstrip().endswith('&'):return True
+        typ=re.sub(r'\[[^\]]*\]|\b(?:const|volatile|struct|class|union)\b','',typ).strip()
+        return bool(re.fullmatch(r'(?:(?:signed|unsigned) )?(?:bool|char|short|int|long(?: long)?|float|double|[ui]?int(?:8|16|32|64)_t|size_t|ptrdiff_t|intptr_t|uintptr_t)',typ)
+                    or canonical_type(typ) in trivial_destructors)
+    replacements={};targets=set()
+    for jump in jumps:
+        target=jump.get('targetLabelDeclId');suffix=labels.get(target);label=label_nodes.get(target)
+        if not suffix or not label or not terminal(suffix):return None
+        source_path=paths[id(jump)];target_path=paths[id(label)]
+        source_loop=next((node for node in reversed(source_path) if kind(node) in loops),None)
+        target_loop=next((node for node in reversed(target_path) if kind(node) in loops),None)
+        if source_loop is None or source_loop is not target_loop:return None
+        # A suffix may contain branches and expressions, but no new storage,
+        # nested control destinations, nontrivial temporaries or further jumps.
+        forbidden=loops|{'DeclStmt','VarDecl','GotoStmt','LabelStmt','BreakStmt','ReturnStmt',
+            'SwitchStmt','LambdaExpr','CXXBindTemporaryExpr','CXXTryStmt','CXXThrowExpr'}
+        if any(kind(node) in forbidden for node in descendants(suffix)):return None
+        source_ids={id(node) for node in source_path};target_ids={id(node) for node in target_path}
+        entered={node.get('id') for scope in target_path if id(scope) not in source_ids
+                 for node in descendants(scope) if kind(node)=='VarDecl'}
+        uses=[node.get('referencedDecl',{}) for node in descendants(suffix) if kind(node)=='DeclRefExpr']
+        if entered.intersection(ref.get('id') for ref in uses):return None
+        leaving={node.get('id'):node for scope in source_path if id(scope) not in target_ids
+                 for node in descendants(scope) if kind(node)=='VarDecl'}
+        if any(not trivial(node) for node in leaving.values()):return None
+        # A copied global/outer reference must not bind to a source-branch local
+        # with the same spelling in the emitted lexical JavaScript.
+        if any(local.get('name')==ref.get('name') and local.get('id')!=ref.get('id')
+               for local in leaving.values() for ref in uses):return None
+        replacements[id(jump)]=suffix;targets.add(target)
+    def rewrite(node):
+        if id(node) in replacements:return copy.deepcopy(replacements[id(node)])
+        if kind(node)=='LabelStmt' and node.get('declId') in targets:
+            return rewrite(children(node)[0])
+        result={**node}
+        if 'inner' in node:result['inner']=[rewrite(child) if child else child for child in node['inner']]
+        return result
+    return {'body':rewrite(body),'strategy':'source-same-loop-terminal-continue-suffixes',
+            'detected':{'inlined_source_terminal_continue_jumps':len(replacements)}}
 
 @dataclass(frozen=True)
 class Region:

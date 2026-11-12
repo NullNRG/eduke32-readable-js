@@ -1,8 +1,13 @@
 # EDuke32 readable JavaScript port
 
-Original **enginePreInit now executes in Chromium and returns 0**. Work in progress:
+Original **engine initialization, palette/video startup and ART/cache loading execute in Chromium**. Work in progress:
 the original game is not yet bootable or playable in JavaScript.
 There is no verified playable `dist/index.html` and no JavaScript gameplay screenshot.
+
+The original tile loader now matches 349,953 pixel bytes across 56 tiles from all
+20 supplied ART files. The installed portable LZ4 decoder passes 128 native/browser
+cases. Source CI passes 50 Python checks and 22 browser/runtime Node tests. These
+are component checks; original game startup and world rendering remain unfinished.
 
 The project continues the existing Clang-based C/C++ source compiler, source-owned
 storage, readable ES modules, cross-unit linker and browser platform adapters.
@@ -64,4 +69,4 @@ the existing private continuation package can include local game data.
 GitHub Actions currently runs basic source/runtime checks. Deployment is disabled
 until original startup, menu, level rendering and controlled gameplay pass.
 
-Original dynamic-name initialization also executes in Node and Chromium, with 2,311 native comparison rows. The developer launcher currently runs locally at http://127.0.0.1:8766/ in this session; `npm run serve:project -- --port 8766` starts that port explicitly. Full game startup and gameplay remain incomplete.
+Original dynamic-name initialization also executes in Node and Chromium, with 2,311 native comparison rows. Use `npm run serve:project -- --port 8766` to select an alternate launcher port. Full game startup and gameplay remain incomplete.

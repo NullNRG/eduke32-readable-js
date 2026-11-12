@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 from source_ast_to_js import compiler_runtime_revision
 ci=json.loads((ROOT/'reports/nov11-ci-reproduction-regression.json').read_text())
-assert ci['complete'] and ci['all_passed'] and ci['counts']['passed']==50
+assert ci['complete'] and ci['all_passed'] and ci['counts']['passed']==52
 status='''# EDuke32 readable JavaScript checkpoint — November 12, 2026
 
 **The original game is not playable yet.** Original app_main, CON/game startup, menus, world rendering, input-driven gameplay and a playable standalone dist/index.html remain unverified. No gameplay screenshot is available.
@@ -29,6 +29,8 @@ GitHub checkpoints preserve compiler/runtime/tests, active readable modules and 
 status=status.replace('Canonical decoder execution is being rechecked separately.', 'The installed canonical decoder also passes all 128 native/Chromium cases (reports/nov12-canonical-lz4-native-parity.json).')
 status=status.replace('Focused pointer regression is 5/5; broader current-revision CI is pending.', 'Focused pointer regression is 5/5; current local CI reproduction passes 50/50 with unchanged compiler/runtime/test inputs.')
 status=status.replace('The last GitHub source CI success was ff0f700; its 46 Python checks and 22 Node tests do not certify the present changes. The current workflow adds four checks and will be run again.', 'GitHub source CI passes checkpoint 184121f (https://github.com/NullNRG/eduke32-readable-js/actions/runs/43245627813). Current local CI reproduction is 50/50 and browser/runtime Node tests are 22/22. These checks cover the present source changes, not original gameplay.')
+status=status.replace('50/50','52/52')
+status+='\nThe latest renderer recovery exposed an original sibling-scope sprite-cleanup jump. A reusable lowering now inlines only a proven terminal-continue suffix into the same original loop, rejecting captured target locals, shadowed bindings, changed loop ownership and nontrivial destruction ordering. Its 1,024 native/full/filtered Node/Chromium results and six control-flow/lifetime regressions pass. Scalar used/unused/asm-label metadata is now excluded from initializer expressions; 512 native/JS state comparisons pass. The original hicfindsubst and kprender chains now link, including the original PNG decoder, without substituted image-decoder stubs. The min overload family remains ambiguous as an unqualified public root; exact selected helpers link. Current renderer re-extraction is still required before claiming a rendered level.\n'
 for name in ['CURRENT_PORT_STATUS.md','ENGINEERING_CHECKPOINT.md']:
  (ROOT/name).write_text(status,encoding='utf-8')
 resume='''# Continue the canonical EDuke32 project
@@ -48,7 +50,7 @@ Heavy Clang jobs must remain serial. The rendering command may leave a partial f
 
 The semantic index already matches the portable codec profile. Do not reset it with a changed-command generic resume. tools/refresh_semantic_unit.py supports --before-commands for a verified one-unit macro-only change; all unrelated commands and header semantics must remain identical. The older private compressed checkpoint has a different historical fingerprint.
 
-Use work/reproduce_source_ci.py for current 50-check local CI reproduction. Focused native/JS results are component evidence only. Run the complete regression at integration stabilization and strict original-game acceptance before publishing a playable artifact. No verified playable dist/index.html currently exists. Keep committing source checkpoints and exact evidence to NullNRG/eduke32-readable-js; never commit GRPs, SDKs, AST/SQLite caches or asset-bearing generated HTML.
+Use work/reproduce_source_ci.py for current 52-check local CI reproduction. Focused native/JS results are component evidence only. Run the complete regression at integration stabilization and strict original-game acceptance before publishing a playable artifact. No verified playable dist/index.html currently exists. Keep committing source checkpoints and exact evidence to NullNRG/eduke32-readable-js; never commit GRPs, SDKs, AST/SQLite caches or asset-bearing generated HTML.
 '''
 (ROOT/'CONTINUE_HERE.md').write_text(resume,encoding='utf-8')
 (ROOT/'LLM_CONTINUATION_PROMPT.md').write_text('Continue the existing canonical EDuke32 readable-JavaScript port. Follow CONTINUE_HERE.md and CURRENT_PORT_STATUS.md. Original engine, ART/cache and 56 tiles/349,953 exact pixel bytes are verified; app_main, menu, world rendering and gameplay are not. Complete original rendering and game startup; preserve original source behavior and typed ABI/ownership. Never claim gameplay from component probes. Keep GitHub checkpoints current.\n',encoding='utf-8')
@@ -59,7 +61,7 @@ for name in ['HANDOFF_SNAPSHOT.json','reports/project-current-status.json']:
  doc['current_component_evidence_note']='Recompute component snapshot after renderer recovery; pixel report binds its exact modules and runtime.'
  doc.update(compiler_runtime_input_sha256=compiler_runtime_revision(),
   component_snapshot_sha256=hashlib.sha256((ROOT/'factory-output/source-first/browser-classic/component-manifest.json').read_bytes()).hexdigest(),
-  latest_frozen_targeted_passed=50,latest_frozen_targeted_total=50,current_revision_ci_verified=True,
+  latest_frozen_targeted_passed=52,latest_frozen_targeted_total=52,current_revision_ci_verified=True,
   latest_github_ci_verified_sha='184121ff93232e30b810cf1e43b92b09a6d91126',
   latest_github_ci_run='https://github.com/NullNRG/eduke32-readable-js/actions/runs/43245627813',
   original_lz4_decode_canonical_native_chromium_passed=True,original_lz4_decode_canonical_cases=128,
