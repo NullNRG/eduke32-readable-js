@@ -47,5 +47,5 @@ with tempfile.TemporaryDirectory(prefix='eduke-launcher-gate-') as temporary:
     probe.write_text(json.dumps(evidence));assert not project.status()['engine']['verified']
 assert JOBS['handoff'][1]==['work/package_current_continuation.py']
 assert JOBS['engine-startup'][1]==['work/verify_fresh_engine_startup.py']
-assert JOBS['resume-app-main'][1]==['work/recover_boot_reachable.py','source/duke3d/src/game.cpp','app_main']
+assert JOBS['resume-app-main'][1]==['work/recover_boot_reachable.py','source/duke3d/src/game.cpp','app_main','--whole-unit','--install-closed-leaves']
 print('PASS: missing/unverified/changed candidates cannot launch as a game; matching verified bytes can; handoff uses compact continuation')

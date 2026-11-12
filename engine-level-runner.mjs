@@ -264,13 +264,13 @@ engineInitialization.original_maps_loaded=[];for(const mapToLoad of selectedMaps
       }
       trace.push({name:'original divider storage verified',records,contiguous_native_bytes:true});
       const platform=await enter('import original platform startup',()=>import(base+'/source/build/src/sdlayer.cpp.mjs'));
-      
+
       if(typeof platform.videoGetModes==='function'){
         // Read modes initialized by the original entry.
         if(!(engine.validmodecnt>0))throw Error('Original video mode enumeration returned no usable modes');
         trace.push({name:'original video modes',count:engine.validmodecnt});
       }else trace.push({name:'videoGetModes',transition:'blocked',reason:'original function has not linked'});
-      
+
       const startup=trace.some(row=>row.name==='enginePreInit'&&row.transition==='return'&&row.value===0);
       return {component_passed:true,original_engine_startup_verified:startup,fresh_startup_without_precalled_helpers:true,engine_initialization:engineInitialization,trace,gameplay_verified:false};
     }catch(error){return {component_passed:false,trace,engine_initialization:engineInitialization,error:String(error),stack:error.stack,gameplay_verified:false};}

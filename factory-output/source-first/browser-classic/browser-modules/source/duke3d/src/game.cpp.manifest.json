@@ -55,8 +55,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\game.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 945,
-  "emitted": 945,
+  "found": 1005,
+  "emitted": 1005,
   "blocked": 0,
   "definitions": [
     {
@@ -27390,6 +27390,3040 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "BGetTime__header_e0d5a90e5073",
+      "source_name": "BGetTime",
+      "kind": "FunctionDecl",
+      "line": 803,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 23275,
+        "source_line": 803,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "ClockTicks",
+        "totalclock"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "totalclock",
+          "binding": "__cxx_global_cell_37d96f0d18da4d1ab96cf9c5",
+          "abi": "source-global-cell/2",
+          "original_type": "ClockTicks",
+          "record_layout_sha256": "2de22bf10149fb2c9397c8a9345539b598a0f828a96017d44708a26e7df32df9"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "totalclock"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Blrintf__header_c3691da1eaa2",
+      "source_name": "Blrintf",
+      "kind": "FunctionDecl",
+      "line": 706,
+      "original_type": "int32_t (const float)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 17604,
+        "source_line": 706,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "source_scalar_sse_round": {
+        "abi": "source-scalar-f32-nearest-even-i32/1",
+        "parameter": "x",
+        "parameter_id": "0x2218290d6e8",
+        "native_wrappers": [
+          {
+            "name": "_mm_load_ss",
+            "clang_id": "0x2218281a038",
+            "ast_sha256": "fce697dd764fbffd0f02f00777bbc9bef170c20ed897f0d7677f7adb2262300e"
+          },
+          {
+            "name": "_mm_cvtss_si32",
+            "clang_id": "0x22182811868",
+            "ast_sha256": "aa6fa76b57dfeb9e1113314654aeabd289e67f72180f5bb657297f4143710ebc"
+          }
+        ],
+        "rounding": "default MXCSR: nearest, ties to even; masked invalid => INT32_MIN",
+        "vector_storage_elided": true,
+        "original_parameter_address_does_not_escape": true
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ClockTicks",
+      "source_name": "ClockTicks",
+      "kind": "CXXRecordDecl",
+      "line": 20,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/clockticks.hpp",
+        "source_offset": 573,
+        "enclosing_record": "ClockTicks",
+        "type": "ClockTicks",
+        "semantic_sha256": "de8913d6a1d35fb59b02152d43d4905df13b8762f523c78ba320d82e6269cb17",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/clockticks.hpp",
+      "source_references": [
+        "ClockTicks",
+        "__cxx_operator_11a696315e969ab4",
+        "__cxx_operator_35d41574d9c68141",
+        "__cxx_operator_761c63d1e16e183f",
+        "__cxx_operator_9d5bfff63c86ec9c"
+      ],
+      "non_odr_static_constants": [
+        {
+          "value": 18446744073709486080,
+          "type": "unsigned long",
+          "name": "VALUE_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5231
+        },
+        {
+          "value": 18446744069414584320,
+          "type": "unsigned long",
+          "name": "WHOLE_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5309
+        },
+        {
+          "value": 4294901760,
+          "type": "unsigned long",
+          "name": "FRACTION_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5387
+        },
+        {
+          "value": 65535,
+          "type": "unsigned long",
+          "name": "FRACTION_16_MASK",
+          "source_header": "source/build/include/clockticks.hpp",
+          "class_offset": 573,
+          "member_offset": 5465
+        }
+      ],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "emitted_constructor_providers": [
+        "ClockTicks"
+      ],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_ClearGotMirror",
+      "source_name": "G_ClearGotMirror",
+      "kind": "FunctionDecl",
+      "line": 725,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "MIRROR",
+        "bitmap_clear__header_03f32c4c9b40",
+        "gotpic"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "MIRROR",
+          "binding": "__cxx_global_cell_ddb33d9a4e289a682da87b83",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "MIRROR",
+        "gotpic"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_MaybeTakeOnFloorPal",
+      "source_name": "G_MaybeTakeOnFloorPal",
+      "kind": "FunctionDecl",
+      "line": 3584,
+      "original_type": "int (tspriteptr_t, int)",
+      "linkage": "internal",
+      "source_references": [
+        "actor",
+        "g_noFloorPal",
+        "g_tile",
+        "sector",
+        "sprite"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sprite",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "actor",
+          "abi": "source-byte-record-array/1",
+          "stride": 96,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2",
+          "original_type": "actor_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "g_tile",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "actor",
+        "g_noFloorPal",
+        "g_tile",
+        "sector",
+        "sprite"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_OROR_DupeSprites",
+      "source_name": "G_OROR_DupeSprites",
+      "kind": "FunctionDecl",
+      "line": 459,
+      "original_type": "void (const spritetype *)",
+      "linkage": "internal",
+      "source_references": [
+        "Duke_ApplySpritePropertiesToTSprite__header_f55df38813a8",
+        "SECTOREFFECTOR",
+        "actor",
+        "headspritesect",
+        "maxspritesonscreen",
+        "nextspritesect",
+        "renderAddTSpriteFromSprite__header_5860dede361b",
+        "sprite",
+        "spritesortcnt"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "SECTOREFFECTOR",
+          "binding": "__cxx_global_cell_55625c4f97faf47a1f3873af",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "maxspritesonscreen",
+          "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "sprite",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "spritesortcnt",
+          "binding": "__cxx_global_cell_138b3585b71dcf40bb04bbf8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "actor",
+          "abi": "source-byte-record-array/1",
+          "stride": 96,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2",
+          "original_type": "actor_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "SECTOREFFECTOR",
+        "actor",
+        "headspritesect",
+        "maxspritesonscreen",
+        "nextspritesect",
+        "sprite",
+        "spritesortcnt"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_PostLoadPalette",
+      "source_name": "G_PostLoadPalette",
+      "kind": "FunctionDecl",
+      "line": 6100,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "basepaltable",
+        "duke3d_globalflags",
+        "memset",
+        "paletteFixTranslucencyMask",
+        "palettePostLoadLookups",
+        "paletteSetupDefaultFog"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "duke3d_globalflags",
+          "binding": "__cxx_global_cell_286850f0b72c66d5aae173a9",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "basepaltable",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "uint8_t *[]",
+          "original_type": "uint8_t *[256]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "basepaltable",
+        "duke3d_globalflags",
+        "memset",
+        "paletteFixTranslucencyMask",
+        "palettePostLoadLookups",
+        "paletteSetupDefaultFog"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Yax_SetBunchZs",
+      "source_name": "Yax_SetBunchZs",
+      "kind": "FunctionDecl",
+      "line": 1416,
+      "original_type": "void (int32_t, int32_t, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/game.cpp",
+      "source_references": [
+        "headsectbunch",
+        "nextsectbunch",
+        "numyaxbunches",
+        "sector",
+        "yax_getbunch"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "numyaxbunches",
+          "binding": "__cxx_global_cell_65a1b3b3dadd66a019af6c35",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "headsectbunch",
+          "abi": "source-native-array/1",
+          "array": "Int16Array",
+          "dimensions": [
+            2,
+            256
+          ],
+          "original_type": "int16_t[2][256]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "nextsectbunch",
+          "abi": "source-native-array/1",
+          "array": "Int16Array",
+          "dimensions": [
+            2,
+            4096
+          ],
+          "original_type": "int16_t[2][4096]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "headsectbunch",
+        "nextsectbunch",
+        "numyaxbunches",
+        "sector",
+        "yax_getbunch"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_record_DivResult_25bc55276667b382",
+      "source_name": "DivResult<short>",
+      "kind": "CXXRecordDecl",
+      "line": null,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31036,
+        "enclosing_record": "DivResult<short>",
+        "type": "DivResult<short>",
+        "semantic_sha256": "6efcba707a2b3b97510640fbf184ac6a47f05be0c2d962bee7c1ad313f82b0cf",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "leaf_prototype": {
+          "format": "source-leaf-record-prototype/1",
+          "storage_and_declarations_sha256": "b873b0ac381c40a4634492242ac2c01a88ee7b4d782dd04d0c8b8026613f8eb0",
+          "method_bodies": {}
+        }
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_record_DivResult_430863500367dcfc",
+      "source_name": "DivResult<int>",
+      "kind": "CXXRecordDecl",
+      "line": 1120,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31036,
+        "enclosing_record": "DivResult<int>",
+        "type": "DivResult<int>",
+        "semantic_sha256": "f551f9b11b7aa136955cbb506ee791d27016ccff02e780a572ebbc6eff15fd87",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "leaf_prototype": {
+          "format": "source-leaf-record-prototype/1",
+          "storage_and_declarations_sha256": "c902134728a3fed09d0287d168bfa7c61c0a7f2687b25732dfa2e50024dab8b5",
+          "method_bodies": {}
+        }
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_record_DivResult_f2f9bdba2124a015",
+      "source_name": "DivResult<long>",
+      "kind": "CXXRecordDecl",
+      "line": null,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31036,
+        "enclosing_record": "DivResult<long>",
+        "type": "DivResult<long>",
+        "semantic_sha256": "a3c070fcb10f8247e9217f6a42e6230c407b44eb0b9a2b2916fc75cf3e2bab1d",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "leaf_prototype": {
+          "format": "source-leaf-record-prototype/1",
+          "storage_and_declarations_sha256": "8dff7bf2685664d6c3cb2d07b427710914229a6e51fb4a143de44da866429a91",
+          "method_bodies": {}
+        }
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint__template_4b64bf3065581d95",
+      "source_name": "buildprint",
+      "kind": "FunctionDecl",
+      "line": 189,
+      "original_type": "size_t (const char *, char *, const char *, long, const char *)",
+      "clang_template_mangled_name": "_Z10buildprintIJPKcPcS1_lS1_EEmDpT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "source_line": 189,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (const char *, char *, const char *, long, const char *)",
+        "semantic_sha256": "440894e20ca8ced0bec56cde56ca2e4227e66ce940cc7090fddf9e31ffbb1649"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_d5959aa2ea852e63",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint",
+          "parameters": [
+            {
+              "clang_id": "0x22184321ea0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_1_args",
+              "index": 1,
+              "original_type": {
+                "qualType": "char *"
+              }
+            },
+            {
+              "clang_id": "0x22184321f18",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_2_args",
+              "index": 2,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x22184321fc0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "long"
+              }
+            },
+            {
+              "clang_id": "0x22184322038",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_useLogCallback",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint__template_4eeb29f1c1e4fe49",
+      "source_name": "buildprint",
+      "kind": "FunctionDecl",
+      "line": 189,
+      "original_type": "size_t (const char *, int, const char *, long)",
+      "clang_template_mangled_name": "_Z10buildprintIJPKciS1_lEEmDpT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "source_line": 189,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (const char *, int, const char *, long)",
+        "semantic_sha256": "641b26b5da70a203f0b3fd5a439a0947b59d43fe0b98ac6bf2403e819d35afe9"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_9caddc26df4ee714",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint",
+          "parameters": [
+            {
+              "clang_id": "0x221843107d0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_1_args",
+              "index": 1,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x22184310880",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_2_args",
+              "index": 2,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x22184310930",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "long"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_useLogCallback",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint__template_5cefac6301f8bf53",
+      "source_name": "buildprint",
+      "kind": "FunctionDecl",
+      "line": 189,
+      "original_type": "size_t (const char *, int, const char *, int, const char *, int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z10buildprintIJPKciS1_iS1_iS1_iS1_sS1_EEmDpT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "source_line": 189,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (const char *, int, const char *, int, const char *, int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "8519e614a83cf5e9da20f6a953add4019b205ae076f9a49ec0d251cd7962df6f"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_2d5ea567495832f2",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint",
+          "parameters": [
+            {
+              "clang_id": "0x22184320780",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_1_args",
+              "index": 1,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x22184320830",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_2_args",
+              "index": 2,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221843208e0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x22184320990",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x22184320a40",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x22184320af0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x22184320ba0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_7_args",
+              "index": 7,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x22184320c50",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_8_args",
+              "index": 8,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x22184320d00",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_9_args",
+              "index": 9,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x22184320db0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_10_args",
+              "index": 10,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_useLogCallback",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint__template_d684cd61d5016db8",
+      "source_name": "buildprint",
+      "kind": "FunctionDecl",
+      "line": 189,
+      "original_type": "size_t (const char *)",
+      "clang_template_mangled_name": "_Z10buildprintIJPKcEEmDpT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "source_line": 189,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4412,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (const char *)",
+        "semantic_sha256": "6d48be366f472cec85b89df260bec5a905793ebc96b11f2a8ff0c9a2e73d0e78"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____header_fc59d60f80b7",
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_useLogCallback",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "g_useLogCallback",
+        "initputs",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____header_909266900b7c",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 176,
+      "original_type": "size_t (char *const, const long)",
+      "clang_template_mangled_name": "_ZL21buildprint_internal__IlEmPcT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4052,
+        "source_line": 176,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprintpiece__template_4ebbcbaff42c948c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____header_fc59d60f80b7",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 176,
+      "original_type": "size_t (char *const, const char *const)",
+      "clang_template_mangled_name": "_ZL21buildprint_internal__IPKcEmPcT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4052,
+        "source_line": 176,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_0aeecbeadeb07066",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, int, const char *, int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJiS1_iS1_iS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, int, const char *, int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "01914dc46dc1ead1017be7c1abf556fb8877f87b6a5123ac7f889139213b927e"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_53de7033ffdea508",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c2068",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c20e0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c2158",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c21d0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c2248",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_7_args",
+              "index": 7,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c22c0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_8_args",
+              "index": 8,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c2338",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_9_args",
+              "index": 9,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_13cf262fc265ce2f",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, long)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJlEEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, long)",
+        "semantic_sha256": "f7eb442a14c275d1abb5470ca953f65148bd2f22f8f74b8d0580c2f0ade6a7af"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____header_909266900b7c",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_2d5ea567495832f2",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, int, const char *, int, const char *, int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJiS1_iS1_iS1_iS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, int, const char *, int, const char *, int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "d4142ad95bb70d867545cb5651192a80949a2abd175c5cda1d1f568ba098e823"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_431f0bab152b378e",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844bf510",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844bf5c0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844bf670",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844bf720",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844bf7d0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_7_args",
+              "index": 7,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844bf880",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_8_args",
+              "index": 8,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844bf930",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_9_args",
+              "index": 9,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844bf9e0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_10_args",
+              "index": 10,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844bfa90",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_11_args",
+              "index": 11,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_431f0bab152b378e",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const int, const char *, int, const char *, int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IiJPKciS1_iS1_iS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const int, const char *, int, const char *, int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "68b192202949616e924ceab781f61e5d0da24a42776783aa904453d977c6adfd"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_0aeecbeadeb07066",
+        "buildprintpiece__template_f17781d52482de20"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c0d08",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c0d80",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c0df8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c0e70",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c0ee8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_7_args",
+              "index": 7,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c0f60",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_8_args",
+              "index": 8,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c0fd8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_9_args",
+              "index": 9,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c1050",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_10_args",
+              "index": 10,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_53de7033ffdea508",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const int, const char *, int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IiJPKciS1_iS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const int, const char *, int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "2dd8b884ef312c240edf12a75b99411234abd735aa744b1a17fef61c1513fc0f"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_cb6ba73cb4bca744",
+        "buildprintpiece__template_f17781d52482de20"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c3148",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c31c0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c3238",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c32b0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c3328",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_7_args",
+              "index": 7,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c33a0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_8_args",
+              "index": 8,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_613510108e25b0bf",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IsJPKcEEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const short, const char *)",
+        "semantic_sha256": "4d47b2f26d81fda71c69d1082d6151625aece6b176f77809cb31f61e49f10fd9"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____header_fc59d60f80b7",
+        "buildprintpiece__template_ec5834da4fcb6227"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_788db942f1a563f0",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IiJPKcsS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const int, const char *, short, const char *)",
+        "semantic_sha256": "cc17232efe04658bf23be486bf7b31f7561f615df12933cf122d3855ae530f50"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_ff684cdffbe7bb39",
+        "buildprintpiece__template_f17781d52482de20"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c6b88",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c6c00",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_7c83b8d0d6de3407",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const long, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IlJPKcEEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const long, const char *)",
+        "semantic_sha256": "ef786733f55f27a97c854deed2f59b12a276b3c808aad1161fa48f861bd37de7"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____header_fc59d60f80b7",
+        "buildprintpiece__template_4ebbcbaff42c948c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_7f96924972e343a1",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, long, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJlS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, long, const char *)",
+        "semantic_sha256": "ef6d2676d74a3e64161f6b464f05a25f16947f56b5035d27dd28b7adeaf248fe"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_7c83b8d0d6de3407",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844d1ea0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_94146694bff78482",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const int, const char *, long)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IiJPKclEEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const int, const char *, long)",
+        "semantic_sha256": "e5c106bae42a7555e5d8d5d2f34f93a6dd7141d8b36fa1c40e196128f8662286"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_13cf262fc265ce2f",
+        "buildprintpiece__template_f17781d52482de20"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844add30",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "long"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_9caddc26df4ee714",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, int, const char *, long)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJiS1_lEEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, int, const char *, long)",
+        "semantic_sha256": "70474e460dae037f0a61365d463425b19358498883f4bd8815bcb0d32057b172"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_94146694bff78482",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844ace70",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844acf20",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "long"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_9cbdc4ac79d20b99",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJiS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, int, const char *, short, const char *)",
+        "semantic_sha256": "f302d9d40ea5a38bad60d85fd550da9081ee8c9d0df8638c02808a878b388418"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_788db942f1a563f0",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c5f68",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c5fe0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c6058",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_cb6ba73cb4bca744",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJiS1_iS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "e39e1ff340d6b1aa1b693753d763dd1bf156c1c4fcf4de467c466b75e39e6819"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_f28b8f3bdb7bfa49",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c4248",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c42c0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c4338",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c43b0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c4428",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_7_args",
+              "index": 7,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_d5959aa2ea852e63",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, char *, const char *, long, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJPcS1_lS1_EEmS2_T_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, char *, const char *, long, const char *)",
+        "semantic_sha256": "7a47d1e935302642d567f99c04cb04ad173321fa1d93c1a55748f2dfc3587aa1"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_f3822ca510ff9290",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844cf4f8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844cf5a0",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "long"
+              }
+            },
+            {
+              "clang_id": "0x221844cf618",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_f28b8f3bdb7bfa49",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const int, const char *, int, const char *, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IiJPKciS1_sS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const int, const char *, int, const char *, short, const char *)",
+        "semantic_sha256": "8316cc64f8971f5b959a20ba2e209d2ec676217dfc5e58fb883dd8a6e284a5b6"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_9cbdc4ac79d20b99",
+        "buildprintpiece__template_f17781d52482de20"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c50c8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "int"
+              }
+            },
+            {
+              "clang_id": "0x221844c5140",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            },
+            {
+              "clang_id": "0x221844c51b8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_5_args",
+              "index": 5,
+              "original_type": {
+                "qualType": "short"
+              }
+            },
+            {
+              "clang_id": "0x221844c5230",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_6_args",
+              "index": 6,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_f3822ca510ff9290",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, char *const, const char *, long, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPcJPKclS2_EEmS0_T_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, char *const, const char *, long, const char *)",
+        "semantic_sha256": "8ab2113370cb80f34d3c26b48e0d5918c769fcfe870c2b11d4fb4240ff1d30c7"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_7f96924972e343a1",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844d0470",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "long"
+              }
+            },
+            {
+              "clang_id": "0x221844d04e8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_4_args",
+              "index": 4,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprint_internal____template_ff684cdffbe7bb39",
+      "source_name": "buildprint_internal__",
+      "kind": "FunctionDecl",
+      "line": 182,
+      "original_type": "size_t (char *const, const char *const, short, const char *)",
+      "clang_template_mangled_name": "_Z21buildprint_internal__IPKcJsS1_EEmPcT_DpT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "source_line": 182,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 4198,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const, short, const char *)",
+        "semantic_sha256": "bb4e007b35fafa983161ec699722589f678ff811e177d1d64176f52b86d68179"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "buildprint_internal____template_613510108e25b0bf",
+        "buildprintpiece__cxx_d7482732af7d"
+      ],
+      "source_parameter_bindings": [
+        {
+          "abi": "source-parameter-declaration-bindings/1",
+          "function": "buildprint_internal__",
+          "parameters": [
+            {
+              "clang_id": "0x221844c77c8",
+              "original_name": "args",
+              "emitted_name": "__cxx_parameter_3_args",
+              "index": 3,
+              "original_type": {
+                "qualType": "const char *"
+              }
+            }
+          ]
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprintpiece__cxx_d7482732af7d",
+      "source_name": "buildprintpiece",
+      "kind": "FunctionDecl",
+      "line": 169,
+      "original_type": "size_t (char *const, const char *const)",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 3893,
+        "source_line": 169,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 3893,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (char *const, const char *const)",
+        "semantic_sha256": "3a9988e0b68727d83ba13392846a750329873de0667bcab9b910e92d561085d5"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "strcat",
+        "strlen"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcat",
+        "strlen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprintpiece__template_4ebbcbaff42c948c",
+      "source_name": "buildprintpiece",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "enable_if_t<is_integral<long>::value, size_t> (char *const, long)",
+      "clang_template_mangled_name": "_Z15buildprintpieceIlENSt9enable_ifIXsr11is_integralIT_EE5valueEmE4typeEPcS1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 898,
+        "source_line": 60,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 898,
+        "enclosing_record": "(free inline function)",
+        "type": "enable_if_t<is_integral<long>::value, size_t> (char *const, long)",
+        "semantic_sha256": "f045b9e55bc000c33ebd5417962a7ada4b518f6be1f62a62597f71af81986010"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "divrhs__template_69735159388489c8",
+        "logbase__template_a8c9ca1c5aec38a0",
+        "logbasenegative__template_7d3a394003ebf7fa",
+        "strcat"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcat"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprintpiece__template_ec5834da4fcb6227",
+      "source_name": "buildprintpiece",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "enable_if_t<is_integral<short>::value, size_t> (char *const, short)",
+      "clang_template_mangled_name": "_Z15buildprintpieceIsENSt9enable_ifIXsr11is_integralIT_EE5valueEmE4typeEPcS1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 898,
+        "source_line": 60,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 898,
+        "enclosing_record": "(free inline function)",
+        "type": "enable_if_t<is_integral<short>::value, size_t> (char *const, short)",
+        "semantic_sha256": "e8cb9e164626b0ddea3e5d4d9fb62c96b39d99171f02639c9b58409071f56ec9"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "divrhs__template_3a7d76e6019a9f10",
+        "logbase__template_5ef7d8d231ecab0f",
+        "logbasenegative__template_e0d37c6f4a5cc693",
+        "strcat"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcat"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "buildprintpiece__template_f17781d52482de20",
+      "source_name": "buildprintpiece",
+      "kind": "FunctionDecl",
+      "line": 60,
+      "original_type": "enable_if_t<is_integral<int>::value, size_t> (char *const, int)",
+      "clang_template_mangled_name": "_Z15buildprintpieceIiENSt9enable_ifIXsr11is_integralIT_EE5valueEmE4typeEPcS1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 898,
+        "source_line": 60,
+        "header_sha256": "e3cf77ceb20e95deacd6141e64cd9a5d82b040efc8ee2a6c25f9e2fffac0f191"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/print.h",
+        "source_offset": 898,
+        "enclosing_record": "(free inline function)",
+        "type": "enable_if_t<is_integral<int>::value, size_t> (char *const, int)",
+        "semantic_sha256": "c778f2d8327040681698df9c0dcb56be92be82bbacb79527b06791e884ef2f0c"
+      },
+      "physical_source": "source/build/include/print.h",
+      "source_references": [
+        "divrhs__template_e6a545e349d7765b",
+        "logbase__template_ef39ddd0b1a25155",
+        "logbasenegative__template_7dfeaa46fcd63cf2",
+        "strcat"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcat"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "calc_smoothratio__header_10443239967a",
+      "source_name": "calc_smoothratio",
+      "kind": "FunctionDecl",
+      "line": 469,
+      "original_type": "int32_t (const ClockTicks, const ClockTicks)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/duke3d/src/game.h",
+        "source_offset": 14978,
+        "source_line": 469,
+        "header_sha256": "765ebd092aa01e5fa7cb3016421adfc1be370720c955b6e31d87b045e4c03b00"
+      },
+      "physical_source": "source/duke3d/src/game.h",
+      "source_references": [
+        "ClockTicks",
+        "calc_smoothratio__header_4efb61ea221d",
+        "g_player",
+        "myconnectindex",
+        "ud"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "myconnectindex",
+          "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ud",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_player",
+        "myconnectindex",
+        "ud"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "calc_smoothratio__header_4efb61ea221d",
+      "source_name": "calc_smoothratio",
+      "kind": "FunctionDecl",
+      "line": 364,
+      "original_type": "int32_t (const ClockTicks, const ClockTicks, int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 10904,
+        "source_line": 364,
+        "header_sha256": "2b858080d960adeaa3ad8cf8fcddaa4f696695db4adf2cb95535e4ceed8f6ceb"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [
+        "ClockTicks",
+        "SILENCE_UNUSED__header_2c60b085d029",
+        "__cxx_operator_761c63d1e16e183f",
+        "clamp__header_7e65ff40578f",
+        "refreshfreq",
+        "tabledivide32_noinline",
+        "timerGetClockRate"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "refreshfreq",
+          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
+          "abi": "source-global-cell/2",
+          "original_type": "double"
+        },
+        {
+          "name": "tabledivide32_noinline",
+          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide32) *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "refreshfreq",
+        "tabledivide32_noinline",
+        "timerGetClockRate"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "divide__template_79d93db9b67c18ea",
+      "source_name": "divide",
+      "kind": "FunctionDecl",
+      "line": 1126,
+      "original_type": "DivResult<short> (short, short)",
+      "clang_template_mangled_name": "_Z6divideIsE9DivResultIT_ES1_S1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31158,
+        "source_line": 1126,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31158,
+        "enclosing_record": "(free inline function)",
+        "type": "DivResult<short> (short, short)",
+        "semantic_sha256": "9dca4bc9b6973b117a595e95c8c9a0641d0217bdf339bd02a46d1c5aa5b942a3"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divide__template_ac9cec9160aba7ca",
+      "source_name": "divide",
+      "kind": "FunctionDecl",
+      "line": 1126,
+      "original_type": "DivResult<long> (long, long)",
+      "clang_template_mangled_name": "_Z6divideIlE9DivResultIT_ES1_S1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31158,
+        "source_line": 1126,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31158,
+        "enclosing_record": "(free inline function)",
+        "type": "DivResult<long> (long, long)",
+        "semantic_sha256": "4aa2d6c1f0a11c72ef1fe7c924a31fc7ee7b85171dff835481e0465b0a3be3c4"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divide__template_ba3592ae5cd0f0c1",
+      "source_name": "divide",
+      "kind": "FunctionDecl",
+      "line": 1126,
+      "original_type": "DivResult<int> (int, int)",
+      "clang_template_mangled_name": "_Z6divideIiE9DivResultIT_ES1_S1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31158,
+        "source_line": 1126,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31158,
+        "enclosing_record": "(free inline function)",
+        "type": "DivResult<int> (int, int)",
+        "semantic_sha256": "892e1664d09a94ec8e9b4a924dfc48e4030bc5546e9f6ddf5705466c35fd03d4"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divrhs__template_3a7d76e6019a9f10",
+      "source_name": "divrhs",
+      "kind": "FunctionDecl",
+      "line": 1131,
+      "original_type": "DivResult<short> (short)",
+      "clang_template_mangled_name": "_Z6divrhsILl10EsE9DivResultIT0_ES1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31318,
+        "source_line": 1131,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31318,
+        "enclosing_record": "(free inline function)",
+        "type": "DivResult<short> (short)",
+        "semantic_sha256": "f312a022e83f4c4f29a618b11417aee5e88f4ccae7c649764eb48c8c770389d2"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "divide__template_79d93db9b67c18ea"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divrhs__template_69735159388489c8",
+      "source_name": "divrhs",
+      "kind": "FunctionDecl",
+      "line": 1131,
+      "original_type": "DivResult<long> (long)",
+      "clang_template_mangled_name": "_Z6divrhsILl10ElE9DivResultIT0_ES1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31318,
+        "source_line": 1131,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31318,
+        "enclosing_record": "(free inline function)",
+        "type": "DivResult<long> (long)",
+        "semantic_sha256": "0fa6e87b7b0c6d1140eb257d5b10ccd322794c33c84eb0a186847fbd22fbcbd7"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "divide__template_ac9cec9160aba7ca"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divrhs__template_e6a545e349d7765b",
+      "source_name": "divrhs",
+      "kind": "FunctionDecl",
+      "line": 1131,
+      "original_type": "DivResult<int> (int)",
+      "clang_template_mangled_name": "_Z6divrhsILl10EiE9DivResultIT0_ES1_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31318,
+        "source_line": 1131,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31318,
+        "enclosing_record": "(free inline function)",
+        "type": "DivResult<int> (int)",
+        "semantic_sha256": "c46c10ffa26750dfbae77508fd6c211996f02197e1ae821152033eaa1117a802"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "divide__template_ba3592ae5cd0f0c1"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "dukeFillInputForTic",
+      "source_name": "dukeFillInputForTic",
+      "kind": "FunctionDecl",
+      "line": 6523,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "fix16_to_int__header_e5543c7659b8",
+        "g_gameType",
+        "g_player",
+        "inputfifo",
+        "localInput",
+        "mulscale9__header_892ae3e42452",
+        "myconnectindex",
+        "sintable"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 2,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "input_t",
+          "source_record": "input_t",
+          "clang_method_id": "0x221843e67c0",
+          "clang_assignment_signature": "input_t &(const input_t &) noexcept",
+          "assignment_mode": "copyAssign",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          }
+        },
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "input_t",
+          "source_record": "input_t",
+          "clang_method_id": "0x221843e69c0",
+          "clang_assignment_signature": "input_t &(input_t &&) noexcept",
+          "assignment_mode": "moveAssign",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          }
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_gameType",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "localInput",
+          "binding": "__cxx_global_cell_0faac5865f4b6f1cc5649ea7",
+          "abi": "source-global-cell/2",
+          "original_type": "struct input_t",
+          "byte_record_schema_sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          }
+        },
+        {
+          "name": "myconnectindex",
+          "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "inputfifo",
+          "abi": "source-byte-record-array/1",
+          "stride": 20,
+          "dimensions": [
+            2,
+            16
+          ],
+          "schema_sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f",
+          "original_type": "input_t[2][16]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_gameType",
+        "g_player",
+        "inputfifo",
+        "localInput",
+        "myconnectindex",
+        "sintable"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "getceilzofslope__header_47db7368a7f8",
+      "source_name": "getceilzofslope",
+      "kind": "FunctionDecl",
+      "line": 1424,
+      "original_type": "int32_t (int16_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 47791,
+        "source_line": 1424,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "getceilzofslopeptr",
+        "sector"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "getceilzofslopeptr",
+        "sector"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "getflorzofslope__header_8f8433450d5e",
+      "source_name": "getflorzofslope",
+      "kind": "FunctionDecl",
+      "line": 1429,
+      "original_type": "int32_t (int16_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 47956,
+        "source_line": 1429,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "getflorzofslopeptr",
+        "sector"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "getflorzofslopeptr",
+        "sector"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "getzsofslope__header_e263db5b96d4",
+      "source_name": "getzsofslope",
+      "kind": "FunctionDecl",
+      "line": 1434,
+      "original_type": "void (int16_t, int32_t, int32_t, int32_t *, int32_t *)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 48118,
+        "source_line": 1434,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "getzsofslopeptr",
+        "sector"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "getzsofslopeptr",
+        "sector"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "krand__header_47500e6c68b0",
+      "source_name": "krand",
+      "kind": "FunctionDecl",
+      "line": 27,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/random.h",
+        "source_offset": 610,
+        "source_line": 27,
+        "header_sha256": "afd03520b10106e91130eddeb4e206b5a3bd791e9d8c1cb1a3c8a3396fcae71c"
+      },
+      "physical_source": "source/build/include/random.h",
+      "source_references": [
+        "randomseed"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "randomseed",
+          "binding": "__cxx_global_cell_cff3db0365d00ccd4662087c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "randomseed"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "logbase__template_5ef7d8d231ecab0f",
+      "source_name": "logbase",
+      "kind": "FunctionDecl",
+      "line": 1145,
+      "original_type": "size_t (short)",
+      "clang_template_mangled_name": "_Z7logbaseILm10EsEmT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31671,
+        "source_line": 1145,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31671,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (short)",
+        "semantic_sha256": "e37de373176f7f5be8456b1e32e0a6ed54a76c9918eac5abe34bde73ec2248c8"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "logbase__template_ef39ddd0b1a25155"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "logbase__template_a8c9ca1c5aec38a0",
+      "source_name": "logbase",
+      "kind": "FunctionDecl",
+      "line": 1145,
+      "original_type": "size_t (long)",
+      "clang_template_mangled_name": "_Z7logbaseILm10ElEmT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31671,
+        "source_line": 1145,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31671,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (long)",
+        "semantic_sha256": "9f202120a151112cb780025fbb768e042ff06444262db9ac081df9ff09c914bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "logbase__template_a8c9ca1c5aec38a0"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "logbase__template_ef39ddd0b1a25155",
+      "source_name": "logbase",
+      "kind": "FunctionDecl",
+      "line": 1145,
+      "original_type": "size_t (int)",
+      "clang_template_mangled_name": "_Z7logbaseILm10EiEmT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31671,
+        "source_line": 1145,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31671,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (int)",
+        "semantic_sha256": "25957b712b9478c0e6db12b74ea03295add71dc8112318e80e49e609444cae57"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "logbase__template_ef39ddd0b1a25155"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "logbasenegative__template_7d3a394003ebf7fa",
+      "source_name": "logbasenegative",
+      "kind": "FunctionDecl",
+      "line": 1151,
+      "original_type": "size_t (long)",
+      "clang_template_mangled_name": "_Z15logbasenegativeILm10ElEmT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31915,
+        "source_line": 1151,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31915,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (long)",
+        "semantic_sha256": "b220fa66528ee31e8b27d013e8228c1ed9b7219585b87e3e55e18f6ff882bd7b"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "logbase__template_a8c9ca1c5aec38a0"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "logbasenegative__template_7dfeaa46fcd63cf2",
+      "source_name": "logbasenegative",
+      "kind": "FunctionDecl",
+      "line": 1151,
+      "original_type": "size_t (int)",
+      "clang_template_mangled_name": "_Z15logbasenegativeILm10EiEmT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31915,
+        "source_line": 1151,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31915,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (int)",
+        "semantic_sha256": "d07f1b2005c756ad9ebf9a40a1cecb52100daa0685b6f999adfe59241814d1e5"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "logbase__template_ef39ddd0b1a25155"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "logbasenegative__template_e0d37c6f4a5cc693",
+      "source_name": "logbasenegative",
+      "kind": "FunctionDecl",
+      "line": 1151,
+      "original_type": "size_t (short)",
+      "clang_template_mangled_name": "_Z15logbasenegativeILm10EsEmT0_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31915,
+        "source_line": 1151,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 31915,
+        "enclosing_record": "(free inline function)",
+        "type": "size_t (short)",
+        "semantic_sha256": "b130ac8bf79c020535d7c1564e3f5691e1220ff502a53c0bb0377bbebc66f689"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "logbase__template_ef39ddd0b1a25155"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "renderAddTSpriteFromSprite__header_5860dede361b",
+      "source_name": "renderAddTSpriteFromSprite",
+      "kind": "FunctionDecl",
+      "line": 728,
+      "original_type": "tspriteptr_t (const uint16_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 20862,
+        "source_line": 728,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "renderMakeTSpriteFromSprite__header_7e20003a0552",
+        "spritesortcnt",
+        "tsprite"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "spritesortcnt",
+          "binding": "__cxx_global_cell_138b3585b71dcf40bb04bbf8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "tsprite",
+          "binding": "__cxx_global_cell_4f8c0a98fe113810db905f6a",
+          "abi": "source-global-cell/2",
+          "original_type": "tspritetype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "spritesortcnt",
+        "tsprite"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilehasmodelorvoxel__header_8c8041c11206",
+      "source_name": "tilehasmodelorvoxel",
+      "kind": "FunctionDecl",
+      "line": 1639,
+      "original_type": "int (const int, int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 55825,
+        "source_line": 1639,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "tiletovox",
+        "usevoxels",
+        "videoGetRenderMode__header_0ef762c67d49"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "usevoxels",
+          "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tiletovox",
+        "usevoxels"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "wrand__header_0f392a5344a0",
+      "source_name": "wrand",
+      "kind": "FunctionDecl",
+      "line": 43,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/random.h",
+        "source_offset": 981,
+        "source_line": 43,
+        "header_sha256": "afd03520b10106e91130eddeb4e206b5a3bd791e9d8c1cb1a3c8a3396fcae71c"
+      },
+      "physical_source": "source/build/include/random.h",
+      "source_references": [
+        "wrandomseed"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "wrandomseed",
+          "binding": "__cxx_global_cell_c51fcdf4111f2095a57e764d",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "wrandomseed"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -30926,6 +33960,1145 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "e0be0612b8040ab5f3bd72dd57321dc3a2058d65ce409605a6d5bc72d391cd4f"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_game_cpp_65976b584746.mjs",
+      "sha256": "65976b584746eedabc888f0b969027693872c24a5df69bb35d5d9f02f8ffcc8a",
+      "original_source": "source/duke3d/src/game.cpp",
+      "exports": [
+        "BGetTime__header_e0d5a90e5073",
+        "Blrintf__header_c3691da1eaa2",
+        "ClockTicks",
+        "G_ClearGotMirror",
+        "G_MaybeTakeOnFloorPal",
+        "G_OROR_DupeSprites",
+        "G_PostLoadPalette",
+        "Yax_SetBunchZs",
+        "__cxx_record_DivResult_25bc55276667b382",
+        "__cxx_record_DivResult_430863500367dcfc",
+        "__cxx_record_DivResult_f2f9bdba2124a015",
+        "buildprint__template_4b64bf3065581d95",
+        "buildprint__template_4eeb29f1c1e4fe49",
+        "buildprint__template_5cefac6301f8bf53",
+        "buildprint__template_d684cd61d5016db8",
+        "buildprint_internal____header_909266900b7c",
+        "buildprint_internal____header_fc59d60f80b7",
+        "buildprint_internal____template_0aeecbeadeb07066",
+        "buildprint_internal____template_13cf262fc265ce2f",
+        "buildprint_internal____template_2d5ea567495832f2",
+        "buildprint_internal____template_431f0bab152b378e",
+        "buildprint_internal____template_53de7033ffdea508",
+        "buildprint_internal____template_613510108e25b0bf",
+        "buildprint_internal____template_788db942f1a563f0",
+        "buildprint_internal____template_7c83b8d0d6de3407",
+        "buildprint_internal____template_7f96924972e343a1",
+        "buildprint_internal____template_94146694bff78482",
+        "buildprint_internal____template_9caddc26df4ee714",
+        "buildprint_internal____template_9cbdc4ac79d20b99",
+        "buildprint_internal____template_cb6ba73cb4bca744",
+        "buildprint_internal____template_d5959aa2ea852e63",
+        "buildprint_internal____template_f28b8f3bdb7bfa49",
+        "buildprint_internal____template_f3822ca510ff9290",
+        "buildprint_internal____template_ff684cdffbe7bb39",
+        "buildprintpiece__cxx_d7482732af7d",
+        "buildprintpiece__template_4ebbcbaff42c948c",
+        "buildprintpiece__template_ec5834da4fcb6227",
+        "buildprintpiece__template_f17781d52482de20",
+        "calc_smoothratio__header_10443239967a",
+        "calc_smoothratio__header_4efb61ea221d",
+        "divide__template_79d93db9b67c18ea",
+        "divide__template_ac9cec9160aba7ca",
+        "divide__template_ba3592ae5cd0f0c1",
+        "divrhs__template_3a7d76e6019a9f10",
+        "divrhs__template_69735159388489c8",
+        "divrhs__template_e6a545e349d7765b",
+        "dukeFillInputForTic",
+        "getceilzofslope__header_47db7368a7f8",
+        "getflorzofslope__header_8f8433450d5e",
+        "getzsofslope__header_e263db5b96d4",
+        "krand__header_47500e6c68b0",
+        "logbase__template_5ef7d8d231ecab0f",
+        "logbase__template_a8c9ca1c5aec38a0",
+        "logbase__template_ef39ddd0b1a25155",
+        "logbasenegative__template_7d3a394003ebf7fa",
+        "logbasenegative__template_7dfeaa46fcd63cf2",
+        "logbasenegative__template_e0d37c6f4a5cc693",
+        "renderAddTSpriteFromSprite__header_5860dede361b",
+        "tilehasmodelorvoxel__header_8c8041c11206",
+        "wrand__header_0f392a5344a0"
+      ],
+      "reexports": [
+        "BGetTime__header_e0d5a90e5073",
+        "Blrintf__header_c3691da1eaa2",
+        "ClockTicks",
+        "G_ClearGotMirror",
+        "G_MaybeTakeOnFloorPal",
+        "G_OROR_DupeSprites",
+        "G_PostLoadPalette",
+        "Yax_SetBunchZs",
+        "__cxx_record_DivResult_25bc55276667b382",
+        "__cxx_record_DivResult_430863500367dcfc",
+        "__cxx_record_DivResult_f2f9bdba2124a015",
+        "buildprint__template_4b64bf3065581d95",
+        "buildprint__template_4eeb29f1c1e4fe49",
+        "buildprint__template_5cefac6301f8bf53",
+        "buildprint__template_d684cd61d5016db8",
+        "buildprint_internal____header_909266900b7c",
+        "buildprint_internal____header_fc59d60f80b7",
+        "buildprint_internal____template_0aeecbeadeb07066",
+        "buildprint_internal____template_13cf262fc265ce2f",
+        "buildprint_internal____template_2d5ea567495832f2",
+        "buildprint_internal____template_431f0bab152b378e",
+        "buildprint_internal____template_53de7033ffdea508",
+        "buildprint_internal____template_613510108e25b0bf",
+        "buildprint_internal____template_788db942f1a563f0",
+        "buildprint_internal____template_7c83b8d0d6de3407",
+        "buildprint_internal____template_7f96924972e343a1",
+        "buildprint_internal____template_94146694bff78482",
+        "buildprint_internal____template_9caddc26df4ee714",
+        "buildprint_internal____template_9cbdc4ac79d20b99",
+        "buildprint_internal____template_cb6ba73cb4bca744",
+        "buildprint_internal____template_d5959aa2ea852e63",
+        "buildprint_internal____template_f28b8f3bdb7bfa49",
+        "buildprint_internal____template_f3822ca510ff9290",
+        "buildprint_internal____template_ff684cdffbe7bb39",
+        "buildprintpiece__cxx_d7482732af7d",
+        "buildprintpiece__template_4ebbcbaff42c948c",
+        "buildprintpiece__template_ec5834da4fcb6227",
+        "buildprintpiece__template_f17781d52482de20",
+        "calc_smoothratio__header_10443239967a",
+        "calc_smoothratio__header_4efb61ea221d",
+        "divide__template_79d93db9b67c18ea",
+        "divide__template_ac9cec9160aba7ca",
+        "divide__template_ba3592ae5cd0f0c1",
+        "divrhs__template_3a7d76e6019a9f10",
+        "divrhs__template_69735159388489c8",
+        "divrhs__template_e6a545e349d7765b",
+        "dukeFillInputForTic",
+        "getceilzofslope__header_47db7368a7f8",
+        "getflorzofslope__header_8f8433450d5e",
+        "getzsofslope__header_e263db5b96d4",
+        "krand__header_47500e6c68b0",
+        "logbase__template_5ef7d8d231ecab0f",
+        "logbase__template_a8c9ca1c5aec38a0",
+        "logbase__template_ef39ddd0b1a25155",
+        "logbasenegative__template_7d3a394003ebf7fa",
+        "logbasenegative__template_7dfeaa46fcd63cf2",
+        "logbasenegative__template_e0d37c6f4a5cc693",
+        "renderAddTSpriteFromSprite__header_5860dede361b",
+        "tilehasmodelorvoxel__header_8c8041c11206",
+        "wrand__header_0f392a5344a0"
+      ],
+      "imports": [
+        {
+          "name": "AIRTANK____header_global_8fa425591c7d35c0",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BLOODYPOLE____header_global_b964b8f9100b455f",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BOOTS____header_global_a198e6a8f128975b",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_DefineFlag",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "DOLPHIN1____header_global_7ad32523df8df580",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "DOLPHIN2____header_global_2bb93381647a9fa3",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM10____header_global_e92de30930810443",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM1____header_global_6c3bc763a4679cf7",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM2____header_global_ae5b44893de611e7",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM3____header_global_7e6d9b03142394e3",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM4____header_global_eaf38733028fc1a5",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM5____header_global_e32b47543e14be44",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM6PAD____header_global_dc109a1f8ffa544e",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM6____header_global_9281c402db288bc3",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM7____header_global_4a24bed2a474cbd9",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM8____header_global_825a520321d1db82",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEM9____header_global_7f5bf24344a06d81",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMMAG1____header_global_75336c4c3f0706c3",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMMAG2____header_global_e3f4bc57305c96ad",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC1____header_global_a4533ec869e1a3ef",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC2____header_global_c2d8f42bec6a5474",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC3____header_global_dc9da92f4881cddb",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC4____header_global_a2e22e1e820d41ca",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC5____header_global_4b9b81180494dc18",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC6____header_global_56bbc29002714e92",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FEMPIC7____header_global_703b730890361b83",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FETUSBROKE____header_global_ee76e864e3ff4f53",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FETUSJIB____header_global_7259937db3ed30e2",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FETUS____header_global_9e8d6d6ae00e3abf",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FIRSTAID____header_global_7b550f4f62c0fd0b",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FOODOBJECT16____header_global_15fdc1142339fb3d",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HEATSENSOR____header_global_cbb520c931ec10d8",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HOLODUKE____header_global_13b886505f87b279",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HOTMEAT____header_global_ce822bbd1a72c1cc",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "JETPACK____header_global_0d509ca021ba315c",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_LastScan",
+          "from": "source/mact/src/keyboard.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d04bbf920f464be9986867b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "MAN2____header_global_23cf71ab2b089498",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "MAN____header_global_da1bf674cdcd85bc",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "MIRROR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ddb33d9a4e289a682da87b83",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "MenuGameplayEntry",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "header_record_proof": {
+            "source_header": "source/duke3d/src/menus.h",
+            "source_offset": 12853,
+            "enclosing_record": "MenuGameplayEntry",
+            "type": "MenuGameplayEntry",
+            "semantic_sha256": "30224d92c1b07bfffdea5e39d0d27ce70ed3fc667993eaa4c1b134589b391bf3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        {
+          "name": "NAKED1____header_global_3661ff61ff0ae6d7",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OOZ2____header_global_6a1003811cb69a4f",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OOZ____header_global_07ccc0068f41803e",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PODFEM1____header_global_b80f05ac6849519f",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SECTOREFFECTOR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_55625c4f97faf47a1f3873af",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "STATUEFLASH____header_global_50aadf0d7bdf4b1c",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "STATUE____header_global_921a665274513c3b",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "STEROIDS____header_global_2c13bab4f30e16e2",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SUSHIPLATE1____header_global_5989a406925be94d",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SUSHIPLATE2____header_global_55fa13e8f4537e24",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SUSHIPLATE3____header_global_8ed387bd6d5117ca",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SUSHIPLATE4____header_global_3287006f85034463",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "TAMPON____header_global_a7ea7f038f56b8f6",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "TOUGHGAL____header_global_fa61e1b00903e5df",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD1____header_global_e12889d8610a7a73",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD2____header_global_42db76d941f51ccf",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD3____header_global_b4be9593b5905ec3",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD4____header_global_e0eb30f21fc1ecd2",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD5____header_global_2414a64c798e669a",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD7____header_global_9a5d28e2fb5698b6",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WALLBLOOD8____header_global_c3690a3d7d568656",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "WOMAN____header_global_f6e40f9dc2a9b217",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "XXXSTACY____header_global_280527d95dc742b7",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "abs",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "actor",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 96,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2",
+          "original_type": "actor_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "bakipos",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "basepaltable",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 256,
+          "element_declaration": "uint8_t *[]",
+          "original_type": "uint8_t *[256]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "boardfilename",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "curipos",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 16384,
+          "element_declaration": "int32_t *[]",
+          "original_type": "int32_t *[16384]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "defaultrtsfilename",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 4,
+          "element_declaration": "const char *[]",
+          "original_type": "const char *[4]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "duke3d_globalflags",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_286850f0b72c66d5aae173a9",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "fix16_half__header_global_02a9a2d25f5c82a5",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_49e594ecaa72fc74",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_gameType",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gametypeCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b0597697bdbf1bdf4de5ac94",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gametypeFlags",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_gametypeNames",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            16,
+            33
+          ],
+          "original_type": "char[16][33]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "g_interpolationCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f51bebc92810fbbcedc191bf",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_interpolationLock",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4c2e99926c93297eef1857b2",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_noFloorPal",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_player",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_tile",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "g_useLogCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "getatoken",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "getceilzofslopeptr",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "getflorzofslopeptr",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "getzsofslopeptr",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "gotpic",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "h_dynamictilemap",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a98bb585faaf2a8f60d62e9a",
+          "abi": "source-global-cell/2",
+          "original_type": "struct inthashtable_t",
+          "byte_record_schema_sha256": "6b1ca3ac8c3cf2c85cfdd35873c4e633730f365be4591fcb8e7db9b62fc6a6ea",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6b1ca3ac8c3cf2c85cfdd35873c4e633730f365be4591fcb8e7db9b62fc6a6ea"
+          }
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "headsectbunch",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Int16Array",
+          "dimensions": [
+            2,
+            256
+          ],
+          "original_type": "int16_t[2][256]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "headspritesect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initprintf",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initputs",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inputfifo",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 20,
+          "dimensions": [
+            2,
+            16
+          ],
+          "schema_sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f",
+          "original_type": "input_t[2][16]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "inthash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          }
+        },
+        {
+          "name": "keySetCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "keystatus",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "localInput",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0faac5865f4b6f1cc5649ea7",
+          "abi": "source-global-cell/2",
+          "original_type": "struct input_t",
+          "byte_record_schema_sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "d397e55a543435f7593f46e158f439551a58f09ba1627b222c300648117be64f"
+          }
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "maxspritesonscreen",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "myconnectindex",
+          "from": "source/build/src/mmulti.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "nanosleep",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "newGameChoiceTokens",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            5
+          ],
+          "schema_sha256": "90b8eba0663e476ce341d21da9b82efe5e2878018552c8a4d5960b1a642dc3f8",
+          "original_type": "const tokenlist[5]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "90b8eba0663e476ce341d21da9b82efe5e2878018552c8a4d5960b1a642dc3f8"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "90b8eba0663e476ce341d21da9b82efe5e2878018552c8a4d5960b1a642dc3f8"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "nextsectbunch",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Int16Array",
+          "dimensions": [
+            2,
+            4096
+          ],
+          "original_type": "int16_t[2][4096]",
+          "consumer_source": "source/duke3d/src/game.cpp"
+        },
+        {
+          "name": "nextspritesect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numyaxbunches",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_65a1b3b3dadd66a019af6c35",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "oldipos",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteFixTranslucencyMask",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "palettePostLoadLookups",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteSetupDefaultFog",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pow2char__header_global_ba4e5a8bedb79825",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "randomseed",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cff3db0365d00ccd4662087c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "refreshfreq",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
+          "abi": "source-global-cell/2",
+          "original_type": "double"
+        },
+        {
+          "name": "scriptfile_getbraces",
+          "from": "source/build/src/scriptfile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "scriptfile_getlinum",
+          "from": "source/build/src/scriptfile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "scriptfile_getnumber",
+          "from": "source/build/src/scriptfile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "scriptfile_getstring",
+          "from": "source/build/src/scriptfile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "scriptfile_getsymbol",
+          "from": "source/build/src/scriptfile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sintable",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "spritesortcnt",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_138b3585b71dcf40bb04bbf8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tabledivide32_noinline",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide32) *"
+        },
+        {
+          "name": "tempbuf",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "testkopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tiletovox",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetClockRate",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "totalclock",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_37d96f0d18da4d1ab96cf9c5",
+          "abi": "source-global-cell/2",
+          "original_type": "ClockTicks",
+          "record_layout_sha256": "2de22bf10149fb2c9397c8a9345539b598a0f828a96017d44708a26e7df32df9"
+        },
+        {
+          "name": "tsprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4f8c0a98fe113810db905f6a",
+          "abi": "source-global-cell/2",
+          "original_type": "tspritetype *"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          }
+        },
+        {
+          "name": "usevoxels",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "wm_msgbox",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wrandomseed",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c51fcdf4111f2095a57e764d",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned int"
+        },
+        {
+          "name": "yax_getbunch",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "632fea4837863177e3cdaba8397d0a8841d8265af71f4a7e530a7e6daaa37601"
     }
   ]
 }

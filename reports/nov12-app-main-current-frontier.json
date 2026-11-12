@@ -1,0 +1,857 @@
+{
+  "format": "original-app-main-current-frontier/1",
+  "source": "source/duke3d/src/game.cpp",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-48d6644497dd2316/source/duke3d/src/game.cpp.manifest.json",
+  "compiler_runtime_input_sha256": "0b7994a8c94be3ed8d06decc273ba235763b3ff40159167847541482d82942ae",
+  "entry_linked": false,
+  "entry_emission_status": "blocked",
+  "stage_unresolved": [
+    "Anim_Init",
+    "CONFIG_ReadSetup",
+    "CONFIG_WriteSetup",
+    "CrosshairColors",
+    "G_CheckCommandLine",
+    "G_DisplayLogo",
+    "G_DoCheats",
+    "G_DrawRooms",
+    "G_EndOfLevel",
+    "G_FatalEngineInitError",
+    "G_GameExit",
+    "G_GetCrosshairColor",
+    "G_InitText",
+    "G_LoadGroups",
+    "G_NewGame",
+    "G_PlaybackDemo",
+    "G_SavePlayerMaybeMulti",
+    "G_SetCrosshairColor",
+    "G_SetupCheats",
+    "G_Startup",
+    "G_UpdateAppTitle",
+    "G_UpdateScreenArea",
+    "Gv_ResetSystemDefaults",
+    "Menu_Change",
+    "Menu_Init",
+    "P_ResetInventory",
+    "P_ResetWeapons",
+    "PrintBuildInfo",
+    "RTS_Init",
+    "ReadSaveGameHeaders",
+    "S_ClearSoundLocks",
+    "S_MusicStartup",
+    "S_SoundStartup",
+    "cacheAllSounds",
+    "connectpoint2",
+    "drawframe_do",
+    "dukeConsoleClearBackground",
+    "dukeConsoleGetColumnWidth",
+    "dukeConsoleGetRowHeight",
+    "dukeConsoleOnShowCallback",
+    "dukeConsolePrintChar",
+    "dukeConsolePrintCursor",
+    "dukeConsolePrintString",
+    "engineFPSLimit",
+    "engineLoadClipMaps",
+    "engineSetLogFile",
+    "g_fakeMultiMode",
+    "g_lastautosave",
+    "g_noAutoLoad",
+    "g_noLogoAnim",
+    "g_quickload",
+    "g_saveRequested",
+    "loaddefinitions_game",
+    "loaddefinitionsfile",
+    "numplayers",
+    "registerosdcommands",
+    "user_quote_time"
+  ],
+  "still_without_current_provider": [
+    "Anim_Init",
+    "CONFIG_ReadSetup",
+    "CONFIG_WriteSetup",
+    "CrosshairColors",
+    "G_CheckCommandLine",
+    "G_DisplayLogo",
+    "G_DoCheats",
+    "G_DrawRooms",
+    "G_EndOfLevel",
+    "G_FatalEngineInitError",
+    "G_GameExit",
+    "G_GetCrosshairColor",
+    "G_InitText",
+    "G_LoadGroups",
+    "G_NewGame",
+    "G_PlaybackDemo",
+    "G_SavePlayerMaybeMulti",
+    "G_SetCrosshairColor",
+    "G_SetupCheats",
+    "G_Startup",
+    "G_UpdateAppTitle",
+    "G_UpdateScreenArea",
+    "Gv_ResetSystemDefaults",
+    "Menu_Change",
+    "Menu_Init",
+    "P_ResetInventory",
+    "P_ResetWeapons",
+    "PrintBuildInfo",
+    "RTS_Init",
+    "ReadSaveGameHeaders",
+    "S_ClearSoundLocks",
+    "S_MusicStartup",
+    "S_SoundStartup",
+    "cacheAllSounds",
+    "connectpoint2",
+    "drawframe_do",
+    "dukeConsoleClearBackground",
+    "dukeConsoleGetColumnWidth",
+    "dukeConsoleGetRowHeight",
+    "dukeConsoleOnShowCallback",
+    "dukeConsolePrintChar",
+    "dukeConsolePrintCursor",
+    "dukeConsolePrintString",
+    "engineFPSLimit",
+    "engineLoadClipMaps",
+    "engineSetLogFile",
+    "g_fakeMultiMode",
+    "g_lastautosave",
+    "g_noAutoLoad",
+    "g_noLogoAnim",
+    "g_quickload",
+    "g_saveRequested",
+    "loaddefinitions_game",
+    "loaddefinitionsfile",
+    "numplayers",
+    "registerosdcommands",
+    "user_quote_time"
+  ],
+  "providers_recovered_since_stage": {},
+  "blocked_definitions": [
+    {
+      "name": "gameTimerHandler",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 192,
+      "type": "void ()",
+      "reason": "unlinked identifiers: MUSIC_Update",
+      "missing": [
+        "MUSIC_Update"
+      ]
+    },
+    {
+      "name": "G_HandleSpecialKeys",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 199,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, P_DoQuote, videoCaptureScreen",
+      "missing": [
+        "G_UpdateScreenArea",
+        "P_DoQuote",
+        "videoCaptureScreen"
+      ]
+    },
+    {
+      "name": "G_GameQuit",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 247,
+      "type": "void ()",
+      "reason": "unlinked identifiers: numplayers",
+      "missing": [
+        "numplayers"
+      ]
+    },
+    {
+      "name": "G_GameExit",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 321,
+      "type": "void (const char *) __attribute__((noreturn))",
+      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens, g_demo_filePtr",
+      "missing": [
+        "G_BonusScreen",
+        "G_CloseDemoWrite",
+        "G_DisplayExtraScreens",
+        "g_demo_filePtr"
+      ]
+    },
+    {
+      "name": "G_DoThirdPerson",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 387,
+      "type": "int32_t (const DukePlayer_t *, vec3_t *, int16_t *, int16_t, int16_t)",
+      "reason": "unlinked identifiers: hitscan",
+      "missing": [
+        "hitscan"
+      ]
+    },
+    {
+      "name": "G_SE40",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 490,
+      "type": "void (int32_t)",
+      "reason": "unlinked identifiers: G_DoSpriteAnimations",
+      "missing": [
+        "G_DoSpriteAnimations"
+      ]
+    },
+    {
+      "name": "G_HandleMirror",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 604,
+      "type": "void (int32_t, int32_t, int32_t, fix16_t, fix16_t, int32_t)",
+      "reason": "unlinked identifiers: renderCompleteMirror",
+      "missing": [
+        "renderCompleteMirror"
+      ]
+    },
+    {
+      "name": "G_DrawRooms",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 775,
+      "type": "void (int32_t, int32_t)",
+      "reason": "unlinked identifiers: G_AnimateCamSprite, G_DoConveyorInterp, G_DoInterpolations, G_DoThirdPerson, G_DrawBackground, G_HandleMirror, G_InterpolateLights, G_ResetConveyorInterp, dr_viewingrange, dr_yxaspect, numplayers, r_ambientlightrecip",
+      "missing": [
+        "G_AnimateCamSprite",
+        "G_DoConveyorInterp",
+        "G_DoInterpolations",
+        "G_DoThirdPerson",
+        "G_DrawBackground",
+        "G_HandleMirror",
+        "G_InterpolateLights",
+        "G_ResetConveyorInterp",
+        "dr_viewingrange",
+        "dr_yxaspect",
+        "numplayers",
+        "r_ambientlightrecip"
+      ]
+    },
+    {
+      "name": "G_DumpDebugInfo",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 1259,
+      "type": "void ()",
+      "reason": "unlinked identifiers: Gv_DumpValues, VM_ScriptInfo, aGameVars, aplWeaponClip, aplWeaponFireDelay, aplWeaponFireSound, aplWeaponFlags, aplWeaponFlashColor, aplWeaponHoldDelay, aplWeaponInitialSound, aplWeaponReload, aplWeaponReloadSound1",
+      "missing": [
+        "Gv_DumpValues",
+        "VM_ScriptInfo",
+        "aGameVars",
+        "aplWeaponClip",
+        "aplWeaponFireDelay",
+        "aplWeaponFireSound",
+        "aplWeaponFlags",
+        "aplWeaponFlashColor",
+        "aplWeaponHoldDelay",
+        "aplWeaponInitialSound",
+        "aplWeaponReload",
+        "aplWeaponReloadSound1",
+        "aplWeaponReloadSound2",
+        "aplWeaponSelectSound",
+        "aplWeaponShoots",
+        "aplWeaponShotsPerBurst",
+        "aplWeaponSound2Sound",
+        "aplWeaponSound2Time",
+        "aplWeaponSpawn",
+        "aplWeaponSpawnTime",
+        "aplWeaponTotalTime",
+        "aplWeaponWorksLike",
+        "g_gameVarCount",
+        "insptr",
+        "numplayers",
+        "saveboard"
+      ]
+    },
+    {
+      "name": "A_InsertSprite",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 1348,
+      "type": "int32_t (int16_t, int32_t, int32_t, int32_t, int16_t, int8_t, uint8_t, uint8_t, int16_t, int16_t, int16_t, int16_t, int16_t)",
+      "reason": "unlinked identifiers: A_FindPlayer, G_DumpDebugInfo, VM_ExecuteEvent, block_deletesprite, g_spriteStat",
+      "missing": [
+        "A_FindPlayer",
+        "G_DumpDebugInfo",
+        "VM_ExecuteEvent",
+        "block_deletesprite",
+        "g_spriteStat"
+      ]
+    },
+    {
+      "name": "Yax_SetBunchInterpolation",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 1429,
+      "type": "void (int32_t, int32_t)",
+      "reason": "unlinked identifiers: G_SetInterpolation",
+      "missing": [
+        "G_SetInterpolation"
+      ]
+    },
+    {
+      "name": "A_Spawn",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 1449,
+      "type": "int (int, int)",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "missing": []
+    },
+    {
+      "name": "G_DoEventAnimSprites",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 3694,
+      "type": "void (int)",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "missing": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "G_DoSpriteAnimations",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 3707,
+      "type": "void (int32_t, int32_t, int32_t, int32_t, int32_t)",
+      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, g_scriptVersion, g_spriteStat, ldist",
+      "missing": [
+        "G_DoEventAnimSprites",
+        "G_GetAngleDelta",
+        "g_scriptVersion",
+        "g_spriteStat",
+        "ldist"
+      ]
+    },
+    {
+      "name": "G_SetViewportShrink",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 4555,
+      "type": "void (int32_t)",
+      "reason": "unlinked identifiers: G_UpdateScreenArea",
+      "missing": [
+        "G_UpdateScreenArea"
+      ]
+    },
+    {
+      "name": "G_InitTimer",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 4595,
+      "type": "void (int32_t)",
+      "reason": "unlinked identifiers: connectpoint2, g_lastInputTicks, gameTimerHandler",
+      "missing": [
+        "connectpoint2",
+        "g_lastInputTicks",
+        "gameTimerHandler"
+      ]
+    },
+    {
+      "name": "G_StartRTS",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 4614,
+      "type": "int (int, int)",
+      "reason": "unlinked identifiers: FX_Play3D, RTS_GetSound, RTS_IsInitialized, RTS_SoundLength",
+      "missing": [
+        "FX_Play3D",
+        "RTS_GetSound",
+        "RTS_IsInitialized",
+        "RTS_SoundLength"
+      ]
+    },
+    {
+      "name": "G_PrintCurrentMusic",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 4632,
+      "type": "void ()",
+      "reason": "unlinked identifiers: P_DoQuote",
+      "missing": [
+        "P_DoQuote"
+      ]
+    },
+    {
+      "name": "G_HandleLocalKeys",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 4641,
+      "type": "void ()",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "missing": []
+    },
+    {
+      "name": "parsedefinitions_game_include",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 5213,
+      "type": "void (const char *, scriptfile *, const char *, const int)",
+      "reason": "unlinked identifiers: parsedefinitions_game",
+      "missing": [
+        "parsedefinitions_game"
+      ]
+    },
+    {
+      "name": "parsedefinitions_game",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 5395,
+      "type": "int (scriptfile *, int)",
+      "reason": "unlinked identifiers: S_DefineMusic, S_DefineSound, g_MenuGameplayEntries, g_noAutoLoad",
+      "missing": [
+        "S_DefineMusic",
+        "S_DefineSound",
+        "g_MenuGameplayEntries",
+        "g_noAutoLoad"
+      ]
+    },
+    {
+      "name": "loaddefinitions_game",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 5898,
+      "type": "int (const char *, int32_t)",
+      "reason": "unlinked identifiers: parsedefinitions_game",
+      "missing": [
+        "parsedefinitions_game"
+      ]
+    },
+    {
+      "name": "G_UpdateAppTitle",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 5916,
+      "type": "void (const char *const)",
+      "reason": "unlinked identifiers: communityapiSetRichPresence",
+      "missing": [
+        "communityapiSetRichPresence"
+      ]
+    },
+    {
+      "name": "G_Cleanup",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 5957,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_FreeMapState, Gv_Clear, bitptr, g_MenuGameplayEntries, g_highestSoundIdx, g_sounds, h_arrays, h_gamevars, h_labels, nullsound, nullvoice, vmoffset",
+      "missing": [
+        "G_FreeMapState",
+        "Gv_Clear",
+        "bitptr",
+        "g_MenuGameplayEntries",
+        "g_highestSoundIdx",
+        "g_sounds",
+        "h_arrays",
+        "h_gamevars",
+        "h_labels",
+        "nullsound",
+        "nullvoice",
+        "vmoffset"
+      ]
+    },
+    {
+      "name": "G_Shutdown",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6038,
+      "type": "void ()",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, CONTROL_Shutdown, G_Cleanup, S_MusicShutdown, S_SoundShutdown",
+      "missing": [
+        "CONFIG_WriteSetup",
+        "CONTROL_Shutdown",
+        "G_Cleanup",
+        "S_MusicShutdown",
+        "S_SoundShutdown"
+      ]
+    },
+    {
+      "name": "G_CompileScripts",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6061,
+      "type": "void ()",
+      "reason": "unlinked identifiers: C_Compile, G_GameExit",
+      "missing": [
+        "C_Compile",
+        "G_GameExit"
+      ]
+    },
+    {
+      "name": "A_InitEnemyFlags",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6125,
+      "type": "void ()",
+      "reason": "unlinked identifiers: g_scriptVersion",
+      "missing": [
+        "g_scriptVersion"
+      ]
+    },
+    {
+      "name": "G_PostCreateGameState",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6173,
+      "type": "void ()",
+      "reason": "unlinked identifiers: A_InitEnemyFlags",
+      "missing": [
+        "A_InitEnemyFlags"
+      ]
+    },
+    {
+      "name": "G_FatalEngineInitError",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6193,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_Cleanup",
+      "missing": [
+        "G_Cleanup"
+      ]
+    },
+    {
+      "name": "G_Startup",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6204,
+      "type": "void ()",
+      "reason": "unlinked identifiers: CommandMap, CommandName, G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_LoadLookups, G_PostCreateGameState, G_Shutdown, Gv_FinalizeWeaponDefaults, g_noMusic, g_noSound, gameTimerHandler",
+      "missing": [
+        "CommandMap",
+        "CommandName",
+        "G_CompileScripts",
+        "G_FatalEngineInitError",
+        "G_GameExit",
+        "G_LoadLookups",
+        "G_PostCreateGameState",
+        "G_Shutdown",
+        "Gv_FinalizeWeaponDefaults",
+        "g_noMusic",
+        "g_noSound",
+        "gameTimerHandler",
+        "numplayers"
+      ]
+    },
+    {
+      "name": "G_UpdatePlayerFromMenu",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6310,
+      "type": "void ()",
+      "reason": "unlinked identifiers: numplayers",
+      "missing": [
+        "numplayers"
+      ]
+    },
+    {
+      "name": "G_BackToMenu",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6337,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_CloseDemoWrite, G_UpdateAppTitle, Menu_Change, Menu_Open",
+      "missing": [
+        "G_CloseDemoWrite",
+        "G_UpdateAppTitle",
+        "Menu_Change",
+        "Menu_Open"
+      ]
+    },
+    {
+      "name": "G_EndOfLevel",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6349,
+      "type": "int ()",
+      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_SetGamePalette, P_UpdateScreenPal, numplayers",
+      "missing": [
+        "G_BackToMenu",
+        "G_BonusScreen",
+        "G_CloseDemoWrite",
+        "G_DoOrderScreen",
+        "G_EnterLevel",
+        "G_UpdateScreenArea",
+        "Menu_Change",
+        "Menu_Open",
+        "P_SetGamePalette",
+        "P_UpdateScreenPal",
+        "numplayers"
+      ]
+    },
+    {
+      "name": "app_crashhandler",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6415,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_CloseDemoWrite, VM_ScriptInfo, insptr",
+      "missing": [
+        "G_CloseDemoWrite",
+        "VM_ScriptInfo",
+        "insptr"
+      ]
+    },
+    {
+      "name": "drawframe_do",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6472,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_DisplayRest, G_DrawBackground, G_DrawRooms, G_HandleLocalKeys, P_GetInput, S_Update, g_saveRequested, videoNextPage",
+      "missing": [
+        "G_DisplayRest",
+        "G_DrawBackground",
+        "G_DrawRooms",
+        "G_HandleLocalKeys",
+        "P_GetInput",
+        "S_Update",
+        "g_saveRequested",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "app_main",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 6580,
+      "type": "int (int, const char *const *)",
+      "reason": "unlinked identifiers: Anim_Init, CONFIG_ReadSetup, CONFIG_WriteSetup, CrosshairColors, G_CheckCommandLine, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_FatalEngineInitError, G_GameExit, G_GetCrosshairColor",
+      "missing": [
+        "Anim_Init",
+        "CONFIG_ReadSetup",
+        "CONFIG_WriteSetup",
+        "CrosshairColors",
+        "G_CheckCommandLine",
+        "G_DisplayLogo",
+        "G_DoCheats",
+        "G_DrawRooms",
+        "G_EndOfLevel",
+        "G_FatalEngineInitError",
+        "G_GameExit",
+        "G_GetCrosshairColor",
+        "G_InitText",
+        "G_LoadGroups",
+        "G_NewGame",
+        "G_PlaybackDemo",
+        "G_SavePlayerMaybeMulti",
+        "G_SetCrosshairColor",
+        "G_SetupCheats",
+        "G_Startup",
+        "G_UpdateAppTitle",
+        "G_UpdateScreenArea",
+        "Gv_ResetSystemDefaults",
+        "Menu_Change",
+        "Menu_Init",
+        "P_ResetInventory",
+        "P_ResetWeapons",
+        "PrintBuildInfo",
+        "RTS_Init",
+        "ReadSaveGameHeaders",
+        "S_ClearSoundLocks",
+        "S_MusicStartup",
+        "S_SoundStartup",
+        "cacheAllSounds",
+        "connectpoint2",
+        "drawframe_do",
+        "dukeConsoleClearBackground",
+        "dukeConsoleGetColumnWidth",
+        "dukeConsoleGetRowHeight",
+        "dukeConsoleOnShowCallback",
+        "dukeConsolePrintChar",
+        "dukeConsolePrintCursor",
+        "dukeConsolePrintString",
+        "engineFPSLimit",
+        "engineLoadClipMaps",
+        "engineSetLogFile",
+        "g_fakeMultiMode",
+        "g_lastautosave",
+        "g_noAutoLoad",
+        "g_noLogoAnim",
+        "g_quickload",
+        "g_saveRequested",
+        "loaddefinitions_game",
+        "loaddefinitionsfile",
+        "numplayers",
+        "registerosdcommands",
+        "user_quote_time"
+      ]
+    },
+    {
+      "name": "G_DoMoveThings",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 7207,
+      "type": "int ()",
+      "reason": "unlinked identifiers: A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill, connectpoint2, user_quote_time",
+      "missing": [
+        "A_MoveCyclers",
+        "A_MoveDummyPlayers",
+        "G_AnimateWalls",
+        "G_DemoRecord",
+        "G_MoveWorld",
+        "P_CheckSectors",
+        "P_HandleSharedKeys",
+        "P_ProcessInput",
+        "P_QuickKill",
+        "connectpoint2",
+        "user_quote_time"
+      ]
+    },
+    {
+      "name": "A_SpawnWallGlass",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 7377,
+      "type": "void (int, int, int)",
+      "reason": "unlinked identifiers: A_InsertSprite",
+      "missing": [
+        "A_InsertSprite"
+      ]
+    },
+    {
+      "name": "A_SpawnGlass",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 7420,
+      "type": "void (int, int)",
+      "reason": "unlinked identifiers: A_InsertSprite",
+      "missing": [
+        "A_InsertSprite"
+      ]
+    },
+    {
+      "name": "A_SpawnCeilingGlass",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 7431,
+      "type": "void (int, int, int)",
+      "reason": "unlinked identifiers: A_InsertSprite",
+      "missing": [
+        "A_InsertSprite"
+      ]
+    },
+    {
+      "name": "A_SpawnRandomGlass",
+      "file": "source/duke3d/src/game.cpp",
+      "line": 7452,
+      "type": "void (int, int, int)",
+      "reason": "unlinked identifiers: A_InsertSprite",
+      "missing": [
+        "A_InsertSprite"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_58b695402eef",
+      "file": "source/duke3d/src/gameexec.h",
+      "line": 64,
+      "type": "int32_t (int, int, int, int32_t)",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "missing": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_507d9c6bed4d",
+      "file": "source/duke3d/src/gameexec.h",
+      "line": 59,
+      "type": "int32_t (int, int, int)",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "missing": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "rotatesprite_win__header_068732be6d33",
+      "file": "source/build/include/build.h",
+      "line": 1336,
+      "type": "void (int32_t, int32_t, int32_t, int16_t, int16_t, int8_t, char, int32_t)",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "missing": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "A_ResetVars__header_9b335bd7219c",
+      "file": "source/duke3d/src/gamevars.h",
+      "line": 162,
+      "type": "void (const int)",
+      "reason": "unlinked identifiers: aGameVars",
+      "missing": [
+        "aGameVars"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_24d009939acc",
+      "file": "source/duke3d/src/gameexec.h",
+      "line": 44,
+      "type": "int (const int)",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "missing": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "A_SetSprite__header_7ffa6130ca43",
+      "file": "source/duke3d/src/actors.h",
+      "line": 476,
+      "type": "int (const int, uint32_t)",
+      "reason": "unlinked identifiers: A_MoveSprite",
+      "missing": [
+        "A_MoveSprite"
+      ]
+    },
+    {
+      "name": "Sect_SetInterpolation__header_d287c45d2ae9",
+      "file": "source/duke3d/src/actors.h",
+      "line": 443,
+      "type": "void (int)",
+      "reason": "unlinked identifiers: Sect_ToggleInterpolation",
+      "missing": [
+        "Sect_ToggleInterpolation"
+      ]
+    },
+    {
+      "name": "G_SetStatusBarScale__header_aee759a89298",
+      "file": "source/duke3d/src/game.h",
+      "line": 630,
+      "type": "void (int32_t)",
+      "reason": "unlinked identifiers: G_UpdateScreenArea",
+      "missing": [
+        "G_UpdateScreenArea"
+      ]
+    },
+    {
+      "name": "G_GetLogoFlags__header_fa27fcbb6c8d",
+      "file": "source/duke3d/src/game.h",
+      "line": 130,
+      "type": "int32_t ()",
+      "reason": "unlinked identifiers: Gv_GetVarByLabel",
+      "missing": [
+        "Gv_GetVarByLabel"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_dc180f51db89",
+      "file": "source/audiolib/include/fx_man.h",
+      "line": 139,
+      "type": "int (bool)",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "missing": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "G_NewGame_EnterLevel__header_96c36a42496f",
+      "file": "source/duke3d/src/game.h",
+      "line": 568,
+      "type": "void ()",
+      "reason": "unlinked identifiers: G_BackToMenu, G_EnterLevel, G_NewGame",
+      "missing": [
+        "G_BackToMenu",
+        "G_EnterLevel",
+        "G_NewGame"
+      ]
+    },
+    {
+      "name": "gameHandleEvents__header_d311143e7cf5",
+      "file": "source/duke3d/src/game.h",
+      "line": 463,
+      "type": "int32_t ()",
+      "reason": "unlinked identifiers: handleevents",
+      "missing": [
+        "handleevents"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_d57fb66bb209",
+      "file": "source/audiolib/include/fx_man.h",
+      "line": 97,
+      "type": "int (int)",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_c6eb91badbc8",
+      "missing": [
+        "FX_SetErrorCode__header_c6eb91badbc8"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_c6eb91badbc8",
+      "file": "source/audiolib/include/fx_man.h",
+      "line": 91,
+      "type": "int (int)",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "missing": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "parameter_binding_recovery_installed_closed_definitions": 60,
+  "additional_frontiers": [
+    "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json",
+    "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_anim.cpp.json"
+  ],
+  "note": "The unit-level frontier is the most recent timer probe. This file retains the actual app_main whole-unit catalog. Counts are not all-game independent blockers."
+}

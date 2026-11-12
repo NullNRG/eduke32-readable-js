@@ -51,11 +51,9 @@ run. Historical campaign loading checks cover 41 maps under their recorded
 artifacts; the current launcher test covers two selected maps. These are
 different checks and must not be conflated.
 
-The compiler's local CI-profile checks last passed 57/57 before the SDL display
-follow-up; the subsequent display repair passed relevant Node tests and real
-Chromium runtime/engine checks. The full current regression suite, native game
-state parity and 60-second gameplay acceptance are still incomplete. Historical
-emission/blocker counts span revisions and are not a completion percentage.
+The compiler's local CI-profile checks now pass **58/58 under frozen inputs**. Relevant Node SDL/display tests, the local Chromium runtime check and actual file-selection/engine frame checks also pass. Expanded parameter-pack bindings match native behavior for 4,096 values. The complete current regression suite, native game-state parity and 60-second gameplay acceptance are still incomplete. Historical emission/blocker counts span revisions and are not a completion percentage.
+
+The current app_main dependency catalog is reports/nov12-app-main-current-frontier.json. The latest compiler repair allowed 60 closed source definitions to install, but original startup still has unresolved dependencies. Anim_Init's static arrays, rotatesprite's packed ClockTicks array, script events and the timer special-key path need further work. Original MUSIC_Update is now linked with its original empty body; this does not establish audio functionality.
 
 ## How the port works
 

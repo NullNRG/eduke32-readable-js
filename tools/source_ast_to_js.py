@@ -45,6 +45,7 @@ from source_static_members import recover as recover_out_of_line_static_members,
 from source_instance_members import recover as recover_out_of_line_instance_members
 from source_local_lambdas import plan as plan_local_lambdas
 from source_sibling_tail import recover as recover_sibling_tail
+from source_parameter_bindings import unique_parameters
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
@@ -3228,6 +3229,12 @@ class Emit:
             return f'export const {name} = {global_initializer(n,self.enum_values,self.record_layouts,self.global_storage_records,self.type_aliases,self.enum_types,self)};'
         return f'export const {name} = {js_cast(self.expr(value),qual(n))};'
     def function(self,n,method=False,symbol=None):
+        try:n,parameter_bindings=unique_parameters(n,js_ident)
+        except ValueError as error:raise Unsupported(str(error)) from error
+        if parameter_bindings:
+            self.used_parameter_bindings=getattr(self,'used_parameter_bindings',[])+[{
+                'abi':'source-parameter-declaration-bindings/1','function':n.get('name'),
+                'parameters':parameter_bindings}]
         name=symbol or js_ident(n.get('name',''))
         if not re.fullmatch(r'[A-Za-z_$][\w$]*',name):raise Unsupported('invalid function name '+name)
         params=[x for x in kids(n) if kind(x)=='ParmVarDecl']
@@ -5682,6 +5689,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 raise Unsupported('C++ global class address requires exact Clang layout: '+qual(n))
             code=(em.function(n,symbol=symbol) if kind(n)=='FunctionDecl' else
                   em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n,symbol=symbol))
+            if getattr(em,'used_parameter_bindings',None):row['source_parameter_bindings']=em.used_parameter_bindings
             if getattr(em,'used_comparison_pointer_values',None):row['address_comparison_pointer_temporaries']={'abi':'source-local-pointer-address-values/1','declarations':sorted(em.used_comparison_pointer_values),'memory_bounds_checks_retained':True}
             if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
