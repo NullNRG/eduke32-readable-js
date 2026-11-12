@@ -11,7 +11,7 @@ November 12 follow-up: original mask/sprite dependencies are now linked and exec
 ```powershell
 . work/session-env.ps1
 python work/verify_original_masked_frame.py
-python work/recover_boot_reachable.py source/build/src/engine.cpp renderDrawMasks --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --whole-unit --install-closed-leaves
 python work/reproduce_source_ci.py
 python tools/recover_browser_component.py --snapshot
 ```
