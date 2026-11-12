@@ -44,6 +44,7 @@ from source_template_destructors import complete as complete_template_destructor
 from source_static_members import recover as recover_out_of_line_static_members, constant_members, rebind_static_references
 from source_instance_members import recover as recover_out_of_line_instance_members
 from source_local_lambdas import plan as plan_local_lambdas
+from source_sibling_tail import recover as recover_sibling_tail
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
@@ -3259,6 +3260,12 @@ class Emit:
         if terminal_jumps:
             bodies=[terminal_jumps['body']]
             self.last_flow_report={key:value for key,value in terminal_jumps.items() if key!='body'}
+        sibling_tail=(recover_sibling_tail(bodies[-1],self.trivial_destructors,
+            lambda name:normalized_record_name(name,self.type_aliases))
+            if self.local_types['!return']=='void' else None)
+        if sibling_tail:
+            bodies=[sibling_tail['body']]
+            self.last_flow_report={key:value for key,value in sibling_tail.items() if key!='body'}
         if needs_cfg(bodies[-1]):
             try:
                 lowering=CoroutineCFG(bodies[-1],self)
@@ -3286,6 +3293,9 @@ class Emit:
             text='  let '+resume['selector']+' = null;\n'+text
             self.last_flow_report={**(self.last_flow_report or {}),'strategy':resume['strategy'],
                 'original_resume_labels':resume['labels']}
+        if sibling_tail:
+            self.last_flow_report={**(self.last_flow_report or {}),
+                'sibling_branch_tail':{key:value for key,value in sibling_tail.items() if key!='body'}}
         if self.c_variadic:argnames.append('...__cxx_varargs')
         prefix=[]
         for param in params:

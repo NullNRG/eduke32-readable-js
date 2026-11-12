@@ -263,6 +263,14 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
     macro_typedef_proofs={}
     if source_root:
         root=Path(source_root).resolve()
+        # One immutable invocation snapshot. Hundreds of elided typedef paths
+        # must not reread every original header on every declaration. This is
+        # deliberately local, so the next compile observes changed source.
+        header_candidates=None
+        source_bytes={}
+        def original_bytes(path):
+            if path not in source_bytes:source_bytes[path]=path.read_bytes()
+            return source_bytes[path]
         for tree in ast:
             for declaration in descendants(tree):
                 if declaration.get('kind')!='TypedefDecl' or not declaration.get('name'):continue
@@ -290,16 +298,18 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                     # original tag/alias tokens. Never use includedFrom as the
                     # physical declaration's path.
                     matches=[]
-                    for candidate in root.rglob('*'):
-                        if candidate.suffix.lower() not in ('.h','.hpp','.hh','.hxx') or not candidate.is_file():continue
-                        raw=candidate.read_bytes()
+                    if header_candidates is None:
+                        header_candidates=[candidate for candidate in root.rglob('*')
+                            if candidate.suffix.lower() in ('.h','.hpp','.hh','.hxx') and candidate.is_file()]
+                    for candidate in header_candidates:
+                        raw=original_bytes(candidate)
                         if raw[offset:offset+len(tag)]==tag and raw[alias_offset:alias_offset+len(name)]==name.encode():matches.append(candidate)
                         if len(matches)>1:break
                     if len(matches)!=1:continue
                     physical=matches[0]
                 path=Path(physical);path=(path if path.is_absolute() else root/path).resolve()
                 if not path.is_relative_to(root) or not path.is_file():continue
-                raw=path.read_bytes()
+                raw=original_bytes(path)
                 if raw[offset:offset+len(tag)]!=tag or raw[alias_offset:alias_offset+len(name)]!=name.encode():continue
                 if macro and (not re.fullmatch(rb'[A-Za-z_]\w*',raw[start:start+length]) or not re.match(rb'\s*\(',raw[start+length:])):continue
                 explicit=[value.get('file') for value in (spelled,expanded,alias_loc) if value.get('file')]
