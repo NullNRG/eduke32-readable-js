@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Original engine frame</title><style>html,body{margin:0;background:#000;color:#eee;font:14px system-ui}canvas{display:block;width:100%;max-width:800px;height:auto;image-rendering:pixelated;margin:auto}p{text-align:center}</style></head><body><canvas width="640" height="480"></canvas><p id="state">Waiting for selected assets…</p><script type="module">
+
+let started=false;
+window.addEventListener('message',async event=>{if(started||event.source!==parent||event.origin!==location.origin||event.data?.kind!=='engine-run')return;started=true;
+ const original=console.info;console.info=(...args)=>{original.apply(console,args);if(String(args[0]).startsWith('SOURCE_TRACE ')){try{parent.postMessage({kind:'engine-trace',entry:JSON.parse(String(args[0]).slice(13))},location.origin);}catch{}}};
+ let result;try{const {default:run,moduleBase}=await import('./engine-level-runner.mjs');result=await run({base:moduleBase,archiveBytes:event.data.archiveBytes,mapName:event.data.mapName});}catch(error){result={component_passed:false,error:String(error),gameplay_verified:false};}finally{console.info=original;}
+ document.querySelector('#state').textContent=result.component_passed?'Original engine frame · raw MAP state · not gameplay':'Rendering failed';parent.postMessage({kind:'engine-result',result},location.origin);
+});parent.postMessage({kind:'engine-ready'},location.origin);
+</script></body></html>

@@ -22,7 +22,8 @@ def selected(root,public=False):
     for name in ('.gitignore','.gitattributes','README.md','README_SOURCE_FACTORY.md','CURRENT_PORT_STATUS.md',
                  'CONTINUE_HERE.md','LLM_CONTINUATION_PROMPT.md','HANDOFF_SNAPSHOT.json','BUILD_PORTABILITY.md','BROWSER_SERVICES.md',
                  'package.json','package-lock.json','dev-requirements.txt','eslint.config.mjs','index.html',
-                 'launch-project.cmd','launch-project.ps1','engine-startup.html','ENGINEERING_CHECKPOINT.md'):
+                 'launch-project.cmd','launch-project.ps1','engine-startup.html','ENGINEERING_CHECKPOINT.md',
+                 'engine-player.html','engine-level.html','engine-level-runner.mjs','grp-launcher.mjs','PORT_GUIDE.md'):
         add(root/name)
     add(root/'input-data/DUKE3D.GRP');add(root/'factory-output/compile_commands.json')
     add(root/'reports/history/original-source-manifests-20261014.zip')

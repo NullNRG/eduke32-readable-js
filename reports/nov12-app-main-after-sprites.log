@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\work\recover_boot_reachable.py", line 159, in <module>
+    with component.component_lock():raise SystemExit(main())
+                                                     ~~~~^^
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\work\recover_boot_reachable.py", line 139, in main
+    install_verified_fragment.main()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\andre\Documents\Codex\work\EDuke32_SourceFactory_Oct13\tools\install_verified_fragment.py", line 97, in main
+    for file in (fragment,temporary):subprocess.run(['node','--check',str(file)],check=True,capture_output=True,text=True)
+                                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['node', '--check', 'C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\_source_legacy_game_cpp_4e1a627ec214.mjs']' returned non-zero exit status 1.

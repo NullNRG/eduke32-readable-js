@@ -1,6 +1,6 @@
 # Continue the canonical EDuke32 project
 
-Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov12-original-rooms-frame.json. Original E1L1 room rendering now passes in Chromium. The game remains incomplete: app_main, menu, CON, masks/sprites and gameplay have not passed.
+Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov12-original-rooms-frame.json. Original E1L1 room rendering now passes in Chromium. The game remains incomplete: app_main, menu, CON initialization and gameplay have not passed. The original mask/sprite frame component passes.
 
 User constraint: do not use paid external services. Compile and verify locally.
 GitHub checkpoint commits must include `[skip ci]` to avoid starting cloud
@@ -25,3 +25,5 @@ Existing exports do not mean their generated bodies were refreshed. For shared f
 The native semantic index already matches the 111-unit portable-codec profile (d906809d). Compiler-only repairs do not require replaying the native index. Do not trigger a changed-input generic index resume; targeted primary-unit semantic refresh must verify all unchanged commands/header observations. The compressed private index payload is an older historical fingerprint; the verified macro-only delta is reports/nov11-portable-semantic-delta.json.
 
 The last local CI reproduction passed 57/57 before the SDL display follow-up; 22 relevant Node checks and real Chromium runtime/original masked-frame checks pass after it; full regression and strict original-game acceptance remain incomplete. No playable dist/index.html exists. Keep pushing source, active modules, exact evidence and factual notes to NullNRG/eduke32-readable-js. Never push GRPs, SDKs, raw AST/SQLite caches or asset-bearing generated HTML. Do not publish a playable release until original boot/menu/gameplay/offline/save/audio checks pass.
+
+The asset-free browser launcher is engine-player.html, linked from index.html. Regenerate engine-level-runner.mjs with `npm run build:engine-launcher`. It reuses the verified probe, accepts archive bytes and MAP selection, and creates a fresh realm per run. Read PORT_GUIDE.md. Verify actual file selection with `python work/verify_engine_launcher.py`; no GRP upload or remote service is involved.

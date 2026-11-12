@@ -9,7 +9,7 @@ from browser_engine_probe import fresh_engine_probe
 
 JOBS = {
     'engine-startup': ('Verify original engine startup in Chromium', ['work/verify_fresh_engine_startup.py']),
-    'resume-app-main': ('Recover original app_main dependency closure', ['work/recover_boot_reachable.py','source/duke3d/src/game.cpp','app_main']),
+    'resume-app-main': ('Recover original app_main dependency closure', ['work/recover_boot_reachable.py','source/duke3d/src/game.cpp','app_main','--whole-unit','--install-closed-leaves']),
     'build': ('Compile original game', ['tools/build_browser_classic.py']),
     'test': ('Compiler and runtime regression tests', ['tools/verify_recovery_suite.py','--jobs','1','--timeout','240','--report','reports/project-regression.json']),
     'acceptance': ('Original game acceptance checks', ['tools/verify_port_acceptance.py','--strict']),
@@ -126,7 +126,7 @@ class Handler(SimpleHTTPRequestHandler):
         resolved=(self.server.project.root/path.lstrip('/')).resolve()
         if not resolved.is_relative_to(self.server.project.root):return self.json(403,{'error':'Outside project'})
         parts=Path(path.lstrip('/')).parts
-        allowed=not parts or path in ('/index.html','/engine-startup.html','/tools/source_address_runtime.mjs') or parts[0] in ('runtime','factory-output','reports','dist','handoffs') or path in ('/CONTINUE_HERE.md','/CURRENT_PORT_STATUS.md','/BUILD_PORTABILITY.md','/ENGINEERING_CHECKPOINT.md')
+        allowed=not parts or path in ('/index.html','/engine-startup.html','/engine-player.html','/engine-level.html','/engine-level-runner.mjs','/grp-launcher.mjs','/tools/source_address_runtime.mjs') or parts[0] in ('runtime','factory-output','reports','dist','handoffs') or path in ('/CONTINUE_HERE.md','/CURRENT_PORT_STATUS.md','/BUILD_PORTABILITY.md','/ENGINEERING_CHECKPOINT.md','/PORT_GUIDE.md')
         if not allowed or any(p.startswith('.') for p in parts):return self.json(404,{'error':'Not a public project artifact'})
         if resolved.is_dir() and path not in ('/','/index.html'):return self.json(404,{'error':'Directory listing disabled'})
         return super().do_GET()

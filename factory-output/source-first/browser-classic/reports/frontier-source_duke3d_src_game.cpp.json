@@ -1,26 +1,19 @@
 {
   "source": "source/duke3d/src/game.cpp",
   "requested": [
-    "G_DoSpriteAnimations"
+    "app_main"
   ],
   "requested_resolved": {
-    "G_DoSpriteAnimations": false
+    "app_main": false
   },
-  "requested_export_bindings": {
-    "G_DoSpriteAnimations": []
+  "requested_compiled": {
+    "app_main": false
   },
   "requested_still_unlinked": [
-    "G_DoSpriteAnimations"
+    "app_main"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-433cfd27b3663e8a/source/duke3d/src/game.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-8597be44f746603a/source/duke3d/src/game.cpp.manifest.json",
   "blocked": [
-    {
-      "name": "__cxx_record_vec3_82cfac1168cb3a1b",
-      "reason": "unlinked identifiers: (anonymous at source/build/include/vec.h:27:5)",
-      "dependencies": [
-        "(anonymous at source/build/include/vec.h:27:5)"
-      ]
-    },
     {
       "name": "gameTimerHandler",
       "reason": "unlinked identifiers: MUSIC_Update",
@@ -30,130 +23,67 @@
     },
     {
       "name": "G_HandleSpecialKeys",
-      "reason": "unlinked identifiers: G_UpdateScreenArea, OSD_DispatchQueued, P_DoQuote, videoCaptureScreen, videoSetGameMode",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, P_DoQuote, videoCaptureScreen",
       "dependencies": [
         "G_UpdateScreenArea",
-        "OSD_DispatchQueued",
         "P_DoQuote",
-        "videoCaptureScreen",
-        "videoSetGameMode"
+        "videoCaptureScreen"
       ]
     },
     {
       "name": "G_GameQuit",
-      "reason": "unlinked identifiers: numplayers, totalclock",
+      "reason": "unlinked identifiers: numplayers",
       "dependencies": [
-        "numplayers",
-        "totalclock"
+        "numplayers"
       ]
     },
     {
       "name": "G_GameExit",
-      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens, g_demo_filePtr, videoSetGameMode",
+      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens, g_demo_filePtr",
       "dependencies": [
         "G_BonusScreen",
         "G_CloseDemoWrite",
         "G_DisplayExtraScreens",
-        "g_demo_filePtr",
-        "videoSetGameMode"
+        "g_demo_filePtr"
       ]
     },
     {
       "name": "G_DoThirdPerson",
-      "reason": "unlinked identifiers: getangle, hitscan, sintable, totalclock, updatesectorz",
+      "reason": "unlinked identifiers: hitscan",
       "dependencies": [
-        "getangle",
-        "hitscan",
-        "sintable",
-        "totalclock",
-        "updatesectorz"
-      ]
-    },
-    {
-      "name": "G_OROR_DupeSprites",
-      "reason": "unlinked identifiers: headspritesect, nextspritesect, spritesortcnt",
-      "dependencies": [
-        "headspritesect",
-        "nextspritesect",
-        "spritesortcnt"
+        "hitscan"
       ]
     },
     {
       "name": "G_SE40",
-      "reason": "unlinked identifiers: G_OROR_DupeSprites, renderDrawMasks, renderDrawRoomsQ16, tilesiz, updatesector",
+      "reason": "unlinked identifiers: G_DoSpriteAnimations",
       "dependencies": [
-        "G_OROR_DupeSprites",
-        "renderDrawMasks",
-        "renderDrawRoomsQ16",
-        "tilesiz",
-        "updatesector"
+        "G_DoSpriteAnimations"
       ]
     },
     {
       "name": "G_HandleMirror",
-      "reason": "unlinked identifiers: display_mirror, g_visibility, gotpic, renderCompleteMirror, renderDrawMasks, renderDrawRoomsQ16, renderPrepareMirror, wallvisible, yax_drawrooms, yax_preparedrawrooms",
+      "reason": "unlinked identifiers: renderCompleteMirror",
       "dependencies": [
-        "display_mirror",
-        "g_visibility",
-        "gotpic",
-        "renderCompleteMirror",
-        "renderDrawMasks",
-        "renderDrawRoomsQ16",
-        "renderPrepareMirror",
-        "wallvisible",
-        "yax_drawrooms",
-        "yax_preparedrawrooms"
-      ]
-    },
-    {
-      "name": "G_ClearGotMirror",
-      "reason": "unlinked identifiers: gotpic",
-      "dependencies": [
-        "gotpic"
+        "renderCompleteMirror"
       ]
     },
     {
       "name": "G_DrawRooms",
-      "reason": "unlinked identifiers: G_AnimateCamSprite, G_ClearGotMirror, G_DoConveyorInterp, G_DoInterpolations, G_DoThirdPerson, G_DrawBackground, G_HandleMirror, G_InterpolateLights, G_OROR_DupeSprites, G_ResetConveyorInterp, G_SE40, automapping",
+      "reason": "unlinked identifiers: G_AnimateCamSprite, G_DoConveyorInterp, G_DoInterpolations, G_DoThirdPerson, G_DrawBackground, G_HandleMirror, G_InterpolateLights, G_ResetConveyorInterp, dr_viewingrange, dr_yxaspect, numplayers, r_ambientlightrecip",
       "dependencies": [
         "G_AnimateCamSprite",
-        "G_ClearGotMirror",
         "G_DoConveyorInterp",
         "G_DoInterpolations",
         "G_DoThirdPerson",
         "G_DrawBackground",
         "G_HandleMirror",
         "G_InterpolateLights",
-        "G_OROR_DupeSprites",
         "G_ResetConveyorInterp",
-        "G_SE40",
-        "automapping",
         "dr_viewingrange",
         "dr_yxaspect",
-        "g_cache",
-        "g_visibility",
         "numplayers",
-        "picanm",
-        "r_ambientlightrecip",
-        "renderDrawMasks",
-        "renderDrawRoomsQ16",
-        "renderRestoreTarget",
-        "renderSetTarget",
-        "rotatespritesmoothratio",
-        "sintable",
-        "tabledivide32_noinline",
-        "tileSetSize",
-        "totalclock",
-        "totalclocklock",
-        "updatesectorz",
-        "videoSetCorrectedAspect",
-        "walock",
-        "waloff",
-        "windowxy1",
-        "windowxy2",
-        "yax_drawrooms",
-        "yax_getbunch",
-        "yax_preparedrawrooms"
+        "r_ambientlightrecip"
       ]
     },
     {
@@ -182,59 +112,34 @@
         "aplWeaponSpawnTime",
         "aplWeaponTotalTime",
         "aplWeaponWorksLike",
-        "buildprint",
         "g_gameVarCount",
-        "headspritestat",
         "insptr",
-        "nextspritestat",
         "numplayers",
         "saveboard"
       ]
     },
     {
       "name": "A_InsertSprite",
-      "reason": "unlinked identifiers: A_FindPlayer, G_DumpDebugInfo, VM_ExecuteEvent, block_deletesprite, g_spriteStat, insertsprite",
+      "reason": "unlinked identifiers: A_FindPlayer, G_DumpDebugInfo, VM_ExecuteEvent, block_deletesprite, g_spriteStat",
       "dependencies": [
         "A_FindPlayer",
         "G_DumpDebugInfo",
         "VM_ExecuteEvent",
         "block_deletesprite",
-        "g_spriteStat",
-        "insertsprite"
-      ]
-    },
-    {
-      "name": "Yax_SetBunchZs",
-      "reason": "unlinked identifiers: headsectbunch, nextsectbunch, numyaxbunches, yax_getbunch",
-      "dependencies": [
-        "headsectbunch",
-        "nextsectbunch",
-        "numyaxbunches",
-        "yax_getbunch"
+        "g_spriteStat"
       ]
     },
     {
       "name": "Yax_SetBunchInterpolation",
-      "reason": "unlinked identifiers: G_SetInterpolation, headsectbunch, nextsectbunch, numyaxbunches, yax_getbunch",
+      "reason": "unlinked identifiers: G_SetInterpolation",
       "dependencies": [
-        "G_SetInterpolation",
-        "headsectbunch",
-        "nextsectbunch",
-        "numyaxbunches",
-        "yax_getbunch"
+        "G_SetInterpolation"
       ]
     },
     {
       "name": "A_Spawn",
       "reason": "source control flow: goto enters a different lexical scope",
       "dependencies": []
-    },
-    {
-      "name": "G_MaybeTakeOnFloorPal",
-      "reason": "unlinked identifiers: g_noFloorPal",
-      "dependencies": [
-        "g_noFloorPal"
-      ]
     },
     {
       "name": "G_DoEventAnimSprites",
@@ -245,23 +150,13 @@
     },
     {
       "name": "G_DoSpriteAnimations",
-      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, G_MaybeTakeOnFloorPal, display_mirror, g_scriptVersion, g_spriteStat, getangle, ldist, sintable, spritesortcnt, tabledivide32_noinline, tilesiz",
+      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, g_scriptVersion, g_spriteStat, ldist",
       "dependencies": [
         "G_DoEventAnimSprites",
         "G_GetAngleDelta",
-        "G_MaybeTakeOnFloorPal",
-        "display_mirror",
         "g_scriptVersion",
         "g_spriteStat",
-        "getangle",
-        "ldist",
-        "sintable",
-        "spritesortcnt",
-        "tabledivide32_noinline",
-        "tilesiz",
-        "totalclock",
-        "waloff",
-        "yax_getflorzofslope"
+        "ldist"
       ]
     },
     {
@@ -273,12 +168,11 @@
     },
     {
       "name": "G_InitTimer",
-      "reason": "unlinked identifiers: connectpoint2, g_lastInputTicks, gameTimerHandler, timerSetCallback",
+      "reason": "unlinked identifiers: connectpoint2, g_lastInputTicks, gameTimerHandler",
       "dependencies": [
         "connectpoint2",
         "g_lastInputTicks",
-        "gameTimerHandler",
-        "timerSetCallback"
+        "gameTimerHandler"
       ]
     },
     {
@@ -354,15 +248,13 @@
     },
     {
       "name": "G_Shutdown",
-      "reason": "unlinked identifiers: CONFIG_WriteSetup, CONTROL_Shutdown, G_Cleanup, OSD_Cleanup, S_MusicShutdown, S_SoundShutdown, engineUnInit",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, CONTROL_Shutdown, G_Cleanup, S_MusicShutdown, S_SoundShutdown",
       "dependencies": [
         "CONFIG_WriteSetup",
         "CONTROL_Shutdown",
         "G_Cleanup",
-        "OSD_Cleanup",
         "S_MusicShutdown",
-        "S_SoundShutdown",
-        "engineUnInit"
+        "S_SoundShutdown"
       ]
     },
     {
@@ -371,15 +263,6 @@
       "dependencies": [
         "C_Compile",
         "G_GameExit"
-      ]
-    },
-    {
-      "name": "G_PostLoadPalette",
-      "reason": "unlinked identifiers: paletteFixTranslucencyMask, palettePostLoadLookups, paletteSetupDefaultFog",
-      "dependencies": [
-        "paletteFixTranslucencyMask",
-        "palettePostLoadLookups",
-        "paletteSetupDefaultFog"
       ]
     },
     {
@@ -398,35 +281,28 @@
     },
     {
       "name": "G_FatalEngineInitError",
-      "reason": "unlinked identifiers: G_Cleanup, engineerrstr",
+      "reason": "unlinked identifiers: G_Cleanup",
       "dependencies": [
-        "G_Cleanup",
-        "engineerrstr"
+        "G_Cleanup"
       ]
     },
     {
       "name": "G_Startup",
-      "reason": "unlinked identifiers: CommandMap, CommandName, G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_InitMultiPsky, G_LoadLookups, G_PostCreateGameState, G_Shutdown, Gv_FinalizeWeaponDefaults, artLoadFiles, engineInit",
+      "reason": "unlinked identifiers: CommandMap, CommandName, G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_LoadLookups, G_PostCreateGameState, G_Shutdown, Gv_FinalizeWeaponDefaults, g_noMusic, g_noSound, gameTimerHandler",
       "dependencies": [
         "CommandMap",
         "CommandName",
         "G_CompileScripts",
         "G_FatalEngineInitError",
         "G_GameExit",
-        "G_InitMultiPsky",
         "G_LoadLookups",
         "G_PostCreateGameState",
         "G_Shutdown",
         "Gv_FinalizeWeaponDefaults",
-        "artLoadFiles",
-        "engineInit",
         "g_noMusic",
         "g_noSound",
         "gameTimerHandler",
-        "numplayers",
-        "picanm",
-        "quitevent",
-        "timerSetCallback"
+        "numplayers"
       ]
     },
     {
@@ -448,7 +324,7 @@
     },
     {
       "name": "G_EndOfLevel",
-      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_SetGamePalette, P_UpdateScreenPal, artClearMapArt, g_loadedMapHack",
+      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_SetGamePalette, P_UpdateScreenPal, numplayers",
       "dependencies": [
         "G_BackToMenu",
         "G_BonusScreen",
@@ -460,8 +336,6 @@
         "Menu_Open",
         "P_SetGamePalette",
         "P_UpdateScreenPal",
-        "artClearMapArt",
-        "g_loadedMapHack",
         "numplayers"
       ]
     },
@@ -476,26 +350,16 @@
     },
     {
       "name": "drawframe_do",
-      "reason": "unlinked identifiers: G_DisplayRest, G_DrawBackground, G_DrawRooms, G_HandleLocalKeys, OSD_DispatchQueued, P_GetInput, S_Update, g_saveRequested, timerGetNanoTicks, totalclock, videoNextPage",
+      "reason": "unlinked identifiers: G_DisplayRest, G_DrawBackground, G_DrawRooms, G_HandleLocalKeys, P_GetInput, S_Update, g_saveRequested, videoNextPage",
       "dependencies": [
         "G_DisplayRest",
         "G_DrawBackground",
         "G_DrawRooms",
         "G_HandleLocalKeys",
-        "OSD_DispatchQueued",
         "P_GetInput",
         "S_Update",
         "g_saveRequested",
-        "timerGetNanoTicks",
-        "totalclock",
         "videoNextPage"
-      ]
-    },
-    {
-      "name": "dukeFillInputForTic",
-      "reason": "unlinked identifiers: sintable",
-      "dependencies": [
-        "sintable"
       ]
     },
     {
@@ -518,7 +382,6 @@
         "G_LoadGroups",
         "G_NewGame",
         "G_PlaybackDemo",
-        "G_PostLoadPalette",
         "G_SavePlayerMaybeMulti",
         "G_SetCrosshairColor",
         "G_SetupCheats",
@@ -528,7 +391,6 @@
         "Gv_ResetSystemDefaults",
         "Menu_Change",
         "Menu_Init",
-        "OSD_SetCallbacks",
         "P_ResetInventory",
         "P_ResetWeapons",
         "PrintBuildInfo",
@@ -547,12 +409,9 @@
         "dukeConsolePrintChar",
         "dukeConsolePrintCursor",
         "dukeConsolePrintString",
-        "dukeFillInputForTic",
         "engineFPSLimit",
         "engineLoadClipMaps",
-        "enginePostInit",
         "engineSetLogFile",
-        "engineUnInit",
         "g_fakeMultiMode",
         "g_lastautosave",
         "g_noAutoLoad",
@@ -562,19 +421,13 @@
         "loaddefinitions_game",
         "loaddefinitionsfile",
         "numplayers",
-        "quitevent",
         "registerosdcommands",
-        "system_getcvars",
-        "tileDelete",
-        "totalclock",
-        "user_quote_time",
-        "videoSetGameMode",
-        "walock"
+        "user_quote_time"
       ]
     },
     {
       "name": "G_DoMoveThings",
-      "reason": "unlinked identifiers: A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill, connectpoint2, randomseed, user_quote_time",
+      "reason": "unlinked identifiers: A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill, connectpoint2, user_quote_time",
       "dependencies": [
         "A_MoveCyclers",
         "A_MoveDummyPlayers",
@@ -586,17 +439,14 @@
         "P_ProcessInput",
         "P_QuickKill",
         "connectpoint2",
-        "randomseed",
         "user_quote_time"
       ]
     },
     {
       "name": "A_SpawnWallGlass",
-      "reason": "unlinked identifiers: A_InsertSprite, tabledivide32_noinline, updatesector",
+      "reason": "unlinked identifiers: A_InsertSprite",
       "dependencies": [
-        "A_InsertSprite",
-        "tabledivide32_noinline",
-        "updatesector"
+        "A_InsertSprite"
       ]
     },
     {
@@ -608,19 +458,16 @@
     },
     {
       "name": "A_SpawnCeilingGlass",
-      "reason": "unlinked identifiers: A_InsertSprite, tabledivide32_noinline",
+      "reason": "unlinked identifiers: A_InsertSprite",
       "dependencies": [
-        "A_InsertSprite",
-        "tabledivide32_noinline"
+        "A_InsertSprite"
       ]
     },
     {
       "name": "A_SpawnRandomGlass",
-      "reason": "unlinked identifiers: A_InsertSprite, tabledivide32_noinline, updatesector",
+      "reason": "unlinked identifiers: A_InsertSprite",
       "dependencies": [
-        "A_InsertSprite",
-        "tabledivide32_noinline",
-        "updatesector"
+        "A_InsertSprite"
       ]
     },
     {
@@ -631,13 +478,6 @@
       ]
     },
     {
-      "name": "renderAddTSpriteFromSprite__header_5860dede361b",
-      "reason": "unlinked identifiers: spritesortcnt",
-      "dependencies": [
-        "spritesortcnt"
-      ]
-    },
-    {
       "name": "VM_OnEvent__header_507d9c6bed4d",
       "reason": "unlinked identifiers: VM_ExecuteEvent",
       "dependencies": [
@@ -645,27 +485,10 @@
       ]
     },
     {
-      "name": "Blrintf__header_c3691da1eaa2",
-      "reason": "unlinked identifiers: _mm_cvtss_si32, _mm_load_ss",
-      "dependencies": [
-        "_mm_cvtss_si32",
-        "_mm_load_ss"
-      ]
-    },
-    {
-      "name": "getzsofslope__header_e263db5b96d4",
-      "reason": "unlinked identifiers: getzsofslopeptr",
-      "dependencies": [
-        "getzsofslopeptr"
-      ]
-    },
-    {
       "name": "rotatesprite_win__header_068732be6d33",
-      "reason": "unlinked identifiers: rotatesprite_, windowxy1, windowxy2",
+      "reason": "unlinked identifiers: rotatesprite_",
       "dependencies": [
-        "rotatesprite_",
-        "windowxy1",
-        "windowxy2"
+        "rotatesprite_"
       ]
     },
     {
@@ -683,32 +506,10 @@
       ]
     },
     {
-      "name": "krand__header_47500e6c68b0",
-      "reason": "unlinked identifiers: randomseed",
-      "dependencies": [
-        "randomseed"
-      ]
-    },
-    {
-      "name": "getceilzofslope__header_47db7368a7f8",
-      "reason": "unlinked identifiers: getceilzofslopeptr",
-      "dependencies": [
-        "getceilzofslopeptr"
-      ]
-    },
-    {
-      "name": "getflorzofslope__header_8f8433450d5e",
-      "reason": "unlinked identifiers: getflorzofslopeptr",
-      "dependencies": [
-        "getflorzofslopeptr"
-      ]
-    },
-    {
       "name": "A_SetSprite__header_7ffa6130ca43",
-      "reason": "unlinked identifiers: A_MoveSprite, sintable",
+      "reason": "unlinked identifiers: A_MoveSprite",
       "dependencies": [
-        "A_MoveSprite",
-        "sintable"
+        "A_MoveSprite"
       ]
     },
     {
@@ -716,20 +517,6 @@
       "reason": "unlinked identifiers: Sect_ToggleInterpolation",
       "dependencies": [
         "Sect_ToggleInterpolation"
-      ]
-    },
-    {
-      "name": "tilehasmodelorvoxel__header_8c8041c11206",
-      "reason": "unlinked identifiers: tiletovox",
-      "dependencies": [
-        "tiletovox"
-      ]
-    },
-    {
-      "name": "wrand__header_0f392a5344a0",
-      "reason": "unlinked identifiers: wrandomseed",
-      "dependencies": [
-        "wrandomseed"
       ]
     },
     {
@@ -744,20 +531,6 @@
       "reason": "unlinked identifiers: Gv_GetVarByLabel",
       "dependencies": [
         "Gv_GetVarByLabel"
-      ]
-    },
-    {
-      "name": "calc_smoothratio__header_10443239967a",
-      "reason": "unlinked identifiers: calc_smoothratio__header_4efb61ea221d",
-      "dependencies": [
-        "calc_smoothratio__header_4efb61ea221d"
-      ]
-    },
-    {
-      "name": "BGetTime__header_e0d5a90e5073",
-      "reason": "unlinked identifiers: totalclock",
-      "dependencies": [
-        "totalclock"
       ]
     },
     {
@@ -784,14 +557,6 @@
       ]
     },
     {
-      "name": "calc_smoothratio__header_4efb61ea221d",
-      "reason": "unlinked identifiers: tabledivide32_noinline, timerGetClockRate",
-      "dependencies": [
-        "tabledivide32_noinline",
-        "timerGetClockRate"
-      ]
-    },
-    {
       "name": "FX_CheckMVErr__header_d57fb66bb209",
       "reason": "unlinked identifiers: FX_SetErrorCode__header_c6eb91badbc8",
       "dependencies": [
@@ -806,6 +571,11 @@
       ]
     }
   ],
-  "installed_closed_definitions": 24,
-  "original_gameplay_verified": false
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "72571b4a011d50e5faa1fe59d32120ade35211541a7bb6f5af8bbf369a298893",
+  "provider_index_sha256": "74e904c6a895b620440d37a741d702774f7b250714aae1e7191a62a93906fd36",
+  "query_limit": 256,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": false
 }

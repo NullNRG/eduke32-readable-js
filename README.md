@@ -1,5 +1,9 @@
 # EDuke32 readable JavaScript port
 
+Open the developer dashboard with `npm run serve:project`, then choose **Open GRP / level launcher**, or visit `/engine-player.html` on the local server. Select your GRP and MAP; assets stay in your browser. This is a source-engine frame preview, not playable gameplay. Direct file:// module loading is unsupported.
+
+Read [PORT_GUIDE.md](PORT_GUIDE.md) for what works, how the translation and browser adapters work, the current milestones, remaining work and exact commands.
+
 Original **E1L1 rooms and sprites now render in Chromium through the original Build engine in readable JavaScript**. The full game is not playable yet. Original app_main, CON/menu startup, controls, weapons/enemies, audio and saves remain unverified. There is no verified playable dist/index.html.
 
 ![Original JavaScript Build rooms and sprites; raw-map component, not gameplay](reports/evidence/nov12-original-js-engine-masks.png)
