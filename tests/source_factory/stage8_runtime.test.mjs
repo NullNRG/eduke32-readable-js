@@ -36,8 +36,8 @@ test('SDL canvas window surfaces expose correct x86_64 SDL pixel ABI and update 
  const window=s.SDL_CreateWindow(heap.writeCString('test'),0,0,2,2,0);
  assert.ok(window);const surf=s.SDL_GetWindowSurface(window);assert.ok(surf);
  const format=Number(heap.read(surf+8,'u64'));
- assert.equal(heap.read(format+16,'u8'),32);assert.equal(heap.read(format+17,'u8'),4);
- assert.equal(heap.read(format+20,'u32'),0xff);assert.equal(heap.read(format+32,'u32'),0xff000000);
+ assert.equal(heap.read(format+16,'u8'),24);assert.equal(heap.read(format+17,'u8'),4);
+ assert.equal(heap.read(format+20,'u32'),0xff);assert.equal(heap.read(format+32,'u32'),0);
  const pix=Number(heap.read(surf+32,'u64'));
  heap.u8.set([255,0,0,255],pix);
  assert.equal(s.SDL_LockSurface(surf),0);s.SDL_UnlockSurface(surf);

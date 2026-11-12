@@ -256,7 +256,7 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     heap.write(dst,'u32',0x16762004);heap.write(dst+4,'i32',w);
     heap.write(dst+8,'i32',h);heap.write(dst+12,'i32',refresh);
   };
-  const createSurface=(pixels,w,h,pitch,ownsPixels=false)=>{
+  const createSurface=(pixels,w,h,pitch,ownsPixels=false,opaque=false)=>{
     if(!Number.isSafeInteger(w)||!Number.isSafeInteger(h)||w<=0||h<=0||w>32768||h>32768||pitch<w*4){
       setError('Invalid RGBA SDL_Surface dimensions');return 0;
     }
@@ -264,13 +264,15 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     heap.check(pixels,pitch*h);
     const fmt=heap.malloc(64),ptr=heap.malloc(96);
     heap.memset(fmt,0,64);heap.memset(ptr,0,96);
-    heap.write(fmt,'u32',0x16762004);heap.write(fmt+16,'u8',32);heap.write(fmt+17,'u8',4);
+    // Window surfaces use SDL_PIXELFORMAT_XBGR8888: RGB bytes plus unused X.
+    // EDuke32's original software blitter writes RGB masks, never alpha.
+    heap.write(fmt,'u32',opaque?0x16561804:0x16762004);heap.write(fmt+16,'u8',opaque?24:32);heap.write(fmt+17,'u8',4);
     // SDL_PixelFormat masks, offsets 16..28. RGBA in memory on little endian.
-    [0x000000ff,0x0000ff00,0x00ff0000,0xff000000].forEach((mask,i)=>heap.write(fmt+20+i*4,'u32',mask));
+    [0x000000ff,0x0000ff00,0x00ff0000,opaque?0:0xff000000].forEach((mask,i)=>heap.write(fmt+20+i*4,'u32',mask));
     heap.write(ptr+8,'u64',BigInt(fmt));heap.write(ptr+16,'i32',w);
     heap.write(ptr+20,'i32',h);heap.write(ptr+24,'i32',pitch);
     heap.write(ptr+32,'u64',BigInt(pixels));heap.write(ptr+72,'i32',w);heap.write(ptr+76,'i32',h);heap.write(ptr+88,'i32',1);
-    surfaceHandles.set(ptr,{pixels,fmt,w,h,pitch,ownsPixels,locks:0});return ptr;
+    surfaceHandles.set(ptr,{pixels,fmt,w,h,pitch,ownsPixels,opaque,locks:0});return ptr;
   };
   const destroySurface=ptr=>{
     const s=surfaceHandles.get(Number(ptr));if(!s)throw Error('Invalid SDL_Surface');
@@ -286,7 +288,7 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
       const gammaIdentity=gamma.every(r=>r.every((v,i)=>v===i*257));
       // Ordinary path: transfer original source bytes directly to GPU, even
       // with padded rows. Gamma correction is only applied when requested.
-      if(originalFramePresenter&&gammaIdentity){
+      if(originalFramePresenter&&gammaIdentity&&!sf.opaque){
         originalFramePresenter.drawRGBA(heap.u8.subarray(sf.pixels,sf.pixels+sf.pitch*sf.h),sf.w,sf.h,sf.pitch);
         return 0;
       }
@@ -295,6 +297,10 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
         const row=heap.u8.subarray(sf.pixels+y*sf.pitch,sf.pixels+y*sf.pitch+sf.w*4);
         frame.set(row,y*sf.w*4);
       }
+      // Canvas ImageData interprets its fourth byte as alpha. SDL window X
+      // padding is ignored; preserve source pixels and make only the transfer
+      // image opaque, equally for Canvas and WebGL presentation.
+      if(sf.opaque)for(let p=3;p<frame.length;p+=4)frame[p]=255;
       if(!gammaIdentity){
         for(let p=0;p<frame.length;p+=4)
           for(let c=0;c<3;c++)frame[p+c]=Math.round(gamma[c][frame[p+c]]/257);
@@ -706,7 +712,7 @@ export function createSDLBrowser({ heap, canvas=null, callIndirect=null, clock=(
     SDL_GetWindowSurface:ptr=>{
       getWindow(ptr);if(!ensureDisplay()){setError('Canvas display unavailable');return 0;}
       if(!windowSurface){const pixels=heap.malloc(canvas.width*canvas.height*4);
-        windowSurface=createSurface(pixels,canvas.width,canvas.height,canvas.width*4,true);
+          windowSurface=createSurface(pixels,canvas.width,canvas.height,canvas.width*4,true,true);
       }
       return windowSurface;
     },

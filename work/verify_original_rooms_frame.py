@@ -24,6 +24,17 @@ maps[0].value+=r'''
       await enter('original G_InitMultiPsky with original tile globals',()=>gameCommon.G_InitMultiPsky(...skyTiles));
       if(engine.pskynummultis!==5)throw Error('Original sky descriptors did not initialize');
       engineInitialization.original_game_sky_initialization_executed=true;
+      const divisionOwner=await import(base+'/source/build/src/pragmas.cpp.mjs');
+      if(typeof divisionOwner.divideu32_noinline!=='function')throw Error('Original division callback is not linked');
+      const divisionCases=[[0,1,0],[4294967295,1,4294967295],[4294967295,3,1431655765],
+        [2147483648,7,306783378],[123456789,100,1234567],[1073741824,17,63161283],
+        [1,4294967295,0],[4294967295,4294967294,1]];
+      await enter('original divideu32_noinline boundary checks',()=>{
+        for(const [numerator,denominator,expected] of divisionCases)
+          if(divisionOwner.divideu32_noinline(numerator,denominator)!==expected)
+            throw Error('Original unsigned division callback disagrees with integer quotient');
+      });
+      engineInitialization.original_division_callback_boundary_cases=divisionCases.length;
       const paletteRenderer=await import(base+'/source/build/src/palette.cpp.mjs');
       await enter('original videoSetPalette',()=>paletteRenderer.videoSetPalette(0,0,0));
       await enter('original videoSetViewableArea',()=>engine.videoSetViewableArea(0,0,engine.xdim-1,engine.ydim-1));

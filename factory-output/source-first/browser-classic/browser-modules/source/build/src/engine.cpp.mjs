@@ -1079,3 +1079,6 @@ export { ceilscan, findwallbetweensectors, florscan, maskwallscan, parascan, qlo
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { Blrintf__header_0b8e7f162fef, classicDrawBunches, falpha_to_blend, fgrouscan, grouscan, renderDrawRoomsQ16 } from "./_source_legacy_engine_cpp_edc8d0b413d0.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { classicDrawSprite, classicDrawVoxel, renderDrawMasks, renderDrawSprite, yax_drawrooms } from "./_source_legacy_engine_cpp_fce1f74c63dd.mjs";

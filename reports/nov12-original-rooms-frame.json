@@ -66,6 +66,7 @@
     "original_geometry_start_inside": true,
     "map_oracle": "supplied original version-7 MAP header, full sector/wall bytes, every sprite coordinate, extents and counts; no manual world-state initialization",
     "original_game_sky_initialization_executed": true,
+    "original_division_callback_boundary_cases": 8,
     "original_rooms_frame_rendered": true,
     "original_rooms_frame": {
       "result": 0,
@@ -217,6 +218,15 @@
     },
     {
       "name": "original G_InitMultiPsky with original tile globals",
+      "transition": "return",
+      "value": null
+    },
+    {
+      "name": "original divideu32_noinline boundary checks",
+      "transition": "enter"
+    },
+    {
+      "name": "original divideu32_noinline boundary checks",
       "transition": "return",
       "value": null
     },
@@ -434,6 +444,14 @@
     },
     {
       "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original divideu32_noinline boundary checks\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original divideu32_noinline boundary checks\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
       "text": "SOURCE_TRACE {\"name\":\"original videoSetPalette\",\"transition\":\"enter\"}"
     },
     {
@@ -545,7 +563,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.mjs": "7a1a3bf02c1329646eb2fec2dfea92cba4669180e9501886b81bc33d8add98b9",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "a03da66aafd9bb61e91a102d717421a67cbdac9793fd05ebc841d90fd969c45e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.mjs": "4824ffa65fe53a44640f921c3affd3c30106aaa9f9fd31c924352f929398e858",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "94fcb09c3dbe5c44c95dd13bd0b0a448c1ba3b47ac2576a67162c4c9e7feeaea",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "11ccc0aa033fe59698604b7b7adaf30fc1a1ed4eda85f5992a1b89b85fe1e7da",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.mjs": "b3e29426d81723d498d9291eedf9696774a7005091dbb0f5f37122ee54f1f4b6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hightile.cpp.mjs": "60ea1a1d940dd1d08cbeb9f5c17e766767ddfb2a0cc65948839cbeacb5d436cd",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/kplib.cpp.mjs": "691fa70f50648ee32f2b164f39d3a3b8da65795a37209967b7c0f56ef024a1e9",
@@ -557,7 +575,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/mutex.cpp.mjs": "4fecbb752a9fec79f6b49bc640f73c3adcc40735ccfc239db201b0d84beae091",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/osd.cpp.mjs": "d3dd03b7bdfe13d41febc5d2e8cf8edcefa50000ee0597e5f930edf5bd29c31c",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/palette.cpp.mjs": "931c7b435734ea11f00dc98a36133b6d9af016078b0cfcd7e549f8177b17c2b1",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.mjs": "7d4b23fe0d70a0a510aabd4a3e24f4328c04f91c20875f604fdfc5ca44787fd2",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.mjs": "21a1906f5c86e6cb2e1b8c5e11e05cd8f8cd6018a59b0fadbeff551da9843f91",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/rev.cpp.mjs": "c6979e18a81d94d31fb649c1aa6397529ac5cbd4719109324e27e1ca148413ef",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/screenshot.cpp.mjs": "3af210a80dc1f153c4d7c4cd60a2800e56ae1980b827c175a1972c798d9d12ef",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/scriptfile.cpp.mjs": "7161534277e668173441e47a55aa100ee803a08c74b204f8b6a445594d969eed",
@@ -624,6 +642,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_f313c6453b01.mjs": "f313c6453b011d95bda3ee4a109de11fcd591654db42ee8e995a8193038cf7b2",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fac278f79cb6.mjs": "fac278f79cb6437a16bacaa592de786c9e4129b3eb3dfc8f896502be25647983",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fc91a4910d27.mjs": "fc91a4910d2747762ec8711d7b6bfa26533716adcd0a659067ac375c5ad2c170",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fce1f74c63dd.mjs": "fce1f74c63dd57f31e6c61b273fb6c6d13d5bcc9aa1e108eed76ad0d0e6ffca3",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_0d878a6edc39.mjs": "0d878a6edc3948043ae34dd4c8644d1eeee735536f3145aa0a2e62d676ef336d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_34d42385f3c2.mjs": "34d42385f3c28624defcc5f77bdfc40559f4ff292b8130bf674d9c1fdcc6a585",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_c37bf9ec397e.mjs": "c37bf9ec397ea590fe55ab33558f9a5a40fd3ee14a7eeb4eccec77f3239d84ab",
@@ -658,6 +677,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_0fec65b3bb7f.mjs": "0fec65b3bb7f9d33cef3fe32ae91aaec8b87147a8a2488df1b4fa1a9d82109a8",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_4b95ad898c8a.mjs": "4b95ad898c8a1d9a38e64e94e781e2c03eb99bed460b2569941bb8d5c1a66d5b",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_7140ad416c7a.mjs": "7140ad416c7ad671f2ad08104e3885c5f6553d25c9a10f2e1a3c8f2004cc2a58",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_b084c46ca14c.mjs": "b084c46ca14cd3fd408b2d3c333e8bb923cf4ad352ecfa53b2c91fbdc2a02c4a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_scriptfile_cpp_5c759125b461.mjs": "5c759125b461d10b5a389b7df7f586f7d65d05e9c17558fddcc320c64e2dc491",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_129bd76e9bc2.mjs": "129bd76e9bc276672c7d65c3165cbf5645139b5cb877018bd331f7657b0b8a15",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_350a18085e20.mjs": "350a18085e20867414c3b2f77d38ac5f870e6619f49fabd2de28dd0a46bfd921",

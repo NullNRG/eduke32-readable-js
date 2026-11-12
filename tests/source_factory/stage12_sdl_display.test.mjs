@@ -1,5 +1,26 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {ABIHeap} from '../../runtime/abi.mjs';import {createSDLBrowser} from '../../runtime/sdl_browser.mjs';
+
+test('SDL window RGBX padding stays opaque across repeated presentations without rewriting original pixels',()=>{
+ const heap=new ABIHeap(),captures=[];
+ const gc={createImageData:(w,h)=>({data:new Uint8ClampedArray(w*h*4)}),putImageData:image=>captures.push(image.data.slice())};
+ const canvas={width:2,height:1,getContext:()=>gc,ownerDocument:{defaultView:{}}};
+ const s=createSDLBrowser({heap,canvas}).symbols;s.SDL_Init(0x20);
+ const win=s.SDL_CreateWindow(heap.writeCString('RGBX'),0,0,2,1,0),surface=s.SDL_GetWindowSurface(win);
+ const format=Number(heap.read(surface+8,'u64')),pixels=Number(heap.read(surface+32,'u64'));
+ assert.equal(heap.read(format,'u32'),0x16561804);
+ assert.equal(heap.read(format+16,'u8'),24);assert.equal(heap.read(format+17,'u8'),4);
+ assert.equal(heap.read(format+32,'u32'),0);
+ for(const padding of [0,1,127,255]){
+  const original=Uint8Array.of(21,97,243,padding,210,9,42,padding);heap.u8.set(original,pixels);
+  for(let i=0;i<3;i++){
+   assert.equal(s.SDL_UpdateWindowSurface(win),0);
+   assert.deepEqual([...captures.at(-1)],[21,97,243,255,210,9,42,255]);
+   assert.deepEqual([...heap.bytes(pixels,8)],[...original]);
+  }
+ }
+ s.SDL_Quit();
+});
 test('SDL display modes write through original source references and bounded LP64 byte views',()=>{
  const heap=new ABIHeap(),canvas={width:640,height:480,getContext:()=>null,ownerDocument:{defaultView:{}}};
  const s=createSDLBrowser({heap,canvas}).symbols;assert.equal(s.SDL_Init(0x20),0);

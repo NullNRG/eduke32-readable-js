@@ -1,10 +1,10 @@
 # EDuke32 readable JavaScript port
 
-Original **E1L1 room geometry now renders in Chromium through the original Build engine in readable JavaScript**. The full game is not playable yet. Original app_main, CON/menu startup, masked sprites, controls, combat, audio and saves remain unverified. There is no verified playable dist/index.html.
+Original **E1L1 rooms and sprites now render in Chromium through the original Build engine in readable JavaScript**. The full game is not playable yet. Original app_main, CON/menu startup, controls, weapons/enemies, audio and saves remain unverified. There is no verified playable dist/index.html.
 
-![Original JavaScript Build room renderer — component evidence, not gameplay](reports/evidence/nov12-original-js-rooms-only.png)
+![Original JavaScript Build rooms and sprites; raw-map component, not gameplay](reports/evidence/nov12-original-js-engine-masks.png)
 
-The frame uses original GRP/ART/MAP loading, original game sky initialization, original palette/video setup and original renderDrawRoomsQ16. [Execution report](reports/nov12-original-rooms-frame.json) binds the capture to exact source modules and runtime bytes. Current local compiler checks pass 54/54; Node runtime checks pass 22/22. These component checks do not establish playable game boot.
+[Execution report](reports/nov12-original-masked-frame.json) binds original GRP/ART/MAP loading, sky, room/mask drawing and stable repeated presentation to exact source modules and runtime bytes. Read CURRENT_PORT_STATUS.md for test scope and remaining work. The user prohibits paid external services; verification runs locally and GitHub checkpoint commits use [skip ci].
 
 The project continues the existing Clang-based C/C++ source compiler, source-owned
 storage, readable ES modules, cross-unit linker and browser platform adapters.

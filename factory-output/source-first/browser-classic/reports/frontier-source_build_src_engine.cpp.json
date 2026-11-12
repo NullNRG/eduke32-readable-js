@@ -4,15 +4,15 @@
     "renderDrawMasks"
   ],
   "requested_resolved": {
-    "renderDrawMasks": false
+    "renderDrawMasks": true
   },
-  "requested_compiled": {
-    "renderDrawMasks": false
+  "requested_export_bindings": {
+    "renderDrawMasks": [
+      "renderDrawMasks"
+    ]
   },
-  "requested_still_unlinked": [
-    "renderDrawMasks"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-f0f2b9946941b238/source/build/src/engine.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-cbe8cc37881dfb97/source/build/src/engine.cpp.manifest.json",
   "blocked": [
     {
       "name": "<anonymous>",
@@ -25,54 +25,86 @@
       "dependencies": []
     },
     {
-      "name": "classicDrawVoxel",
-      "reason": "unlinked identifiers: divideu32_noinline",
+      "name": "dorotatesprite",
+      "reason": "global aggregate array requires verified storage shape: struct sm",
+      "dependencies": []
+    },
+    {
+      "name": "engineLoadBoardV5V6",
+      "reason": "scalar byte alias across goto requires proven storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "saveboard",
+      "reason": "uninitialized scalar byte alias requires tracked object initialization",
+      "dependencies": []
+    },
+    {
+      "name": "videoNextPage",
+      "reason": "unlinked identifiers: dorotatesprite, videoCaptureScreen",
       "dependencies": [
-        "divideu32_noinline"
+        "dorotatesprite",
+        "videoCaptureScreen"
       ]
     },
     {
-      "name": "falpha_to_blend",
-      "reason": "unlinked identifiers: Blrintf__header_0b8e7f162fef",
+      "name": "getq16angledelta",
+      "reason": "unlinked identifiers: fix16_sub",
       "dependencies": [
-        "Blrintf__header_0b8e7f162fef"
+        "fix16_sub"
       ]
     },
     {
-      "name": "classicDrawSprite",
-      "reason": "unlinked identifiers: classicDrawVoxel",
+      "name": "cansee_19950829",
+      "reason": "unlinked identifiers: clipsectorlist",
       "dependencies": [
-        "classicDrawVoxel"
+        "clipsectorlist"
       ]
     },
     {
-      "name": "renderDrawSprite",
-      "reason": "unlinked identifiers: classicDrawSprite",
+      "name": "cansee",
+      "reason": "unlinked identifiers: cansee_19950829, clipsectorlist",
       "dependencies": [
-        "classicDrawSprite"
+        "cansee_19950829",
+        "clipsectorlist"
       ]
     },
     {
-      "name": "renderDrawMasks",
-      "reason": "unlinked identifiers: renderDrawSprite",
+      "name": "neartag",
+      "reason": "unlinked identifiers: clipsectorlist, try_facespr_intersect",
       "dependencies": [
-        "renderDrawSprite"
+        "clipsectorlist",
+        "try_facespr_intersect"
       ]
     },
     {
-      "name": "Blrintf__header_0b8e7f162fef",
-      "reason": "unlinked identifiers: _mm_cvtss_si32, _mm_load_ss",
+      "name": "mouseGetValues",
+      "reason": "unlinked identifiers: mouseReadButtons, mouseReadPos",
       "dependencies": [
-        "_mm_cvtss_si32",
-        "_mm_load_ss"
+        "mouseReadButtons",
+        "mouseReadPos"
       ]
+    },
+    {
+      "name": "rotatesprite_",
+      "reason": "unlinked identifiers: dorotatesprite",
+      "dependencies": [
+        "dorotatesprite"
+      ]
+    },
+    {
+      "name": "renderCompleteMirror",
+      "reason": "unlinked identifiers: copybufreverse",
+      "dependencies": [
+        "copybufreverse"
+      ]
+    },
+    {
+      "name": "yax_getzsofslope",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "260730ce87deb9600e360f8779ec6896eaf079d7db67b9413a393b9d0802807f",
-  "provider_index_sha256": "efa1821bfb5d2517d707d676f9ea93286008dc5ee982c304bbfd9d7bba51e37a",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 5,
+  "original_gameplay_verified": false
 }

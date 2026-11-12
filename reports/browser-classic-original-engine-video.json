@@ -66,13 +66,75 @@
     "original_geometry_start_inside": true,
     "map_oracle": "supplied original version-7 MAP header, full sector/wall bytes, every sprite coordinate, extents and counts; no manual world-state initialization",
     "original_game_sky_initialization_executed": true,
+    "original_division_callback_boundary_cases": 8,
+    "original_canvas_presentation_calls": [
+      {
+        "input_visible": 209720,
+        "zero_alpha": 0,
+        "displayed": 209720,
+        "crc32": 3734315993
+      },
+      {
+        "input_visible": 219481,
+        "zero_alpha": 0,
+        "displayed": 219481,
+        "crc32": 3586999079
+      }
+    ],
+    "original_repeat_presentation": {
+      "changed_pixels": 0,
+      "indexed_before": {
+        "nonzero": 212651,
+        "colors": 102,
+        "crc32": 2083265037
+      },
+      "indexed_after": {
+        "nonzero": 212651,
+        "colors": 102,
+        "crc32": 2083265037
+      },
+      "destination_before": {
+        "pixels": 339152,
+        "visible": 209720,
+        "crc32": 2628275477,
+        "heap_bytes": 134217728,
+        "palette_crc32": 2104748368
+      },
+      "destination_after": {
+        "pixels": 339152,
+        "visible": 209720,
+        "crc32": 2628275477,
+        "heap_bytes": 134217728,
+        "palette_crc32": 2104748368
+      }
+    },
+    "original_mask_renderer": {
+      "executed": true,
+      "queued_sprites": 52,
+      "queued_walls": 0,
+      "changed_pixels": 23695,
+      "indexed_after": {
+        "nonzero": 222602,
+        "colors": 133,
+        "crc32": 168279882
+      },
+      "destination_after": {
+        "pixels": 339152,
+        "visible": 219481,
+        "crc32": 2226405043,
+        "heap_bytes": 134217728,
+        "palette_crc32": 2104748368
+      },
+      "original_game_sprite_animation_executed": false,
+      "original_gameplay_verified": false
+    },
     "original_rooms_frame_rendered": true,
     "original_rooms_frame": {
       "result": 0,
       "width": 640,
       "height": 480,
-      "colors": 97,
-      "visible_pixels": 209720
+      "colors": 126,
+      "visible_pixels": 219481
     }
   },
   "trace": [
@@ -221,6 +283,15 @@
       "value": null
     },
     {
+      "name": "original divideu32_noinline boundary checks",
+      "transition": "enter"
+    },
+    {
+      "name": "original divideu32_noinline boundary checks",
+      "transition": "return",
+      "value": null
+    },
+    {
       "name": "original videoSetPalette",
       "transition": "enter"
     },
@@ -253,6 +324,33 @@
     },
     {
       "name": "original videoShowFrame rooms",
+      "transition": "return",
+      "value": null
+    },
+    {
+      "name": "original videoShowFrame repeated presentation check",
+      "transition": "enter"
+    },
+    {
+      "name": "original videoShowFrame repeated presentation check",
+      "transition": "return",
+      "value": null
+    },
+    {
+      "name": "original renderDrawMasks raw E1L1 engine state",
+      "transition": "enter"
+    },
+    {
+      "name": "original renderDrawMasks raw E1L1 engine state",
+      "transition": "return",
+      "value": null
+    },
+    {
+      "name": "original videoShowFrame masks",
+      "transition": "enter"
+    },
+    {
+      "name": "original videoShowFrame masks",
       "transition": "return",
       "value": null
     },
@@ -434,6 +532,14 @@
     },
     {
       "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original divideu32_noinline boundary checks\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original divideu32_noinline boundary checks\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
       "text": "SOURCE_TRACE {\"name\":\"original videoSetPalette\",\"transition\":\"enter\"}"
     },
     {
@@ -463,6 +569,34 @@
     {
       "type": "info",
       "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame rooms\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame repeated presentation check\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "warning",
+      "text": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame repeated presentation check\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original renderDrawMasks raw E1L1 engine state\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original renderDrawMasks raw E1L1 engine state\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame masks\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame masks\",\"transition\":\"return\",\"value\":null}"
     },
     {
       "type": "info",
@@ -545,7 +679,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.mjs": "7a1a3bf02c1329646eb2fec2dfea92cba4669180e9501886b81bc33d8add98b9",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "a03da66aafd9bb61e91a102d717421a67cbdac9793fd05ebc841d90fd969c45e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.mjs": "4824ffa65fe53a44640f921c3affd3c30106aaa9f9fd31c924352f929398e858",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "94fcb09c3dbe5c44c95dd13bd0b0a448c1ba3b47ac2576a67162c4c9e7feeaea",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "11ccc0aa033fe59698604b7b7adaf30fc1a1ed4eda85f5992a1b89b85fe1e7da",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.mjs": "b3e29426d81723d498d9291eedf9696774a7005091dbb0f5f37122ee54f1f4b6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hightile.cpp.mjs": "60ea1a1d940dd1d08cbeb9f5c17e766767ddfb2a0cc65948839cbeacb5d436cd",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/kplib.cpp.mjs": "691fa70f50648ee32f2b164f39d3a3b8da65795a37209967b7c0f56ef024a1e9",
@@ -557,7 +691,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/mutex.cpp.mjs": "4fecbb752a9fec79f6b49bc640f73c3adcc40735ccfc239db201b0d84beae091",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/osd.cpp.mjs": "d3dd03b7bdfe13d41febc5d2e8cf8edcefa50000ee0597e5f930edf5bd29c31c",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/palette.cpp.mjs": "931c7b435734ea11f00dc98a36133b6d9af016078b0cfcd7e549f8177b17c2b1",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.mjs": "7d4b23fe0d70a0a510aabd4a3e24f4328c04f91c20875f604fdfc5ca44787fd2",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.mjs": "21a1906f5c86e6cb2e1b8c5e11e05cd8f8cd6018a59b0fadbeff551da9843f91",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/rev.cpp.mjs": "c6979e18a81d94d31fb649c1aa6397529ac5cbd4719109324e27e1ca148413ef",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/screenshot.cpp.mjs": "3af210a80dc1f153c4d7c4cd60a2800e56ae1980b827c175a1972c798d9d12ef",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/scriptfile.cpp.mjs": "7161534277e668173441e47a55aa100ee803a08c74b204f8b6a445594d969eed",
@@ -624,6 +758,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_f313c6453b01.mjs": "f313c6453b011d95bda3ee4a109de11fcd591654db42ee8e995a8193038cf7b2",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fac278f79cb6.mjs": "fac278f79cb6437a16bacaa592de786c9e4129b3eb3dfc8f896502be25647983",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fc91a4910d27.mjs": "fc91a4910d2747762ec8711d7b6bfa26533716adcd0a659067ac375c5ad2c170",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fce1f74c63dd.mjs": "fce1f74c63dd57f31e6c61b273fb6c6d13d5bcc9aa1e108eed76ad0d0e6ffca3",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_0d878a6edc39.mjs": "0d878a6edc3948043ae34dd4c8644d1eeee735536f3145aa0a2e62d676ef336d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_34d42385f3c2.mjs": "34d42385f3c28624defcc5f77bdfc40559f4ff292b8130bf674d9c1fdcc6a585",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_c37bf9ec397e.mjs": "c37bf9ec397ea590fe55ab33558f9a5a40fd3ee14a7eeb4eccec77f3239d84ab",
@@ -658,6 +793,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_0fec65b3bb7f.mjs": "0fec65b3bb7f9d33cef3fe32ae91aaec8b87147a8a2488df1b4fa1a9d82109a8",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_4b95ad898c8a.mjs": "4b95ad898c8a1d9a38e64e94e781e2c03eb99bed460b2569941bb8d5c1a66d5b",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_7140ad416c7a.mjs": "7140ad416c7ad671f2ad08104e3885c5f6553d25c9a10f2e1a3c8f2004cc2a58",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_b084c46ca14c.mjs": "b084c46ca14cd3fd408b2d3c333e8bb923cf4ad352ecfa53b2c91fbdc2a02c4a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_scriptfile_cpp_5c759125b461.mjs": "5c759125b461d10b5a389b7df7f586f7d65d05e9c17558fddcc320c64e2dc491",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_129bd76e9bc2.mjs": "129bd76e9bc276672c7d65c3165cbf5645139b5cb877018bd331f7657b0b8a15",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_350a18085e20.mjs": "350a18085e20867414c3b2f77d38ac5f870e6619f49fabd2de28dd0a46bfd921",
@@ -740,7 +876,7 @@
     "runtime/posix_process_services.mjs": "d06939237f58885f4c86d209c5dc17b47703e16b0ad2e607c140ddfa343eb71e",
     "runtime/posix_vfs.mjs": "7331348a18e6beef1a3199cd1cad480012799fb66f52d4647b01b3edd5f27282",
     "runtime/renderers.mjs": "f0cad1f0b48111008712eb359bc5d1243f26688a667ca52056cc54ba6c3a9322",
-    "runtime/sdl_browser.mjs": "29d19323256851850dbbe3be7cfaa4c165307cf94b3f27415d40b62a1ab94380",
+    "runtime/sdl_browser.mjs": "4a1f7892d53388ddefe6c839b9224da4ccaaa259b3e62e511b457a1d481e2f98",
     "runtime/sdl_wasm_services.mjs": "ea93bf390d9da462ab68e252fde477cba6961c8fde825bb654ee30e35420338e",
     "runtime/source_bytes.mjs": "455e91e1c396561df75697ebdbb0f0401b63dcad9e42113f627e6397a18c6a95",
     "runtime/source_memory.mjs": "bc95011f9d287e3e1db8b819ce556cee1a5fdbe673e302be004408514e031005",
@@ -769,9 +905,9 @@
     "gameplay_verified": false
   },
   "original_rooms_capture": {
-    "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\evidence\\nov12-original-js-rooms-only.png",
-    "sha256": "2d6e3b544cd1a4c8383b5e81fd7c835bd7a53dbab6d19d44d64df9dc3b619a7c",
-    "caption": "Original JavaScript Build room renderer at original MAP start; no masked sprites, app_main, CON or gameplay verification"
+    "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\evidence\\nov12-original-js-engine-masks.png",
+    "sha256": "fac199fda80ebd92b83153953d1b6fe96a604373b8bdc39eac6b3b34905b7b89",
+    "caption": "Original JavaScript Build rooms/masks at raw MAP start; game/CON sprite initialization, app_main and gameplay remain unverified"
   },
   "rooms_component_scope": {
     "original_app_main_executed": false,

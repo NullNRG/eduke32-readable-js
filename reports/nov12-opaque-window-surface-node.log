@@ -1,0 +1,26 @@
+✔ original framebuffer GPU bridge uploads padded RGBA rows and does incremental updates (5.7458ms)
+✔ original indexed buffer uploads R8 pixels and authentic 256-entry palette (0.8969ms)
+✔ the canonical runtime resolves SDL2 to browser-native bindings without an SDL2 binary (29.566ms)
+✔ SDL window RGBX padding stays opaque across repeated presentations without rewriting original pixels (10.379ms)
+✔ SDL display modes write through original source references and bounded LP64 byte views (1.9126ms)
+✔ SDL gamma ramp matches original Uint16 ABI and changes actual displayed RGB pixels (2.1027ms)
+✔ SDL_CaptureMouse only reports success for actual active DOM pointer capture (2.4133ms)
+✔ SDL gamma source pointers preserve byte bounds, offsets and output aliases (2.4952ms)
+✔ SDL version output borrows byte-backed C records and preserves pointer bounds (1.1798ms)
+✔ SDL canvas window uses observed resizes, preserves unchanged surfaces and releases observers (5.5743ms)
+✔ C floating conversions preserve parsed end pointer, exponent, NaN and error status (16.9005ms)
+✔ IPv4 and IPv6 inet_pton / inet_ntop share the actual native network byte layout (3.3557ms)
+✔ SDL canvas window surfaces expose correct x86_64 SDL pixel ABI and update actual pixels (4.1911ms)
+✔ C++ fatal helpers really fail with type-specific errors and never return fake success (6.1583ms)
+✔ C23 scanf handles signed, hex, binary auto-base, string, suppression and %n (3.0528ms)
+✔ GNU libstdc++ hash rehash policy matches actual prime table and load factor state (1.64ms)
+✔ Static dlopen/dlsym resolves the true compiled function address and rejects non-existent libraries (3.8154ms)
+✔ Anonymous mmap and munmap use the same real C heap, while unsupported mappings fail (1.9675ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 315.1986
