@@ -71,12 +71,14 @@ with tempfile.TemporaryDirectory(prefix='source-continue-suffix-') as temporary:
   evaluator='async url=>{const m=await import(url);return Array.from({length:512},(_,n)=>[m.sibling_cleanup(n),m.while_cleanup(n)].join(","));}'
   (root/'run.mjs').write_text('console.log((await ('+evaluator+')('+json.dumps(module.as_uri())+')).join("\\n"));')
   assert run(['node',root/'run.mjs'],root).splitlines()==expected
- from playwright.sync_api import sync_playwright
- with sync_playwright() as p:
-  browser=p.chromium.launch(executable_path=os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'),headless=True)
-  page=browser.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
-  for module in modules:
-   assert page.evaluate(evaluator,'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode())==expected
-  assert not errors,errors
-  browser.close()
-print('PASS: 1,024 native/full/filtered Node/Chromium results; sibling and while cleanup suffixes, original continue ownership and post-loop state; shadowed references, changed loop owner and nontrivial destruction ordering stay blocked')
+ browser_checked=bool(os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'))
+ if browser_checked:
+  from playwright.sync_api import sync_playwright
+  with sync_playwright() as p:
+   browser=p.chromium.launch(executable_path=os.environ['EDUKE_CHROMIUM_EXECUTABLE'],headless=True)
+   page=browser.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+   for module in modules:
+    assert page.evaluate(evaluator,'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode())==expected
+   assert not errors,errors
+   browser.close()
+print('PASS: 1,024 native/full/filtered Node results'+(' and Chromium comparisons' if browser_checked else '; Chromium not configured')+'; sibling and while cleanup suffixes, original continue ownership and post-loop state; shadowed references, changed loop owner and nontrivial destruction ordering stay blocked')

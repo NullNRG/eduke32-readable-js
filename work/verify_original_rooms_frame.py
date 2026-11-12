@@ -11,12 +11,10 @@ tree=ast.parse(probe.read_text())
 art=ast.parse((ROOT/'work/verify_original_art_load.py').read_text())
 art_blocks=[n for n in ast.walk(art) if isinstance(n,ast.Constant) and isinstance(n.value,str)
             and 'engineInitialization.art_oracle=' in n.value]
-video=[n for n in ast.walk(tree) if isinstance(n,ast.Constant) and isinstance(n.value,str)
-       and 'engineInitialization.video={width:engine.xdim' in n.value]
 maps=[n for n in ast.walk(tree) if isinstance(n,ast.Constant) and isinstance(n.value,str)
       and 'let originalMap=null,mapOffset=' in n.value]
-assert len(art_blocks)==len(video)==len(maps)==1
-video[0].value+=art_blocks[0].value
+assert len(art_blocks)==len(maps)==1
+maps[0].value=art_blocks[0].value+maps[0].value
 maps[0].value+=r'''
       if(typeof engine.renderDrawRoomsQ16!=='function')throw Error('Original room renderer is not linked');
       const paletteRenderer=await import(base+'/source/build/src/palette.cpp.mjs');
