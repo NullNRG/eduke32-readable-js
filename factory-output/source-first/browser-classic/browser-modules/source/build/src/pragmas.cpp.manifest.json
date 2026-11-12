@@ -108,8 +108,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\pragmas.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 33,
-  "emitted": 33,
+  "found": 37,
+  "emitted": 37,
   "blocked": 0,
   "definitions": [
     {
@@ -997,6 +997,134 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "divideu32__header_3acb4568180f",
+      "source_name": "divideu32",
+      "kind": "FunctionDecl",
+      "line": 59,
+      "original_type": "uint32_t (const uint32_t, const uint32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 2340,
+        "source_line": 59,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "libdivide_u32_do",
+        "libdivide_u32_gen"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "libdivide_u32_t",
+          "source_record": "libdivide_u32_t",
+          "clang_method_id": "0x124c1f7fd00",
+          "clang_assignment_signature": "libdivide_u32_t &(libdivide_u32_t &&) noexcept",
+          "assignment_mode": "moveAssign",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "1c1720a119c573355ebcc02628bc4e9a2fee5bdcbeed41f9c8342ee3883ed09a"
+          }
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "libdivide_u32_do",
+        "libdivide_u32_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "divideu32_branchfree__header_901eabb9f234",
+      "source_name": "divideu32_branchfree",
+      "kind": "FunctionDecl",
+      "line": 85,
+      "original_type": "uint32_t (const uint32_t, const uint32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 2888,
+        "source_line": 85,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "libdivide_u32_branchfree_do",
+        "libdivide_u32_branchfree_gen"
+      ],
+      "storage_constructor_count": 1,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "libdivide_u32_branchfree_t",
+          "source_record": "libdivide_u32_branchfree_t",
+          "clang_method_id": "0x124c1f81c40",
+          "clang_assignment_signature": "libdivide_u32_branchfree_t &(libdivide_u32_branchfree_t &&) noexcept",
+          "assignment_mode": "moveAssign",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "1c1720a119c573355ebcc02628bc4e9a2fee5bdcbeed41f9c8342ee3883ed09a"
+          }
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "libdivide_u32_branchfree_do",
+        "libdivide_u32_branchfree_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "divideu32_branchfree_noinline",
+      "source_name": "divideu32_branchfree_noinline",
+      "kind": "VarDecl",
+      "line": 23,
+      "original_type": "decltype(divideu32_branchfree) *",
+      "linkage": "external",
+      "source_references": [
+        "divideu32_branchfree__header_901eabb9f234"
+      ],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4b765b220d15aa7e3ed71400",
+        "abi": "source-global-cell/2",
+        "original_type": "decltype(divideu32_branchfree) *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "divideu32_noinline",
+      "source_name": "divideu32_noinline",
+      "kind": "VarDecl",
+      "line": 18,
+      "original_type": "decltype(divideu32) *",
+      "linkage": "external",
+      "source_references": [
+        "divideu32__header_3acb4568180f"
+      ],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_944898bfbdc61851137abee3",
+        "abi": "source-global-cell/2",
+        "original_type": "decltype(divideu32) *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -1500,6 +1628,18 @@
       "binding": "__cxx_global_cell_19d5f02cb12ac3d9706ebc9b",
       "abi": "source-global-cell/2",
       "original_type": "decltype(tabledivide64_branchfree) *"
+    },
+    {
+      "name": "divideu32_noinline",
+      "binding": "__cxx_global_cell_944898bfbdc61851137abee3",
+      "abi": "source-global-cell/2",
+      "original_type": "decltype(divideu32) *"
+    },
+    {
+      "name": "divideu32_branchfree_noinline",
+      "binding": "__cxx_global_cell_4b765b220d15aa7e3ed71400",
+      "abi": "source-global-cell/2",
+      "original_type": "decltype(divideu32_branchfree) *"
     }
   ],
   "private_storage_exports": [
@@ -1709,6 +1849,213 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "dfad2e706f082d35511569f7d17ef616db84391badfad9dfcdbda3785b9125a3"
+    },
+    {
+      "module": "source/build/src/_source_legacy_pragmas_cpp_b084c46ca14c.mjs",
+      "sha256": "b084c46ca14cd3fd408b2d3c333e8bb923cf4ad352ecfa53b2c91fbdc2a02c4a",
+      "original_source": "source/build/src/pragmas.cpp",
+      "exports": [
+        "divideu32__header_3acb4568180f",
+        "divideu32_branchfree__header_901eabb9f234",
+        "divideu32_branchfree_noinline",
+        "divideu32_noinline"
+      ],
+      "reexports": [
+        "divideu32__header_3acb4568180f",
+        "divideu32_branchfree__header_901eabb9f234",
+        "divideu32_branchfree_noinline",
+        "divideu32_noinline",
+        "__cxx_global_cell_4b765b220d15aa7e3ed71400",
+        "__cxx_global_cell_944898bfbdc61851137abee3"
+      ],
+      "imports": [
+        {
+          "name": "bfdivtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_branchfree_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/pragmas.cpp"
+        },
+        {
+          "name": "bfdivtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_branchfree_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/pragmas.cpp"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/pragmas.cpp"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/pragmas.cpp"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "lastd_s32_b",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b6db0759e33cdbb028a91dc6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "lastd_s64_b",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bb3de2e29ec4bffc85e65aa8",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s32_branchfree_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_branchfree_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_branchfree_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_branchfree_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_u32_branchfree_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_u32_branchfree_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_u32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_u32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "99d60b42e54f5ec3e780ae1208402982f7f96ee0f252179448646690d8da2a2a"
     }
   ]
 }
