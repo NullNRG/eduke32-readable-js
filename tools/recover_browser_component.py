@@ -113,9 +113,10 @@ def main():
  stage.mkdir(parents=True,exist_ok=True)
  cmd=[sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(SOURCE),'--source',a.source,
       '--compile-commands',str(COMMANDS),'--out-dir',str(stage),'--project-symbols',str(index),
-      '--import-root',str(OUT),'--dependency-closure','--header-dependency-closure','--header-inlines',
+      '--import-root',str(OUT),'--dependency-closure','--header-dependency-closure',
       '--enum-closure','--require-record-layouts','--ast-cache-dir',str(CACHE)]
  if not a.full and not a.whole_unit_refresh:cmd+=['--filter',','.join(pending),'--exact-filter']
+ if not a.whole_unit_refresh:cmd+=['--header-inlines']
  log=BASE/'reports'/('boot-'+a.source.replace('/','_')+'.log')
  print('Compile original '+a.source+' ['+','.join(pending)+']',flush=True)
  with log.open('w') as stream:

@@ -68,8 +68,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\kplib.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 209,
-  "emitted": 209,
+  "found": 215,
+  "emitted": 215,
   "blocked": 0,
   "definitions": [
     {
@@ -5479,6 +5479,1014 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "kpngrend",
+      "source_name": "kpngrend",
+      "kind": "FunctionDecl",
+      "line": 713,
+      "original_type": "int32_t (const char *, int32_t, intptr_t, int32_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "B_PASS32__header_08503142e865",
+        "B_PASS32__header_8a7178a88765",
+        "B_SWAP32__header_86d0d39cb98e",
+        "B_UNBUF32__header_c1468ac058f1",
+        "bakb",
+        "bakcol",
+        "bakg",
+        "bakr",
+        "bitdepth",
+        "bitpos",
+        "ccind",
+        "cclen",
+        "clen",
+        "filptr",
+        "filter1st",
+        "filterest",
+        "filtype",
+        "getbits",
+        "hufgencode",
+        "hufgetsym",
+        "hxbit",
+        "ibuf0",
+        "ibuf1",
+        "initpass",
+        "initpngtables",
+        "intlac",
+        "kcoltype",
+        "kp_bytesperline",
+        "kp_frameplace",
+        "kp_xres",
+        "kp_yres",
+        "min__template_774131ccff66371d",
+        "nbuf0",
+        "nbuf1",
+        "nfilptr",
+        "numhufblocks",
+        "olinbuf",
+        "palcol",
+        "paleng",
+        "peekbits",
+        "pnginited",
+        "putbuf",
+        "qhufbit0",
+        "qhufbit1",
+        "qhufgencode",
+        "qhufval0",
+        "qhufval1",
+        "slidebuf",
+        "suckbits",
+        "tabledivide32__header_baacfef35b3a",
+        "trnsrgb",
+        "xmn",
+        "xsiz",
+        "xsizbpl",
+        "yplc",
+        "ysiz",
+        "zipfilmode",
+        "zlibcompflags"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d65fc33cba52df605eefdcf9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "bakb",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_42b0e83725da16d589c74876",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "bakcol",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_912432260f9f60491d6aaf54",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "bakg",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a03aea8a2e93335a33286665",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "bakr",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_dc0c53b0b0987a1252c52e39",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "name": "bitdepth",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b26e6394b97f66d1fd62bd8c",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "bitpos",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_258736156e619bfc312178fd",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[19]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              19
+            ]
+          },
+          "name": "ccind",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_73f971a45117b405bae691bf",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[19]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              19
+            ]
+          },
+          "name": "cclen",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_439d0ebacabacbc4bb46f782",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[320]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              320
+            ]
+          },
+          "name": "clen",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3dab0cd39cd715da7cf79ad8",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "const uint8_t *",
+          "name": "filptr",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_716f7d463636ea4ee81dc233",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "filter1st",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1d51987224f96ddbd0fc7996",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "filterest",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7335388bc40819ffb70d8c50",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "name": "filtype",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_44e9d131024042d9f1569617",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[59][2]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              59,
+              2
+            ]
+          },
+          "name": "hxbit",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5156c579fa7a8389c264632c",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[288]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              288
+            ]
+          },
+          "name": "ibuf0",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3927a84e1afc8dfb325bad43",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "name": "ibuf1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "intlac",
+          "binding": "__cxx_global_cell_7935786d12910cda8910768f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8eb99a37935b399f54f5ade9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "name": "kcoltype",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2cc7af37d8316f277973d69d",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "kp_bytesperline",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_aa9058e19fbcb0f313bf966e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "long",
+          "name": "kp_frameplace",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4a3aa4f1e59b84a6f47a8d3f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "kp_xres",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9beff426ee0521384f277d04",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "kp_yres",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2a654032177c315b4aec897b",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "name": "nbuf0",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_00edfc6e9ac95cacc45ca40e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "name": "nbuf1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c0d33cac26996e1d4a46f3d9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "const uint8_t *",
+          "name": "nfilptr",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0680712895ed2a96bfc9eea6",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "numhufblocks",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_abb9d4c9f889cbe37f43f79a",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[256]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              256
+            ]
+          },
+          "name": "palcol",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7474954c0b4cbc7822f97ecb",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "paleng",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_515ab30648dd91d600d1cf94",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "unsigned char",
+          "name": "pnginited",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_efafaac33827fb77a02fa134",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[512]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              512
+            ]
+          },
+          "name": "qhufbit0",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f4b438f749a364d46c61198d",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "name": "qhufbit1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_23f9e1083f5f338d4e2b34d7",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[512]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              512
+            ]
+          },
+          "name": "qhufval0",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a53b89e0c4766998f8de8a84",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "name": "qhufval1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_fd8146c0023b762cfb4928be",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[32768]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              32768
+            ]
+          },
+          "name": "slidebuf",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bbb012d26ca6a35449bd8f01",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "name": "xmn",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_cd33825ec36b5b3a2a2a3517",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "xsiz",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xsizbpl",
+          "binding": "__cxx_global_cell_a229cb194672fefc7d370552",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_acafa6719cf860e283a235ed",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "yplc",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4fa7bed9e2d7aaef3d1713c1",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "ysiz",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_84b58697e1377ebb6589640f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "zipfilmode",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b06566e62c00f716167daaea",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "zlibcompflags",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 1,
+          "forward_goto": 2,
+          "shadowed_locals_renamed": 0,
+          "locals_checked": 10,
+          "exit_blocks": 1,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [
+        "bakb",
+        "bakcol",
+        "bakg",
+        "bakr",
+        "bitdepth",
+        "bitpos",
+        "ccind",
+        "cclen",
+        "clen",
+        "filptr",
+        "filter1st",
+        "filterest",
+        "filtype",
+        "hxbit",
+        "ibuf0",
+        "ibuf1",
+        "intlac",
+        "kcoltype",
+        "kp_bytesperline",
+        "kp_frameplace",
+        "kp_xres",
+        "kp_yres",
+        "nbuf0",
+        "nbuf1",
+        "nfilptr",
+        "numhufblocks",
+        "olinbuf",
+        "palcol",
+        "paleng",
+        "pnginited",
+        "qhufbit0",
+        "qhufbit1",
+        "qhufval0",
+        "qhufval1",
+        "slidebuf",
+        "xmn",
+        "xsiz",
+        "xsizbpl",
+        "yplc",
+        "ysiz",
+        "zipfilmode",
+        "zlibcompflags"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kprender",
+      "source_name": "kprender",
+      "kind": "FunctionDecl",
+      "line": 2296,
+      "original_type": "int32_t (const char *, int32_t, intptr_t, int32_t, int32_t, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "B_PASS16__header_7269365a3bec",
+        "B_PASS16__header_c2d8d3cb4508",
+        "B_PASS32__header_8a7178a88765",
+        "B_UNBUF16__header_48ae80884dfc",
+        "B_UNBUF32__header_c1468ac058f1",
+        "bakcol",
+        "filtype",
+        "istarga",
+        "kbmprend",
+        "kgifrend",
+        "kpcxrend",
+        "kpegrend",
+        "kpngrend",
+        "ktgarend",
+        "numhufblocks",
+        "paleng",
+        "zlibcompflags"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_42b0e83725da16d589c74876",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "bakcol",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7335388bc40819ffb70d8c50",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "name": "filtype",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0680712895ed2a96bfc9eea6",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "numhufblocks",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7474954c0b4cbc7822f97ecb",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "paleng",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b06566e62c00f716167daaea",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "zlibcompflags",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "bakcol",
+        "filtype",
+        "numhufblocks",
+        "paleng",
+        "zlibcompflags"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__cxx_d283c7086cbc",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)",
+      "clang_template_mangled_name": "_ZSt3minImERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned long",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned long",
+            "const": true
+          }
+        ],
+        "result": "unsigned long"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "putbuf",
+      "source_name": "putbuf",
+      "kind": "FunctionDecl",
+      "line": 590,
+      "original_type": "void (const uint8_t *, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "B_BUF32__header_5d2f345cbe77",
+        "B_PASS32__header_08503142e865",
+        "B_SWAP32__header_c7537f5ee250",
+        "Paeth686",
+        "bitdepth",
+        "filt",
+        "filter1st",
+        "filterest",
+        "initpass",
+        "intlac",
+        "ixstp",
+        "iystp",
+        "kcoltype",
+        "kp_yres",
+        "nbpl",
+        "nfplace",
+        "olinbuf",
+        "opixbuf0",
+        "opixbuf1",
+        "pal8hlineasm",
+        "palcol",
+        "rgbhlineasm",
+        "xm",
+        "xmn",
+        "xplc",
+        "xr0",
+        "xr1",
+        "xsizbpl",
+        "yplc",
+        "ysiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_dc0c53b0b0987a1252c52e39",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "name": "bitdepth",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c335b0edd5f95393c742a026",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "filt",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_716f7d463636ea4ee81dc233",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "filter1st",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1d51987224f96ddbd0fc7996",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "filterest",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "intlac",
+          "binding": "__cxx_global_cell_7935786d12910cda8910768f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ixstp",
+          "binding": "__cxx_global_cell_8f65c64e61176127370a62c6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "iystp",
+          "binding": "__cxx_global_cell_f3c1ad3fdef391eb83499b8c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8eb99a37935b399f54f5ade9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "name": "kcoltype",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9beff426ee0521384f277d04",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "kp_yres",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "nbpl",
+          "binding": "__cxx_global_cell_d5e30f187c99e9da61258a1a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0eb7df977bc7da9c1e4ac613",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "long",
+          "name": "nfplace",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_cb0af6faa2121464215cdde3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[131072]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              131072
+            ]
+          },
+          "name": "olinbuf",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_30c3020854ebf0677052a095",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[4]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              4
+            ]
+          },
+          "name": "opixbuf0",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c0d14c7a36260d8c9e084978",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[4]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              4
+            ]
+          },
+          "name": "opixbuf1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_abb9d4c9f889cbe37f43f79a",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[256]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              256
+            ]
+          },
+          "name": "palcol",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a4a36844d745091ca3c2714a",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "xm",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bbb012d26ca6a35449bd8f01",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "name": "xmn",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_58655bc654cd90bf184d8756",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "xplc",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_eb788de64cb93c7f56597b86",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "xr0",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_46cb85d5a04766d0635ecfc3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "xr1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xsizbpl",
+          "binding": "__cxx_global_cell_a229cb194672fefc7d370552",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_acafa6719cf860e283a235ed",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "yplc",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4fa7bed9e2d7aaef3d1713c1",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "name": "ysiz",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "bitdepth",
+        "filt",
+        "filter1st",
+        "filterest",
+        "intlac",
+        "ixstp",
+        "iystp",
+        "kcoltype",
+        "kp_yres",
+        "nbpl",
+        "nfplace",
+        "olinbuf",
+        "opixbuf0",
+        "opixbuf1",
+        "palcol",
+        "xm",
+        "xmn",
+        "xplc",
+        "xr0",
+        "xr1",
+        "xsizbpl",
+        "yplc",
+        "ysiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "rgbhlineasm",
+      "source_name": "rgbhlineasm",
+      "kind": "FunctionDecl",
+      "line": 559,
+      "original_type": "void (int32_t, int32_t, intptr_t, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [
+        "B_BUF32__header_5d2f345cbe77",
+        "B_PASS32__header_08503142e865",
+        "B_PASS32__header_8a7178a88765",
+        "B_UNBUF32__header_c1468ac058f1",
+        "olinbuf",
+        "trnsrgb"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_cb0af6faa2121464215cdde3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[131072]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              131072
+            ]
+          },
+          "name": "olinbuf",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "olinbuf"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "trnsrgb",
+      "source_name": "trnsrgb",
+      "kind": "VarDecl",
+      "line": 128,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/kplib.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_80529304149dbd0297a543f4",
+        "owner_source": "source/build/src/kplib.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -7468,6 +8476,13 @@
           128
         ]
       }
+    },
+    {
+      "name": "trnsrgb",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_80529304149dbd0297a543f4",
+      "owner_source": "source/build/src/kplib.cpp",
+      "original_type": "int"
     }
   ],
   "unreferenced_type_wrapper_blockers": [],
@@ -8739,6 +9754,1569 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "2ea2358057ebb7449788ea37efc46cf8f2648f15bbcc9bdb23685cd31e0df2d2"
+    },
+    {
+      "module": "source/build/src/_source_legacy_kplib_cpp_ddd373db1caf.mjs",
+      "sha256": "ddd373db1caf80458d6bb60423efae58ad8cd8c9b15f341227663e35c250966a",
+      "original_source": "source/build/src/kplib.cpp",
+      "exports": [
+        "kpngrend",
+        "kprender",
+        "min__cxx_d283c7086cbc",
+        "putbuf",
+        "rgbhlineasm",
+        "trnsrgb"
+      ],
+      "reexports": [
+        "kpngrend",
+        "kprender",
+        "min__cxx_d283c7086cbc",
+        "putbuf",
+        "rgbhlineasm",
+        "trnsrgb",
+        "__cxx_private_cell_80529304149dbd0297a543f4"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "abstab10",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_733ac70fd95c3367b90983c8",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[1024]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              1024
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "bakb",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d65fc33cba52df605eefdcf9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "bakcol",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_42b0e83725da16d589c74876",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "bakg",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_912432260f9f60491d6aaf54",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "bakr",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a03aea8a2e93335a33286665",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "bitdepth",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_dc0c53b0b0987a1252c52e39",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "bitpos",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b26e6394b97f66d1fd62bd8c",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "cbmul",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bcff3e961faff31cb085446b",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4096]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4096
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "ccind",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_258736156e619bfc312178fd",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[19]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              19
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "cclen",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_73f971a45117b405bae691bf",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[19]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              19
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "clen",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_439d0ebacabacbc4bb46f782",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[320]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              320
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "clipxdim",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a3dc6c1c21374777b45fcc5c",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "clipydim",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1c04f082b2329ae41fa28dbe",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "colclip",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_01337dfaea8095be9fc9e8c0",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[1024]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              1024
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "colclipup16",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_15f8ff9c4d3432a740dcfe9f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[1024]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              1024
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "colclipup8",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_18b9cb201742c8b2f5dc9da4",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[1024]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              1024
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "cosqr16",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6b0a1eea6980b95702f7d476",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "crmul",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_38ea85f8209c940eddcd58e9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4096]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4096
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "dcflagor",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d4df59d379ae9d06bd106fea",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "dct",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_19534326900cefdba550d3f3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[12][64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              12,
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "fakebuf",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0bf579ec89757a16ed9f5aa",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "filbuffer",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8f56da9eaab99d5c387644a3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[768]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              768
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "filptr",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3dab0cd39cd715da7cf79ad8",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "const uint8_t *",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "filt",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c335b0edd5f95393c742a026",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "filter1st",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_716f7d463636ea4ee81dc233",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "filterest",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1d51987224f96ddbd0fc7996",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "filtype",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7335388bc40819ffb70d8c50",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "fread",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "gcomphsamp",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7227327f0b56c1a24fecf82d",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "gcomphsampshift",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_55c218e97391e5caa76bc580",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "gcompid",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_62a354041c44e3a59a5bb6e5",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "gcompquantab",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f4d3a84eedaad36cd50bed43",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "gcompvsamp",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_10384be384c9cf5d1b6af2a7",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "gcompvsampshift",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f9127a62ff28682f4f5b37e6",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "gnumcomponents",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_75d78c8649b786e365f68c19",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "unsigned char",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hufcnt",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b7850715537bab8893907581",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hufmaxatbit",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_41fcb4f438c2044fc294cd5b",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8][20]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8,
+              20
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hufnumatbit",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_eeab23a119c748c6fbd652ad",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[8][20]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8,
+              20
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hufquickbits",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_15dfae2b1bea130c98975532",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8][1024]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8,
+              1024
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hufquickcnt",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e2fc648bd897c4cce13f2aec",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hufquickval",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e879e947574e9c7c3989ff42",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8][1024]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8,
+              1024
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "huftable",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_63dad10dda3f828a9fea2b00",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[8][256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8,
+              256
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hufvalatbit",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0420b5466f11b0b9a0aa7df8",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[8][20]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8,
+              20
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "hxbit",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_44e9d131024042d9f1569617",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[59][2]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              59,
+              2
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "ibuf0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5156c579fa7a8389c264632c",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[288]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              288
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "ibuf1",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3927a84e1afc8dfb325bad43",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "intlac",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7935786d12910cda8910768f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ixoff",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64b6397cf8750fb99cc9a086",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ixsiz",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3ebbc8ed534bff5f19d52bab",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ixstp",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8f65c64e61176127370a62c6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "iyoff",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1241fd28b9c332f87290381c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "iystp",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f3c1ad3fdef391eb83499b8c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "kcoltype",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8eb99a37935b399f54f5ade9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "signed char",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kp_bytesperline",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2cc7af37d8316f277973d69d",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kp_frameplace",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_aa9058e19fbcb0f313bf966e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "long",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kp_xres",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4a3aa4f1e59b84a6f47a8d3f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kp_yres",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9beff426ee0521384f277d04",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kpeginited",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7d868b482eb5810f00372b0d",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "kplib_yrbrend_func",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8b7adf41b928f7d45bbdef6d",
+          "abi": "source-global-cell/2",
+          "original_type": "void (*)(int32_t, int32_t, int32_t *)"
+        },
+        {
+          "name": "kzfs",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 4,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1ea578158f8",
+                "fields": [
+                  {
+                    "id": "0x1374f23f6e0",
+                    "name": "comptell"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1ea578158f8",
+                "fields": [
+                  {
+                    "id": "0x1374f23f540",
+                    "name": "fil"
+                  }
+                ],
+                "result_type": "FILE *"
+              },
+              {
+                "clang_reference_id": "0x1ea578158f8",
+                "fields": [
+                  {
+                    "id": "0x1374f23f6e0",
+                    "name": "comptell"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1ea578158f8",
+                "fields": [
+                  {
+                    "id": "0x1374f23f678",
+                    "name": "compleng"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "lastdc",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f42989924089f2a657d36855",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcompac",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0c0dbb7b0f5c15485797c65b",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcompdc",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8f32512841b5e7b1c7b7ee09",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcomphsamp",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_ad70b0bbb072d1abc9cc220e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcomphsampshift0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f6191a42e236b7d145b8bb7c",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcomphvsamp0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5b41e208efb540392a35c934",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcompid",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_780a71cbdc8f628e0d94911e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcompquantab",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c83421310512dbb3c439a08e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcompvsamp",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a93825664212712b246323ca",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "lcompvsampshift0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_07fbbf67d5756cc331ba3662",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lnumcomponents",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3509fb0eb490ee128ca9f127",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "nbitpos",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f5e103d64e5ebff54019b0d0",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "nbpl",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d5e30f187c99e9da61258a1a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "nbuf0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2a654032177c315b4aec897b",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "nbuf1",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_00edfc6e9ac95cacc45ca40e",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "nfilptr",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c0d33cac26996e1d4a46f3d9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "const uint8_t *",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "nfplace",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0eb7df977bc7da9c1e4ac613",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "long",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "numhufblocks",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0680712895ed2a96bfc9eea6",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "olinbuf",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_cb0af6faa2121464215cdde3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[131072]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              131072
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "opixbuf0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_30c3020854ebf0677052a095",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[4]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "opixbuf1",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c0d14c7a36260d8c9e084978",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[4]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "palcol",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_abb9d4c9f889cbe37f43f79a",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[256]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "paleng",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7474954c0b4cbc7822f97ecb",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "pnginited",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_515ab30648dd91d600d1cf94",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "unsigned char",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "pow2long",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_89ede466f067784cc19f00d2",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "const const int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "pow2mask",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_db77747fd97e714584d2217b",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "const const int32_t[32]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              32
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "prefix",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9160c75e0ea21ef79a69d2b9",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4100]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4100
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "qhufbit0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_efafaac33827fb77a02fa134",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[512]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              512
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "qhufbit1",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f4b438f749a364d46c61198d",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "qhufval0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_23f9e1083f5f338d4e2b34d7",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[512]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              512
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "qhufval1",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a53b89e0c4766998f8de8a84",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "quantab",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d1c37acef3cf6af279ae655a",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4][64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4,
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "slidebuf",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_fd8146c0023b762cfb4928be",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[32768]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              32768
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "suffix",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5bb6bf4bbc8a6745b513c303",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[4100]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              4100
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "tempstack",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7b9818068a7d8c5283404107",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "uint8_t[4096]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              4096
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "unzig",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_80f29d816baa224f8a52651f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xm",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_a4a36844d745091ca3c2714a",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xmn",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bbb012d26ca6a35449bd8f01",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[4]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              4
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xplc",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_58655bc654cd90bf184d8756",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xr0",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_eb788de64cb93c7f56597b86",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xr1",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_46cb85d5a04766d0635ecfc3",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xsiz",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_cd33825ec36b5b3a2a2a3517",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "xsizbpl",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a229cb194672fefc7d370552",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "yplc",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_acafa6719cf860e283a235ed",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "ysiz",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_4fa7bed9e2d7aaef3d1713c1",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "zigit",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9e8d54a8d1a2d78d10e25b18",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "zipfilmode",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_84b58697e1377ebb6589640f",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        },
+        {
+          "name": "zlibcompflags",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b06566e62c00f716167daaea",
+          "owner_source": "source/build/src/kplib.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/kplib.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "9ccfca61fe65eaded740b8712b4628b05c634046643c9d19346dd25d7092ab00"
     }
   ]
 }

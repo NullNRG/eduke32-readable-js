@@ -1,0 +1,179 @@
+Compile original source/build/src/engine.cpp [Blrintf__header_0b8e7f162fef,classicDrawBunches,falpha_to_blend,fgrouscan,grouscan,renderDrawRoomsQ16]
+{
+  "format": "verified-original-source-fragment-integration/1",
+  "source": "source/build/src/engine.cpp",
+  "fragment": "factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\_source_legacy_engine_cpp_edc8d0b413d0.mjs",
+  "fragment_sha256": "edc8d0b413d0638312e056db89b6b05454f78a782db7dce873a125fd68d12ef6",
+  "exports": [
+    "Blrintf__header_0b8e7f162fef",
+    "classicDrawBunches",
+    "falpha_to_blend",
+    "fgrouscan",
+    "grouscan",
+    "renderDrawRoomsQ16"
+  ],
+  "duplicated_source_globals": false,
+  "storage_imports_verified": true,
+  "gameplay_verified": false,
+  "replaced_fragment_sha256": "7fec96e0b65ed730e1c52e010a580a849c0337c2401849dfc8893ffd729e7b33",
+  "owner_before_sha256": "839eb93b3c36b16297cbcbb364f23bb053a231de62d4f2303694e3dec044e743",
+  "owner_after_sha256": "94fcb09c3dbe5c44c95dd13bd0b0a448c1ba3b47ac2576a67162c4c9e7feeaea",
+  "original_owner_only_reexport_changed": true
+}
+Installed source exports: ['Blrintf__header_0b8e7f162fef', 'classicDrawBunches', 'falpha_to_blend', 'fgrouscan', 'grouscan', 'renderDrawRoomsQ16']
+{
+  "source": "source/build/src/engine.cpp",
+  "requested": [
+    "Blrintf__header_0b8e7f162fef",
+    "classicDrawBunches",
+    "falpha_to_blend",
+    "fgrouscan",
+    "grouscan",
+    "renderDrawRoomsQ16"
+  ],
+  "requested_resolved": {
+    "Blrintf__header_0b8e7f162fef": true,
+    "classicDrawBunches": true,
+    "falpha_to_blend": true,
+    "fgrouscan": true,
+    "grouscan": true,
+    "renderDrawRoomsQ16": true
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_engine.cpp\\cd941f82840d\\source\\build\\src\\engine.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "yax_drawrooms",
+      "reason": "unlinked identifiers: renderDrawMasks",
+      "dependencies": [
+        "renderDrawMasks"
+      ]
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "classicDrawVoxel",
+      "reason": "unlinked identifiers: divideu32_noinline",
+      "dependencies": [
+        "divideu32_noinline"
+      ]
+    },
+    {
+      "name": "classicDrawSprite",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "renderDrawSprite",
+      "reason": "unlinked identifiers: classicDrawSprite",
+      "dependencies": [
+        "classicDrawSprite"
+      ]
+    },
+    {
+      "name": "dorotatesprite",
+      "reason": "global aggregate array requires verified storage shape: struct sm",
+      "dependencies": []
+    },
+    {
+      "name": "renderDrawMasks",
+      "reason": "record copy/move requires Clang-proven trivial semantics: (lambda at source/build/src/engine.cpp:10291:35)",
+      "dependencies": []
+    },
+    {
+      "name": "engineLoadBoardV5V6",
+      "reason": "scalar byte alias across goto requires proven storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "saveboard",
+      "reason": "uninitialized scalar byte alias requires tracked object initialization",
+      "dependencies": []
+    },
+    {
+      "name": "videoNextPage",
+      "reason": "unlinked identifiers: dorotatesprite, videoCaptureScreen",
+      "dependencies": [
+        "dorotatesprite",
+        "videoCaptureScreen"
+      ]
+    },
+    {
+      "name": "getq16angledelta",
+      "reason": "unlinked identifiers: fix16_sub",
+      "dependencies": [
+        "fix16_sub"
+      ]
+    },
+    {
+      "name": "cansee_19950829",
+      "reason": "unlinked identifiers: clipsectorlist",
+      "dependencies": [
+        "clipsectorlist"
+      ]
+    },
+    {
+      "name": "cansee",
+      "reason": "unlinked identifiers: cansee_19950829, clipsectorlist",
+      "dependencies": [
+        "cansee_19950829",
+        "clipsectorlist"
+      ]
+    },
+    {
+      "name": "neartag",
+      "reason": "unlinked identifiers: clipsectorlist, try_facespr_intersect",
+      "dependencies": [
+        "clipsectorlist",
+        "try_facespr_intersect"
+      ]
+    },
+    {
+      "name": "mouseGetValues",
+      "reason": "unlinked identifiers: mouseReadButtons, mouseReadPos",
+      "dependencies": [
+        "mouseReadButtons",
+        "mouseReadPos"
+      ]
+    },
+    {
+      "name": "rotatesprite_",
+      "reason": "unlinked identifiers: dorotatesprite",
+      "dependencies": [
+        "dorotatesprite"
+      ]
+    },
+    {
+      "name": "renderCompleteMirror",
+      "reason": "unlinked identifiers: copybufreverse",
+      "dependencies": [
+        "copybufreverse"
+      ]
+    },
+    {
+      "name": "yax_getzsofslope",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    }
+  ],
+  "original_gameplay_verified": false
+}
+{
+  "source_units_with_partial_modules": 48,
+  "entry_exports": {
+    "enginePreInit": true,
+    "engineInit": true,
+    "app_main": false
+  },
+  "execution_evidence_matches_modules": false,
+  "original_engine_startup_verified": false,
+  "gameplay_verified": false
+}

@@ -1070,3 +1070,12 @@ export { engineLoadBoard } from "./_source_legacy_engine_cpp_97e60b5ff8a7.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { engineUnInit } from "./_source_legacy_engine_cpp_be9a97ad2eaf.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { fix16_half } from "./_source_legacy_engine_cpp_188401a550aa.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { ceilscan, findwallbetweensectors, florscan, maskwallscan, parascan, qloadkvx, renderDrawMapView, renderDrawMaskedWall, sectorsareconnected, setsprite, setspritez, setup_globals_cf1, setup_globals_wall1, tileLoadHigh, tileLoadScaled, transmaskwallscan, updatesectorneighborz, updatesectorz, wallscan } from "./_source_legacy_engine_cpp_af0ec10e2fe7.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Blrintf__header_0b8e7f162fef, classicDrawBunches, falpha_to_blend, fgrouscan, grouscan, renderDrawRoomsQ16 } from "./_source_legacy_engine_cpp_edc8d0b413d0.mjs";

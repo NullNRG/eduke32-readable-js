@@ -19,6 +19,26 @@
       "width": 640,
       "height": 480
     },
+    "original_maps_loaded": [
+      {
+        "name": "E1L1.MAP",
+        "counts": {
+          "sectors": 325,
+          "walls": 1975,
+          "sprites": 644
+        },
+        "start": {
+          "position": [
+            -31243,
+            7160,
+            -181472
+          ],
+          "angle": 422,
+          "sector": 306
+        },
+        "geometry_bytes_verified": 83928
+      }
+    ],
     "original_artLoadFiles_executed": true,
     "original_cache_initBuffer_executed": true,
     "original_art_archive_files_verified": 20,
@@ -27,34 +47,33 @@
     "original_cache_initial_blocks": 1,
     "original_cache_bytes": 16777216,
     "art_oracle": "original GRP ART headers and original cacheindex_t LP64 layout; no manually populated tile/cache state",
-    "original_tileLoad_executed": true,
-    "original_tile_pixels_verified": {
-      "tiles": 56,
-      "bytes": 349953,
-      "files": [
-        "TILES000.ART",
-        "TILES001.ART",
-        "TILES002.ART",
-        "TILES003.ART",
-        "TILES004.ART",
-        "TILES005.ART",
-        "TILES006.ART",
-        "TILES007.ART",
-        "TILES008.ART",
-        "TILES009.ART",
-        "TILES010.ART",
-        "TILES011.ART",
-        "TILES012.ART",
-        "TILES013.ART",
-        "TILES014.ART",
-        "TILES015.ART",
-        "TILES016.ART",
-        "TILES017.ART",
-        "TILES018.ART",
-        "TILES019.ART"
-      ]
+    "original_map_geometry_bytes_verified": 83928,
+    "original_E1L1_map_loaded": true,
+    "original_map_counts": {
+      "sectors": 325,
+      "walls": 1975,
+      "sprites": 644
     },
-    "original_cache_blocks_after_pixels": 57
+    "original_map_start": {
+      "position": [
+        -31243,
+        7160,
+        -181472
+      ],
+      "angle": 422,
+      "sector": 306
+    },
+    "original_geometry_start_inside": true,
+    "map_oracle": "supplied original version-7 MAP header, full sector/wall bytes, every sprite coordinate, extents and counts; no manual world-state initialization",
+    "original_game_sky_initialization_executed": true,
+    "original_rooms_frame_rendered": true,
+    "original_rooms_frame": {
+      "result": 0,
+      "width": 640,
+      "height": 480,
+      "colors": 97,
+      "visible_pixels": 209720
+    }
   },
   "trace": [
     {
@@ -175,508 +194,67 @@
       "value": "object"
     },
     {
-      "name": "original tileLoad 0",
+      "name": "engineLoadBoard E1L1.MAP",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 0",
+      "name": "engineLoadBoard E1L1.MAP",
       "transition": "return",
-      "value": true
+      "value": 0
     },
     {
-      "name": "original tileLoad 138",
+      "name": "inside original map start",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 138",
+      "name": "inside original map start",
       "transition": "return",
-      "value": true
+      "value": 1
     },
     {
-      "name": "original tileLoad 255",
+      "name": "original G_InitMultiPsky with original tile globals",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 255",
+      "name": "original G_InitMultiPsky with original tile globals",
       "transition": "return",
-      "value": true
+      "value": null
     },
     {
-      "name": "original tileLoad 256",
+      "name": "original videoSetPalette",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 256",
+      "name": "original videoSetPalette",
       "transition": "return",
-      "value": true
+      "value": null
     },
     {
-      "name": "original tileLoad 385",
+      "name": "original videoSetViewableArea",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 385",
+      "name": "original videoSetViewableArea",
       "transition": "return",
-      "value": true
+      "value": null
     },
     {
-      "name": "original tileLoad 511",
+      "name": "original renderDrawRoomsQ16 E1L1 map start",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 511",
+      "name": "original renderDrawRoomsQ16 E1L1 map start",
       "transition": "return",
-      "value": true
+      "value": 0
     },
     {
-      "name": "original tileLoad 513",
+      "name": "original videoShowFrame rooms",
       "transition": "enter"
     },
     {
-      "name": "original tileLoad 513",
+      "name": "original videoShowFrame rooms",
       "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 640",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 640",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 767",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 767",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 768",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 768",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 895",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 895",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1023",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1023",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1024",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1024",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1152",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1152",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1279",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1279",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1280",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1280",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1388",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1388",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1535",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1535",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1536",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1536",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1671",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1671",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1791",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1791",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1792",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1792",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 1926",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 1926",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2047",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2047",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2048",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2048",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2203",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2203",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2303",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2303",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2304",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2304",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2423",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2423",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2559",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2559",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2560",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2560",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2714",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2714",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2815",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2815",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2816",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2816",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 2915",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 2915",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3026",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3026",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3072",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3072",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3132",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3132",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3293",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3293",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3330",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3330",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3399",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3399",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3455",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3455",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3584",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3584",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 3840",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 3840",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4096",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4096",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4219",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4219",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4351",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4351",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4352",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4352",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4479",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4479",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4607",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4607",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4610",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4610",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4696",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4696",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4804",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4804",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4864",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4864",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 4940",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 4940",
-      "transition": "return",
-      "value": true
-    },
-    {
-      "name": "original tileLoad 5119",
-      "transition": "enter"
-    },
-    {
-      "name": "original tileLoad 5119",
-      "transition": "return",
-      "value": true
+      "value": null
     },
     {
       "name": "import original division initializer",
@@ -832,451 +410,59 @@
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 0\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"engineLoadBoard E1L1.MAP\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 0\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"engineLoadBoard E1L1.MAP\",\"transition\":\"return\",\"value\":0}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 138\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"inside original map start\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 138\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"inside original map start\",\"transition\":\"return\",\"value\":1}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 255\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"original G_InitMultiPsky with original tile globals\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 255\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"original G_InitMultiPsky with original tile globals\",\"transition\":\"return\",\"value\":null}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 256\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"original videoSetPalette\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 256\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"original videoSetPalette\",\"transition\":\"return\",\"value\":null}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 385\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"original videoSetViewableArea\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 385\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"original videoSetViewableArea\",\"transition\":\"return\",\"value\":null}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 511\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"original renderDrawRoomsQ16 E1L1 map start\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 511\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"original renderDrawRoomsQ16 E1L1 map start\",\"transition\":\"return\",\"value\":0}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 513\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame rooms\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 513\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 640\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 640\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 767\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 767\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 768\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 768\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 895\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 895\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1023\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1023\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1024\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1024\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1152\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1152\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1279\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1279\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1280\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1280\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1388\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1388\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1535\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1535\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1536\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1536\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1671\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1671\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1791\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1791\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1792\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1792\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1926\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 1926\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2047\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2047\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2048\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2048\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2203\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2203\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2303\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2303\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2304\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2304\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2423\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2423\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2559\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2559\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2560\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2560\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2714\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2714\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2815\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2815\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2816\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2816\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2915\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 2915\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3026\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3026\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3072\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3072\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3132\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3132\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3293\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3293\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3330\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3330\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3399\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3399\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3455\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3455\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3584\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3584\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3840\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 3840\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4096\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4096\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4219\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4219\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4351\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4351\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4352\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4352\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4479\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4479\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4607\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4607\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4610\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4610\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4696\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4696\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4804\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4804\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4864\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4864\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4940\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 4940\",\"transition\":\"return\",\"value\":true}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 5119\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original tileLoad 5119\",\"transition\":\"return\",\"value\":true}"
+      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame rooms\",\"transition\":\"return\",\"value\":null}"
     },
     {
       "type": "info",
@@ -1315,7 +501,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/mact/src/_source_legacy_keyboard_cpp_886bd8c079b5.mjs": "886bd8c079b52ea6f44bf36d45bf7a9b82312dd78b5afb42a1e88dea263f525b",
     "factory-output/source-first/browser-classic/browser-modules/source/mact/src/_source_legacy_scriplib_cpp_4133b6dd49e3.mjs": "4133b6dd49e3c77d7bb40feea70a016261ede00e05aee0f5cecc49f523ca7c07",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/anim.cpp.mjs": "d8b7649e4eb13c202122175e8f4b7b2692b006e3c94833101a7839a366a81cbc",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.mjs": "86a3314d440aeecb4e029bc74b8e707ab2633421185f1ae8160a36766fe0b845",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.mjs": "3824744f26f311838302d9eb0fcfe99ce1d58c2e739d23125683777d4d54591c",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/config.cpp.mjs": "9b3efb080ab94f9c71c385413c04d0de64794ef2e926ed664686fe70fbe51663",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/dnames.cpp.mjs": "59eff4f8bae76638c09bd196738355f06837d45ca2a131796fe16ab70634e9b2",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.mjs": "f9dcca9ab2747e1a639b70b51e7be4a04d46b5908082bbcdd1f203baccb568d5",
@@ -1330,6 +516,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_93dfc3bd1e57.mjs": "93dfc3bd1e57bedb5713e92cd3278cc0edb0d4b22d929b6492ec8a744f7c13fe",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_a22fb088ffaf.mjs": "a22fb088ffaf97dd60f66730ec58f3a5247f68a43573eb96cf6aa6046afde160",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_c90e38763790.mjs": "c90e38763790e2a0958174b53fb2095c0e990bbf97d7778465e5d1ea0646e98d",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_e3d05fc5d4c9.mjs": "e3d05fc5d4c9326c2f28735cc552e7ccd8ed34b0b849783cb0e0e54a54140770",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_2d871da0029f.mjs": "2d871da0029ff2965a46891a0791ee3f126d84491d8f1af911cf6363cb1ba371",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_434fec6dc2f2.mjs": "434fec6dc2f2077dafff968e583c5e650cbe7bf07994d4c8f59d55e40436ecef",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_d176a5bf9eee.mjs": "d176a5bf9eee941323750779c21d36c815631a92eeee755ef1650ea6d6d38bf9",
@@ -1358,10 +545,10 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.mjs": "7a1a3bf02c1329646eb2fec2dfea92cba4669180e9501886b81bc33d8add98b9",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "a03da66aafd9bb61e91a102d717421a67cbdac9793fd05ebc841d90fd969c45e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.mjs": "4824ffa65fe53a44640f921c3affd3c30106aaa9f9fd31c924352f929398e858",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "c25fc05d65b72c6d10bb7fb965bfd64baad341c7c7b78619c3da4c5f6aff4530",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "94fcb09c3dbe5c44c95dd13bd0b0a448c1ba3b47ac2576a67162c4c9e7feeaea",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.mjs": "b3e29426d81723d498d9291eedf9696774a7005091dbb0f5f37122ee54f1f4b6",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/hightile.cpp.mjs": "d3b9ef39d2ce9a17bc8908ac6072ad613f12c3a8f0d19a6b3c3195a47cbe1e3c",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/kplib.cpp.mjs": "1db7a6efadccaa41053bdb4c11cd0fabfcbcb1316e3bf65805a759eb5d807b29",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/hightile.cpp.mjs": "60ea1a1d940dd1d08cbeb9f5c17e766767ddfb2a0cc65948839cbeacb5d436cd",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/kplib.cpp.mjs": "691fa70f50648ee32f2b164f39d3a3b8da65795a37209967b7c0f56ef024a1e9",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/loguru.cpp.mjs": "8a5799e556da00fceae71e77fe97c51596394cf2186beab96914ec931c24d8d6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/lz4.c.mjs": "b6924dda4a532e1bc42149b837e2b8b35b5d7dee18319f1ade5652598887089e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/md4.cpp.mjs": "e7aa1da5cfecc838fd12af22b438def9f12a174e93387b8c29875bc87e0ee53b",
@@ -1408,12 +595,14 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a4d1d4a355bb.mjs": "a4d1d4a355bb61a403de7ec85c8fcd12ca5f7686f4723d6d27128d2e2d34429e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a7a030d3c6b8.mjs": "a7a030d3c6b8d742580152bdc3bfe852090c465d27569e80a5ec113743f7e899",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_crc32_cpp_ed944f00483a.mjs": "ed944f00483a06f076dd76c2430f9134a9ac0abb460a6157dd387c2e8b7693c3",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_188401a550aa.mjs": "188401a550aa741f87f749637420a31b7830d0babba6a9dc6450f7217bf1b2ad",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_1a801ee25ce2.mjs": "1a801ee25ce24b227c8a3194d700acc647adbd7e4eb9f1c48c990300f7c84545",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_1d09f9e916b9.mjs": "1d09f9e916b94519273e68c6037aea9fac811369401a53c7d41838ae67b76a61",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_413986d623dd.mjs": "413986d623dd153c4ef2b4cac85f8b757edeeb0fe9e99d684b60f4d468d697de",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_452bc810b4b3.mjs": "452bc810b4b34fd5920b48a10d3f919fc7b03ebd9e0a874d8d939e44e9d3aa1e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_53b6aef9c124.mjs": "53b6aef9c124c6bf747408eef1c3249391218dccd7c9896a044acc0cc2b26727",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_7317576b8d08.mjs": "7317576b8d08f6d282faad89bd7a7f399096eac25233a7883dcb4d9490dcd8c7",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_7fec96e0b65e.mjs": "7fec96e0b65ed730e1c52e010a580a849c0337c2401849dfc8893ffd729e7b33",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_85380f0701c0.mjs": "85380f0701c0930331950c694536c68b55d06378db9b6088407debc94414dfe1",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_86be2c79c4c0.mjs": "86be2c79c4c011a8fe51353abf44574930ad7cbdaf58416daea0f1e429389dad",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_871b318f6522.mjs": "871b318f6522cfe8dc61cdd56d806c9829fd38317d483870f857beb9d5cf767b",
@@ -1425,19 +614,23 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_a7183815435c.mjs": "a7183815435c22885c94af901c6d5c06201e142768755445c59280a53feba7b5",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_a749fb7183ea.mjs": "a749fb7183ea1c72b74c50f566c0ead2460d927c9f9e988d267bff32d52d0b47",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_ab395e6bd4e1.mjs": "ab395e6bd4e16efec2614ce7722d205c22e883fdbc86adb699102ad9156693e6",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_af0ec10e2fe7.mjs": "af0ec10e2fe7b9233ebfdc9d85016549db9c916758d90df9bceb6e090fdfc1a3",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_b109dbbe1c92.mjs": "b109dbbe1c929ae64f9c876b68a78d3aca562b835f672388d7658c3053724fa9",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_bb4ab6fdc107.mjs": "bb4ab6fdc1075f3760a09c89e60ab4d4623b73533166c84e8a40f14eaa75c74d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_be9a97ad2eaf.mjs": "be9a97ad2eafda63ae1e5ad0291bfcebd98c415a426a17845c6b95944d7b3b5a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_c106aed1475b.mjs": "c106aed1475b13e2b8c3f6b6895a5a5d51687633c541be147c839a04a39442ac",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_dc856c60c172.mjs": "dc856c60c172cfbe01a0e55817352252af8e2b971a409eed8c7a69958c3e6250",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_edc8d0b413d0.mjs": "edc8d0b413d0638312e056db89b6b05454f78a782db7dce873a125fd68d12ef6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_f313c6453b01.mjs": "f313c6453b011d95bda3ee4a109de11fcd591654db42ee8e995a8193038cf7b2",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fac278f79cb6.mjs": "fac278f79cb6437a16bacaa592de786c9e4129b3eb3dfc8f896502be25647983",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fc91a4910d27.mjs": "fc91a4910d2747762ec8711d7b6bfa26533716adcd0a659067ac375c5ad2c170",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_0d878a6edc39.mjs": "0d878a6edc3948043ae34dd4c8644d1eeee735536f3145aa0a2e62d676ef336d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_34d42385f3c2.mjs": "34d42385f3c28624defcc5f77bdfc40559f4ff292b8130bf674d9c1fdcc6a585",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hash_cpp_c37bf9ec397e.mjs": "c37bf9ec397ea590fe55ab33558f9a5a40fd3ee14a7eeb4eccec77f3239d84ab",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_hightile_cpp_fe224354b065.mjs": "fe224354b065ae6e9a15fa43fe830fc72337465c26b4af71cb960005e0627a6e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_kplib_cpp_5dff1d8fa3d3.mjs": "5dff1d8fa3d39ce46a7408a310f2d610dc5eb5ff3162df253be4fdb98c3310cb",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_kplib_cpp_d256ef8f507e.mjs": "d256ef8f507e059a00788d1c0a40a175517ea658813b353726083e7a0832d036",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_kplib_cpp_ddd373db1caf.mjs": "ddd373db1caf80458d6bb60423efae58ad8cd8c9b15f341227663e35c250966a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_kplib_cpp_f613bc7f3a84.mjs": "f613bc7f3a844a8c081475773af3edc89143b7a906521afb95e398884bce3458",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_lz4_c_157463798eb9.mjs": "157463798eb9646bffb2ad78e1aadf6f089ee5dab9da2ba66babb472940174ae",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_lz4_c_c17e8239dd68.mjs": "c17e8239dd68bb6e5440ae469b70120a3e469f6e802acc1fb9ab35a3913e6237",
@@ -1565,6 +758,25 @@
     "sha256": "7646c18a4d2f70f6701e9339da33fbcae23b9902ff7cdaa158f4f40b08670121",
     "manual_game_state_initialized": false,
     "original_app_main_executed": false,
+    "gameplay_verified": false
+  },
+  "map_component_scope": {
+    "script": "work/verify_original_map_load.py",
+    "selected_all_grp_campaign_maps": false,
+    "original_app_main_executed": false,
+    "original_CON_executed": false,
+    "world_rendering_verified": false,
+    "gameplay_verified": false
+  },
+  "original_rooms_capture": {
+    "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\evidence\\nov12-original-js-rooms-only.png",
+    "sha256": "2d6e3b544cd1a4c8383b5e81fd7c835bd7a53dbab6d19d44d64df9dc3b619a7c",
+    "caption": "Original JavaScript Build room renderer at original MAP start; no masked sprites, app_main, CON or gameplay verification"
+  },
+  "rooms_component_scope": {
+    "original_app_main_executed": false,
+    "original_CON_executed": false,
+    "masked_walls_and_sprites_verified": false,
     "gameplay_verified": false
   }
 }

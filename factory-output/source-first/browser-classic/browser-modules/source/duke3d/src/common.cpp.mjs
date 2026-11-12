@@ -11,3 +11,6 @@ export { G_AddConModule, g_scriptModules, __cxx_global_cell_3f5b78293fdf342ff96c
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { G_AddSearchPaths, G_DoAutoload, G_LoadGroupsInDir, G_ScanGroups } from "./_source_legacy_common_cpp_570cd68e40bb.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { G_InitMultiPsky } from "./_source_legacy_common_cpp_e3d05fc5d4c9.mjs";

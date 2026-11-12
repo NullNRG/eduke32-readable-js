@@ -17,6 +17,13 @@ assert len(art_blocks)==len(maps)==1
 maps[0].value=art_blocks[0].value+maps[0].value
 maps[0].value+=r'''
       if(typeof engine.renderDrawRoomsQ16!=='function')throw Error('Original room renderer is not linked');
+      const gameCommon=await import(base+'/source/duke3d/src/common.cpp.mjs');
+      const tileNames=await import(base+'/source/duke3d/src/dnames.cpp.mjs');
+      const skyTiles=['CLOUDYOCEAN','MOONSKY1','BIGORBIT1','LA'].map(name=>tileNames[name]);
+      if(skyTiles.some(value=>!Number.isInteger(value)||value<=0))throw Error('Original sky tile globals are not initialized');
+      await enter('original G_InitMultiPsky with original tile globals',()=>gameCommon.G_InitMultiPsky(...skyTiles));
+      if(engine.pskynummultis!==5)throw Error('Original sky descriptors did not initialize');
+      engineInitialization.original_game_sky_initialization_executed=true;
       const paletteRenderer=await import(base+'/source/build/src/palette.cpp.mjs');
       await enter('original videoSetPalette',()=>paletteRenderer.videoSetPalette(0,0,0));
       await enter('original videoSetViewableArea',()=>engine.videoSetViewableArea(0,0,engine.xdim-1,engine.ydim-1));

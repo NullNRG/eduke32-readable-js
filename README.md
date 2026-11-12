@@ -1,13 +1,10 @@
 # EDuke32 readable JavaScript port
 
-Original **engine initialization, palette/video startup and ART/cache loading execute in Chromium**. Work in progress:
-the original game is not yet bootable or playable in JavaScript.
-There is no verified playable `dist/index.html` and no JavaScript gameplay screenshot.
+Original **E1L1 room geometry now renders in Chromium through the original Build engine in readable JavaScript**. The full game is not playable yet. Original app_main, CON/menu startup, masked sprites, controls, combat, audio and saves remain unverified. There is no verified playable dist/index.html.
 
-The original tile loader now matches 349,953 pixel bytes across 56 tiles from all
-20 supplied ART files. The installed portable LZ4 decoder passes 128 native/browser
-cases. Source CI passes 50 Python checks and 22 browser/runtime Node tests. These
-are component checks; original game startup and world rendering remain unfinished.
+![Original JavaScript Build room renderer — component evidence, not gameplay](reports/evidence/nov12-original-js-rooms-only.png)
+
+The frame uses original GRP/ART/MAP loading, original game sky initialization, original palette/video setup and original renderDrawRoomsQ16. [Execution report](reports/nov12-original-rooms-frame.json) binds the capture to exact source modules and runtime bytes. Current local compiler checks pass 54/54; Node runtime checks pass 22/22. These component checks do not establish playable game boot.
 
 The project continues the existing Clang-based C/C++ source compiler, source-owned
 storage, readable ES modules, cross-unit linker and browser platform adapters.

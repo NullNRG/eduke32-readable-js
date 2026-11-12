@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\hightile.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 1,
-  "emitted": 1,
+  "found": 4,
+  "emitted": 4,
   "blocked": 0,
   "definitions": [
     {
@@ -76,6 +76,70 @@
         "binding": "__cxx_global_cell_528ff86eb213577eb56b717e",
         "abi": "source-global-cell/2",
         "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "hicfindsubst",
+      "source_name": "hicfindsubst",
+      "kind": "FunctionDecl",
+      "line": 23,
+      "original_type": "hicreplctyp *(int, int, int)",
+      "linkage": "external",
+      "physical_source": "source/build/src/hightile.cpp",
+      "source_references": [
+        "hicinitcounter",
+        "hicreplc",
+        "tilefilenum"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefilenum"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "hicinitcounter",
+      "source_name": "hicinitcounter",
+      "kind": "VarDecl",
+      "line": 17,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/hightile.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_d15a38cdc2ff2e55bd064950",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "hicreplc",
+      "source_name": "hicreplc",
+      "kind": "VarDecl",
+      "line": 16,
+      "original_type": "hicreplctyp *[30720]",
+      "linkage": "external",
+      "physical_source": "source/build/src/hightile.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "hicreplc",
+        "abi": "source-pointer-array/1",
+        "stride": 8,
+        "extent": 30720,
+        "element_declaration": "hicreplctyp *[]",
+        "original_type": "hicreplctyp *[30720]"
       },
       "external_storage_imports": [],
       "status": "source-first",
@@ -202,7 +266,40 @@
       "binding": "__cxx_global_cell_528ff86eb213577eb56b717e",
       "abi": "source-global-cell/2",
       "original_type": "int"
+    },
+    {
+      "name": "hicinitcounter",
+      "binding": "__cxx_global_cell_d15a38cdc2ff2e55bd064950",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
     }
   ],
-  "private_storage_exports": []
+  "private_storage_exports": [],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_hightile_cpp_fe224354b065.mjs",
+      "sha256": "fe224354b065ae6e9a15fa43fe830fc72337465c26b4af71cb960005e0627a6e",
+      "original_source": "source/build/src/hightile.cpp",
+      "exports": [
+        "hicfindsubst",
+        "hicinitcounter",
+        "hicreplc"
+      ],
+      "reexports": [
+        "hicfindsubst",
+        "hicinitcounter",
+        "hicreplc",
+        "__cxx_global_cell_d15a38cdc2ff2e55bd064950"
+      ],
+      "imports": [
+        {
+          "name": "tilefilenum",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "91f660a92481db2436badfacfbf48151f7cc8de1faf221a8801b071d7cf87d21"
+    }
+  ]
 }

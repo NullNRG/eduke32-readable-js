@@ -1,36 +1,145 @@
 {
   "source": "source/build/src/engine.cpp",
   "requested": [
-    "drawrooms",
-    "drawmasks",
-    "setview",
-    "setaspect"
+    "Blrintf__header_0b8e7f162fef",
+    "classicDrawBunches",
+    "falpha_to_blend",
+    "fgrouscan",
+    "grouscan",
+    "renderDrawRoomsQ16"
   ],
   "requested_resolved": {
-    "drawrooms": false,
-    "drawmasks": false,
-    "setview": false,
-    "setaspect": false
+    "Blrintf__header_0b8e7f162fef": true,
+    "classicDrawBunches": true,
+    "falpha_to_blend": true,
+    "fgrouscan": true,
+    "grouscan": true,
+    "renderDrawRoomsQ16": true
   },
-  "requested_compiled": {
-    "drawrooms": false,
-    "drawmasks": false,
-    "setview": false,
-    "setaspect": false
-  },
-  "requested_still_unlinked": [
-    "drawrooms",
-    "drawmasks",
-    "setview",
-    "setaspect"
+  "requested_still_unlinked": [],
+  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_build_src_engine.cpp\\cd941f82840d\\source\\build\\src\\engine.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "yax_drawrooms",
+      "reason": "unlinked identifiers: renderDrawMasks",
+      "dependencies": [
+        "renderDrawMasks"
+      ]
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "classicDrawVoxel",
+      "reason": "unlinked identifiers: divideu32_noinline",
+      "dependencies": [
+        "divideu32_noinline"
+      ]
+    },
+    {
+      "name": "classicDrawSprite",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "renderDrawSprite",
+      "reason": "unlinked identifiers: classicDrawSprite",
+      "dependencies": [
+        "classicDrawSprite"
+      ]
+    },
+    {
+      "name": "dorotatesprite",
+      "reason": "global aggregate array requires verified storage shape: struct sm",
+      "dependencies": []
+    },
+    {
+      "name": "renderDrawMasks",
+      "reason": "record copy/move requires Clang-proven trivial semantics: (lambda at source/build/src/engine.cpp:10291:35)",
+      "dependencies": []
+    },
+    {
+      "name": "engineLoadBoardV5V6",
+      "reason": "scalar byte alias across goto requires proven storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "saveboard",
+      "reason": "uninitialized scalar byte alias requires tracked object initialization",
+      "dependencies": []
+    },
+    {
+      "name": "videoNextPage",
+      "reason": "unlinked identifiers: dorotatesprite, videoCaptureScreen",
+      "dependencies": [
+        "dorotatesprite",
+        "videoCaptureScreen"
+      ]
+    },
+    {
+      "name": "getq16angledelta",
+      "reason": "unlinked identifiers: fix16_sub",
+      "dependencies": [
+        "fix16_sub"
+      ]
+    },
+    {
+      "name": "cansee_19950829",
+      "reason": "unlinked identifiers: clipsectorlist",
+      "dependencies": [
+        "clipsectorlist"
+      ]
+    },
+    {
+      "name": "cansee",
+      "reason": "unlinked identifiers: cansee_19950829, clipsectorlist",
+      "dependencies": [
+        "cansee_19950829",
+        "clipsectorlist"
+      ]
+    },
+    {
+      "name": "neartag",
+      "reason": "unlinked identifiers: clipsectorlist, try_facespr_intersect",
+      "dependencies": [
+        "clipsectorlist",
+        "try_facespr_intersect"
+      ]
+    },
+    {
+      "name": "mouseGetValues",
+      "reason": "unlinked identifiers: mouseReadButtons, mouseReadPos",
+      "dependencies": [
+        "mouseReadButtons",
+        "mouseReadPos"
+      ]
+    },
+    {
+      "name": "rotatesprite_",
+      "reason": "unlinked identifiers: dorotatesprite",
+      "dependencies": [
+        "dorotatesprite"
+      ]
+    },
+    {
+      "name": "renderCompleteMirror",
+      "reason": "unlinked identifiers: copybufreverse",
+      "dependencies": [
+        "copybufreverse"
+      ]
+    },
+    {
+      "name": "yax_getzsofslope",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    }
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-5c0a46eb9e7cb4d2/source/build/src/engine.cpp.manifest.json",
-  "blocked": [],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "2afda0fcb0a2ddacfc6474ec03e97f8cab97c05607a050443f4cbc0c67d30ab9",
-  "provider_index_sha256": "cf04e6988ccbec8deb91aa3243950481043ab18adbac66907197b644b53b9f76",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "original_gameplay_verified": false
 }

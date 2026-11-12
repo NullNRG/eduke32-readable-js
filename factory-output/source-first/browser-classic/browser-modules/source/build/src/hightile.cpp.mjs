@@ -13,3 +13,6 @@ export function __cxx_global_cell_528ff86eb213577eb56b717e() {
     set value(__cxx_lvalue_0) { usehightile = i32(__cxx_lvalue_0); }
   });
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { hicfindsubst, hicinitcounter, hicreplc, __cxx_global_cell_d15a38cdc2ff2e55bd064950 } from "./_source_legacy_hightile_cpp_fe224354b065.mjs";

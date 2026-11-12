@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\common.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 68,
-  "emitted": 68,
+  "found": 69,
+  "emitted": 69,
   "blocked": 0,
   "definitions": [
     {
@@ -1876,6 +1876,25 @@
         "strcasecmp"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "G_InitMultiPsky",
+      "source_name": "G_InitMultiPsky",
+      "kind": "FunctionDecl",
+      "line": 153,
+      "original_type": "void (int, int, int, int)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/common.cpp",
+      "source_references": [
+        "tileSetupSky"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tileSetupSky"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -3391,6 +3410,26 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "be83897db821efa805c1ec42a7b303c454694ed301430123b933e8bd38946927"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_common_cpp_e3d05fc5d4c9.mjs",
+      "sha256": "e3d05fc5d4c9326c2f28735cc552e7ccd8ed34b0b849783cb0e0e54a54140770",
+      "original_source": "source/duke3d/src/common.cpp",
+      "exports": [
+        "G_InitMultiPsky"
+      ],
+      "reexports": [
+        "G_InitMultiPsky"
+      ],
+      "imports": [
+        {
+          "name": "tileSetupSky",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "e47b552cc33477f9430f86c3d53855ab6a2785d5ba9c63a6a42ba30d4b271e3f"
     }
   ]
 }
