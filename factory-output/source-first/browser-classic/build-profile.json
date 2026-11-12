@@ -2,7 +2,7 @@
   "format": "sourcefactory-browser-build/1",
   "profile": "browser-classic-single-player",
   "command_database": "factory-output/browser-classic/compile_commands.json",
-  "commands_sha256": "fdc87db8679b4bf8f5fd457da1eb5b411ddbb0b92c0b6fc81304cf64c17c8ba0",
+  "commands_sha256": "84218cb4af5ce4db2113ab5e30d6ae214d797a7e7b255acd1d496996b50d0b61",
   "selected_units": 111,
   "source_adaptations": [
     {
@@ -36,6 +36,12 @@
       "reason": "Exclude desktop output-monitor selection from the browser console; retain original video mode and rendering paths"
     },
     {
+      "file": "source/build/src/sdlayer.cpp",
+      "original_sha256": "7a41f424bcf08843bf659189ad4baa4b4a67ff0eef0845986bc608581228d541",
+      "browser_sha256": "b9c871672774f36c7a244cffd61bc5a016af8f18c7927b76abe27c70c1c2bcda",
+      "reason": "Exclude editor ImGui interception/cleanup and native controller haptics from the classic browser platform; preserve original software video, event translation and device input"
+    },
+    {
       "file": "GNUmakefile",
       "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
       "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
@@ -43,7 +49,28 @@
     }
   ],
   "allocator_backend": "original-sm-GenericAllocator",
-  "diagnostic_stop_after": "semantic",
+  "diagnostic_stop_after": "prepare",
+  "execution_policy": {
+    "format": "readable-engine-native-services/1",
+    "engine_language": "readable-javascript",
+    "native_service_backend": "sdl2-wasm32",
+    "native_allowed_roles": [
+      "sdl2",
+      "platform",
+      "timing",
+      "audio-backend"
+    ],
+    "native_allowed_project_sources": [
+      "runtime/native_services/sdl_services.c"
+    ],
+    "original_game_or_build_engine_in_wasm": false,
+    "engine_abi": "source-lp64-addresses/2",
+    "service_pointer_bits": 32,
+    "shared_engine_memory": false,
+    "service_manifest": "factory-output/browser-services/build-manifest.json"
+  },
+  "boot_component_module_root": "factory-output/source-first/browser-classic/browser-modules",
+  "boot_component_manifest": "factory-output/source-first/browser-classic/component-manifest.json",
   "source_root": "factory-output/browser-classic/source-tree/eduke32-master",
   "gameplay_verified": false
 }

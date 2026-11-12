@@ -1,7 +1,13 @@
 from pathlib import Path
 from datetime import datetime, timezone
 import json
+import hashlib
+import sys
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'tools'))
+from source_ast_to_js import compiler_runtime_revision
+ci=json.loads((ROOT/'reports/nov11-ci-reproduction-regression.json').read_text())
+assert ci['complete'] and ci['all_passed'] and ci['counts']['passed']==50
 status='''# EDuke32 readable JavaScript checkpoint — November 12, 2026
 
 **The original game is not playable yet.** Original app_main, CON/game startup, menus, world rendering, input-driven gameplay and a playable standalone dist/index.html remain unverified. No gameplay screenshot is available.
@@ -20,6 +26,9 @@ Next: recover and execute original renderDrawRoomsQ16/renderDrawMasks/videoSetVi
 
 GitHub checkpoints preserve compiler/runtime/tests, active readable modules and factual evidence. GRPs, private asset bytes, toolchains, SQLite/AST databases and asset-bearing generated pages stay out of Git. npm run compile:game is still not a verified playable-release pipeline. Full selected-unit emission under this revision, whole-game linking, 90% stable-identity recovery measurement, audio, saves, offline operation and 60-second gameplay acceptance remain incomplete.
 '''
+status=status.replace('Canonical decoder execution is being rechecked separately.', 'The installed canonical decoder also passes all 128 native/Chromium cases (reports/nov12-canonical-lz4-native-parity.json).')
+status=status.replace('Focused pointer regression is 5/5; broader current-revision CI is pending.', 'Focused pointer regression is 5/5; current local CI reproduction passes 50/50 with unchanged compiler/runtime/test inputs.')
+status=status.replace('The last GitHub source CI success was ff0f700; its 46 Python checks and 22 Node tests do not certify the present changes. The current workflow adds four checks and will be run again.', 'GitHub source CI passes checkpoint 184121f (https://github.com/NullNRG/eduke32-readable-js/actions/runs/43245627813). Current local CI reproduction is 50/50 and browser/runtime Node tests are 22/22. These checks cover the present source changes, not original gameplay.')
 for name in ['CURRENT_PORT_STATUS.md','ENGINEERING_CHECKPOINT.md']:
  (ROOT/name).write_text(status,encoding='utf-8')
 resume='''# Continue the canonical EDuke32 project
@@ -48,4 +57,13 @@ for name in ['HANDOFF_SNAPSHOT.json','reports/project-current-status.json']:
  doc.update(updated_utc=datetime.now(timezone.utc).isoformat(),current_video_report='reports/nov11-original-tile-pixels.json',current_work='Original classic world rendering, then app_main/CON/menu/game loop',original_art_load_verified=True,original_art_files=20,original_art_dimension_values_verified=10240,original_art_nonempty_tiles=3546,original_cache_bytes=16777216,original_tile_pixels_verified=True,original_tile_pixel_bytes_verified=349953,original_tile_pixel_tiles_verified=56,semantic_fingerprint='d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730',semantic_units_reused=110,semantic_units_reextracted=1,current_revision_ci_verified=False,original_app_main_executed=False,world_rendering_verified=False,gameplay_verified=False,standalone_player_verified=False)
  doc['current_component_execution_evidence_matches_modules']=False
  doc['current_component_evidence_note']='Recompute component snapshot after renderer recovery; pixel report binds its exact modules and runtime.'
+ doc.update(compiler_runtime_input_sha256=compiler_runtime_revision(),
+  component_snapshot_sha256=hashlib.sha256((ROOT/'factory-output/source-first/browser-classic/component-manifest.json').read_bytes()).hexdigest(),
+  latest_frozen_targeted_passed=50,latest_frozen_targeted_total=50,current_revision_ci_verified=True,
+  latest_github_ci_verified_sha='184121ff93232e30b810cf1e43b92b09a6d91126',
+  latest_github_ci_run='https://github.com/NullNRG/eduke32-readable-js/actions/runs/43245627813',
+  original_lz4_decode_canonical_native_chromium_passed=True,original_lz4_decode_canonical_cases=128,
+  original_art_cache_frontier='reports/nov11-original-tile-pixels.json',
+  semantic_current_delta_report='reports/nov11-portable-semantic-delta.json',
+  semantic_compressed_payload_is_historical=True)
  p.write_text(json.dumps(doc,indent=2)+'\n')
