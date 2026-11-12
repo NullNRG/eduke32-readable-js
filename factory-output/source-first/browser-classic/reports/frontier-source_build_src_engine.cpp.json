@@ -12,7 +12,7 @@
   "requested_still_unlinked": [
     "renderDrawMasks"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-6e0692f5f430c45c/source/build/src/engine.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_engine.cpp/reachable-f0f2b9946941b238/source/build/src/engine.cpp.manifest.json",
   "blocked": [
     {
       "name": "<anonymous>",
@@ -25,9 +25,25 @@
       "dependencies": []
     },
     {
+      "name": "classicDrawVoxel",
+      "reason": "unlinked identifiers: divideu32_noinline",
+      "dependencies": [
+        "divideu32_noinline"
+      ]
+    },
+    {
+      "name": "falpha_to_blend",
+      "reason": "unlinked identifiers: Blrintf__header_0b8e7f162fef",
+      "dependencies": [
+        "Blrintf__header_0b8e7f162fef"
+      ]
+    },
+    {
       "name": "classicDrawSprite",
-      "reason": "source control flow: goto enters a different lexical scope",
-      "dependencies": []
+      "reason": "unlinked identifiers: classicDrawVoxel",
+      "dependencies": [
+        "classicDrawVoxel"
+      ]
     },
     {
       "name": "renderDrawSprite",
@@ -42,10 +58,18 @@
       "dependencies": [
         "renderDrawSprite"
       ]
+    },
+    {
+      "name": "Blrintf__header_0b8e7f162fef",
+      "reason": "unlinked identifiers: _mm_cvtss_si32, _mm_load_ss",
+      "dependencies": [
+        "_mm_cvtss_si32",
+        "_mm_load_ss"
+      ]
     }
   ],
   "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "3632ae9aeb4b77d450e818c34c4a17958343b2d52dce29970a9bb2184e3b5c28",
+  "compiler_runtime_input_sha256": "260730ce87deb9600e360f8779ec6896eaf079d7db67b9413a393b9d0802807f",
   "provider_index_sha256": "efa1821bfb5d2517d707d676f9ea93286008dc5ee982c304bbfd9d7bba51e37a",
   "query_limit": 256,
   "dependency_budget_exhausted": false,

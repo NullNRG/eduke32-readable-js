@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from collections import Counter
 import re
 import copy
+from source_cpp_types import has_outer_indirection
 
 class ControlFlowUnsupported(Exception):
     pass
@@ -50,7 +51,7 @@ def recover_loop_terminal_jumps(body, trivial_destructors=(), canonical_type=lam
         return kind(node)=='CompoundStmt' and bool(seq) and terminal(seq[-1])
     def trivial(variable):
         typ=variable.get('type',{}).get('desugaredQualType') or variable.get('type',{}).get('qualType','')
-        if '*' in typ or typ.rstrip().endswith('&'):return True
+        if has_outer_indirection(typ,'*&'):return True
         typ=re.sub(r'\[[^\]]*\]|\b(?:const|volatile|struct|class|union)\b','',typ).strip()
         return bool(re.fullmatch(r'(?:(?:signed|unsigned) )?(?:bool|char|short|int|long(?: long)?|float|double|[ui]?int(?:8|16|32|64)_t|size_t|ptrdiff_t|intptr_t|uintptr_t)',typ)
                     or canonical_type(typ) in trivial_destructors)

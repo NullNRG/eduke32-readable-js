@@ -2662,8 +2662,15 @@ class Emit:
                     if any(kind(x)=='DeclRefExpr' and x.get('referencedDecl',{}).get('kind')=='ParmVarDecl'
                            for x in descendants(initializer)):
                         raise Unsupported('dynamic function-static initializer')
-                    if kind(initializer) in ('CXXConstructExpr','CallExpr','CXXNewExpr'):
-                        raise Unsupported('nonconstant function-static initializer')
+                    record=self.aggregate_records.get(normalized_record_name(t,self.type_aliases),{})
+                    trivial_static=(kind(initializer)=='CXXConstructExpr' and not kids(initializer)
+                        and initializer.get('ctorType',{}).get('qualType') in ('void ()','void () noexcept')
+                        and record.get('trivial_default_constructor') and record.get('trivial_destructor')
+                        and record.get('byte_schema') and not record['byte_schema'].get('prototype'))
+                    if kind(initializer) in ('CXXConstructExpr','CallExpr','CXXNewExpr') and not trivial_static:
+                        raise Unsupported('nonconstant function-static initializer',
+                            required_records=(qual(initializer),) if not record and
+                                kind(initializer)=='CXXConstructExpr' and not kids(initializer) else ())
                     if re.search(r'\[\d+\]',t) or ('*' in t and any(kind(v)=='StringLiteral' for v in descendants(initializer))):
                         # A C function-static array/pointer has the same native
                         # storage semantics as a file-static aggregate: stable
@@ -4772,6 +4779,13 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     record_layouts.update(specialization_layouts(ast,record_layouts))
     record_layouts.update(recover_typedef_record_layouts(ast, record_layouts))
     byte_records=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,layout_aliases=record_layouts,source_rel=source_rel)
+    # Exact byte-record identity also proves destruction for unnamed local
+    # unions and qualified template records. Never infer that from a spelling
+    # containing '*' inside a template argument or from a guessed layout.
+    for record_name,record in byte_records.items():
+        canonical=normalized_record_name(record_name,aliases)
+        if canonical and record.get('trivial_destructor') and destructor_evidence.get(record_name,{True})=={True}:
+            trivial_destructors.add(canonical)
     record_storage_views=recover_byte_records(ast,record_layouts,aliases,source_root=source_root,storage_views=True,source_rel=source_rel)
     for record_name,record in byte_records.items():
         # Preserve the older, explicitly opaque copy-only ABI for wrappers

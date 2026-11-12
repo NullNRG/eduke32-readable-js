@@ -2,6 +2,20 @@
 
 Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov12-original-rooms-frame.json. Original E1L1 room rendering now passes in Chromium. The game remains incomplete: app_main, menu, CON, masks/sprites and gameplay have not passed.
 
+User constraint: do not use paid external services. Compile and verify locally.
+GitHub checkpoint commits must include `[skip ci]` to avoid starting cloud
+Actions builds; no additional hosted compute, deployments or paid APIs.
+
+November 12 follow-up: reference lambdas and the original classicDrawSprite
+sibling-branch jump now lower. Exact anonymous-union destructor/layout evidence
+is retained. The current sprite dependency is the original
+pragmas.cpp::divideu32_noinline callback, whose divideu32 helper needs persistent
+zero-initialized packed POD state. Generic trivial static-POD lowering passes
+2,048 native/full/filtered Node/Chromium results. Retry the owning pragmas unit
+with `--whole-unit`; narrow namespace-record extraction still lacks its full
+context. Then retry the engine with `--whole-unit` to retain the exact selected
+native SSE wrapper bodies. Do not stub the voxel fallback or intrinsic chain.
+
 ```powershell
 . work/session-env.ps1
 python work/verify_original_rooms_frame.py

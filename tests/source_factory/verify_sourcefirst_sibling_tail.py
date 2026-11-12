@@ -2,6 +2,9 @@
 import base64,json,os,subprocess,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'tools'))
+from source_sibling_tail import recover
+from source_ast_to_js import normalized_record_name
 SOURCE=r'''
 void draw(int mode,int n,int *out) {
  int common=n+3;
@@ -15,6 +18,8 @@ void draw(int mode,int n,int *out) {
   if(n<0){*out=-111;return;}
   start=n%5;end=start+4;
   int sum=0;
+  union {float f;int i;} pun={float(n&15)};
+  sum+=pun.i>>24;
   for(int i=start;i<end;i++){if(i==7)break;sum+=i+common;}
   *out=sum;
  } else {
@@ -33,6 +38,8 @@ int global=29;
 void reject_shadow(int n,int*out){if(n){int global=4;goto done;}else {done:*out=global;}*out+=3;}
 struct Guard{~Guard(){global++;}};
 void reject_lifetime(int n,int*out){if(n){Guard g;goto done;}else {done:*out=global;}*out+=3;}
+template<class T>struct PointerGuard{T pointer;PointerGuard():pointer(){}~PointerGuard(){global+=5;}};
+void reject_template_lifetime(int n,int*out){if(n){PointerGuard<int*> g;goto done;}else {done:*out=global;}*out+=3;}
 void reject_loop(int n,int*out){int i=0;if(n){goto done;}else {while(i<3){done:*out+=i++;}}}
 '''
 def run(command,cwd):
@@ -44,9 +51,13 @@ with tempfile.TemporaryDirectory(prefix='source-sibling-tail-') as directory:
  (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(){for(int n=-256;n<768;n++)printf("%d\\n",exercise(n));}')
  run(['clang++','-std=c++14',root/'main.cpp','-o',root/'native.exe'],root)
  expected=run([root/'native.exe'],root).splitlines();modules=[]
+ native_ast=json.loads(run(['clang++','-std=c++14','-Xclang','-ast-dump=json','-fsyntax-only',root/'unit.cpp'],root))
+ function=next(n for n in native_ast['inner'] if n.get('name')=='reject_template_lifetime')
+ body=next(n for n in function['inner'] if n.get('kind')=='CompoundStmt')
+ assert recover(body,(),normalized_record_name) is None,'template pointer arguments are not outer pointer declarators'
  evaluator='''async ({url})=>{const m=await import(url),result=[];for(let n=-256;n<768;n++)result.push(String(m.exercise(n)));return result;}'''
  for mode in ('full','filtered'):
-  command=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','unit.cpp','--out-dir',root/mode]
+  command=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','unit.cpp','--out-dir',root/mode,'--require-record-layouts']
   if mode=='filtered':command+=['--filter','exercise,reject_shadow,reject_lifetime,reject_loop','--exact-filter','--dependency-closure','--header-dependency-closure']
   run(command,ROOT);module=root/mode/'unit.cpp.mjs'
   rows={r['source_name']:r for r in json.loads(module.with_suffix('.manifest.json').read_text())['definitions']}

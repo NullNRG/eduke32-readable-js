@@ -4,6 +4,7 @@ This is static source duplication, never a program-counter/state interpreter.
 Only declarations with trivial destruction may cross the original jump.
 """
 import copy,re
+from source_cpp_types import has_outer_indirection
 
 def kids(n):return [v for v in n.get('inner',[]) if v]
 def walk(n):
@@ -20,10 +21,11 @@ def recover(body,trivial_destructors=(),canonical_type=lambda value:value):
     index(body)
     def trivial(variable):
         typ=variable.get('type',{}).get('desugaredQualType') or variable.get('type',{}).get('qualType','')
-        if '*' in typ or typ.rstrip().endswith('&'):return True
-        typ=re.sub(r'\[\d+\]|\b(?:const|volatile|struct|class|union)\b','',typ).strip()
-        return bool(re.fullmatch(r'(?:(?:signed|unsigned) )?(?:bool|char|short|int|long(?: long)?|float|double)',typ)
-                    or canonical_type(typ) in trivial_destructors)
+        if has_outer_indirection(typ,'*&'):return True
+        typ=re.sub(r'\[\d+\]','',typ).strip()
+        canonical=canonical_type(typ)
+        return bool(re.fullmatch(r'(?:(?:signed|unsigned) )?(?:bool|char|short|int|long(?: long)?|float|double)',canonical or '')
+                    or canonical in trivial_destructors)
     def safe_fragment(fragment):
         for node in walk(fragment):
             kind=node.get('kind')
