@@ -6,7 +6,7 @@ never emits LLVM registers, basic-block switches, or synthetic gameplay.
 This is deliberately an incremental source-to-source compiler, not a full C++ ABI.
 """
 from __future__ import annotations
-import argparse, json, re, subprocess, sys, os, hashlib
+import argparse, json, re, subprocess, sys, os, hashlib, copy
 from collections import Counter
 from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
@@ -43,6 +43,7 @@ from source_anonymous_records import blocked_anonymous_global_arrays
 from source_template_destructors import complete as complete_template_destructors
 from source_static_members import recover as recover_out_of_line_static_members, constant_members, rebind_static_references
 from source_instance_members import recover as recover_out_of_line_instance_members
+from source_local_lambdas import plan as plan_local_lambdas
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
@@ -1041,6 +1042,30 @@ class Emit:
         if kind(expression)=='MemberExpr' and kids(expression) and not has_outer_indirection(qual(expression)):
             return self.raw_record_receiver(kids(expression)[0],expression.get('isArrow',False))
         return False
+    def local_lambda_expression(self,n):
+        proof=getattr(self,'local_lambda_plans',{}).get(n.get('id'))
+        if not proof:raise Unsupported('lambda requires proved nonescaping reference captures and exact direct calls')
+        child=copy.copy(self)
+        for key,value in vars(self).items():
+            if key.startswith(('used_','storage_')) and isinstance(value,(dict,list,set)):
+                setattr(child,key,value.copy())
+        child.range_aliases=dict(self.range_aliases)
+        for capture in proof['captures']:
+            child.range_aliases[capture['id']]=self.expr({'kind':'DeclRefExpr','referencedDecl':capture,'type':capture['type']})
+        child.inherited_reference_cells=dict(self.local_reference_cells)
+        child.inherited_byte_scalar_cells=dict(self.byte_scalar_cells)
+        method={**proof['method'],'kind':'FunctionDecl'}
+        symbol=self.expression_temp();child.expression_temp_sequence=self.expression_temp_sequence
+        text=child.function(method,method=True,symbol=symbol)
+        if child.static_defs or child.byte_literals:
+            raise Unsupported('local lambda static/literal storage requires module lifetime ownership')
+        for key,value in vars(child).items():
+            if key.startswith(('used_','storage_')):setattr(self,key,value)
+        self.expression_temp_sequence=child.expression_temp_sequence
+        self.range_sequence=child.range_sequence
+        summary={key:value for key,value in proof.items() if key not in ('method','body','calls')}
+        self.used_local_lambdas=getattr(self,'used_local_lambdas',[])+[summary]
+        return '(function '+text+')'
     def expr(self,n):
         terminal=getattr(self,'terminal_body_pointer_steps',{}).pop(id(n),None)
         if terminal is not None:
@@ -1576,8 +1601,19 @@ class Emit:
                 return '('+self.expr(a[0])+').value'
             raise Unsupported('unary '+str(op))
         if k=='ConditionalOperator':return f'({self.expr(a[0])} ? {self.expr(a[1])} : {self.expr(a[2])})'
+        if k=='LambdaExpr':return self.local_lambda_expression(n)
         if k=='CXXOperatorCallExpr':
             if len(a)<2:raise Unsupported('C++ operator call has no operands')
+            closure=next((proof for proof in getattr(self,'local_lambda_plans',{}).values()
+                          if n.get('id') in proof['calls']),None)
+            if closure:
+                parts=function_type_parts(closure['operator_type']['qualType'])
+                if not parts or len(parts[1])!=len(a)-2:
+                    raise Unsupported('local lambda selected signature mismatch')
+                arguments=[self.reference_argument(value,typ) if self.scalar_reference(typ) else self.expr(value)
+                           for value,typ in zip(a[2:],parts[1])]
+                target=self.expr(a[1]);result=target+'('+', '.join(arguments)+')'
+                return '('+result+').value' if self.scalar_reference(parts[0]) else result
             callee=a[0]
             while kind(callee) in WRAPPERS and len(kids(callee))==1:callee=kids(callee)[0]
             decl=callee.get('referencedDecl',{}) if kind(callee)=='DeclRefExpr' else {}
@@ -1906,6 +1942,10 @@ class Emit:
             return ('cxxHeap.object('+str(layout[0])+', '+str(layout[1])+', '+json.dumps(identity)+', () => '
                     +self.expr(a[0])+', '+destructor+')')
         if k in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
+            closure=next((proof for proof in getattr(self,'local_lambda_plans',{}).values()
+                          if n.get('id') in proof['constructor_ids']),None)
+            if closure:
+                return self.expr(a[0])
             if k=='CXXTemporaryObjectExpr' and normalized_record_name(qual(n),self.type_aliases) not in self.trivial_destructors and not self.lifetime_class(qual(n)):
                 raise Unsupported('C++ temporary requires Clang-proven trivial destructor')
             # Clang implicit POD copy construction is NOT `new T(...)`.
@@ -2553,6 +2593,10 @@ class Emit:
                 name=self.goto_plan.alpha_locals[n['id']]
             if not name:raise Unsupported('unnamed local variable')
             self.local_types[name]=t
+            closure=next((proof for proof in getattr(self,'local_lambda_plans',{}).values()
+                          if proof['variable_id']==n.get('id')),None)
+            if closure:
+                return pad+('' if self.goto_plan else 'const ')+name+' = '+self.expr(a[-1])+';'
             if self.scalar_reference(t):
                 if n.get('storageClass')=='static' or not a:
                     raise Unsupported('static/uninitialized C++ reference requires original storage lifetime')
@@ -3192,8 +3236,9 @@ class Emit:
         self.terminal_body_pointer_steps=terminal_body_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.deferred_pointer_limits=deferred_pointer_limits(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.comparison_pointer_values=comparison_pointer_values(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
-        self.local_reference_cells=self.plan_local_reference_cells(n)
-        self.byte_scalar_cells=self.plan_byte_scalar_cells(n)
+        self.local_reference_cells={**getattr(self,'inherited_reference_cells',{}),**self.plan_local_reference_cells(n)}
+        self.byte_scalar_cells={**getattr(self,'inherited_byte_scalar_cells',{}),**self.plan_byte_scalar_cells(n)}
+        self.local_lambda_plans=plan_local_lambdas(n)
         argnames=[]
         for i,p in enumerate(params):
             argnames.append(js_ident(p.get('name') or 'arg'+str(i)))
@@ -4400,7 +4445,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
     return added,odr_origins,{id(n) for n in added if id(n) in template_ids},selected_header_proofs
 
 
-def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None, storage_assignment_nodes=None):
+def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None, storage_assignment_nodes=None, local_lambda_proofs=None):
     """Find non-local symbol dependencies using Clang DECLARATION IDENTITIES.
 
     Names alone are unsafe: a shadowing local `int globals;` must not suppress
@@ -4412,6 +4457,8 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
     type_aliases=type_aliases or {}
     result=set()
     local_ids=set()
+    lambda_constructors={identity for proof in (local_lambda_proofs or []) for identity in proof['constructor_ids']}
+    lambda_operators={proof['operator_id'] for proof in (local_lambda_proofs or [])}
     def emitted_children(n):
         children=semantic_kids(n)
         if kind(node)=='CXXRecordDecl':
@@ -4447,7 +4494,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
                 if cls:result.add(js_ident(cls))
         if kind(n) in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
             cls=normalized_record_name(qual(n),type_aliases)
-            if cls and cls in class_dependencies and id(n) not in (storage_constructor_nodes or set()):
+            if cls and cls in class_dependencies and id(n) not in (storage_constructor_nodes or set()) and n.get('id') not in lambda_constructors:
                 result.add(js_ident(cls))
         if kind(n)=='CXXOperatorCallExpr' and len(kids(n))>=2:
             callee=kids(n)[0]
@@ -4455,7 +4502,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
             ref=callee.get('referencedDecl',{}) if kind(callee)=='DeclRefExpr' else {}
             if ref.get('kind')=='CXXMethodDecl':
                 cls=normalized_record_name(qual(kids(n)[1]),type_aliases)
-                if cls and ref.get('id') not in (trivial_assignments or {}) and id(n) not in (storage_assignment_nodes or set()):result.add(js_ident(cls))
+                if cls and ref.get('id') not in (trivial_assignments or {}) and id(n) not in (storage_assignment_nodes or set()) and ref.get('id') not in lambda_operators:result.add(js_ident(cls))
         if kind(n)=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
             if n.get('nonOdrUseReason')=='constant' and decl.get('id') in (non_odr_static_values or {}):return
@@ -5628,7 +5675,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 # the actual generated class, not its memoizing factory.
                 definition=definition.replace(factory_symbol+'.',implementation+'.')
                 code='export function '+factory_symbol+'() {\n  return '+factory_symbol+'.type || ('+factory_symbol+'.type = '+definition+');\n}'
-            if getattr(em,'storage_constructor_nodes',None) or getattr(em,'storage_assignment_nodes',None):
+            if getattr(em,'storage_constructor_nodes',None) or getattr(em,'storage_assignment_nodes',None) or getattr(em,'used_local_lambdas',None):
                 # Remove only the precise constructor AST nodes already lowered
                 # to verified storage. A same-named variable, function, operator,
                 # static member or another constructor is still a dependency.
@@ -5636,7 +5683,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     trivial_assignments,aliases,allocation_dependencies=not standard_heap_runtime,
                     static_method_owners=static_method_owners,
                     storage_constructor_nodes=getattr(em,'storage_constructor_nodes',set()),non_odr_static_values=non_odr_static_values,
-                    storage_assignment_nodes=getattr(em,'storage_assignment_nodes',set())))
+                    storage_assignment_nodes=getattr(em,'storage_assignment_nodes',set()),
+                    local_lambda_proofs=getattr(em,'used_local_lambdas',[])))
+                if getattr(em,'used_local_lambdas',None):row['source_local_lambdas']=em.used_local_lambdas
                 row['storage_constructor_count']=len(getattr(em,'storage_constructor_nodes',set()))
                 row['storage_assignment_count']=len(getattr(em,'storage_assignment_nodes',set()))
                 if getattr(em,'trivial_record_assignment_proofs',None):row['trivial_record_assignment_proofs']=em.trivial_record_assignment_proofs
