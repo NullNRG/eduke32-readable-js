@@ -12,6 +12,7 @@ from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported, recover_loop_terminal_jumps
+from source_scalar_round import recover as recover_scalar_round, RUNTIME as SCALAR_ROUND_RUNTIME
 from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_included_implementations import included_implementation_bytes
@@ -1386,7 +1387,10 @@ class Emit:
             if op in ('=','+=','-=','*=','/=','%=','&=','|=','^=','<<=','>>='):
                 if not self.is_lvalue(a[0]):raise Unsupported('assignment lvalue')
                 self.validate_external_global_write(a[0])
-                t=self.local_types.get(lhs,qual(a[0]))
+                # The Clang lvalue identifies the actual scoped declaration.
+                # A name cache can retain an inner loop's different type after
+                # its scope ends (including pointer stride and BigInt width).
+                t=qual(a[0])
                 if op!='=':
                     original=a[0]
                     while kind(original) in WRAPPERS and kids(original):original=kids(original)[0]
@@ -3194,6 +3198,13 @@ class Emit:
         for i,p in enumerate(params):
             argnames.append(js_ident(p.get('name') or 'arg'+str(i)))
         self.goto_plan=None;self.last_flow_report=None
+        scalar_round=recover_scalar_round(n,getattr(self,'all_declarations',{}))
+        if scalar_round:
+            self.used_scalar_sse_round=scalar_round
+            self.used_scalar_sse_wrappers={self.function_symbols.get(item['clang_id']) or item['name']
+                for item in scalar_round['native_wrappers']}
+            header=(name if method else 'export function '+name)
+            return header+'('+argnames[0]+') {\n  return cSSEFloat32ToInt32('+argnames[0]+');\n}'
         resume=None
         if any(kind(v)=='GotoStmt' for v in descendants(bodies[-1])):
             resume=recover_resume_dispatch(bodies[-1],self.expression_temp())
@@ -5659,6 +5670,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             # by this definition can leave the dependency frontier.
             resolved_references-=set(BUILTIN_HELPERS)&em.used
             resolved_references-=getattr(em,'used_runtime_queries',set())
+            resolved_references-=getattr(em,'used_scalar_sse_wrappers',set())
+            if getattr(em,'used_scalar_sse_round',None):row['source_scalar_sse_round']=em.used_scalar_sse_round
             row['source_references']=sorted(resolved_references)
             row['source_references']=sorted(set(row['source_references'])|getattr(em,'used_class_constructors',set())|getattr(em,'used_reference_classes',set())|getattr(em,'used_static_method_owners',set())|getattr(em,'used_byte_methods',set())|set(getattr(em,'used_instance_methods',{})))
             for ref in row['source_references']:
@@ -7148,6 +7161,7 @@ const cStackAlloc = amount => {
                        +'// Status: partial STRICT semantic conversion, not a full engine module.\n'
                        +'// Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.\n'
                        +import_section+address_helpers+c_heap_helpers+trivial_class_helpers+lifetime_helpers+heap_helpers+stack_helpers+overflow_helpers+pointer_helpers+reference_helpers+atomic_helpers+span_helpers+aggregate_helpers+assignment_helpers+variadic_helpers+memory_helpers+process_helpers+casts_text+libm_text+'\n'
+                       +(SCALAR_ROUND_RUNTIME if 'cSSEFloat32ToInt32(' in body else '')
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}
     result['toolchain']=toolchain

@@ -72,7 +72,9 @@ def checkpoint():
  return report
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('source',nargs='?');p.add_argument('names',nargs='?');p.add_argument('--full',action='store_true');p.add_argument('--snapshot',action='store_true');p.add_argument('--refresh-fragment-sha256');p.add_argument('--replace-stateless-owner-sha256');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('source',nargs='?');p.add_argument('names',nargs='?');p.add_argument('--full',action='store_true');p.add_argument('--snapshot',action='store_true');p.add_argument('--refresh-fragment-sha256');p.add_argument('--replace-stateless-owner-sha256');p.add_argument('--whole-unit-refresh',action='store_true',help='Read the whole original unit while replacing only one hash-pinned fragment interface');a=p.parse_args()
+ if a.whole_unit_refresh and (not a.refresh_fragment_sha256 or a.full or a.replace_stateless_owner_sha256):
+  p.error('--whole-unit-refresh requires exactly --refresh-fragment-sha256')
  if a.snapshot:checkpoint();return
  if not a.source or not a.names:p.error('source and exact declaration names are required')
  assert a.source in {row['file'] for row in json.loads(COMMANDS.read_text())},a.source
@@ -95,6 +97,15 @@ def main():
  index=OUT/'browser-combined-symbol-owners.json'
  if a.refresh_fragment_sha256 or a.replace_stateless_owner_sha256:
   selected=json.loads(index.read_text());index=BASE/'reports/refresh-symbol-owners.json'
+  if a.refresh_fragment_sha256:
+   # Preserve the original unit's own exact header factory even when the
+   # global inventory correctly leaves several other header owners ambiguous.
+   for row in owner.get('definitions',[]):
+    if (row.get('status')=='source-first' and row.get('kind')=='CXXRecordDecl'
+        and row.get('header_record_factory') and row['name'] in existing
+        and row['name'] not in selected
+        and row.get('odr_inline',{}).get('prototype_factory_abi')=='source-header-record-factory/1'):
+     selected[row['name']]=a.source
   index.write_text(json.dumps({name:owner for name,owner in selected.items() if name not in pending and not (a.replace_stateless_owner_sha256 and name in existing)},indent=2)+'\n')
  epoch=hashlib.sha256(index.read_bytes()+','.join(pending).encode()).hexdigest()[:12]
  stage=BASE/'boot-probes'/a.source.replace('/','_')/epoch
@@ -104,13 +115,23 @@ def main():
       '--compile-commands',str(COMMANDS),'--out-dir',str(stage),'--project-symbols',str(index),
       '--import-root',str(OUT),'--dependency-closure','--header-dependency-closure','--header-inlines',
       '--enum-closure','--require-record-layouts','--ast-cache-dir',str(CACHE)]
- if not a.full:cmd+=['--filter',','.join(pending),'--exact-filter']
+ if not a.full and not a.whole_unit_refresh:cmd+=['--filter',','.join(pending),'--exact-filter']
  log=BASE/'reports'/('boot-'+a.source.replace('/','_')+'.log')
  print('Compile original '+a.source+' ['+','.join(pending)+']',flush=True)
  with log.open('w') as stream:
   result=subprocess.run(cmd,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=900)
  if result.returncode:raise RuntimeError('Compiler failed; see '+str(log))
  manifest=stage/(a.source+'.manifest.json');document=json.loads(manifest.read_text())
+ if a.refresh_fragment_sha256 and a.whole_unit_refresh:
+  # Explicit full-header selection can spell an unchanged header function
+  # differently from dependency selection. Retain only source/input-proven
+  # aliases to the exact rebuilt callable; never wrap or invent a body.
+  from source_owner_aliases import retain_header_aliases
+  candidate=stage/(a.source+'.mjs')
+  missing=set(requested)-active_exports(candidate)
+  document,code=retain_header_aliases(owner,document,missing,candidate.read_text())
+  candidate.write_text(code,encoding='utf-8',newline='\n')
+  manifest.write_text(json.dumps(document,indent=2)+'\n')
  if (not existing or a.replace_stateless_owner_sha256) and document['emitted']:
   candidate=stage/(a.source+'.mjs')
   def relocate(match):
