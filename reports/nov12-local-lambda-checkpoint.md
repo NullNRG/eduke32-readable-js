@@ -18,7 +18,16 @@ and escaping closures are rejected. Five targeted compiler/reference/control
 flow regressions pass (`nov12-local-lambda-regression.json`). The complete
 current regression suite and gameplay acceptance are not yet verified.
 
-The actual original `renderDrawMasks` dependency recovery is running serially.
+The actual original `renderDrawMasks` recovery completed. Both original local
+lambdas now lower successfully; the root remains unlinked only through
+`renderDrawSprite -> classicDrawSprite`. The latter requires generic support
+for a jump into a sibling branch. The full targeted dependency search exhausted
+neither its query budget nor an unresolved query frontier. No stubs were added.
+
+The matching local CI reproduction passed **55/55**, including Chromium when
+configured. GitHub CI passed source checkpoint `54f5fb0` (run 43269652411).
+This is not the separate complete regression suite or gameplay acceptance.
+
 Resume command:
 
 ```powershell
