@@ -60,5 +60,11 @@
   "preparation_tool": "tools/prepare_browser_classic.py",
   "prepared_source_root": "factory-output/browser-classic/source-tree/eduke32-master",
   "browser_define": "EDUKE32_BROWSER",
-  "engine_execution_report": "reports/browser-classic-original-engine-video.json"
+  "engine_execution_report": "reports/browser-classic-original-engine-video.json",
+  "source_defines": {
+    "source/build/src/lz4.c": [
+      "LZ4_FAST_DEC_LOOP=0"
+    ]
+  },
+  "source_define_policy": "Use the original portable LZ4 decoder in readable JavaScript. CPU fast-loop helpers are excluded by its original build option; original source and public codec APIs are preserved."
 }

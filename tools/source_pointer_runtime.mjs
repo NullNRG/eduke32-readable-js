@@ -1,10 +1,10 @@
 import { sourceAddressSpace as cSourceAddresses } from './source_address_runtime.mjs';
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
-const cPointer = source => {
+const cPointer = (source,addressOnly=false) => {
   if(source?.__cFunctionAddress===true)throw new TypeError('Function address has no readable data storage');
   if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
-  if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
+  if (source?.__cDeferredPointer === true) return cPointer(addressOnly&&source.resolveAddress?source.resolveAddress():source.resolve(),addressOnly);
   if (source && source.__cPointer === true) {
     if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.__cAddressOnly?source.lower:source.offset);
     return source;
@@ -31,7 +31,7 @@ const cPointer = source => {
 // A static C array address is a link-time relocation. Resolve its proven
 // source owner on use, after module initialization; do not read an ESM binding
 // early while merely constructing a forward/static pointer initializer.
-const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+const cStaticPointer = (resolve,resolveAddress) => ({__cDeferredPointer:true, resolve, ...(resolveAddress?{resolveAddress}:{})});
 // A GNU trailing char[1] keeps its declared array size. Only pointer decay
 // may borrow the remaining ORIGINAL complete heap allocation, as Clang's
 // configured flexible-array mode allows; ordinary member arrays stay bounded.
@@ -104,7 +104,7 @@ const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
   // byte allocation. Address arithmetic must retain that allocation and its
   // actual subarray offset, rather than turn it into detached object slots.
   const arrayBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
-  const initial=cPointer(arrayBytes||source);
+  const initial=cPointer(arrayBytes||source,addressOnly);
   const p=Array.isArray(source)&&!arrayBytes ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
@@ -198,7 +198,7 @@ const cPointerCompare = (left,right,op) => {
     if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
     throw new TypeError('Cannot order scalar reference pointers');
   }
-  const pointerAddress=value=>cPointer(value?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes||value);
+  const pointerAddress=value=>cPointer(value?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes||value,true);
   const a=Array.isArray(left) && right?.__cPointer && right.array
     ? {...cPointer(left),upper:left.length*right.stride,stride:right.stride} : pointerAddress(left);
   const b=Array.isArray(right) && a.array
@@ -217,7 +217,7 @@ const cPointerCompare = (left,right,op) => {
 };
 const cPointerDiff = (left,right,stride) => {
   const address=value=>{
-    const p=Array.isArray(value)?{...cPointer(value),upper:value.length*stride,stride}:cPointer(value);
+    const p=Array.isArray(value)?{...cPointer(value,true),upper:value.length*stride,stride}:cPointer(value,true);
     const bytes=p.array&&p.buffer[Symbol.for('source-first.clang-byte-record-array/1')];
     return bytes?{buffer:bytes.buffer,lower:bytes.byteOffset+p.lower,upper:bytes.byteOffset+p.upper,offset:bytes.byteOffset+p.offset}:p;
   };

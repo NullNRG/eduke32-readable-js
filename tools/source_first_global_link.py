@@ -52,6 +52,10 @@ def missing_exports(names, file):
     return {name for name in names if js_ident(name) not in defined}
 
 def storage_import_error(dependency,units,*,export_reader=exported_names):
+    if dependency.get('instance_method_contract') is not None:
+        from source_instance_members import import_error
+        error=import_error(dependency,units,export_reader)
+        if error:return error
     actual_provider=units.get(dependency['from'])
     expected_record=dependency.get('header_record_proof')
     if expected_record is not None:
@@ -70,6 +74,8 @@ def storage_import_error(dependency,units,*,export_reader=exported_names):
                      if row['name']==dependency['name'] and row['status']=='source-first']
         if len(actual_rows)==1:
             actual=actual_rows[0]
+            if actual.get('original_instance_member') and not dependency.get('instance_method_contract'):
+                return 'original instance-method consumer lacks selected class/ABI proof'
             if actual.get('cpp_reference_contract') and not dependency.get('reference_contract'):
                 return 'C++ reference-call consumer lacks source calling contract'
             if actual.get('cpp_reference_required') and not dependency.get('reference_class_abi'):

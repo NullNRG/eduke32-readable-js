@@ -441,8 +441,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\tiles.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 66,
-  "emitted": 66,
+  "found": 76,
+  "emitted": 76,
   "blocked": 0,
   "definitions": [
     {
@@ -2732,6 +2732,645 @@
         "tilefilenum"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "artLoadFiles",
+      "source_name": "artLoadFiles",
+      "kind": "FunctionDecl",
+      "line": 597,
+      "original_type": "int32_t (const char *, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "Bgetsysmemsize",
+        "Bstrncpyz",
+        "artReadIndexedFile",
+        "artUpdateManifest",
+        "artfil",
+        "artfilename",
+        "artfilnum",
+        "artfilplc",
+        "g_cache",
+        "g_vm_data",
+        "g_vm_size",
+        "gotpic",
+        "initBuffer__cxx_instance_f5bf267877099b7e3273",
+        "memset",
+        "picanm",
+        "rottile",
+        "tilesiz",
+        "xmalloc__header_eec43dbcdbe1"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "rottile_t",
+          "source_record": "rottile_t",
+          "clang_method_id": "0x2632cd25a20",
+          "clang_assignment_signature": "rottile_t &(rottile_t &&) noexcept",
+          "assignment_mode": "clang-trivial-implicit-byte-copy",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          }
+        }
+      ],
+      "external_reference_imports": [
+        {
+          "name": "initBuffer__cxx_instance_f5bf267877099b7e3273",
+          "instance_method_contract": {
+            "abi": "source-instance-method-this/1",
+            "mangled_name": "_ZN7cache1d10initBufferEljj",
+            "owner": "cache1d",
+            "declaration_type": "void (intptr_t, uint32_t, uint32_t)",
+            "class_header_proof": {
+              "source_header": "source/build/include/cache1d.h",
+              "source_offset": 745,
+              "enclosing_record": "cache1d",
+              "type": "cache1d",
+              "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            }
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfil",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_49f8b635f5658e37d4793857",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[20]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              20
+            ]
+          },
+          "name": "artfilename",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfilnum",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfilplc",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_cache",
+          "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+          "abi": "source-global-cell/2",
+          "original_type": "cache1d",
+          "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+        },
+        {
+          "name": "picanm",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Bgetsysmemsize",
+        "Bstrncpyz",
+        "artfil",
+        "artfilename",
+        "artfilnum",
+        "artfilplc",
+        "g_cache",
+        "gotpic",
+        "initBuffer__cxx_instance_f5bf267877099b7e3273",
+        "memset",
+        "picanm",
+        "rottile",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineDestroyAllocator__header_8a02e9d930c4",
+      "source_name": "engineDestroyAllocator",
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37066,
+        "source_line": 1367,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_vm_data",
+      "source_name": "g_vm_data",
+      "kind": "VarDecl",
+      "line": 19,
+      "original_type": "void *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_66c8e98d93985e734f8d0050",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "void *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_vm_size",
+      "source_name": "g_vm_size",
+      "kind": "VarDecl",
+      "line": 40,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_9e504be438d29ebbf9795d4d",
+        "owner_source": "source/build/src/tiles.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileMaybeRotate",
+      "source_name": "tileMaybeRotate",
+      "kind": "FunctionDecl",
+      "line": 667,
+      "original_type": "void (int16_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "rottile",
+        "tileSetSize",
+        "tilesiz",
+        "waloff"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "rottile",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "rottile",
+        "tilesiz",
+        "waloff"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilePostLoad",
+      "source_name": "tilePostLoad",
+      "kind": "FunctionDecl",
+      "line": 750,
+      "original_type": "void (int16_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileSetSize",
+      "source_name": "tileSetSize",
+      "kind": "FunctionDecl",
+      "line": 294,
+      "original_type": "void (int32_t, int16_t, int16_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "tileUpdatePicSiz",
+        "tilesiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tileUpdatePicSiz",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Buninitart",
+      "source_name": "Buninitart",
+      "kind": "FunctionDecl",
+      "line": 894,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "artfil",
+        "g_vm_data",
+        "kclose",
+        "xfree__header_eef6e15431f5"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfil",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_66c8e98d93985e734f8d0050",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "void *",
+          "name": "g_vm_data",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "artfil",
+        "g_vm_data",
+        "kclose"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileLoad",
+      "source_name": "tileLoad",
+      "kind": "FunctionDecl",
+      "line": 633,
+      "original_type": "bool (int16_t)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "allocateBlock__cxx_instance_99800f45e11302f01003",
+        "g_cache",
+        "tileLoadData",
+        "tilePostLoad",
+        "tilesiz",
+        "walock",
+        "waloff"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "allocateBlock__cxx_instance_99800f45e11302f01003",
+          "instance_method_contract": {
+            "abi": "source-instance-method-this/1",
+            "mangled_name": "_ZN7cache1d13allocateBlockEPliPc",
+            "owner": "cache1d",
+            "declaration_type": "void (intptr_t *, int32_t, char *)",
+            "class_header_proof": {
+              "source_header": "source/build/include/cache1d.h",
+              "source_offset": 745,
+              "enclosing_record": "cache1d",
+              "type": "cache1d",
+              "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            }
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "g_cache",
+          "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+          "abi": "source-global-cell/2",
+          "original_type": "cache1d",
+          "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+        },
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "allocateBlock__cxx_instance_99800f45e11302f01003",
+        "g_cache",
+        "tilesiz",
+        "walock",
+        "waloff"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tileLoadData",
+      "source_name": "tileLoadData",
+      "kind": "FunctionDecl",
+      "line": 688,
+      "original_type": "void (int16_t, int32_t, char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/tiles.cpp",
+      "source_references": [
+        "LZ4_decompress_safe",
+        "artGetIndexedFileName",
+        "artfil",
+        "artfilnum",
+        "artfilplc",
+        "bitmap_test__header_77191c72aca8",
+        "current_verbosity_cutoff",
+        "engineDestroyAllocator__header_8a02e9d930c4",
+        "engineUnInit",
+        "faketile",
+        "faketiledata",
+        "faketilesize",
+        "faketimerhandler",
+        "kclose",
+        "klseek",
+        "kopen4loadfrommod",
+        "kread",
+        "loguru_log",
+        "rottile",
+        "tileLoad",
+        "tileMaybeRotate",
+        "tilefilenum",
+        "tilefileoffs",
+        "waloff"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfil",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfilnum",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "name": "artfilplc",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t[30720]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              30720
+            ]
+          },
+          "name": "tilefileoffs",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "faketiledata",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "LZ4_decompress_safe",
+        "artfil",
+        "artfilnum",
+        "artfilplc",
+        "current_verbosity_cutoff",
+        "engineUnInit",
+        "faketile",
+        "faketiledata",
+        "faketilesize",
+        "faketimerhandler",
+        "kclose",
+        "klseek",
+        "kopen4loadfrommod",
+        "kread",
+        "loguru_log",
+        "rottile",
+        "tileMaybeRotate",
+        "tilefilenum",
+        "tilefileoffs",
+        "waloff"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -4522,6 +5161,20 @@
           8
         ]
       }
+    },
+    {
+      "name": "g_vm_data",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_66c8e98d93985e734f8d0050",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "void *"
+    },
+    {
+      "name": "g_vm_size",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_9e504be438d29ebbf9795d4d",
+      "owner_source": "source/build/src/tiles.cpp",
+      "original_type": "int"
     }
   ],
   "module_fragments": [
@@ -5238,6 +5891,742 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "f8690ca2edb6566403a971fea5306bac51d4e3afdfb6e99454a5b439dd7f5f72"
+    },
+    {
+      "module": "source/build/src/_source_legacy_tiles_cpp_b73f760628e9.mjs",
+      "sha256": "b73f760628e9d6bf145a7b8678fd77c508a61802c01c6f17db9e875010eff78d",
+      "original_source": "source/build/src/tiles.cpp",
+      "exports": [
+        "artLoadFiles",
+        "engineDestroyAllocator__header_8a02e9d930c4",
+        "g_vm_data",
+        "g_vm_size",
+        "tileMaybeRotate",
+        "tilePostLoad",
+        "tileSetSize"
+      ],
+      "reexports": [
+        "artLoadFiles",
+        "engineDestroyAllocator__header_8a02e9d930c4",
+        "g_vm_data",
+        "g_vm_size",
+        "tileMaybeRotate",
+        "tilePostLoad",
+        "tileSetSize",
+        "__cxx_private_cell_66c8e98d93985e734f8d0050",
+        "__cxx_private_cell_9e504be438d29ebbf9795d4d"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bgetsysmemsize",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrncpyz",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_compressBound",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_compress_default",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artPreloadFile",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artReadHeader",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artReadManifest",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artfil",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "artfilename",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_49f8b635f5658e37d4793857",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[20]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              20
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "artfilnum",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "artfilplc",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "cache1d_file_fromzip",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketiledata",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "faketilesize",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_cache",
+          "from": "source/build/src/cache1d.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+          "abi": "source-global-cell/2",
+          "original_type": "cache1d",
+          "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "gotpic",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initBuffer__cxx_instance_f5bf267877099b7e3273",
+          "from": "source/build/src/cache1d.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "instance_method_contract": {
+            "abi": "source-instance-method-this/1",
+            "mangled_name": "_ZN7cache1d10initBufferEljj",
+            "owner": "cache1d",
+            "declaration_type": "void (intptr_t, uint32_t, uint32_t)",
+            "class_header_proof": {
+              "source_header": "source/build/include/cache1d.h",
+              "source_offset": 745,
+              "enclosing_record": "cache1d",
+              "type": "cache1d",
+              "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            }
+          }
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4load",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ktell",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mapartfilename",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5da10504affffa8ed7408a80",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "mapartfnXXofs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "picanm",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "picsiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pow2char",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0fb45789337dc97de93d19c4",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tileUpdatePicSiz",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefilenum",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefileoffs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t[30720]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              30720
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "walock",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "waloff",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "4dbfd439f5bfd5a19b08cf1ab875544f4abf565b55334afb7fc6de788e914cbb"
+    },
+    {
+      "module": "source/build/src/_source_legacy_tiles_cpp_9e4883694ee7.mjs",
+      "sha256": "9e4883694ee7697d54444b36270774faf91267e569eb4c56debc65496411bbae",
+      "original_source": "source/build/src/tiles.cpp",
+      "exports": [
+        "Buninitart"
+      ],
+      "reexports": [
+        "Buninitart"
+      ],
+      "imports": [
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "artfil",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_vm_data",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_66c8e98d93985e734f8d0050",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "void *",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "50cd87d31e80a42e2ff39c20d86641bd5922b8b3100fb505cd4b7a31492226c1"
+    },
+    {
+      "module": "source/build/src/_source_legacy_tiles_cpp_7ae6cc9bb180.mjs",
+      "sha256": "7ae6cc9bb180bd0cd5b39b808a5618361c6978192ea2e0842b0198b1fc4136ad",
+      "original_source": "source/build/src/tiles.cpp",
+      "exports": [
+        "tileLoad",
+        "tileLoadData"
+      ],
+      "reexports": [
+        "tileLoad",
+        "tileLoadData"
+      ],
+      "imports": [
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_decompress_safe",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "allocateBlock__cxx_instance_99800f45e11302f01003",
+          "from": "source/build/src/cache1d.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "instance_method_contract": {
+            "abi": "source-instance-method-this/1",
+            "mangled_name": "_ZN7cache1d13allocateBlockEPliPc",
+            "owner": "cache1d",
+            "declaration_type": "void (intptr_t *, int32_t, char *)",
+            "class_header_proof": {
+              "source_header": "source/build/include/cache1d.h",
+              "source_offset": 745,
+              "enclosing_record": "cache1d",
+              "type": "cache1d",
+              "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            }
+          }
+        },
+        {
+          "name": "artfil",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_285d8cf53eb734ff32159c0e",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "artfilename",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_49f8b635f5658e37d4793857",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[20]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              20
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "artfilnum",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1bae8d4bd8f13efb42ffe2b6",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "artfilplc",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_974fc24dd89a86c199bb10a3",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "engineUnInit",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketiledata",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 30720,
+          "element_declaration": "char *[]",
+          "original_type": "char *[30720]",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "faketilesize",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "faketimerhandler",
+          "from": "source/duke3d/src/network.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_cache",
+          "from": "source/build/src/cache1d.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+          "abi": "source-global-cell/2",
+          "original_type": "cache1d",
+          "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "klseek",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4loadfrommod",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mapartfilename",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5da10504affffa8ed7408a80",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "mapartfnXXofs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_84dc0d71d7b23dab09ed06ea",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "pow2char",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0fb45789337dc97de93d19c4",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "const const char[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "rottile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a",
+          "original_type": "rottile_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "0f7bc4fb06da8ca46e93126e3f22b6f048f0a6d6eabc9eb807b8df4537a6fc2a"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tileMaybeRotate",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefilenum",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefileoffs",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_39baa93c964b88601f88442a",
+          "owner_source": "source/build/src/tiles.cpp",
+          "original_type": "int32_t[30720]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              30720
+            ]
+          },
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/tiles.cpp"
+        },
+        {
+          "name": "walock",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "waloff",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "50f817040c31776fb547279b014b225f75ef3fd4e032ce5ee6e744989adab528"
     }
   ]
 }

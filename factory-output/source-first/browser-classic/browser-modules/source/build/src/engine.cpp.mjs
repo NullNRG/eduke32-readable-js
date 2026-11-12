@@ -1067,3 +1067,6 @@ export { check_sprite } from "./_source_legacy_engine_cpp_fc91a4910d27.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { engineLoadBoard } from "./_source_legacy_engine_cpp_97e60b5ff8a7.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { engineUnInit } from "./_source_legacy_engine_cpp_be9a97ad2eaf.mjs";

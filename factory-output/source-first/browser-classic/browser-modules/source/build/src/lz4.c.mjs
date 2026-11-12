@@ -169,10 +169,10 @@ const cSourceAddresses = (() => {
 
 // Bounded source-language pointer aliases over native JS typed buffers/arrays.
 // Embedded in generated ES modules; never a CPU, ISA or opcode interpreter.
-const cPointer = source => {
+const cPointer = (source,addressOnly=false) => {
   if(source?.__cFunctionAddress===true)throw new TypeError('Function address has no readable data storage');
   if(typeof source==='number'||typeof source==='bigint')return cPointer(cSourceAddresses.decode(source));
-  if (source?.__cDeferredPointer === true) return cPointer(source.resolve());
+  if (source?.__cDeferredPointer === true) return cPointer(addressOnly&&source.resolveAddress?source.resolveAddress():source.resolve(),addressOnly);
   if (source && source.__cPointer === true) {
     if(!source.array)globalThis[Symbol.for('source-lp64-addresses/2')]?.assert(source.buffer,source.__cAddressOnly?source.lower:source.offset);
     return source;
@@ -199,7 +199,7 @@ const cPointer = source => {
 // A static C array address is a link-time relocation. Resolve its proven
 // source owner on use, after module initialization; do not read an ESM binding
 // early while merely constructing a forward/static pointer initializer.
-const cStaticPointer = resolve => ({__cDeferredPointer:true, resolve});
+const cStaticPointer = (resolve,resolveAddress) => ({__cDeferredPointer:true, resolve, ...(resolveAddress?{resolveAddress}:{})});
 // A GNU trailing char[1] keeps its declared array size. Only pointer decay
 // may borrow the remaining ORIGINAL complete heap allocation, as Clang's
 // configured flexible-array mode allows; ordinary member arrays stay bounded.
@@ -272,7 +272,7 @@ const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
   // byte allocation. Address arithmetic must retain that allocation and its
   // actual subarray offset, rather than turn it into detached object slots.
   const arrayBytes=source?.[Symbol.for('source-first.clang-byte-record-array/1')];
-  const initial=cPointer(arrayBytes||source);
+  const initial=cPointer(arrayBytes||source,addressOnly);
   const p=Array.isArray(source)&&!arrayBytes ? {...initial, upper:source.length*stride, stride} : initial;
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
@@ -366,7 +366,7 @@ const cPointerCompare = (left,right,op) => {
     if (op==='==' || op==='!=') return op==='==' ? left===right : left!==right;
     throw new TypeError('Cannot order scalar reference pointers');
   }
-  const pointerAddress=value=>cPointer(value?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes||value);
+  const pointerAddress=value=>cPointer(value?.[Symbol.for('source-first.original-byte-record-storage/1')]?.bytes||value,true);
   const a=Array.isArray(left) && right?.__cPointer && right.array
     ? {...cPointer(left),upper:left.length*right.stride,stride:right.stride} : pointerAddress(left);
   const b=Array.isArray(right) && a.array
@@ -385,7 +385,7 @@ const cPointerCompare = (left,right,op) => {
 };
 const cPointerDiff = (left,right,stride) => {
   const address=value=>{
-    const p=Array.isArray(value)?{...cPointer(value),upper:value.length*stride,stride}:cPointer(value);
+    const p=Array.isArray(value)?{...cPointer(value,true),upper:value.length*stride,stride}:cPointer(value,true);
     const bytes=p.array&&p.buffer[Symbol.for('source-first.clang-byte-record-array/1')];
     return bytes?{buffer:bytes.buffer,lower:bytes.byteOffset+p.lower,upper:bytes.byteOffset+p.upper,offset:bytes.byteOffset+p.offset}:p;
   };
@@ -1392,73 +1392,6 @@ function __cxx_static_address_8c16797373e68664dfc186f3() {
 }
 export function __cxx_private_cell_8c16797373e68664dfc186f3() { return __cxx_static_address_8c16797373e68664dfc186f3(); }
 
-// C/C++ source: source/build/src/lz4.c:496
-export function LZ4_memcpy_using_offset_base(dstPtr, srcPtr, dstEnd, offset) {
-  void 0;
-  if ((offset < u64(8))) {
-    LZ4_write32(dstPtr, u32(0));
-    ((cDeref(cPointerOffset(dstPtr, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(srcPtr, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
-    ((cDeref(cPointerOffset(dstPtr, 1, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(srcPtr, 1, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
-    ((cDeref(cPointerOffset(dstPtr, 2, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(srcPtr, 2, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
-    ((cDeref(cPointerOffset(dstPtr, 3, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(srcPtr, 3, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
-    (srcPtr = cPointerOffset(srcPtr, (cDeref(cPointerOffset(inc32table, offset, Uint32Array.BYTES_PER_ELEMENT), Uint32Array).value), Uint8Array.BYTES_PER_ELEMENT));
-    cByteMemory.memcpy(cPointerOffset(dstPtr, 4, Uint8Array.BYTES_PER_ELEMENT), srcPtr, u64(4));
-    (srcPtr = cPointerOffset(srcPtr, -((cDeref(cPointerOffset(dec64table, offset, Int32Array.BYTES_PER_ELEMENT), Int32Array).value)), Uint8Array.BYTES_PER_ELEMENT));
-    (dstPtr = cPointerOffset(dstPtr, 8, Uint8Array.BYTES_PER_ELEMENT));
-  } else {
-    cByteMemory.memcpy(dstPtr, srcPtr, u64(8));
-    (dstPtr = cPointerOffset(dstPtr, 8, Uint8Array.BYTES_PER_ELEMENT));
-    (srcPtr = cPointerOffset(srcPtr, 8, Uint8Array.BYTES_PER_ELEMENT));
-  }
-  LZ4_wildCopy8(dstPtr, srcPtr, dstEnd);
-}
-
-// C/C++ source: source/build/src/lz4.c:522
-export function LZ4_wildCopy32(dstPtr, srcPtr, dstEnd) {
-  let d = cTypedPointer(dstPtr, Uint8Array);
-  let s = cTypedPointer(srcPtr, Uint8Array);
-  let e = cTypedPointer(dstEnd, Uint8Array);
-  do {
-    cByteMemory.memcpy(d, s, u64(16));
-    cByteMemory.memcpy(cPointerOffset(d, 16, Uint8Array.BYTES_PER_ELEMENT), cPointerOffset(s, 16, Uint8Array.BYTES_PER_ELEMENT), u64(16));
-    (d = cPointerOffset(d, 32, Uint8Array.BYTES_PER_ELEMENT));
-    (s = cPointerOffset(s, 32, Uint8Array.BYTES_PER_ELEMENT));
-  } while (cPointerCompare(d, e, "<"));
-}
-
-// C/C++ source: source/build/src/lz4.c:535
-export function LZ4_memcpy_using_offset(dstPtr, srcPtr, dstEnd, offset) {
-  let v = cZeroAggregate({"array": "Uint8Array", "dims": [8]});
-  void 0;
-  switch (offset) {
-    case u64(1): {
-      memset(v, i32((cDeref(srcPtr, Uint8Array).value)), u64(8));
-    }
-    break;
-    case u64(2): {
-      cByteMemory.memcpy(v, srcPtr, u64(2));
-    }
-    cByteMemory.memcpy(cPointerOffset(v, 2, Uint8Array.BYTES_PER_ELEMENT), srcPtr, u64(2));
-    cByteMemory.memcpy(cPointerOffset(v, 4, Uint8Array.BYTES_PER_ELEMENT), v, u64(4));
-    break;
-    case u64(4): {
-      cByteMemory.memcpy(v, srcPtr, u64(4));
-    }
-    cByteMemory.memcpy(cPointerOffset(v, 4, Uint8Array.BYTES_PER_ELEMENT), srcPtr, u64(4));
-    break;
-    default: {
-      LZ4_memcpy_using_offset_base(dstPtr, srcPtr, dstEnd, offset);
-    }
-    return;
-  }
-  cByteMemory.memcpy(dstPtr, v, u64(8));
-  (dstPtr = cPointerOffset(dstPtr, 8, Uint8Array.BYTES_PER_ELEMENT));
-  while (cPointerCompare(dstPtr, dstEnd, "<")) {
-    cByteMemory.memcpy(dstPtr, v, u64(8));
-    (dstPtr = cPointerOffset(dstPtr, 8, Uint8Array.BYTES_PER_ELEMENT));
-  }
-}
-
 // C/C++ source: source/build/src/lz4.c:579
 export function LZ4_NbCommonBytes(val) {
   void 0;
@@ -1539,9 +1472,9 @@ export function LZ4_versionNumber() {
 }
 
 // C/C++ source: source/build/src/lz4.c:750
-const __cxx_literal_cee795cf0648f3432243 = Uint8Array.from([49, 46, 57, 46, 53, 0]);
+const __cxx_literal_297bdd437bf6fb110578 = Uint8Array.from([49, 46, 57, 46, 53, 0]);
 export function LZ4_versionString() {
-  return __cxx_literal_cee795cf0648f3432243;
+  return __cxx_literal_297bdd437bf6fb110578;
 }
 
 // C/C++ source: source/build/src/lz4.c:751
@@ -1728,11 +1661,11 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
   dictEnd = (dictionary ? cPointerOffset(dictionary, dictSize, Uint8Array.BYTES_PER_ELEMENT) : dictionary);
   anchor = cTypedPointer(source, Uint8Array);
   iend = cPointerOffset(ip, inputSize, Uint8Array.BYTES_PER_ELEMENT);
-  mflimitPlusOne = ((__cxx_lvalue_1) => cStaticPointer(() => cPointerOffset(cPointerOffset(__cxx_lvalue_1, -(12), Uint8Array.BYTES_PER_ELEMENT), 1, Uint8Array.BYTES_PER_ELEMENT)))(iend);
-  matchlimit = ((__cxx_lvalue_2) => cStaticPointer(() => cPointerOffset(__cxx_lvalue_2, -(5), Uint8Array.BYTES_PER_ELEMENT)))(iend);
+  mflimitPlusOne = ((__cxx_lvalue_1) => cStaticPointer(() => cPointerOffset(cPointerOffset(__cxx_lvalue_1, -(12), Uint8Array.BYTES_PER_ELEMENT), 1, Uint8Array.BYTES_PER_ELEMENT), () => cPointerOffset(cPointerOffset(__cxx_lvalue_1, -(12), Uint8Array.BYTES_PER_ELEMENT, true), 1, Uint8Array.BYTES_PER_ELEMENT, true)))(iend);
+  matchlimit = ((__cxx_lvalue_2) => cStaticPointer(() => cPointerOffset(__cxx_lvalue_2, -(5), Uint8Array.BYTES_PER_ELEMENT), () => cPointerOffset(__cxx_lvalue_2, -(5), Uint8Array.BYTES_PER_ELEMENT, true)))(iend);
   dictBase = (cPointerCompare(dictionary, null, "==") ? null : ((i32(dictDirective) == i32(3)) ? cPointerOffset(cPointerOffset(dictionary, dictSize, Uint8Array.BYTES_PER_ELEMENT), -(cRecordObject(cRecordPointer(dictCtx, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).currentOffset), Uint8Array.BYTES_PER_ELEMENT) : cPointerOffset(cPointerOffset(dictionary, dictSize, Uint8Array.BYTES_PER_ELEMENT), -(startIndex), Uint8Array.BYTES_PER_ELEMENT)));
   op = cTypedPointer(dest, Uint8Array);
-  olimit = cPointerOffset(op, maxOutputSize, Uint8Array.BYTES_PER_ELEMENT);
+  olimit = cPointerOffset(op, maxOutputSize, Uint8Array.BYTES_PER_ELEMENT, true);
   offset = u32(0);
   {
 
@@ -1749,7 +1682,7 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
     return i32(0);
   }
   void 0;
-  (lowLimit = cPointerOffset(cTypedPointer(source, Uint8Array), -(((i32(dictDirective) == i32(1)) ? dictSize : u32(0))), Uint8Array.BYTES_PER_ELEMENT));
+  (lowLimit = cPointerOffset(cTypedPointer(source, Uint8Array), -(((i32(dictDirective) == i32(1)) ? dictSize : u32(0))), Uint8Array.BYTES_PER_ELEMENT, true));
   if ((i32(dictDirective) == i32(3))) {
     (cRecordObject(cRecordPointer(cctx, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictCtx = null);
     (cRecordObject(cRecordPointer(cctx, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictSize = u32(inputSize));
@@ -1811,11 +1744,11 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
             if ((matchIndex < startIndex)) {
               void 0;
               (matchIndex = u32(LZ4_getIndexOnHash(__cxx_scope_32_h, cRecordObject(cRecordPointer(dictCtx, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).hashTable, 2)));
-              (match = cPointerOffset(dictBase, matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+              (match = cPointerOffset(dictBase, matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
               (matchIndex = u32((Number(matchIndex) + Number(dictDelta))));
               (lowLimit = dictionary);
             } else {
-              (match = cPointerOffset(base, matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+              (match = cPointerOffset(base, matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
               (lowLimit = cTypedPointer(source, Uint8Array));
             }
           } else {
@@ -1827,14 +1760,14 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
                 ;
                 void 0;
                 void 0;
-                (match = cPointerOffset(dictBase, matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+                (match = cPointerOffset(dictBase, matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
                 (lowLimit = dictionary);
               } else {
-                (match = cPointerOffset(base, matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+                (match = cPointerOffset(base, matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
                 (lowLimit = cTypedPointer(source, Uint8Array));
               }
             } else {
-              (match = cPointerOffset(base, matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+              (match = cPointerOffset(base, matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
             }
           }
           (forwardH = u32(LZ4_hashPosition(__cxx_scope_29_forwardIp, tableType)));
@@ -1919,7 +1852,7 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
         {
 
           if ((((i32(dictDirective) == i32(2)) || (i32(dictDirective) == i32(3))) && cPointerCompare(lowLimit, dictionary, "=="))) {
-            limit = cPointerOffset(ip, cPointerDiff(dictEnd, match, Uint8Array.BYTES_PER_ELEMENT), Uint8Array.BYTES_PER_ELEMENT);
+            limit = cPointerOffset(ip, cPointerDiff(dictEnd, match, Uint8Array.BYTES_PER_ELEMENT), Uint8Array.BYTES_PER_ELEMENT, true);
             void 0;
             if (cPointerCompare(limit, matchlimit, ">")) {
               (limit = matchlimit);
@@ -2011,25 +1944,25 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
             if ((__cxx_scope_47_matchIndex < startIndex)) {
               void 0;
               (__cxx_scope_47_matchIndex = u32(LZ4_getIndexOnHash(__cxx_scope_45_h, cRecordObject(cRecordPointer(dictCtx, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).hashTable, 2)));
-              (match = cPointerOffset(dictBase, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+              (match = cPointerOffset(dictBase, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
               (lowLimit = dictionary);
               (__cxx_scope_47_matchIndex = u32((Number(__cxx_scope_47_matchIndex) + Number(dictDelta))));
             } else {
-              (match = cPointerOffset(base, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+              (match = cPointerOffset(base, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
               (lowLimit = cTypedPointer(source, Uint8Array));
             }
           } else {
             if ((i32(dictDirective) == i32(2))) {
               if ((__cxx_scope_47_matchIndex < startIndex)) {
                 void 0;
-                (match = cPointerOffset(dictBase, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+                (match = cPointerOffset(dictBase, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
                 (lowLimit = dictionary);
               } else {
-                (match = cPointerOffset(base, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+                (match = cPointerOffset(base, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
                 (lowLimit = cTypedPointer(source, Uint8Array));
               }
             } else {
-              (match = cPointerOffset(base, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT));
+              (match = cPointerOffset(base, __cxx_scope_47_matchIndex, Uint8Array.BYTES_PER_ELEMENT, true));
             }
           }
           LZ4_putIndexOnHash(__cxx_scope_46_current, __cxx_scope_45_h, cRecordObject(cRecordPointer(cctx, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).hashTable, tableType);
@@ -2079,7 +2012,7 @@ export function LZ4_compress_generic_validated(cctx, source, dest, inputSize, in
       ((cDeref(((__cxx_lvalue_41) => { const previous = __cxx_lvalue_41.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_41.value = next; return previous; })(cRef(() => op, __cxx_lvalue_42 => { op = __cxx_lvalue_42; })), Uint8Array).value) = (u32((u32((u32(u64((BigInt(lastRun) << BigInt(4)))) & 255)) & 255)) & 255));
     }
     cByteMemory.memcpy(op, anchor, lastRun);
-    (ip = cPointerOffset(anchor, lastRun, Uint8Array.BYTES_PER_ELEMENT));
+    (ip = cPointerOffset(anchor, lastRun, Uint8Array.BYTES_PER_ELEMENT, true));
     (op = cPointerOffset(op, lastRun, Uint8Array.BYTES_PER_ELEMENT));
   }
   if ((i32(outputDirective) == i32(2))) {
@@ -2295,7 +2228,7 @@ export function LZ4_loadDict_internal(LZ4_dict, dictionary, dictSize, _ld) {
     return i32(0);
   }
   if ((cPointerDiff(dictEnd, p, Uint8Array.BYTES_PER_ELEMENT) > i64(i32(Math.imul(64, i32((1 << 10))))))) {
-    (p = cPointerOffset(dictEnd, -(i32(Math.imul(64, i32((1 << 10))))), Uint8Array.BYTES_PER_ELEMENT));
+    (p = cPointerOffset(dictEnd, -(i32(Math.imul(64, i32((1 << 10))))), Uint8Array.BYTES_PER_ELEMENT, true));
   }
   (cRecordObject(cRecordPointer(dict, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictionary = p);
   (cRecordObject(cRecordPointer(dict, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictSize = u32(cPointerDiff(dictEnd, p, Uint8Array.BYTES_PER_ELEMENT)));
@@ -2403,7 +2336,7 @@ export function LZ4_compress_fast_continue(LZ4_stream, source, dest, inputSize, 
     (dictEnd = source);
   }
   {
-    let sourceEnd = cPointerOffset(source, inputSize, Uint8Array.BYTES_PER_ELEMENT);
+    let sourceEnd = cPointerOffset(source, inputSize, Uint8Array.BYTES_PER_ELEMENT, true);
     if ((cPointerCompare(sourceEnd, cTypedPointer(cRecordObject(cRecordPointer(streamPtr, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictionary, Uint8Array), ">") && cPointerCompare(sourceEnd, dictEnd, "<"))) {
       (cRecordObject(cRecordPointer(streamPtr, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictSize = u32(cPointerDiff(dictEnd, sourceEnd, Uint8Array.BYTES_PER_ELEMENT)));
       if ((cRecordObject(cRecordPointer(streamPtr, {"align": 8, "arrayAlign": 4, "fields": {"currentOffset": {"native": "Uint32Array", "offset": 16400, "size": 4}, "dictCtx": {"offset": 16392, "pointer": true, "size": 8}, "dictSize": {"native": "Uint32Array", "offset": 16408, "size": 4}, "dictionary": {"offset": 16384, "pointer": true, "size": 8}, "hashTable": {"length": 4096, "native": "Uint32Array", "offset": 0, "size": 16384}, "tableType": {"native": "Uint32Array", "offset": 16404, "size": 4}}, "overlaps": false, "size": 16416, "union": false}, {})).dictSize > u32(i32(Math.imul(64, i32((1 << 10))))))) {
@@ -2639,6 +2572,279 @@ export function read_variable_length(ip, ilimit, initial_check) {
   return length;
 }
 
+// C/C++ source: source/build/src/lz4.c:2023
+export function LZ4_decompress_generic(src, dst, srcSize, outputSize, partialDecoding, dict, lowPrefix, dictStart, dictSize) {
+  let ip, iend, op, oend, cpy, dictEnd, checkOffset, shortiend, shortoend, match, offset, token, length, addl, __cxx_scope_14_addl, copySize, restSize, endOfMatch, copyFrom, mlen, matchEnd, copyEnd, oCopyLimit, __cxx_lvalue_0;
+  if ((cPointerCompare(src, null, "==") || (outputSize < 0))) {
+    return i32((-1));
+  }
+  {
+    ip = cTypedPointer(src, Uint8Array);
+    __cxx_lvalue_0 = cRef(() => ip, __cxx_lvalue_2 => { ip = __cxx_lvalue_2; });
+    iend = cPointerOffset(ip, srcSize, Uint8Array.BYTES_PER_ELEMENT, true);
+    op = cTypedPointer(dst, Uint8Array);
+    oend = cPointerOffset(op, outputSize, Uint8Array.BYTES_PER_ELEMENT, true);
+
+    dictEnd = (cPointerCompare(dictStart, null, "==") ? null : cPointerOffset(dictStart, dictSize, Uint8Array.BYTES_PER_ELEMENT));
+    checkOffset = i32((dictSize < u64(i32(Math.imul(64, i32((1 << 10)))))));
+    shortiend = ((__cxx_lvalue_3) => cStaticPointer(() => cPointerOffset(cPointerOffset(__cxx_lvalue_3, -(14), Uint8Array.BYTES_PER_ELEMENT), -(2), Uint8Array.BYTES_PER_ELEMENT), () => cPointerOffset(cPointerOffset(__cxx_lvalue_3, -(14), Uint8Array.BYTES_PER_ELEMENT, true), -(2), Uint8Array.BYTES_PER_ELEMENT, true)))(iend);
+    shortoend = ((__cxx_lvalue_4) => cStaticPointer(() => cPointerOffset(cPointerOffset(__cxx_lvalue_4, -(14), Uint8Array.BYTES_PER_ELEMENT), -(18), Uint8Array.BYTES_PER_ELEMENT), () => cPointerOffset(cPointerOffset(__cxx_lvalue_4, -(14), Uint8Array.BYTES_PER_ELEMENT, true), -(18), Uint8Array.BYTES_PER_ELEMENT, true)))(oend);
+
+
+
+
+    {
+
+    }
+    ;
+    void 0;
+    if (Boolean(i64((i32((outputSize == 0)) != 0)))) {
+      if (Boolean(partialDecoding)) {
+        return i32(0);
+      }
+      return i32((((srcSize == 1) && (i32((cDeref(ip, Uint8Array).value)) == 0)) ? 0 : (-1)));
+    }
+    if (Boolean(i64((i32((srcSize == 0)) != 0)))) {
+      return i32((-1));
+    }
+    {
+
+    }
+    ;
+    __source_control_0: while (Boolean(1)) {
+      void 0;
+      (token = u32((cDeref(((__cxx_lvalue_5) => { const previous = __cxx_lvalue_5.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_5.value = next; return previous; })(__cxx_lvalue_0), Uint8Array).value)));
+      (length = u64((token >>> 4)));
+      {
+
+      }
+      ;
+      __source_exit__copy_match: {
+        if (((length != u64(u32((u32((1 << i32((8 - 4)))) - u32(1))))) && Boolean(i64((i32((i32(cPointerCompare(ip, shortiend, "<")) & i32(cPointerCompare(op, shortoend, "<=")))) != 0))))) {
+          cByteMemory.memcpy(op, ip, u64(16));
+          (op = cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT));
+          (ip = cPointerOffset(ip, length, Uint8Array.BYTES_PER_ELEMENT));
+          (length = u64(u32((token & u32((u32((1 << 4)) - u32(1)))))));
+          {
+
+          }
+          ;
+          (offset = u64(LZ4_readLE16(ip)));
+          (ip = cPointerOffset(ip, 2, Uint8Array.BYTES_PER_ELEMENT));
+          (match = cPointerOffset(op, -(offset), Uint8Array.BYTES_PER_ELEMENT, true));
+          void 0;
+          if ((((length != u64(u32((u32((1 << 4)) - u32(1))))) && (offset >= u64(8))) && ((i32(dict) == i32(1)) || cPointerCompare(match, lowPrefix, ">=")))) {
+            cByteMemory.memcpy(cPointerOffset(op, 0, Uint8Array.BYTES_PER_ELEMENT), cPointerOffset(match, 0, Uint8Array.BYTES_PER_ELEMENT), u64(8));
+            cByteMemory.memcpy(cPointerOffset(op, 8, Uint8Array.BYTES_PER_ELEMENT), cPointerOffset(match, 8, Uint8Array.BYTES_PER_ELEMENT), u64(8));
+            cByteMemory.memcpy(cPointerOffset(op, 16, Uint8Array.BYTES_PER_ELEMENT), cPointerOffset(match, 16, Uint8Array.BYTES_PER_ELEMENT), u64(2));
+            (op = cPointerOffset(op, u64((BigInt(length) + BigInt(u64(4)))), Uint8Array.BYTES_PER_ELEMENT));
+            continue __source_control_0;
+          }
+          break __source_exit__copy_match;
+        }
+        if ((length == u64(u32((u32((1 << i32((8 - 4)))) - u32(1)))))) {
+          addl = u64(read_variable_length(__cxx_lvalue_0, cPointerOffset(iend, -(u32((u32((1 << i32((8 - 4)))) - u32(1)))), Uint8Array.BYTES_PER_ELEMENT), 1));
+          if ((addl == rvl_error)) {
+            return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+          }
+          (length = u64((BigInt(length) + BigInt(addl))));
+          if (Boolean(i64((i32((u64((BigInt(u64(cSourceAddresses.encode(op))) + BigInt(length))) < u64(cSourceAddresses.encode(op)))) != 0)))) {
+            return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+          }
+          if (Boolean(i64((i32((u64((BigInt(u64(cSourceAddresses.encode(ip))) + BigInt(length))) < u64(cSourceAddresses.encode(ip)))) != 0)))) {
+            return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+          }
+        }
+        (cpy = cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT, true));
+        {
+
+        }
+        ;
+        if ((cPointerCompare(cpy, cPointerOffset(oend, -(12), Uint8Array.BYTES_PER_ELEMENT, true), ">") || cPointerCompare(cPointerOffset(ip, length, Uint8Array.BYTES_PER_ELEMENT, true), cPointerOffset(iend, -(i32((i32((2 + 1)) + 5))), Uint8Array.BYTES_PER_ELEMENT, true), ">"))) {
+          if (Boolean(partialDecoding)) {
+            {
+
+            }
+            {
+
+            }
+            ;
+            {
+
+            }
+            ;
+            {
+
+            }
+            ;
+            if (cPointerCompare(cPointerOffset(ip, length, Uint8Array.BYTES_PER_ELEMENT, true), iend, ">")) {
+              (length = u64(cPointerDiff(iend, ip, Uint8Array.BYTES_PER_ELEMENT)));
+              (cpy = cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT, true));
+            }
+            if (cPointerCompare(cpy, oend, ">")) {
+              (cpy = oend);
+              void 0;
+              (length = u64(cPointerDiff(oend, op, Uint8Array.BYTES_PER_ELEMENT)));
+            }
+          } else {
+            if ((cPointerCompare(cPointerOffset(ip, length, Uint8Array.BYTES_PER_ELEMENT, true), iend, "!=") || cPointerCompare(cpy, oend, ">"))) {
+              {
+
+              }
+              {
+
+              }
+              ;
+              {
+
+              }
+              ;
+              {
+
+              }
+              ;
+              return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+            }
+          }
+          cByteMemory.memmove(op, ip, length);
+          (ip = cPointerOffset(ip, length, Uint8Array.BYTES_PER_ELEMENT));
+          (op = cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT));
+          if ((((!Boolean(partialDecoding)) || cPointerCompare(cpy, oend, "==")) || cPointerCompare(ip, cPointerOffset(iend, -(2), Uint8Array.BYTES_PER_ELEMENT, true), ">="))) {
+            break __source_control_0;
+          }
+        } else {
+          LZ4_wildCopy8(op, ip, cpy);
+          (ip = cPointerOffset(ip, length, Uint8Array.BYTES_PER_ELEMENT));
+          (op = cpy);
+        }
+        (offset = u64(LZ4_readLE16(ip)));
+        (ip = cPointerOffset(ip, 2, Uint8Array.BYTES_PER_ELEMENT));
+        (match = cPointerOffset(op, -(offset), Uint8Array.BYTES_PER_ELEMENT, true));
+        (length = u64(u32((token & u32((u32((1 << 4)) - u32(1)))))));
+        {
+
+        }
+        ;
+      }
+      if ((length == u64(u32((u32((1 << 4)) - u32(1)))))) {
+        __cxx_scope_14_addl = u64(read_variable_length(__cxx_lvalue_0, cPointerOffset(cPointerOffset(iend, -(5), Uint8Array.BYTES_PER_ELEMENT), 1, Uint8Array.BYTES_PER_ELEMENT), 0));
+        if ((__cxx_scope_14_addl == rvl_error)) {
+          return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+        }
+        (length = u64((BigInt(length) + BigInt(__cxx_scope_14_addl))));
+        if (Boolean(i64((i32((u64((BigInt(u64(cSourceAddresses.encode(op))) + BigInt(length))) < u64(cSourceAddresses.encode(op)))) != 0)))) {
+          return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+        }
+      }
+      (length = u64((BigInt(length) + BigInt(u64(4)))));
+      if ((Boolean(checkOffset) && Boolean(i64((i32(cPointerCompare(cPointerOffset(match, dictSize, Uint8Array.BYTES_PER_ELEMENT, true), lowPrefix, "<")) != 0))))) {
+        return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+      }
+      if (((i32(dict) == i32(2)) && cPointerCompare(match, lowPrefix, "<"))) {
+        void 0;
+        if (Boolean(i64((i32(cPointerCompare(cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT, true), cPointerOffset(oend, -(5), Uint8Array.BYTES_PER_ELEMENT, true), ">")) != 0)))) {
+          if (Boolean(partialDecoding)) {
+            (length = u64(((length < u64(cPointerDiff(oend, op, Uint8Array.BYTES_PER_ELEMENT))) ? length : u64(cPointerDiff(oend, op, Uint8Array.BYTES_PER_ELEMENT)))));
+          } else {
+            return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+          }
+        }
+        if ((length <= u64(cPointerDiff(lowPrefix, match, Uint8Array.BYTES_PER_ELEMENT)))) {
+          cByteMemory.memmove(op, cPointerOffset(dictEnd, -(cPointerDiff(lowPrefix, match, Uint8Array.BYTES_PER_ELEMENT)), Uint8Array.BYTES_PER_ELEMENT), length);
+          (op = cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT));
+        } else {
+          copySize = u64(cPointerDiff(lowPrefix, match, Uint8Array.BYTES_PER_ELEMENT));
+          restSize = u64((BigInt(length) - BigInt(copySize)));
+          cByteMemory.memcpy(op, cPointerOffset(dictEnd, -(copySize), Uint8Array.BYTES_PER_ELEMENT), copySize);
+          (op = cPointerOffset(op, copySize, Uint8Array.BYTES_PER_ELEMENT));
+          if ((restSize > u64(cPointerDiff(op, lowPrefix, Uint8Array.BYTES_PER_ELEMENT)))) {
+            endOfMatch = cPointerOffset(op, restSize, Uint8Array.BYTES_PER_ELEMENT, true);
+            copyFrom = lowPrefix;
+            __source_control_1: while (cPointerCompare(op, endOfMatch, "<")) {
+              ((cDeref(((__cxx_lvalue_6) => { const previous = __cxx_lvalue_6.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_6.value = next; return previous; })(cRef(() => op, __cxx_lvalue_7 => { op = __cxx_lvalue_7; })), Uint8Array).value) = (u32((cDeref(((__cxx_lvalue_8) => { const previous = __cxx_lvalue_8.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_8.value = next; return previous; })(cRef(() => copyFrom, __cxx_lvalue_9 => { copyFrom = __cxx_lvalue_9; })), Uint8Array).value)) & 255));
+            }
+          } else {
+            cByteMemory.memcpy(op, lowPrefix, restSize);
+            (op = cPointerOffset(op, restSize, Uint8Array.BYTES_PER_ELEMENT));
+          }
+        }
+        continue __source_control_0;
+      }
+      void 0;
+      (cpy = cPointerOffset(op, length, Uint8Array.BYTES_PER_ELEMENT, true));
+      void 0;
+      if ((Boolean(partialDecoding) && cPointerCompare(cpy, cPointerOffset(oend, -(i32((i32(Math.imul(2, 8)) - 4))), Uint8Array.BYTES_PER_ELEMENT, true), ">"))) {
+        mlen = u64(((length < u64(cPointerDiff(oend, op, Uint8Array.BYTES_PER_ELEMENT))) ? length : u64(cPointerDiff(oend, op, Uint8Array.BYTES_PER_ELEMENT))));
+        matchEnd = cPointerOffset(match, mlen, Uint8Array.BYTES_PER_ELEMENT, true);
+        copyEnd = cPointerOffset(op, mlen, Uint8Array.BYTES_PER_ELEMENT, true);
+        if (cPointerCompare(matchEnd, op, ">")) {
+          __source_control_2: while (cPointerCompare(op, copyEnd, "<")) {
+            ((cDeref(((__cxx_lvalue_10) => { const previous = __cxx_lvalue_10.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_10.value = next; return previous; })(cRef(() => op, __cxx_lvalue_11 => { op = __cxx_lvalue_11; })), Uint8Array).value) = (u32((cDeref(((__cxx_lvalue_12) => { const previous = __cxx_lvalue_12.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_12.value = next; return previous; })(cRef(() => match, __cxx_lvalue_13 => { match = __cxx_lvalue_13; })), Uint8Array).value)) & 255));
+          }
+        } else {
+          cByteMemory.memcpy(op, match, mlen);
+        }
+        (op = copyEnd);
+        if (cPointerCompare(op, oend, "==")) {
+          break __source_control_0;
+        }
+        continue __source_control_0;
+      }
+      if (Boolean(i64((i32((offset < u64(8))) != 0)))) {
+        LZ4_write32(op, u32(0));
+        ((cDeref(cPointerOffset(op, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(match, 0, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+        ((cDeref(cPointerOffset(op, 1, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(match, 1, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+        ((cDeref(cPointerOffset(op, 2, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(match, 2, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+        ((cDeref(cPointerOffset(op, 3, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value) = (u32((cDeref(cPointerOffset(match, 3, Uint8Array.BYTES_PER_ELEMENT), Uint8Array).value)) & 255));
+        (match = cPointerOffset(match, (cDeref(cPointerOffset(inc32table, offset, Uint32Array.BYTES_PER_ELEMENT), Uint32Array).value), Uint8Array.BYTES_PER_ELEMENT));
+        cByteMemory.memcpy(cPointerOffset(op, 4, Uint8Array.BYTES_PER_ELEMENT), match, u64(4));
+        (match = cPointerOffset(match, -((cDeref(cPointerOffset(dec64table, offset, Int32Array.BYTES_PER_ELEMENT), Int32Array).value)), Uint8Array.BYTES_PER_ELEMENT));
+      } else {
+        cByteMemory.memcpy(op, match, u64(8));
+        (match = cPointerOffset(match, 8, Uint8Array.BYTES_PER_ELEMENT));
+      }
+      (op = cPointerOffset(op, 8, Uint8Array.BYTES_PER_ELEMENT));
+      if (Boolean(i64((i32(cPointerCompare(cpy, cPointerOffset(oend, -(i32((i32(Math.imul(2, 8)) - 4))), Uint8Array.BYTES_PER_ELEMENT, true), ">")) != 0)))) {
+        oCopyLimit = ((__cxx_lvalue_14) => cStaticPointer(() => cPointerOffset(__cxx_lvalue_14, -(i32((8 - 1))), Uint8Array.BYTES_PER_ELEMENT), () => cPointerOffset(__cxx_lvalue_14, -(i32((8 - 1))), Uint8Array.BYTES_PER_ELEMENT, true)))(oend);
+        if (cPointerCompare(cpy, cPointerOffset(oend, -(5), Uint8Array.BYTES_PER_ELEMENT, true), ">")) {
+          return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+        }
+        if (cPointerCompare(op, oCopyLimit, "<")) {
+          LZ4_wildCopy8(op, match, oCopyLimit);
+          (match = cPointerOffset(match, cPointerDiff(oCopyLimit, op, Uint8Array.BYTES_PER_ELEMENT), Uint8Array.BYTES_PER_ELEMENT));
+          (op = oCopyLimit);
+        }
+        __source_control_3: while (cPointerCompare(op, cpy, "<")) {
+          ((cDeref(((__cxx_lvalue_15) => { const previous = __cxx_lvalue_15.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_15.value = next; return previous; })(cRef(() => op, __cxx_lvalue_16 => { op = __cxx_lvalue_16; })), Uint8Array).value) = (u32((cDeref(((__cxx_lvalue_17) => { const previous = __cxx_lvalue_17.value; const next = cPointerOffset(previous, 1, Uint8Array.BYTES_PER_ELEMENT); __cxx_lvalue_17.value = next; return previous; })(cRef(() => match, __cxx_lvalue_18 => { match = __cxx_lvalue_18; })), Uint8Array).value)) & 255));
+        }
+      } else {
+        cByteMemory.memcpy(op, match, u64(8));
+        if ((length > u64(16))) {
+          LZ4_wildCopy8(cPointerOffset(op, 8, Uint8Array.BYTES_PER_ELEMENT), cPointerOffset(match, 8, Uint8Array.BYTES_PER_ELEMENT), cpy);
+        }
+      }
+      (op = cpy);
+    }
+    {
+
+    }
+    ;
+    return i32(cPointerDiff(cTypedPointer(op, Uint8Array), dst, Uint8Array.BYTES_PER_ELEMENT));
+    return i32((i32(i64((-cPointerDiff(cTypedPointer(ip, Uint8Array), src, Uint8Array.BYTES_PER_ELEMENT)))) - 1));
+  }
+}
+
+// C/C++ source: source/build/src/lz4.c:2451
+export function LZ4_decompress_safe(source, dest, compressedSize, maxDecompressedSize) {
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, maxDecompressedSize, 0, 0, cTypedPointer(dest, Uint8Array), null, u64(0)));
+}
+
+// C/C++ source: source/build/src/lz4.c:2459
+export function LZ4_decompress_safe_partial(src, dst, compressedSize, targetOutputSize, dstCapacity) {
+  (dstCapacity = i32(((targetOutputSize < dstCapacity) ? targetOutputSize : dstCapacity)));
+  return i32(LZ4_decompress_generic(src, dst, compressedSize, dstCapacity, 1, 0, cTypedPointer(dst, Uint8Array), null, u64(0)));
+}
+
 // C/C++ source: source/build/src/lz4.c:2468
 export function LZ4_decompress_fast(source, dest, originalSize) {
   {
@@ -2648,14 +2854,56 @@ export function LZ4_decompress_fast(source, dest, originalSize) {
   return i32(LZ4_decompress_unsafe_generic(cTypedPointer(source, Uint8Array), cTypedPointer(dest, Uint8Array), originalSize, u64(0), null, u64(0)));
 }
 
+// C/C++ source: source/build/src/lz4.c:2479
+export function LZ4_decompress_safe_withPrefix64k(source, dest, compressedSize, maxOutputSize) {
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, maxOutputSize, 0, 1, cPointerOffset(cTypedPointer(dest, Uint8Array), -(i32(Math.imul(64, i32((1 << 10))))), Uint8Array.BYTES_PER_ELEMENT), null, u64(0)));
+}
+
+// C/C++ source: source/build/src/lz4.c:2487
+export function LZ4_decompress_safe_partial_withPrefix64k(source, dest, compressedSize, targetOutputSize, dstCapacity) {
+  (dstCapacity = i32(((targetOutputSize < dstCapacity) ? targetOutputSize : dstCapacity)));
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, dstCapacity, 1, 1, cPointerOffset(cTypedPointer(dest, Uint8Array), -(i32(Math.imul(64, i32((1 << 10))))), Uint8Array.BYTES_PER_ELEMENT), null, u64(0)));
+}
+
 // C/C++ source: source/build/src/lz4.c:2496
 export function LZ4_decompress_fast_withPrefix64k(source, dest, originalSize) {
   return i32(LZ4_decompress_unsafe_generic(cTypedPointer(source, Uint8Array), cTypedPointer(dest, Uint8Array), originalSize, u64(i32(Math.imul(64, i32((1 << 10))))), null, u64(0)));
 }
 
+// C/C++ source: source/build/src/lz4.c:2504
+export function LZ4_decompress_safe_withSmallPrefix(source, dest, compressedSize, maxOutputSize, prefixSize) {
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, maxOutputSize, 0, 0, cPointerOffset(cTypedPointer(dest, Uint8Array), -(prefixSize), Uint8Array.BYTES_PER_ELEMENT), null, u64(0)));
+}
+
+// C/C++ source: source/build/src/lz4.c:2513
+export function LZ4_decompress_safe_partial_withSmallPrefix(source, dest, compressedSize, targetOutputSize, dstCapacity, prefixSize) {
+  (dstCapacity = i32(((targetOutputSize < dstCapacity) ? targetOutputSize : dstCapacity)));
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, dstCapacity, 1, 0, cPointerOffset(cTypedPointer(dest, Uint8Array), -(prefixSize), Uint8Array.BYTES_PER_ELEMENT), null, u64(0)));
+}
+
+// C/C++ source: source/build/src/lz4.c:2523
+export function LZ4_decompress_safe_forceExtDict(source, dest, compressedSize, maxOutputSize, dictStart, dictSize) {
+  {
+
+  }
+  ;
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, maxOutputSize, 0, 2, cTypedPointer(dest, Uint8Array), cTypedPointer(dictStart, Uint8Array), dictSize));
+}
+
+// C/C++ source: source/build/src/lz4.c:2534
+export function LZ4_decompress_safe_partial_forceExtDict(source, dest, compressedSize, targetOutputSize, dstCapacity, dictStart, dictSize) {
+  (dstCapacity = i32(((targetOutputSize < dstCapacity) ? targetOutputSize : dstCapacity)));
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, dstCapacity, 1, 2, cTypedPointer(dest, Uint8Array), cTypedPointer(dictStart, Uint8Array), dictSize));
+}
+
 // C/C++ source: source/build/src/lz4.c:2545
 export function LZ4_decompress_fast_extDict(source, dest, originalSize, dictStart, dictSize) {
   return i32(LZ4_decompress_unsafe_generic(cTypedPointer(source, Uint8Array), cTypedPointer(dest, Uint8Array), originalSize, u64(0), cTypedPointer(dictStart, Uint8Array), dictSize));
+}
+
+// C/C++ source: source/build/src/lz4.c:2558
+export function LZ4_decompress_safe_doubleDict(source, dest, compressedSize, maxOutputSize, prefixSize, dictStart, dictSize) {
+  return i32(LZ4_decompress_generic(source, dest, compressedSize, maxOutputSize, 0, 2, cPointerOffset(cTypedPointer(dest, Uint8Array), -(prefixSize), Uint8Array.BYTES_PER_ELEMENT), cTypedPointer(dictStart, Uint8Array), dictSize));
 }
 
 // C/C++ source: source/build/src/lz4.c:2589
@@ -2685,6 +2933,48 @@ export function LZ4_decoderRingBufferSize(maxBlockSize) {
     (maxBlockSize = i32(16));
   }
   return i32((i32((65536 + 14)) + maxBlockSize));
+}
+
+// C/C++ source: source/build/src/lz4.c:2631
+export function LZ4_decompress_safe_continue(LZ4_streamDecode, source, dest, compressedSize, maxOutputSize) {
+  let lz4sd = cObjectFieldRef(cRecordObject(cRecordPointer(LZ4_streamDecode, {"align": 8, "arrayAlign": 1, "fields": {"internal_donotuse": {"byteRecord": {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, "offset": 0}, "minStateSize": {"length": 32, "native": "Uint8Array", "offset": 0, "size": 32}}, "overlaps": true, "pointerEncoding": "source-lp64-addresses/2", "size": 32, "union": true}, {})), "internal_donotuse");
+  let result;
+  if ((cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize == u64(0))) {
+    void 0;
+    (result = i32(LZ4_decompress_safe(source, dest, compressedSize, maxOutputSize)));
+    if ((result <= 0)) {
+      return i32(result);
+    }
+    (cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize = u64(result));
+    (cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixEnd = cPointerOffset(cTypedPointer(dest, Uint8Array), result, Uint8Array.BYTES_PER_ELEMENT));
+  } else {
+    if (cPointerCompare(cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixEnd, cTypedPointer(dest, Uint8Array), "==")) {
+      if ((cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize >= u64(i32((i32(Math.imul(64, i32((1 << 10)))) - 1))))) {
+        (result = i32(LZ4_decompress_safe_withPrefix64k(source, dest, compressedSize, maxOutputSize)));
+      } else {
+        if ((cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).extDictSize == u64(0))) {
+          (result = i32(LZ4_decompress_safe_withSmallPrefix(source, dest, compressedSize, maxOutputSize, cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize)));
+        } else {
+          (result = i32(LZ4_decompress_safe_doubleDict(source, dest, compressedSize, maxOutputSize, cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize, cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).externalDict, cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).extDictSize)));
+        }
+      }
+      if ((result <= 0)) {
+        return i32(result);
+      }
+      ((__cxx_lvalue_0) => (__cxx_lvalue_0.value = u64((BigInt(__cxx_lvalue_0.value) + BigInt(u64(result))))))(cObjectFieldRef(cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})), "prefixSize"));
+      ((__cxx_lvalue_1) => (__cxx_lvalue_1.value = cPointerOffset(__cxx_lvalue_1.value, result, Uint8Array.BYTES_PER_ELEMENT)))(cObjectFieldRef(cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})), "prefixEnd"));
+    } else {
+      (cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).extDictSize = u64(cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize));
+      (cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).externalDict = cPointerOffset(cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixEnd, -(cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).extDictSize), Uint8Array.BYTES_PER_ELEMENT));
+      (result = i32(LZ4_decompress_safe_forceExtDict(source, dest, compressedSize, maxOutputSize, cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).externalDict, cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).extDictSize)));
+      if ((result <= 0)) {
+        return i32(result);
+      }
+      (cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixSize = u64(result));
+      (cRecordObject(cRecordPointer(lz4sd, {"align": 8, "arrayAlign": 1, "fields": {"extDictSize": {"native": "BigUint64Array", "offset": 16, "size": 8}, "externalDict": {"offset": 0, "pointer": true, "size": 8}, "prefixEnd": {"offset": 8, "pointer": true, "size": 8}, "prefixSize": {"native": "BigUint64Array", "offset": 24, "size": 8}}, "overlaps": false, "size": 32, "union": false}, {})).prefixEnd = cPointerOffset(cTypedPointer(dest, Uint8Array), result, Uint8Array.BYTES_PER_ELEMENT));
+    }
+  }
+  return i32(result);
 }
 
 // C/C++ source: source/build/src/lz4.c:2671
@@ -2738,6 +3028,38 @@ export function LZ4_decompress_fast_continue(LZ4_streamDecode, source, dest, ori
   return i32(result);
 }
 
+// C/C++ source: source/build/src/lz4.c:2719
+export function LZ4_decompress_safe_usingDict(source, dest, compressedSize, maxOutputSize, dictStart, dictSize) {
+  if ((dictSize == 0)) {
+    return i32(LZ4_decompress_safe(source, dest, compressedSize, maxOutputSize));
+  }
+  if (cPointerCompare(cPointerOffset(dictStart, dictSize, Uint8Array.BYTES_PER_ELEMENT, true), dest, "==")) {
+    if ((dictSize >= i32((i32(Math.imul(64, i32((1 << 10)))) - 1)))) {
+      return i32(LZ4_decompress_safe_withPrefix64k(source, dest, compressedSize, maxOutputSize));
+    }
+    void 0;
+    return i32(LZ4_decompress_safe_withSmallPrefix(source, dest, compressedSize, maxOutputSize, u64(dictSize)));
+  }
+  void 0;
+  return i32(LZ4_decompress_safe_forceExtDict(source, dest, compressedSize, maxOutputSize, dictStart, u64(dictSize)));
+}
+
+// C/C++ source: source/build/src/lz4.c:2734
+export function LZ4_decompress_safe_partial_usingDict(source, dest, compressedSize, targetOutputSize, dstCapacity, dictStart, dictSize) {
+  if ((dictSize == 0)) {
+    return i32(LZ4_decompress_safe_partial(source, dest, compressedSize, targetOutputSize, dstCapacity));
+  }
+  if (cPointerCompare(cPointerOffset(dictStart, dictSize, Uint8Array.BYTES_PER_ELEMENT, true), dest, "==")) {
+    if ((dictSize >= i32((i32(Math.imul(64, i32((1 << 10)))) - 1)))) {
+      return i32(LZ4_decompress_safe_partial_withPrefix64k(source, dest, compressedSize, targetOutputSize, dstCapacity));
+    }
+    void 0;
+    return i32(LZ4_decompress_safe_partial_withSmallPrefix(source, dest, compressedSize, targetOutputSize, dstCapacity, u64(dictSize)));
+  }
+  void 0;
+  return i32(LZ4_decompress_safe_partial_forceExtDict(source, dest, compressedSize, targetOutputSize, dstCapacity, dictStart, u64(dictSize)));
+}
+
 // C/C++ source: source/build/src/lz4.c:2749
 export function LZ4_decompress_fast_usingDict(source, dest, originalSize, dictStart, dictSize) {
   if (((dictSize == 0) || cPointerCompare(cPointerOffset(dictStart, dictSize, Uint8Array.BYTES_PER_ELEMENT, true), dest, "=="))) {
@@ -2780,6 +3102,11 @@ export function LZ4_compress_continue(LZ4_stream, source, dest, inputSize) {
 // C/C++ source: source/build/src/lz4.c:2795
 export function LZ4_uncompress(source, dest, outputSize) {
   return i32(LZ4_decompress_fast(source, dest, outputSize));
+}
+
+// C/C++ source: source/build/src/lz4.c:2799
+export function LZ4_uncompress_unknownOutputSize(source, dest, isize, maxOutputSize) {
+  return i32(LZ4_decompress_safe(source, dest, isize, maxOutputSize));
 }
 
 // C/C++ source: source/build/src/lz4.c:2806

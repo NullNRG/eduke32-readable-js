@@ -26,6 +26,12 @@ extern "C" int guarded(const unsigned char *source,int length){
     if(length<13)return length;
     return (source+3<limit)+count(source+2,match);
 }
+extern "C" int compare_limits(const unsigned char *source,int length){
+    const unsigned char *const end=source+length;
+    const unsigned char *const limit=end-12;
+    const unsigned char *const inner=limit+4;
+    return (source<limit)+2*(source<=inner)+3*(source+2==inner)+4*(end-limit==12);
+}
 extern "C" int snapshots(const unsigned char *source){
     const unsigned char *saved[4];
     for(int n=0;n<4;n++){
@@ -54,8 +60,9 @@ extern "C" int escaped_base(const unsigned char *source){
 ''')
     (root / 'main.cpp').write_text('''#include <cstdio>
 extern "C" int guarded(const unsigned char*,int),snapshots(const unsigned char*);
+extern "C" int compare_limits(const unsigned char*,int);
 int main(){unsigned char data[600];for(int i=0;i<600;i++)data[i]=(unsigned char)(i*17+3);
-for(int n=0;n<512;n++)printf("%d %d\\n",guarded(data,n),snapshots(data));}
+for(int n=0;n<512;n++)printf("%d %d %d\\n",guarded(data,n),snapshots(data),compare_limits(data+32,n));}
 ''')
     run(['clang++', root / 'unit.cpp', root / 'main.cpp', '-o', root / 'native'])
     expected = run([root / 'native']).splitlines()
@@ -72,6 +79,6 @@ for(int n=0;n<512;n++)printf("%d %d\\n",guarded(data,n),snapshots(data));}
     runner.write_text('import * as m from ' + json.dumps(module.as_uri())
                       + ';const data=Uint8Array.from({length:600},(_,i)=>(i*17+3)&255);'
                       + 'for(const name of ["invalid_read","mutable_base","escaped_base"]){let rejected=false;try{m[name](data)}catch(error){if(!(error instanceof RangeError))throw error;rejected=true;}if(!rejected)throw Error("Invalid pointer accepted: "+name);}'
-                      + 'for(let n=0;n<512;n++)console.log([m.guarded(data,n),m.snapshots(data)].join(" "));')
+                      + 'for(let n=0;n<512;n++)console.log([m.guarded(data,n),m.snapshots(data),m.compare_limits(data.subarray(32),n)].join(" "));')
     assert run(['node', runner]).splitlines() == expected
-print('PASS: 1024 native/JS guarded-limit/snapshot results; invalid reads and unproven mutable/escaped bases retain checked failures')
+print('PASS: 1536 native/JS guarded-limit/snapshot/address-comparison results; invalid reads and unproven mutable/escaped bases retain checked failures')

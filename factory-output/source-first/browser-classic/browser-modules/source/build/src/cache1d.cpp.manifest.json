@@ -1,0 +1,1948 @@
+{
+  "source": "source/build/src/cache1d.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "SILENCE_UNUSED",
+      "engineDestroyAllocator",
+      "inc_and_check_cacnum__cxx_instance_8e3b6bef2f7424aa36b1",
+      "lockrecip",
+      "min",
+      "mulscale32",
+      "osdfunc_cacheinfo",
+      "reset__cxx_instance_4f5a03a1a6697d4ac394",
+      "xaligned_alloc",
+      "xaligned_free",
+      "zerochar"
+    ],
+    "additional_ast_roots": 41,
+    "rounds": 1,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {
+      "CACHE1D_LOCKED": 200,
+      "CACHE1D_UNLOCKED": 199,
+      "Verbosity_ERROR": -2,
+      "Verbosity_INFO": 0,
+      "denorm_absent": 0,
+      "round_toward_zero": 0,
+      "denorm_present": 1,
+      "round_to_nearest": 1,
+      "__get_type_info": 0,
+      "__get_functor_ptr": 1,
+      "__clone_functor": 2,
+      "__destroy_functor": 3,
+      "F_OWNER_PGRP": 2,
+      "_SC_UIO_MAXIOV": 60,
+      "_SC_LEVEL1_ICACHE_SIZE": 185,
+      "memory_order_seq_cst": 5,
+      "__memory_order_mask": 65535,
+      "memory_order_acquire": 2,
+      "memory_order_acq_rel": 4,
+      "memory_order_consume": 1,
+      "memory_order_release": 3,
+      "PTHREAD_MUTEX_TIMED_NP": 0,
+      "PTHREAD_MUTEX_RECURSIVE_NP": 1,
+      "PTHREAD_MUTEX_ERRORCHECK_NP": 2,
+      "PTHREAD_MUTEX_NORMAL": 0,
+      "PTHREAD_MUTEX_STALLED": 0,
+      "PTHREAD_MUTEX_ROBUST": 1,
+      "PTHREAD_RWLOCK_PREFER_READER_NP": 0,
+      "memory_order_relaxed": 0,
+      "BRANCHFULL": 0,
+      "SIGNED": 0,
+      "UNSIGNED": 1,
+      "BRANCHFREE": 1,
+      "Verbosity_INVALID": -10,
+      "RF_INIT": 1,
+      "RF_FREE": 2,
+      "SDL_PIXELTYPE_INDEX1": 1,
+      "SDL_BITMAPORDER_4321": 1,
+      "SDL_BITMAPORDER_1234": 2,
+      "SDL_PIXELTYPE_INDEX2": 12,
+      "SDL_PIXELTYPE_INDEX4": 2,
+      "SDL_PIXELTYPE_INDEX8": 3,
+      "SDL_PIXELTYPE_PACKED8": 4,
+      "SDL_PACKEDORDER_XRGB": 1,
+      "SDL_PACKEDLAYOUT_332": 1,
+      "SDL_PIXELTYPE_PACKED16": 5,
+      "SDL_PACKEDLAYOUT_4444": 2,
+      "SDL_PIXELFORMAT_XRGB4444": 353504258,
+      "SDL_PACKEDORDER_XBGR": 5,
+      "SDL_PIXELFORMAT_XBGR4444": 357698562,
+      "SDL_PACKEDLAYOUT_1555": 3,
+      "SDL_PIXELFORMAT_XRGB1555": 353570562,
+      "SDL_PIXELFORMAT_XBGR1555": 357764866,
+      "SDL_PACKEDORDER_ARGB": 3,
+      "SDL_PACKEDORDER_RGBA": 4,
+      "SDL_PACKEDORDER_ABGR": 7,
+      "SDL_PACKEDORDER_BGRA": 8,
+      "SDL_PACKEDLAYOUT_5551": 4,
+      "SDL_PACKEDLAYOUT_565": 5,
+      "SDL_PIXELTYPE_ARRAYU8": 7,
+      "SDL_ARRAYORDER_RGB": 1,
+      "SDL_ARRAYORDER_BGR": 4,
+      "SDL_PIXELTYPE_PACKED32": 6,
+      "SDL_PACKEDLAYOUT_8888": 6,
+      "SDL_PIXELFORMAT_XRGB8888": 370546692,
+      "SDL_PACKEDORDER_RGBX": 2,
+      "SDL_PIXELFORMAT_XBGR8888": 374740996,
+      "SDL_PACKEDORDER_BGRX": 6,
+      "SDL_PACKEDLAYOUT_2101010": 7,
+      "SDL_PIXELFORMAT_ABGR8888": 376840196,
+      "SDL_PIXELFORMAT_BGRA8888": 377888772,
+      "SDL_PIXELFORMAT_ARGB8888": 372645892,
+      "SDL_PIXELFORMAT_RGBA8888": 373694468,
+      "SDL_PIXELFORMAT_BGRX8888": 375789572,
+      "SDL_PIXELFORMAT_RGBX8888": 371595268,
+      "SDL_WINDOW_FULLSCREEN": 1,
+      "SDL_WINDOW_MOUSE_GRABBED": 256,
+      "SDL_SCANCODE_CAPSLOCK": 57,
+      "SDL_SCANCODE_F1": 58,
+      "SDL_SCANCODE_F2": 59,
+      "SDL_SCANCODE_F3": 60,
+      "SDL_SCANCODE_F4": 61,
+      "SDL_SCANCODE_F5": 62,
+      "SDL_SCANCODE_F6": 63,
+      "SDL_SCANCODE_F7": 64,
+      "SDL_SCANCODE_F8": 65,
+      "SDL_SCANCODE_F9": 66,
+      "SDL_SCANCODE_F10": 67,
+      "SDL_SCANCODE_F11": 68,
+      "SDL_SCANCODE_F12": 69,
+      "SDL_SCANCODE_PRINTSCREEN": 70,
+      "SDL_SCANCODE_SCROLLLOCK": 71,
+      "SDL_SCANCODE_PAUSE": 72,
+      "SDL_SCANCODE_INSERT": 73,
+      "SDL_SCANCODE_HOME": 74,
+      "SDL_SCANCODE_PAGEUP": 75,
+      "SDL_SCANCODE_END": 77,
+      "SDL_SCANCODE_PAGEDOWN": 78,
+      "SDL_SCANCODE_RIGHT": 79,
+      "SDL_SCANCODE_LEFT": 80,
+      "SDL_SCANCODE_DOWN": 81,
+      "SDL_SCANCODE_UP": 82,
+      "SDL_SCANCODE_NUMLOCKCLEAR": 83,
+      "SDL_SCANCODE_KP_DIVIDE": 84,
+      "SDL_SCANCODE_KP_MULTIPLY": 85,
+      "SDL_SCANCODE_KP_MINUS": 86,
+      "SDL_SCANCODE_KP_PLUS": 87,
+      "SDL_SCANCODE_KP_ENTER": 88,
+      "SDL_SCANCODE_KP_1": 89,
+      "SDL_SCANCODE_KP_2": 90,
+      "SDL_SCANCODE_KP_3": 91,
+      "SDL_SCANCODE_KP_4": 92,
+      "SDL_SCANCODE_KP_5": 93,
+      "SDL_SCANCODE_KP_6": 94,
+      "SDL_SCANCODE_KP_7": 95,
+      "SDL_SCANCODE_KP_8": 96,
+      "SDL_SCANCODE_KP_9": 97,
+      "SDL_SCANCODE_KP_0": 98,
+      "SDL_SCANCODE_KP_PERIOD": 99,
+      "SDL_SCANCODE_APPLICATION": 101,
+      "SDL_SCANCODE_POWER": 102,
+      "SDL_SCANCODE_KP_EQUALS": 103,
+      "SDL_SCANCODE_F13": 104,
+      "SDL_SCANCODE_F14": 105,
+      "SDL_SCANCODE_F15": 106,
+      "SDL_SCANCODE_F16": 107,
+      "SDL_SCANCODE_F17": 108,
+      "SDL_SCANCODE_F18": 109,
+      "SDL_SCANCODE_F19": 110,
+      "SDL_SCANCODE_F20": 111,
+      "SDL_SCANCODE_F21": 112,
+      "SDL_SCANCODE_F22": 113,
+      "SDL_SCANCODE_F23": 114,
+      "SDL_SCANCODE_F24": 115,
+      "SDL_SCANCODE_EXECUTE": 116,
+      "SDL_SCANCODE_HELP": 117,
+      "SDL_SCANCODE_MENU": 118,
+      "SDL_SCANCODE_SELECT": 119,
+      "SDL_SCANCODE_STOP": 120,
+      "SDL_SCANCODE_AGAIN": 121,
+      "SDL_SCANCODE_UNDO": 122,
+      "SDL_SCANCODE_CUT": 123,
+      "SDL_SCANCODE_COPY": 124,
+      "SDL_SCANCODE_PASTE": 125,
+      "SDL_SCANCODE_FIND": 126,
+      "SDL_SCANCODE_MUTE": 127,
+      "SDL_SCANCODE_VOLUMEUP": 128,
+      "SDL_SCANCODE_VOLUMEDOWN": 129,
+      "SDL_SCANCODE_KP_COMMA": 133,
+      "SDL_SCANCODE_KP_EQUALSAS400": 134,
+      "SDL_SCANCODE_ALTERASE": 153,
+      "SDL_SCANCODE_SYSREQ": 154,
+      "SDL_SCANCODE_CANCEL": 155,
+      "SDL_SCANCODE_CLEAR": 156,
+      "SDL_SCANCODE_PRIOR": 157,
+      "SDL_SCANCODE_RETURN2": 158,
+      "SDL_SCANCODE_SEPARATOR": 159,
+      "SDL_SCANCODE_OUT": 160,
+      "SDL_SCANCODE_OPER": 161,
+      "SDL_SCANCODE_CLEARAGAIN": 162,
+      "SDL_SCANCODE_CRSEL": 163,
+      "SDL_SCANCODE_EXSEL": 164,
+      "SDL_SCANCODE_KP_00": 176,
+      "SDL_SCANCODE_KP_000": 177,
+      "SDL_SCANCODE_THOUSANDSSEPARATOR": 178,
+      "SDL_SCANCODE_DECIMALSEPARATOR": 179,
+      "SDL_SCANCODE_CURRENCYUNIT": 180,
+      "SDL_SCANCODE_CURRENCYSUBUNIT": 181,
+      "SDL_SCANCODE_KP_LEFTPAREN": 182,
+      "SDL_SCANCODE_KP_RIGHTPAREN": 183,
+      "SDL_SCANCODE_KP_LEFTBRACE": 184,
+      "SDL_SCANCODE_KP_RIGHTBRACE": 185,
+      "SDL_SCANCODE_KP_TAB": 186,
+      "SDL_SCANCODE_KP_BACKSPACE": 187,
+      "SDL_SCANCODE_KP_A": 188,
+      "SDL_SCANCODE_KP_B": 189,
+      "SDL_SCANCODE_KP_C": 190,
+      "SDL_SCANCODE_KP_D": 191,
+      "SDL_SCANCODE_KP_E": 192,
+      "SDL_SCANCODE_KP_F": 193,
+      "SDL_SCANCODE_KP_XOR": 194,
+      "SDL_SCANCODE_KP_POWER": 195,
+      "SDL_SCANCODE_KP_PERCENT": 196,
+      "SDL_SCANCODE_KP_LESS": 197,
+      "SDL_SCANCODE_KP_GREATER": 198,
+      "SDL_SCANCODE_KP_AMPERSAND": 199,
+      "SDL_SCANCODE_KP_DBLAMPERSAND": 200,
+      "SDL_SCANCODE_KP_VERTICALBAR": 201,
+      "SDL_SCANCODE_KP_DBLVERTICALBAR": 202,
+      "SDL_SCANCODE_KP_COLON": 203,
+      "SDL_SCANCODE_KP_HASH": 204,
+      "SDL_SCANCODE_KP_SPACE": 205,
+      "SDL_SCANCODE_KP_AT": 206,
+      "SDL_SCANCODE_KP_EXCLAM": 207,
+      "SDL_SCANCODE_KP_MEMSTORE": 208,
+      "SDL_SCANCODE_KP_MEMRECALL": 209,
+      "SDL_SCANCODE_KP_MEMCLEAR": 210,
+      "SDL_SCANCODE_KP_MEMADD": 211,
+      "SDL_SCANCODE_KP_MEMSUBTRACT": 212,
+      "SDL_SCANCODE_KP_MEMMULTIPLY": 213,
+      "SDL_SCANCODE_KP_MEMDIVIDE": 214,
+      "SDL_SCANCODE_KP_PLUSMINUS": 215,
+      "SDL_SCANCODE_KP_CLEAR": 216,
+      "SDL_SCANCODE_KP_CLEARENTRY": 217,
+      "SDL_SCANCODE_KP_BINARY": 218,
+      "SDL_SCANCODE_KP_OCTAL": 219,
+      "SDL_SCANCODE_KP_DECIMAL": 220,
+      "SDL_SCANCODE_KP_HEXADECIMAL": 221,
+      "SDL_SCANCODE_LCTRL": 224,
+      "SDL_SCANCODE_LSHIFT": 225,
+      "SDL_SCANCODE_LALT": 226,
+      "SDL_SCANCODE_LGUI": 227,
+      "SDL_SCANCODE_RCTRL": 228,
+      "SDL_SCANCODE_RSHIFT": 229,
+      "SDL_SCANCODE_RALT": 230,
+      "SDL_SCANCODE_RGUI": 231,
+      "SDL_SCANCODE_MODE": 257,
+      "SDL_SCANCODE_AUDIONEXT": 258,
+      "SDL_SCANCODE_AUDIOPREV": 259,
+      "SDL_SCANCODE_AUDIOSTOP": 260,
+      "SDL_SCANCODE_AUDIOPLAY": 261,
+      "SDL_SCANCODE_AUDIOMUTE": 262,
+      "SDL_SCANCODE_MEDIASELECT": 263,
+      "SDL_SCANCODE_WWW": 264,
+      "SDL_SCANCODE_MAIL": 265,
+      "SDL_SCANCODE_CALCULATOR": 266,
+      "SDL_SCANCODE_COMPUTER": 267,
+      "SDL_SCANCODE_AC_SEARCH": 268,
+      "SDL_SCANCODE_AC_HOME": 269,
+      "SDL_SCANCODE_AC_BACK": 270,
+      "SDL_SCANCODE_AC_FORWARD": 271,
+      "SDL_SCANCODE_AC_STOP": 272,
+      "SDL_SCANCODE_AC_REFRESH": 273,
+      "SDL_SCANCODE_AC_BOOKMARKS": 274,
+      "SDL_SCANCODE_BRIGHTNESSDOWN": 275,
+      "SDL_SCANCODE_BRIGHTNESSUP": 276,
+      "SDL_SCANCODE_DISPLAYSWITCH": 277,
+      "SDL_SCANCODE_KBDILLUMTOGGLE": 278,
+      "SDL_SCANCODE_KBDILLUMDOWN": 279,
+      "SDL_SCANCODE_KBDILLUMUP": 280,
+      "SDL_SCANCODE_EJECT": 281,
+      "SDL_SCANCODE_SLEEP": 282,
+      "SDL_SCANCODE_APP1": 283,
+      "SDL_SCANCODE_APP2": 284,
+      "SDL_SCANCODE_AUDIOREWIND": 285,
+      "SDL_SCANCODE_AUDIOFASTFORWARD": 286,
+      "SDL_SCANCODE_SOFTLEFT": 287,
+      "SDL_SCANCODE_SOFTRIGHT": 288,
+      "SDL_SCANCODE_CALL": 289,
+      "SDL_SCANCODE_ENDCALL": 290,
+      "KMOD_LCTRL": 64,
+      "KMOD_RCTRL": 128,
+      "KMOD_LSHIFT": 1,
+      "KMOD_RSHIFT": 2,
+      "KMOD_LALT": 256,
+      "KMOD_RALT": 512,
+      "KMOD_LGUI": 1024,
+      "KMOD_RGUI": 2048,
+      "KMOD_SCROLL": 32768,
+      "CVAR_INT": 2,
+      "CVAR_UINT": 4,
+      "CVAR_BOOL": 8,
+      "CVAR_FLOAT": 1,
+      "CVAR_DOUBLE": 32,
+      "CVAR_INTTYPES": 14,
+      "CVAR_STRING": 16,
+      "RS_TRANS1": 1,
+      "RS_TRANS2": 32,
+      "RS_ALIGN_L": 256,
+      "RS_ALIGN_R": 512,
+      "CUTSCENE_FORCEFILTER": 1,
+      "CUTSCENE_FORCENOFILTER": 2,
+      "CUTSCENE_TEXTUREFILTER": 4,
+      "__memory_order_modifier_mask": 4294901760,
+      "LIBDIVIDE_ADD_MARKER": 64,
+      "LIBDIVIDE_16_SHIFT_MASK": 31,
+      "LIBDIVIDE_32_SHIFT_MASK": 31,
+      "LIBDIVIDE_64_SHIFT_MASK": 63,
+      "LIBDIVIDE_NEGATIVE_DIVISOR": 128
+    },
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [
+      "cacheindex_t",
+      "inthashtable_t"
+    ],
+    "proven": [
+      "cacheindex_t"
+    ],
+    "rejected": {
+      "inthashtable_t": "no unambiguous trivial POD/byte record declaration"
+    }
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [
+      "cacheindex_t"
+    ],
+    "proven": [],
+    "rejected": {
+      "cacheindex_t": "missing or ambiguous source-verified member operator"
+    }
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\cache1d.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 19,
+  "emitted": 19,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "SILENCE_UNUSED__header_5df8ec5a9ab9",
+      "source_name": "SILENCE_UNUSED",
+      "kind": "FunctionDecl",
+      "line": 136,
+      "original_type": "void (const char &[52], const int &, const int &) noexcept",
+      "clang_template_mangled_name": "_ZL14SILENCE_UNUSEDIJA52_ciiEEvDpRKT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 3487,
+        "source_line": 136,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 2,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "SILENCE_UNUSED__header_f270c6fea349",
+      "source_name": "SILENCE_UNUSED",
+      "kind": "FunctionDecl",
+      "line": 136,
+      "original_type": "void (const char &[48], const int &) noexcept",
+      "clang_template_mangled_name": "_ZL14SILENCE_UNUSEDIJA48_ciEEvDpRKT_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 3487,
+        "source_line": 136,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": null
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ageBlocks__cxx_instance_be1e22cc822ed06bb0bc",
+      "source_name": "ageBlocks",
+      "kind": "FunctionDecl",
+      "line": 253,
+      "original_type": "void ()",
+      "original_instance_member": {
+        "contract": {
+          "abi": "source-instance-method-this/1",
+          "mangled_name": "_ZN7cache1d9ageBlocksEv",
+          "owner": "cache1d",
+          "declaration_type": "void ()",
+          "class_header_proof": {
+            "source_header": "source/build/include/cache1d.h",
+            "source_offset": 745,
+            "enclosing_record": "cache1d",
+            "type": "cache1d",
+            "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        "name": "ageBlocks",
+        "source_offset": 7762,
+        "source_file_sha256": "2b9b6869ecc9d686297893077c104a4abf0d570b3a0446a8c6da49fa01335560"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "min__template_774131ccff66371d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "allocateBlock__cxx_instance_99800f45e11302f01003",
+      "source_name": "allocateBlock",
+      "kind": "FunctionDecl",
+      "line": 120,
+      "original_type": "void (intptr_t *, int32_t, char *)",
+      "original_instance_member": {
+        "contract": {
+          "abi": "source-instance-method-this/1",
+          "mangled_name": "_ZN7cache1d13allocateBlockEPliPc",
+          "owner": "cache1d",
+          "declaration_type": "void (intptr_t *, int32_t, char *)",
+          "class_header_proof": {
+            "source_header": "source/build/include/cache1d.h",
+            "source_offset": 745,
+            "enclosing_record": "cache1d",
+            "type": "cache1d",
+            "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        "name": "allocateBlock",
+        "source_offset": 3848,
+        "source_file_sha256": "2b9b6869ecc9d686297893077c104a4abf0d570b3a0446a8c6da49fa01335560"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "copybufbyte",
+        "current_verbosity_cutoff",
+        "engineDestroyAllocator__header_011d00a16827",
+        "inc_and_check_cacnum__cxx_instance_8e3b6bef2f7424aa36b1",
+        "initprintf",
+        "lockrecip",
+        "loguru_log",
+        "mulscale32__header_87e16da1b6e2",
+        "report__cxx_instance_062971c8f6e47a11f323",
+        "wm_msgbox",
+        "zerochar"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "cacheindex_t",
+          "source_record": "cacheindex_t",
+          "clang_method_id": "0x24616bc6ab0",
+          "clang_assignment_signature": "cacheindex_t &(const cacheindex_t &) noexcept",
+          "assignment_mode": "clang-trivial-implicit-byte-copy",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4316f483b037698f956b4b4c9ed799c448368f7bed5b0716da6e9721df8736d"
+          }
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "copybufbyte",
+        "current_verbosity_cutoff",
+        "initprintf",
+        "loguru_log",
+        "wm_msgbox"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "cache1d",
+      "source_name": "cache1d",
+      "kind": "CXXRecordDecl",
+      "line": 33,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/cache1d.h",
+        "source_offset": 745,
+        "enclosing_record": "cache1d",
+        "type": "cache1d",
+        "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/cache1d.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "engineDestroyAllocator__header_011d00a16827",
+      "source_name": "engineDestroyAllocator",
+      "kind": "FunctionDecl",
+      "line": 1367,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37066,
+        "source_line": 1367,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Destroy__cxx_static_777d0ae31c789182",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_cache",
+      "source_name": "g_cache",
+      "kind": "VarDecl",
+      "line": 50,
+      "original_type": "cache1d",
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "cache1d"
+      ],
+      "external_reference_imports": [],
+      "emitted_constructor_providers": [
+        "cache1d"
+      ],
+      "global_storage": {
+        "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+        "abi": "source-global-cell/2",
+        "original_type": "cache1d",
+        "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_cacheInit",
+      "source_name": "g_cacheInit",
+      "kind": "VarDecl",
+      "line": 46,
+      "original_type": "bool",
+      "linkage": "internal",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_52e781d7fd281b42cf78811c",
+        "owner_source": "source/build/src/cache1d.cpp",
+        "original_type": "bool"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "inc_and_check_cacnum__cxx_instance_8e3b6bef2f7424aa36b1",
+      "source_name": "inc_and_check_cacnum",
+      "kind": "FunctionDecl",
+      "line": 102,
+      "original_type": "void ()",
+      "original_instance_member": {
+        "contract": {
+          "abi": "source-instance-method-this/1",
+          "mangled_name": "_ZN7cache1d20inc_and_check_cacnumEv",
+          "owner": "cache1d",
+          "declaration_type": "void ()",
+          "class_header_proof": {
+            "source_header": "source/build/include/cache1d.h",
+            "source_offset": 745,
+            "enclosing_record": "cache1d",
+            "type": "cache1d",
+            "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        "name": "inc_and_check_cacnum",
+        "source_offset": 3245,
+        "source_file_sha256": "2b9b6869ecc9d686297893077c104a4abf0d570b3a0446a8c6da49fa01335560"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "Bgetpagesize",
+        "SILENCE_UNUSED__header_5df8ec5a9ab9",
+        "memcpy",
+        "memset",
+        "xaligned_alloc__header_42fe08f704a9",
+        "xaligned_free__header_95a187c835e2"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "Bgetpagesize",
+        "memcpy",
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "initBuffer__cxx_instance_f5bf267877099b7e3273",
+      "source_name": "initBuffer",
+      "kind": "FunctionDecl",
+      "line": 74,
+      "original_type": "void (intptr_t, uint32_t, uint32_t)",
+      "original_instance_member": {
+        "contract": {
+          "abi": "source-instance-method-this/1",
+          "mangled_name": "_ZN7cache1d10initBufferEljj",
+          "owner": "cache1d",
+          "declaration_type": "void (intptr_t, uint32_t, uint32_t)",
+          "class_header_proof": {
+            "source_header": "source/build/include/cache1d.h",
+            "source_offset": 745,
+            "enclosing_record": "cache1d",
+            "type": "cache1d",
+            "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        "name": "initBuffer",
+        "source_offset": 2194,
+        "source_file_sha256": "2b9b6869ecc9d686297893077c104a4abf0d570b3a0446a8c6da49fa01335560"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "OSD_RegisterFunction",
+        "SILENCE_UNUSED__header_f270c6fea349",
+        "current_verbosity_cutoff",
+        "g_cacheInit",
+        "lockrecip",
+        "loguru_log",
+        "osdfunc_cacheinfo",
+        "reset__cxx_instance_4f5a03a1a6697d4ac394",
+        "tabledivide32_noinline",
+        "xaligned_alloc__header_42fe08f704a9"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tabledivide32_noinline",
+          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide32) *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_RegisterFunction",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "tabledivide32_noinline"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "lockrecip",
+      "source_name": "lockrecip",
+      "kind": "VarDecl",
+      "line": 48,
+      "original_type": "int32_t[200]",
+      "linkage": "internal",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_0e962bd6e6f4c4f0b092870d",
+        "owner_source": "source/build/src/cache1d.cpp",
+        "original_type": "int32_t[200]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            200
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_774131ccff66371d",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const int &(const int &, const int &)",
+      "clang_template_mangled_name": "_ZSt3minIiERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "827cd33afddd28371f9c9f66a8a152fff75298a0687de7e950037779fe554e49"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mulscale32__header_87e16da1b6e2",
+      "source_name": "mulscale32",
+      "kind": "FunctionDecl",
+      "line": 228,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "macro_header_definition": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 8088,
+        "source_line": 228,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+        "expansion_token": "EDUKE32_SCALER_PRAGMA",
+        "clang_spelling_location": {
+          "offset": 1991,
+          "file": "<scratch space>",
+          "line": 147,
+          "col": 1,
+          "tokLen": 10
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "1c379ca338c07f602ecc97e4631c6b53d4d8ee4ba9e7e1d387cefe7d0b2284a7"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "osdfunc_cacheinfo",
+      "source_name": "osdfunc_cacheinfo",
+      "kind": "FunctionDecl",
+      "line": 53,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "g_cache",
+        "report__cxx_instance_062971c8f6e47a11f323"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "report__cxx_instance_062971c8f6e47a11f323",
+      "source_name": "report",
+      "kind": "FunctionDecl",
+      "line": 278,
+      "original_type": "void ()",
+      "original_instance_member": {
+        "contract": {
+          "abi": "source-instance-method-this/1",
+          "mangled_name": "_ZN7cache1d6reportEv",
+          "owner": "cache1d",
+          "declaration_type": "void ()",
+          "class_header_proof": {
+            "source_header": "source/build/include/cache1d.h",
+            "source_offset": 745,
+            "enclosing_record": "cache1d",
+            "type": "cache1d",
+            "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        "name": "report",
+        "source_offset": 8300,
+        "source_file_sha256": "2b9b6869ecc9d686297893077c104a4abf0d570b3a0446a8c6da49fa01335560"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "classicht",
+        "current_verbosity_cutoff",
+        "inthash_add",
+        "inthash_find",
+        "inthash_free",
+        "inthash_init",
+        "loguru_log",
+        "snprintf",
+        "strcat",
+        "tiletovox",
+        "voxoff",
+        "waloff"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "classicht",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "9ce5b86b04b41b8f91de96eff700ecfed90a3663707fca4a54537e36599be1a3",
+          "original_type": "classicht_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce5b86b04b41b8f91de96eff700ecfed90a3663707fca4a54537e36599be1a3"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce5b86b04b41b8f91de96eff700ecfed90a3663707fca4a54537e36599be1a3"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/cache1d.cpp"
+        },
+        {
+          "name": "voxoff",
+          "abi": "source-native-array/1",
+          "array": "BigInt64Array",
+          "dimensions": [
+            2048,
+            5
+          ],
+          "original_type": "intptr_t[2048][5]",
+          "consumer_source": "source/build/src/cache1d.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "classicht",
+        "current_verbosity_cutoff",
+        "inthash_add",
+        "inthash_find",
+        "inthash_free",
+        "inthash_init",
+        "loguru_log",
+        "snprintf",
+        "strcat",
+        "tiletovox",
+        "voxoff",
+        "waloff"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "reset__cxx_instance_4f5a03a1a6697d4ac394",
+      "source_name": "reset",
+      "kind": "FunctionDecl",
+      "line": 64,
+      "original_type": "void ()",
+      "original_instance_member": {
+        "contract": {
+          "abi": "source-instance-method-this/1",
+          "mangled_name": "_ZN7cache1d5resetEv",
+          "owner": "cache1d",
+          "declaration_type": "void ()",
+          "class_header_proof": {
+            "source_header": "source/build/include/cache1d.h",
+            "source_offset": 745,
+            "enclosing_record": "cache1d",
+            "type": "cache1d",
+            "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        },
+        "name": "reset",
+        "source_offset": 2011,
+        "source_file_sha256": "2b9b6869ecc9d686297893077c104a4abf0d570b3a0446a8c6da49fa01335560"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [
+        "memset",
+        "zerochar"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_alloc__header_42fe08f704a9",
+      "source_name": "xaligned_alloc",
+      "kind": "FunctionDecl",
+      "line": 1428,
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 38920,
+        "source_line": 1428,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_free__header_95a187c835e2",
+      "source_name": "xaligned_free",
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39756,
+        "source_line": 1450,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "zerochar",
+      "source_name": "zerochar",
+      "kind": "VarDecl",
+      "line": 47,
+      "original_type": "char",
+      "linkage": "internal",
+      "physical_source": "source/build/src/cache1d.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_47a364e6d09683396c15baaf",
+        "owner_source": "source/build/src/cache1d.cpp",
+        "original_type": "char"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "clang-substring",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "47209e115b9cebaaf6b486a6b631ebec3f393040c1175c175e887e9f7920c64f",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765"
+  },
+  "c_allocator_declarations": {
+    "queried": [
+      "calloc",
+      "free"
+    ],
+    "proven": [
+      "calloc",
+      "free"
+    ],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "64744894afe8a97bd9192d87345d96c81ad03f8b6c5da66c0093cfd152fa82b4",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "37126a839720cb73113028f84f1920a1dfc1620537a12d278660d7ec8e66d74d",
+    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 2780,
+    "sha256": "0c8c5d7eccee778e50b89d4a79795f63362cb98aab99b4d6a2f79dedaa9a3da1",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "4a82927ce69238ff50d1beac191c5a64fec3a99db958b450cf37091814eb2dba",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "8f291595c95237ca3dafd65e80a9f20937fcdd534817d599e1b007e4c9499cf5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "full_type_closure": {
+    "attempted": true,
+    "retained_type_roots": 161,
+    "anonymous_typedef_trivial_assignment_names": 72,
+    "explicit_member_calls_rebound": 0,
+    "static_member_references_rebound": 0,
+    "retained_method_function_dependencies": 160,
+    "field_selection_sites": 1029,
+    "static_callsite_context_roots": 263,
+    "ast_decode": {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 739859,
+      "ranges_omitted": 166549,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1767,
+      "semantic_barrier_ranges_retained": 309,
+      "instance_method_ranges_retained": 7881,
+      "type_metadata_reuses": 134444,
+      "include_metadata_reuses": 150282,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 28031681,
+      "cache_hit": true,
+      "json_bytes": 312527932,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    "reason": "anonymous or transitively aliased original record omitted by named filter",
+    "field_references_rebound": 785
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "0a2b489ccfec3ee70db3529c508e821339efe479a78eb6341394e40efc0fcf07",
+    "dependency_count": 347,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 8,
+      "objects": 5864,
+      "ranges_omitted": 1731,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 3,
+      "instance_method_ranges_retained": 19,
+      "type_metadata_reuses": 1824,
+      "include_metadata_reuses": 170,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 261619,
+      "cache_hit": true,
+      "json_bytes": 2407103,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 3,
+      "objects": 13,
+      "ranges_omitted": 4,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 2,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 2278,
+      "cache_hit": true,
+      "json_bytes": 2278,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 186,
+      "ranges_omitted": 35,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 3,
+      "type_metadata_reuses": 26,
+      "include_metadata_reuses": 39,
+      "cache_storage": "json",
+      "cache_entry_bytes": 39664,
+      "cache_hit": true,
+      "json_bytes": 39664,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 98,
+      "ranges_omitted": 10,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 5,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 24,
+      "cache_storage": "json",
+      "cache_entry_bytes": 16318,
+      "cache_hit": true,
+      "json_bytes": 16318,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 12,
+      "objects": 144,
+      "ranges_omitted": 46,
+      "allocator_body_ranges_retained": 2,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 23,
+      "include_metadata_reuses": 25,
+      "cache_storage": "json",
+      "cache_entry_bytes": 36438,
+      "cache_hit": true,
+      "json_bytes": 36438,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 15,
+      "objects": 601,
+      "ranges_omitted": 149,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 2,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 125,
+      "include_metadata_reuses": 102,
+      "cache_storage": "json",
+      "cache_entry_bytes": 194073,
+      "cache_hit": true,
+      "json_bytes": 194073,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 118,
+      "objects": 9763,
+      "ranges_omitted": 2544,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 6,
+      "instance_method_ranges_retained": 48,
+      "type_metadata_reuses": 2361,
+      "include_metadata_reuses": 1664,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 380118,
+      "cache_hit": true,
+      "json_bytes": 3342119,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 99,
+      "ranges_omitted": 22,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 15,
+      "include_metadata_reuses": 13,
+      "cache_storage": "json",
+      "cache_entry_bytes": 19357,
+      "cache_hit": true,
+      "json_bytes": 19357,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 31,
+      "ranges_omitted": 8,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 3,
+      "include_metadata_reuses": 4,
+      "cache_storage": "json",
+      "cache_entry_bytes": 7914,
+      "cache_hit": true,
+      "json_bytes": 7914,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 499,
+      "cache_hit": true,
+      "json_bytes": 499,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 276,
+      "objects": 8920,
+      "ranges_omitted": 2063,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 92,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 50,
+      "type_metadata_reuses": 1704,
+      "include_metadata_reuses": 1763,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 354651,
+      "cache_hit": true,
+      "json_bytes": 4258257,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 3,
+      "objects": 544,
+      "ranges_omitted": 125,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 3,
+      "semantic_barrier_ranges_retained": 3,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 124,
+      "include_metadata_reuses": 98,
+      "cache_storage": "json",
+      "cache_entry_bytes": 434850,
+      "cache_hit": true,
+      "json_bytes": 434850,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 29,
+      "ranges_omitted": 11,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 8584,
+      "cache_hit": true,
+      "json_bytes": 8584,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 0,
+      "objects": 0,
+      "ranges_omitted": 0,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "empty_filtered_dump": true,
+      "cache_storage": "json",
+      "cache_entry_bytes": 0,
+      "cache_hit": true,
+      "json_bytes": 0,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 161,
+      "ranges_omitted": 38,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 26,
+      "include_metadata_reuses": 28,
+      "cache_storage": "json",
+      "cache_entry_bytes": 48867,
+      "cache_hit": true,
+      "json_bytes": 48867,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 54,
+      "ranges_omitted": 13,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 7,
+      "include_metadata_reuses": 9,
+      "cache_storage": "json",
+      "cache_entry_bytes": 12129,
+      "cache_hit": true,
+      "json_bytes": 12129,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "cache_storage": "json",
+      "cache_entry_bytes": 489,
+      "cache_hit": true,
+      "json_bytes": 489,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 99230541,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "cache-hit"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [
+    {
+      "name": "g_cache",
+      "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+      "abi": "source-global-cell/2",
+      "original_type": "cache1d",
+      "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+    }
+  ],
+  "private_storage_exports": [
+    {
+      "name": "g_cacheInit",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_52e781d7fd281b42cf78811c",
+      "owner_source": "source/build/src/cache1d.cpp",
+      "original_type": "bool"
+    },
+    {
+      "name": "zerochar",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_47a364e6d09683396c15baaf",
+      "owner_source": "source/build/src/cache1d.cpp",
+      "original_type": "char"
+    },
+    {
+      "name": "lockrecip",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_0e962bd6e6f4c4f0b092870d",
+      "owner_source": "source/build/src/cache1d.cpp",
+      "original_type": "int32_t[200]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          200
+        ]
+      }
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_cache1d_cpp_9cb9f177e32c.mjs",
+      "sha256": "9cb9f177e32ca0403d7a6c86a19b5199bccf2171ad9784b40e2165571e8d7fa8",
+      "original_source": "source/build/src/cache1d.cpp",
+      "exports": [
+        "SILENCE_UNUSED__header_5df8ec5a9ab9",
+        "SILENCE_UNUSED__header_f270c6fea349",
+        "ageBlocks__cxx_instance_be1e22cc822ed06bb0bc",
+        "allocateBlock__cxx_instance_99800f45e11302f01003",
+        "cache1d",
+        "engineDestroyAllocator__header_011d00a16827",
+        "g_cache",
+        "g_cacheInit",
+        "inc_and_check_cacnum__cxx_instance_8e3b6bef2f7424aa36b1",
+        "initBuffer__cxx_instance_f5bf267877099b7e3273",
+        "lockrecip",
+        "min__template_774131ccff66371d",
+        "mulscale32__header_87e16da1b6e2",
+        "osdfunc_cacheinfo",
+        "report__cxx_instance_062971c8f6e47a11f323",
+        "reset__cxx_instance_4f5a03a1a6697d4ac394",
+        "xaligned_alloc__header_42fe08f704a9",
+        "xaligned_free__header_95a187c835e2",
+        "zerochar"
+      ],
+      "reexports": [
+        "SILENCE_UNUSED__header_5df8ec5a9ab9",
+        "SILENCE_UNUSED__header_f270c6fea349",
+        "ageBlocks__cxx_instance_be1e22cc822ed06bb0bc",
+        "allocateBlock__cxx_instance_99800f45e11302f01003",
+        "cache1d",
+        "engineDestroyAllocator__header_011d00a16827",
+        "g_cache",
+        "g_cacheInit",
+        "inc_and_check_cacnum__cxx_instance_8e3b6bef2f7424aa36b1",
+        "initBuffer__cxx_instance_f5bf267877099b7e3273",
+        "lockrecip",
+        "min__template_774131ccff66371d",
+        "mulscale32__header_87e16da1b6e2",
+        "osdfunc_cacheinfo",
+        "report__cxx_instance_062971c8f6e47a11f323",
+        "reset__cxx_instance_4f5a03a1a6697d4ac394",
+        "xaligned_alloc__header_42fe08f704a9",
+        "xaligned_free__header_95a187c835e2",
+        "zerochar",
+        "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+        "__cxx_private_cell_52e781d7fd281b42cf78811c",
+        "__cxx_private_cell_0e962bd6e6f4c4f0b092870d",
+        "__cxx_private_cell_47a364e6d09683396c15baaf"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bgetpagesize",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_RegisterFunction",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "classicht",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "9ce5b86b04b41b8f91de96eff700ecfed90a3663707fca4a54537e36599be1a3",
+          "original_type": "classicht_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce5b86b04b41b8f91de96eff700ecfed90a3663707fca4a54537e36599be1a3"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce5b86b04b41b8f91de96eff700ecfed90a3663707fca4a54537e36599be1a3"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/cache1d.cpp"
+        },
+        {
+          "name": "copybufbyte",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initprintf",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_free",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tabledivide32_noinline",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_88248ca6ca50548115e47549",
+          "abi": "source-global-cell/2",
+          "original_type": "decltype(tabledivide32) *"
+        },
+        {
+          "name": "tiletovox",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "voxoff",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "BigInt64Array",
+          "dimensions": [
+            2048,
+            5
+          ],
+          "original_type": "intptr_t[2048][5]",
+          "consumer_source": "source/build/src/cache1d.cpp"
+        },
+        {
+          "name": "waloff",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wm_msgbox",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "eea8a430a6a239479516fb3b97b410a85a1a328f26220584156bb68c033d676f"
+    }
+  ]
+}

@@ -21,6 +21,26 @@ def selected_commands(root,build):
     if len(names)!=len(set(names)) or len(names)!=record['selected_units']:
         raise ValueError('Browser build selection does not match its manifest')
     return path
+def with_source_defines(profile,command):
+    configured=profile.get('source_defines',{});name=command['file']
+    if not isinstance(configured,dict):raise ValueError('Invalid source define map')
+    added=configured.get(name,[])
+    if not isinstance(added,list) or any(not isinstance(value,str) or not re.fullmatch(r'[A-Za-z_]\w*(?:=[0-9]+)?',value) for value in added):
+        raise ValueError('Invalid source-specific preprocessor definition')
+    if len({value.split('=',1)[0] for value in added})!=len(added):raise ValueError('Conflicting source-specific definitions')
+    arguments=list(command['arguments']);existing={}
+    for index,value in enumerate(arguments):
+        macro=arguments[index+1] if value=='-D' and index+1<len(arguments) else value[2:] if value.startswith('-D') and len(value)>2 else None
+        if macro is not None:existing.setdefault(macro.split('=',1)[0],set()).add(macro)
+    inserted=[]
+    for value in added:
+        key=value.split('=',1)[0]
+        if key in existing:
+            if existing[key]!={value}:raise ValueError('Conflicting original/source-specific definition: '+key)
+            continue
+        arguments.append('-D'+value);inserted.append(value)
+    return {**command,'arguments':arguments},inserted
+
 def derive(profile,commands):
     if profile.get('format')!='sourcefactory-browser-profile/1':raise ValueError('Unknown build profile')
     removed=set(profile['remove_defines']);added=profile['add_defines']
@@ -47,7 +67,8 @@ def derive(profile,commands):
         inserted=[]
         for key in added:
             if key not in existing:out.append('-D'+key);inserted.append(key)
-        units.append({**command,'arguments':out})
+        configured,source_added=with_source_defines(profile,{**command,'arguments':out})
+        units.append(configured);inserted.extend(source_added)
         changes.append({'file':name,'removed_defines':removed_here,'added_defines':inserted})
     return units,changes
 def main():

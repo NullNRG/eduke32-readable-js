@@ -5,3 +5,12 @@ export { ALLOC_MAPART_ARRAY__template_0841d4c33e4d0967, ALLOC_MAPART_ARRAY__temp
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { artPreloadFile, artPreloadFileSafe, artReadIndexedFile, artSetupMapArt, tileSetData, tileSetDataSafe } from "./_source_legacy_tiles_cpp_8a018f4a5810.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { artLoadFiles, engineDestroyAllocator__header_8a02e9d930c4, g_vm_data, g_vm_size, tileMaybeRotate, tilePostLoad, tileSetSize, __cxx_private_cell_66c8e98d93985e734f8d0050, __cxx_private_cell_9e504be438d29ebbf9795d4d } from "./_source_legacy_tiles_cpp_b73f760628e9.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Buninitart } from "./_source_legacy_tiles_cpp_9e4883694ee7.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { tileLoad, tileLoadData } from "./_source_legacy_tiles_cpp_7ae6cc9bb180.mjs";

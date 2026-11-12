@@ -29,3 +29,16 @@ with tempfile.TemporaryDirectory() as directory:
     except ValueError:pass
     else:raise AssertionError('Altered selected profile accepted')
 print('Profile-aware gates reject changed command database bytes.')
+
+# Per-library options are part of the authoritative profile, not a manual
+# command edit that disappears when original Make selection is regenerated.
+commands=[{'file':'source/build/src/lz4.c','arguments':['clang','-c','source/build/src/lz4.c']},*original]
+saved=json.dumps(commands);configured,_=m.derive(profile,commands)
+assert json.dumps(commands)==saved
+assert '-DLZ4_FAST_DEC_LOOP=0' in configured[0]['arguments']
+assert '-DLZ4_FAST_DEC_LOOP=0' not in configured[1]['arguments']
+wrong={**commands[0],'arguments':commands[0]['arguments']+['-D','LZ4_FAST_DEC_LOOP=1']}
+try:m.with_source_defines(profile,wrong)
+except ValueError:pass
+else:raise AssertionError('Conflicting original codec configuration accepted')
+print('Portable codec option applies only to its original source unit; other commands remain independent and conflicts are rejected.')

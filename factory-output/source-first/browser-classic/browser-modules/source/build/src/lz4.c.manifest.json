@@ -58,9 +58,9 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\lz4.c.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 92,
-  "emitted": 78,
-  "blocked": 14,
+  "found": 89,
+  "emitted": 89,
+  "blocked": 0,
   "definitions": [
     {
       "name": "LZ4_stream_u",
@@ -299,58 +299,6 @@
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "LZ4_memcpy_using_offset_base",
-      "source_name": "LZ4_memcpy_using_offset_base",
-      "kind": "FunctionDecl",
-      "line": 496,
-      "original_type": "void (BYTE *, const BYTE *, BYTE *, const size_t)",
-      "linkage": "internal",
-      "source_references": [
-        "LZ4_wildCopy8",
-        "LZ4_write32",
-        "dec64table",
-        "inc32table"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "LZ4_wildCopy32",
-      "source_name": "LZ4_wildCopy32",
-      "kind": "FunctionDecl",
-      "line": 522,
-      "original_type": "void (void *, const void *, void *)",
-      "linkage": "internal",
-      "source_references": [],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [],
-      "unresolved_references": []
-    },
-    {
-      "name": "LZ4_memcpy_using_offset",
-      "source_name": "LZ4_memcpy_using_offset",
-      "kind": "FunctionDecl",
-      "line": 535,
-      "original_type": "void (BYTE *, const BYTE *, BYTE *, const size_t)",
-      "linkage": "internal",
-      "source_references": [
-        "LZ4_memcpy_using_offset_base",
-        "memset"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "source-first",
-      "external_imports": [
-        "memset"
-      ],
       "unresolved_references": []
     },
     {
@@ -667,6 +615,17 @@
         "LZ4_write32",
         "LZ4_writeLE16"
       ],
+      "address_comparison_pointer_temporaries": {
+        "abi": "source-local-pointer-address-values/1",
+        "declarations": [
+          "ip",
+          "limit",
+          "lowLimit",
+          "match",
+          "olimit"
+        ],
+        "memory_bounds_checks_retained": true
+      },
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
@@ -675,7 +634,7 @@
           "abi": "source-pure-const-pointer-initializer/1",
           "declaration": "mflimitPlusOne",
           "base_declaration_ids": [
-            "0x17e5934fa88"
+            "0x21de2f13100"
           ],
           "original_memory_checks_retained": true,
           "base_value_captured_at_declaration": true
@@ -684,7 +643,7 @@
           "abi": "source-pure-const-pointer-initializer/1",
           "declaration": "matchlimit",
           "base_declaration_ids": [
-            "0x17e5934fa88"
+            "0x21de2f13100"
           ],
           "original_memory_checks_retained": true,
           "base_value_captured_at_declaration": true
@@ -941,6 +900,13 @@
         "LZ4_putIndexOnHash",
         "LZ4_resetStream"
       ],
+      "address_comparison_pointer_temporaries": {
+        "abi": "source-local-pointer-address-values/1",
+        "declarations": [
+          "p"
+        ],
+        "memory_bounds_checks_retained": true
+      },
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
@@ -1018,6 +984,13 @@
         "LZ4_compress_generic",
         "LZ4_renormDictT"
       ],
+      "address_comparison_pointer_temporaries": {
+        "abi": "source-local-pointer-address-values/1",
+        "declarations": [
+          "sourceEnd"
+        ],
+        "memory_bounds_checks_retained": true
+      },
       "external_reference_imports": [],
       "external_storage_imports": [],
       "status": "source-first",
@@ -1124,9 +1097,7 @@
       "original_type": "int (const char *const, char *const, int, int, earlyEnd_directive, dict_directive, const BYTE *const, const BYTE *const, const size_t)",
       "linkage": "internal",
       "source_references": [
-        "LZ4_memcpy_using_offset",
         "LZ4_readLE16",
-        "LZ4_wildCopy32",
         "LZ4_wildCopy8",
         "LZ4_write32",
         "dec64table",
@@ -1134,8 +1105,78 @@
         "read_variable_length",
         "rvl_error"
       ],
-      "status": "blocked",
-      "reason": "source control flow: goto enters a different lexical scope"
+      "address_comparison_pointer_temporaries": {
+        "abi": "source-local-pointer-address-values/1",
+        "declarations": [
+          "copyEnd",
+          "cpy",
+          "endOfMatch",
+          "iend",
+          "match",
+          "matchEnd",
+          "oend"
+        ],
+        "memory_bounds_checks_retained": true
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "deferred_pointer_initializers": [
+        {
+          "abi": "source-pure-const-pointer-initializer/1",
+          "declaration": "shortiend",
+          "base_declaration_ids": [
+            "0x21de2f57580"
+          ],
+          "original_memory_checks_retained": true,
+          "base_value_captured_at_declaration": true
+        },
+        {
+          "abi": "source-pure-const-pointer-initializer/1",
+          "declaration": "shortoend",
+          "base_declaration_ids": [
+            "0x21de2f57818"
+          ],
+          "original_memory_checks_retained": true,
+          "base_value_captured_at_declaration": true
+        },
+        {
+          "abi": "source-pure-const-pointer-initializer/1",
+          "declaration": "oCopyLimit",
+          "base_declaration_ids": [
+            "0x21de2f57818"
+          ],
+          "original_memory_checks_retained": true,
+          "base_value_captured_at_declaration": true
+        }
+      ],
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 2,
+          "forward_goto": 10,
+          "nested_lexical_jumps": 10,
+          "shadowed_locals_renamed": 1,
+          "locals_checked": 22,
+          "early_returns": 9,
+          "dead_tail_returns_removed": 1,
+          "exit_blocks": 1,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe",
@@ -1149,11 +1190,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe_partial",
@@ -1167,11 +1206,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_fast",
@@ -1201,11 +1238,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe_partial_withPrefix64k",
@@ -1219,11 +1254,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_fast_withPrefix64k",
@@ -1253,11 +1286,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe_partial_withSmallPrefix",
@@ -1271,11 +1302,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe_forceExtDict",
@@ -1289,11 +1318,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe_partial_forceExtDict",
@@ -1307,11 +1334,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_fast_extDict",
@@ -1341,11 +1366,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_generic",
-      "unresolved_references": [
-        "LZ4_decompress_generic"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_setStreamDecode",
@@ -1391,15 +1414,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_safe, LZ4_decompress_safe_doubleDict, LZ4_decompress_safe_forceExtDict, LZ4_decompress_safe_withPrefix64k, LZ4_decompress_safe_withSmallPrefix",
-      "unresolved_references": [
-        "LZ4_decompress_safe",
-        "LZ4_decompress_safe_doubleDict",
-        "LZ4_decompress_safe_forceExtDict",
-        "LZ4_decompress_safe_withPrefix64k",
-        "LZ4_decompress_safe_withSmallPrefix"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_fast_continue",
@@ -1434,14 +1451,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_safe, LZ4_decompress_safe_forceExtDict, LZ4_decompress_safe_withPrefix64k, LZ4_decompress_safe_withSmallPrefix",
-      "unresolved_references": [
-        "LZ4_decompress_safe",
-        "LZ4_decompress_safe_forceExtDict",
-        "LZ4_decompress_safe_withPrefix64k",
-        "LZ4_decompress_safe_withSmallPrefix"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_safe_partial_usingDict",
@@ -1458,14 +1470,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_safe_partial, LZ4_decompress_safe_partial_forceExtDict, LZ4_decompress_safe_partial_withPrefix64k, LZ4_decompress_safe_partial_withSmallPrefix",
-      "unresolved_references": [
-        "LZ4_decompress_safe_partial",
-        "LZ4_decompress_safe_partial_forceExtDict",
-        "LZ4_decompress_safe_partial_withPrefix64k",
-        "LZ4_decompress_safe_partial_withSmallPrefix"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_decompress_fast_usingDict",
@@ -1611,11 +1618,9 @@
       ],
       "external_reference_imports": [],
       "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: LZ4_decompress_safe",
-      "unresolved_references": [
-        "LZ4_decompress_safe"
-      ]
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     },
     {
       "name": "LZ4_sizeofStreamState",
@@ -1671,9 +1676,9 @@
   ],
   "llvm_fallback_used": false,
   "control_flow": {
-    "structured_functions": 1,
-    "recognized_goto_functions": 1,
-    "recognized_goto_edges": 7
+    "structured_functions": 2,
+    "recognized_goto_functions": 2,
+    "recognized_goto_edges": 17
   },
   "toolchain": {
     "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
@@ -1696,8 +1701,8 @@
   "initial_declaration_selection": "clang-substring",
   "native_pointer_abi": "source-lp64-addresses/2",
   "header_definition_contract": {
-    "contract_sha256": "47209e115b9cebaaf6b486a6b631ebec3f393040c1175c175e887e9f7920c64f",
-    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765"
+    "contract_sha256": "ed505cab82213a4d224848d92fa85f782acad4dbdb4621d7f0c0ab8b60e1a3c7",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730"
   },
   "c_allocator_declarations": {
     "queried": [],
@@ -1719,26 +1724,26 @@
     "proven_file_scope": 0,
     "local_or_ambiguous_roots_rejected": 0
   },
-  "compiler_runtime_input_sha256": "90c3a1c37beafaed68e7b443afc17692729c3c9920ace6797436c4a30d50e0c8",
+  "compiler_runtime_input_sha256": "eaa879758ee0b88f2de83fd8ca073620c84321a73264a00454b0ada1562c69d7",
   "compiler_runtime_inputs_unchanged": true,
   "standard_heap_contract": {
-    "contract_sha256": "37126a839720cb73113028f84f1920a1dfc1620537a12d278660d7ec8e66d74d",
-    "semantic_fingerprint": "21a27fbf22e0018081f46b96e01d86264b8d9a480a70f6f53bb693d29d9af765",
+    "contract_sha256": "61727844c970f04c8694aa8038835346f76ddb479be59fb49aec94c9db939389",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730",
     "selected_units": 111,
     "original_global_replacements_absent": true,
     "original_c_allocators_absent": true
   },
   "record_layout_extraction": {
     "explicitly_required": true,
-    "records": 36,
-    "sha256": "2636db82094f107842a055b11974331ce4bab947763918561cf69977448d9bef",
+    "records": 48,
+    "sha256": "bd0679ae2511e66b75c08822494e423d1d2c3e07a308527968f4df4f7e6c2084",
     "attempts": [
       {
         "mode": "-fdump-record-layouts",
         "phase": "codegen",
-        "revision": "source-finalized-native-record-layouts/1",
+        "revision": "source-finalized-native-record-layouts/2",
         "returncode": 0,
-        "stdout_sha256": "a2c0679b2622a7abca9d8bc0dd561a7fd579bdedad1c86f408a6d1419ff52b33",
+        "stdout_sha256": "48852982a37d7aeb28d0e3ac60c76b11f84be22cb220960f0c30e85d784f9a30",
         "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ]
@@ -1757,7 +1762,7 @@
   },
   "ast_cache_inputs": {
     "format": "source-ast-clang-dependencies/1",
-    "sha256": "c2c74226695cce9bc104c9c0473ef85968bf32dd387d621866c86b2a81242467",
+    "sha256": "06bd5a4c3829de48aa560800130feb2f01797b727747b0956236ff4c37ca03b1",
     "dependency_count": 42,
     "preprocessor_verified": true,
     "content_hashes_not_mtimes": true
@@ -1768,29 +1773,32 @@
       "backend": "yajl2_c",
       "retained_source_ranges": false,
       "roots": 1,
-      "objects": 39347,
-      "ranges_omitted": 12063,
+      "objects": 35568,
+      "ranges_omitted": 10923,
       "allocator_body_ranges_retained": 0,
       "macro_declaration_ranges_retained": 3,
       "semantic_barrier_ranges_retained": 0,
       "instance_method_ranges_retained": 26,
-      "type_metadata_reuses": 12456,
+      "type_metadata_reuses": 11167,
       "include_metadata_reuses": 1120,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 1525083,
       "cache_storage": "gzip",
-      "cache_entry_bytes": 1702702,
-      "cache_hit": true,
-      "json_bytes": 18168315,
+      "cache_entry_bytes": 1525083,
+      "cache_hit": false,
+      "json_bytes": 15999900,
       "cache_policy_revision": "source-ast-disk-cache/2",
       "cache_budget_bytes": 134217728,
       "cache_retained": true,
-      "cache_retained_bytes": 123137617,
+      "cache_retained_bytes": 102278502,
       "cache_evicted_entries": 0,
       "cache_evicted_bytes": 0,
-      "cache_retention_reason": "cache-hit"
+      "cache_retention_reason": "compressed-retained"
     }
   ],
   "header_inline_filter": [
-    ""
+    "LZ4_compressBound",
+    "LZ4_compress_default"
   ],
   "storage_exports": [],
   "private_storage_exports": [
@@ -1821,8 +1829,60 @@
       }
     }
   ],
-  "unconsumed_legacy_export_omissions": [],
+  "unconsumed_legacy_export_omissions": [
+    {
+      "name": "LZ4_memcpy_using_offset",
+      "source_name": "LZ4_memcpy_using_offset",
+      "original_type": "void (BYTE *, const BYTE *, BYTE *, const size_t)",
+      "previous_owner_sha256": "69d9690002fd5679ed33213eff9799e9171da381998a3886bcf8e09edd56f8d8",
+      "previous_preprocessor_inputs": {
+        "format": "source-ast-clang-dependencies/1",
+        "sha256": "c2c74226695cce9bc104c9c0473ef85968bf32dd387d621866c86b2a81242467",
+        "dependency_count": 42,
+        "preprocessor_verified": true,
+        "content_hashes_not_mtimes": true
+      },
+      "emitted_references": false,
+      "existing_consumers": false,
+      "current_revision_recovery_claimed": false,
+      "original_evidence_preserved_in_owner_history": true
+    },
+    {
+      "name": "LZ4_memcpy_using_offset_base",
+      "source_name": "LZ4_memcpy_using_offset_base",
+      "original_type": "void (BYTE *, const BYTE *, BYTE *, const size_t)",
+      "previous_owner_sha256": "69d9690002fd5679ed33213eff9799e9171da381998a3886bcf8e09edd56f8d8",
+      "previous_preprocessor_inputs": {
+        "format": "source-ast-clang-dependencies/1",
+        "sha256": "c2c74226695cce9bc104c9c0473ef85968bf32dd387d621866c86b2a81242467",
+        "dependency_count": 42,
+        "preprocessor_verified": true,
+        "content_hashes_not_mtimes": true
+      },
+      "emitted_references": false,
+      "existing_consumers": false,
+      "current_revision_recovery_claimed": false,
+      "original_evidence_preserved_in_owner_history": true
+    },
+    {
+      "name": "LZ4_wildCopy32",
+      "source_name": "LZ4_wildCopy32",
+      "original_type": "void (void *, const void *, void *)",
+      "previous_owner_sha256": "69d9690002fd5679ed33213eff9799e9171da381998a3886bcf8e09edd56f8d8",
+      "previous_preprocessor_inputs": {
+        "format": "source-ast-clang-dependencies/1",
+        "sha256": "c2c74226695cce9bc104c9c0473ef85968bf32dd387d621866c86b2a81242467",
+        "dependency_count": 42,
+        "preprocessor_verified": true,
+        "content_hashes_not_mtimes": true
+      },
+      "emitted_references": false,
+      "existing_consumers": false,
+      "current_revision_recovery_claimed": false,
+      "original_evidence_preserved_in_owner_history": true
+    }
+  ],
   "unreferenced_type_wrapper_blockers": [],
-  "recompiled_owner_sha256": "b56e1c1ae22c9419c0e7f770617fdae135c4762274239986a02bb057278e7e14",
+  "recompiled_owner_sha256": "69d9690002fd5679ed33213eff9799e9171da381998a3886bcf8e09edd56f8d8",
   "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration."
 }

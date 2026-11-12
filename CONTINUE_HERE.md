@@ -1,34 +1,18 @@
 # Continue the canonical EDuke32 project
 
-Read `CURRENT_PORT_STATUS.md`, `HANDOFF_SNAPSHOT.json` and the exact current Chromium report. Preserve this codebase, original source/license notices, native storage identity and the classic browser profile. The game is incomplete; do not label a diagnostic/native screenshot as JavaScript gameplay.
-
-From the canonical project in PowerShell:
+Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov11-original-tile-pixels.json. The game remains incomplete. Preserve this canonical codebase and original source/license notices.
 
 ```powershell
 . work/session-env.ps1
-python work/verify_original_map_load.py --report reports/nov11-original-e1l1-map-load.json
-python work/verify_original_map_load.py --all-grp-maps --report reports/nov11-original-campaign-map-load.json
-python work/verify_original_lz4_compression.py --video-mode --report reports/nov11-original-lz4-compression-parity.json
+python work/verify_original_tile_pixels.py
+python work/verify_portable_lz4_diagnostic.py --canonical
+python work/recover_boot_reachable.py source/build/src/engine.cpp renderDrawRoomsQ16,renderDrawMasks,videoSetViewableArea,renderSetAspect --install-closed-leaves
+python work/reproduce_source_ci.py
 python tools/recover_browser_component.py --snapshot
 ```
 
-E1L1 now genuinely loads through original `engineLoadBoard`, matching full sector/wall bytes, sprite coordinates and original start, with original `inside` verification. The current CI-reproduction regression is 46/46, Node browser/runtime tests are 22/22 and GitHub CI passed `ff0f700`; it covers native layout finalization, pointer/raw unions, exact anonymous owners, array data ABI, deferred pure pointer limits and fragment replacement. It does not replace a complete suite run or gameplay acceptance.
+Heavy Clang jobs must remain serial. The rendering command may leave a partial frontier; inspect it and recover shared source dependencies, never fill missing source functions with stubs. Original ART/cache loading and pixel bytes are verified, but app_main/CON/menu/world rendering/gameplay are not. Diagnostic/native screenshots must not be labeled JavaScript gameplay.
 
-The next original dependency chain is base ART textures and cache allocation:
+The semantic index already matches the portable codec profile. Do not reset it with a changed-command generic resume. tools/refresh_semantic_unit.py supports --before-commands for a verified one-unit macro-only change; all unrelated commands and header semantics must remain identical. The older private compressed checkpoint has a different historical fingerprint.
 
-```powershell
-python work/recover_boot_reachable.py source/build/src/tiles.cpp artLoadFiles,tileLoad --install-closed-leaves
-```
-
-See `reports/nov11-art-cache-root-causes.json` and the fresh targeted ART frontier. Complete the generic source-defined out-of-line `cache1d` methods and global object construction, then recover original `drawrooms`/`drawmasks` and `app_main`/CON/menu initialization. Do not replace cache/renderer/game routines with stubs or independent implementations. `artSetupMapArt` is linked, but is not base ART initialization. The native source remains the behavior oracle.
-
-Heavy Clang jobs must stay serial. Reuse only matching compiler/source/preprocessor/ABI fingerprints. Refreshes preserve the exact previous fragment interface and all original storage; additional compiler-emitted helpers do not become owner exports. The strict fragment installer still audits all emitted code/imports/storage. Missing native anonymous fields must stay blocked instead of emitting undefined field reads.
-
-After shared changes stabilize:
-
-```powershell
-python tools/verify_recovery_suite.py --jobs 1 --timeout 1200 --report reports/nov11-current-full-regression.json
-python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --out reports/nov11-port-acceptance.json --strict
-```
-
-Strict gameplay acceptance is expected to fail until original menu, world rendering, input, audio, saves, offline operation and 60-second gameplay evidence exist. No verified playable `dist/index.html` exists. No real game screenshot exists. Never prepopulate world/game state to bypass original initialization.
+Use work/reproduce_source_ci.py for current 50-check local CI reproduction. Focused native/JS results are component evidence only. Run the complete regression at integration stabilization and strict original-game acceptance before publishing a playable artifact. No verified playable dist/index.html currently exists. Keep committing source checkpoints and exact evidence to NullNRG/eduke32-readable-js; never commit GRPs, SDKs, AST/SQLite caches or asset-bearing generated HTML.

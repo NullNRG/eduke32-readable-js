@@ -49,9 +49,9 @@ def retain_callable_names(previous,current,old_exports,code):
     for old in previous['definitions']:
         legacy=old['name']
         if old['status']!='source-first' or old['kind']!='FunctionDecl' or legacy not in old_exports or legacy in existing or legacy!=old.get('source_name',legacy) or not re.fullmatch(r'[A-Za-z_]\w*',legacy):continue
-        assert previous['ast_cache_inputs']==current['ast_cache_inputs'] and current['ast_cache_inputs']['preprocessor_verified']
         matches=[r for r in doc['definitions'] if r['status']=='source-first' and r['kind']=='FunctionDecl' and r.get('source_name')==legacy and r.get('original_type')==old.get('original_type') and r.get('line')==old.get('line') and r.get('physical_source',current['source'])==old.get('physical_source',previous['source'])]
         if not matches:continue
+        assert previous['ast_cache_inputs']==current['ast_cache_inputs'] and current['ast_cache_inputs']['preprocessor_verified']
         assert len(matches)==1,('Rebuilt original callable ambiguous',legacy)
         actual=matches[0]['name'];assert actual!=legacy and actual not in old_exports
         parser="""import ts from 'typescript';let text='';for await(const c of process.stdin)text+=c;

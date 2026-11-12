@@ -129,7 +129,9 @@ def restore_source_archive(archive,destination,expected_sha):
             target.parent.mkdir(parents=True,exist_ok=True)
             with source.open(member) as incoming,target.open('wb') as output:shutil.copyfileobj(incoming,output)
 def main():
+    from browser_classic_profile import with_source_defines
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--make');a=p.parse_args()
+    profile=json.loads((ROOT/'tools/browser_classic_profile.json').read_text())
     original=ROOT/'factory-output/source-tree/eduke32-master'
     folder=ROOT/'factory-output/browser-classic';overlay=folder/'source-tree/eduke32-master'
     if not (original/'GNUmakefile').is_file():
@@ -170,11 +172,12 @@ def main():
             if arg.startswith('-save-temps'):continue
             clean.append(arg)
         clean.append('-DEDUKE32_BROWSER=1')
-        rows[names[0]]={'directory':str(overlay),'file':names[0],'arguments':clean}
+        rows[names[0]],_=with_source_defines(profile,{'directory':str(overlay),'file':names[0],'arguments':clean})
     if not rows or any('/mimalloc/' in n or '/libxmp-lite/' in n or n.endswith('driver_alsa.cpp') for n in rows):
         raise ValueError('Desktop backend leaked into browser selection')
     if POOL_UNITS & rows.keys():raise ValueError('Unused pool allocator leaked into browser selection')
     if 'source/build/src/smmalloc_generic.cpp' not in rows:raise ValueError('Original generic allocator missing from browser selection')
+    if set(profile.get('source_defines',{}))-rows.keys():raise ValueError('Source-specific option names an unselected unit')
     captured={r['file'] for r in json.loads((ROOT/'factory-output/compile_commands.json').read_text())}
     payload=(json.dumps(list(rows.values()),indent=2)+'\n').encode()
     (folder/'compile_commands.json').write_bytes(payload)
@@ -183,7 +186,7 @@ def main():
         'make_command':command,'make_returncode':run.returncode,'selected_units':len(rows),
         'selected_files':sorted(rows),'excluded_captured_units':sorted(captured-rows.keys()),
         'commands_sha256':digest(payload),'source_adaptations':adaptations,
-        'allocator_backend':'original-sm-GenericAllocator',
+        'allocator_backend':'original-sm-GenericAllocator','source_defines':profile.get('source_defines',{}),
         'excluded_pool_units':sorted(POOL_UNITS),
         'source_compilation_verified':False,'gameplay_verified':False}
     (ROOT/'reports/browser-classic-preparation.json').write_text(json.dumps(report,indent=2)+'\n')

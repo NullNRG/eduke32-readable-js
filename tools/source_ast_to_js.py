@@ -20,6 +20,7 @@ from source_record_array_storage import metadata as record_array_storage_metadat
 from source_record_layout_extraction import extract as extract_record_layouts, REVISION as RECORD_LAYOUT_REVISION
 from source_terminal_pointer_steps import plan as terminal_pointer_steps, plan_body_tail as terminal_body_pointer_steps
 from source_deferred_pointer_limits import plan as deferred_pointer_limits
+from source_pointer_comparison_values import plan as comparison_pointer_values, arithmetic as comparison_pointer_arithmetic, selected_lvalue as comparison_pointer_lvalue
 from source_scalar_helpers import emit as emit_scalar_helpers, emit_references as emit_primitive_references
 from source_resume_dispatch import recover as recover_resume_dispatch, allowed_expression as resume_allowed_expression
 from source_coroutine_cfg import CoroutineCFG, CoroutineUnsupported, needs_cfg
@@ -40,6 +41,7 @@ from source_empty_asm import prove_empty_asm
 from source_anonymous_records import blocked_anonymous_global_arrays
 from source_template_destructors import complete as complete_template_destructors
 from source_static_members import recover as recover_out_of_line_static_members, constant_members, rebind_static_references
+from source_instance_members import recover as recover_out_of_line_instance_members
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
 from source_c_function_bindings import rebind as rebind_c_function_references, contexts as c_function_contexts
@@ -1373,8 +1375,12 @@ class Emit:
             op=n.get('opcode')
             if len(a)!=2 or op is None:raise Unsupported(k+' operands')
             address_depth=getattr(self,'address_comparison_depth',0)
-            if op in ('<','>','<=','>=','==','!=') and '*' in qual(a[0]) and '*' in qual(a[1]):
+            comparison_value=(op=='=' and comparison_pointer_lvalue(a[0],getattr(self,'comparison_pointer_values',{}))
+                and comparison_pointer_arithmetic(a[1]))
+            if (op in ('<','>','<=','>=','==','!=') and '*' in qual(a[0]) and '*' in qual(a[1])) or comparison_value:
                 self.address_comparison_depth=address_depth+1
+            if comparison_value:
+                self.used_comparison_pointer_values=getattr(self,'used_comparison_pointer_values',set())|{self.comparison_pointer_values[comparison_pointer_lvalue(a[0],self.comparison_pointer_values)]}
             try:lhs=self.expr(a[0]);rhs=self.expr(a[1])
             finally:self.address_comparison_depth=address_depth
             if op in ('=','+=','-=','*=','/=','%=','&=','|=','^=','<<=','>>='):
@@ -1675,6 +1681,29 @@ class Emit:
             return self.call_expression(n,target)
         if k in ('CallExpr','CXXMemberCallExpr'):
             if not a:raise Unsupported('call without callee')
+            if k=='CXXMemberCallExpr' and kind(a[0])=='MemberExpr' and len(kids(a[0]))==1:
+                selected=getattr(self,'instance_method_bindings',{}).get(a[0].get('referencedMemberDecl'))
+                if not selected and not (a[0].get('_source_member_declaration') or
+                        getattr(self,'all_declarations',{}).get(a[0].get('referencedMemberDecl'))):
+                    raise Unsupported('instance call requires exact source declaration: '+a[0].get('name',''))
+                if selected:
+                    declaration=selected['declaration']
+                    if a[0].get('name')!=declaration.get('name'):
+                        raise Unsupported('instance method differs from exact selected declaration')
+                    receiver=self.expr(kids(a[0])[0])
+                    if a[0].get('isArrow') and kind(kids(a[0])[0])!='CXXThisExpr':
+                        receiver=self.record_object_expr(qual(kids(a[0])[0]),receiver)
+                    parameters=[p for p in kids(declaration) if kind(p)=='ParmVarDecl']
+                    arguments=list(a[1:])
+                    for index,arg in enumerate(arguments):
+                        if kind(arg)=='CXXDefaultArgExpr' and not kids(arg) and index<len(parameters):
+                            defaults=kids(parameters[index])
+                            if parameters[index].get('init') and len(defaults)==1:
+                                arguments[index]={**arg,'inner':defaults}
+                    target=selected['symbol']
+                    self.used_instance_methods=getattr(self,'used_instance_methods',{})
+                    self.used_instance_methods[target]=selected['contract']
+                    return self.call_expression(n,target+'.call',prefix_arguments=[receiver],argument_nodes=arguments)
             byte_call=n.get('_source_byte_method_call')
             if k=='CXXMemberCallExpr' and byte_call and kind(a[0])=='MemberExpr' and kids(a[0]) and self.raw_record_receiver(kids(a[0])[0],a[0].get('isArrow',False)):
                 receiver=self.expr(kids(a[0])[0])
@@ -2616,12 +2645,24 @@ class Emit:
                         and node.get('referencedDecl',{}).get('id')==base_id]
                     captured=self.expr(references[0]);temporary=self.expression_temp()
                     previous=self.range_aliases.get(base_id);self.range_aliases[base_id]=temporary
-                    try:value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
+                    depth=getattr(self,'address_comparison_depth',0)
+                    try:
+                        value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
+                        self.address_comparison_depth=depth+1
+                        address_value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
                     finally:
+                        self.address_comparison_depth=depth
                         if previous is None:self.range_aliases.pop(base_id,None)
                         else:self.range_aliases[base_id]=previous
-                    value='(('+temporary+') => cStaticPointer(() => '+value+'))('+captured+')'
+                    value='(('+temporary+') => cStaticPointer(() => '+value+', () => '+address_value+'))('+captured+')'
                     self.used_deferred_pointer_limits=getattr(self,'used_deferred_pointer_limits',[])+[{**deferred,'base_value_captured_at_declaration':True}]
+                elif n.get('id') in getattr(self,'comparison_pointer_values',{}) and comparison_pointer_arithmetic(a[-1]):
+                    depth=getattr(self,'address_comparison_depth',0)
+                    try:
+                        self.address_comparison_depth=depth+1
+                        value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
+                    finally:self.address_comparison_depth=depth
+                    self.used_comparison_pointer_values=getattr(self,'used_comparison_pointer_values',set())|{self.comparison_pointer_values[n['id']]}
                 else:value=aligned_storage_expression(n,js_cast(self.expr(a[-1]),t),self.type_aliases)
                 text=pad+(f'{name} = {value};' if self.goto_plan else f'let {name} = {value};')
                 reference=self.local_reference_declaration(n,name)
@@ -3146,6 +3187,7 @@ class Emit:
         self.terminal_pointer_steps=terminal_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.terminal_body_pointer_steps=terminal_body_pointer_steps(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.deferred_pointer_limits=deferred_pointer_limits(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
+        self.comparison_pointer_values=comparison_pointer_values(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.local_reference_cells=self.plan_local_reference_cells(n)
         self.byte_scalar_cells=self.plan_byte_scalar_cells(n)
         argnames=[]
@@ -4533,6 +4575,7 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
 
 def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None):
     normalize_specializations(ast)
+    instance_member_definitions,instance_method_bindings=recover_out_of_line_instance_members(ast,source_root,source_rel,header_proof)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
     static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
     candidates=[];header_definition_proofs={}
@@ -4772,6 +4815,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             for c in kids(node):scan(c,True)
     for node in ast:scan(node)
     candidates.extend(static_member_definitions)
+    candidates.extend(instance_member_definitions)
     allocator_definitions=original_allocator_definitions(ast,source_root,source_rel)
     allocator_proofs={id(node):proof for node,proof in allocator_definitions}
     known_candidates={id(node) for node in candidates}
@@ -5363,6 +5407,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
              'line':n.get('loc',{}).get('line'),'original_type':qual(n)}
         if kind(n)=='FunctionDecl' and any(kind(arg)=='TemplateArgument' for arg in kids(n)):
             row['clang_template_mangled_name']=n.get('mangledName')
+        if n.get('_source_instance_member'):
+            row['source_name']=n['_source_instance_member']['name']
+            row['original_instance_member']=n['_source_instance_member']
         if n.get('_source_static_member'):
             row['source_name']=n['_source_static_member']['name']
             row['original_static_member']=n['_source_static_member']
@@ -5459,6 +5506,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         barriers=[empty_asm_barriers[id(part)] for part in descendants(n) if id(part) in empty_asm_barriers]
         if barriers:row['original_empty_asm_barriers']=barriers
         em.static_method_owners=static_method_owners
+        em.instance_method_bindings=instance_method_bindings
         if kind(n)=='CXXRecordDecl' and n.get('name'):previous_class_prototypes.add(n['name'])
         em.type_aliases={**aliases,**n.get('_source_method_type_aliases',{})};em.global_storage_records=global_storage_records;em.function_symbols=by_id;em.signature_symbols=by_signature
         em.standard_heap_operators=heap_operators;em.heap_classes=set(addressable_classes)|set(lifetime_classes)
@@ -5544,6 +5592,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 raise Unsupported('C++ global class address requires exact Clang layout: '+qual(n))
             code=(em.function(n,symbol=symbol) if kind(n)=='FunctionDecl' else
                   em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n,symbol=symbol))
+            if getattr(em,'used_comparison_pointer_values',None):row['address_comparison_pointer_temporaries']={'abi':'source-local-pointer-address-values/1','declarations':sorted(em.used_comparison_pointer_values),'memory_bounds_checks_retained':True}
             if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
                 factory_symbol=symbol or js_ident(name)
@@ -5603,7 +5652,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             resolved_references-=set(BUILTIN_HELPERS)&em.used
             resolved_references-=getattr(em,'used_runtime_queries',set())
             row['source_references']=sorted(resolved_references)
-            row['source_references']=sorted(set(row['source_references'])|getattr(em,'used_class_constructors',set())|getattr(em,'used_reference_classes',set())|getattr(em,'used_static_method_owners',set())|getattr(em,'used_byte_methods',set()))
+            row['source_references']=sorted(set(row['source_references'])|getattr(em,'used_class_constructors',set())|getattr(em,'used_reference_classes',set())|getattr(em,'used_static_method_owners',set())|getattr(em,'used_byte_methods',set())|set(getattr(em,'used_instance_methods',{})))
             for ref in row['source_references']:
                 record=reference_records.get(ref)
                 if record and any(em.reference_contract(qual(child)) for child in kids(record)
@@ -5626,6 +5675,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             row['external_reference_imports']=[{'name':target,'reference_contract':contract}
                 for target,contract in sorted(contracts.items())
                 if target in project_symbols]
+            row['external_reference_imports'].extend({'name':target,'instance_method_contract':contract}
+                for target,contract in sorted(getattr(em,'used_instance_methods',{}).items()) if target in project_symbols)
             row['external_reference_imports'].extend({'name':target,'reference_class_abi':REFERENCE_ABI}
                 for target in sorted(getattr(em,'used_reference_classes',set())) if target in project_symbols)
             for target in sorted(getattr(em,'used_class_constructors',set())|getattr(em,'used_aggregate_prototypes',set())):
@@ -6386,11 +6437,12 @@ def main():
         # Keep the original same-TU declaration context before joining its
         # qualified target layout; never join merely by a matching short name.
         unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
+            'sizeof/alignof record layout:',
             'record field requires verified native storage:',
             'global aggregate array requires verified storage shape:',
             'aggregate copy requires verified pointer-free field shape:',
             'nontrivial byte-view method requires original class prototype:')) for row in report)
-        ordinary_members=any(row.get('reason','').startswith('overloaded member requires exact Clang-selected source method:') for row in report)
+        ordinary_members=any(row.get('reason','').startswith(('overloaded member requires exact Clang-selected source method:', 'instance call requires exact source declaration:')) for row in report)
         implicit_assignment_types=any(row.get('required_record_types') and row.get('reason','').startswith(
             'C++ member operator requires source-defined class/method ABI:') for row in report)
         union_initializers=any(row.get('reason','').startswith('union initializer lacks exact Clang-selected field') for row in report)

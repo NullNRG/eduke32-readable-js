@@ -41,6 +41,7 @@ def recover_lifetime_classes(ast, *, enable_owned_subobjects=False):
                 previous=by_id.get(member.get('previousDecl'))
                 body=[child for child in member.get('inner',[]) if child.get('kind') in ('CompoundStmt','CXXCtorInitializer')]
                 if not previous or not body or previous.get('kind')!=member.get('kind'):continue
+                if previous.get('_source_external_instance_declaration'):continue
                 if previous.get('type')!=member.get('type'):continue
                 if any(child.get('kind')=='CompoundStmt' for child in previous.get('inner',[])):continue
                 previous['inner']=[child for child in member.get('inner',[]) if child]
