@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\anim.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 805,
-  "emitted": 805,
+  "found": 806,
+  "emitted": 806,
   "blocked": 0,
   "definitions": [
     {
@@ -24220,6 +24220,281 @@
         "handle_memerr"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "Anim_Init",
+      "source_name": "Anim_Init",
+      "kind": "FunctionDecl",
+      "line": 87,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/anim.cpp",
+      "source_references": [
+        "ARRAY_SIZE__header_182df29bb857",
+        "ARRAY_SIZE__header_4ec6da3a00fd",
+        "ARRAY_SIZE__header_54d30a5d17fc",
+        "ARRAY_SIZE__header_c92f95127ed8",
+        "ARRAY_SIZE__header_e7e29b814591",
+        "Anim_Create",
+        "BIGBANG",
+        "BOSS4_DEADSPEECH",
+        "DUKE_GRUNT",
+        "DUKE_UNDERWATER",
+        "ENDSEQVOL2SND1",
+        "ENDSEQVOL2SND2",
+        "ENDSEQVOL2SND3",
+        "ENDSEQVOL2SND4",
+        "ENDSEQVOL2SND5",
+        "ENDSEQVOL2SND6",
+        "ENDSEQVOL2SND7",
+        "ENDSEQVOL3SND2",
+        "ENDSEQVOL3SND3",
+        "FLY_BY",
+        "INTRO4_1",
+        "INTRO4_2",
+        "INTRO4_3",
+        "INTRO4_4",
+        "INTRO4_5",
+        "INTRO4_6",
+        "INTRO4_B",
+        "PIPEBOMB_EXPLODE",
+        "SHORT_CIRCUIT",
+        "SQUISHED",
+        "StopAllSounds",
+        "THUD",
+        "VOL4ENDSND1",
+        "VOL4ENDSND2",
+        "WIND_AMBIENCE",
+        "WIND_REPEAT",
+        "h_dukeanim",
+        "hash_init",
+        "xmalloc__header_94feb8bebd3d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "BIGBANG",
+          "binding": "__cxx_global_cell_a2e00eb89732a70e73d11a7e",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BOSS4_DEADSPEECH",
+          "binding": "__cxx_global_cell_ac13fdf9b875363f704809de",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DUKE_GRUNT",
+          "binding": "__cxx_global_cell_cfb0930e809e881d6e7afebd",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DUKE_UNDERWATER",
+          "binding": "__cxx_global_cell_2f44457650d3ec8abdcb9ef2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND1",
+          "binding": "__cxx_global_cell_156fb000c29189fb4261b8ce",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND2",
+          "binding": "__cxx_global_cell_86d668208a2274b7715555bc",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND3",
+          "binding": "__cxx_global_cell_e07b2dfb58be394cd87ed1af",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND4",
+          "binding": "__cxx_global_cell_1b453948167dd8a2dcae22ab",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND5",
+          "binding": "__cxx_global_cell_f4f9ca1997b85e3b08911fc4",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND6",
+          "binding": "__cxx_global_cell_b8e3a09fa4abcbfd2c3adb84",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND7",
+          "binding": "__cxx_global_cell_4db8447a7cbeaddfd0fb6254",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL3SND2",
+          "binding": "__cxx_global_cell_41eb6f697355c97c1a66d472",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL3SND3",
+          "binding": "__cxx_global_cell_5df367a5711256d0688fd9ad",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FLY_BY",
+          "binding": "__cxx_global_cell_19d3ea85cec7cc2d9c262de9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_1",
+          "binding": "__cxx_global_cell_cea6452795d539cf77f06ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_2",
+          "binding": "__cxx_global_cell_d6e41610ce4160fd303b5449",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_3",
+          "binding": "__cxx_global_cell_ba161790ca79a36a61e857a1",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_4",
+          "binding": "__cxx_global_cell_a60fb3901d5473acb3808487",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_5",
+          "binding": "__cxx_global_cell_65affbdde03fbeedb4cfc2f6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_6",
+          "binding": "__cxx_global_cell_bae2f1b5dfbd218acbac5246",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_B",
+          "binding": "__cxx_global_cell_d64778c674e35fc03d3d3880",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "PIPEBOMB_EXPLODE",
+          "binding": "__cxx_global_cell_67dc7ed1d6c5c61acdd4e736",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHORT_CIRCUIT",
+          "binding": "__cxx_global_cell_7baf39150d1d7699f75e50e6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SQUISHED",
+          "binding": "__cxx_global_cell_d78097aa21249629b8c8009b",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "THUD",
+          "binding": "__cxx_global_cell_71322ede3ac7d10567f6e634",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "VOL4ENDSND1",
+          "binding": "__cxx_global_cell_422d21a06caca8addb883ca7",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "VOL4ENDSND2",
+          "binding": "__cxx_global_cell_fc40495ed21e368da252b6d3",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "WIND_AMBIENCE",
+          "binding": "__cxx_global_cell_1f57c95d2e2edab7e0aeb538",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "WIND_REPEAT",
+          "binding": "__cxx_global_cell_3a38f8c8b6f6893d17a8666c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "h_dukeanim",
+          "binding": "__cxx_global_cell_688eef96adecfa82b6b8d71c",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Anim_Create",
+        "BIGBANG",
+        "BOSS4_DEADSPEECH",
+        "DUKE_GRUNT",
+        "DUKE_UNDERWATER",
+        "ENDSEQVOL2SND1",
+        "ENDSEQVOL2SND2",
+        "ENDSEQVOL2SND3",
+        "ENDSEQVOL2SND4",
+        "ENDSEQVOL2SND5",
+        "ENDSEQVOL2SND6",
+        "ENDSEQVOL2SND7",
+        "ENDSEQVOL3SND2",
+        "ENDSEQVOL3SND3",
+        "FLY_BY",
+        "INTRO4_1",
+        "INTRO4_2",
+        "INTRO4_3",
+        "INTRO4_4",
+        "INTRO4_5",
+        "INTRO4_6",
+        "INTRO4_B",
+        "PIPEBOMB_EXPLODE",
+        "SHORT_CIRCUIT",
+        "SQUISHED",
+        "StopAllSounds",
+        "THUD",
+        "VOL4ENDSND1",
+        "VOL4ENDSND2",
+        "WIND_AMBIENCE",
+        "WIND_REPEAT",
+        "h_dukeanim",
+        "hash_init"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -26142,6 +26417,299 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "37845eca273bfc7c059b589ebbdd7419b4efe63e1846f960e3501b7a302bc4ea"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_anim_cpp_85feed146e80.mjs",
+      "sha256": "85feed146e806502b2794b72e85f9dae6ac09db1d852c0be8af3763ebc8501d8",
+      "original_source": "source/duke3d/src/anim.cpp",
+      "exports": [
+        "Anim_Init"
+      ],
+      "reexports": [
+        "Anim_Init"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Anim_Create",
+          "from": "source/duke3d/src/anim.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BIGBANG",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a2e00eb89732a70e73d11a7e",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BOSS4_DEADSPEECH",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ac13fdf9b875363f704809de",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DUKE_GRUNT",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cfb0930e809e881d6e7afebd",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DUKE_UNDERWATER",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2f44457650d3ec8abdcb9ef2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_156fb000c29189fb4261b8ce",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND2",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_86d668208a2274b7715555bc",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND3",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e07b2dfb58be394cd87ed1af",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND4",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1b453948167dd8a2dcae22ab",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND5",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f4f9ca1997b85e3b08911fc4",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND6",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b8e3a09fa4abcbfd2c3adb84",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL2SND7",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4db8447a7cbeaddfd0fb6254",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL3SND2",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_41eb6f697355c97c1a66d472",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDSEQVOL3SND3",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5df367a5711256d0688fd9ad",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FLY_BY",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_19d3ea85cec7cc2d9c262de9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cea6452795d539cf77f06ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_2",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d6e41610ce4160fd303b5449",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_3",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ba161790ca79a36a61e857a1",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_4",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a60fb3901d5473acb3808487",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_5",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_65affbdde03fbeedb4cfc2f6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_6",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bae2f1b5dfbd218acbac5246",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "INTRO4_B",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d64778c674e35fc03d3d3880",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "PIPEBOMB_EXPLODE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_67dc7ed1d6c5c61acdd4e736",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHORT_CIRCUIT",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7baf39150d1d7699f75e50e6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SQUISHED",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d78097aa21249629b8c8009b",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "StopAllSounds",
+          "from": "source/duke3d/src/anim.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "THUD",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_71322ede3ac7d10567f6e634",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "VOL4ENDSND1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_422d21a06caca8addb883ca7",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "VOL4ENDSND2",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fc40495ed21e368da252b6d3",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "WIND_AMBIENCE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1f57c95d2e2edab7e0aeb538",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "WIND_REPEAT",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3a38f8c8b6f6893d17a8666c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "h_dukeanim",
+          "from": "source/duke3d/src/anim.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_688eef96adecfa82b6b8d71c",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "d052ad5721509c3b26ca465b5e083197d9a880dcd4789b141fd6908fd2f6ab00"
     }
   ]
 }

@@ -801,6 +801,15 @@ class Emit:
         resolved=resolve_scalar_storage_alias(base,self.type_aliases)
         if scalar_info(resolved) or re.fullmatch(r'[^()\[\]&]+\*\s*(?:const\s*)?',resolved):return resolved
         return None
+    def source_field_declaration(self,node):
+        declaration=node.get('_source_field_declaration') or getattr(self,'all_declarations',{}).get(node.get('referencedMemberDecl'),{})
+        if declaration.get('kind')=='FieldDecl':return declaration
+        receiver=kids(node)[0]
+        owner=normalized_record_name(re.sub(r'[&*]+\s*$','',qual(receiver)).strip(),self.type_aliases)
+        field=self.aggregate_records.get(owner,{}).get('byte_schema',{}).get('fields',{}).get(node.get('name'),{})
+        if field.get('reference'):
+            raise Unsupported('reference member access requires original field declaration: '+owner+'.'+node.get('name',''))
+        return {}
     def reference_contract(self,typ):
         parts=function_type_parts(typ)
         if not parts:return None
@@ -1385,7 +1394,7 @@ class Emit:
             if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
                 receiver=self.record_object_expr(qual(a[0]),receiver)
             member=receiver+'.'+name
-            declaration=getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{})
+            declaration=self.source_field_declaration(n)
             return member+'.value' if self.scalar_reference(qual(declaration)) else member
         if k=='ArraySubscriptExpr':
             base=a[0]
@@ -2397,7 +2406,21 @@ class Emit:
         initializers=[]
         for (name,field),value in zip(fields,values):
             if kind(value)=='ImplicitValueInitExpr' and not kids(value):continue
-            if field.get('recordArray'):
+            if field.get('reference'):
+                typ=field['referenceType']
+                if not self.scalar_reference(typ):
+                    raise Unsupported('reference member requires verified scalar referent')
+                temporaries=[part for part in descendants(value) if kind(part)=='MaterializeTemporaryExpr']
+                if temporaries:
+                    owner=getattr(self,'static_reference_initializer_owner',None)
+                    if (not owner or not const_referent(typ) or len(temporaries)!=1
+                        or temporaries[0].get('storageDuration')!='static'
+                        or temporaries[0].get('extendingDecl',{}).get('id')!=owner
+                        or len(kids(temporaries[0]))!=1
+                        or not scalar_info(resolve_scalar_storage_alias(qual(temporaries[0]),self.type_aliases))):
+                        raise Unsupported('reference member temporary requires proven original static lifetime')
+                result=self.reference_argument(value,typ)
+            elif field.get('recordArray'):
                 result=self.byte_record_array_initializer({'recordArray':field['recordArray'],'dims':field['dims']},value)
             elif field.get('pointerArray') or field.get('nativeArray'):
                 def array_values(current,dims):
@@ -2495,7 +2518,7 @@ class Emit:
             receiver=self.expr(a[0])
             if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
                 receiver=self.record_object_expr(qual(a[0]),receiver)
-            declaration=getattr(self,'all_declarations',{}).get(n.get('referencedMemberDecl'),{})
+            declaration=self.source_field_declaration(n)
             if self.scalar_reference(qual(declaration)):return receiver+'.'+n['name']
             return f'cObjectFieldRef({receiver}, {json.dumps(n["name"])})'
         if k in ('CallExpr','CXXMemberCallExpr'):
@@ -2631,6 +2654,10 @@ class Emit:
                     initializer_nodes=[v for v in descendants(n) if v is not n]
                     dynamic=any(
                         kind(part) in ('CallExpr','CXXMemberCallExpr','CXXNewExpr','CXXDeleteExpr')
+                        or kind(part)=='DeclRefExpr' and (
+                            part.get('referencedDecl',{}).get('kind')=='ParmVarDecl' or
+                            part.get('referencedDecl',{}).get('kind')=='VarDecl' and
+                            js_ident(part.get('referencedDecl',{}).get('name','')) in self.local_types)
                         or kind(part)=='UnaryOperator' and part.get('opcode') in ('++','--')
                         or kind(part)=='ImplicitCastExpr' and part.get('castKind')=='LValueToRValue'
                            and any(kind(ref)=='DeclRefExpr' and
@@ -3024,7 +3051,30 @@ class Emit:
                     if '&' in signature or (not pointer_by_value(child) if pointer_element else scalar or not member_value_only(child)):
                         raise Unsupported('C++ range reference escapes through call/constructor')
                 if kind(child)=='VarDecl' and '&' in qual(child) and any(used_alias(v) for v in kids(child)):
-                    raise Unsupported('nested C++ array reference needs lifetime/alias analysis')
+                    # Borrowing an element through an original pointer field
+                    # retains the same byte-backed subobject. No temporary,
+                    # constructor, copy or new lifetime is introduced here.
+                    initial=kids(child)
+                    value=initial[0] if len(initial)==1 else {}
+                    while kind(value) in ('ParenExpr','ImplicitCastExpr') and len(kids(value))==1:
+                        value=kids(value)[0]
+                    target=lvalue_referent(qual(child))
+                    shape=aggregate_type_schema(target or '',self.global_storage_records,self.type_aliases,
+                        self.record_layouts,allow_pointer_storage=True)
+                    source=kids(value)[0] if kind(value)=='ArraySubscriptExpr' and len(kids(value))==2 else {}
+                    while kind(source) in ('ParenExpr','ImplicitCastExpr') and len(kids(source))==1:
+                        source=kids(source)[0]
+                    receiver=kids(source)[0] if kind(source)=='MemberExpr' and len(kids(source))==1 else {}
+                    while kind(receiver) in ('ParenExpr','ImplicitCastExpr') and len(kids(receiver))==1:
+                        receiver=kids(receiver)[0]
+                    field=self.source_field_declaration(source) if kind(source)=='MemberExpr' else {}
+                    pointer=qual(field).rstrip()
+                    if (not borrowed_record or not shape or 'byteRecord' not in shape
+                        or value.get('valueCategory')!='lvalue' or not pointer.endswith('*')
+                        or normalized_record_name(pointer[:-1],self.type_aliases)!=normalized_record_name(target or '',self.type_aliases)
+                        or normalized_record_name(qual(value),self.type_aliases)!=normalized_record_name(target or '',self.type_aliases)
+                        or kind(receiver)!='DeclRefExpr' or receiver.get('referencedDecl',{}).get('id')!=refid):
+                        raise Unsupported('nested C++ array reference needs lifetime/alias analysis')
             if uses_write and not (scalar or pointer_element):
                 raise Unsupported('non-scalar mutable range reference requires proven object alias')
             array=self.expr(original[0]);self.local_types[loopname]=qual(ref)
@@ -3778,6 +3828,14 @@ def verified_global_record_initializer(schema, node, enum_values, record_layouts
     return emitter.aggregate_prototype(schema,'cMarkAggregate('+value+')')
 
 def global_initializer(n, enum_values=None, record_layouts=None, aggregate_records=None, type_aliases=None, enum_types=None, emitter=None):
+    em=emitter or Emit()
+    previous=getattr(em,'static_reference_initializer_owner',None)
+    em.static_reference_initializer_owner=(n.get('id') if n.get('storageClass')=='static' or not em.current_function else None)
+    try:
+        return _global_initializer(n,enum_values,record_layouts,aggregate_records,type_aliases,enum_types,em)
+    finally:em.static_reference_initializer_owner=previous
+
+def _global_initializer(n, enum_values=None, record_layouts=None, aggregate_records=None, type_aliases=None, enum_types=None, emitter=None):
     alignment=declared_array_alignment(n,type_aliases)
     if alignment:
         clean={**n,'inner':[v for v in kids(n) if kind(v)!='AlignedAttr']}
@@ -3826,6 +3884,18 @@ def global_initializer(n, enum_values=None, record_layouts=None, aggregate_recor
         initializers=[child for child in kids(n) if kind(child) not in harmless]
         if len(initializers)>1:raise Unsupported('static array has multiple runtime initializer nodes')
         original_initializer=initializers[0] if initializers else None
+        if kind(original_initializer or {})=='ExprWithCleanups':
+            # Scalar reference-bound temporaries have no destructor. Their
+            # static lifetime is checked individually by the record emitter.
+            parts=kids(original_initializer)
+            temps=[part for part in descendants(original_initializer) if kind(part)=='MaterializeTemporaryExpr']
+            if (len(parts)==1 and kind(parts[0])=='InitListExpr' and temps
+                and not any(kind(part) in ('CXXBindTemporaryExpr','CXXConstructExpr','CXXTemporaryObjectExpr')
+                            for part in descendants(original_initializer))
+                and all(part.get('storageDuration')=='static'
+                        and part.get('extendingDecl',{}).get('id')==n.get('id')
+                        and scalar_info(resolve_scalar_storage_alias(qual(part),type_aliases)) for part in temps)):
+                original_initializer=parts[0]
         initializer=original_initializer if kind(original_initializer or {})=='InitListExpr' else None
         literal=next((v for v in descendants(original_initializer or {}) if kind(v)=='StringLiteral'),None)
         if literal is not None and len(dims)==1 and '*' not in t.split('[')[0] and \
@@ -6539,6 +6609,7 @@ def main():
         # Keep the original same-TU declaration context before joining its
         # qualified target layout; never join merely by a matching short name.
         unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
+            'reference member access requires original field declaration:',
             'sizeof/alignof record layout:',
             'record field requires verified native storage:',
             'global aggregate array requires verified storage shape:',

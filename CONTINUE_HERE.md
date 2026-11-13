@@ -1,6 +1,10 @@
 # Continue the canonical EDuke32 project
 
-Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov12-original-rooms-frame.json. Original E1L1 room rendering now passes in Chromium. The game remains incomplete: app_main, menu, CON initialization and gameplay have not passed. The original mask/sprite frame component passes.
+Original numplayers/myconnectindex/connecthead/connectpoint2 storage is also linked from mmulti.cpp and checked for native zero initialization, stable scalar cells and contiguous array bytes (reports/nov13-original-player-chain-storage.json). No network services were added or executed.
+
+November 13: original Anim_Init is linked and executes in Node and Chromium. Its 12 animation records and 44 sound cues match native C++ compiled from exact original declaration extents plus original hash/allocator code. Scalar reference members now preserve Clang-proven LP64 address slots, static converted-temporary lifetime and nested byte-record aliases. The compiler fixture passes 2,048 native/full/filtered Node/Chromium results; automatic reference-temporary lifetimes outside this supported domain remain blocked. See reports/nov13-original-animation-init.json and reports/nov13-app-main-current-frontier.json. The frozen local CI profile passes 59/59. The original masked E1L1 renderer still passes. app_main, menus, CON initialization, interactive simulation, audio, saves and the offline playable release remain incomplete.
+
+Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov12-original-masked-frame.json. Original E1L1 room rendering now passes in Chromium. The game remains incomplete: app_main, menu, CON initialization and gameplay have not passed. The original mask/sprite frame component passes.
 
 User constraint: do not use paid external services. Compile and verify locally.
 GitHub checkpoint commits must include `[skip ci]` to avoid starting cloud
@@ -10,6 +14,7 @@ November 12 follow-up: original mask/sprite dependencies are now linked and exec
 
 ```powershell
 . work/session-env.ps1
+python work/verify_original_animation_init.py
 python work/verify_original_masked_frame.py
 python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --whole-unit --install-closed-leaves
 python work/reproduce_source_ci.py
@@ -24,6 +29,6 @@ Existing exports do not mean their generated bodies were refreshed. For shared f
 
 The native semantic index already matches the 111-unit portable-codec profile (d906809d). Compiler-only repairs do not require replaying the native index. Do not trigger a changed-input generic index resume; targeted primary-unit semantic refresh must verify all unchanged commands/header observations. The compressed private index payload is an older historical fingerprint; the verified macro-only delta is reports/nov11-portable-semantic-delta.json.
 
-The last local CI reproduction passed 57/57 before the SDL display follow-up; 22 relevant Node checks and real Chromium runtime/original masked-frame checks pass after it; full regression and strict original-game acceptance remain incomplete. No playable dist/index.html exists. Keep pushing source, active modules, exact evidence and factual notes to NullNRG/eduke32-readable-js. Never push GRPs, SDKs, raw AST/SQLite caches or asset-bearing generated HTML. Do not publish a playable release until original boot/menu/gameplay/offline/save/audio checks pass.
+The latest frozen local CI reproduction passed 59/59; 22 relevant Node checks and real Chromium runtime/original masked-frame checks pass after it; full regression and strict original-game acceptance remain incomplete. No playable dist/index.html exists. Keep pushing source, active modules, exact evidence and factual notes to NullNRG/eduke32-readable-js. Never push GRPs, SDKs, raw AST/SQLite caches or asset-bearing generated HTML. Do not publish a playable release until original boot/menu/gameplay/offline/save/audio checks pass.
 
 The asset-free browser launcher is engine-player.html, linked from index.html. Regenerate engine-level-runner.mjs with `npm run build:engine-launcher`. It reuses the verified probe, accepts archive bytes and MAP selection, and creates a fresh realm per run. Read PORT_GUIDE.md. Verify actual file selection with `python work/verify_engine_launcher.py`; no GRP upload or remote service is involved.

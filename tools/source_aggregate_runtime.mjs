@@ -171,6 +171,17 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocat
         const next=(read()&~mask)|(BigInt.asUintN(bits.width,BigInt(value))<<BigInt(bits.start));
         for(let i=0;i<field.size;i++)bytes[field.offset+i]=Number((next>>BigInt(i*8))&255n);
       }});
+    } else if (field.reference) {
+      if(field.reference!==true || field.size!==8 || field.offset+8>bytes.length)
+        throw new TypeError('Reference field differs from verified LP64 ABI');
+      Object.defineProperty(result,name,{enumerable:true,get:()=>{
+        const reference=cByteRecordPointers.decode(view.getBigUint64(field.offset,true));
+        if(reference?.__cReference!==true)throw new TypeError('Uninitialized original C++ reference member');
+        return reference;
+      },set:reference=>{
+        if(reference?.__cReference!==true)throw new TypeError('C++ reference member requires original lvalue storage');
+        view.setBigUint64(field.offset,cByteRecordPointers.encode(reference),true);
+      }});
     } else if (field.pointer) {
       if (field.pointer!==true || field.size!==8 || field.offset+8>bytes.length)
         throw new TypeError('Pointer field differs from verified LP64 ABI');

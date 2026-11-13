@@ -10,6 +10,8 @@ Original **E1L1 rooms and sprites now render in Chromium through the original Bu
 
 [Execution report](reports/nov12-original-masked-frame.json) binds original GRP/ART/MAP loading, sky, room/mask drawing and stable repeated presentation to exact source modules and runtime bytes. Read CURRENT_PORT_STATUS.md for test scope and remaining work. The user prohibits paid external services; verification runs locally and GitHub checkpoint commits use [skip ci].
 
+November 13 checkpoint: original `Anim_Init` executes in Node and Chromium and matches native C++ for all 12 animation records and 44 sound cues. Shared reference-member/static-lifetime lowering passes native comparisons, and all 59 local compiler CI-profile checks pass under unchanged inputs. See [animation verification](reports/nov13-original-animation-init.json) and the [current startup frontier](reports/nov13-app-main-current-frontier.json). The full game still does not boot.
+
 The project continues the existing Clang-based C/C++ source compiler, source-owned
 storage, readable ES modules, cross-unit linker and browser platform adapters.
 The intended release uses the original classic software renderer and single-player

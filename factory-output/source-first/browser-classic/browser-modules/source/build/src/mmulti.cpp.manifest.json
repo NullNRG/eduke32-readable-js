@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\mmulti.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 1,
-  "emitted": 1,
+  "found": 4,
+  "emitted": 4,
   "blocked": 0,
   "definitions": [
     {
@@ -74,6 +74,61 @@
       "external_reference_imports": [],
       "global_storage": {
         "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "connecthead",
+      "source_name": "connecthead",
+      "kind": "VarDecl",
+      "line": 79,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/mmulti.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_37274ddda5136df9cc793c3b",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "connectpoint2",
+      "source_name": "connectpoint2",
+      "kind": "VarDecl",
+      "line": 79,
+      "original_type": "int[16]",
+      "linkage": "external",
+      "physical_source": "source/build/src/mmulti.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "numplayers",
+      "source_name": "numplayers",
+      "kind": "VarDecl",
+      "line": 78,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/build/src/mmulti.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_af3e7a8f9b4d40a559acf109",
         "abi": "source-global-cell/2",
         "original_type": "int"
       },
@@ -202,7 +257,41 @@
       "binding": "__cxx_global_cell_04adffdeab684b9c52206917",
       "abi": "source-global-cell/2",
       "original_type": "int"
+    },
+    {
+      "name": "numplayers",
+      "binding": "__cxx_global_cell_af3e7a8f9b4d40a559acf109",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "connecthead",
+      "binding": "__cxx_global_cell_37274ddda5136df9cc793c3b",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
     }
   ],
-  "private_storage_exports": []
+  "private_storage_exports": [],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_mmulti_cpp_90e65c4b1064.mjs",
+      "sha256": "90e65c4b10647c868c1b6b082c72e54bf21727a28a5d75f563a2910362722e1e",
+      "original_source": "source/build/src/mmulti.cpp",
+      "exports": [
+        "connecthead",
+        "connectpoint2",
+        "numplayers"
+      ],
+      "reexports": [
+        "connecthead",
+        "connectpoint2",
+        "numplayers",
+        "__cxx_global_cell_37274ddda5136df9cc793c3b",
+        "__cxx_global_cell_af3e7a8f9b4d40a559acf109"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "6b53edc8311b6a8181c2aabed5cdfd94e7b30cda7e6161beb3bf20b52fb8412e"
+    }
+  ]
 }

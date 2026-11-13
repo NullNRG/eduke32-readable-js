@@ -2,8 +2,9 @@
 
 No offset is computed here: every subobject offset and total extent must be
 present in the same target's Clang record-layout dump. Borrowed pointer slots
-retain identity in the checked LP64 representation. Reference,
-inheritance, and nontrivial-lifetime C++ value operations remain unsupported.
+retain identity in the checked LP64 representation. Scalar lvalue reference
+members retain original cells in Clang-proven address slots. Inheritance and
+nontrivial-lifetime C++ value operations remain unsupported.
 Separate field-only projections can borrow existing nonvirtual objects with
 Clang-proven subobjects. One nonvirtual base at offset zero is supported for
 these views only; construction, assignment, copying and destruction stay separate.
@@ -537,7 +538,14 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         # RecordDecl is Clang's C tag, not an incomplete C++ traits report.
         # C has no class lifetime hooks or inheritance. This authorizes only
         # the language's trivial storage; field offsets/types remain checked.
-        valid = ((c_record or (traits.get('isStandardLayout') is True and
+        # Reference members make an otherwise trivial aggregate non-standard-
+        # layout. Its representation still comes exclusively from this target's
+        # Clang field dump. Admit only scalar lvalue references below; no bases,
+        # virtual dispatch, authored construction or nontrivial lifetime.
+        has_reference_member=any(has_outer_indirection(
+            child.get('type',{}).get('qualType',''),'&')
+            for child in children(record) if child.get('kind')=='FieldDecl')
+        valid = ((c_record or ((traits.get('isStandardLayout') is True or has_reference_member) and
                  traits.get('isTriviallyCopyable') is True and
                  traits.get('isAggregate') is True and
                  traits.get('defaultCtor', {}).get('trivial') is True and
@@ -710,6 +718,17 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
                     valid=False;break
                 item={'pointerArray':True,'dims':dims,'size':size}
                 result['arrayAlign']=max(result['arrayAlign'],8)
+            elif not dims and has_outer_indirection(base,'&'):
+                # The native ABI stores an address, not a copied scalar. Keep
+                # the original reference type for initializer/lvalue lowering.
+                referent=base[:-1].strip() if base.endswith('&') and not base.endswith('&&') else ''
+                seen=set()
+                while referent in aliases and referent not in seen:
+                    seen.add(referent);referent=clean_type(aliases[referent])
+                if referent not in native or record.get('tagUsed')=='union':
+                    valid=False;break
+                item={'reference':True,'referenceType':field['type']['qualType'],'size':8}
+                size=8
             elif not dims and has_outer_indirection(base,'*') and not has_outer_indirection(base,'&'):
                 # This extractor shares the compiler's verified x86-64 LP64
                 # target contract. The runtime stores an owned pointer identity
