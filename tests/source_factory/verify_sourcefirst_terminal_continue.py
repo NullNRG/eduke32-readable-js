@@ -31,7 +31,7 @@ int while_cleanup(int n){
  return sum;
 }
 int shadowed=17;
-int reject_shadow(int n){int sum=0;for(int i=0;i<3;i++){
+int check_shadow(int n){int sum=0;for(int i=0;i<3;i++){
  if(n){int shadowed=i+1;if(shadowed)goto finish;}
  else {finish:{sum+=shadowed;continue;}}
  }return sum;}
@@ -52,23 +52,25 @@ def run(command,cwd):
  return result.stdout.strip()
 with tempfile.TemporaryDirectory(prefix='source-continue-suffix-') as temporary:
  root=Path(temporary);(root/'unit.cpp').write_text(SOURCE)
- (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(){for(int n=0;n<512;n++)printf("%d,%d\\n",sibling_cleanup(n),while_cleanup(n));}')
+ (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(){for(int n=0;n<512;n++)printf("%d,%d,%d\\n",sibling_cleanup(n),while_cleanup(n),check_shadow(n));}')
  run(['clang++','-std=c++14','main.cpp','-o',root/'native.exe'],root)
  expected=run([root/'native.exe'],root).splitlines()
  modules=[]
  for mode in ('full','filtered'):
   command=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','unit.cpp','--out-dir',root/mode]
-  if mode=='filtered':command+=['--filter','sibling_cleanup,while_cleanup','--exact-filter']
+  if mode=='filtered':command+=['--filter','sibling_cleanup,while_cleanup,check_shadow,shadowed','--exact-filter']
   run(command,root);module=root/mode/'unit.cpp.mjs';modules.append(module)
   rows={row['source_name']:row for row in json.loads(module.with_suffix('.manifest.json').read_text())['definitions']}
   for name in ('sibling_cleanup','while_cleanup'):
    assert rows[name]['status']=='source-first',rows[name]
    assert rows[name]['control_flow']['strategy']=='source-same-loop-terminal-continue-suffixes',rows[name]
+  assert rows['check_shadow']['status']=='source-first',rows['check_shadow']
+  assert rows['check_shadow']['control_flow']['detected']['shadowed_locals_renamed']==1
   if mode=='full':
-   for name in ('reject_shadow','reject_other_loop','reject_cleanup_order'):
+   for name in ('reject_other_loop','reject_cleanup_order'):
     assert rows[name]['status']=='blocked',rows[name]
   run(['node','--check',module],root)
-  evaluator='async url=>{const m=await import(url);return Array.from({length:512},(_,n)=>[m.sibling_cleanup(n),m.while_cleanup(n)].join(","));}'
+  evaluator='async url=>{const m=await import(url);return Array.from({length:512},(_,n)=>[m.sibling_cleanup(n),m.while_cleanup(n),m.check_shadow(n)].join(","));}'
   (root/'run.mjs').write_text('console.log((await ('+evaluator+')('+json.dumps(module.as_uri())+')).join("\\n"));')
   assert run(['node',root/'run.mjs'],root).splitlines()==expected
  browser_checked=bool(os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'))
@@ -81,4 +83,4 @@ with tempfile.TemporaryDirectory(prefix='source-continue-suffix-') as temporary:
     assert page.evaluate(evaluator,'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode())==expected
    assert not errors,errors
    browser.close()
-print('PASS: 1,024 native/full/filtered Node results'+(' and Chromium comparisons' if browser_checked else '; Chromium not configured')+'; sibling and while cleanup suffixes, original continue ownership and post-loop state; shadowed references, changed loop owner and nontrivial destruction ordering stay blocked')
+print('PASS: 1,536 native/full/filtered Node results'+(' and Chromium comparisons' if browser_checked else '; Chromium not configured')+'; sibling and while cleanup suffixes, source binding identity across shadowing and original continue ownership; changed loop owner and nontrivial destruction ordering stay blocked')

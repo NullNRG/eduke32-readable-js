@@ -2,6 +2,21 @@
 
 Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
 
+CON compiler checkpoint: `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering in the original unit. They still need a complete link. `G_Util_PtrToIdx2` is verified as an isolated original relocation function; this does not verify live script resizing. Start from the saved frontier and retry the original VM and variable providers before re-emitting the compiler.
+
+`InputLabels`, `PalDataLabels`, `ProjectileLabels`, `TileDataLabels` and `UserdefsLabels` are linked. The other five tables still need Clang-proven `OffsetOfExpr` values, including macro-expanded record aliases and anonymous member paths. Keep their byte offsets tied to the selected target ABI.
+
+```powershell
+. work/session-env.ps1
+python tests/source_factory/verify_sourcefirst_pointer_alias.py
+python tests/source_factory/verify_sourcefirst_nested_goto.py
+python work/verify_original_script_relocation.py
+python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_ScriptInfo,apScriptEvents,g_currentEvent,g_thisActorVarID --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/gamestructures.cpp VM_InitHashTables --whole-unit --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/gamevars.cpp aGameVars,aGameArrays,Gv_NewVar,Gv_NewArray,Gv_Init,Gv_Clear --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_ParseCommand,C_SetScriptSize --whole-unit --install-closed-leaves
+```
+
 ```powershell
 . work/session-env.ps1
 python tests/source_factory/verify_sourcefirst_static_pod_constructor.py

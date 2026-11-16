@@ -1,0 +1,33 @@
+{
+  "format": "source-lexical-nested-goto-parity/1",
+  "passed": true,
+  "native_node_cases": 512,
+  "native_chromium_cases": 512,
+  "compared_values": 4608,
+  "functions": [
+    "nested_forward",
+    "nested_backward",
+    "nested_switch",
+    "nested_do_while",
+    "nested_alias",
+    "nested_range",
+    "nested_reentry",
+    "nested_addressed_for",
+    "case_suffixes"
+  ],
+  "browser_version": "157.0.4341.60",
+  "compiler_sha256": "7a2abbf956081d9f271736abfb085867a3f8eb280e4dd2201257e0c933d9183a",
+  "flow_sha256": "2f7d2013bb64b400bd5202491f7f12f02c69dc8ed708a743d637f48706b08559",
+  "checks": [
+    "forward and backward lexical jumps",
+    "original break/continue ownership across inserted loops",
+    "switch exits and continue to enclosing loop",
+    "do/while and range-loop iteration",
+    "borrowed/shadowed locals and single for-init storage",
+    "nested-to-outer restart",
+    "direct Clang noreturn side entry preserves exit status",
+    "switch-arm terminal suffixes preserve loop ownership and ordered continuation",
+    "unproven, cross-loop and cyclic copied side entries rejected"
+  ],
+  "gameplay_verified": false
+}

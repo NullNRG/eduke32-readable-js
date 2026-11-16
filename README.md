@@ -1,6 +1,6 @@
 # EDuke32 readable JavaScript port
 
-Latest controller/compiler checkpoint: original `CONFIG_SetGameControllerDefaults` now executes in Chromium. A shared lowering preserves native static aggregate storage and original methods; all 65 local compiler regressions pass. The original resource/font/parser/E1L1 engine probe was rerun against the updated modules. `CONFIG_SetDefaults` still requires original VM events, and the CON compiler still has control-flow and script-storage blockers. See [current status](CURRENT_PORT_STATUS.md) and [current startup frontier](reports/nov16-static-method-startup-frontier.json). This remains an engine component, not a playable game.
+The original `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering. Their original VM, game-variable and other providers still need to link before a CON script can run. Original controller defaults execute in Chromium; original script relocation matches 256 native comparison cases in Node and Chromium. See [current status](CURRENT_PORT_STATUS.md) and [resume commands](CONTINUE_HERE.md). The engine preview is available; there is no playable game bundle yet.
 
 ## Original font startup verified — November 16
 

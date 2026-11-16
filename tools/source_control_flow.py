@@ -156,19 +156,12 @@ class SourceFlowPlan:
                 seq=children(node)
                 return bool(node.get('hasElse') and len(seq)>=3 and returns(seq[-1]) and returns(seq[-2]))
             return False
-        local_decls=[x for x in descendants(self.body) if kind(x)=='VarDecl']
-        local_ids={x.get('id') for x in local_decls if x.get('id')}
-        local_names={x.get('name') for x in local_decls if x.get('name')}
-
         def consider(label,statements,restricted,loop):
             if kind(label)!='LabelStmt' or len(children(label))!=1:return
             suffix={'kind':'CompoundStmt','inner':[children(label)[0],*statements]}
             nodes=list(descendants(suffix))
             refs=[x.get('referencedDecl',{}) for x in nodes if kind(x)=='DeclRefExpr']
             uses={ref.get('id') for ref in refs}
-            # Goto functions hoist their JS locals. A function-local binding
-            # can capture a formerly external identifier in the copied code.
-            if any(ref.get('name') in local_names and ref.get('id') not in local_ids for ref in refs):return
             bad={'BreakStmt','LabelStmt','CaseStmt','DefaultStmt','LambdaExpr'}
             if any(kind(x) in bad for x in nodes):return
             if returns(suffix) and not any(kind(x) in ('GotoStmt','ContinueStmt','VarDecl') for x in nodes):
@@ -300,10 +293,16 @@ class SourceFlowPlan:
                 'CXXDestructorDecl','CXXCtorInitializer','LambdaExpr',
                 'IndirectGotoStmt','AddrLabelExpr','SEHLeaveStmt'}
         locals_seen=set()
+        body_nodes=list(descendants(self.body))
+        local_decls=[n for n in body_nodes if kind(n)=='VarDecl']
+        local_ids={n.get('id') for n in local_decls if n.get('id')}
+        local_names={n.get('name') for n in local_decls if n.get('name')}
+        refs=[n.get('referencedDecl',{}) for n in body_nodes if kind(n)=='DeclRefExpr']
+        nonlocal_names={ref.get('name') for ref in refs if ref.get('id') not in local_ids}
         self.hoisted_locals=[]
         self.alpha_locals={}
         self.diagnostics['shadowed_locals_renamed']=0
-        for node in descendants(self.body):
+        for node in body_nodes:
             k=kind(node)
             if k in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
                 # C++ classes with an explicitly Clang-proven trivial destructor
@@ -320,15 +319,14 @@ class SourceFlowPlan:
             if k=='VarDecl' and node.get('name') and node.get('storageClass')!='static':
                 name=node['name']
                 from_source=name
-                if name in locals_seen:
+                if name in locals_seen or name in nonlocal_names:
                     decl_id=node.get('id')
                     if not decl_id:
                         raise ControlFlowUnsupported('shadowed goto local missing Clang declaration identity: '+name)
                     serial=len(self.hoisted_locals)
                     name=f'__cxx_scope_{serial}_{from_source}'
                     # Do not collide with any user-written local or parameter.
-                    existing={v.get('name') for v in descendants(self.body) if kind(v)=='VarDecl'}
-                    if name in existing:
+                    if name in local_names or name in nonlocal_names:
                         raise ControlFlowUnsupported('generated scoped-local collision: '+name)
                     self.alpha_locals[decl_id]=name
                     self.diagnostics['shadowed_locals_renamed']+=1
