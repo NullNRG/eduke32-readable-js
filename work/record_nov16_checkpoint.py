@@ -18,6 +18,10 @@ def main():
  tested=collision.get('passed',False)
  game=read('factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json')
  (ROOT/'reports/nov16-app-main-current-frontier.json').write_text(json.dumps(game,indent=2)+'\n')
+ font=read('factory-output/source-first/browser-classic/reports/frontier-source_build_src_screentext.cpp.json')
+ font_report={key:font[key] for key in ('source','requested','requested_resolved','manifest')}
+ font_report.update(blocked=[row for row in font['blocked'] if row['name'].startswith('tilefont')],original_G_InitText_executed=False,gameplay_verified=False)
+ (ROOT/'reports/nov16-original-font-blockers.json').write_text(json.dumps(font_report,indent=2)+'\n')
  collision_scope=('Original clipmove, pushmove, hitscan and cansee execute on actual E1L1 geometry in Node and Chromium. Eight wall rays, four movement directions and push resolution agree; native C++ verifies the original result layout. This is geometry-component verification, not native collision/game-state parity or player initialization.' if tested else 'Collision execution is not yet verified. Current linked roots: '+json.dumps(resolved)+'.')
  status=f'''# EDuke32 readable JavaScript status — November 16, 2026
 
@@ -35,7 +39,7 @@ Verified work retained and extended:
 - Shared compiler repairs preserve condition-declaration scope/NaN conversion, supported backward retry order, and exact cross-unit Clang overload identity. Their native/full/filtered Node/Chromium fixtures check 14,336, 4,096 and 2,048 results respectively. Unsupported object lifetimes and scope-entering jumps remain blocked.
 - The frozen current local compiler CI profile passes 62/62 with unchanged inputs: reports/nov16-startup-collision-ci.json. This is the selected CI profile, not the complete historical suite or original-game acceptance.
 
-Remaining release blockers include original app_main startup dependencies, std::unordered_map-backed font setup, loaddefinitions_game and CON/game initialization, menus/packed ClockTicks static construction, getzrange and other scope-entering jumps, the yielding original frame loop, input/combat/enemies, audio/music, progression, saves and offline bundling. The current app_main catalog is reports/nov16-app-main-current-frontier.json. Zero invalid component imports does not imply a complete global game link; unresolved ownership groups remain. The separate stable-identity 90% recovery measurement is unfinished.
+Remaining release blockers include original app_main startup dependencies, std::unordered_map-backed font setup, loaddefinitions_game and CON/game initialization, menus/packed ClockTicks static construction, getzrange and other scope-entering jumps, the yielding original frame loop, input/combat/enemies, audio/music, progression, saves and offline bundling. The fresh font audit identifies missing nested unordered_map construction, iterator construction and reference assignment; no tilefont root or G_InitText is being marked recovered (reports/nov16-original-font-blockers.json). The current app_main catalog is reports/nov16-app-main-current-frontier.json. Zero invalid component imports does not imply a complete global game link; unresolved ownership groups remain. The separate stable-identity 90% recovery measurement is unfinished.
 
 Use CONTINUE_HERE.md for exact resume commands. Keep the single canonical classic-browser project, original sources/licenses, verified storage and native semantic index d906809d. Keep heavy Clang work serial and reuse unchanged ASTs. Original game/Build code remains readable JS; only approved low-level services may use WASM. No engine emulation, substitute game, fabricated boot or success stubs.
 
@@ -80,6 +84,7 @@ Keep pushing source, active modules and factual evidence to NullNRG/eduke32-read
   latest_frozen_targeted_regression='reports/nov16-startup-collision-ci.json',latest_frozen_targeted_passed=62,latest_frozen_targeted_total=62,
   current_work='Original font/definitions/CON/menu boot closure; source collision geometry components '+('executed' if tested else 'not yet verified'),
   current_app_main_frontier='reports/nov16-app-main-current-frontier.json',original_command_line_argc1_verified=True,
+  original_font_frontier='reports/nov16-original-font-blockers.json',original_font_initialization_verified=False,
   original_game_lookup_resource_verified=True,original_collision_geometry_verified=tested,original_collision_native_game_parity=False,
   current_full_regression_complete=False,gameplay_verified=False,current_whole_program_linked=False,original_entry_executed_current_profile=False)
  (ROOT/'HANDOFF_SNAPSHOT.json').write_text(json.dumps(snapshot,indent=2)+'\n')
@@ -88,6 +93,8 @@ Keep pushing source, active modules and factual evidence to NullNRG/eduke32-read
   lines=text.splitlines();lines[2:2]=[marker,'', 'The frozen local compiler CI profile passes **62/62**. Original command-line defaults and lookup-resource loading now execute in Node and Chromium; cross-file overload identity and collision recovery are integrated. Read [current status](CURRENT_PORT_STATUS.md) for the exact collision evidence and remaining startup dependencies. **Original app_main and playable gameplay remain incomplete.** No paid or hosted builds were used.',''];text='\n'.join(lines)+'\n'
  readme.write_text(text)
  guide=ROOT/'PORT_GUIDE.md';text=guide.read_text();text=text.replace('## Verified position, November 13, 2026','## Verified position (rendering checkpoint, November 13, 2026)')
- text+='\nNovember 16 integration: see CURRENT_PORT_STATUS.md for the new compiler, command-line, lookup and collision checks. The frozen local CI profile now passes 62/62; the table above describes rendering components, not full game boot.\n';guide.write_text(text)
+ note='November 16 integration: see CURRENT_PORT_STATUS.md for the new compiler, command-line, lookup and collision checks. The frozen local CI profile now passes 62/62; the table above describes rendering components, not full game boot.'
+ if note not in text:text+='\n'+note+'\n'
+ guide.write_text(text)
  print(json.dumps({'local_ci':'62/62','component_invalid_imports':len(component['invalid_imports']),'collision_geometry_executed':tested,'gameplay_verified':False}))
 if __name__=='__main__':main()

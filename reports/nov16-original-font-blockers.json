@@ -1,0 +1,53 @@
+{
+  "source": "source/build/src/screentext.cpp",
+  "requested": [
+    "tilefontGetPtr",
+    "tilefontMaybeDefineMapping",
+    "tilefontLookup"
+  ],
+  "requested_resolved": {
+    "tilefontGetPtr": false,
+    "tilefontMaybeDefineMapping": false,
+    "tilefontLookup": false
+  },
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_screentext.cpp/reachable-1743801a55fa5879/source/build/src/screentext.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "tilefontList",
+      "reason": "constructor requires complete original record: std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>",
+      "dependencies": []
+    },
+    {
+      "name": "tilefontGetPtr",
+      "reason": "unlinked identifiers: __cxx_record_unordered_map_2fe51f847a4eaa02, tilefontList",
+      "dependencies": [
+        "__cxx_record_unordered_map_2fe51f847a4eaa02",
+        "tilefontList"
+      ]
+    },
+    {
+      "name": "tilefontFind",
+      "reason": "constructor requires complete original record: std::__detail::_Node_iterator<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false, false>",
+      "dependencies": []
+    },
+    {
+      "name": "tilefontDefineMapping",
+      "reason": "assignment lvalue",
+      "dependencies": []
+    },
+    {
+      "name": "tilefontMaybeDefineMapping",
+      "reason": "unlinked identifiers: __cxx_record_unordered_map_8a185f7c328aa9ba",
+      "dependencies": [
+        "__cxx_record_unordered_map_8a185f7c328aa9ba"
+      ]
+    },
+    {
+      "name": "tilefontLookup",
+      "reason": "constructor requires complete original record: std::__detail::_Node_iterator<std::pair<const unsigned int, unsigned short>, false, false>",
+      "dependencies": []
+    }
+  ],
+  "original_G_InitText_executed": false,
+  "gameplay_verified": false
+}

@@ -10,7 +10,7 @@ for manifest in MODULES.rglob('*.manifest.json'):
  paths.update((manifest,MODULES/(source+'.mjs')))
  for fragment in doc.get('module_fragments',[]):paths.add(MODULES/fragment['module'])
 paths.add(MODULES/'browser-combined-symbol-owners.json')
-for name in ('component-manifest.json','reports/browser-closure.json','reports/frontier-source_build_src_clip.cpp.json','reports/frontier-source_build_src_engine.cpp.json','reports/frontier-source_duke3d_src_common.cpp.json','reports/frontier-source_duke3d_src_game.cpp.json','reports/frontier-source_duke3d_src_text.cpp.json','reports/frontier-source_duke3d_src_cmdline.cpp.json','reports/frontier-source_duke3d_src_demo.cpp.json','reports/frontier-source_duke3d_src_screens.cpp.json'):
+for name in ('component-manifest.json','reports/browser-closure.json','reports/frontier-source_build_src_clip.cpp.json','reports/frontier-source_build_src_engine.cpp.json','reports/frontier-source_build_src_screentext.cpp.json','reports/frontier-source_duke3d_src_common.cpp.json','reports/frontier-source_duke3d_src_game.cpp.json','reports/frontier-source_duke3d_src_text.cpp.json','reports/frontier-source_duke3d_src_cmdline.cpp.json','reports/frontier-source_duke3d_src_demo.cpp.json','reports/frontier-source_duke3d_src_screens.cpp.json'):
  path=MODULES.parent/name
  if path.is_file():paths.add(path)
 for name in ('README.md','CURRENT_PORT_STATUS.md','CONTINUE_HERE.md','PORT_GUIDE.md','HANDOFF_SNAPSHOT.json',
@@ -20,6 +20,7 @@ for name in ('README.md','CURRENT_PORT_STATUS.md','CONTINUE_HERE.md','PORT_GUIDE
  'reports/nov13-original-game-lookups.json','reports/nov13-original-game-lookups-node.log',
  'reports/nov13-original-crosshair-frame.json','reports/evidence/nov13-original-crosshair-services.png',
  'reports/nov16-original-overload-attestation.json','reports/nov16-original-collision-geometry.json','reports/nov16-original-collision-node.log',
+ 'reports/nov16-original-font-blockers.json',
  'reports/nov16-startup-collision-ci.json','reports/nov16-startup-collision-ci.log','reports/nov16-app-main-current-frontier.json','reports/nov16-integration-checkpoint.md',
  'reports/browser-classic-original-engine-video.json','reports/nov12-original-masked-frame.json'):
  path=ROOT/name

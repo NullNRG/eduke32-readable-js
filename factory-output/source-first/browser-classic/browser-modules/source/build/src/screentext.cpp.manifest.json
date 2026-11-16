@@ -1,0 +1,1634 @@
+{
+  "source": "source/build/src/screentext.cpp",
+  "dependency_closure": {
+    "enabled": false,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": false,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\screentext.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 43,
+  "emitted": 43,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "AddCoordsFromRotation",
+      "source_name": "AddCoordsFromRotation",
+      "kind": "FunctionDecl",
+      "line": 200,
+      "original_type": "void (vec2_t *, const vec2_t *, const int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "mulscale14__header_3edc404b4d0a"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_724d9edcd52a84ca",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f0c038",
+        "redeclaration_chain": [
+          "0x277c6f0c038"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_520d7c861c232c99",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f0c150",
+        "redeclaration_chain": [
+          "0x277c6f0c150"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_af4a6608c1db28bc",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f0c280",
+        "redeclaration_chain": [
+          "0x277c6f0c280"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "GetStringLineLength",
+      "source_name": "GetStringLineLength",
+      "kind": "FunctionDecl",
+      "line": 19,
+      "original_type": "int32_t (const glyph_t *const, const glyph_t *const)",
+      "linkage": "internal",
+      "source_references": [
+        "screentextGlyphIsNewline__header_ebcc8386fe30"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "GetStringNumLines",
+      "source_name": "GetStringNumLines",
+      "kind": "FunctionDecl",
+      "line": 29,
+      "original_type": "int32_t (const glyph_t *, const glyph_t *const)",
+      "linkage": "internal",
+      "source_references": [
+        "screentextGlyphIsNewline__header_ebcc8386fe30"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LocaleCharWrapper_hash",
+      "source_name": "LocaleCharWrapper_hash",
+      "kind": "CXXRecordDecl",
+      "line": 499,
+      "original_type": "",
+      "linkage": "external",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "LocalePtr_t",
+      "source_name": "LocalePtr_t",
+      "kind": "CXXRecordDecl",
+      "line": 161,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 3887,
+        "enclosing_record": "LocalePtr_t",
+        "type": "LocalePtr_t",
+        "semantic_sha256": "7cb2dc302920c9a329f064cd6eddaf111938589d7265f7566bae50196bd3511c",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ScreenTextSize_t",
+      "source_name": "ScreenTextSize_t",
+      "kind": "CXXRecordDecl",
+      "line": 103,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 2476,
+        "enclosing_record": "ScreenTextSize_t",
+        "type": "ScreenTextSize_t",
+        "semantic_sha256": "e2f7d150eb9d176b1f1b2d250f97d59c53a0aa80688384981fcdc00fae53de64",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "ScreenText_t",
+      "source_name": "ScreenText_t",
+      "kind": "CXXRecordDecl",
+      "line": 115,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 2700,
+        "enclosing_record": "ScreenText_t",
+        "type": "ScreenText_t",
+        "semantic_sha256": "5cde3f86aeeeccd0be87e7c1dd3fd8f7ff41a2319044d1b298400bda4dca5176",
+        "prototype_factory_abi": "source-header-record-factory/1",
+        "leaf_prototype": {
+          "format": "source-leaf-record-prototype/1",
+          "storage_and_declarations_sha256": "461a979d25bbdbcb86b7447c20c8c73103f867dc3849e50eaaae3f846abb90c8",
+          "method_bodies": {}
+        }
+      },
+      "header_record_factory": true,
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "SetIfGreater",
+      "source_name": "SetIfGreater",
+      "kind": "FunctionDecl",
+      "line": 10,
+      "original_type": "void (int32_t *, int32_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/screentext.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_04646f572f445118",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": 361,
+      "original_type": "bool (const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &, const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &) noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZNSt8__detaileqERKNS_19_Node_iterator_baseISt4pairIKjtELb0EEES6_",
+        "original_type": "bool (const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &, const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &) noexcept",
+        "source_name": "operator=="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_06dfac5ff5d76d57",
+      "source_name": "operator!=",
+      "kind": "FunctionDecl",
+      "line": 367,
+      "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &) noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZNSt8__detailneERKNS_19_Node_iterator_baseISt4pairIK19LocaleCharWrapper_tSt13unordered_mapIS2_S2_22LocaleCharWrapper_hashSt8equal_toIS2_ESaIS1_IS3_S2_EEEELb0EEESE_",
+        "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &) noexcept",
+        "source_name": "operator!="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_2f20b3daea848dd7",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": 361,
+      "original_type": "bool (const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &, const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &) noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZNSt8__detaileqERKNS_19_Node_iterator_baseISt4pairIKtSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaIS1_IKjtEEEELb0EEESF_",
+        "original_type": "bool (const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &, const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &) noexcept",
+        "source_name": "operator=="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_47ba173206b17bc8",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": 361,
+      "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &) noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZNSt8__detaileqERKNS_19_Node_iterator_baseISt4pairIK19LocaleCharWrapper_tS2_ELb0EEES7_",
+        "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &) noexcept",
+        "source_name": "operator=="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_4c6f5770a54ca579",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": 361,
+      "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &) noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZNSt8__detaileqERKNS_19_Node_iterator_baseISt4pairIK19LocaleCharWrapper_tSt13unordered_mapIS2_S2_22LocaleCharWrapper_hashSt8equal_toIS2_ESaIS1_IS3_S2_EEEELb0EEESE_",
+        "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false> &) noexcept",
+        "source_name": "operator=="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_5ba29b80603ca495",
+      "source_name": "operator==",
+      "kind": "FunctionDecl",
+      "line": 519,
+      "original_type": "bool (const LocaleCharWrapper_t, const LocaleCharWrapper_t)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_Zeq19LocaleCharWrapper_tS_",
+        "original_type": "bool (const LocaleCharWrapper_t, const LocaleCharWrapper_t)",
+        "source_name": "operator=="
+      },
+      "linkage": "external",
+      "source_references": [
+        "strcmp"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "strcmp"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_7e5e7c3583adfc75",
+      "source_name": "operator!=",
+      "kind": "FunctionDecl",
+      "line": 367,
+      "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &) noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZNSt8__detailneERKNS_19_Node_iterator_baseISt4pairIK19LocaleCharWrapper_tS2_ELb0EEES7_",
+        "original_type": "bool (const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &, const _Node_iterator_base<std::pair<const LocaleCharWrapper_t, LocaleCharWrapper_t>, false> &) noexcept",
+        "source_name": "operator!="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "currentLocale",
+      "source_name": "currentLocale",
+      "kind": "VarDecl",
+      "line": 526,
+      "original_type": "locale_map_t *",
+      "linkage": "internal",
+      "physical_source": "source/build/src/screentext.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_2b42a90386f30fe469ca376f",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "locale_map_t *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_deg_to_rad_mult__header_global_58ed8bdb2b002cb1",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f13d08",
+        "redeclaration_chain": [
+          "0x277c6f13d08"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_271a754a6ed136d6",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f0c4c0",
+        "redeclaration_chain": [
+          "0x277c6f0c4c0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_72d4fc52046a3ef5",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f0c3b0",
+        "redeclaration_chain": [
+          "0x277c6f0c3b0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_rad_to_deg_mult__header_global_d8f949a31b44f0c8",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f13860",
+        "redeclaration_chain": [
+          "0x277c6f13860"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_fed24cf9e62def59",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c6f0c5d0",
+        "redeclaration_chain": [
+          "0x277c6f0c5d0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_396afaf572dddab6",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c76a8288",
+        "redeclaration_chain": [
+          "0x277c76a8288"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_396afaf572dddab6",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "original_type": "const vec2_t[25]",
+        "native_element_layout": {
+          "abi": "source-record-field-storage/1",
+          "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+        },
+        "native_nested_layout": {
+          "abi": "source-native-record-array-layout/2",
+          "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+        },
+        "record_array_nested_data_view": "source-native-record-array-data-view/2",
+        "record_array_data_view": "source-native-record-array-data-view/1"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_974dd47130fc5067",
+      "source_name": "g_keyAsciiTableShift",
+      "kind": "VarDecl",
+      "line": 196,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 6158,
+        "source_line": 196,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c76abd10",
+        "redeclaration_chain": [
+          "0x277c76abd10"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_370c228c3588b0f215fc6648",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_1e80e69be6eedd75",
+      "source_name": "g_keyAsciiTable",
+      "kind": "VarDecl",
+      "line": 188,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 5455,
+        "source_line": 188,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c76a9ee0",
+        "redeclaration_chain": [
+          "0x277c76a9ee0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_0397752401a056e8b4581cda",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mulscale14__header_3edc404b4d0a",
+      "source_name": "mulscale14",
+      "kind": "FunctionDecl",
+      "line": 228,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "macro_header_definition": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 8063,
+        "source_line": 228,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+        "expansion_token": "EDUKE32_GENERATE_PRAGMAS",
+        "clang_spelling_location": {
+          "offset": 1307,
+          "file": "<scratch space>",
+          "line": 93,
+          "col": 1,
+          "tokLen": 10
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "e1abf31dfbef07a93cd4b9ec5cd26a2afd223a92cdd8e2dc8c99245106b92312"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "mulscale16__header_5f01fd4ec2a6",
+      "source_name": "mulscale16",
+      "kind": "FunctionDecl",
+      "line": 228,
+      "original_type": "int32_t (int32_t, int32_t)",
+      "linkage": "internal",
+      "macro_header_definition": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 8063,
+        "source_line": 228,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+        "expansion_token": "EDUKE32_GENERATE_PRAGMAS",
+        "clang_spelling_location": {
+          "offset": 1383,
+          "file": "<scratch space>",
+          "line": 99,
+          "col": 1,
+          "tokLen": 10
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "5768914ff298188ebab3bb4e1e9b2966503224786e8f201cbc2ef5eafc6024d5"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow264__header_global_a936c57c60285f85",
+      "source_name": "pow264",
+      "kind": "VarDecl",
+      "line": 919,
+      "original_type": "const const int64_t[64]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26665,
+        "source_line": 919,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c7737078",
+        "redeclaration_chain": [
+          "0x277c7737078"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_de2c9cf0884afbad9c4ff3c8",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "const const int64_t[64]",
+        "scalar_array": {
+          "array": "BigInt64Array",
+          "dims": [
+            64
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_4f23c0181df6da7b",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c66dc6d8",
+        "redeclaration_chain": [
+          "0x277c66dc6d8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_95195847d8e12794ca483eb0",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2long__header_global_802f2c7b070e40ae",
+      "source_name": "pow2long",
+      "kind": "VarDecl",
+      "line": 895,
+      "original_type": "const const int32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26019,
+        "source_line": 895,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c7735d78",
+        "redeclaration_chain": [
+          "0x277c7735d78"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_a852857bf264e90042a38391",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "const const int32_t[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2ulong__header_global_94f9bfee7c4e57c0",
+      "source_name": "pow2ulong",
+      "kind": "VarDecl",
+      "line": 907,
+      "original_type": "const const uint32_t[32]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 26350,
+        "source_line": 907,
+        "translation_unit": "source/build/src/screentext.cpp",
+        "clang_decl_id": "0x277c7736578",
+        "redeclaration_chain": [
+          "0x277c7736578"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_5dcf3edf935f0c70f22ac9a0",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "const const uint32_t[32]",
+        "scalar_array": {
+          "array": "Uint32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGetSize",
+      "source_name": "screentextGetSize",
+      "kind": "FunctionDecl",
+      "line": 44,
+      "original_type": "vec2_t (const ScreenTextSize_t &)",
+      "linkage": "external",
+      "source_references": [
+        "SetIfGreater",
+        "mulscale16__header_5f01fd4ec2a6",
+        "screentextGlyphGetTile__header_405b592ea814",
+        "screentextGlyphIsConstWidth__header_cb017f1dd0c6",
+        "screentextGlyphIsControlCode__header_b39044c77fb9",
+        "screentextGlyphIsNewline__header_ebcc8386fe30",
+        "screentextGlyphIsPalChange__header_fc77684f5e49",
+        "screentextGlyphIsSpace__header_7fd2762c760e",
+        "screentextGlyphIsTab__header_ecd7d7b8615b",
+        "tilesiz"
+      ],
+      "address_comparison_pointer_temporaries": {
+        "abi": "source-local-pointer-address-values/1",
+        "declarations": [
+          "end"
+        ],
+        "memory_bounds_checks_retained": true
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/screentext.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphGetPalChange__header_28f9d6c07802",
+      "source_name": "screentextGlyphGetPalChange",
+      "kind": "FunctionDecl",
+      "line": 68,
+      "original_type": "uint8_t (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1468,
+        "source_line": 68,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphGetTile__header_405b592ea814",
+      "source_name": "screentextGlyphGetTile",
+      "kind": "FunctionDecl",
+      "line": 59,
+      "original_type": "ScreenTextGlyph_t (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1226,
+        "source_line": 59,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphIsConstWidth__header_cb017f1dd0c6",
+      "source_name": "screentextGlyphIsConstWidth",
+      "kind": "FunctionDecl",
+      "line": 72,
+      "original_type": "int (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1561,
+        "source_line": 72,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphIsControlCode__header_b39044c77fb9",
+      "source_name": "screentextGlyphIsControlCode",
+      "kind": "FunctionDecl",
+      "line": 55,
+      "original_type": "int (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1101,
+        "source_line": 55,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphIsNewline__header_ebcc8386fe30",
+      "source_name": "screentextGlyphIsNewline",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "int (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1696,
+        "source_line": 77,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphIsPalChange__header_fc77684f5e49",
+      "source_name": "screentextGlyphIsPalChange",
+      "kind": "FunctionDecl",
+      "line": 64,
+      "original_type": "int (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1333,
+        "source_line": 64,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphIsSpace__header_7fd2762c760e",
+      "source_name": "screentextGlyphIsSpace",
+      "kind": "FunctionDecl",
+      "line": 81,
+      "original_type": "int (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1821,
+        "source_line": 81,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "screentextGlyphIsTab__header_ecd7d7b8615b",
+      "source_name": "screentextGlyphIsTab",
+      "kind": "FunctionDecl",
+      "line": 85,
+      "original_type": "int (ScreenTextGlyph_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/screentext.h",
+        "source_offset": 1940,
+        "source_line": 85,
+        "header_sha256": "f25277cf5bd42e8d7f74ff58e90d403bf5ca784ad5a1e258b236213d6c18bd5b"
+      },
+      "physical_source": "source/build/include/screentext.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "xmalloc__header_55a2e7b7f06f",
+      "source_name": "xmalloc",
+      "kind": "FunctionDecl",
+      "line": 1392,
+      "original_type": "void *(const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 37660,
+        "source_line": 1392,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "clang-substring",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "ed505cab82213a4d224848d92fa85f782acad4dbdb4621d7f0c0ab8b60e1a3c7",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730"
+  },
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "c2ca61f047e5281844b60e0a4641f8468d871c56107279929eec6a819c65224d",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "61727844c970f04c8694aa8038835346f76ddb479be59fb49aec94c9db939389",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 3756,
+    "sha256": "f06812f7e1c2173a23994b425e28a511739b4f919090cd31c688c23e139832c0",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "3793e3fc04811dedd61c15e95fc4da97ec687c0e31bd39c98817463f80402ea8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "c70306bb3edab7138dd0e920237747b21ee2398d3f65f0cca06e602195355a4b",
+    "dependency_count": 346,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 917343,
+      "ranges_omitted": 189451,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1767,
+      "semantic_barrier_ranges_retained": 768,
+      "instance_method_ranges_retained": 13256,
+      "type_metadata_reuses": 170864,
+      "include_metadata_reuses": 179554,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 33676262,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 33676262,
+      "cache_hit": false,
+      "json_bytes": 376892734,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 107176524,
+      "cache_evicted_entries": 1,
+      "cache_evicted_bytes": 40856946,
+      "cache_retention_reason": "compressed-retained"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "currentLocale",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_2b42a90386f30fe469ca376f",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "locale_map_t *"
+    },
+    {
+      "name": "pow2char__header_global_4f23c0181df6da7b",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_95195847d8e12794ca483eb0",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_1e80e69be6eedd75",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_0397752401a056e8b4581cda",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_974dd47130fc5067",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_370c228c3588b0f215fc6648",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "pow2long__header_global_802f2c7b070e40ae",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_a852857bf264e90042a38391",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "const const int32_t[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow2ulong__header_global_94f9bfee7c4e57c0",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_5dcf3edf935f0c70f22ac9a0",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "const const uint32_t[32]",
+      "scalar_array": {
+        "array": "Uint32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "pow264__header_global_a936c57c60285f85",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_de2c9cf0884afbad9c4ff3c8",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "const const int64_t[64]",
+      "scalar_array": {
+        "array": "BigInt64Array",
+        "dims": [
+          64
+        ]
+      }
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_screentext_cpp_6fdbea5787b5.mjs",
+      "sha256": "6fdbea5787b51dd838c41a32a83f33d64dc5973ddbc38f149be42ff2fc167796",
+      "original_source": "source/build/src/screentext.cpp",
+      "exports": [
+        "AddCoordsFromRotation",
+        "FIX16_MAX__header_global_724d9edcd52a84ca",
+        "FIX16_MIN__header_global_520d7c861c232c99",
+        "FIX16_OVERFLOW__header_global_af4a6608c1db28bc",
+        "GetStringLineLength",
+        "GetStringNumLines",
+        "LocaleCharWrapper_hash",
+        "LocalePtr_t",
+        "ScreenTextSize_t",
+        "ScreenText_t",
+        "SetIfGreater",
+        "__cxx_operator_04646f572f445118",
+        "__cxx_operator_06dfac5ff5d76d57",
+        "__cxx_operator_2f20b3daea848dd7",
+        "__cxx_operator_47ba173206b17bc8",
+        "__cxx_operator_4c6f5770a54ca579",
+        "__cxx_operator_5ba29b80603ca495",
+        "__cxx_operator_7e5e7c3583adfc75",
+        "currentLocale",
+        "fix16_deg_to_rad_mult__header_global_58ed8bdb2b002cb1",
+        "fix16_half__header_global_271a754a6ed136d6",
+        "fix16_one__header_global_72d4fc52046a3ef5",
+        "fix16_rad_to_deg_mult__header_global_d8f949a31b44f0c8",
+        "flt_f161r__header_global_fed24cf9e62def59",
+        "g_defaultVideoModes__header_global_396afaf572dddab6",
+        "g_keyAsciiTableShift__header_global_974dd47130fc5067",
+        "g_keyAsciiTable__header_global_1e80e69be6eedd75",
+        "mulscale14__header_3edc404b4d0a",
+        "mulscale16__header_5f01fd4ec2a6",
+        "pow264__header_global_a936c57c60285f85",
+        "pow2char__header_global_4f23c0181df6da7b",
+        "pow2long__header_global_802f2c7b070e40ae",
+        "pow2ulong__header_global_94f9bfee7c4e57c0",
+        "screentextGetSize",
+        "screentextGlyphGetPalChange__header_28f9d6c07802",
+        "screentextGlyphGetTile__header_405b592ea814",
+        "screentextGlyphIsConstWidth__header_cb017f1dd0c6",
+        "screentextGlyphIsControlCode__header_b39044c77fb9",
+        "screentextGlyphIsNewline__header_ebcc8386fe30",
+        "screentextGlyphIsPalChange__header_fc77684f5e49",
+        "screentextGlyphIsSpace__header_7fd2762c760e",
+        "screentextGlyphIsTab__header_ecd7d7b8615b",
+        "xmalloc__header_55a2e7b7f06f"
+      ],
+      "reexports": [
+        "AddCoordsFromRotation",
+        "FIX16_MAX__header_global_724d9edcd52a84ca",
+        "FIX16_MIN__header_global_520d7c861c232c99",
+        "FIX16_OVERFLOW__header_global_af4a6608c1db28bc",
+        "GetStringLineLength",
+        "GetStringNumLines",
+        "LocaleCharWrapper_hash",
+        "LocalePtr_t",
+        "ScreenTextSize_t",
+        "ScreenText_t",
+        "SetIfGreater",
+        "__cxx_operator_04646f572f445118",
+        "__cxx_operator_06dfac5ff5d76d57",
+        "__cxx_operator_2f20b3daea848dd7",
+        "__cxx_operator_47ba173206b17bc8",
+        "__cxx_operator_4c6f5770a54ca579",
+        "__cxx_operator_5ba29b80603ca495",
+        "__cxx_operator_7e5e7c3583adfc75",
+        "currentLocale",
+        "fix16_deg_to_rad_mult__header_global_58ed8bdb2b002cb1",
+        "fix16_half__header_global_271a754a6ed136d6",
+        "fix16_one__header_global_72d4fc52046a3ef5",
+        "fix16_rad_to_deg_mult__header_global_d8f949a31b44f0c8",
+        "flt_f161r__header_global_fed24cf9e62def59",
+        "g_defaultVideoModes__header_global_396afaf572dddab6",
+        "g_keyAsciiTableShift__header_global_974dd47130fc5067",
+        "g_keyAsciiTable__header_global_1e80e69be6eedd75",
+        "mulscale14__header_3edc404b4d0a",
+        "mulscale16__header_5f01fd4ec2a6",
+        "pow264__header_global_a936c57c60285f85",
+        "pow2char__header_global_4f23c0181df6da7b",
+        "pow2long__header_global_802f2c7b070e40ae",
+        "pow2ulong__header_global_94f9bfee7c4e57c0",
+        "screentextGetSize",
+        "screentextGlyphGetPalChange__header_28f9d6c07802",
+        "screentextGlyphGetTile__header_405b592ea814",
+        "screentextGlyphIsConstWidth__header_cb017f1dd0c6",
+        "screentextGlyphIsControlCode__header_b39044c77fb9",
+        "screentextGlyphIsNewline__header_ebcc8386fe30",
+        "screentextGlyphIsPalChange__header_fc77684f5e49",
+        "screentextGlyphIsSpace__header_7fd2762c760e",
+        "screentextGlyphIsTab__header_ecd7d7b8615b",
+        "xmalloc__header_55a2e7b7f06f",
+        "__cxx_private_cell_2b42a90386f30fe469ca376f",
+        "__cxx_private_cell_370c228c3588b0f215fc6648",
+        "__cxx_private_cell_0397752401a056e8b4581cda",
+        "__cxx_private_cell_de2c9cf0884afbad9c4ff3c8",
+        "__cxx_private_cell_95195847d8e12794ca483eb0",
+        "__cxx_private_cell_a852857bf264e90042a38391",
+        "__cxx_private_cell_5dcf3edf935f0c70f22ac9a0"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/screentext.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "fead1936ed1acee547ede202698092c9201dd0cfaed829c3aee81e7848dc8b81"
+    }
+  ]
+}
