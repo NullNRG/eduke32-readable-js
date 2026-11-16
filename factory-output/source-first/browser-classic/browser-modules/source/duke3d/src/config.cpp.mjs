@@ -8,3 +8,9 @@ export { CONFIG_GetGameFuncOnKeyboard, CONFIG_MapKey, CONFIG_SetDefaultKeys, CON
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { CONFIG_GetMapBestTime, CONFIG_SetMapBestTime, CONFIG_SetupJoystick, CONFIG_SetupMouse } from "./_source_legacy_config_cpp_434fec6dc2f2.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { CONFIG_GetGameFuncOnJoystick, CONFIG_WriteSettings } from "./_source_legacy_config_cpp_17d00afc2e37.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { CONFIG_SetGameControllerAxesModern, CONFIG_SetGameControllerDefaults } from "./_source_legacy_config_cpp_6c16b648cb16.mjs";

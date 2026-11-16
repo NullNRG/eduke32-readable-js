@@ -1,0 +1,156 @@
+{
+  "source": "source/duke3d/src/gamedef.cpp",
+  "requested": [
+    "C_Compile"
+  ],
+  "requested_resolved": {
+    "C_Compile": false
+  },
+  "requested_export_bindings": {
+    "C_Compile": []
+  },
+  "requested_still_unlinked": [
+    "C_Compile"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-8ad673f7702e9c9b/source/duke3d/src/gamedef.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "C_SetScriptSize",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: long",
+      "dependencies": []
+    },
+    {
+      "name": "C_GetNextLabelName",
+      "reason": "unlinked identifiers: G_GameExit",
+      "dependencies": [
+        "G_GameExit"
+      ]
+    },
+    {
+      "name": "C_GetNextGameArrayName",
+      "reason": "unlinked identifiers: C_GetNextLabelName",
+      "dependencies": [
+        "C_GetNextLabelName"
+      ]
+    },
+    {
+      "name": "C_GetNextVarType",
+      "reason": "unlinked identifiers: ActorLabels, C_GetNextLabelName, InputLabels, PalDataLabels, PlayerLabels, ProjectileLabels, SectorLabels, TileDataLabels, TsprLabels, UserdefsLabels, WallLabels, aGameVars",
+      "dependencies": [
+        "ActorLabels",
+        "C_GetNextLabelName",
+        "InputLabels",
+        "PalDataLabels",
+        "PlayerLabels",
+        "ProjectileLabels",
+        "SectorLabels",
+        "TileDataLabels",
+        "TsprLabels",
+        "UserdefsLabels",
+        "WallLabels",
+        "aGameVars",
+        "g_structVarIDs",
+        "g_thisActorVarID",
+        "h_actor",
+        "h_input",
+        "h_paldata",
+        "h_player",
+        "h_projectile",
+        "h_sector",
+        "h_tiledata",
+        "h_tsprite",
+        "h_userdef",
+        "h_wall"
+      ]
+    },
+    {
+      "name": "C_GetManyVarsType",
+      "reason": "unlinked identifiers: C_GetNextVarType",
+      "dependencies": [
+        "C_GetNextVarType"
+      ]
+    },
+    {
+      "name": "C_GetStructureIndexes",
+      "reason": "unlinked identifiers: C_GetNextLabelName, C_GetNextVarType, g_thisActorVarID",
+      "dependencies": [
+        "C_GetNextLabelName",
+        "C_GetNextVarType",
+        "g_thisActorVarID"
+      ]
+    },
+    {
+      "name": "C_CheckMalformedBranch",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: long",
+      "dependencies": []
+    },
+    {
+      "name": "C_CheckEmptyBranch",
+      "reason": "pointer arithmetic/comparison requires bounded memory view: long",
+      "dependencies": []
+    },
+    {
+      "name": "C_CountCaseStatements",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_Include",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_InitQuotes",
+      "reason": "unlinked identifiers: g_numObituaries, g_numSelfObituaries",
+      "dependencies": [
+        "g_numObituaries",
+        "g_numSelfObituaries"
+      ]
+    },
+    {
+      "name": "C_SetCfgName",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup",
+      "dependencies": [
+        "CONFIG_ReadSetup",
+        "CONFIG_WriteSetup"
+      ]
+    },
+    {
+      "name": "scriptUpdateOpcodeForVariableType",
+      "reason": "unlinked identifiers: aGameVars",
+      "dependencies": [
+        "aGameVars"
+      ]
+    },
+    {
+      "name": "C_ParseCommand",
+      "reason": "source control flow: goto target not at an original compound statement boundary",
+      "dependencies": []
+    },
+    {
+      "name": "C_PrintStats",
+      "reason": "unlinked identifiers: apScriptEvents, g_gameArrayCount, g_gameVarCount",
+      "dependencies": [
+        "apScriptEvents",
+        "g_gameArrayCount",
+        "g_gameVarCount"
+      ]
+    },
+    {
+      "name": "C_Compile",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "vmStructHashTablePtrs__header_global_330da216c09dd07e",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator hashtable_t *",
+      "dependencies": []
+    }
+  ],
+  "installed_closed_definitions": 910,
+  "original_gameplay_verified": false
+}

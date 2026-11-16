@@ -70,8 +70,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\player.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 12,
-  "emitted": 12,
+  "found": 13,
+  "emitted": 13,
   "blocked": 0,
   "definitions": [
     {
@@ -426,6 +426,26 @@
         "TRIPBOMBSPRITE____header_global_da14947c83fb8632"
       ],
       "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_myAimMode",
+      "source_name": "g_myAimMode",
+      "kind": "VarDecl",
+      "line": 3016,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/player.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_08999a64c4501ca30fea06a5",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
@@ -838,7 +858,14 @@
       "cache_retention_reason": "retained"
     }
   ],
-  "storage_exports": [],
+  "storage_exports": [
+    {
+      "name": "g_myAimMode",
+      "binding": "__cxx_global_cell_08999a64c4501ca30fea06a5",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    }
+  ],
   "private_storage_exports": [],
   "module_fragments": [
     {
@@ -876,6 +903,21 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "d31bba371c061b93f2b5b0dbb5156bb6f7486cf4819f4b6d32283ca9ba21e61e"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_player_cpp_2fc4b0d53904.mjs",
+      "sha256": "2fc4b0d5390483a7b28306cfafd257b17e0615b1365159aff575fb1d354b5506",
+      "original_source": "source/duke3d/src/player.cpp",
+      "exports": [
+        "g_myAimMode"
+      ],
+      "reexports": [
+        "g_myAimMode",
+        "__cxx_global_cell_08999a64c4501ca30fea06a5"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "2193c4c4c547d2bf066523132909863694dc5fcffa09e9c03041278d4703844a"
     }
   ]
 }

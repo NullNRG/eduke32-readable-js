@@ -2667,7 +2667,14 @@ class Emit:
                 base=re.sub(r'\[\s*\d+\s*\]','',t).strip()
                 schema=aggregate_type_schema(base,self.global_storage_records,self.type_aliases,self.record_layouts,allow_pointer_storage=True,enum_types=self.enum_types)
                 if schema_has_prototype(schema):
-                    raise Unsupported('function-static aggregate methods require original initialization lifetime: '+base)
+                    # Nonvirtual methods do not give an aggregate a dynamic
+                    # constructor/destructor. Only Clang-proven value storage
+                    # grants construction; a storage view alone cannot do so.
+                    record=self.aggregate_records.get(normalized_record_name(base,self.type_aliases),{})
+                    if not (record.get('copyable') and not record.get('storage_view_only')
+                            and record.get('trivial_default_constructor') and record.get('trivial_destructor')
+                            and record.get('byte_schema') == schema.get('byteRecord',schema)):
+                        raise Unsupported('function-static aggregate methods require original initialization lifetime: '+base)
                 # C statics retain their value between calls. A function-local
                 # JS `let` would silently reinitialize on every invocation.
                 static_name='__static_'+self.current_function+'_'+name
@@ -3072,6 +3079,21 @@ class Emit:
                             return False
                         if kind(root)=='MemberExpr' and kids(root) and used_alias(kids(root)[0]):
                             field_type=qual(root)
+                            selected=(root.get('_source_member_declaration') or
+                                getattr(self,'all_declarations',{}).get(root.get('referencedMemberDecl')) or {})
+                            receiver=kids(root)[0]
+                            while kind(receiver) in WRAPPERS and len(kids(receiver))==1:
+                                receiver=kids(receiver)[0]
+                            if (borrowed_record and schema_has_prototype(record_schema)
+                                and selected.get('kind')=='CXXMethodDecl'
+                                and selected.get('name')==root.get('name')
+                                and not selected.get('virtual') and not selected.get('pure')
+                                and kind(receiver)=='DeclRefExpr'
+                                and receiver.get('referencedDecl',{}).get('id')==refid):
+                                # A byte-backed record receiver is the original
+                                # subobject, not a scalar copy. The ordinary
+                                # method emitter still verifies its call ABI.
+                                return True
                             if ('&' in field_type or '(' in field_type or
                                 not (target_type_layout(field_type,self.record_layouts,self.type_aliases)
                                      or '*' in field_type)):

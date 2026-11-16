@@ -12,7 +12,14 @@ Verified current work:
 - The entire original G_ScreenTextFromString parser matches 105 native cases covering three fonts, colour escapes, case flags, numeric width, whitespace, empty input and a controlled UTF-8 mapping. Output termination/bounds are checked. This is function/component parity, not original menu or gameplay acceptance.
 - Original font/game functions are unchanged. A typed standard-library service supplies the supported default-allocator unsigned/nested unordered_map operations. Native/full/filtered Node/Chromium comparisons pass 2,048 results. Custom allocation hooks and unproven multi-unit allocator ownership remain blocked. Opaque objects retain pointer identity and reject native byte-layout access; see STANDARD_LIBRARY_ADAPTERS.md.
 - Incremental function refresh now preserves original storage in an immutable source shard. Private library imports verify source ownership, original type and service ABI. The old map is retained; no second map or success stub is installed.
-- The frozen final local compiler CI profile passes 65/65 under unchanged inputs (reports/nov16-font-startup-ci.json). Twelve local host-I/O/display/service checks also pass. This selected suite is not the complete historical suite or game acceptance.
+- The frozen final local compiler CI profile passes 65/65 under unchanged inputs (reports/nov16-static-method-ci.json). Twelve local host-I/O/display/service checks also pass. This selected suite is not the complete historical suite or game acceptance.
+
+Additional verified controller/compiler checkpoint:
+
+- Clang-proven trivial static aggregates retain original method prototypes and stable native storage. Range-loop method receivers alias the original subobjects; authored constructors and nontrivial destruction remain blocked. The packed-table regression matches 2,048 native/full/filtered rows in Node and Chromium, including mutation and repeated calls.
+- Original CONFIG_SetGameControllerDefaults executes twice after original engine pre-initialization in Chromium, populating original mappings and restoring a changed binding. This does not verify gamepad events, full CONFIG_ReadSetup or native whole-configuration parity. The original g_myAimMode global is now linked.
+- Original CON compiler recovery installed available source definitions, but C_Compile/C_ParseCommand remain blocked by original goto flow, script-storage pointer/integer handling and unresolved game-state dependencies. CONFIG_SetDefaults still requires VM_ExecuteEvent through its original event callback. Locale services also remain needed by setup read/write. No callback is stubbed out.
+- The updated modules passed the real resource/font/parser/E1L1 engine probe again. See reports/nov16-original-controller-defaults.json and reports/nov16-static-method-startup-frontier.json.
 
 Earlier scoped native/component checks remain: 12 animation records/44 sound cues, argc=1 command-line defaults, original LOOKUP.DAT remaps/palettes, and E1L1 ray/movement/push geometry. See the corresponding November 13/16 reports for exact scope.
 

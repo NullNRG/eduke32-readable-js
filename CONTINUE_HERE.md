@@ -1,9 +1,11 @@
 # Continue the canonical EDuke32 JavaScript port
 
-Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-font-startup-ci.json and reports/nov16-post-font-app-main-frontier.json. Original G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
+Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
 
 ```powershell
 . work/session-env.ps1
+python tests/source_factory/verify_sourcefirst_static_pod_constructor.py
+python work/verify_original_controller_defaults.py
 python tests/source_factory/verify_sourcefirst_unordered_maps.py
 python tests/source_factory/verify_sourcefirst_private_unordered.py
 python tests/source_factory/verify_sourcefirst_preserved_storage_refresh.py
@@ -19,7 +21,8 @@ The definitions/GRP chain is now linked, with real G_ScanGroups and G_LoadGroups
 
 ```powershell
 python work/recover_boot_reachable.py source/duke3d/src/config.cpp CONFIG_ReadSetup,CONFIG_WriteSetup --whole-unit --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp G_CompileScripts --whole-unit --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile --whole-unit --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/game.cpp G_CompileScripts --whole-unit --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --whole-unit --install-closed-leaves
 ```
 
