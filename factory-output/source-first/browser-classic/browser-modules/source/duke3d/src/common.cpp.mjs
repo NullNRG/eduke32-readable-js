@@ -14,3 +14,6 @@ export { G_AddSearchPaths, G_DoAutoload, G_LoadGroupsInDir, G_ScanGroups } from 
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { G_InitMultiPsky } from "./_source_legacy_common_cpp_e3d05fc5d4c9.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { G_LoadLookups, G_SetupGlobalPsky, getpskyidx__header_641aad24f354 } from "./_source_legacy_common_cpp_3b62e8355759.mjs";

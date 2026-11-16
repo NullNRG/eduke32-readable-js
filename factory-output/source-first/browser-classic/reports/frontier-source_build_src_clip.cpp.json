@@ -1,19 +1,56 @@
 {
   "source": "source/build/src/clip.cpp",
   "requested": [
-    "quickloadboard"
+    "clipmove",
+    "pushmove"
   ],
   "requested_resolved": {
-    "quickloadboard": true
+    "clipmove": true,
+    "pushmove": true
   },
   "requested_export_bindings": {
-    "quickloadboard": [
-      "quickloadboard"
+    "clipmove": [
+      "clipmove"
+    ],
+    "pushmove": [
+      "pushmove"
     ]
   },
   "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_clip.cpp/reachable-0522a0767bdde111/source/build/src/clip.cpp.manifest.json",
-  "blocked": [],
-  "installed_closed_definitions": 1,
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_clip.cpp/reachable-e0a58ca20a0ed571/source/build/src/clip.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "getzrange",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "copy__template_d46791fbb053d549",
+      "reason": "unlinked identifiers: __copy_move_a__template_00934ba4b55ae627",
+      "dependencies": [
+        "__copy_move_a__template_00934ba4b55ae627"
+      ]
+    },
+    {
+      "name": "__copy_move_a__template_00934ba4b55ae627",
+      "reason": "unlinked identifiers: __copy_move_a1__template_725a5b041618a824",
+      "dependencies": [
+        "__copy_move_a1__template_725a5b041618a824"
+      ]
+    },
+    {
+      "name": "__copy_move_a1__template_725a5b041618a824",
+      "reason": "unlinked identifiers: __copy_move_a2__template_70e239a416fb2741",
+      "dependencies": [
+        "__copy_move_a2__template_70e239a416fb2741"
+      ]
+    },
+    {
+      "name": "__copy_move_a2__template_70e239a416fb2741",
+      "reason": "method reference lacks exact static class owner: __copy_m",
+      "dependencies": []
+    }
+  ],
+  "installed_closed_definitions": 4,
   "original_gameplay_verified": false
 }

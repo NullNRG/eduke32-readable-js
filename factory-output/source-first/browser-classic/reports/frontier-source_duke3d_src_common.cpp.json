@@ -1,19 +1,32 @@
 {
   "source": "source/duke3d/src/common.cpp",
   "requested": [
-    "G_InitMultiPsky"
+    "G_LoadGroups",
+    "G_LoadLookups"
   ],
   "requested_resolved": {
-    "G_InitMultiPsky": true
+    "G_LoadGroups": false,
+    "G_LoadLookups": true
   },
   "requested_export_bindings": {
-    "G_InitMultiPsky": [
-      "G_InitMultiPsky"
+    "G_LoadGroups": [],
+    "G_LoadLookups": [
+      "G_LoadLookups"
     ]
   },
-  "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_common.cpp/reachable-c35ab292341b24dd/source/duke3d/src/common.cpp.manifest.json",
-  "blocked": [],
-  "installed_closed_definitions": 1,
+  "requested_still_unlinked": [
+    "G_LoadGroups"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_common.cpp/reachable-d98415543aa21c36/source/duke3d/src/common.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_LoadGroups",
+      "reason": "unlinked identifiers: loaddefinitions_game",
+      "dependencies": [
+        "loaddefinitions_game"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 3,
   "original_gameplay_verified": false
 }

@@ -1,0 +1,157 @@
+{
+  "source": "source/duke3d/src/text.cpp",
+  "requested": [
+    "G_ScreenTextFromString"
+  ],
+  "requested_resolved": {
+    "G_ScreenTextFromString": false
+  },
+  "requested_compiled": {
+    "G_ScreenTextFromString": false
+  },
+  "requested_still_unlinked": [
+    "G_ScreenTextFromString"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_text.cpp/reachable-a03342dc327f8f7e/source/duke3d/src/text.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_InitText",
+      "reason": "unlinked identifiers: tilefontGetPtr, tilefontMaybeDefineMapping",
+      "dependencies": [
+        "tilefontGetPtr",
+        "tilefontMaybeDefineMapping"
+      ]
+    },
+    {
+      "name": "G_GetStringTileASCII",
+      "reason": "unlinked identifiers: tilefontLookup",
+      "dependencies": [
+        "tilefontLookup"
+      ]
+    },
+    {
+      "name": "G_GetStringTile",
+      "reason": "unlinked identifiers: tilefontLookup",
+      "dependencies": [
+        "tilefontLookup"
+      ]
+    },
+    {
+      "name": "G_ScreenTextFromString",
+      "reason": "unlinked identifiers: G_GetStringTile, G_GetStringTileASCII",
+      "dependencies": [
+        "G_GetStringTile",
+        "G_GetStringTileASCII"
+      ]
+    },
+    {
+      "name": "G_SetScreenTextEmpty",
+      "reason": "unlinked identifiers: G_GetStringTileASCII, tilefontFind",
+      "dependencies": [
+        "G_GetStringTileASCII",
+        "tilefontFind"
+      ]
+    },
+    {
+      "name": "G_PrintGameText",
+      "reason": "unlinked identifiers: MF_Bluefont",
+      "dependencies": [
+        "MF_Bluefont"
+      ]
+    },
+    {
+      "name": "gametext_",
+      "reason": "unlinked identifiers: MF_Bluefont",
+      "dependencies": [
+        "MF_Bluefont"
+      ]
+    },
+    {
+      "name": "gametext_simple",
+      "reason": "unlinked identifiers: MF_Bluefont",
+      "dependencies": [
+        "MF_Bluefont"
+      ]
+    },
+    {
+      "name": "mpgametext",
+      "reason": "unlinked identifiers: MF_Bluefont",
+      "dependencies": [
+        "MF_Bluefont"
+      ]
+    },
+    {
+      "name": "mpgametextsize",
+      "reason": "unlinked identifiers: MF_Bluefont",
+      "dependencies": [
+        "MF_Bluefont"
+      ]
+    },
+    {
+      "name": "minitext_",
+      "reason": "unlinked identifiers: MF_Minifont, sbarx16, sbary16",
+      "dependencies": [
+        "MF_Minifont",
+        "sbarx16",
+        "sbary16"
+      ]
+    },
+    {
+      "name": "menutext_",
+      "reason": "unlinked identifiers: MF_Redfont",
+      "dependencies": [
+        "MF_Redfont"
+      ]
+    },
+    {
+      "name": "captionmenutext",
+      "reason": "unlinked identifiers: MF_Redfont",
+      "dependencies": [
+        "MF_Redfont"
+      ]
+    },
+    {
+      "name": "G_PrintGameQuotes",
+      "reason": "unlinked identifiers: fragbarheight, gametext_, mpgametext",
+      "dependencies": [
+        "fragbarheight",
+        "gametext_",
+        "mpgametext"
+      ]
+    },
+    {
+      "name": "G_ScreenText__header_add4b8704fd1",
+      "reason": "unlinked identifiers: G_ScreenTextFromString, localeLookup, screentextRender, tilefontFind",
+      "dependencies": [
+        "G_ScreenTextFromString",
+        "localeLookup",
+        "screentextRender",
+        "tilefontFind"
+      ]
+    },
+    {
+      "name": "G_ScreenTextSize__header_53c5607a14d3",
+      "reason": "unlinked identifiers: G_ScreenTextFromString, localeLookup, screentextGetSize, tilefontFind",
+      "dependencies": [
+        "G_ScreenTextFromString",
+        "localeLookup",
+        "screentextGetSize",
+        "tilefontFind"
+      ]
+    },
+    {
+      "name": "PopulateConstWidth__header_bdcaa0ee3cbc",
+      "reason": "unlinked identifiers: G_GetStringTileASCII",
+      "dependencies": [
+        "G_GetStringTileASCII"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "cb1db49de7f9e86916be23689f890cdefcbf4452dff9f6a72952b04de4596a6d",
+  "provider_index_sha256": "642b4980e71a9a38e9d9f920f95413cde810e64bfdd169df820fd00b1618af70",
+  "query_limit": 256,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": false
+}

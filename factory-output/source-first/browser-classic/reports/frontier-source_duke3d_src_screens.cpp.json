@@ -1,0 +1,417 @@
+{
+  "source": "source/duke3d/src/screens.cpp",
+  "requested": [
+    "g_noLogo",
+    "g_noLogoAnim",
+    "CrosshairColors",
+    "G_GetCrosshairColor",
+    "G_SetCrosshairColor"
+  ],
+  "requested_resolved": {
+    "g_noLogo": true,
+    "g_noLogoAnim": true,
+    "CrosshairColors": true,
+    "G_GetCrosshairColor": true,
+    "G_SetCrosshairColor": true
+  },
+  "requested_export_bindings": {
+    "g_noLogo": [
+      "g_noLogo"
+    ],
+    "g_noLogoAnim": [
+      "g_noLogoAnim"
+    ],
+    "CrosshairColors": [
+      "CrosshairColors"
+    ],
+    "G_GetCrosshairColor": [
+      "G_GetCrosshairColor"
+    ],
+    "G_SetCrosshairColor": [
+      "G_SetCrosshairColor"
+    ]
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_screens.cpp/reachable-e47017601280fbab/source/duke3d/src/screens.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_HandleEventsWhileNoInput",
+      "reason": "unlinked identifiers: I_ClearAllInput, I_GeneralTrigger",
+      "dependencies": [
+        "I_ClearAllInput",
+        "I_GeneralTrigger"
+      ]
+    },
+    {
+      "name": "G_PlaySoundWhileNoInput",
+      "reason": "unlinked identifiers: I_ClearAllInput, I_GeneralTrigger, S_PlaySound",
+      "dependencies": [
+        "I_ClearAllInput",
+        "I_GeneralTrigger",
+        "S_PlaySound"
+      ]
+    },
+    {
+      "name": "G_ShowScores",
+      "reason": "unlinked identifiers: MF_Bluefont, gametext_, minitext_",
+      "dependencies": [
+        "MF_Bluefont",
+        "gametext_",
+        "minitext_"
+      ]
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "G_DrawCameraText",
+      "reason": "unlinked identifiers: VM_OnEvent__header_971ba5540af3, rotatesprite_win__header_324a72474f00",
+      "dependencies": [
+        "VM_OnEvent__header_971ba5540af3",
+        "rotatesprite_win__header_324a72474f00"
+      ]
+    },
+    {
+      "name": "G_DrawOverheadMap",
+      "reason": "unlinked identifiers: P_GetOverheadPal, renderDrawLine",
+      "dependencies": [
+        "P_GetOverheadPal",
+        "renderDrawLine"
+      ]
+    },
+    {
+      "name": "G_PrintCoords",
+      "reason": "unlinked identifiers: fix16_to_str",
+      "dependencies": [
+        "fix16_to_str"
+      ]
+    },
+    {
+      "name": "G_ShowCacheLocks",
+      "reason": "unlinked identifiers: g_highestSoundIdx, g_sounds, rts_lumplockbyte",
+      "dependencies": [
+        "g_highestSoundIdx",
+        "g_sounds",
+        "rts_lumplockbyte"
+      ]
+    },
+    {
+      "name": "G_PrintFPS",
+      "reason": "nonconstant function-static initializer",
+      "dependencies": []
+    },
+    {
+      "name": "G_DisplayRest",
+      "reason": "unlinked identifiers: Demo_IsProfiling, G_DoInterpolations, G_DrawInventory, G_DrawOverheadMap, G_DrawStatusBar, G_PrintCoords, G_PrintFPS, G_PrintGameQuotes, G_ShowCacheLocks, G_ShowScores, G_UpdateScreenArea, I_ClearLast",
+      "dependencies": [
+        "Demo_IsProfiling",
+        "G_DoInterpolations",
+        "G_DrawInventory",
+        "G_DrawOverheadMap",
+        "G_DrawStatusBar",
+        "G_PrintCoords",
+        "G_PrintFPS",
+        "G_PrintGameQuotes",
+        "G_ShowCacheLocks",
+        "G_ShowScores",
+        "G_UpdateScreenArea",
+        "I_ClearLast",
+        "I_EscapeTrigger",
+        "I_ReturnTrigger",
+        "MF_Bluefont",
+        "M_DisplayMenus",
+        "Menu_Change",
+        "Menu_Open",
+        "P_DisplayScuba",
+        "P_DisplayWeapon",
+        "S_MenuSound",
+        "S_PauseSounds",
+        "S_PlaySound",
+        "VM_ExecuteEvent",
+        "g_currentMenu",
+        "g_demo_paused",
+        "gametext_",
+        "menutext_",
+        "minitext_"
+      ]
+    },
+    {
+      "name": "G_FadePalette",
+      "reason": "unlinked identifiers: videoNextPage",
+      "dependencies": [
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "fadepal",
+      "reason": "unlinked identifiers: G_FadePalette, I_ClearAllInput, I_GeneralTrigger",
+      "dependencies": [
+        "G_FadePalette",
+        "I_ClearAllInput",
+        "I_GeneralTrigger"
+      ]
+    },
+    {
+      "name": "fadepaltile",
+      "reason": "unlinked identifiers: G_FadePalette, I_ClearAllInput, I_GeneralTrigger",
+      "dependencies": [
+        "G_FadePalette",
+        "I_ClearAllInput",
+        "I_GeneralTrigger"
+      ]
+    },
+    {
+      "name": "gameDisplayTENScreen",
+      "reason": "unlinked identifiers: I_ClearAllInput, I_GeneralTrigger, fadepal, fadepaltile",
+      "dependencies": [
+        "I_ClearAllInput",
+        "I_GeneralTrigger",
+        "fadepal",
+        "fadepaltile"
+      ]
+    },
+    {
+      "name": "gameDisplaySharewareScreens",
+      "reason": "unlinked identifiers: I_ClearAllInput, I_GeneralTrigger, fadepal, fadepaltile",
+      "dependencies": [
+        "I_ClearAllInput",
+        "I_GeneralTrigger",
+        "fadepal",
+        "fadepaltile"
+      ]
+    },
+    {
+      "name": "G_DisplayExtraScreens",
+      "reason": "unlinked identifiers: S_StopMusic, gameDisplaySharewareScreens, gameDisplayTENScreen",
+      "dependencies": [
+        "S_StopMusic",
+        "gameDisplaySharewareScreens",
+        "gameDisplayTENScreen"
+      ]
+    },
+    {
+      "name": "gameDisplay3DRScreen",
+      "reason": "unlinked identifiers: Anim_Play, G_FadePalette, I_ClearAllInput, I_GeneralTrigger, engineFPSLimit, fadepal, fadepaltile, videoNextPage",
+      "dependencies": [
+        "Anim_Play",
+        "G_FadePalette",
+        "I_ClearAllInput",
+        "I_GeneralTrigger",
+        "engineFPSLimit",
+        "fadepal",
+        "fadepaltile",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "gameDisplayTitleScreen",
+      "reason": "unlinked identifiers: I_GeneralTrigger, S_PlaySound, engineFPSLimit, fadepaltile, g_scriptVersion, videoNextPage",
+      "dependencies": [
+        "I_GeneralTrigger",
+        "S_PlaySound",
+        "engineFPSLimit",
+        "fadepaltile",
+        "g_scriptVersion",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "G_DisplayLogo",
+      "reason": "unlinked identifiers: Anim_Play, G_FadePalette, G_UpdateAppTitle, I_ClearAllInput, I_GeneralTrigger, S_ClearSoundLocks, S_PlaySound, S_PlaySpecialMusicOrNothing, S_StopMusic, gameDisplay3DRScreen, gameDisplayTitleScreen, videoNextPage",
+      "dependencies": [
+        "Anim_Play",
+        "G_FadePalette",
+        "G_UpdateAppTitle",
+        "I_ClearAllInput",
+        "I_GeneralTrigger",
+        "S_ClearSoundLocks",
+        "S_PlaySound",
+        "S_PlaySpecialMusicOrNothing",
+        "S_StopMusic",
+        "gameDisplay3DRScreen",
+        "gameDisplayTitleScreen",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "G_DoOrderScreen",
+      "reason": "unlinked identifiers: I_CheckAllInput, I_ClearAllInput, fadepal",
+      "dependencies": [
+        "I_CheckAllInput",
+        "I_ClearAllInput",
+        "fadepal"
+      ]
+    },
+    {
+      "name": "G_BonusCutscenes",
+      "reason": "unlinked identifiers: Anim_Play, G_FadePalette, G_HandleEventsWhileNoInput, G_PlaySoundWhileNoInput, I_ClearAllInput, I_GeneralTrigger, S_ClearSoundLocks, S_PlaySound, S_StopMusic, engineFPSLimit, fadepal, g_scriptVersion",
+      "dependencies": [
+        "Anim_Play",
+        "G_FadePalette",
+        "G_HandleEventsWhileNoInput",
+        "G_PlaySoundWhileNoInput",
+        "I_ClearAllInput",
+        "I_GeneralTrigger",
+        "S_ClearSoundLocks",
+        "S_PlaySound",
+        "S_StopMusic",
+        "engineFPSLimit",
+        "fadepal",
+        "g_scriptVersion",
+        "menutext_",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "G_DisplayMPResultsScreen",
+      "reason": "unlinked identifiers: MF_Bluefont, g_scriptVersion, gametext_, minitext_",
+      "dependencies": [
+        "MF_Bluefont",
+        "g_scriptVersion",
+        "gametext_",
+        "minitext_"
+      ]
+    },
+    {
+      "name": "G_BonusScreen",
+      "reason": "unlinked identifiers: G_BonusCutscenes, G_DisplayMPResultsScreen, G_FadePalette, G_UpdateAppTitle, I_CheckAllInput, I_ClearAllInput, MF_Bluefont, S_ClearSoundLocks, S_PlaySound, S_StopMusic, engineFPSLimit, fadepal",
+      "dependencies": [
+        "G_BonusCutscenes",
+        "G_DisplayMPResultsScreen",
+        "G_FadePalette",
+        "G_UpdateAppTitle",
+        "I_CheckAllInput",
+        "I_ClearAllInput",
+        "MF_Bluefont",
+        "S_ClearSoundLocks",
+        "S_PlaySound",
+        "S_StopMusic",
+        "engineFPSLimit",
+        "fadepal",
+        "gametext_",
+        "gametext_simple",
+        "menutext_",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "gameHandleEvents__header_c38a23d588cf",
+      "reason": "unlinked identifiers: handleevents",
+      "dependencies": [
+        "handleevents"
+      ]
+    },
+    {
+      "name": "FX_SoundActive__header_f91b38037434",
+      "reason": "unlinked identifiers: MV_VoicePlaying",
+      "dependencies": [
+        "MV_VoicePlaying"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_971ba5540af3",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "dependencies": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "rotatesprite_win__header_324a72474f00",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_584de31ad809",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "rotatesprite_fs__header_1be20a689a12",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "G_GetLogoFlags__header_8eb7b53543e9",
+      "reason": "unlinked identifiers: Gv_GetVarByLabel",
+      "dependencies": [
+        "Gv_GetVarByLabel"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_5fd7f46a2a49",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "sbartile__header_5e2b748e6608",
+      "reason": "unlinked identifiers: g_scriptVersion",
+      "dependencies": [
+        "g_scriptVersion"
+      ]
+    },
+    {
+      "name": "G_ScreenText__header_f25cb0ce52e8",
+      "reason": "unlinked identifiers: G_ScreenTextFromString, localeLookup, screentextRender, tilefontFind",
+      "dependencies": [
+        "G_ScreenTextFromString",
+        "localeLookup",
+        "screentextRender",
+        "tilefontFind"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_a2b60f883e50",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "rotatesprite_fs_id__header_edd710d54329",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "FX_SetReverb__header_0460b4fda8c8",
+      "reason": "unlinked identifiers: MV_SetReverb",
+      "dependencies": [
+        "MV_SetReverb"
+      ]
+    },
+    {
+      "name": "PopulateConstWidth__header_8b7a926ef04e",
+      "reason": "unlinked identifiers: G_GetStringTileASCII",
+      "dependencies": [
+        "G_GetStringTileASCII"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_4510dbfb03cd",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_277217f4e16b",
+      "dependencies": [
+        "FX_SetErrorCode__header_277217f4e16b"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_277217f4e16b",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 851,
+  "original_gameplay_verified": false
+}

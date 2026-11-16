@@ -1,18 +1,27 @@
 {
   "source": "source/duke3d/src/game.cpp",
   "requested": [
+    "G_UpdateAppTitle",
+    "G_GameQuit",
     "app_main"
   ],
   "requested_resolved": {
+    "G_UpdateAppTitle": true,
+    "G_GameQuit": false,
     "app_main": false
   },
-  "requested_compiled": {
-    "app_main": false
+  "requested_export_bindings": {
+    "G_UpdateAppTitle": [
+      "G_UpdateAppTitle"
+    ],
+    "G_GameQuit": [],
+    "app_main": []
   },
   "requested_still_unlinked": [
+    "G_GameQuit",
     "app_main"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-ecaff29280d286a0/source/duke3d/src/game.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-3f22a8bdbc42c9b9/source/duke3d/src/game.cpp.manifest.json",
   "blocked": [
     {
       "name": "gameTimerHandler",
@@ -23,18 +32,17 @@
     },
     {
       "name": "G_HandleSpecialKeys",
-      "reason": "unlinked identifiers: G_UpdateScreenArea, P_DoQuote, videoCaptureScreen",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, videoCaptureScreen",
       "dependencies": [
         "G_UpdateScreenArea",
-        "P_DoQuote",
         "videoCaptureScreen"
       ]
     },
     {
       "name": "G_GameQuit",
-      "reason": "unlinked identifiers: numplayers",
+      "reason": "unlinked identifiers: G_GameExit",
       "dependencies": [
-        "numplayers"
+        "G_GameExit"
       ]
     },
     {
@@ -70,7 +78,7 @@
     },
     {
       "name": "G_DrawRooms",
-      "reason": "unlinked identifiers: G_AnimateCamSprite, G_DoConveyorInterp, G_DoInterpolations, G_DoThirdPerson, G_DrawBackground, G_HandleMirror, G_InterpolateLights, G_ResetConveyorInterp, dr_viewingrange, dr_yxaspect, numplayers, r_ambientlightrecip",
+      "reason": "unlinked identifiers: G_AnimateCamSprite, G_DoConveyorInterp, G_DoInterpolations, G_DoThirdPerson, G_DrawBackground, G_HandleMirror, G_InterpolateLights, G_ResetConveyorInterp, r_ambientlightrecip",
       "dependencies": [
         "G_AnimateCamSprite",
         "G_DoConveyorInterp",
@@ -80,9 +88,6 @@
         "G_HandleMirror",
         "G_InterpolateLights",
         "G_ResetConveyorInterp",
-        "dr_viewingrange",
-        "dr_yxaspect",
-        "numplayers",
         "r_ambientlightrecip"
       ]
     },
@@ -114,19 +119,17 @@
         "aplWeaponWorksLike",
         "g_gameVarCount",
         "insptr",
-        "numplayers",
         "saveboard"
       ]
     },
     {
       "name": "A_InsertSprite",
-      "reason": "unlinked identifiers: A_FindPlayer, G_DumpDebugInfo, VM_ExecuteEvent, block_deletesprite, g_spriteStat",
+      "reason": "unlinked identifiers: A_FindPlayer, G_DumpDebugInfo, VM_ExecuteEvent, block_deletesprite",
       "dependencies": [
         "A_FindPlayer",
         "G_DumpDebugInfo",
         "VM_ExecuteEvent",
-        "block_deletesprite",
-        "g_spriteStat"
+        "block_deletesprite"
       ]
     },
     {
@@ -150,12 +153,11 @@
     },
     {
       "name": "G_DoSpriteAnimations",
-      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, g_scriptVersion, g_spriteStat, ldist",
+      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, g_scriptVersion, ldist",
       "dependencies": [
         "G_DoEventAnimSprites",
         "G_GetAngleDelta",
         "g_scriptVersion",
-        "g_spriteStat",
         "ldist"
       ]
     },
@@ -168,9 +170,8 @@
     },
     {
       "name": "G_InitTimer",
-      "reason": "unlinked identifiers: connectpoint2, g_lastInputTicks",
+      "reason": "unlinked identifiers: g_lastInputTicks",
       "dependencies": [
-        "connectpoint2",
         "g_lastInputTicks"
       ]
     },
@@ -182,13 +183,6 @@
         "RTS_GetSound",
         "RTS_IsInitialized",
         "RTS_SoundLength"
-      ]
-    },
-    {
-      "name": "G_PrintCurrentMusic",
-      "reason": "unlinked identifiers: P_DoQuote",
-      "dependencies": [
-        "P_DoQuote"
       ]
     },
     {
@@ -205,12 +199,11 @@
     },
     {
       "name": "parsedefinitions_game",
-      "reason": "unlinked identifiers: S_DefineMusic, S_DefineSound, g_MenuGameplayEntries, g_noAutoLoad",
+      "reason": "unlinked identifiers: S_DefineMusic, S_DefineSound, g_MenuGameplayEntries",
       "dependencies": [
         "S_DefineMusic",
         "S_DefineSound",
-        "g_MenuGameplayEntries",
-        "g_noAutoLoad"
+        "g_MenuGameplayEntries"
       ]
     },
     {
@@ -218,13 +211,6 @@
       "reason": "unlinked identifiers: parsedefinitions_game",
       "dependencies": [
         "parsedefinitions_game"
-      ]
-    },
-    {
-      "name": "G_UpdateAppTitle",
-      "reason": "unlinked identifiers: communityapiSetRichPresence",
-      "dependencies": [
-        "communityapiSetRichPresence"
       ]
     },
     {
@@ -287,42 +273,29 @@
     },
     {
       "name": "G_Startup",
-      "reason": "unlinked identifiers: CommandMap, CommandName, G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_LoadLookups, G_PostCreateGameState, G_Shutdown, Gv_FinalizeWeaponDefaults, g_noMusic, g_noSound, numplayers",
+      "reason": "unlinked identifiers: G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_LoadLookups, G_PostCreateGameState, G_Shutdown, Gv_FinalizeWeaponDefaults",
       "dependencies": [
-        "CommandMap",
-        "CommandName",
         "G_CompileScripts",
         "G_FatalEngineInitError",
         "G_GameExit",
         "G_LoadLookups",
         "G_PostCreateGameState",
         "G_Shutdown",
-        "Gv_FinalizeWeaponDefaults",
-        "g_noMusic",
-        "g_noSound",
-        "numplayers"
-      ]
-    },
-    {
-      "name": "G_UpdatePlayerFromMenu",
-      "reason": "unlinked identifiers: numplayers",
-      "dependencies": [
-        "numplayers"
+        "Gv_FinalizeWeaponDefaults"
       ]
     },
     {
       "name": "G_BackToMenu",
-      "reason": "unlinked identifiers: G_CloseDemoWrite, G_UpdateAppTitle, Menu_Change, Menu_Open",
+      "reason": "unlinked identifiers: G_CloseDemoWrite, Menu_Change, Menu_Open",
       "dependencies": [
         "G_CloseDemoWrite",
-        "G_UpdateAppTitle",
         "Menu_Change",
         "Menu_Open"
       ]
     },
     {
       "name": "G_EndOfLevel",
-      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_SetGamePalette, P_UpdateScreenPal, numplayers",
+      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_UpdateScreenPal",
       "dependencies": [
         "G_BackToMenu",
         "G_BonusScreen",
@@ -332,9 +305,7 @@
         "G_UpdateScreenArea",
         "Menu_Change",
         "Menu_Open",
-        "P_SetGamePalette",
-        "P_UpdateScreenPal",
-        "numplayers"
+        "P_UpdateScreenPal"
       ]
     },
     {
@@ -362,28 +333,23 @@
     },
     {
       "name": "app_main",
-      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup, CrosshairColors, G_CheckCommandLine, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_FatalEngineInitError, G_GameExit, G_GetCrosshairColor, G_InitText",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_FatalEngineInitError, G_GameExit, G_InitText, G_LoadGroups, G_NewGame, G_PlaybackDemo",
       "dependencies": [
         "CONFIG_ReadSetup",
         "CONFIG_WriteSetup",
-        "CrosshairColors",
-        "G_CheckCommandLine",
         "G_DisplayLogo",
         "G_DoCheats",
         "G_DrawRooms",
         "G_EndOfLevel",
         "G_FatalEngineInitError",
         "G_GameExit",
-        "G_GetCrosshairColor",
         "G_InitText",
         "G_LoadGroups",
         "G_NewGame",
         "G_PlaybackDemo",
         "G_SavePlayerMaybeMulti",
-        "G_SetCrosshairColor",
         "G_SetupCheats",
         "G_Startup",
-        "G_UpdateAppTitle",
         "G_UpdateScreenArea",
         "Gv_ResetSystemDefaults",
         "Menu_Change",
@@ -397,7 +363,6 @@
         "S_MusicStartup",
         "S_SoundStartup",
         "cacheAllSounds",
-        "connectpoint2",
         "drawframe_do",
         "dukeConsoleClearBackground",
         "dukeConsoleGetColumnWidth",
@@ -409,22 +374,17 @@
         "engineFPSLimit",
         "engineLoadClipMaps",
         "engineSetLogFile",
-        "g_fakeMultiMode",
         "g_lastautosave",
-        "g_noAutoLoad",
-        "g_noLogoAnim",
         "g_quickload",
         "g_saveRequested",
         "loaddefinitions_game",
         "loaddefinitionsfile",
-        "numplayers",
-        "registerosdcommands",
-        "user_quote_time"
+        "registerosdcommands"
       ]
     },
     {
       "name": "G_DoMoveThings",
-      "reason": "unlinked identifiers: A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill, connectpoint2, user_quote_time",
+      "reason": "unlinked identifiers: A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill",
       "dependencies": [
         "A_MoveCyclers",
         "A_MoveDummyPlayers",
@@ -434,9 +394,7 @@
         "P_CheckSectors",
         "P_HandleSharedKeys",
         "P_ProcessInput",
-        "P_QuickKill",
-        "connectpoint2",
-        "user_quote_time"
+        "P_QuickKill"
       ]
     },
     {
@@ -568,11 +526,6 @@
       ]
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "0edc7599b8d515f73c5b36787582c6c9d768b27c25bce03bb5abd509bc0d83af",
-  "provider_index_sha256": "d46d4cc99bbebc38c2b9a1ca6fa565e45814e19dfbb8f596e2d9598abc38dd75",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 3,
+  "original_gameplay_verified": false
 }

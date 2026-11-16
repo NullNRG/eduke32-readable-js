@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\common.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 69,
-  "emitted": 69,
+  "found": 72,
+  "emitted": 72,
   "blocked": 0,
   "definitions": [
     {
@@ -1895,6 +1895,118 @@
         "tileSetupSky"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "G_LoadLookups",
+      "source_name": "G_LoadLookups",
+      "kind": "FunctionDecl",
+      "line": 944,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "current_verbosity_cutoff",
+        "kclose",
+        "kopen4loadfrommod",
+        "kread",
+        "loguru_log",
+        "paletteLoadLookupTable",
+        "paletteSetColorTable"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "kclose",
+        "kopen4loadfrommod",
+        "kread",
+        "loguru_log",
+        "paletteLoadLookupTable",
+        "paletteSetColorTable"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_SetupGlobalPsky",
+      "source_name": "G_SetupGlobalPsky",
+      "kind": "FunctionDecl",
+      "line": 212,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "g_pskyidx",
+        "getpskyidx__header_641aad24f354",
+        "numsectors",
+        "sector"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_pskyidx",
+          "binding": "__cxx_global_cell_c55d5c171c5137818b672aba",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "numsectors",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_pskyidx",
+        "numsectors",
+        "sector"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "getpskyidx__header_641aad24f354",
+      "source_name": "getpskyidx",
+      "kind": "FunctionDecl",
+      "line": 863,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/build.h",
+        "source_offset": 25067,
+        "source_line": 863,
+        "header_sha256": "9a25a129b23e1c9c5af440332c4fd0773fbede296fe900ca6b7c22c1a843099d"
+      },
+      "physical_source": "source/build/include/build.h",
+      "source_references": [
+        "multipskytile",
+        "pskynummultis"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "multipskytile",
+          "binding": "__cxx_global_cell_dad5bc86f245af7b0202a36f",
+          "abi": "source-global-cell/2",
+          "original_type": "int32_t *"
+        },
+        {
+          "name": "pskynummultis",
+          "binding": "__cxx_global_cell_657da161243aac44db0e415b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "multipskytile",
+        "pskynummultis"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -3430,6 +3542,450 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "e47b552cc33477f9430f86c3d53855ab6a2785d5ba9c63a6a42ba30d4b271e3f"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_common_cpp_3b62e8355759.mjs",
+      "sha256": "3b62e83557592cdf3eb06987a75cc934009ed20d1b64c4ba12c7fee09ffa64e2",
+      "original_source": "source/duke3d/src/common.cpp",
+      "exports": [
+        "G_LoadLookups",
+        "G_SetupGlobalPsky",
+        "getpskyidx__header_641aad24f354"
+      ],
+      "reexports": [
+        "G_LoadLookups",
+        "G_SetupGlobalPsky",
+        "getpskyidx__header_641aad24f354"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bgethomedir",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CommandGrps",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_302eefb9e1aff28fad06f33f",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "struct strllist *",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "CommandPaths",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_493892d6b4db7dd7b875ed07",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "struct strllist *",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "FindGroup",
+          "from": "source/duke3d/src/grpscan.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_CheckCmdSwitch",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Paths_ParseSteamLibraryVDF",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Paths_ParseXDGDesktopFilesFromGOG",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ScanGroups",
+          "from": "source/duke3d/src/grpscan.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "addsearchpath_user",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "chdir",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "defaultconfilename",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e24292b1a478e46d067a49db",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "const char *",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "defaultdeffilename",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 4,
+          "element_declaration": "const char *[]",
+          "original_type": "const char *[4]",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "defaultgameconfilename",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 4,
+          "element_declaration": "const char *[]",
+          "original_type": "const char *[4]",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "defaultgamegrp",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 4,
+          "element_declaration": "const char *[]",
+          "original_type": "const char *[4]",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "fnlist_clearnames",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fnlist_getnames",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "foundgrps",
+          "from": "source/duke3d/src/grpscan.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_57be1c803b4f67589d421f5a",
+          "abi": "source-global-cell/2",
+          "original_type": "grpfile_t *",
+          "record_pointer_identity": {
+            "abi": "source-global-record-pointer-type/1",
+            "record_name": "grpfile_t",
+            "pointee_cv": [],
+            "pointer_cv": [],
+            "declaration": {
+              "source_header": "source/duke3d/src/grpscan.h",
+              "source_offset": 2626,
+              "enclosing_record": "grpfile_t",
+              "type": "grpfile_t",
+              "semantic_sha256": "541b0e0fa7af62e081e2395e0a94658e694d5b149d8c994441709a98a02fb275",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            },
+            "layout_sha256": "0cd97896c0ca6cb2ed391bbbb2a98abcc013de3ca03ca3cf44ed7793ba188165"
+          }
+        },
+        {
+          "name": "g_addonNum",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e52bb48b6936f3f6004987dc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_defNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64336b74df686a41ba0b80a3",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_gameType",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_grpNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_27587671eaba76ec3d4a0ad1",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_pskyidx",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c55d5c171c5137818b672aba",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_rootDir",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1d2fbfc34f7eaae881c439a7",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "g_rtsNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_41b93597aa1b675c52f24290",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_scriptModules",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3f5b78293fdf342ff96cb3cc",
+          "abi": "source-global-cell/2",
+          "original_type": "GrowArray<char *>",
+          "record_layout_sha256": "a72eaf90210b96440dd55507a6f8411dc37ec59846a13785aacbb88a4bb64988"
+        },
+        {
+          "name": "g_scriptNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fdd997c846b5c711252a3504",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_selectedGrp",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ec0dcd0ae3bfe5db091cb9c1",
+          "abi": "source-global-cell/2",
+          "original_type": "const struct grpfile_t *",
+          "record_pointer_identity": {
+            "abi": "source-global-record-pointer-type/1",
+            "record_name": "grpfile_t",
+            "pointee_cv": [
+              "const"
+            ],
+            "pointer_cv": [],
+            "declaration": {
+              "source_header": "source/duke3d/src/grpscan.h",
+              "source_offset": 2626,
+              "enclosing_record": "grpfile_t",
+              "type": "grpfile_t",
+              "semantic_sha256": "541b0e0fa7af62e081e2395e0a94658e694d5b149d8c994441709a98a02fb275",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            },
+            "layout_sha256": "0cd97896c0ca6cb2ed391bbbb2a98abcc013de3ca03ca3cf44ed7793ba188165"
+          }
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_useCwd",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6c47f72ba9178ee1cea25b07",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "getcwd",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "getenv",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initgroupfile",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4loadfrommod",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mkdir",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "multipskytile",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_dad5bc86f245af7b0202a36f",
+          "abi": "source-global-cell/2",
+          "original_type": "int32_t *"
+        },
+        {
+          "name": "numsectors",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0d84c36af55f8d659082f1bb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "paletteLoadLookupTable",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "paletteSetColorTable",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pskynummultis",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_657da161243aac44db0e415b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "removesearchpaths_withuser",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "testkopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tileSetupSky",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "165abb7afa7369b41d1a9902992576074442ca722b6ba4847aff96365a1c6394"
     }
   ]
 }

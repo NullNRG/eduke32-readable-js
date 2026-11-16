@@ -1,5 +1,9 @@
 # EDuke32 readable JavaScript port
 
+## November 16 integration checkpoint
+
+The frozen local compiler CI profile passes **62/62**. Original command-line defaults and lookup-resource loading now execute in Node and Chromium; cross-file overload identity and collision recovery are integrated. Read [current status](CURRENT_PORT_STATUS.md) for the exact collision evidence and remaining startup dependencies. **Original app_main and playable gameplay remain incomplete.** No paid or hosted builds were used.
+
 Open the developer dashboard with `npm run serve:project`, then choose **Open GRP / level launcher**, or visit `/engine-player.html` on the local server. Select your GRP and MAP; assets stay in your browser. This is a source-engine frame preview, not playable gameplay. Direct file:// module loading is unsupported.
 
 Read [PORT_GUIDE.md](PORT_GUIDE.md) for what works, how the translation and browser adapters work, the current milestones, remaining work and exact commands.

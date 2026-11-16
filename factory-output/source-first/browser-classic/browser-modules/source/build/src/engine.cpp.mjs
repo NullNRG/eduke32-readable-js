@@ -1082,3 +1082,9 @@ export { Blrintf__header_0b8e7f162fef, classicDrawBunches, falpha_to_blend, fgro
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { classicDrawSprite, classicDrawVoxel, renderDrawMasks, renderDrawSprite, yax_drawrooms } from "./_source_legacy_engine_cpp_fce1f74c63dd.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { cansee, cansee_19950829, neartag } from "./_source_legacy_engine_cpp_2555aae2d6ec.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { yax_getzsofslope } from "./_source_legacy_engine_cpp_002181bfe8eb.mjs";

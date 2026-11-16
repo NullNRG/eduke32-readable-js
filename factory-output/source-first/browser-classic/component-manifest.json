@@ -7,7 +7,7 @@
     "files": 790
   },
   "commands_sha256": "84218cb4af5ce4db2113ab5e30d6ae214d797a7e7b255acd1d496996b50d0b61",
-  "compiler_frontend_sha256": "1bf9981c7ffc7b68e2c67379a67683c70b4a6cf222df737db0776fd218862ee6",
+  "compiler_frontend_sha256": "2529a9a4d6578f78de712a3b5353760e72f363c86c0da29c3203ddf7cb794092",
   "runtime_and_lowering_helpers": {
     "runtime/abi.mjs": "37baa3ea755d4cf31c476c81092a50a4695d91adab3e82422ff4feb42e08599e",
     "runtime/browser_loguru.mjs": "51b7dbde961211550734116f7c02e10555a429780bdfd90ad9480a2642e35d88",
@@ -69,14 +69,16 @@
     "tools/source_ast_cache_paths.py": "b82ed86d6db6cb6ed4256bb8191f8c82761b8efa0853a897d799abe59214aed0",
     "tools/source_ast_events.py": "0cccf7a3e951942d87dd4302679f060e06c068a47c3f37c9f9f1c8b665ae6c19",
     "tools/source_ast_stream.py": "fc6c3e6997caf65d38d7e0ef41dfee12c17a9732e643fc670142a268f3f2cdbd",
-    "tools/source_ast_to_js.py": "1bf9981c7ffc7b68e2c67379a67683c70b4a6cf222df737db0776fd218862ee6",
+    "tools/source_ast_to_js.py": "2529a9a4d6578f78de712a3b5353760e72f363c86c0da29c3203ddf7cb794092",
+    "tools/source_backward_tail.py": "5add6d04077a4acca6219c0b13950041de9901a748eb1aa6277e4001d3ac9ed5",
     "tools/source_byte_constructors.py": "ebfd544730fd761277bb32f235e5b042b12e0c60d12a5403647376e79bcd89bb",
     "tools/source_byte_methods.py": "559ebf757046a9d73725345dfd9b8669eb3d8553bd70417f0eef906222413494",
-    "tools/source_byte_records.py": "8adda8fe1da969d0ecd5cceddb163fb692495231356d402c2e3f6772888c3525",
+    "tools/source_byte_records.py": "302edbfdeb02c91706abb2a28da1029bbd7fb7a65592adc49f74048ed814c6bb",
     "tools/source_c_allocators.py": "84a4f1a6f1ab153a27aa58f66cd16c214253fa99f3122e47f6b7c61c14da7791",
     "tools/source_c_function_bindings.py": "5020c4192ccbb4a4751dbb7578b8c876ef82838707169cd9e0269504641498c6",
     "tools/source_control_flow.py": "9d8213193ed752fbde00ef86c728c6d0a86d37edc21a3e33d8f9b8c2c409543d",
     "tools/source_coroutine_cfg.py": "71e76c30a110227d6a27e3ae0cc0b3836173495b3bb76bb0d1edcfcab56891fd",
+    "tools/source_cpp_function_bindings.py": "d6fb9ecd556c53a80e892f7a2eb9f8060b0cef0a75653d8461e8bee46d09573a",
     "tools/source_cpp_heap.py": "9bc058029bc2e89a92426c3fbeca011b6c54f1f0f1b14357216cbbe3deb9cf42",
     "tools/source_cpp_lifetime.py": "1b3b7a5143579a5044b0e9a0cb85126fdf28589ca08066617fc87ab4ec6f4b85",
     "tools/source_cpp_references.py": "fbd55e4a38e863db1d9c4e2549172168d0a2c66e157e3fc0f0bc9a74e3114240",
@@ -95,7 +97,7 @@
     "tools/source_first_game_gate.py": "d96522846f036f42105f084140ce82b25943698403584c8e5ffa6a9988526f55",
     "tools/source_first_generated.py": "aac2d6700ae31db0fedb904ff38834a9a022c5cafb380ac824167b6e712116ae",
     "tools/source_first_global_audit.py": "06e959cb988277ce76ba4ae76f8fd590e162bd8a9c15f4b25e09c7a5a68dae69",
-    "tools/source_first_global_link.py": "51aa1e07ce0b0dce30b8aad8be962f4935afcfb201a265b347bc89595001aafa",
+    "tools/source_first_global_link.py": "847ea6628d08c80be43eff5657f5a226bde0dcfc9e783f500f1603c03a2a4c2a",
     "tools/source_first_inventory.py": "d26136d878af0c583d2062fc55b33ad009a4d276de4e3ece30e00a458b4a8734",
     "tools/source_first_missing_map.py": "3adbf9910be87afe3d87d3e1fc5372d09c99957c373704549b153628dd0ed8b4",
     "tools/source_first_module_audit.py": "cb0240e1d97cc5eca7ff3118ed18474bb1a2764f6d9f5952190f4f19bfe097f3",
@@ -137,7 +139,7 @@
     "tools/source_terminal_pointer_steps.py": "e10aa59a5556b67ac241c0789d2253056fffdca08302380ae1c17a5eab6c2e8c",
     "tools/source_trivial_assignment.py": "3c7dc03535799f424135ada0d22ee6ccc3fc7b3027a330c27eb09a2595780f84"
   },
-  "source_units_with_partial_modules": 49,
+  "source_units_with_partial_modules": 53,
   "selected_source_units": 111,
   "whole_selected_program_compiled_under_current_revision": false,
   "invalid_imports": [],
@@ -152,7 +154,8 @@
       "source/build/src/scriptfile.cpp",
       "source/build/src/vfs.cpp",
       "source/duke3d/src/game.cpp",
-      "source/duke3d/src/premap.cpp"
+      "source/duke3d/src/premap.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "min__template_d0e4358054a560bb": [
       "source/build/src/baselayer.cpp",
@@ -172,8 +175,21 @@
       "source/build/src/osd.cpp",
       "source/build/src/sdlayer.cpp",
       "source/build/src/vfs.cpp",
+      "source/duke3d/src/cmdline.cpp",
       "source/duke3d/src/game.cpp",
       "source/mact/src/control.cpp"
+    ],
+    "bfirst_search_init__template_bac72b9f4bd83b32": [
+      "source/build/src/clip.cpp",
+      "source/build/src/engine.cpp"
+    ],
+    "bfirst_search_try__template_422b1d52b4ee4d34": [
+      "source/build/src/clip.cpp",
+      "source/build/src/engine.cpp"
+    ],
+    "min__template_16d592da45d1e47f": [
+      "source/build/src/clip.cpp",
+      "source/build/src/engine.cpp"
     ],
     "min__template_c237f4424e2bda8a": [
       "source/build/src/common.cpp",
@@ -183,10 +199,12 @@
       "source/build/src/sdlayer.cpp",
       "source/build/src/smmalloc_generic.cpp",
       "source/build/src/vfs.cpp",
+      "source/duke3d/src/cmdline.cpp",
       "source/duke3d/src/common.cpp",
       "source/duke3d/src/config.cpp",
       "source/duke3d/src/game.cpp",
-      "source/duke3d/src/grpscan.cpp"
+      "source/duke3d/src/grpscan.cpp",
+      "source/duke3d/src/text.cpp"
     ],
     "__atomic_add": [
       "source/build/src/engine.cpp",
@@ -211,7 +229,8 @@
       "source/duke3d/src/game.cpp",
       "source/duke3d/src/global.cpp",
       "source/duke3d/src/osdcmds.cpp",
-      "source/duke3d/src/premap.cpp"
+      "source/duke3d/src/premap.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "__cxx_operator_35d41574d9c68141": [
       "source/build/src/engine.cpp",
@@ -220,7 +239,8 @@
       "source/duke3d/src/game.cpp",
       "source/duke3d/src/global.cpp",
       "source/duke3d/src/osdcmds.cpp",
-      "source/duke3d/src/premap.cpp"
+      "source/duke3d/src/premap.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "__cxx_operator_9d5bfff63c86ec9c": [
       "source/build/src/engine.cpp",
@@ -230,7 +250,8 @@
       "source/duke3d/src/game.cpp",
       "source/duke3d/src/global.cpp",
       "source/duke3d/src/osdcmds.cpp",
-      "source/duke3d/src/premap.cpp"
+      "source/duke3d/src/premap.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "__exchange_and_add": [
       "source/build/src/engine.cpp",
@@ -284,7 +305,8 @@
     ],
     "__cxx_operator_6d2a22ee5048dd1a": [
       "source/build/src/engine.cpp",
-      "source/duke3d/src/game.cpp"
+      "source/duke3d/src/game.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "__cxx_operator_761c63d1e16e183f": [
       "source/build/src/engine.cpp",
@@ -292,18 +314,21 @@
       "source/build/src/osd.cpp",
       "source/build/src/timer.cpp",
       "source/duke3d/src/anim.cpp",
-      "source/duke3d/src/game.cpp"
+      "source/duke3d/src/game.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "ClockTicks": [
       "source/build/src/engine.cpp",
       "source/build/src/osd.cpp",
       "source/build/src/timer.cpp",
-      "source/duke3d/src/game.cpp"
+      "source/duke3d/src/game.cpp",
+      "source/duke3d/src/screens.cpp"
     ],
     "min__template_c5ffcfb092321e6b": [
       "source/build/src/kplib.cpp",
       "source/build/src/softsurface.cpp",
-      "source/build/src/vfs.cpp"
+      "source/build/src/vfs.cpp",
+      "source/duke3d/src/screens.cpp"
     ]
   },
   "storage_ownership_conflicts": [
@@ -354,21 +379,27 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_baselayer_cpp_f6516d492fe8.mjs": "f6516d492fe8436ff00d1c57733e128a4cbdb3d740b723e6748e743b047ef1f5",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_cache1d_cpp_9cb9f177e32c.mjs": "9cb9f177e32ca0403d7a6c86a19b5199bccf2171ad9784b40e2165571e8d7fa8",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_06cfae3de65b.mjs": "06cfae3de65bd0a016c0fbba3daa5ea5ce2e60a622ed4a6ebd009250af022419",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_4e5f9837d5a4.mjs": "4e5f9837d5a43906966b0ed744d60596d3c5328961a9d17a8c5fa0cd92519476",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_61fd1e41b501.mjs": "61fd1e41b501f8f30ffc08e26fcefe737e2191fb1628573a60f3485b8431282c",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_78b4c0255927.mjs": "78b4c02559277faaf2ea798e71b2dd6737fc65d1b337c2011f3b1efa5f4f115d",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_8857fed78bd4.mjs": "8857fed78bd4e6eac55cba1605bbcabd104b7bcb63a39bdb11f0891c0791c217",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_be792875104b.mjs": "be792875104b50063fd734de090a3eee804b172f3a0e289e56ffb0a2081209d0",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_clip_cpp_fceaaafd351f.mjs": "fceaaafd351f21dbe7e4ae1c4e02f4458b18944d5a4cb4afa6713587e3a1ae73",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_colmatch_cpp_2fa794f10d10.mjs": "2fa794f10d109a082f14329ecdb694cd90e59a7086046eb4cb5eeaf059faf02a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_common_cpp_30af07d9231a.mjs": "30af07d9231af80e5ffa3a469beabc6ece6eb41870cb3badb0cf9db7bcb4ab10",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_common_cpp_4b4b05a14f7c.mjs": "4b4b05a14f7cd98ed81e5cd174060ee0b50039ebcef2a69c93e7d2a54ebda3fa",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_common_cpp_d24b03da182c.mjs": "d24b03da182c190e92b3685f924ccdb7fd5e8e0f6250267992bd5993c459beeb",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_communityapi_cpp_5045e6dd904b.mjs": "5045e6dd904b92a2f9135db67f75eb49b4711fa207e6ea2e80d1f639e6b08caa",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_communityapi_cpp_77348e895eba.mjs": "77348e895ebaca93932a28353f5c8dcd3c26c73cc7593f4f77402a2261d89786",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_49a796039bf1.mjs": "49a796039bf16c7b23787c972a1119e3e65b272d8bad2c045c43d35065d33fe4",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a4d1d4a355bb.mjs": "a4d1d4a355bb61a403de7ec85c8fcd12ca5f7686f4723d6d27128d2e2d34429e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_compat_cpp_a7a030d3c6b8.mjs": "a7a030d3c6b8d742580152bdc3bfe852090c465d27569e80a5ec113743f7e899",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_crc32_cpp_ed944f00483a.mjs": "ed944f00483a06f076dd76c2430f9134a9ac0abb460a6157dd387c2e8b7693c3",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_002181bfe8eb.mjs": "002181bfe8eb2bb65aed00fe4b2cdca099c6ddce0c13888b960a868ba66841e8",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_188401a550aa.mjs": "188401a550aa741f87f749637420a31b7830d0babba6a9dc6450f7217bf1b2ad",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_1a801ee25ce2.mjs": "1a801ee25ce24b227c8a3194d700acc647adbd7e4eb9f1c48c990300f7c84545",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_1d09f9e916b9.mjs": "1d09f9e916b94519273e68c6037aea9fac811369401a53c7d41838ae67b76a61",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_2555aae2d6ec.mjs": "2555aae2d6ec4e950c9d21bc558fc97037c21f424ae817bc36373f4ac8fbd2aa",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_413986d623dd.mjs": "413986d623dd153c4ef2b4cac85f8b757edeeb0fe9e99d684b60f4d468d697de",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_452bc810b4b3.mjs": "452bc810b4b34fd5920b48a10d3f919fc7b03ebd9e0a874d8d939e44e9d3aa1e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_53b6aef9c124.mjs": "53b6aef9c124c6bf747408eef1c3249391218dccd7c9896a044acc0cc2b26727",
@@ -479,20 +510,20 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/baselayer.cpp.mjs": "dbcedab768fd42b85aa859cdbc95071b789d05a27c509a566e83e3c6b69c9c89",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/cache1d.cpp.manifest.json": "41b4534bc5e7b73e1edd27141d3b29684ae15b714b2306a02aff048a4291037e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/cache1d.cpp.mjs": "613d0685ee7f653199376b478b80d938c1b2f525618e9f618ef76b0237c37ac4",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.manifest.json": "f123a3c2767880337602ea607382352e480acda2a2444476288131099b6ef956",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.mjs": "a7e5bffe359b1af953982f2ca9924cc924569330fa253ef424120829c5d0b5c7",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.manifest.json": "b237da3fd220f1c26162e7109e94c7dc15d099b84d598785f68d29484385a988",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/clip.cpp.mjs": "1cb49d4be0c94aa23e4461c429f1e738a198cf8876037dc6feea64bdce8a0766",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/colmatch.cpp.manifest.json": "ade4fdbacc2c3202250d4771a272c081e85ecbeb267f8c569596854387fb02a6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/colmatch.cpp.mjs": "407f116502bdd1379cb32deaa52217472a59d3dac32ff7ede4c75c7044bd8e5b",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/common.cpp.manifest.json": "97fe79a1ae9945efa9823f891186c3aa039e4378a5c4e644bd4608d0cb4c98e2",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/common.cpp.mjs": "6dddfc4fe6900f12a57236062d41c1e89833cad6c8983305c0c38e5b65190940",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.manifest.json": "67f0f42154ecabcd1710bc0d67596209992dcb2e01fc7a07de20858a5a44f28d",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.mjs": "7a1a3bf02c1329646eb2fec2dfea92cba4669180e9501886b81bc33d8add98b9",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.manifest.json": "0fcd4ced6565c5e36f877366f278e03425a166f7e9ec949bf2dd17299367f5ca",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.mjs": "a4af1049cdcf59dc499d274c1d0ff157ad751df0f93458949211abee5b6a81b4",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.manifest.json": "1e666f834bc568375e73e678a48517e45a687a252f474bb4da4fe4ce4f150a89",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "a03da66aafd9bb61e91a102d717421a67cbdac9793fd05ebc841d90fd969c45e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.manifest.json": "97929501feed93ec6971ccf7087708296d579c9d9f40ae080e77a14c9bca3fbf",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.mjs": "4824ffa65fe53a44640f921c3affd3c30106aaa9f9fd31c924352f929398e858",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.manifest.json": "7c66796c6fc87910af0cc84cab4111a0d3adefdc1cdca230972b53c97d725577",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "11ccc0aa033fe59698604b7b7adaf30fc1a1ed4eda85f5992a1b89b85fe1e7da",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.manifest.json": "34cd628a8793ff53f48cceefdf9078976f0b0453483dc1fc087990107304fb13",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "31b4da19e0712653e3a5c19f7401e5896a6abb24508e5009edebd99012a8e75a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.manifest.json": "2075319e0c6091790ad8e4ef412d92f7e6fdd879d81567fffdb8e7c51b216e4b",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.mjs": "b3e29426d81723d498d9291eedf9696774a7005091dbb0f5f37122ee54f1f4b6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hightile.cpp.manifest.json": "3d9f1fb458627c39a0769660815ea317ab2369f2762fea5df6ff2648a39e3adb",
@@ -543,6 +574,9 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/xxhash.c.mjs": "4cf04e218381b276e2a49f91fc1d13168de022d4f1460fac33c122be23b7ed9f",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_anim_cpp_142256c40bbd.mjs": "142256c40bbd6d876f306723739bc9159a288ae138897b9c2d7d3c2b34e612ad",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_anim_cpp_85feed146e80.mjs": "85feed146e806502b2794b72e85f9dae6ac09db1d852c0be8af3763ebc8501d8",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_cmdline_cpp_af84ffbefee3.mjs": "af84ffbefee37194b94417567aeb9d313c4608fbec35243baccf760d6539db94",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_cmdline_cpp_fbd830a1dbd0.mjs": "fbd830a1dbd071559411e03656d2e4b9456d6819196d24187b2db756352329fb",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_3b62e8355759.mjs": "3b62e83557592cdf3eb06987a75cc934009ed20d1b64c4ba12c7fee09ffa64e2",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_570cd68e40bb.mjs": "570cd68e40bbb2d1ddefb595bc4682a8285c2b459d47e55771ff0d237aecc14b",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_93dfc3bd1e57.mjs": "93dfc3bd1e57bedb5713e92cd3278cc0edb0d4b22d929b6492ec8a744f7c13fe",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_a22fb088ffaf.mjs": "a22fb088ffaf97dd60f66730ec58f3a5247f68a43573eb96cf6aa6046afde160",
@@ -551,6 +585,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_2d871da0029f.mjs": "2d871da0029ff2965a46891a0791ee3f126d84491d8f1af911cf6363cb1ba371",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_434fec6dc2f2.mjs": "434fec6dc2f2077dafff968e583c5e650cbe7bf07994d4c8f59d55e40436ecef",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_d176a5bf9eee.mjs": "d176a5bf9eee941323750779c21d36c815631a92eeee755ef1650ea6d6d38bf9",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_demo_cpp_2ce68a2639b8.mjs": "2ce68a2639b8093ed2f2cbb691c6464ea3ca45f8d8630ba7be98f82321f81507",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_dnames_cpp_ce236998bac6.mjs": "ce236998bac682a1f04ad0b2cce3e88ff95a44a24e7d8c425d93edfeb0054fcf",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_dnames_cpp_ef970c79fbbf.mjs": "ef970c79fbbf86d47a83ce9f7bf63034f6ed81a7cb7ca69225cf2c4b0ba3069a",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_08a6f15f0f0a.mjs": "08a6f15f0f0a8c9d01f6f4fed6eac3801696d4cd1c17329a5d82124b1ac391a3",
@@ -558,6 +593,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_5095f47ecf2c.mjs": "5095f47ecf2c015f7415493117a68849ab4ff2e5d16d209827c791e49ea2760f",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_65976b584746.mjs": "65976b584746eedabc888f0b969027693872c24a5df69bb35d5d9f02f8ffcc8a",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_72bc26617a3d.mjs": "72bc26617a3dd80590e7377320532b4588b6b3bf1701d84381ddd16fe9648d85",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_b1e3774b17a3.mjs": "b1e3774b17a3fa3d2054b2bff82fef05d3c0bc7dee242a3483798e0de3545092",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_global_cpp_203cdd26ef71.mjs": "203cdd26ef712040757e9ca726a60884c59dd110eaf3a9b4227608558a2fd5e3",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_global_cpp_7cea82983dac.mjs": "7cea82983dacfd49cc13bd980aad8721c2477b4f433b2b06e94c41645e2eaacd",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_global_cpp_7d39b5233a92.mjs": "7d39b5233a9217b457ef0cf848b23ba798914affc594ded5ab8404099251d067",
@@ -568,16 +604,22 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_grpscan_cpp_9bbf1d56e764.mjs": "9bbf1d56e764a99fa4199d9ed86c09783a768191f0d44127f8e897a9c6521468",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_network_cpp_8c14b62929a8.mjs": "8c14b62929a8f9f1982c03bcf3cef94e64244e3aea0fb42cd74634b6887b6705",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_player_cpp_8a8a991c7e30.mjs": "8a8a991c7e30da4b358382373110dfe3c919de31059e183091112b8658cc75a7",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_screens_cpp_0fd05e3fd583.mjs": "0fd05e3fd583bb59199e7317301afc5f3d40a0ae93cde55ef78866600fad1ed3",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_text_cpp_d5fa5287ecdb.mjs": "d5fa5287ecdb311b198481da30bdbca5f87b54ca9b93c3868f30e84b84871f46",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/anim.cpp.manifest.json": "10e15dbaad5c5fc280f11baf13b85fe3a615574a05b53598dd60725e8614bfec",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/anim.cpp.mjs": "da058e36b1b12d7862e22ae05528c17cf21e3d2409922b1ea8400eace5f25e06",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.manifest.json": "24395fe6aaafe45615daa59fc9e729b20d2ba486b3e89f7b0b168cea109d97ee",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.mjs": "3824744f26f311838302d9eb0fcfe99ce1d58c2e739d23125683777d4d54591c",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/cmdline.cpp.manifest.json": "7ad37692a1c70f7d0de2d46a2bc717596951c78415eb8b732d9d4ed37448b221",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/cmdline.cpp.mjs": "65226941fa4d8b2dacbc3d7c91bdafb59c609d49a7e2e4e2fb873faa35ade093",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.manifest.json": "c391de807273f677b98e4d224b16ddb8d646b14342af397fe170d4f6f1891579",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.mjs": "0c492415b05545ca9ef1315c16158062c3b29ecf31f07338f099b651ca4bd0e5",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/config.cpp.manifest.json": "258007414a37148fd3afcc4343ff6240a03a435282d5c138e1f7b994d453e327",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/config.cpp.mjs": "9b3efb080ab94f9c71c385413c04d0de64794ef2e926ed664686fe70fbe51663",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/demo.cpp.manifest.json": "ae86d198f19eca13f2756f2af4b3b2fbbfe533148b54c1f73304019105ff46e4",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/demo.cpp.mjs": "f5ad0d991318075428280357be7f6f313a9a73ba21bf5b1e03ba80185280124e",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/dnames.cpp.manifest.json": "4e37bc792a2c1af6db7a4ed31031508d0804feb275bb140f7e0f9a31f437e64a",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/dnames.cpp.mjs": "59eff4f8bae76638c09bd196738355f06837d45ca2a131796fe16ab70634e9b2",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.manifest.json": "e6ccfd89a690a32b574fba52f36056f17b58961067c153de857f7303fcffb010",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.mjs": "b7ef59d5f7d0e9bda210cd8f0445f156ffd32f02abdc6e871df9c32351551bc6",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.manifest.json": "2b69606d3da101d4ee75d79f9cbd7a99a8c2d16a878201dfa37c683f4ee45385",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.mjs": "2a7d6219176b45f968b4fb1438a1b5d41f248eff5c062246a6a7126b68080324",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/global.cpp.manifest.json": "bfa237ac37ae56a7a6808f0f335a628ed827e3dfe607173fe5e7a6dab6189919",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/global.cpp.mjs": "48eeaebe32fe8ed466673e923772fa06cce1a8ca393cb136fd97405bd68afed6",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/grpscan.cpp.manifest.json": "66976b3e1eb1de0f0732550ba397ff1161ffde632f26bf507d707c03fce99012",
@@ -590,6 +632,10 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/player.cpp.mjs": "aa8ae580ec0abce589f2ae3daabc8bd82c6f1e0363ac2105674e40dfe51852ce",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/premap.cpp.manifest.json": "0122f75485377813c0a021a8bf3933585701d584d50c0e44026d8645b17b0a63",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/premap.cpp.mjs": "d0efe3d5bed0938b2246c41a72a98f4e718fe0349905251d7373bfbcd490b9a1",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/screens.cpp.manifest.json": "cfe9596d546ae60aaf373d922455017245b8a46959407299dc63eb646c8060c4",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/screens.cpp.mjs": "2d366c029b1122f7e478b600c5a888dc3809fc9e773781b0accd541c4cb6c271",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/text.cpp.manifest.json": "c98dbe05d55e9b5eeddaa21cff65e43854db3f54135f84c774752ecb354e56e7",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/text.cpp.mjs": "5b328ff436ea4033473d6e5a97e60a3b050b41d99e3d0439b590e3ef8f8d4643",
     "factory-output/source-first/browser-classic/browser-modules/source/mact/src/_source_legacy_control_cpp_b212d6f1c9fa.mjs": "b212d6f1c9faf15ab17e9737b242257acb9ab077d7ddb70fb5a443db18ee141c",
     "factory-output/source-first/browser-classic/browser-modules/source/mact/src/_source_legacy_control_cpp_ba6c60c81f66.mjs": "ba6c60c81f664456899b55b7efc06fa8309df1cb524cc6cf2c0f70b2440160f2",
     "factory-output/source-first/browser-classic/browser-modules/source/mact/src/_source_legacy_control_cpp_e536f4961d52.mjs": "e536f4961d5203bd09919fba40f2318bf53111677a3d8623f80193e3e3c1492c",

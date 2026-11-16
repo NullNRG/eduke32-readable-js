@@ -1,0 +1,523 @@
+{
+  "source": "source/duke3d/src/demo.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "g_demo_exitAfter",
+      "g_demo_playFirstFlag",
+      "g_demo_profile",
+      "g_firstDemoFile"
+    ],
+    "additional_ast_roots": 5,
+    "rounds": 1,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\demo.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 6,
+  "emitted": 6,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "Demo_PlayFirst",
+      "source_name": "Demo_PlayFirst",
+      "kind": "FunctionDecl",
+      "line": 229,
+      "original_type": "void (int32_t, int32_t)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/demo.cpp",
+      "source_references": [
+        "g_demo_exitAfter",
+        "g_demo_playFirstFlag",
+        "g_demo_profile"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Demo_SetFirst",
+      "source_name": "Demo_SetFirst",
+      "kind": "FunctionDecl",
+      "line": 237,
+      "original_type": "void (const char *)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/demo.cpp",
+      "source_references": [
+        "g_firstDemoFile",
+        "maybe_append_ext",
+        "sprintf",
+        "strlen",
+        "strtol"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "maybe_append_ext",
+        "sprintf",
+        "strlen",
+        "strtol"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_demo_exitAfter",
+      "source_name": "g_demo_exitAfter",
+      "kind": "VarDecl",
+      "line": 228,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/duke3d/src/demo.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_f32ba34a1fb723579e808905",
+        "owner_source": "source/duke3d/src/demo.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_demo_playFirstFlag",
+      "source_name": "g_demo_playFirstFlag",
+      "kind": "VarDecl",
+      "line": 227,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/duke3d/src/demo.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_011d86fa47307d3c9303af61",
+        "owner_source": "source/duke3d/src/demo.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_demo_profile",
+      "source_name": "g_demo_profile",
+      "kind": "VarDecl",
+      "line": 227,
+      "original_type": "int",
+      "linkage": "internal",
+      "physical_source": "source/duke3d/src/demo.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_79f6adc5fc1d12f365fba22e",
+        "owner_source": "source/duke3d/src/demo.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_firstDemoFile",
+      "source_name": "g_firstDemoFile",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "char[256]",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/demo.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "exact",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "ed505cab82213a4d224848d92fa85f782acad4dbdb4621d7f0c0ab8b60e1a3c7",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730"
+  },
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "0edc7599b8d515f73c5b36787582c6c9d768b27c25bce03bb5abd509bc0d83af",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "61727844c970f04c8694aa8038835346f76ddb479be59fb49aec94c9db939389",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 3476,
+    "sha256": "a287110dc067530bf495c8e0d7e41e9e281c909e49cccf1be6181d288e022f5d",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "1078900dbc069161275d5225b7605d2636e61a7ea0cbe6219ba6d7ec03d8d3a4",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "2ac15e80c157f5d30e493748f8282529e64f2274ae5cdfdd08ec0ccebffd6f33",
+    "dependency_count": 428,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 93,
+      "ranges_omitted": 26,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 25,
+      "include_metadata_reuses": 2,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 4103,
+      "cache_storage": "json",
+      "cache_entry_bytes": 24046,
+      "cache_hit": false,
+      "json_bytes": 24046,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102362483,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 221,
+      "ranges_omitted": 62,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 50,
+      "include_metadata_reuses": 6,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 9365,
+      "cache_storage": "json",
+      "cache_entry_bytes": 71225,
+      "cache_hit": false,
+      "json_bytes": 71225,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102433708,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 374,
+      "cache_storage": "json",
+      "cache_entry_bytes": 582,
+      "cache_hit": false,
+      "json_bytes": 582,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102434290,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 384,
+      "cache_storage": "json",
+      "cache_entry_bytes": 590,
+      "cache_hit": false,
+      "json_bytes": 590,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102434880,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 3,
+      "ranges_omitted": 1,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 0,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 372,
+      "cache_storage": "json",
+      "cache_entry_bytes": 578,
+      "cache_hit": false,
+      "json_bytes": 578,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102435458,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 7,
+      "ranges_omitted": 2,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 1,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 462,
+      "cache_storage": "json",
+      "cache_entry_bytes": 1237,
+      "cache_hit": false,
+      "json_bytes": 1237,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102436695,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "g_demo_playFirstFlag",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_011d86fa47307d3c9303af61",
+      "owner_source": "source/duke3d/src/demo.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "g_demo_profile",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_79f6adc5fc1d12f365fba22e",
+      "owner_source": "source/duke3d/src/demo.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "g_demo_exitAfter",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_f32ba34a1fb723579e808905",
+      "owner_source": "source/duke3d/src/demo.cpp",
+      "original_type": "int"
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/duke3d/src/_source_legacy_demo_cpp_2ce68a2639b8.mjs",
+      "sha256": "2ce68a2639b8093ed2f2cbb691c6464ea3ca45f8d8630ba7be98f82321f81507",
+      "original_source": "source/duke3d/src/demo.cpp",
+      "exports": [
+        "Demo_PlayFirst",
+        "Demo_SetFirst",
+        "g_demo_exitAfter",
+        "g_demo_playFirstFlag",
+        "g_demo_profile",
+        "g_firstDemoFile"
+      ],
+      "reexports": [
+        "Demo_PlayFirst",
+        "Demo_SetFirst",
+        "g_demo_exitAfter",
+        "g_demo_playFirstFlag",
+        "g_demo_profile",
+        "g_firstDemoFile",
+        "__cxx_private_cell_f32ba34a1fb723579e808905",
+        "__cxx_private_cell_011d86fa47307d3c9303af61",
+        "__cxx_private_cell_79f6adc5fc1d12f365fba22e"
+      ],
+      "imports": [
+        {
+          "name": "maybe_append_ext",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "b2a346c07c40aa5f3f4f6b2d62fe6bd86ed7a23cb9a96df5fa7b2744ca92b891"
+    }
+  ]
+}

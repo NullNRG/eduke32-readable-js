@@ -31,7 +31,7 @@ Open these pages over HTTP. Direct `file://` loading of the ES module tree is
 unsupported. A fully standalone offline `dist/index.html` remains a release
 requirement, not an available deliverable.
 
-## Verified position, November 13, 2026
+## Verified position (rendering checkpoint, November 13, 2026)
 
 | Area | Current evidence |
 | --- | --- |
@@ -121,3 +121,5 @@ commits include `[skip ci]` so pushes do not start cloud Actions builds. No
 additional hosted compute, paid APIs or deployment services are authorized.
 The developer dashboard retains the existing continuation ZIP tools; their
 source/semantic fingerprint gates must pass before an archive is called valid.
+
+November 16 integration: see CURRENT_PORT_STATUS.md for the new compiler, command-line, lookup and collision checks. The frozen local CI profile now passes 62/62; the table above describes rendering components, not full game boot.

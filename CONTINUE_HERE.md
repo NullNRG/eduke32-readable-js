@@ -1,34 +1,29 @@
-# Continue the canonical EDuke32 project
+# Continue the canonical EDuke32 JavaScript port
 
-Original numplayers/myconnectindex/connecthead/connectpoint2 storage is also linked from mmulti.cpp and checked for native zero initialization, stable scalar cells and contiguous array bytes (reports/nov13-original-player-chain-storage.json). No network services were added or executed.
-
-November 13: original Anim_Init is linked and executes in Node and Chromium. Its 12 animation records and 44 sound cues match native C++ compiled from exact original declaration extents plus original hash/allocator code. Scalar reference members now preserve Clang-proven LP64 address slots, static converted-temporary lifetime and nested byte-record aliases. The compiler fixture passes 2,048 native/full/filtered Node/Chromium results; automatic reference-temporary lifetimes outside this supported domain remain blocked. See reports/nov13-original-animation-init.json and reports/nov13-app-main-current-frontier.json. The frozen local CI profile passes 59/59. The original masked E1L1 renderer still passes. app_main, menus, CON initialization, interactive simulation, audio, saves and the offline playable release remain incomplete.
-
-Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov12-original-masked-frame.json. Original E1L1 room rendering now passes in Chromium. The game remains incomplete: app_main, menu, CON initialization and gameplay have not passed. The original mask/sprite frame component passes.
-
-User constraint: do not use paid external services. Compile and verify locally.
-GitHub checkpoint commits must include `[skip ci]` to avoid starting cloud
-Actions builds; no additional hosted compute, deployments or paid APIs.
-
-November 12 follow-up: original mask/sprite dependencies are now linked and execute in Chromium. Read reports/nov12-original-masked-frame.json. The real image includes rooms, fences and raw-map props. Repeated presentation is stable after the SDL RGBX/alpha repair. This is an engine component, not app_main/CON/gameplay. Continue original startup/menu/frame-loop recovery and packed static-array construction with ClockTicks for rotatesprite.
+Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-app-main-current-frontier.json and reports/nov16-startup-collision-ci.json. The game is not yet playable. The GRP picker renders original raw MAP geometry; do not call it a game menu or player session.
 
 ```powershell
 . work/session-env.ps1
-python work/verify_original_animation_init.py
+python work/verify_original_command_line_init.py
+python work/verify_original_game_lookups.py
+python work/verify_original_collision_geometry.py
 python work/verify_original_masked_frame.py
-python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --whole-unit --install-closed-leaves
 python work/reproduce_source_ci.py
 python tools/recover_browser_component.py --snapshot
 ```
 
-The renderer uses original ART/MAP loading, original G_InitMultiPsky with original dnames globals, original palette/video calls and original renderDrawRoomsQ16. Do not replace missing game initialization with hand-built data. The room capture is source-engine component evidence and must not be called playable gameplay.
+Next recovery chain: source/build/src/screentext.cpp tilefontGetPtr,tilefontMaybeDefineMapping,tilefontLookup require original std::unordered_map semantics; those unblock original G_InitText. Original G_LoadGroups now needs loaddefinitions_game. Recover shared semantics, retry affected units and original app_main. UI rotatesprite still needs exact packed static-array ClockTicks construction. getzrange and some game functions still enter different lexical scopes through goto; preserve lifetimes/order in generic lowering.
 
-The mask lambdas and classic sprite sibling jump are recovered. UI rotatesprite still needs packed static-array construction with ClockTicks members. Recover generic source semantics and retry their full affected chains. Continue original game.cpp app_main/CON/menu startup after engine rendering. Keep heavy Clang jobs serial.
+```powershell
+python work/recover_boot_reachable.py source/build/src/screentext.cpp tilefontGetPtr,tilefontMaybeDefineMapping,tilefontLookup --whole-unit --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/text.cpp G_InitText --whole-unit --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --whole-unit --install-closed-leaves
+```
 
-Existing exports do not mean their generated bodies were refreshed. For shared fixes, find the exact active module_fragments entry and refresh its complete export set using tools/recover_browser_component.py --refresh-fragment-sha256 HASH --whole-unit-refresh. That mode preserves original storage and the exact prior interface, uses source-proven header aliases only when required, and omits unrelated explicit all-header selection. Never bypass its ABI/identity checks. Use a fresh browser realm after replacing a fragment.
+Existing owned exports short-circuit recovery. To refresh implementations after compiler changes, use tools/recover_browser_component.py --refresh-fragment-sha256 HASH --whole-unit-refresh with the exact active module_fragments entry; preserve its complete interface, source ownership and storage ABI. Never trim hashed shards or choose overloads by name/arity. The new getwalldist provider metadata is attested against unchanged producer/shard/source/header/toolchain fingerprints in reports/nov16-original-overload-attestation.json.
 
-The native semantic index already matches the 111-unit portable-codec profile (d906809d). Compiler-only repairs do not require replaying the native index. Do not trigger a changed-input generic index resume; targeted primary-unit semantic refresh must verify all unchanged commands/header observations. The compressed private index payload is an older historical fingerprint; the verified macro-only delta is reports/nov11-portable-semantic-delta.json.
+The current semantic index covers the 111-unit classic profile at d906809d; compiler-only edits do not require repeating semantic extraction. Keep heavy Clang work serial on this machine. Do not mix current compiled, linked, executed and gameplay-verified status.
 
-The latest frozen local CI reproduction passed 59/59; 22 relevant Node checks and real Chromium runtime/original masked-frame checks pass after it; full regression and strict original-game acceptance remain incomplete. No playable dist/index.html exists. Keep pushing source, active modules, exact evidence and factual notes to NullNRG/eduke32-readable-js. Never push GRPs, SDKs, raw AST/SQLite caches or asset-bearing generated HTML. Do not publish a playable release until original boot/menu/gameplay/offline/save/audio checks pass.
+Use npm run serve:project and engine-player.html for local GRP selection; no archive upload occurs. Regenerate its runner with npm run build:engine-launcher. The release still requires original menus, CON/game state, controls/combat, audio, saves, offline standalone HTML and 60 seconds of genuine verified gameplay.
 
-The asset-free browser launcher is engine-player.html, linked from index.html. Regenerate engine-level-runner.mjs with `npm run build:engine-launcher`. It reuses the verified probe, accepts archive bytes and MAP selection, and creates a fresh realm per run. Read PORT_GUIDE.md. Verify actual file selection with `python work/verify_engine_launcher.py`; no GRP upload or remote service is involved.
+Keep pushing source, active modules and factual evidence to NullNRG/eduke32-readable-js. Include [skip ci] in every checkpoint commit. No paid services, cloud builds, GRPs, SDKs or raw AST/SQLite caches. Do not deploy or label a playable release until the actual acceptance tests pass.

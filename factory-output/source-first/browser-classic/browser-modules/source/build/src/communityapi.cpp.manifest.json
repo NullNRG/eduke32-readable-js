@@ -61,8 +61,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\communityapi.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 3,
-  "emitted": 3,
+  "found": 5,
+  "emitted": 5,
   "blocked": 0,
   "definitions": [
     {
@@ -139,6 +139,72 @@
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Voidwrap_Steam_SetRichPresence__header_global_2c82f3d8f9e65e3e",
+      "source_name": "Voidwrap_Steam_SetRichPresence",
+      "kind": "VarDecl",
+      "line": 44,
+      "original_type": "void (*)(const char *, const char *)",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/voidwrap/include/voidwrap_steam.h",
+        "source_offset": 1446,
+        "source_line": 44,
+        "translation_unit": "source/build/src/communityapi.cpp",
+        "clang_decl_id": "0x2b47565cae8",
+        "redeclaration_chain": [
+          "0x2b47565cae8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": null,
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/voidwrap/include/voidwrap_steam.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_273dc370d4333d04dac99e62",
+        "owner_source": "source/build/src/communityapi.cpp",
+        "original_type": "void (*)(const char *, const char *)"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "communityapiSetRichPresence",
+      "source_name": "communityapiSetRichPresence",
+      "kind": "FunctionDecl",
+      "line": 194,
+      "original_type": "void (const char *, const char *)",
+      "linkage": "external",
+      "physical_source": "source/build/src/communityapi.cpp",
+      "source_references": [
+        "Voidwrap_Steam_SetRichPresence__header_global_2c82f3d8f9e65e3e",
+        "steamworks_enabled"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1579ba6e487199dacdaf9391",
+          "owner_source": "source/build/src/communityapi.cpp",
+          "original_type": "bool",
+          "name": "steamworks_enabled",
+          "consumer_source": "source/build/src/communityapi.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "steamworks_enabled"
+      ],
       "unresolved_references": []
     }
   ],
@@ -331,6 +397,13 @@
       "binding": "__cxx_private_cell_0dc9317b445032c8dd207ea5",
       "owner_source": "source/build/src/communityapi.cpp",
       "original_type": "void (*)()"
+    },
+    {
+      "name": "Voidwrap_Steam_SetRichPresence__header_global_2c82f3d8f9e65e3e",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_273dc370d4333d04dac99e62",
+      "owner_source": "source/build/src/communityapi.cpp",
+      "original_type": "void (*)(const char *, const char *)"
     }
   ],
   "module_fragments": [
@@ -353,6 +426,34 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "99be24d8034caf692ff7b40c1827ec3df30c08cc5359cb5f99c6f05a56d29dec"
+    },
+    {
+      "module": "source/build/src/_source_legacy_communityapi_cpp_5045e6dd904b.mjs",
+      "sha256": "5045e6dd904b92a2f9135db67f75eb49b4711fa207e6ea2e80d1f639e6b08caa",
+      "original_source": "source/build/src/communityapi.cpp",
+      "exports": [
+        "Voidwrap_Steam_SetRichPresence__header_global_2c82f3d8f9e65e3e",
+        "communityapiSetRichPresence"
+      ],
+      "reexports": [
+        "Voidwrap_Steam_SetRichPresence__header_global_2c82f3d8f9e65e3e",
+        "communityapiSetRichPresence",
+        "__cxx_private_cell_273dc370d4333d04dac99e62"
+      ],
+      "imports": [
+        {
+          "name": "steamworks_enabled",
+          "from": "source/build/src/communityapi.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1579ba6e487199dacdaf9391",
+          "owner_source": "source/build/src/communityapi.cpp",
+          "original_type": "bool",
+          "consumer_source": "source/build/src/communityapi.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "9bd4601ac1cc3d11c911918a9a91823389394a19da36861180435ac565ae1be4"
     }
   ]
 }
