@@ -65,4 +65,14 @@ with tempfile.TemporaryDirectory(prefix='source-unordered-maps-') as directory:
  run([sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','fake.cpp','--out-dir',root/'fake-out','--require-record-layouts','--header-dependency-closure'])
  fake=json.loads((root/'fake-out/fake.cpp.manifest.json').read_text())
  assert not any(row.get('standard_library_adapters') for row in fake['definitions']),'application class admitted as target standard library'
+ (root/'override.cpp').write_text('#include <unordered_map>\n#include <cstdlib>\nvoid*operator new(__SIZE_TYPE__ n){return std::malloc(n);}\nvoid operator delete(void*p)noexcept{std::free(p);}\nunsigned reject_override(unsigned n){std::unordered_map<unsigned,unsigned>m;m[n]=123;return m[n];}')
+ for mode in ('full','filtered'):
+  args=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','override.cpp','--out-dir',root/('override-'+mode),'--require-record-layouts','--header-dependency-closure']
+  if mode=='filtered':args+=['--filter','reject_override','--exact-filter','--dependency-closure']
+  run(args);doc=json.loads((root/('override-'+mode)/'override.cpp.manifest.json').read_text());row=next(r for r in doc['definitions'] if r['name']=='reject_override')
+  assert row['status']=='blocked' and not row.get('standard_library_adapters'),row
+ (root/'empty-symbols.json').write_text('{}')
+ run([sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','input.cpp','--out-dir',root/'unverified-project','--project-symbols',root/'empty-symbols.json','--require-record-layouts','--header-dependency-closure'])
+ unverified=json.loads((root/'unverified-project/input.cpp.manifest.json').read_text())
+ assert not any(row.get('standard_library_adapters') for row in unverified['definitions']),'project without allocator absence proof admitted'
 print('PASS: 2048 native/full/filtered Node and optional Chromium results: nested maps, opaque pointer round trips, insertion/reference stability, copies, assignment, iterators, erase, size and uint64 narrowing; custom hash remains blocked')

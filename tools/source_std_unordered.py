@@ -44,12 +44,24 @@ def iterator_schema(t):
   if pair and len(pair)==2 and scalar(pair[0].removeprefix('const ')) and (scalar(pair[1]) or map_schema(pair[1])) and all(flag in ('false','0') for flag in a[1:]):
    return {'key':scalar(pair[0].removeprefix('const ')),'value':scalar(pair[1]) or map_schema(pair[1])}
  return None
-def header(path):
+def standard_file(path):
  root=os.environ.get('EDUKE32_SYSROOT')
  if not path or not root and not sys.platform.startswith('linux'):return False
  path=Path(path).resolve();allowed=((Path(root)/'usr/include/c++') if root else Path('/usr/include/c++')).resolve()
- return path.is_relative_to(allowed) and path.name in ('unordered_map.h','hashtable_policy.h','stl_pair.h') and path.is_file()
+ return path.is_relative_to(allowed) and path.is_file()
+def header(path):return bool(path and standard_file(path) and Path(path).name in ('unordered_map.h','hashtable_policy.h','stl_pair.h'))
+def custom_allocation(ast):
+ def visit(node,physical=None):
+  physical=node.get('loc',{}).get('file') or physical
+  name=node.get('name');params=[p for p in node.get('inner',[]) if p.get('kind')=='ParmVarDecl']
+  if (node.get('kind')=='FunctionDecl' and name in ('operator new','operator new[]','operator delete','operator delete[]')
+      and any(c.get('kind')=='CompoundStmt' for c in node.get('inner',[])) and not standard_file(physical)
+      and (len(params)==1 or name.startswith('operator delete') and len(params)==2
+           and spelling(params[1]) in ('std::size_t','size_t','unsigned long','unsigned long long'))):return True
+  return any(visit(c,physical) for c in node.get('inner',[]) if c)
+ return any(visit(tree) for tree in ast)
 def recover(ast):
+ if custom_allocation(ast):return {},{}
  types={};methods={};declarations={}
  def visit(node,physical=None):
   physical=node.get('loc',{}).get('file') or physical

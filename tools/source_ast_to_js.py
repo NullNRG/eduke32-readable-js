@@ -2490,7 +2490,7 @@ class Emit:
 
     def is_lvalue(self,n):
         while kind(n) in WRAPPERS and kids(n): n=kids(n)[0]
-        if kind(n)=='CXXOperatorCallExpr' and n.get(std_unordered.SELECTED,{}).get('name')=='operator[]':return True
+        if getattr(self,'std_unordered_types',{}) and kind(n)=='CXXOperatorCallExpr' and n.get(std_unordered.SELECTED,{}).get('name')=='operator[]':return True
         return (kind(n) in ('DeclRefExpr','MemberExpr','ArraySubscriptExpr') or (kind(n)=='UnaryOperator' and n.get('opcode')=='*')
                 or kind(n) in ('CallExpr','CXXMemberCallExpr') and bool((self.reference_contract(self.call_type(n)) or {}).get('result')))
     def expression_temp(self):
@@ -2503,7 +2503,7 @@ class Emit:
         """Capture an original lvalue once before read/modify/write lowering."""
         while kind(n) in WRAPPERS and kids(n):n=kids(n)[0]
         k=kind(n);a=kids(n)
-        if k=='CXXOperatorCallExpr' and n.get(std_unordered.SELECTED,{}).get('name')=='operator[]' and len(a)==3:
+        if getattr(self,'std_unordered_types',{}) and k=='CXXOperatorCallExpr' and n.get(std_unordered.SELECTED,{}).get('name')=='operator[]' and len(a)==3:
             std_unordered.use(self,n,n[std_unordered.SELECTED])
             return 'cStdUnordered.slot('+self.expr(a[1])+', '+self.expr(a[2])+')'
         if k=='ConditionalOperator' and len(a)==3 and n.get('valueCategory')=='lvalue':
@@ -4793,12 +4793,12 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
         except OSError:continue
     return matches[0] if len(matches)==1 else None
 
-def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None,external_cpp_functions=None):
+def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None,external_cpp_functions=None,std_unordered_allowed=True):
     cpp_names={proof['identity']['source_name'] for proof in (external_cpp_functions or {}).values()}
     if cpp_names:rebind_cpp_functions(ast,index_cpp_functions(ast,cpp_names),cpp_names)
     normalize_specializations(ast)
-    std_unordered_types,std_unordered_methods=std_unordered.recover(ast)
-    std_unordered.rebind(ast,std_unordered.index(ast))
+    std_unordered_types,std_unordered_methods=std_unordered.recover(ast) if standard_heap_runtime and std_unordered_allowed else ({},{})
+    if std_unordered_types:std_unordered.rebind(ast,std_unordered.index(ast))
     instance_member_definitions,instance_method_bindings=recover_out_of_line_instance_members(ast,source_root,source_rel,header_proof)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
     static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
@@ -6153,7 +6153,7 @@ def main():
     c_storage_scope_report={'attempted':False,'proven_file_scope':0,'local_or_ambiguous_roots_rejected':0}
     static_reference_context=[]
     field_selection_index={}
-    cpp_function_selection_index={};external_cpp_functions={};std_unordered_selection_index={}
+    cpp_function_selection_index={};external_cpp_functions={};std_unordered_selection_index={};std_unordered_allocator_blocked=False
     full_enum_values={}
     standard_c_heap_runtime=bool(standard_heap_contract and standard_heap_contract.get('original_c_allocators_absent')) or comp is None
     def allocator_query(name,timeout=45):
@@ -6231,6 +6231,7 @@ def main():
                        standard_c_heap_runtime=standard_c_heap_runtime,
                        private_source_storage=private_source_storage,header_definition_owners=header_definition_owners,existing_source_storage=existing_source_storage,
                        external_cpp_functions=external_cpp_functions,
+                       std_unordered_allowed=not std_unordered_allocator_blocked,
                        header_inline_names=set(opt.header_inline_filter.split(',')) if opt.header_inline_filter is not None else None)
     args=[]
     # Preserve the original compilation *language*, not the filename suffix.
@@ -6293,6 +6294,13 @@ def main():
         allocation_queries={declaration['name'] for tree in ast for node in descendants(tree)
             for declaration in (node.get('operatorNewDecl'),node.get('operatorDeleteDecl'))
             if declaration and declaration.get('kind')=='FunctionDecl'}
+        if comp is None and opt.project_symbols is None and any('std::unordered_map<' in
+                (node.get('type',{}).get('desugaredQualType') or qual(node))
+                for tree in ast for node in descendants(tree)):
+            # A stand-alone filtered map fixture still needs ALL source global
+            # allocation replacement definitions, even though std::allocator's
+            # new-expression is hidden inside the omitted standard headers.
+            allocation_queries.update(('operator new','operator delete'))
         for name in sorted(allocation_queries-set(filter_names)):
             command=[frontend,*language,'-Xclang','-ast-dump=json',
                 '-Xclang','-ast-dump-filter='+name,'-fsyntax-only',*args,opt.source]
@@ -6719,6 +6727,7 @@ def main():
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
                 cpp_function_selection_index.update(index_cpp_functions(complete,{proof['identity']['source_name'] for proof in external_cpp_functions.values()}))
                 normalize_specializations(complete)
+                std_unordered_allocator_blocked=std_unordered.custom_allocation(complete)
                 std_unordered_selection_index.update(std_unordered.index(complete))
                 full_type_closure['anonymous_typedef_trivial_assignment_names']=annotate_typedef_assignment_names(complete)
                 full_type_closure['explicit_member_calls_rebound']=rebind_explicit_operators(ast,complete)
