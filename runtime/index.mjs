@@ -46,7 +46,7 @@ export class NativeRuntime {
   }
   bindSourceMemory() { return bindSourceCHeap(this.heap); }
   start() { this.platform.attach(); }
-  close() { this.sdl.symbols.SDL_Quit(); this.nativeServices?.close(); this.platform.destroy(); this.renderer?.destroy(); }
+  close() { globalThis[Symbol.for('source-first.std-unordered-map/1')]?.releaseHeap(this.heap); this.sdl.symbols.SDL_Quit(); this.nativeServices?.close(); this.platform.destroy(); this.renderer?.destroy(); }
   manifest() { return { backend: this.renderer?.backend || null, nativeServices:this.nativeServices?.backend??null, exports: this.linker.manifest() }; }
 }
 export { createDukeBrowserPaths, createBuildBrowserPlatform, createEngineBrowserPlatform, bindSourceFreeAllocator, bindSourceCHeap, ABIHeap, VirtualFS, BrowserPlatform, createRenderer, createSDLBrowser, createStdlib, SymbolLinker };

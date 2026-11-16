@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from source_control_flow import SourceFlowPlan, ControlFlowUnsupported, recover_loop_terminal_jumps
 from source_scalar_round import recover as recover_scalar_round, RUNTIME as SCALAR_ROUND_RUNTIME
+import source_std_unordered as std_unordered
 from source_runtime_helpers import embedded as embedded_runtime
 from source_record_pointer_identity import identities as record_pointer_identities, pointer_identity
 from source_included_implementations import included_implementation_bytes
@@ -796,6 +797,9 @@ class Emit:
         return any(name=='__builtin_is_constant_evaluated' or (name,typ) in queries
             for name,typ in constant_query_references(node,getattr(self,'all_declarations',{})))
     def lifetime_class(self,typ):
+        proof=std_unordered.lookup(getattr(self,'std_unordered_types',{}),typ,self.type_aliases,normalized_record_name)
+        if proof and proof['kind']=='map' and not re.search(r'[&*]\s*$',typ):
+            return {'destroy_symbol':'__sourceStdDestroy','library_adapter':std_unordered.ABI}
         name=normalized_record_name(typ,self.type_aliases)
         return getattr(self,'lifetime_classes',{}).get(name)
     def scalar_reference(self,typ):
@@ -1088,6 +1092,8 @@ class Emit:
                 'abi':'source-private-terminal-body-pointer-step/1',**{key:value for key,value in terminal.items() if key!='condition'}}]
             return '('+self.expr(terminal['condition'])+' ? ('+expression+') : void 0)'
         k=kind(n); a=kids(n)
+        library_expression=std_unordered.expression(self,n)
+        if library_expression is not None:return library_expression
         if k in ('ImplicitCastExpr','CStyleCastExpr','CXXStaticCastExpr','CXXFunctionalCastExpr') and n.get('castKind')=='FloatingToBoolean':
             if len(a)!=1:raise Unsupported('floating boolean conversion requires original operand')
             # C++ tests floating values against zero. NaN converts to true;
@@ -2484,6 +2490,7 @@ class Emit:
 
     def is_lvalue(self,n):
         while kind(n) in WRAPPERS and kids(n): n=kids(n)[0]
+        if kind(n)=='CXXOperatorCallExpr' and n.get(std_unordered.SELECTED,{}).get('name')=='operator[]':return True
         return (kind(n) in ('DeclRefExpr','MemberExpr','ArraySubscriptExpr') or (kind(n)=='UnaryOperator' and n.get('opcode')=='*')
                 or kind(n) in ('CallExpr','CXXMemberCallExpr') and bool((self.reference_contract(self.call_type(n)) or {}).get('result')))
     def expression_temp(self):
@@ -2496,6 +2503,9 @@ class Emit:
         """Capture an original lvalue once before read/modify/write lowering."""
         while kind(n) in WRAPPERS and kids(n):n=kids(n)[0]
         k=kind(n);a=kids(n)
+        if k=='CXXOperatorCallExpr' and n.get(std_unordered.SELECTED,{}).get('name')=='operator[]' and len(a)==3:
+            std_unordered.use(self,n,n[std_unordered.SELECTED])
+            return 'cStdUnordered.slot('+self.expr(a[1])+', '+self.expr(a[2])+')'
         if k=='ConditionalOperator' and len(a)==3 and n.get('valueCategory')=='lvalue':
             return '('+self.expr(a[0])+' ? '+self.lvalue_reference(a[1])+' : '+self.lvalue_reference(a[2])+')'
         if k=='DeclRefExpr':
@@ -2631,6 +2641,10 @@ class Emit:
                 name=self.goto_plan.alpha_locals[n['id']]
             if not name:raise Unsupported('unnamed local variable')
             self.local_types[name]=t
+            library_type=std_unordered.lookup(getattr(self,'std_unordered_types',{}),t,self.type_aliases,normalized_record_name)
+            if library_type and library_type['kind']=='map' and re.search(r'&\s*$',t):
+                if len(a)!=1 or n.get('storageClass')=='static':raise Unsupported('library container reference needs one original initializer')
+                return pad+'const '+name+' = '+self.expr(a[0])+';'
             closure=next((proof for proof in getattr(self,'local_lambda_plans',{}).values()
                           if proof['variable_id']==n.get('id')),None)
             if closure:
@@ -4579,7 +4593,7 @@ def recover_referenced_header_functions(ast, candidates, source_root, requested_
     return added,odr_origins,{id(n) for n in added if id(n) in template_ids},selected_header_proofs
 
 
-def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None, storage_assignment_nodes=None, local_lambda_proofs=None):
+def reference_names(node, resolver=None, class_dependencies=None, trivial_assignments=None, type_aliases=None, allocation_dependencies=False, static_method_owners=None, storage_constructor_nodes=None, non_odr_static_values=None, storage_assignment_nodes=None, local_lambda_proofs=None, library_service_nodes=None):
     """Find non-local symbol dependencies using Clang DECLARATION IDENTITIES.
 
     Names alone are unsafe: a shadowing local `int globals;` must not suppress
@@ -4615,6 +4629,12 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
         for child in emitted_children(n):collect(child,k)
     collect(node)
     def walk(n):
+        if id(n) in (library_service_nodes or set()):
+            children=emitted_children(n)
+            if kind(n)=='CXXOperatorCallExpr':children=children[1:]
+            elif kind(n)=='CXXMemberCallExpr':children=[*kids(children[0]),*children[1:]]
+            for child in children:walk(child)
+            return
         if allocation_dependencies and kind(n) in ('CXXNewExpr','CXXDeleteExpr'):
             for key in ('operatorNewDecl','operatorDeleteDecl'):
                 declaration=n.get(key)
@@ -4777,6 +4797,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     cpp_names={proof['identity']['source_name'] for proof in (external_cpp_functions or {}).values()}
     if cpp_names:rebind_cpp_functions(ast,index_cpp_functions(ast,cpp_names),cpp_names)
     normalize_specializations(ast)
+    std_unordered_types,std_unordered_methods=std_unordered.recover(ast)
+    std_unordered.rebind(ast,std_unordered.index(ast))
     instance_member_definitions,instance_method_bindings=recover_out_of_line_instance_members(ast,source_root,source_rel,header_proof)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
     static_member_definitions,external_static_members=recover_out_of_line_static_members(ast,source_root,source_rel,header_proof)
@@ -5707,6 +5729,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             source.append((n,None,row));continue
         em=Emit();em.lifetime_classes=lifetime_classes;em.header_record_factories=header_record_factories;em.header_trivial_assignments=header_trivial_assignments;em.allowed_static_prototypes=set(previous_class_prototypes)|header_record_factories;em.trivial_assignment_methods=trivial_assignments;em.implicit_byte_assignable=implicit_byte_assignable;em.enum_values=enum_values;em.record_layouts=record_layouts
         em.all_declarations=all_declarations
+        em.std_unordered_types=std_unordered_types;em.std_unordered_methods=std_unordered_methods
+        em.std_normalize=normalized_record_name;em.std_unsupported=Unsupported
         em.constant_query_functions=constant_query_functions
         em.byte_this_parameter=n.get('_source_this_parameter')
         em.source_class_providers=source_class_providers
@@ -5806,6 +5830,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 raise Unsupported('C++ global class address requires exact Clang layout: '+qual(n))
             code=(em.function(n,symbol=symbol) if kind(n)=='FunctionDecl' else
                   em.constant(n,symbol=symbol) if kind(n)=='VarDecl' else em.record(n,symbol=symbol))
+            if getattr(em,'used_std_unordered',None):row['standard_library_adapters']=list(em.used_std_unordered.values())
             if getattr(em,'used_parameter_bindings',None):row['source_parameter_bindings']=em.used_parameter_bindings
             if getattr(em,'used_comparison_pointer_values',None):row['address_comparison_pointer_temporaries']={'abi':'source-local-pointer-address-values/1','declarations':sorted(em.used_comparison_pointer_values),'memory_bounds_checks_retained':True}
             if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
@@ -5824,7 +5849,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 # the actual generated class, not its memoizing factory.
                 definition=definition.replace(factory_symbol+'.',implementation+'.')
                 code='export function '+factory_symbol+'() {\n  return '+factory_symbol+'.type || ('+factory_symbol+'.type = '+definition+');\n}'
-            if getattr(em,'storage_constructor_nodes',None) or getattr(em,'storage_assignment_nodes',None) or getattr(em,'used_local_lambdas',None):
+            if getattr(em,'storage_constructor_nodes',None) or getattr(em,'storage_assignment_nodes',None) or getattr(em,'used_local_lambdas',None) or getattr(em,'library_service_nodes',None):
                 # Remove only the precise constructor AST nodes already lowered
                 # to verified storage. A same-named variable, function, operator,
                 # static member or another constructor is still a dependency.
@@ -5833,7 +5858,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     static_method_owners=static_method_owners,
                     storage_constructor_nodes=getattr(em,'storage_constructor_nodes',set()),non_odr_static_values=non_odr_static_values,
                     storage_assignment_nodes=getattr(em,'storage_assignment_nodes',set()),
-                    local_lambda_proofs=getattr(em,'used_local_lambdas',[])))
+                    local_lambda_proofs=getattr(em,'used_local_lambdas',[]),library_service_nodes=getattr(em,'library_service_nodes',set())))
                 if getattr(em,'used_local_lambdas',None):row['source_local_lambdas']=em.used_local_lambdas
                 row['storage_constructor_count']=len(getattr(em,'storage_constructor_nodes',set()))
                 row['storage_assignment_count']=len(getattr(em,'storage_assignment_nodes',set()))
@@ -5943,7 +5968,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 # a public global; the linker checks the owner/consumer pair.
                 array=private_scalar_array(n)
                 record=private_byte_record(n) if not array else None
-                share_private=row['linkage']=='internal' and (mutable_scalar_global(n,aliases,enum_types) or array or record)
+                opaque_library=std_unordered.lookup(std_unordered_types,qual(n),aliases,normalized_record_name)
+                share_private=row['linkage']=='internal' and (mutable_scalar_global(n,aliases,enum_types) or array or record or opaque_library and opaque_library['kind']=='map')
                 if share_private:
                     row['private_storage']={'abi':PRIVATE_STORAGE_ABI,'binding':private_storage_binding(source_rel,symbol),
                         'owner_source':source_rel,'original_type':qual(n)}
@@ -6127,7 +6153,7 @@ def main():
     c_storage_scope_report={'attempted':False,'proven_file_scope':0,'local_or_ambiguous_roots_rejected':0}
     static_reference_context=[]
     field_selection_index={}
-    cpp_function_selection_index={};external_cpp_functions={}
+    cpp_function_selection_index={};external_cpp_functions={};std_unordered_selection_index={}
     full_enum_values={}
     standard_c_heap_runtime=bool(standard_heap_contract and standard_heap_contract.get('original_c_allocators_absent')) or comp is None
     def allocator_query(name,timeout=45):
@@ -6197,6 +6223,7 @@ def main():
             full_type_closure['field_references_rebound']=full_type_closure.get('field_references_rebound',0)+count
         if cpp_function_selection_index:
             rebind_cpp_functions(args[0],cpp_function_selection_index,{proof['identity']['source_name'] for proof in external_cpp_functions.values()})
+        if std_unordered_selection_index:std_unordered.rebind(args[0],std_unordered_selection_index)
         if standard_c_heap_runtime:
             complete_c_allocator_declarations(args[0],allocator_query,verified_libc_byte_symbol,
                 c_allocator_query_cache,c_allocator_declarations)
@@ -6691,6 +6718,8 @@ def main():
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
                 cpp_function_selection_index.update(index_cpp_functions(complete,{proof['identity']['source_name'] for proof in external_cpp_functions.values()}))
+                normalize_specializations(complete)
+                std_unordered_selection_index.update(std_unordered.index(complete))
                 full_type_closure['anonymous_typedef_trivial_assignment_names']=annotate_typedef_assignment_names(complete)
                 full_type_closure['explicit_member_calls_rebound']=rebind_explicit_operators(ast,complete)
                 full_type_closure['static_member_references_rebound']=rebind_static_references(ast,complete)
@@ -7367,6 +7396,7 @@ const cStackAlloc = amount => {
     address_helpers=((HERE/'tools/source_address_runtime.mjs').read_text(encoding='utf-8').replace('export { cSourceAddresses as sourceAddressSpace };','')+'\n'
                      if pointer_helpers or aggregate_helpers or c_heap_helpers or 'cSourceAddresses.' in body else '')
     process_helpers=(HERE/'tools/source_process_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cProcess.' in body else ''
+    unordered_helpers=(HERE/'tools/source_unordered_map_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cStdUnordered.' in body else ''
     casts_text=emit_scalar_helpers(body)
     libm_text=''.join(src+'\n' for name,src in LIBM.items() if name+'(' in body)
     if compiler_runtime_revision()!=compiler_revision:
@@ -7375,7 +7405,7 @@ const cStackAlloc = amount => {
                        +'// Original translation unit: '+opt.source+'\n'
                        +'// Status: partial STRICT semantic conversion, not a full engine module.\n'
                        +'// Narrowing helpers preserve C integer widths; no CPU/opcode interpreter.\n'
-                       +import_section+address_helpers+c_heap_helpers+trivial_class_helpers+lifetime_helpers+heap_helpers+stack_helpers+overflow_helpers+pointer_helpers+reference_helpers+atomic_helpers+span_helpers+aggregate_helpers+assignment_helpers+variadic_helpers+memory_helpers+process_helpers+casts_text+libm_text+'\n'
+                       +import_section+address_helpers+c_heap_helpers+trivial_class_helpers+lifetime_helpers+heap_helpers+stack_helpers+overflow_helpers+pointer_helpers+reference_helpers+atomic_helpers+span_helpers+aggregate_helpers+assignment_helpers+variadic_helpers+memory_helpers+process_helpers+unordered_helpers+casts_text+libm_text+'\n'
                        +(SCALAR_ROUND_RUNTIME if 'cSSEFloat32ToInt32(' in body else '')
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}

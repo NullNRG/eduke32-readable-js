@@ -73,6 +73,7 @@ jobs:
             python tests/source_factory/verify_sourcefirst_if_declarations.py
             python tests/source_factory/verify_sourcefirst_backward_tails.py
             python tests/source_factory/verify_sourcefirst_external_overloads.py
+            python tests/source_factory/verify_sourcefirst_unordered_maps.py
           python tests/source_factory/verify_sourcefirst_primary_macro_delta.py
           python tests/source_factory/verify_sourcefirst_browser_profile.py
           python tests/source_factory/verify_sourcefirst_scalar_lvalue_io.py
@@ -93,6 +94,7 @@ jobs:
           python tests/source_factory/verify_sourcefirst_float_pointer_bridge.py
           python tests/source_factory/verify_sourcefirst_literal_array_references.py
       - run: node --test tests/source_factory/runtime.test.mjs tests/source_factory/portability.test.mjs
+      - run: node --test tests/source_factory/unordered_map_service.test.mjs
       - name: Reject accidentally tracked game archives or generated pages
         shell: bash
         run: |
