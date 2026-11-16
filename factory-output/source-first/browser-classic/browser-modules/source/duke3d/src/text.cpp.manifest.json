@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\text.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 815,
-  "emitted": 815,
+  "found": 821,
+  "emitted": 821,
   "blocked": 0,
   "definitions": [
     {
@@ -25564,6 +25564,297 @@
         "handle_memerr"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "G_GetStringTile",
+      "source_name": "G_GetStringTile",
+      "kind": "FunctionDecl",
+      "line": 169,
+      "original_type": "int32_t (TileFontPtr_t, uint32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "tilefontLookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefontLookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_GetStringTileASCII",
+      "source_name": "G_GetStringTileASCII",
+      "kind": "FunctionDecl",
+      "line": 161,
+      "original_type": "int32_t (TileFontPtr_t, int32_t, char, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "G_GetStringTileLegacy",
+        "tilefontGetChr32FromASCII__header_ffa95a526f3a",
+        "tilefontLookup"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "tilefontLookup"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_InitText",
+      "source_name": "G_InitText",
+      "kind": "FunctionDecl",
+      "line": 33,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "BIGALPHANUM",
+        "BIGAPPOS",
+        "BIGCOLIN",
+        "BIGCOMMA",
+        "BIGPERIOD",
+        "BIGQ",
+        "BIGSEMI",
+        "BIGX_",
+        "MINIFONT",
+        "STARTALPHANUM",
+        "g_screentextbuf",
+        "g_screentextbufcount",
+        "minitext_lowercase",
+        "tileLoad",
+        "tilefontGetChr32FromASCII__header_ffa95a526f3a",
+        "tilefontGetPtr",
+        "tilefontMaybeDefineMapping",
+        "xmalloc__header_2bc5f44ee4e0"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "BIGALPHANUM",
+          "binding": "__cxx_global_cell_0fbad066388aec9bc0812b21",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGAPPOS",
+          "binding": "__cxx_global_cell_c0231047fdb2f4bb69286983",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGCOLIN",
+          "binding": "__cxx_global_cell_a2eaa24273a4cc723f41fda6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGCOMMA",
+          "binding": "__cxx_global_cell_daeb2906b96b6fb60576bfc4",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGPERIOD",
+          "binding": "__cxx_global_cell_1d888a04b7c872f2a626ec52",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGQ",
+          "binding": "__cxx_global_cell_a92ea13925d9201baeb6d553",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGSEMI",
+          "binding": "__cxx_global_cell_e01d81abcadb93e7bad50789",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGX_",
+          "binding": "__cxx_global_cell_655cefb8f90b86e6950d295f",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "MINIFONT",
+          "binding": "__cxx_global_cell_6fbe8071f2d3ec6b869cc5ab",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "STARTALPHANUM",
+          "binding": "__cxx_global_cell_422622c8cb49e6e2f50691e9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "g_screentextbuf",
+          "binding": "__cxx_global_cell_350f0357d1f4508cfdc7336c",
+          "abi": "source-global-cell/2",
+          "original_type": "ScreenTextGlyph_t *"
+        },
+        {
+          "name": "g_screentextbufcount",
+          "binding": "__cxx_global_cell_c38589ca7df93168d30113b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "minitext_lowercase",
+          "binding": "__cxx_global_cell_33dc97ec2e0b5d96f72860da",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "BIGALPHANUM",
+        "BIGAPPOS",
+        "BIGCOLIN",
+        "BIGCOMMA",
+        "BIGPERIOD",
+        "BIGQ",
+        "BIGSEMI",
+        "BIGX_",
+        "MINIFONT",
+        "STARTALPHANUM",
+        "g_screentextbuf",
+        "g_screentextbufcount",
+        "minitext_lowercase",
+        "tileLoad",
+        "tilefontGetPtr",
+        "tilefontMaybeDefineMapping"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_ScreenTextFromString",
+      "source_name": "G_ScreenTextFromString",
+      "kind": "FunctionDecl",
+      "line": 177,
+      "original_type": "uint32_t (ScreenTextGlyph_t *const, const char *, const char *const, TileFontPtr_t, int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "G_GetStringTile",
+        "G_GetStringTileASCII",
+        "atoi_safe__header_1ad6bda043f3",
+        "isdigit",
+        "islower",
+        "isupper",
+        "memcpy",
+        "min__template_c237f4424e2bda8a",
+        "tolower",
+        "toupper",
+        "utf8charbytes__header_c7007796beef"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "isdigit",
+        "islower",
+        "isupper",
+        "memcpy",
+        "tolower",
+        "toupper"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_SetScreenTextEmpty",
+      "source_name": "G_SetScreenTextEmpty",
+      "kind": "FunctionDecl",
+      "line": 267,
+      "original_type": "void (vec2_t &, int32_t, int32_t)",
+      "linkage": "external",
+      "source_references": [
+        "G_GetStringTileASCII",
+        "tilefontFind",
+        "tilesiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/text.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tilefontFind",
+        "tilesiz"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "PopulateConstWidth__header_bdcaa0ee3cbc",
+      "source_name": "PopulateConstWidth",
+      "kind": "FunctionDecl",
+      "line": 93,
+      "original_type": "int32_t (TileFontPtr_t, int32_t, int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/duke3d/src/text.h",
+        "source_offset": 4228,
+        "source_line": 93,
+        "header_sha256": "27afa89f39555c4a72e1106678761340f0920ecee9608f1097cdd06f58e4821e"
+      },
+      "physical_source": "source/duke3d/src/text.h",
+      "source_references": [
+        "G_GetStringTileASCII",
+        "tilesiz"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "tilesiz",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/text.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tilesiz"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -27704,6 +27995,404 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "afbccbee44db2f547c4e8317a31221fd7d4d75fabc317c858f81a3aeffbb7a44"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_text_cpp_69b6c3959cbd.mjs",
+      "sha256": "69b6c3959cbd1f1bbca1cbbaf3fac960ff87235d614c036510aee783cc1db38e",
+      "original_source": "source/duke3d/src/text.cpp",
+      "exports": [
+        "G_GetStringTile",
+        "G_GetStringTileASCII",
+        "G_InitText",
+        "G_ScreenTextFromString",
+        "G_SetScreenTextEmpty",
+        "PopulateConstWidth__header_bdcaa0ee3cbc"
+      ],
+      "reexports": [
+        "G_GetStringTile",
+        "G_GetStringTileASCII",
+        "G_InitText",
+        "G_ScreenTextFromString",
+        "G_SetScreenTextEmpty",
+        "PopulateConstWidth__header_bdcaa0ee3cbc"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BIGALPHANUM",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0fbad066388aec9bc0812b21",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGAPPOS",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c0231047fdb2f4bb69286983",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGCOLIN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a2eaa24273a4cc723f41fda6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGCOMMA",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_daeb2906b96b6fb60576bfc4",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGPERIOD",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1d888a04b7c872f2a626ec52",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGQ",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a92ea13925d9201baeb6d553",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGSEMI",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e01d81abcadb93e7bad50789",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BIGX_",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_655cefb8f90b86e6950d295f",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "MINIFONT",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6fbe8071f2d3ec6b869cc5ab",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "OSD_Printf",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "STARTALPHANUM",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_422622c8cb49e6e2f50691e9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "apStrings",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 16384,
+          "element_declaration": "char *[]",
+          "original_type": "char *[16384]",
+          "consumer_source": "source/duke3d/src/text.cpp"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/text.cpp"
+        },
+        {
+          "name": "g_player",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_screentextbuf",
+          "from": "source/duke3d/src/text.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_350f0357d1f4508cfdc7336c",
+          "abi": "source-global-cell/2",
+          "original_type": "ScreenTextGlyph_t *"
+        },
+        {
+          "name": "g_screentextbufcount",
+          "from": "source/duke3d/src/text.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c38589ca7df93168d30113b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hud_glowingquotes",
+          "from": "source/duke3d/src/text.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1215105ec46bccf4d3e1e7f4",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "islower",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isupper",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "minitext_lowercase",
+          "from": "source/duke3d/src/text.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_33dc97ec2e0b5d96f72860da",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "numalphatabs",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_98d4df84d94f4e1b0e9e0c4b",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "pub",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0017dea7770f7ecff7ab3c20",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "pus",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8d39f72b071341a9545e4b0e",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "screenpeek",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_458f422a7bebe88265e9f694",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "sintable",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtol",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tileLoad",
+          "from": "source/build/src/tiles.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefontFind",
+          "from": "source/build/src/screentext.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefontGetPtr",
+          "from": "source/build/src/screentext.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefontLookup",
+          "from": "source/build/src/screentext.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefontMaybeDefineMapping",
+          "from": "source/build/src/screentext.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/text.cpp"
+        },
+        {
+          "name": "tolower",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "toupper",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 1,
+            "accesses": [
+              {
+                "clang_reference_id": "0x239b40010e8",
+                "fields": [
+                  {
+                    "id": "0x239b3ffc008",
+                    "name": "statusbarscale"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_quote",
+          "from": "source/duke3d/src/text.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_26ae9c64544e4b8db288fe37",
+          "owner_source": "source/duke3d/src/text.cpp",
+          "original_type": "char[6][178]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              6,
+              178
+            ]
+          },
+          "consumer_source": "source/duke3d/src/text.cpp"
+        },
+        {
+          "name": "user_quote_time",
+          "from": "source/duke3d/src/text.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "0312afe262c57f6b196f0701445897ab693788d367df1f4e880cb6a68890ab2e"
     }
   ]
 }

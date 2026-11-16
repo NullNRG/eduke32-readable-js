@@ -100,19 +100,20 @@ def recover(ast):
 def sites(ast):
  for tree in ast:
   for owner in walk(tree):
-   if owner.get('kind') not in ('FunctionDecl','CXXMethodDecl'):continue
-   bodies=[n for n in owner.get('inner',[]) if n.get('kind')=='CompoundStmt'];offset=owner.get('loc',{}).get('offset')
+   if owner.get('kind') not in ('FunctionDecl','CXXMethodDecl','VarDecl'):continue
+   bodies=([{'kind':'CompoundStmt','inner':[n for n in owner.get('inner',[]) if n and not n.get('kind','').endswith('Attr') and n.get('kind')!='FullComment']}]
+           if owner.get('kind')=='VarDecl' else [n for n in owner.get('inner',[]) if n.get('kind')=='CompoundStmt']);offset=owner.get('loc',{}).get('offset')
    if len(bodies)!=1 or not isinstance(offset,int) or not owner.get('mangledName'):continue
-   refs=[n for n in walk(bodies[0]) if n.get('kind')=='CXXOperatorCallExpr']
+   refs=[n for n in walk(bodies[0]) if n.get('kind') in ('CXXOperatorCallExpr','CXXMemberCallExpr')]
    if not refs:continue
    digest=hashlib.sha256(json.dumps(body_semantic(bodies[0]),sort_keys=True,separators=(',',':')).encode()).hexdigest()
-   for ordinal,node in enumerate(refs):yield (owner['mangledName'],spelling(owner),offset,digest,ordinal),node
+   for ordinal,node in enumerate(refs):yield (owner['kind'],owner['mangledName'],spelling(owner),offset,digest,ordinal),node
 def index(ast):
  _,methods=recover(ast);proofs={}
  for key,node in sites(ast):
   callee=node.get('inner',[{}])[0]
   while callee.get('kind') in ('ImplicitCastExpr','ParenExpr') and callee.get('inner'):callee=callee['inner'][0]
-  selected=methods.get(callee.get('referencedDecl',{}).get('id'))
+  selected=methods.get(callee.get('referencedMemberDecl',callee.get('referencedDecl',{}).get('id')))
   if selected:proofs.setdefault(key,{})[json.dumps(selected,sort_keys=True)]=selected
  return proofs
 def rebind(ast,proofs):
@@ -173,13 +174,13 @@ def expression(em,node):
     elif len(a)==1 and 'const ' in ctor and '&' in ctor and '&&' not in ctor and argument_type and argument_type['schema']==proof['schema']:
      value='cStdUnordered.copy('+em.expr(a[0])+')'
     else:raise em.std_unsupported('unordered_map construction requires supported original default/copy ABI: '+ctor+' args '+str([spelling(v) for v in a]))
-    return value if em.current_function else 'cStdUnordered.global('+value+')'
+    return value
    if proof['kind']=='iterator' and len(a)==1 and '&' in ctor and (typ(a[0]) and typ(a[0])['schema']==proof['schema'] or iterator_schema(spelling(a[0]))==proof['schema']):
     return 'cStdUnordered.iteratorCopy('+em.expr(a[0])+')'
    raise em.std_unsupported('unordered_map iterator construction requires original copy/move selection')
  if k=='CXXMemberCallExpr' and a and a[0].get('kind')=='MemberExpr':
   member=a[0];receiver=[c for c in member.get('inner',[]) if c]
-  proof=target(member)
+  proof=chosen(node) or target(member)
   if proof and len(receiver)==1:
    mark(proof);name=proof['name'];args=a[1:];owner=em.expr(receiver[0])
    if member.get('isArrow'):owner='cStdUnordered.deref('+owner+')'

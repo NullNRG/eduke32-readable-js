@@ -1,57 +1,29 @@
 {
   "source": "source/duke3d/src/text.cpp",
   "requested": [
+    "G_InitText",
+    "G_GetStringTileASCII",
     "G_ScreenTextFromString"
   ],
   "requested_resolved": {
-    "G_ScreenTextFromString": false
+    "G_InitText": true,
+    "G_GetStringTileASCII": true,
+    "G_ScreenTextFromString": true
   },
-  "requested_compiled": {
-    "G_ScreenTextFromString": false
+  "requested_export_bindings": {
+    "G_InitText": [
+      "G_InitText"
+    ],
+    "G_GetStringTileASCII": [
+      "G_GetStringTileASCII"
+    ],
+    "G_ScreenTextFromString": [
+      "G_ScreenTextFromString"
+    ]
   },
-  "requested_still_unlinked": [
-    "G_ScreenTextFromString"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_text.cpp/reachable-a03342dc327f8f7e/source/duke3d/src/text.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_text.cpp/reachable-3eb3fda0b9364f2b/source/duke3d/src/text.cpp.manifest.json",
   "blocked": [
-    {
-      "name": "G_InitText",
-      "reason": "unlinked identifiers: tilefontGetPtr, tilefontMaybeDefineMapping",
-      "dependencies": [
-        "tilefontGetPtr",
-        "tilefontMaybeDefineMapping"
-      ]
-    },
-    {
-      "name": "G_GetStringTileASCII",
-      "reason": "unlinked identifiers: tilefontLookup",
-      "dependencies": [
-        "tilefontLookup"
-      ]
-    },
-    {
-      "name": "G_GetStringTile",
-      "reason": "unlinked identifiers: tilefontLookup",
-      "dependencies": [
-        "tilefontLookup"
-      ]
-    },
-    {
-      "name": "G_ScreenTextFromString",
-      "reason": "unlinked identifiers: G_GetStringTile, G_GetStringTileASCII",
-      "dependencies": [
-        "G_GetStringTile",
-        "G_GetStringTileASCII"
-      ]
-    },
-    {
-      "name": "G_SetScreenTextEmpty",
-      "reason": "unlinked identifiers: G_GetStringTileASCII, tilefontFind",
-      "dependencies": [
-        "G_GetStringTileASCII",
-        "tilefontFind"
-      ]
-    },
     {
       "name": "G_PrintGameText",
       "reason": "unlinked identifiers: MF_Bluefont",
@@ -121,37 +93,20 @@
     },
     {
       "name": "G_ScreenText__header_add4b8704fd1",
-      "reason": "unlinked identifiers: G_ScreenTextFromString, localeLookup, screentextRender, tilefontFind",
+      "reason": "unlinked identifiers: localeLookup, screentextRender",
       "dependencies": [
-        "G_ScreenTextFromString",
         "localeLookup",
-        "screentextRender",
-        "tilefontFind"
+        "screentextRender"
       ]
     },
     {
       "name": "G_ScreenTextSize__header_53c5607a14d3",
-      "reason": "unlinked identifiers: G_ScreenTextFromString, localeLookup, screentextGetSize, tilefontFind",
+      "reason": "unlinked identifiers: localeLookup",
       "dependencies": [
-        "G_ScreenTextFromString",
-        "localeLookup",
-        "screentextGetSize",
-        "tilefontFind"
-      ]
-    },
-    {
-      "name": "PopulateConstWidth__header_bdcaa0ee3cbc",
-      "reason": "unlinked identifiers: G_GetStringTileASCII",
-      "dependencies": [
-        "G_GetStringTileASCII"
+        "localeLookup"
       ]
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "cb1db49de7f9e86916be23689f890cdefcbf4452dff9f6a72952b04de4596a6d",
-  "provider_index_sha256": "642b4980e71a9a38e9d9f920f95413cde810e64bfdd169df820fd00b1618af70",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 6,
+  "original_gameplay_verified": false
 }

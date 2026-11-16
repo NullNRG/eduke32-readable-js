@@ -25,3 +25,9 @@ export { BGetTime__header_e0d5a90e5073, Blrintf__header_c3691da1eaa2, ClockTicks
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { G_PrintCurrentMusic, G_UpdateAppTitle, G_UpdatePlayerFromMenu } from "./_source_legacy_game_cpp_b1e3774b17a3.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { G_DoThirdPerson } from "./_source_legacy_game_cpp_14f740665e84.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { loaddefinitions_game, parsedefinitions_game, parsedefinitions_game_include } from "./_source_legacy_game_cpp_78d1b5cedfe1.mjs";

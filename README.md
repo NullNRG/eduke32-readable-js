@@ -1,5 +1,9 @@
 # EDuke32 readable JavaScript port
 
+## Original font startup verified — November 16
+
+Original `G_InitText` and the text parser now execute in the JavaScript engine. Native comparisons cover 1,536 font-table entries and 105 parser cases; the frozen local compiler profile passes **65/65**. Read [current status](CURRENT_PORT_STATUS.md) and [standard-library service scope](STANDARD_LIBRARY_ADAPTERS.md). **Original app_main, menus and playable gameplay remain incomplete.**
+
 ## November 16 integration checkpoint
 
 The frozen local compiler CI profile passes **62/62**. Original command-line defaults and lookup-resource loading now execute in Node and Chromium; cross-file overload identity and collision recovery are integrated. Read [current status](CURRENT_PORT_STATUS.md) for the exact collision evidence and remaining startup dependencies. **Original app_main and playable gameplay remain incomplete.** No paid or hosted builds were used.

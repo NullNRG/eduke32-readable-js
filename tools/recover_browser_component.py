@@ -72,7 +72,8 @@ def checkpoint():
  return report
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('source',nargs='?');p.add_argument('names',nargs='?');p.add_argument('--full',action='store_true');p.add_argument('--snapshot',action='store_true');p.add_argument('--refresh-fragment-sha256');p.add_argument('--replace-stateless-owner-sha256');p.add_argument('--whole-unit-refresh',action='store_true',help='Read the whole original unit while replacing only one hash-pinned fragment interface');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('source',nargs='?');p.add_argument('names',nargs='?');p.add_argument('--full',action='store_true');p.add_argument('--snapshot',action='store_true');p.add_argument('--refresh-fragment-sha256');p.add_argument('--replace-stateless-owner-sha256');p.add_argument('--whole-unit-refresh',action='store_true',help='Read the whole original unit while replacing only one hash-pinned fragment interface');p.add_argument('--preserve-fragment-storage',action='store_true');a=p.parse_args()
+ if a.preserve_fragment_storage and not a.refresh_fragment_sha256:p.error('storage preservation requires an exact fragment refresh hash')
  if a.whole_unit_refresh and (not a.refresh_fragment_sha256 or a.full or a.replace_stateless_owner_sha256):
   p.error('--whole-unit-refresh requires exactly --refresh-fragment-sha256')
  if a.snapshot:checkpoint();return
@@ -89,7 +90,7 @@ def main():
   requested=sorted(set(requested)|{row.get('source_name',row['name']) for row in owner['definitions'] if row.get('status')=='source-first'})
  if a.refresh_fragment_sha256:
   owner=json.loads(module.with_suffix('.manifest.json').read_text())
-  matches=[row for row in owner.get('module_fragments',[]) if row['sha256']==a.refresh_fragment_sha256 and set(row['exports'])==set(requested)]
+  matches=[row for row in owner.get('module_fragments',[]) if row['sha256']==a.refresh_fragment_sha256 and (set(row['exports'])==set(requested) or a.preserve_fragment_storage and set(requested)<set(row['exports']))]
   if len(matches)!=1:raise ValueError('Refresh must select every export of one exact original source fragment')
  pending=[name for name in requested if name not in existing or a.refresh_fragment_sha256 or a.replace_stateless_owner_sha256]
  if not pending:print('Already linked original exports: '+a.names,flush=True);return
@@ -173,6 +174,7 @@ def main():
    if a.refresh_fragment_sha256:
     if set(new)!=set(requested):raise ValueError('Refresh did not recover every original fragment export; owner unchanged')
     install+=['--replace-fragment-sha256',a.refresh_fragment_sha256]
+   if a.preserve_fragment_storage:install+=['--preserve-fragment-storage']
    subprocess.run(install,cwd=ROOT,check=True)
   print('Installed source exports:',new,flush=True)
  resolved=active_exports(module) if module.is_file() else set()

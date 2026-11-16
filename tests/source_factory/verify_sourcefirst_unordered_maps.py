@@ -6,6 +6,8 @@ SOURCE=r'''#include <unordered_map>
 #include <cstdint>
 using Small=std::unordered_map<unsigned int,unsigned short>;
 static std::unordered_map<unsigned short,Small> fonts;
+static unsigned initial_size=Small{}.size();
+unsigned checkpoint_size(){return initial_size;}
 struct Box {void*opaque;};
 Box obtain(unsigned short k){auto&m=fonts[k];return Box{&m};}
 void put(Box p,unsigned k,unsigned short v){auto&m=*(Small*)p.opaque;m.emplace(k,v);}
@@ -38,13 +40,13 @@ with tempfile.TemporaryDirectory(prefix='source-unordered-maps-') as directory:
  evaluator='''async({url})=>{const m=await import(url),rows=[];for(let n=0;n<1024;n++)rows.push(String(m.exercise(n)));return rows;}'''
  for mode in ('full','filtered'):
   args=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','input.cpp','--out-dir',root/mode,'--require-record-layouts','--header-dependency-closure']
-  if mode=='filtered':args+=['--filter','exercise,reject_custom_hash','--exact-filter','--dependency-closure']
+  if mode=='filtered':args+=['--filter','exercise,reject_custom_hash,checkpoint_size','--exact-filter','--dependency-closure']
   run(args);module=root/mode/'input.cpp.mjs';doc=json.loads((root/mode/'input.cpp.manifest.json').read_text());rows={r['name']:r for r in doc['definitions']}
   assert rows['exercise']['status']=='source-first',rows['exercise']
   assert rows['reject_custom_hash']['status']=='blocked',rows['reject_custom_hash']
   assert rows['exercise'].get('standard_library_adapters'),rows['exercise']
   assert rows['fonts']['private_storage']['abi']=='source-private-cell/1'
-  (root/'run.mjs').write_text('console.log((await ('+evaluator+')('+json.dumps({'url':module.as_uri()})+')).join("\\n"));')
+  (root/'run.mjs').write_text('console.log((await ('+evaluator+')('+json.dumps({'url':module.as_uri()})+')).join("\\n"));const m=await import('+json.dumps(module.as_uri())+');if(m.checkpoint_size()!==0)throw Error("global temporary size");const s=globalThis[Symbol.for("source-first.std-unordered-map/1")];if(s.globals.get(undefined).length!==1)throw Error("temporary incorrectly registered as global");s.releaseHeap(undefined);')
   actual=run(['node',root/'run.mjs']).splitlines();assert actual==expected,(mode,actual[:4],expected[:4]);modules.append(module)
  if os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'):
   from playwright.sync_api import sync_playwright

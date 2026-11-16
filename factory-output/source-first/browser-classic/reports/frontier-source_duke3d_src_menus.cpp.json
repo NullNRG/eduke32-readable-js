@@ -1,0 +1,2138 @@
+{
+  "source": "source/duke3d/src/menus.cpp",
+  "requested": [
+    "g_MenuGameplayEntries"
+  ],
+  "requested_resolved": {
+    "g_MenuGameplayEntries": true
+  },
+  "requested_export_bindings": {
+    "g_MenuGameplayEntries": [
+      "g_MenuGameplayEntries"
+    ]
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_menus.cpp/reachable-a334168b346ad5bf/source/duke3d/src/menus.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "rotatesprite_ybounds",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "mgametext",
+      "reason": "unlinked identifiers: G_ScreenText__header_36b7f12453ad",
+      "dependencies": [
+        "G_ScreenText__header_36b7f12453ad"
+      ]
+    },
+    {
+      "name": "mgametextcenterat",
+      "reason": "unlinked identifiers: G_ScreenText__header_36b7f12453ad",
+      "dependencies": [
+        "G_ScreenText__header_36b7f12453ad"
+      ]
+    },
+    {
+      "name": "mgametextcenter",
+      "reason": "unlinked identifiers: mgametextcenterat",
+      "dependencies": [
+        "mgametextcenterat"
+      ]
+    },
+    {
+      "name": "shadowminitext",
+      "reason": "unlinked identifiers: G_ScreenTextShadow__header_5d6483fd8744",
+      "dependencies": [
+        "G_ScreenTextShadow__header_5d6483fd8744"
+      ]
+    },
+    {
+      "name": "creditsminitext",
+      "reason": "unlinked identifiers: G_ScreenTextShadow__header_5d6483fd8744",
+      "dependencies": [
+        "G_ScreenTextShadow__header_5d6483fd8744"
+      ]
+    },
+    {
+      "name": "Menu_DrawBackground",
+      "reason": "unlinked identifiers: rotatesprite_fs__header_abaec886a6f2",
+      "dependencies": [
+        "rotatesprite_fs__header_abaec886a6f2"
+      ]
+    },
+    {
+      "name": "Menu_DrawTopBar",
+      "reason": "unlinked identifiers: G_GetLogoFlags__header_90cc3c201591, rotatesprite_fs__header_abaec886a6f2",
+      "dependencies": [
+        "G_GetLogoFlags__header_90cc3c201591",
+        "rotatesprite_fs__header_abaec886a6f2"
+      ]
+    },
+    {
+      "name": "Menu_DrawTopBarCaption",
+      "reason": "unlinked identifiers: captionmenutext, localeLookup",
+      "dependencies": [
+        "captionmenutext",
+        "localeLookup"
+      ]
+    },
+    {
+      "name": "Menu_CursorShade",
+      "reason": "unlinked identifiers: VM_OnEventWithReturn__header_4b91ef4f52fb",
+      "dependencies": [
+        "VM_OnEventWithReturn__header_4b91ef4f52fb"
+      ]
+    },
+    {
+      "name": "Menu_DrawCursorCommon",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "Menu_DrawCursorLeft",
+      "reason": "unlinked identifiers: Menu_DrawCursorCommon",
+      "dependencies": [
+        "Menu_DrawCursorCommon"
+      ]
+    },
+    {
+      "name": "Menu_DrawCursorRight",
+      "reason": "unlinked identifiers: Menu_DrawCursorCommon",
+      "dependencies": [
+        "Menu_DrawCursorCommon"
+      ]
+    },
+    {
+      "name": "Menu_DrawCursorTextTile",
+      "reason": "unlinked identifiers: Menu_DrawCursorCommon",
+      "dependencies": [
+        "Menu_DrawCursorCommon"
+      ]
+    },
+    {
+      "name": "Menu_DrawCursorText",
+      "reason": "unlinked identifiers: Menu_DrawCursorTextTile",
+      "dependencies": [
+        "Menu_DrawCursorTextTile"
+      ]
+    },
+    {
+      "name": "ME_Space2_Redfont",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_Space4_Bluefont",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_Space4_Redfont",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_Space8_Bluefont",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_Space6_Redfont",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_Space8_Redfont",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_MAIN",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_MAIN_INGAME",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_EPISODE_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_EPISODE",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_EPISODE_USERMAP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NEWGAMECUSTOMENTRIES",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NEWGAMECUSTOMSUBENTRIES",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NEWGAMECUSTOML3ENTRIES",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SKILL_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SKILL",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_GAMESETUP_AIM_AUTO",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_GAMESETUP_ALWAYS_RUN",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_GAMESETUP_WEAPSWITCH_PICKUP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_GAMESETUP_DEMOREC",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_ADULTMODE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_GAMESETUP_CHEATS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_GAMESETUP",
+      "reason": "unlinked identifiers: ME_ADULTMODE, ME_GAMESETUP_CHEATS, ME_GAMESETUP_DEMOREC",
+      "dependencies": [
+        "ME_ADULTMODE",
+        "ME_GAMESETUP_CHEATS",
+        "ME_GAMESETUP_DEMOREC"
+      ]
+    },
+    {
+      "name": "ME_VIDEOSETUP_RESOLUTION",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_VIDEOSETUP_DISPLAY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_VIDEOSETUP_FULLSCREEN",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_VIDEOSETUP_BORDERLESS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_VIDEOSETUP_VSYNC",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_VIDEOSETUP_FRAMELIMIT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_VIDEOSETUP_APPLY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_COLORCORR",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_UPSCALING",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_ASPECTRATIO",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_VOXELS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_FOV",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_CROSSHAIR",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_CROSSHAIRSIZE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_SCREENSIZE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_TEXTSIZE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_LEVELSTATS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_SHOWPICKUPMESSAGES",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SCREENSETUP_SBARSIZE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_SCREENSETUP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_VIDEOSETUP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_DISPLAYSETUP_LANGUAGE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_ENTERCHEAT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_CheatCodes",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_OPTIONS",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_CONTROLS",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_CHEATS",
+      "reason": "unlinked identifiers: ME_ENTERCHEAT",
+      "dependencies": [
+        "ME_ENTERCHEAT"
+      ]
+    },
+    {
+      "name": "MEL_VIDEOSETUP",
+      "reason": "unlinked identifiers: ME_Space4_Redfont, ME_VIDEOSETUP_APPLY, ME_VIDEOSETUP_BORDERLESS, ME_VIDEOSETUP_DISPLAY, ME_VIDEOSETUP_FRAMELIMIT, ME_VIDEOSETUP_FULLSCREEN, ME_VIDEOSETUP_RESOLUTION, ME_VIDEOSETUP_VSYNC",
+      "dependencies": [
+        "ME_Space4_Redfont",
+        "ME_VIDEOSETUP_APPLY",
+        "ME_VIDEOSETUP_BORDERLESS",
+        "ME_VIDEOSETUP_DISPLAY",
+        "ME_VIDEOSETUP_FRAMELIMIT",
+        "ME_VIDEOSETUP_FULLSCREEN",
+        "ME_VIDEOSETUP_RESOLUTION",
+        "ME_VIDEOSETUP_VSYNC"
+      ]
+    },
+    {
+      "name": "MEL_DISPLAYSETUP",
+      "reason": "unlinked identifiers: ME_DISPLAYSETUP_ASPECTRATIO, ME_DISPLAYSETUP_COLORCORR, ME_DISPLAYSETUP_FOV, ME_DISPLAYSETUP_LANGUAGE, ME_DISPLAYSETUP_SCREENSETUP, ME_DISPLAYSETUP_UPSCALING, ME_DISPLAYSETUP_VIDEOSETUP, ME_DISPLAYSETUP_VOXELS",
+      "dependencies": [
+        "ME_DISPLAYSETUP_ASPECTRATIO",
+        "ME_DISPLAYSETUP_COLORCORR",
+        "ME_DISPLAYSETUP_FOV",
+        "ME_DISPLAYSETUP_LANGUAGE",
+        "ME_DISPLAYSETUP_SCREENSETUP",
+        "ME_DISPLAYSETUP_UPSCALING",
+        "ME_DISPLAYSETUP_VIDEOSETUP",
+        "ME_DISPLAYSETUP_VOXELS"
+      ]
+    },
+    {
+      "name": "ME_KEYBOARDSETUPFUNCS_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_KEYBOARDSETUPFUNCS",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_KEYBOARDSETUP_KEYS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_KEYBOARDSETUP_RESET",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_KEYBOARDSETUP_RESETCLASSIC",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_KEYBOARDSETUP",
+      "reason": "unlinked identifiers: ME_KEYBOARDSETUP_KEYS, ME_KEYBOARDSETUP_RESET, ME_KEYBOARDSETUP_RESETCLASSIC",
+      "dependencies": [
+        "ME_KEYBOARDSETUP_KEYS",
+        "ME_KEYBOARDSETUP_RESET",
+        "ME_KEYBOARDSETUP_RESETCLASSIC"
+      ]
+    },
+    {
+      "name": "MenuMouseData_t",
+      "reason": "class pointer/reference field requires ownership/alias lowering",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSEJOYSETUPBTNS_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUPBTNS",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_BTNS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_SENSITIVITY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_MOUSEAIMINGTYPE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEO_MOUSESETUP_MOUSEAIMING",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator int32_t *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_MOUSEAIMING",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_INVERT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_HORIZONTALSENSITIVITY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MOUSESETUP_VERTICALSENSITIVITY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_MOUSESETUP",
+      "reason": "unlinked identifiers: ME_MOUSESETUP_BTNS, ME_MOUSESETUP_HORIZONTALSENSITIVITY, ME_MOUSESETUP_INVERT, ME_MOUSESETUP_MOUSEAIMING, ME_MOUSESETUP_MOUSEAIMINGTYPE, ME_MOUSESETUP_SENSITIVITY, ME_MOUSESETUP_VERTICALSENSITIVITY, ME_Space2_Redfont",
+      "dependencies": [
+        "ME_MOUSESETUP_BTNS",
+        "ME_MOUSESETUP_HORIZONTALSENSITIVITY",
+        "ME_MOUSESETUP_INVERT",
+        "ME_MOUSESETUP_MOUSEAIMING",
+        "ME_MOUSESETUP_MOUSEAIMINGTYPE",
+        "ME_MOUSESETUP_SENSITIVITY",
+        "ME_MOUSESETUP_VERTICALSENSITIVITY",
+        "ME_Space2_Redfont"
+      ]
+    },
+    {
+      "name": "ME_JOYSTICK_ENABLE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_HORIZONTALAIMSENSITIVITY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_VERTICALAIMSENSITIVITY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_RUMBLE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_LOOKINVERT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_DEFAULTS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_JOYSTICKSETUP",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_WEIGHTED_AIMING",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_VIEW_CENTERING",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICK_AIM_ASSIST",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_JOYSTICKADV",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKBTNS",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXES_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXES",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEOSN_JOYSTICKAXIS_ANALOG",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr const char *",
+      "dependencies": []
+    },
+    {
+      "name": "MEOS_JOYSTICKAXIS_ANALOG",
+      "reason": "unlinked identifiers: MEOSN_JOYSTICKAXIS_ANALOG",
+      "dependencies": [
+        "MEOSN_JOYSTICKAXIS_ANALOG"
+      ]
+    },
+    {
+      "name": "MEO_JOYSTICKAXIS_ANALOG",
+      "reason": "unlinked identifiers: MEOS_JOYSTICKAXIS_ANALOG",
+      "dependencies": [
+        "MEOS_JOYSTICKAXIS_ANALOG"
+      ]
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_ANALOG",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_SENSITIVITY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_INVERT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_DEAD",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_SATU",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_DIGITALNEGATIVE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_DIGITALPOSITIVE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_JOYSTICKAXIS_TRIGGERFUNCTION",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_JOYSTICKAXIS",
+      "reason": "unlinked identifiers: ME_JOYSTICKAXIS_ANALOG, ME_JOYSTICKAXIS_DEAD, ME_JOYSTICKAXIS_DIGITALNEGATIVE, ME_JOYSTICKAXIS_DIGITALPOSITIVE, ME_JOYSTICKAXIS_INVERT, ME_JOYSTICKAXIS_SATU, ME_JOYSTICKAXIS_SENSITIVITY, ME_JOYSTICKAXIS_TRIGGERFUNCTION, ME_Space8_Redfont",
+      "dependencies": [
+        "ME_JOYSTICKAXIS_ANALOG",
+        "ME_JOYSTICKAXIS_DEAD",
+        "ME_JOYSTICKAXIS_DIGITALNEGATIVE",
+        "ME_JOYSTICKAXIS_DIGITALPOSITIVE",
+        "ME_JOYSTICKAXIS_INVERT",
+        "ME_JOYSTICKAXIS_SATU",
+        "ME_JOYSTICKAXIS_SENSITIVITY",
+        "ME_JOYSTICKAXIS_TRIGGERFUNCTION",
+        "ME_Space8_Redfont"
+      ]
+    },
+    {
+      "name": "MEL_INTERNAL_JOYSTICKAXIS_DIGITAL",
+      "reason": "unlinked identifiers: ME_JOYSTICKAXIS_DIGITALNEGATIVE, ME_JOYSTICKAXIS_DIGITALPOSITIVE",
+      "dependencies": [
+        "ME_JOYSTICKAXIS_DIGITALNEGATIVE",
+        "ME_JOYSTICKAXIS_DIGITALPOSITIVE"
+      ]
+    },
+    {
+      "name": "ME_COLCORR_GAMMA",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_COLCORR_CONTRAST",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_COLCORR_SATURATION",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_COLCORR_RESET",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEO_COLCORR_AMBIENT",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator float *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_COLCORR_AMBIENT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_COLCORR",
+      "reason": "unlinked identifiers: ME_COLCORR_AMBIENT, ME_COLCORR_CONTRAST, ME_COLCORR_GAMMA, ME_COLCORR_RESET, ME_COLCORR_SATURATION, ME_Space8_Redfont",
+      "dependencies": [
+        "ME_COLCORR_AMBIENT",
+        "ME_COLCORR_CONTRAST",
+        "ME_COLCORR_GAMMA",
+        "ME_COLCORR_RESET",
+        "ME_COLCORR_SATURATION",
+        "ME_Space8_Redfont"
+      ]
+    },
+    {
+      "name": "MEL_SCREENSETUP",
+      "reason": "unlinked identifiers: ME_SCREENSETUP_CROSSHAIR, ME_SCREENSETUP_CROSSHAIRSIZE, ME_SCREENSETUP_LEVELSTATS, ME_SCREENSETUP_SBARSIZE, ME_SCREENSETUP_SCREENSIZE, ME_SCREENSETUP_SHOWPICKUPMESSAGES, ME_SCREENSETUP_TEXTSIZE",
+      "dependencies": [
+        "ME_SCREENSETUP_CROSSHAIR",
+        "ME_SCREENSETUP_CROSSHAIRSIZE",
+        "ME_SCREENSETUP_LEVELSTATS",
+        "ME_SCREENSETUP_SBARSIZE",
+        "ME_SCREENSETUP_SCREENSIZE",
+        "ME_SCREENSETUP_SHOWPICKUPMESSAGES",
+        "ME_SCREENSETUP_TEXTSIZE"
+      ]
+    },
+    {
+      "name": "ME_LOAD_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_LOAD_EMPTY",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SAVE_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SAVE_NEW",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "alsadevices",
+      "reason": "constructor requires complete original record: std::vector<alsa_mididevinfo_t>",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_MUSIC",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_VOLUME_MASTER",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_VOLUME_FX",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_VOLUME_MUSIC",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_DUKETALK",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_VOLUME_VOICE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_SAMPLINGRATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_OPL3STEREO",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEO_SOUND_OPL3AMP",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator float *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_OPL3AMP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_NUMVOICES",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_ALSADEVICE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_MIDIDRIVER",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_DEVSETUP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_SF2",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SOUND_RESTART",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_SOUND",
+      "reason": "unlinked identifiers: ME_SOUND, ME_SOUND_DEVSETUP, ME_SOUND_DUKETALK, ME_SOUND_MUSIC, ME_SOUND_VOLUME_FX, ME_SOUND_VOLUME_MASTER, ME_SOUND_VOLUME_MUSIC, ME_SOUND_VOLUME_VOICE",
+      "dependencies": [
+        "ME_SOUND",
+        "ME_SOUND_DEVSETUP",
+        "ME_SOUND_DUKETALK",
+        "ME_SOUND_MUSIC",
+        "ME_SOUND_VOLUME_FX",
+        "ME_SOUND_VOLUME_MASTER",
+        "ME_SOUND_VOLUME_MUSIC",
+        "ME_SOUND_VOLUME_VOICE"
+      ]
+    },
+    {
+      "name": "MEL_SOUND_DEVSETUP",
+      "reason": "unlinked identifiers: ME_SOUND_ALSADEVICE, ME_SOUND_MIDIDRIVER, ME_SOUND_NUMVOICES, ME_SOUND_OPL3AMP, ME_SOUND_OPL3STEREO, ME_SOUND_RESTART, ME_SOUND_SAMPLINGRATE, ME_SOUND_SF2, ME_Space4_Redfont",
+      "dependencies": [
+        "ME_SOUND_ALSADEVICE",
+        "ME_SOUND_MIDIDRIVER",
+        "ME_SOUND_NUMVOICES",
+        "ME_SOUND_OPL3AMP",
+        "ME_SOUND_OPL3STEREO",
+        "ME_SOUND_RESTART",
+        "ME_SOUND_SAMPLINGRATE",
+        "ME_SOUND_SF2",
+        "ME_Space4_Redfont"
+      ]
+    },
+    {
+      "name": "ME_SAVESETUP_AUTOSAVE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SAVESETUP_AUTOSAVEDELETION",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SAVESETUP_MAXAUTOSAVES",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_SAVESETUP_CLEANUP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_SAVESETUP",
+      "reason": "unlinked identifiers: ME_SAVESETUP_AUTOSAVE, ME_SAVESETUP_AUTOSAVEDELETION, ME_SAVESETUP_CLEANUP, ME_SAVESETUP_MAXAUTOSAVES",
+      "dependencies": [
+        "ME_SAVESETUP_AUTOSAVE",
+        "ME_SAVESETUP_AUTOSAVEDELETION",
+        "ME_SAVESETUP_CLEANUP",
+        "ME_SAVESETUP_MAXAUTOSAVES"
+      ]
+    },
+    {
+      "name": "MEL_NETWORK",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator MenuEntry_t *",
+      "dependencies": []
+    },
+    {
+      "name": "ME_PLAYER_NAME",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_PLAYER_COLOR",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_PLAYER_TEAM",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_PLAYER_MACROS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_PLAYER",
+      "reason": "unlinked identifiers: ME_PLAYER_COLOR, ME_PLAYER_MACROS, ME_PLAYER_NAME, ME_PLAYER_TEAM, ME_Space4_Bluefont, ME_Space8_Bluefont",
+      "dependencies": [
+        "ME_PLAYER_COLOR",
+        "ME_PLAYER_MACROS",
+        "ME_PLAYER_NAME",
+        "ME_PLAYER_TEAM",
+        "ME_Space4_Bluefont",
+        "ME_Space8_Bluefont"
+      ]
+    },
+    {
+      "name": "ME_MACROS_TEMPLATE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_MACROS",
+      "reason": "global aggregate methods require original static construction order: MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETHOST_OPTIONS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETHOST_LAUNCH",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_NETHOST",
+      "reason": "unlinked identifiers: ME_NETHOST_LAUNCH, ME_NETHOST_OPTIONS",
+      "dependencies": [
+        "ME_NETHOST_LAUNCH",
+        "ME_NETHOST_OPTIONS"
+      ]
+    },
+    {
+      "name": "ME_NETOPTIONS_GAMETYPE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_EPISODE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_LEVEL",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_USERMAP",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_MONSTERS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_MARKERS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_MAPEXITS",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_FRFIRE",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETOPTIONS_ACCEPT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_NETOPTIONS",
+      "reason": "unlinked identifiers: ME_NETOPTIONS_ACCEPT, ME_NETOPTIONS_EPISODE, ME_NETOPTIONS_GAMETYPE, ME_NETOPTIONS_LEVEL, ME_NETOPTIONS_MAPEXITS, ME_NETOPTIONS_MARKERS, ME_NETOPTIONS_MONSTERS",
+      "dependencies": [
+        "ME_NETOPTIONS_ACCEPT",
+        "ME_NETOPTIONS_EPISODE",
+        "ME_NETOPTIONS_GAMETYPE",
+        "ME_NETOPTIONS_LEVEL",
+        "ME_NETOPTIONS_MAPEXITS",
+        "ME_NETOPTIONS_MARKERS",
+        "ME_NETOPTIONS_MONSTERS"
+      ]
+    },
+    {
+      "name": "ME_NETJOIN_SERVER",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETJOIN_PORT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "ME_NETJOIN_CONNECT",
+      "reason": "global aggregate methods require original static construction order: struct MenuEntry_t",
+      "dependencies": []
+    },
+    {
+      "name": "MEL_NETJOIN",
+      "reason": "unlinked identifiers: ME_NETJOIN_CONNECT, ME_NETJOIN_PORT, ME_NETJOIN_SERVER",
+      "dependencies": [
+        "ME_NETJOIN_CONNECT",
+        "ME_NETJOIN_PORT",
+        "ME_NETJOIN_SERVER"
+      ]
+    },
+    {
+      "name": "M_MAIN",
+      "reason": "unlinked identifiers: MEL_MAIN",
+      "dependencies": [
+        "MEL_MAIN"
+      ]
+    },
+    {
+      "name": "M_MAIN_INGAME",
+      "reason": "unlinked identifiers: MEL_MAIN_INGAME",
+      "dependencies": [
+        "MEL_MAIN_INGAME"
+      ]
+    },
+    {
+      "name": "M_GAMESETUP",
+      "reason": "unlinked identifiers: MEL_GAMESETUP",
+      "dependencies": [
+        "MEL_GAMESETUP"
+      ]
+    },
+    {
+      "name": "M_OPTIONS",
+      "reason": "unlinked identifiers: MEL_OPTIONS",
+      "dependencies": [
+        "MEL_OPTIONS"
+      ]
+    },
+    {
+      "name": "M_VIDEOSETUP",
+      "reason": "unlinked identifiers: MEL_VIDEOSETUP",
+      "dependencies": [
+        "MEL_VIDEOSETUP"
+      ]
+    },
+    {
+      "name": "M_KEYBOARDSETUP",
+      "reason": "unlinked identifiers: MEL_KEYBOARDSETUP",
+      "dependencies": [
+        "MEL_KEYBOARDSETUP"
+      ]
+    },
+    {
+      "name": "M_CONTROLS",
+      "reason": "unlinked identifiers: MEL_CONTROLS",
+      "dependencies": [
+        "MEL_CONTROLS"
+      ]
+    },
+    {
+      "name": "M_CHEATS",
+      "reason": "unlinked identifiers: MEL_CHEATS",
+      "dependencies": [
+        "MEL_CHEATS"
+      ]
+    },
+    {
+      "name": "M_MOUSESETUP",
+      "reason": "unlinked identifiers: MEL_MOUSESETUP",
+      "dependencies": [
+        "MEL_MOUSESETUP"
+      ]
+    },
+    {
+      "name": "M_JOYSTICKSETUP",
+      "reason": "unlinked identifiers: MEL_JOYSTICKSETUP",
+      "dependencies": [
+        "MEL_JOYSTICKSETUP"
+      ]
+    },
+    {
+      "name": "M_JOYSTICKADV",
+      "reason": "unlinked identifiers: MEL_JOYSTICKADV",
+      "dependencies": [
+        "MEL_JOYSTICKADV"
+      ]
+    },
+    {
+      "name": "M_JOYSTICKAXIS",
+      "reason": "unlinked identifiers: MEL_JOYSTICKAXIS",
+      "dependencies": [
+        "MEL_JOYSTICKAXIS"
+      ]
+    },
+    {
+      "name": "M_COLCORR",
+      "reason": "unlinked identifiers: MEL_COLCORR",
+      "dependencies": [
+        "MEL_COLCORR"
+      ]
+    },
+    {
+      "name": "M_SCREENSETUP",
+      "reason": "unlinked identifiers: MEL_SCREENSETUP",
+      "dependencies": [
+        "MEL_SCREENSETUP"
+      ]
+    },
+    {
+      "name": "M_DISPLAYSETUP",
+      "reason": "unlinked identifiers: MEL_DISPLAYSETUP",
+      "dependencies": [
+        "MEL_DISPLAYSETUP"
+      ]
+    },
+    {
+      "name": "M_LOAD",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr MenuEntry_t **",
+      "dependencies": []
+    },
+    {
+      "name": "M_SAVE",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr MenuEntry_t **",
+      "dependencies": []
+    },
+    {
+      "name": "M_SOUND",
+      "reason": "unlinked identifiers: MEL_SOUND",
+      "dependencies": [
+        "MEL_SOUND"
+      ]
+    },
+    {
+      "name": "M_SOUND_DEVSETUP",
+      "reason": "unlinked identifiers: MEL_SOUND_DEVSETUP",
+      "dependencies": [
+        "MEL_SOUND_DEVSETUP"
+      ]
+    },
+    {
+      "name": "M_SAVESETUP",
+      "reason": "unlinked identifiers: MEL_SAVESETUP",
+      "dependencies": [
+        "MEL_SAVESETUP"
+      ]
+    },
+    {
+      "name": "M_NETWORK",
+      "reason": "unlinked identifiers: MEL_NETWORK",
+      "dependencies": [
+        "MEL_NETWORK"
+      ]
+    },
+    {
+      "name": "M_PLAYER",
+      "reason": "unlinked identifiers: MEL_PLAYER",
+      "dependencies": [
+        "MEL_PLAYER"
+      ]
+    },
+    {
+      "name": "M_NETHOST",
+      "reason": "unlinked identifiers: MEL_NETHOST",
+      "dependencies": [
+        "MEL_NETHOST"
+      ]
+    },
+    {
+      "name": "M_NETOPTIONS",
+      "reason": "unlinked identifiers: MEL_NETOPTIONS",
+      "dependencies": [
+        "MEL_NETOPTIONS"
+      ]
+    },
+    {
+      "name": "M_NETJOIN",
+      "reason": "unlinked identifiers: MEL_NETJOIN",
+      "dependencies": [
+        "MEL_NETJOIN"
+      ]
+    },
+    {
+      "name": "Menus",
+      "reason": "unlinked identifiers: M_CHEATS, M_COLCORR, M_CONTROLS, M_DISPLAYSETUP, M_GAMESETUP, M_JOYSTICKADV, M_JOYSTICKAXIS, M_JOYSTICKSETUP, M_KEYBOARDSETUP, M_LOAD, M_MAIN, M_MAIN_INGAME",
+      "dependencies": [
+        "M_CHEATS",
+        "M_COLCORR",
+        "M_CONTROLS",
+        "M_DISPLAYSETUP",
+        "M_GAMESETUP",
+        "M_JOYSTICKADV",
+        "M_JOYSTICKAXIS",
+        "M_JOYSTICKSETUP",
+        "M_KEYBOARDSETUP",
+        "M_LOAD",
+        "M_MAIN",
+        "M_MAIN_INGAME",
+        "M_MOUSESETUP",
+        "M_NETHOST",
+        "M_NETJOIN",
+        "M_NETOPTIONS",
+        "M_NETWORK",
+        "M_OPTIONS",
+        "M_PLAYER",
+        "M_SAVE",
+        "M_SAVESETUP",
+        "M_SCREENSETUP",
+        "M_SOUND",
+        "M_SOUND_DEVSETUP",
+        "M_VIDEOSETUP"
+      ]
+    },
+    {
+      "name": "numMenus",
+      "reason": "unlinked identifiers: Menus",
+      "dependencies": [
+        "Menus"
+      ]
+    },
+    {
+      "name": "m_currentMenu",
+      "reason": "unlinked identifiers: Menus",
+      "dependencies": [
+        "Menus"
+      ]
+    },
+    {
+      "name": "m_previousMenu",
+      "reason": "unlinked identifiers: Menus",
+      "dependencies": [
+        "Menus"
+      ]
+    },
+    {
+      "name": "Menu_AdjustForCurrentEntryAssignment",
+      "reason": "unlinked identifiers: Menu_EntryFocus",
+      "dependencies": [
+        "Menu_EntryFocus"
+      ]
+    },
+    {
+      "name": "Menu_AdjustForCurrentEntryAssignmentBlind",
+      "reason": "unlinked identifiers: M_RunMenu_Menu",
+      "dependencies": [
+        "M_RunMenu_Menu"
+      ]
+    },
+    {
+      "name": "Menu_PopulateNewGameCustom",
+      "reason": "C++ range reference escapes through call/constructor",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_PopulateNewGameCustomSub",
+      "reason": "unlinked identifiers: ME_NEWGAMECUSTOMSUBENTRIES",
+      "dependencies": [
+        "ME_NEWGAMECUSTOMSUBENTRIES"
+      ]
+    },
+    {
+      "name": "Menu_PopulateNewGameCustomL3",
+      "reason": "unlinked identifiers: ME_NEWGAMECUSTOML3ENTRIES",
+      "dependencies": [
+        "ME_NEWGAMECUSTOML3ENTRIES"
+      ]
+    },
+    {
+      "name": "Menu_PopulateJoystick",
+      "reason": "unlinked identifiers: ME_JOYSTICKAXES, ME_JOYSTICKAXES_TEMPLATE, ME_JOYSTICKBTNS, ME_MOUSEJOYSETUPBTNS_TEMPLATE, MenuEntry_t",
+      "dependencies": [
+        "ME_JOYSTICKAXES",
+        "ME_JOYSTICKAXES_TEMPLATE",
+        "ME_JOYSTICKBTNS",
+        "ME_MOUSEJOYSETUPBTNS_TEMPLATE",
+        "MenuEntry_t"
+      ]
+    },
+    {
+      "name": "Menu_Init",
+      "reason": "C++ range reference escapes through call/constructor",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_PopulateVideoSetup",
+      "reason": "unlinked identifiers: ME_VIDEOSETUP_APPLY, ME_VIDEOSETUP_BORDERLESS, ME_VIDEOSETUP_FULLSCREEN",
+      "dependencies": [
+        "ME_VIDEOSETUP_APPLY",
+        "ME_VIDEOSETUP_BORDERLESS",
+        "ME_VIDEOSETUP_FULLSCREEN"
+      ]
+    },
+    {
+      "name": "Menu_PopulateLanguages",
+      "reason": "unlinked identifiers: ME_DISPLAYSETUP_LANGUAGE, localeGetCurrent, localeGetKeys, localeSetCurrent",
+      "dependencies": [
+        "ME_DISPLAYSETUP_LANGUAGE",
+        "localeGetCurrent",
+        "localeGetKeys",
+        "localeSetCurrent"
+      ]
+    },
+    {
+      "name": "Menu_Pre",
+      "reason": "unlinked identifiers: ALSA_ClientID, ALSA_PortID, AL_Stereo, CheatFunctionIDs, CheatStrings, MEL_NETOPTIONS, MEO_MAIN_NEWGAME, MEO_MAIN_NEWGAME_INGAME, ME_COLCORR_CONTRAST, ME_COLCORR_SATURATION, ME_CheatCodes, ME_DISPLAYSETUP_VOXELS",
+      "dependencies": [
+        "ALSA_ClientID",
+        "ALSA_PortID",
+        "AL_Stereo",
+        "CheatFunctionIDs",
+        "CheatStrings",
+        "MEL_NETOPTIONS",
+        "MEO_MAIN_NEWGAME",
+        "MEO_MAIN_NEWGAME_INGAME",
+        "ME_COLCORR_CONTRAST",
+        "ME_COLCORR_SATURATION",
+        "ME_CheatCodes",
+        "ME_DISPLAYSETUP_VOXELS",
+        "ME_ENTERCHEAT",
+        "ME_GAMESETUP_DEMOREC",
+        "ME_JOYSTICKAXIS_ANALOG",
+        "ME_JOYSTICKAXIS_DIGITALNEGATIVE",
+        "ME_JOYSTICKAXIS_DIGITALPOSITIVE",
+        "ME_JOYSTICKAXIS_INVERT",
+        "ME_JOYSTICKAXIS_SATU",
+        "ME_JOYSTICKAXIS_TRIGGERFUNCTION",
+        "ME_JOYSTICK_ADV",
+        "ME_JOYSTICK_AIM_ASSIST",
+        "ME_JOYSTICK_DEFAULTS",
+        "ME_JOYSTICK_EDITAXES",
+        "ME_JOYSTICK_EDITBUTTONS",
+        "ME_JOYSTICK_HORIZONTALAIMSENSITIVITY",
+        "ME_JOYSTICK_LOOKINVERT",
+        "ME_JOYSTICK_RUMBLE",
+        "ME_JOYSTICK_VERTICALAIMSENSITIVITY",
+        "ME_MAIN_NEWGAME",
+        "ME_MAIN_NEWGAME_INGAME",
+        "ME_MAIN_QUITTOTITLE",
+        "ME_MAIN_SAVEGAME",
+        "ME_MOUSESETUP_MOUSEAIMING",
+        "ME_NETOPTIONS_FRFIRE",
+        "ME_NETOPTIONS_LEVEL",
+        "ME_NETOPTIONS_MAPEXITS",
+        "ME_NETOPTIONS_MARKERS",
+        "ME_NETOPTIONS_USERMAP",
+        "ME_OPTIONS_PLAYERSETUP",
+        "ME_SAVESETUP_MAXAUTOSAVES",
+        "ME_SCREENSETUP_SCREENSIZE",
+        "ME_SOUND_ALSADEVICE",
+        "ME_SOUND_DUKETALK",
+        "ME_SOUND_MIDIDRIVER",
+        "ME_SOUND_NUMVOICES",
+        "ME_SOUND_OPL3AMP",
+        "ME_SOUND_OPL3STEREO",
+        "ME_SOUND_RESTART",
+        "ME_SOUND_SAMPLINGRATE",
+        "ME_SOUND_SF2",
+        "ME_SOUND_VOLUME_FX",
+        "ME_SOUND_VOLUME_MASTER",
+        "ME_SOUND_VOLUME_MUSIC",
+        "ME_SOUND_VOLUME_VOICE",
+        "Menu_PopulateLanguages",
+        "Menu_PopulateVideoSetup",
+        "SF2_BankFile",
+        "__cxx_record_vector_e884d75a5ed5be1a",
+        "alsadevices",
+        "cl_cheatmask"
+      ]
+    },
+    {
+      "name": "Menu_PreDrawBackground",
+      "reason": "unlinked identifiers: g_scriptVersion",
+      "dependencies": [
+        "g_scriptVersion"
+      ]
+    },
+    {
+      "name": "Menu_DrawVerifyPrompt",
+      "reason": "unlinked identifiers: mgametextcenter",
+      "dependencies": [
+        "mgametextcenter"
+      ]
+    },
+    {
+      "name": "msaveloadtext",
+      "reason": "unlinked identifiers: localeLookup, minitext_",
+      "dependencies": [
+        "localeLookup",
+        "minitext_"
+      ]
+    },
+    {
+      "name": "Menu_PreDraw",
+      "reason": "unlinked identifiers: G_DrawFrags, ME_NETOPTIONS_MONSTERS, ME_PLAYER_TEAM, M_LOAD, M_SAVE, communityApiGetPlatformName, communityapiEnabled, g_menusaves, g_nummenusaves, g_quickload, g_scriptFileName, g_scriptVersion",
+      "dependencies": [
+        "G_DrawFrags",
+        "ME_NETOPTIONS_MONSTERS",
+        "ME_PLAYER_TEAM",
+        "M_LOAD",
+        "M_SAVE",
+        "communityApiGetPlatformName",
+        "communityapiEnabled",
+        "g_menusaves",
+        "g_nummenusaves",
+        "g_quickload",
+        "g_scriptFileName",
+        "g_scriptVersion",
+        "menutext_",
+        "minitext_",
+        "msaveloadtext"
+      ]
+    },
+    {
+      "name": "Menu_LoadReadHeaders",
+      "reason": "unlinked identifiers: g_menusaves, g_nummenusaves",
+      "dependencies": [
+        "g_menusaves",
+        "g_nummenusaves"
+      ]
+    },
+    {
+      "name": "Menu_SaveReadHeaders",
+      "reason": "unlinked identifiers: g_menusaves, g_nummenusaves",
+      "dependencies": [
+        "g_menusaves",
+        "g_nummenusaves"
+      ]
+    },
+    {
+      "name": "Menu_PreInput",
+      "reason": "unlinked identifiers: M_LOAD, M_SAVE, Menu_Change, S_PlaySound, g_nummenusaves",
+      "dependencies": [
+        "M_LOAD",
+        "M_SAVE",
+        "Menu_Change",
+        "S_PlaySound",
+        "g_nummenusaves"
+      ]
+    },
+    {
+      "name": "Menu_PreOptionListDraw",
+      "reason": "unlinked identifiers: M_JOYSTICKAXIS",
+      "dependencies": [
+        "M_JOYSTICKAXIS"
+      ]
+    },
+    {
+      "name": "Menu_PreCustom2ColScreen",
+      "reason": "unlinked identifiers: Menu_Change, S_PlaySound",
+      "dependencies": [
+        "Menu_Change",
+        "S_PlaySound"
+      ]
+    },
+    {
+      "name": "Menu_PreCustom2ColScreenDraw",
+      "reason": "unlinked identifiers: mgametextcenter",
+      "dependencies": [
+        "mgametextcenter"
+      ]
+    },
+    {
+      "name": "Menu_EntryFocus",
+      "reason": "unlinked identifiers: G_LoadSaveHeaderNew, M_LOAD, M_SAVE, g_menusaves, g_nummenusaves",
+      "dependencies": [
+        "G_LoadSaveHeaderNew",
+        "M_LOAD",
+        "M_SAVE",
+        "g_menusaves",
+        "g_nummenusaves"
+      ]
+    },
+    {
+      "name": "Menu_StartGameWithoutSkill",
+      "reason": "unlinked identifiers: S_PlaySound",
+      "dependencies": [
+        "S_PlaySound"
+      ]
+    },
+    {
+      "name": "Menu_DoCheat",
+      "reason": "unlinked identifiers: osdcmd_cheatsinfo_stat",
+      "dependencies": [
+        "osdcmd_cheatsinfo_stat"
+      ]
+    },
+    {
+      "name": "Menu_Cheat_Warp",
+      "reason": "unlinked identifiers: osdcmd_cheatsinfo_stat",
+      "dependencies": [
+        "osdcmd_cheatsinfo_stat"
+      ]
+    },
+    {
+      "name": "Menu_Cheat_Skill",
+      "reason": "unlinked identifiers: osdcmd_cheatsinfo_stat",
+      "dependencies": [
+        "osdcmd_cheatsinfo_stat"
+      ]
+    },
+    {
+      "name": "Menu_RefreshSoundProperties",
+      "reason": "C++ temporary cleanup destructor requires original source provider: const std::vector<alsa_mididevinfo_t>",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_EntryLinkActivate",
+      "reason": "unlinked identifiers: ALSA_ClientID, ALSA_PortID, AL_Stereo, CheatFunctionIDs, G_CountOldSaves, G_GameExit, G_UpdateScreenArea, MEO_JOYSTICKAXIS_ANALOG, ME_EPISODE_USERMAP, ME_NETHOST_LAUNCH, ME_SAVESETUP_CLEANUP, ME_SOUND_RESTART",
+      "dependencies": [
+        "ALSA_ClientID",
+        "ALSA_PortID",
+        "AL_Stereo",
+        "CheatFunctionIDs",
+        "G_CountOldSaves",
+        "G_GameExit",
+        "G_UpdateScreenArea",
+        "MEO_JOYSTICKAXIS_ANALOG",
+        "ME_EPISODE_USERMAP",
+        "ME_NETHOST_LAUNCH",
+        "ME_SAVESETUP_CLEANUP",
+        "ME_SOUND_RESTART",
+        "ME_VIDEOSETUP_APPLY",
+        "MUSIC_GetSongPosition",
+        "MUSIC_SetSongPosition",
+        "MV_GetPosition",
+        "MV_SetPosition",
+        "M_CHEATS",
+        "M_JOYSTICKAXIS",
+        "Menu_Change",
+        "Menu_DoCheat",
+        "Menu_RefreshSoundProperties",
+        "Menu_StartGameWithoutSkill",
+        "SF2_BankFile",
+        "S_ClearSoundLocks",
+        "S_MusicShutdown",
+        "S_MusicStartup",
+        "S_PlaySound",
+        "S_RestartMusic",
+        "S_SoundShutdown",
+        "S_SoundStartup",
+        "__cxx_record_vector_e884d75a5ed5be1a",
+        "alsadevices",
+        "onvideomodechange"
+      ]
+    },
+    {
+      "name": "Menu_EntryOptionModify",
+      "reason": "unlinked identifiers: G_CloseDemoWrite, G_SetViewportShrink, MEL_INTERNAL_JOYSTICKAXIS_DIGITAL, ME_ADULTMODE, ME_GAMESETUP_DEMOREC, ME_GAMESETUP_WEAPSWITCH_PICKUP, ME_JOYSTICKAXIS_ANALOG, ME_JOYSTICKAXIS_INVERT, ME_JOYSTICK_ENABLE, ME_JOYSTICK_LOOKINVERT, ME_NETOPTIONS_EPISODE, ME_NETOPTIONS_MONSTERS",
+      "dependencies": [
+        "G_CloseDemoWrite",
+        "G_SetViewportShrink",
+        "MEL_INTERNAL_JOYSTICKAXIS_DIGITAL",
+        "ME_ADULTMODE",
+        "ME_GAMESETUP_DEMOREC",
+        "ME_GAMESETUP_WEAPSWITCH_PICKUP",
+        "ME_JOYSTICKAXIS_ANALOG",
+        "ME_JOYSTICKAXIS_INVERT",
+        "ME_JOYSTICK_ENABLE",
+        "ME_JOYSTICK_LOOKINVERT",
+        "ME_NETOPTIONS_EPISODE",
+        "ME_NETOPTIONS_MONSTERS",
+        "ME_SCREENSETUP_SCREENSIZE",
+        "ME_SOUND",
+        "ME_SOUND_DUKETALK",
+        "ME_SOUND_MUSIC",
+        "Menu_Change",
+        "S_ClearSoundLocks",
+        "S_PauseMusic",
+        "S_RestartMusic"
+      ]
+    },
+    {
+      "name": "Menu_EntryOptionDidModify",
+      "reason": "unlinked identifiers: ME_DISPLAYSETUP_UPSCALING, ME_GAMESETUP_AIM_AUTO, ME_GAMESETUP_WEAPSWITCH_PICKUP, ME_PLAYER_COLOR, ME_PLAYER_NAME, ME_PLAYER_TEAM",
+      "dependencies": [
+        "ME_DISPLAYSETUP_UPSCALING",
+        "ME_GAMESETUP_AIM_AUTO",
+        "ME_GAMESETUP_WEAPSWITCH_PICKUP",
+        "ME_PLAYER_COLOR",
+        "ME_PLAYER_NAME",
+        "ME_PLAYER_TEAM"
+      ]
+    },
+    {
+      "name": "Menu_EntryRangeInt32Modify",
+      "reason": "unlinked identifiers: G_SetViewportShrink, ME_JOYSTICKAXIS_DEAD, ME_JOYSTICKAXIS_SATU, ME_SCREENSETUP_SBARSIZE, ME_SCREENSETUP_SCREENSIZE, ME_SOUND_VOLUME_MASTER, ME_SOUND_VOLUME_MUSIC, S_MusicVolume",
+      "dependencies": [
+        "G_SetViewportShrink",
+        "ME_JOYSTICKAXIS_DEAD",
+        "ME_JOYSTICKAXIS_SATU",
+        "ME_SCREENSETUP_SBARSIZE",
+        "ME_SCREENSETUP_SCREENSIZE",
+        "ME_SOUND_VOLUME_MASTER",
+        "ME_SOUND_VOLUME_MUSIC",
+        "S_MusicVolume"
+      ]
+    },
+    {
+      "name": "Menu_EntryRangeFloatModify",
+      "reason": "unlinked identifiers: ME_COLCORR_AMBIENT, ME_JOYSTICKAXIS_SENSITIVITY, ME_JOYSTICK_HORIZONTALAIMSENSITIVITY, ME_JOYSTICK_VERTICALAIMSENSITIVITY, r_ambientlightrecip",
+      "dependencies": [
+        "ME_COLCORR_AMBIENT",
+        "ME_JOYSTICKAXIS_SENSITIVITY",
+        "ME_JOYSTICK_HORIZONTALAIMSENSITIVITY",
+        "ME_JOYSTICK_VERTICALAIMSENSITIVITY",
+        "r_ambientlightrecip"
+      ]
+    },
+    {
+      "name": "Menu_EntryRangeFloatDidModify",
+      "reason": "unlinked identifiers: ME_COLCORR_CONTRAST, ME_COLCORR_GAMMA, ME_COLCORR_SATURATION",
+      "dependencies": [
+        "ME_COLCORR_CONTRAST",
+        "ME_COLCORR_GAMMA",
+        "ME_COLCORR_SATURATION"
+      ]
+    },
+    {
+      "name": "Menu_EntryStringActivate",
+      "reason": "unlinked identifiers: ME_SAVE_NEW, M_SAVE, Menu_Change, XXH3_64bits_withSeed, g_menusaves",
+      "dependencies": [
+        "ME_SAVE_NEW",
+        "M_SAVE",
+        "Menu_Change",
+        "XXH3_64bits_withSeed",
+        "g_menusaves"
+      ]
+    },
+    {
+      "name": "Menu_EntryStringSubmit",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('savebrief_t', 'operator=', 'savebrief_t &(savebrief_t &&) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_EntryStringCancel",
+      "reason": "unlinked identifiers: ME_SAVE_NEW",
+      "dependencies": [
+        "ME_SAVE_NEW"
+      ]
+    },
+    {
+      "name": "Menu_EntryOptionSource",
+      "reason": "unlinked identifiers: ME_GAMESETUP_WEAPSWITCH_PICKUP, ME_NETOPTIONS_MONSTERS, ME_SOUND_DUKETALK",
+      "dependencies": [
+        "ME_GAMESETUP_WEAPSWITCH_PICKUP",
+        "ME_NETOPTIONS_MONSTERS",
+        "ME_SOUND_DUKETALK"
+      ]
+    },
+    {
+      "name": "Menu_Verify",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('savebrief_t', 'operator=', 'savebrief_t &(const savebrief_t &) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_TextFormSubmit",
+      "reason": "unlinked identifiers: CheatFunctionFlags, CheatStrings, Menu_Change, Menu_Cheat_Skill, Menu_Cheat_Warp, Menu_DoCheat, S_PlaySound, cl_cheatmask",
+      "dependencies": [
+        "CheatFunctionFlags",
+        "CheatStrings",
+        "Menu_Change",
+        "Menu_Cheat_Skill",
+        "Menu_Cheat_Warp",
+        "Menu_DoCheat",
+        "S_PlaySound",
+        "cl_cheatmask"
+      ]
+    },
+    {
+      "name": "Menu_FileSelect",
+      "reason": "unlinked identifiers: Menu_StartGameWithoutSkill",
+      "dependencies": [
+        "Menu_StartGameWithoutSkill"
+      ]
+    },
+    {
+      "name": "Menu_BinarySearch",
+      "reason": "unlinked identifiers: Menus",
+      "dependencies": [
+        "Menus"
+      ]
+    },
+    {
+      "name": "Menu_Find",
+      "reason": "unlinked identifiers: Menu_BinarySearch, Menus, numMenus",
+      "dependencies": [
+        "Menu_BinarySearch",
+        "Menus",
+        "numMenus"
+      ]
+    },
+    {
+      "name": "Menu_FindFiltered",
+      "reason": "unlinked identifiers: Menu_Find",
+      "dependencies": [
+        "Menu_Find"
+      ]
+    },
+    {
+      "name": "Menu_AnimateChange",
+      "reason": "unlinked identifiers: Menu_Change, m_currentMenu",
+      "dependencies": [
+        "Menu_Change",
+        "m_currentMenu"
+      ]
+    },
+    {
+      "name": "Menu_MaybeSetSelectionToChild",
+      "reason": "record field requires verified native storage: Menu_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_ReadSaveGameHeaders",
+      "reason": "unlinked identifiers: ME_LOAD_EMPTY, ME_LOAD_TEMPLATE, ME_SAVE_NEW, ME_SAVE_TEMPLATE, M_LOAD, M_SAVE, ReadSaveGameHeaders, g_menusaves, g_nummenusaves",
+      "dependencies": [
+        "ME_LOAD_EMPTY",
+        "ME_LOAD_TEMPLATE",
+        "ME_SAVE_NEW",
+        "ME_SAVE_TEMPLATE",
+        "M_LOAD",
+        "M_SAVE",
+        "ReadSaveGameHeaders",
+        "g_menusaves",
+        "g_nummenusaves"
+      ]
+    },
+    {
+      "name": "Menu_IsEntryActive",
+      "reason": "record field requires verified native storage: MenuEntry_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_ValidateSelectionIsActive",
+      "reason": "unlinked identifiers: G_GameExit, Menu_IsEntryActive",
+      "dependencies": [
+        "G_GameExit",
+        "Menu_IsEntryActive"
+      ]
+    },
+    {
+      "name": "Menu_AboutToStartDisplaying",
+      "reason": "record field requires verified native storage: Menu_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_ChangingTo",
+      "reason": "record field requires verified native storage: Menu_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_Change",
+      "reason": "record field requires verified native storage: Menu_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_DetermineSpecialState",
+      "reason": "record field requires verified native storage: MenuEntry_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_IsTextInput",
+      "reason": "record field requires verified native storage: Menu_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_Open",
+      "reason": "unlinked identifiers: I_ClearAllInput, mouseReadAbs",
+      "dependencies": [
+        "I_ClearAllInput",
+        "mouseReadAbs"
+      ]
+    },
+    {
+      "name": "Menu_Close",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, I_ClearAllInput, S_PauseSounds, g_demo_paused",
+      "dependencies": [
+        "G_UpdateScreenArea",
+        "I_ClearAllInput",
+        "S_PauseSounds",
+        "g_demo_paused"
+      ]
+    },
+    {
+      "name": "Menu_BlackRectangle",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "Menu_GetFmt",
+      "reason": "unlinked identifiers: VM_OnEventWithReturn__header_4b91ef4f52fb",
+      "dependencies": [
+        "VM_OnEventWithReturn__header_4b91ef4f52fb"
+      ]
+    },
+    {
+      "name": "Menu_Text",
+      "reason": "unlinked identifiers: G_ScreenText__header_36b7f12453ad, Menu_GetFmt",
+      "dependencies": [
+        "G_ScreenText__header_36b7f12453ad",
+        "Menu_GetFmt"
+      ]
+    },
+    {
+      "name": "Menu_RunScrollbar",
+      "reason": "unlinked identifiers: Menu_BlackRectangle, m_currentMenu",
+      "dependencies": [
+        "Menu_BlackRectangle",
+        "m_currentMenu"
+      ]
+    },
+    {
+      "name": "M_RunMenu_Menu",
+      "reason": "record field requires verified native storage: MenuEntry_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_RunOptionList",
+      "reason": "unlinked identifiers: Menu_DrawCursorLeft, Menu_DrawCursorRight, Menu_RunScrollbar, S_PlaySound, m_currentMenu",
+      "dependencies": [
+        "Menu_DrawCursorLeft",
+        "Menu_DrawCursorRight",
+        "Menu_RunScrollbar",
+        "S_PlaySound",
+        "m_currentMenu"
+      ]
+    },
+    {
+      "name": "Menu_Run_MouseReturn",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "Menu_Recurse",
+      "reason": "unlinked identifiers: Menu_Run, m_previousMenu",
+      "dependencies": [
+        "Menu_Run",
+        "m_previousMenu"
+      ]
+    },
+    {
+      "name": "Menu_Run",
+      "reason": "record field requires verified native storage: MenuEntry_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_RunInput_Menu_MovementVerify",
+      "reason": "unlinked identifiers: Menu_AdjustForCurrentEntryAssignment",
+      "dependencies": [
+        "Menu_AdjustForCurrentEntryAssignment"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_Menu_Movement",
+      "reason": "unlinked identifiers: Menu_IsEntryActive",
+      "dependencies": [
+        "Menu_IsEntryActive"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryLink_Activate",
+      "reason": "record field requires verified native storage: MenuLink_t::animation",
+      "dependencies": []
+    },
+    {
+      "name": "Menu_RunInput_EntryOption_Modify",
+      "reason": "unlinked identifiers: Menu_EntryOptionDidModify, Menu_EntryOptionModify",
+      "dependencies": [
+        "Menu_EntryOptionDidModify",
+        "Menu_EntryOptionModify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryOption_Movement",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryOption_Modify",
+      "dependencies": [
+        "Menu_RunInput_EntryOption_Modify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryOption_Activate",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryOption_Movement",
+      "dependencies": [
+        "Menu_RunInput_EntryOption_Movement"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryOptionList_Activate",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryOption_Modify",
+      "dependencies": [
+        "Menu_RunInput_EntryOption_Modify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryRangeInt32_MovementVerify",
+      "reason": "unlinked identifiers: Menu_EntryRangeInt32Modify",
+      "dependencies": [
+        "Menu_EntryRangeInt32Modify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryRangeInt32_MovementArbitrary",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryRangeInt32_MovementVerify",
+      "dependencies": [
+        "Menu_RunInput_EntryRangeInt32_MovementVerify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryRangeInt32_Movement",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryRangeInt32_MovementVerify",
+      "dependencies": [
+        "Menu_RunInput_EntryRangeInt32_MovementVerify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryRangeFloat_MovementVerify",
+      "reason": "unlinked identifiers: Menu_EntryRangeFloatDidModify, Menu_EntryRangeFloatModify",
+      "dependencies": [
+        "Menu_EntryRangeFloatDidModify",
+        "Menu_EntryRangeFloatModify"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryRangeFloat_MovementArbitrary",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryRangeFloat_MovementVerify, rintf",
+      "dependencies": [
+        "Menu_RunInput_EntryRangeFloat_MovementVerify",
+        "rintf"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryRangeFloat_Movement",
+      "reason": "unlinked identifiers: Menu_RunInput_EntryRangeFloat_MovementVerify, rintf",
+      "dependencies": [
+        "Menu_RunInput_EntryRangeFloat_MovementVerify",
+        "rintf"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryString_Activate",
+      "reason": "unlinked identifiers: Menu_EntryStringActivate",
+      "dependencies": [
+        "Menu_EntryStringActivate"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryString_Submit",
+      "reason": "unlinked identifiers: Menu_EntryStringSubmit",
+      "dependencies": [
+        "Menu_EntryStringSubmit"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_EntryString_Cancel",
+      "reason": "unlinked identifiers: Menu_EntryStringCancel",
+      "dependencies": [
+        "Menu_EntryStringCancel"
+      ]
+    },
+    {
+      "name": "Menu_RunInput_FileSelect_Select",
+      "reason": "unlinked identifiers: Menu_FileSelect",
+      "dependencies": [
+        "Menu_FileSelect"
+      ]
+    },
+    {
+      "name": "Menu_RunInput",
+      "reason": "record field requires verified native storage: Menu_t::parentAnimation",
+      "dependencies": []
+    },
+    {
+      "name": "M_DisplayMenus",
+      "reason": "record field requires verified native storage: Menu_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "__source_byte_method_getHeight_865118744c8b2747c4c0",
+      "reason": "record field requires verified native storage: MenuEntry_t::type",
+      "dependencies": []
+    },
+    {
+      "name": "G_ScreenText__header_36b7f12453ad",
+      "reason": "unlinked identifiers: localeLookup, screentextRender",
+      "dependencies": [
+        "localeLookup",
+        "screentextRender"
+      ]
+    },
+    {
+      "name": "G_ScreenTextShadow__header_5d6483fd8744",
+      "reason": "unlinked identifiers: localeLookup, screentextRenderShadow",
+      "dependencies": [
+        "localeLookup",
+        "screentextRenderShadow"
+      ]
+    },
+    {
+      "name": "rotatesprite_fs__header_abaec886a6f2",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "G_GetLogoFlags__header_90cc3c201591",
+      "reason": "unlinked identifiers: Gv_GetVarByLabel",
+      "dependencies": [
+        "Gv_GetVarByLabel"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_4b91ef4f52fb",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "sbartile__header_8f83d34996d0",
+      "reason": "unlinked identifiers: g_scriptVersion",
+      "dependencies": [
+        "g_scriptVersion"
+      ]
+    },
+    {
+      "name": "G_NewGame_EnterLevel__header_14c696db4573",
+      "reason": "unlinked identifiers: G_BackToMenu, G_EnterLevel, G_NewGame",
+      "dependencies": [
+        "G_BackToMenu",
+        "G_EnterLevel",
+        "G_NewGame"
+      ]
+    },
+    {
+      "name": "operator!=__template_7dc53143805eb67d",
+      "reason": "invalid function name operator!=__template_7dc53143805eb67d",
+      "dependencies": []
+    },
+    {
+      "name": "FX_StopAllSounds__header_d71f4b3a67fc",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "G_SetStatusBarScale__header_0ac274f7cd8d",
+      "reason": "unlinked identifiers: G_UpdateScreenArea",
+      "dependencies": [
+        "G_UpdateScreenArea"
+      ]
+    },
+    {
+      "name": "FX_SetVolume__header_8f293d3675de",
+      "reason": "unlinked identifiers: MV_SetVolume",
+      "dependencies": [
+        "MV_SetVolume"
+      ]
+    },
+    {
+      "name": "rotatesprite__header_d6cc772dca1e",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "MOUSE_GetButtons__header_100a5265c0dd",
+      "reason": "unlinked identifiers: mouseReadButtons",
+      "dependencies": [
+        "mouseReadButtons"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_81b54dcf3547",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "rotatesprite_fs_alpha__header_3534f60ad69c",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_cec0af7f08aa",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_57e9fb38d678",
+      "dependencies": [
+        "FX_SetErrorCode__header_57e9fb38d678"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_57e9fb38d678",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    },
+    {
+      "name": "alsa_mididevinfo_t",
+      "reason": "unlinked identifiers: xstrdup",
+      "dependencies": [
+        "xstrdup"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 1243,
+  "original_gameplay_verified": false
+}

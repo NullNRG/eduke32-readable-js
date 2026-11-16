@@ -3303,6 +3303,10 @@ class Emit:
         if self.scalar_reference(qual(n)):
             raise Unsupported('global C++ reference requires source static relocation/lifetime ABI')
         name=symbol or js_ident(n.get('name',''))
+        library_type=std_unordered.lookup(getattr(self,'std_unordered_types',{}),qual(n),self.type_aliases,normalized_record_name)
+        if library_type and library_type['kind']=='map' and not has_outer_indirection(qual(n),'*&') and '[' not in qual(n):
+            value=global_initializer(n,self.enum_values,self.record_layouts,self.global_storage_records,self.type_aliases,self.enum_types,self)
+            return f'export {"const" if immutable_global(n) else "let"} {name} = cStdUnordered.global({value});'
         base=re.sub(r'\[\s*\d+\s*\]','',qual(n)).strip()
         schema=aggregate_type_schema(base,self.global_storage_records,self.type_aliases,self.record_layouts,allow_pointer_storage=True,enum_types=self.enum_types)
         if schema_prototypes(schema)-getattr(self,'allowed_static_prototypes',set()):
@@ -5793,14 +5797,18 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                     scalar=mutable_scalar_global(decl,aliases,enum_types)
                     array=private_scalar_array(decl) if not scalar else None
                     record=private_byte_record(decl) if not scalar and not array else None
+                    opaque=std_unordered.lookup(std_unordered_types,qual(decl),aliases,normalized_record_name)
+                    opaque=({'abi':std_unordered.ABI,'kind':'map','schema':opaque['schema']}
+                            if opaque and opaque['kind']=='map' and not scalar and not array and not record else None)
                     if private.get('byte_record') and not record:
                         raise Unsupported('sizeof/alignof record layout: '+qual(decl))
                     if (private.get('abi')!=PRIVATE_STORAGE_ABI or private.get('owner_source')!=source_rel or
                             private.get('binding')!=private_storage_binding(source_rel,refname) or
-                            private.get('original_type')!=qual(decl) or (not scalar and not array and not record) or
+                            private.get('original_type')!=qual(decl) or (not scalar and not array and not record and not opaque) or
                             private.get('scalar_array')!=array or private.get('byte_record')!=record):
                         raise Unsupported('private fragment storage requires identical original owner and storage type: '+refname)
                     em.external_global_cells[refid]={**private,'name':refname,'consumer_source':source_rel}
+                    if opaque:em.external_global_cells[refid]['opaque_library']=opaque
                     em.global_address_cells[refid]=em.external_global_cells[refid]
                     if array or record:em.external_aggregate_globals.add(refid)
                     continue

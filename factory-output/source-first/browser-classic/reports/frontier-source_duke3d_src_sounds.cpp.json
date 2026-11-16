@@ -1,0 +1,402 @@
+{
+  "source": "source/duke3d/src/sounds.cpp",
+  "requested": [
+    "S_DefineMusic",
+    "S_DefineSound"
+  ],
+  "requested_resolved": {
+    "S_DefineMusic": true,
+    "S_DefineSound": true
+  },
+  "requested_export_bindings": {
+    "S_DefineMusic": [
+      "S_DefineMusic"
+    ],
+    "S_DefineSound": [
+      "S_DefineSound"
+    ]
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_sounds.cpp/reachable-e02d7762d6b9bd14/source/duke3d/src/sounds.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "freeSlotReadIndex",
+      "reason": "constructor requires complete original record: std::atomic<unsigned int>",
+      "dependencies": []
+    },
+    {
+      "name": "freeSlotWriteIndex",
+      "reason": "constructor requires complete original record: std::atomic<unsigned int>",
+      "dependencies": []
+    },
+    {
+      "name": "S_SoundStartup",
+      "reason": "C++ member operator requires source-defined class/method ABI: ('std::__atomic_base<unsigned int>', 'operator=', '__int_type (__int_type) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "S_SoundShutdown",
+      "reason": "unlinked identifiers: FX_ErrorString, FX_Shutdown, G_GameExit",
+      "dependencies": [
+        "FX_ErrorString",
+        "FX_Shutdown",
+        "G_GameExit"
+      ]
+    },
+    {
+      "name": "S_MusicStartup",
+      "reason": "unlinked identifiers: AL_RegisterTimbreBank, MIDI_GetDevice, MUSIC_ErrorString, MUSIC_Init, MUSIC_SetVolume",
+      "dependencies": [
+        "AL_RegisterTimbreBank",
+        "MIDI_GetDevice",
+        "MUSIC_ErrorString",
+        "MUSIC_Init",
+        "MUSIC_SetVolume"
+      ]
+    },
+    {
+      "name": "S_MusicShutdown",
+      "reason": "unlinked identifiers: MUSIC_ErrorString, MUSIC_Shutdown",
+      "dependencies": [
+        "MUSIC_ErrorString",
+        "MUSIC_Shutdown"
+      ]
+    },
+    {
+      "name": "S_PauseMusic",
+      "reason": "unlinked identifiers: MUSIC_Continue, MUSIC_Pause",
+      "dependencies": [
+        "MUSIC_Continue",
+        "MUSIC_Pause"
+      ]
+    },
+    {
+      "name": "S_PauseSounds",
+      "reason": "unlinked identifiers: FX_PauseVoice__header_1d901dbd85bf",
+      "dependencies": [
+        "FX_PauseVoice__header_1d901dbd85bf"
+      ]
+    },
+    {
+      "name": "S_MusicVolume",
+      "reason": "unlinked identifiers: MUSIC_SetVolume",
+      "dependencies": [
+        "MUSIC_SetVolume"
+      ]
+    },
+    {
+      "name": "S_RestartMusic",
+      "reason": "unlinked identifiers: G_GetLogoFlags__header_26835414235c, S_PlayLevelMusicOrNothing, S_PlaySpecialMusicOrNothing",
+      "dependencies": [
+        "G_GetLogoFlags__header_26835414235c",
+        "S_PlayLevelMusicOrNothing",
+        "S_PlaySpecialMusicOrNothing"
+      ]
+    },
+    {
+      "name": "S_MenuSound",
+      "reason": "unlinked identifiers: S_PlaySound, VM_OnEventWithReturn__header_7f9a122159e1",
+      "dependencies": [
+        "S_PlaySound",
+        "VM_OnEventWithReturn__header_7f9a122159e1"
+      ]
+    },
+    {
+      "name": "S_PlayMusic",
+      "reason": "unlinked identifiers: FX_Play, MUSIC_PlaySong, MUSIC_StopSong",
+      "dependencies": [
+        "FX_Play",
+        "MUSIC_PlaySong",
+        "MUSIC_StopSong"
+      ]
+    },
+    {
+      "name": "S_TryPlayLevelMusic",
+      "reason": "unlinked identifiers: S_PlayMusic",
+      "dependencies": [
+        "S_PlayMusic"
+      ]
+    },
+    {
+      "name": "S_PlayLevelMusicOrNothing",
+      "reason": "unlinked identifiers: S_TryPlayLevelMusic",
+      "dependencies": [
+        "S_TryPlayLevelMusic"
+      ]
+    },
+    {
+      "name": "S_TryPlaySpecialMusic",
+      "reason": "unlinked identifiers: S_PlayMusic",
+      "dependencies": [
+        "S_PlayMusic"
+      ]
+    },
+    {
+      "name": "S_PlaySpecialMusicOrNothing",
+      "reason": "unlinked identifiers: S_TryPlaySpecialMusic",
+      "dependencies": [
+        "S_TryPlaySpecialMusic"
+      ]
+    },
+    {
+      "name": "S_ContinueLevelMusic",
+      "reason": "unlinked identifiers: VM_OnEvent__header_d074fe9b89ec",
+      "dependencies": [
+        "VM_OnEvent__header_d074fe9b89ec"
+      ]
+    },
+    {
+      "name": "S_GetMusicPosition",
+      "reason": "unlinked identifiers: FX_GetPosition__header_f9b6a0c27aa8",
+      "dependencies": [
+        "FX_GetPosition__header_f9b6a0c27aa8"
+      ]
+    },
+    {
+      "name": "S_SetMusicPosition",
+      "reason": "unlinked identifiers: FX_SetPosition__header_4be8ffdd5136",
+      "dependencies": [
+        "FX_SetPosition__header_4be8ffdd5136"
+      ]
+    },
+    {
+      "name": "S_StopMusic",
+      "reason": "unlinked identifiers: MUSIC_StopSong",
+      "dependencies": [
+        "MUSIC_StopSong"
+      ]
+    },
+    {
+      "name": "S_Cleanup",
+      "reason": "unlinked identifiers: freeSlotReadIndex, rts_lumplockbyte",
+      "dependencies": [
+        "freeSlotReadIndex",
+        "rts_lumplockbyte"
+      ]
+    },
+    {
+      "name": "cacheAllSounds",
+      "reason": "unlinked identifiers: gameHandleEvents__header_a05b3cd7caba",
+      "dependencies": [
+        "gameHandleEvents__header_a05b3cd7caba"
+      ]
+    },
+    {
+      "name": "S_GetSlot",
+      "reason": "unlinked identifiers: S_Cleanup",
+      "dependencies": [
+        "S_Cleanup"
+      ]
+    },
+    {
+      "name": "S_CalcDistAndAng",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "S_PlaySound3D",
+      "reason": "unlinked identifiers: FX_Play3D, S_CalcDistAndAng, S_GetSlot",
+      "dependencies": [
+        "FX_Play3D",
+        "S_CalcDistAndAng",
+        "S_GetSlot"
+      ]
+    },
+    {
+      "name": "S_PlaySound",
+      "reason": "unlinked identifiers: FX_Play, FX_Play3D, S_GetSlot",
+      "dependencies": [
+        "FX_Play",
+        "FX_Play3D",
+        "S_GetSlot"
+      ]
+    },
+    {
+      "name": "A_PlaySound",
+      "reason": "unlinked identifiers: S_PlaySound, S_PlaySound3D",
+      "dependencies": [
+        "S_PlaySound",
+        "S_PlaySound3D"
+      ]
+    },
+    {
+      "name": "S_StopEnvSound",
+      "reason": "unlinked identifiers: S_Cleanup",
+      "dependencies": [
+        "S_Cleanup"
+      ]
+    },
+    {
+      "name": "S_StopAllSounds",
+      "reason": "unlinked identifiers: S_Cleanup",
+      "dependencies": [
+        "S_Cleanup"
+      ]
+    },
+    {
+      "name": "S_ChangeSoundPitch",
+      "reason": "unlinked identifiers: FX_SetPitch__header_e2204b271575",
+      "dependencies": [
+        "FX_SetPitch__header_e2204b271575"
+      ]
+    },
+    {
+      "name": "S_Update",
+      "reason": "unlinked identifiers: S_CalcDistAndAng, S_Cleanup",
+      "dependencies": [
+        "S_CalcDistAndAng",
+        "S_Cleanup"
+      ]
+    },
+    {
+      "name": "S_Callback",
+      "reason": "unlinked identifiers: freeSlotReadIndex, freeSlotWriteIndex",
+      "dependencies": [
+        "freeSlotReadIndex",
+        "freeSlotWriteIndex"
+      ]
+    },
+    {
+      "name": "S_ClearSoundLocks",
+      "reason": "unlinked identifiers: rts_lumplockbyte",
+      "dependencies": [
+        "rts_lumplockbyte"
+      ]
+    },
+    {
+      "name": "FX_SetVolume__header_29f6a7ef9014",
+      "reason": "unlinked identifiers: MV_SetVolume",
+      "dependencies": [
+        "MV_SetVolume"
+      ]
+    },
+    {
+      "name": "FX_SetCallBack__header_7966662ea352",
+      "reason": "unlinked identifiers: MV_SetCallBack",
+      "dependencies": [
+        "MV_SetCallBack"
+      ]
+    },
+    {
+      "name": "FX_PauseVoice__header_1d901dbd85bf",
+      "reason": "unlinked identifiers: MV_PauseVoice",
+      "dependencies": [
+        "MV_PauseVoice"
+      ]
+    },
+    {
+      "name": "FX_SetPan__header_12e73e6727b2",
+      "reason": "unlinked identifiers: MV_SetPan",
+      "dependencies": [
+        "MV_SetPan"
+      ]
+    },
+    {
+      "name": "G_GetLogoFlags__header_26835414235c",
+      "reason": "unlinked identifiers: Gv_GetVarByLabel",
+      "dependencies": [
+        "Gv_GetVarByLabel"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_7f9a122159e1",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "FX_StopSound__header_9eebd504816d",
+      "reason": "unlinked identifiers: MV_Kill",
+      "dependencies": [
+        "MV_Kill"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_d074fe9b89ec",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "dependencies": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "FX_GetPosition__header_f9b6a0c27aa8",
+      "reason": "unlinked identifiers: MV_GetPosition",
+      "dependencies": [
+        "MV_GetPosition"
+      ]
+    },
+    {
+      "name": "FX_SetPosition__header_4be8ffdd5136",
+      "reason": "unlinked identifiers: MV_SetPosition",
+      "dependencies": [
+        "MV_SetPosition"
+      ]
+    },
+    {
+      "name": "gameHandleEvents__header_a05b3cd7caba",
+      "reason": "unlinked identifiers: handleevents",
+      "dependencies": [
+        "handleevents"
+      ]
+    },
+    {
+      "name": "FX_SoundValidAndActive__header_1a861f674efe",
+      "reason": "unlinked identifiers: MV_VoicePlaying",
+      "dependencies": [
+        "MV_VoicePlaying"
+      ]
+    },
+    {
+      "name": "FX_VoiceAvailable__header_9a16558a00b1",
+      "reason": "unlinked identifiers: MV_VoiceAvailable",
+      "dependencies": [
+        "MV_VoiceAvailable"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_94e4665f7631",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "FX_SetPitch__header_e2204b271575",
+      "reason": "unlinked identifiers: MV_SetPitch",
+      "dependencies": [
+        "MV_SetPitch"
+      ]
+    },
+    {
+      "name": "FX_Pan3D__header_9f7fadc6f8db",
+      "reason": "unlinked identifiers: MV_Pan3D",
+      "dependencies": [
+        "MV_Pan3D"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_233871245baf",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_a12cfef2df41",
+      "dependencies": [
+        "FX_SetErrorCode__header_a12cfef2df41"
+      ]
+    },
+    {
+      "name": "VM_HaveEvent__header_271c78e13dbb",
+      "reason": "unlinked identifiers: apScriptEvents",
+      "dependencies": [
+        "apScriptEvents"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_a12cfef2df41",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 839,
+  "original_gameplay_verified": false
+}

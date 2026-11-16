@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\screentext.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 43,
-  "emitted": 43,
+  "found": 49,
+  "emitted": 49,
   "blocked": 0,
   "definitions": [
     {
@@ -1267,6 +1267,421 @@
         "handle_memerr"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "tilefontList",
+      "source_name": "tilefontList",
+      "kind": "VarDecl",
+      "line": 440,
+      "original_type": "std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>",
+      "linkage": "internal",
+      "source_references": [],
+      "standard_library_adapters": [
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h"
+        }
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_f078be680907301181198fad",
+        "owner_source": "source/build/src/screentext.cpp",
+        "original_type": "std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilefontDefineMapping",
+      "source_name": "tilefontDefineMapping",
+      "kind": "FunctionDecl",
+      "line": 458,
+      "original_type": "void (TileFontPtr_t, uint32_t, uint16_t)",
+      "linkage": "external",
+      "source_references": [],
+      "standard_library_adapters": [
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h"
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "operator[]",
+          "mangled_name": "_ZNSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEEixERS5_",
+          "original_type": "mapped_type &(const key_type &)",
+          "parameters": [
+            "const key_type &"
+          ]
+        }
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilefontFind",
+      "source_name": "tilefontFind",
+      "kind": "FunctionDecl",
+      "line": 448,
+      "original_type": "TileFontPtr_t (uint16_t)",
+      "linkage": "external",
+      "source_references": [
+        "tilefontList"
+      ],
+      "standard_library_adapters": [
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "iterator",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\hashtable_policy.h"
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "find",
+          "mangled_name": "_ZNSt13unordered_mapItS_IjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEES0_ItES2_ItESaIS4_IKtS8_EEE4findERSB_",
+          "original_type": "iterator (const key_type &)",
+          "parameters": [
+            "const key_type &"
+          ]
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "iterator",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\hashtable_policy.h",
+          "name": "operator==",
+          "mangled_name": "_ZNSt8__detaileqERKNS_19_Node_iterator_baseISt4pairIKtSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaIS1_IKjtEEEELb0EEESF_",
+          "original_type": "bool (const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &, const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &) noexcept",
+          "parameters": [
+            "const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &",
+            "const _Node_iterator_base<std::pair<const unsigned short, std::unordered_map<unsigned int, unsigned short>>, false> &"
+          ]
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "end",
+          "mangled_name": "_ZNSt13unordered_mapItS_IjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEES0_ItES2_ItESaIS4_IKtS8_EEE3endEv",
+          "original_type": "iterator () noexcept",
+          "parameters": []
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "iterator",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\hashtable_policy.h",
+          "name": "operator->",
+          "mangled_name": "_ZNKSt8__detail14_Node_iteratorISt4pairIKtSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaIS1_IKjtEEEELb0ELb0EEptEv",
+          "original_type": "pointer () const noexcept",
+          "parameters": []
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h"
+        }
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f078be680907301181198fad",
+          "owner_source": "source/build/src/screentext.cpp",
+          "original_type": "std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>",
+          "name": "tilefontList",
+          "consumer_source": "source/build/src/screentext.cpp",
+          "opaque_library": {
+            "abi": "source-opaque-std-unordered-map/1",
+            "kind": "map",
+            "schema": {
+              "key": 16,
+              "value": {
+                "key": 32,
+                "value": 16
+              }
+            }
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tilefontList"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilefontGetPtr",
+      "source_name": "tilefontGetPtr",
+      "kind": "FunctionDecl",
+      "line": 442,
+      "original_type": "TileFontPtr_t (uint16_t)",
+      "linkage": "external",
+      "source_references": [
+        "tilefontList"
+      ],
+      "standard_library_adapters": [
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 16,
+            "value": {
+              "key": 32,
+              "value": 16
+            }
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "operator[]",
+          "mangled_name": "_ZNSt13unordered_mapItS_IjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEES0_ItES2_ItESaIS4_IKtS8_EEEixERSB_",
+          "original_type": "mapped_type &(const key_type &)",
+          "parameters": [
+            "const key_type &"
+          ]
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h"
+        }
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f078be680907301181198fad",
+          "owner_source": "source/build/src/screentext.cpp",
+          "original_type": "std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>",
+          "name": "tilefontList",
+          "consumer_source": "source/build/src/screentext.cpp",
+          "opaque_library": {
+            "abi": "source-opaque-std-unordered-map/1",
+            "kind": "map",
+            "schema": {
+              "key": 16,
+              "value": {
+                "key": 32,
+                "value": 16
+              }
+            }
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "tilefontList"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilefontLookup",
+      "source_name": "tilefontLookup",
+      "kind": "FunctionDecl",
+      "line": 470,
+      "original_type": "uint16_t (TileFontPtr_t, uint32_t)",
+      "linkage": "external",
+      "source_references": [],
+      "standard_library_adapters": [
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h"
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "iterator",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\hashtable_policy.h"
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "find",
+          "mangled_name": "_ZNSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEE4findERS5_",
+          "original_type": "iterator (const key_type &)",
+          "parameters": [
+            "const key_type &"
+          ]
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "iterator",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\hashtable_policy.h",
+          "name": "operator==",
+          "mangled_name": "_ZNSt8__detaileqERKNS_19_Node_iterator_baseISt4pairIKjtELb0EEES6_",
+          "original_type": "bool (const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &, const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &) noexcept",
+          "parameters": [
+            "const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &",
+            "const _Node_iterator_base<std::pair<const unsigned int, unsigned short>, false> &"
+          ]
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "end",
+          "mangled_name": "_ZNSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEE3endEv",
+          "original_type": "iterator () noexcept",
+          "parameters": []
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "iterator",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\hashtable_policy.h",
+          "name": "operator->",
+          "mangled_name": "_ZNKSt8__detail14_Node_iteratorISt4pairIKjtELb0ELb0EEptEv",
+          "original_type": "pointer () const noexcept",
+          "parameters": []
+        }
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tilefontMaybeDefineMapping",
+      "source_name": "tilefontMaybeDefineMapping",
+      "kind": "FunctionDecl",
+      "line": 464,
+      "original_type": "void (TileFontPtr_t, uint32_t, uint16_t)",
+      "linkage": "external",
+      "source_references": [],
+      "standard_library_adapters": [
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h"
+        },
+        {
+          "abi": "source-opaque-std-unordered-map/1",
+          "kind": "map",
+          "schema": {
+            "key": 32,
+            "value": 16
+          },
+          "header": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\bits\\unordered_map.h",
+          "name": "emplace",
+          "mangled_name": "_ZNSt13unordered_mapIjtSt4hashIjESt8equal_toIjESaISt4pairIKjtEEE7emplaceIJRjRtEEES4_INSt8__detail14_Node_iteratorIS6_Lb0ELb0EEEbEDpOT_",
+          "original_type": "std::pair<iterator, bool> (unsigned int &, unsigned short &)",
+          "parameters": [
+            "unsigned int &",
+            "unsigned short &"
+          ]
+        }
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 0,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -1475,6 +1890,13 @@
           64
         ]
       }
+    },
+    {
+      "name": "tilefontList",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_f078be680907301181198fad",
+      "owner_source": "source/build/src/screentext.cpp",
+      "original_type": "std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>"
     }
   ],
   "module_fragments": [
@@ -1629,6 +2051,233 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "fead1936ed1acee547ede202698092c9201dd0cfaed829c3aee81e7848dc8b81"
+    },
+    {
+      "module": "source/build/src/_source_legacy_screentext_cpp_b4f2f0779128.mjs",
+      "sha256": "b4f2f0779128ac1d50983bb1e5ec4b8cb99bfe837c430aff05780a968f2c338b",
+      "original_source": "source/build/src/screentext.cpp",
+      "exports": [
+        "tilefontList"
+      ],
+      "reexports": [
+        "tilefontList",
+        "__cxx_private_cell_f078be680907301181198fad"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/screentext.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "bf0b8165f88993ecee079c0eb3f633a75c4b130319cafc6d0506e2c02c3c11dc",
+      "preserved_storage_from_sha256": "b4f2f0779128ac1d50983bb1e5ec4b8cb99bfe837c430aff05780a968f2c338b"
+    },
+    {
+      "module": "source/build/src/_source_legacy_screentext_cpp_633db16ce76e.mjs",
+      "sha256": "633db16ce76eebc30dd7a9b8de92d6c0f80bcffd04bafa2125ff1c6dd9a9263d",
+      "original_source": "source/build/src/screentext.cpp",
+      "exports": [
+        "tilefontDefineMapping",
+        "tilefontFind",
+        "tilefontGetPtr",
+        "tilefontLookup",
+        "tilefontMaybeDefineMapping"
+      ],
+      "reexports": [
+        "tilefontDefineMapping",
+        "tilefontFind",
+        "tilefontGetPtr",
+        "tilefontLookup",
+        "tilefontMaybeDefineMapping"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilefontList",
+          "from": "source/build/src/screentext.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f078be680907301181198fad",
+          "owner_source": "source/build/src/screentext.cpp",
+          "original_type": "std::unordered_map<unsigned short, std::unordered_map<unsigned int, unsigned short>>",
+          "consumer_source": "source/build/src/screentext.cpp",
+          "opaque_library": {
+            "abi": "source-opaque-std-unordered-map/1",
+            "kind": "map",
+            "schema": {
+              "key": 16,
+              "value": {
+                "key": 32,
+                "value": 16
+              }
+            }
+          }
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/screentext.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "4af330ee5f3486aacc8aeca2cb5f5889c2aa09a081c25c371c66896f615baf18"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_screentext_cpp_b4f2f0779128.mjs",
+      "sha256": "b4f2f0779128ac1d50983bb1e5ec4b8cb99bfe837c430aff05780a968f2c338b",
+      "original_source": "source/build/src/screentext.cpp",
+      "exports": [
+        "tilefontDefineMapping",
+        "tilefontFind",
+        "tilefontGetPtr",
+        "tilefontList",
+        "tilefontLookup",
+        "tilefontMaybeDefineMapping"
+      ],
+      "reexports": [
+        "tilefontDefineMapping",
+        "tilefontFind",
+        "tilefontGetPtr",
+        "tilefontList",
+        "tilefontLookup",
+        "tilefontMaybeDefineMapping",
+        "__cxx_private_cell_f078be680907301181198fad"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/screentext.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "bf0b8165f88993ecee079c0eb3f633a75c4b130319cafc6d0506e2c02c3c11dc"
     }
   ]
 }

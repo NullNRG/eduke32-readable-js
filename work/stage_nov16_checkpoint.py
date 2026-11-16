@@ -13,7 +13,15 @@ paths.add(MODULES/'browser-combined-symbol-owners.json')
 for name in ('component-manifest.json','reports/browser-closure.json','reports/frontier-source_build_src_clip.cpp.json','reports/frontier-source_build_src_engine.cpp.json','reports/frontier-source_build_src_screentext.cpp.json','reports/frontier-source_duke3d_src_common.cpp.json','reports/frontier-source_duke3d_src_game.cpp.json','reports/frontier-source_duke3d_src_text.cpp.json','reports/frontier-source_duke3d_src_cmdline.cpp.json','reports/frontier-source_duke3d_src_demo.cpp.json','reports/frontier-source_duke3d_src_screens.cpp.json'):
  path=MODULES.parent/name
  if path.is_file():paths.add(path)
-for name in ('README.md','CURRENT_PORT_STATUS.md','CONTINUE_HERE.md','PORT_GUIDE.md','HANDOFF_SNAPSHOT.json',
+for name in ('frontier-source_duke3d_src_sounds.cpp.json','frontier-source_duke3d_src_menus.cpp.json','frontier-source_duke3d_src_game.cpp-app_main.json'):
+ path=MODULES.parent/'reports'/name
+ if path.is_file():paths.add(path)
+for name in ('README.md','CURRENT_PORT_STATUS.md','CONTINUE_HERE.md','PORT_GUIDE.md','HANDOFF_SNAPSHOT.json','STANDARD_LIBRARY_ADAPTERS.md',
+ 'work/record_nov16_font_checkpoint.py','work/native_original_font_oracle.py','work/verify_original_text_startup_frame.py',
+ 'reports/nov16-font-startup-ci.json','reports/nov16-font-startup-ci-final.log','reports/nov16-font-startup-checkpoint.md',
+ 'reports/nov16-post-font-app-main-frontier.json','reports/nov16-native-original-font-oracle.json','reports/nov16-native-original-font-oracle.log',
+ 'reports/nov16-original-text-startup-frame.json','reports/evidence/nov16-original-text-startup.png',
+ 'reports/nov16-unordered-maps-final-parity.log','reports/nov16-private-unordered-parity.log','reports/nov16-preserved-storage-refresh.log','reports/nov16-standard-service-host-tests.log',
  'work/attest_original_wall_overloads.py','work/record_nov16_checkpoint.py','work/stage_nov16_checkpoint.py',
  'work/verify_original_command_line_init.py','work/verify_original_game_lookups.py','work/verify_original_crosshair_frame.py','work/verify_original_collision_geometry.py',
  'reports/nov13-original-command-line-init.json','reports/nov13-original-command-line-parity.log',

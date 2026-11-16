@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\common.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 72,
-  "emitted": 72,
+  "found": 73,
+  "emitted": 73,
   "blocked": 0,
   "definitions": [
     {
@@ -2005,6 +2005,171 @@
       "external_imports": [
         "multipskytile",
         "pskynummultis"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "G_LoadGroups",
+      "source_name": "G_LoadGroups",
+      "kind": "FunctionDecl",
+      "line": 388,
+      "original_type": "void (int32_t)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/common.cpp",
+      "source_references": [
+        "CommandGrps",
+        "G_DefFile",
+        "G_DoAutoload",
+        "G_GrpFile",
+        "G_LoadAddon",
+        "G_LoadGroupsInDir",
+        "G_LoadGrpDependencyChain",
+        "G_TryLoadingGrp",
+        "addsearchpath_user",
+        "clearDefNamePtr",
+        "clearGrpNamePtr",
+        "current_verbosity_cutoff",
+        "dup_filename__header_1e98ba862337",
+        "g_addonNum",
+        "g_defNamePtr",
+        "g_gameNamePtr",
+        "g_gameType",
+        "g_groupFileHandle",
+        "g_grpNamePtr",
+        "g_modDir",
+        "g_rootDir",
+        "g_rtsNamePtr",
+        "g_scriptNamePtr",
+        "g_selectedGrp",
+        "getcwd",
+        "getenv",
+        "initgroupfile",
+        "loaddefinitions_game",
+        "loguru_log",
+        "mkdir",
+        "pathsearchmode",
+        "snprintf",
+        "strcat",
+        "strcmp",
+        "xfree__header_058c77bd99f9"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_302eefb9e1aff28fad06f33f",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "struct strllist *",
+          "name": "CommandGrps",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "g_addonNum",
+          "binding": "__cxx_global_cell_e52bb48b6936f3f6004987dc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_defNamePtr",
+          "binding": "__cxx_global_cell_64336b74df686a41ba0b80a3",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_gameNamePtr",
+          "binding": "__cxx_global_cell_89ad8e829e72a552238d5b24",
+          "abi": "source-global-cell/2",
+          "original_type": "const char *"
+        },
+        {
+          "name": "g_gameType",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_groupFileHandle",
+          "binding": "__cxx_global_cell_5dddef0e308e41e8cdc8c196",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_grpNamePtr",
+          "binding": "__cxx_global_cell_27587671eaba76ec3d4a0ad1",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1d2fbfc34f7eaae881c439a7",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "name": "g_rootDir",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "g_rtsNamePtr",
+          "binding": "__cxx_global_cell_41b93597aa1b675c52f24290",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_scriptNamePtr",
+          "binding": "__cxx_global_cell_fdd997c846b5c711252a3504",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_selectedGrp",
+          "binding": "__cxx_global_cell_ec0dcd0ae3bfe5db091cb9c1",
+          "abi": "source-global-cell/2",
+          "original_type": "const struct grpfile_t *"
+        },
+        {
+          "name": "pathsearchmode",
+          "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "CommandGrps",
+        "G_DefFile",
+        "G_DoAutoload",
+        "G_GrpFile",
+        "G_LoadGroupsInDir",
+        "addsearchpath_user",
+        "clearDefNamePtr",
+        "clearGrpNamePtr",
+        "current_verbosity_cutoff",
+        "g_addonNum",
+        "g_defNamePtr",
+        "g_gameNamePtr",
+        "g_gameType",
+        "g_groupFileHandle",
+        "g_grpNamePtr",
+        "g_modDir",
+        "g_rootDir",
+        "g_rtsNamePtr",
+        "g_scriptNamePtr",
+        "g_selectedGrp",
+        "getcwd",
+        "getenv",
+        "initgroupfile",
+        "loaddefinitions_game",
+        "loguru_log",
+        "mkdir",
+        "pathsearchmode",
+        "snprintf",
+        "strcat",
+        "strcmp"
       ],
       "unresolved_references": []
     }
@@ -3986,6 +4151,250 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "165abb7afa7369b41d1a9902992576074442ca722b6ba4847aff96365a1c6394"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_common_cpp_d57ac5187664.mjs",
+      "sha256": "d57ac51876641e4c62fba9a2cfb8cec0b6cf70612931d9f5d3ac3a585221c084",
+      "original_source": "source/duke3d/src/common.cpp",
+      "exports": [
+        "G_LoadGroups"
+      ],
+      "reexports": [
+        "G_LoadGroups"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrncpyz",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CommandGrps",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_302eefb9e1aff28fad06f33f",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "struct strllist *",
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "FindGroup",
+          "from": "source/duke3d/src/grpscan.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_DefFile",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_DoAutoload",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_GrpFile",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_LoadGroupsInDir",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "addsearchpath_user",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "clearDefNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "clearGrpNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_addonNum",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e52bb48b6936f3f6004987dc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_defNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64336b74df686a41ba0b80a3",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_gameNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_89ad8e829e72a552238d5b24",
+          "abi": "source-global-cell/2",
+          "original_type": "const char *"
+        },
+        {
+          "name": "g_gameType",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_groupFileHandle",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5dddef0e308e41e8cdc8c196",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_grpNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_27587671eaba76ec3d4a0ad1",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_modDir",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_rootDir",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1d2fbfc34f7eaae881c439a7",
+          "owner_source": "source/duke3d/src/common.cpp",
+          "original_type": "char[256]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              256
+            ]
+          },
+          "consumer_source": "source/duke3d/src/common.cpp"
+        },
+        {
+          "name": "g_rtsNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_41b93597aa1b675c52f24290",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_scriptNamePtr",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fdd997c846b5c711252a3504",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_selectedGrp",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ec0dcd0ae3bfe5db091cb9c1",
+          "abi": "source-global-cell/2",
+          "original_type": "const struct grpfile_t *"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "getcwd",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "getenv",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initgroupfile",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loaddefinitions_game",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mkdir",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pathsearchmode",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "cf99028258ec9871d56f4083b9384b787e6807fc1c3583ed98c9e75ae363c0e2"
     }
   ]
 }

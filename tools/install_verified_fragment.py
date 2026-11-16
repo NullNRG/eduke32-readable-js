@@ -13,8 +13,10 @@ def main():
     p.add_argument('--target',type=Path,default=ROOT/'factory-output/source-first/browser-target')
     p.add_argument('--exports',nargs='+',required=True)
     p.add_argument('--replace-fragment-sha256',help='Explicit expected SHA-256 of an existing exclusive source fragment')
+    p.add_argument('--preserve-fragment-storage',action='store_true',help='Replace function exports only, retaining the exact original mixed fragment for storage')
     p.add_argument('--report',type=Path,default=ROOT/'reports/oct15-verbosity-fragment-integration.json')
     a=p.parse_args()
+    if a.preserve_fragment_storage and not a.replace_fragment_sha256:p.error('storage preservation requires an exact fragment hash')
     target=a.target.resolve();manifest=json.loads(a.manifest.read_text());source=manifest['source']
     if Path(manifest.get('module_fragment',{}).get('import_root','')).resolve()!=target:
         raise ValueError('Fragment lacks this exact verified provider root')
@@ -33,16 +35,33 @@ def main():
     for row in manifest.get('definitions',[]):
         if row.get('status')=='source-first' and row.get('kind')=='VarDecl' and row['name'] in owned_storage:
             raise ValueError('Fragment duplicates existing original storage: '+row['name'])
-    replacing=None;old_export=None
+    replacing=None;old_export=None;preserved=None;preserved_declaration=''
     if a.replace_fragment_sha256:
         if not re.fullmatch(r'[a-f0-9]{64}',a.replace_fragment_sha256):raise ValueError('Invalid expected fragment hash')
         matches=[row for row in owner.get('module_fragments',[]) if row.get('sha256')==a.replace_fragment_sha256
-                 and set(row.get('exports',[]))==set(a.exports) and row.get('original_source')==source]
+                 and (set(row.get('exports',[]))==set(a.exports) or a.preserve_fragment_storage and set(a.exports)<set(row.get('exports',[]))) and row.get('original_source')==source]
         if len(matches)!=1:raise ValueError('No unique exact original fragment to replace')
         replacing=matches[0];old_path=(target/replacing['module']).resolve()
         if old_path.parent!=original.parent or hashlib.sha256(old_path.read_bytes()).hexdigest()!=a.replace_fragment_sha256:
             raise ValueError('Existing fragment path/content no longer matches expected original provider')
         previous_names=replacing.get('reexports',replacing['exports'])
+        if a.preserve_fragment_storage:
+            definitions={row['name']:row for row in owner['definitions'] if row['status']=='source-first'}
+            retained=set(replacing['exports'])-set(a.exports)
+            if not retained or any(definitions.get(name,{}).get('kind')!='FunctionDecl' for name in a.exports):
+                raise ValueError('Storage-preserving refresh must replace function definitions only')
+            if any(definitions.get(name,{}).get('kind')!='VarDecl' for name in retained):
+                raise ValueError('Storage-preserving refresh must retain every non-function definition')
+            def captures(name,seen):
+                if name in a.exports:return True
+                if name in seen:return False
+                seen.add(name)
+                return any(captures(ref,seen) for ref in definitions.get(name,{}).get('source_references',[]))
+            if any(captures(name,set()) for name in retained):raise ValueError('Preserved storage may capture an original function being replaced')
+            names_to_keep=[name for name in previous_names if name not in a.exports]
+            preserved={**replacing,'exports':[name for name in replacing['exports'] if name in retained],
+                'reexports':names_to_keep,'preserved_storage_from_sha256':a.replace_fragment_sha256}
+            preserved_declaration='export { '+', '.join(names_to_keep)+' } from '+json.dumps('./'+old_path.name)+';\n'
         pattern=r'export\s*\{\s*'+r'\s*,\s*'.join(re.escape(name) for name in previous_names)+r'\s*\}\s*from\s*["\']\./'+re.escape(old_path.name)+r'["\'];'
         occurrences=list(re.finditer(pattern,before.decode()))
         if len(occurrences)!=1:raise ValueError('Existing source fragment has no unique owner re-export')
@@ -84,7 +103,7 @@ def main():
     fragment=original.parent/('_source_legacy_'+original.stem.replace('.','_')+'_'+digest[:12]+'.mjs')
     if fragment.exists():raise ValueError('Fragment path already exists')
     declaration='export { '+', '.join(reexports)+' } from '+json.dumps('./'+fragment.name)+';'
-    rendered=(before.decode().replace(old_export,declaration,1) if replacing else
+    rendered=(before.decode().replace(old_export,preserved_declaration+declaration,1) if replacing else
         before.decode()+'\n// Original Clang-generated fragment; imports existing owner storage.\n'+declaration+'\n')
     backup=ROOT/'work/fragment-integration-backup'/hashlib.sha256(before).hexdigest()[:16]
     backup.mkdir(parents=True,exist_ok=True)
@@ -109,6 +128,7 @@ def main():
         if replacing:
             owner.setdefault('superseded_module_fragments',[]).append(replacing)
             owner['module_fragments'].remove(replacing)
+            if preserved:owner['module_fragments'].append(preserved)
         owner.setdefault('module_fragments',[]).append({'module':fragment.relative_to(target).as_posix(),
             'sha256':digest,'original_source':source,'exports':a.exports,'reexports':reexports,'imports':manifest['imports'],
             'native_pointer_abi':manifest.get('native_pointer_abi'),
@@ -118,7 +138,7 @@ def main():
         original.write_bytes(before);owner_manifest.write_bytes(before_manifest);fragment.unlink(missing_ok=True);raise
     finally:temporary.unlink(missing_ok=True)
     report={'format':'verified-original-source-fragment-integration/1','source':source,
-        'fragment':str(fragment.relative_to(ROOT)),'fragment_sha256':digest,'exports':a.exports,
+        'fragment':str(fragment.relative_to(ROOT) if fragment.is_relative_to(ROOT) else fragment),'fragment_sha256':digest,'exports':a.exports,
         'duplicated_source_globals':False,'storage_imports_verified':True,'gameplay_verified':False,
         'replaced_fragment_sha256':a.replace_fragment_sha256,
         'owner_before_sha256':hashlib.sha256(before).hexdigest(),

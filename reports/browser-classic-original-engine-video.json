@@ -94,14 +94,14 @@
         "crc32": 2083265037
       },
       "destination_before": {
-        "pixels": 339152,
+        "pixels": 406992,
         "visible": 209720,
         "crc32": 2628275477,
         "heap_bytes": 134217728,
         "palette_crc32": 2104748368
       },
       "destination_after": {
-        "pixels": 339152,
+        "pixels": 406992,
         "visible": 209720,
         "crc32": 2628275477,
         "heap_bytes": 134217728,
@@ -119,7 +119,7 @@
         "crc32": 168279882
       },
       "destination_after": {
-        "pixels": 339152,
+        "pixels": 406992,
         "visible": 219481,
         "crc32": 2226405043,
         "heap_bytes": 134217728,
@@ -127,6 +127,37 @@
       },
       "original_game_sprite_animation_executed": false,
       "original_gameplay_verified": false
+    },
+    "original_text_startup": {
+      "original_full_G_InitText_executed": true,
+      "original_font_services_executed": true,
+      "initialization_calls": 2,
+      "native_mapping_entries": 1536,
+      "native_pointer_identity_checks": 6,
+      "glyph_buffers": [
+        {
+          "address": 2473088,
+          "bytes": 512
+        },
+        {
+          "address": 2473632,
+          "bytes": 512
+        }
+      ],
+      "native_original_text_parser_cases": 105,
+      "native_oracle_scope": "Exact original font functions and exact G_InitText mapping statements; excludes native allocation, tileLoad and complete game parity",
+      "original_game_menu_rendered": false,
+      "gameplay_verified": false
+    },
+    "original_resource_group_loading": {
+      "original_G_ScanGroups_executed": true,
+      "original_G_LoadGroups_executed": true,
+      "original_group_selected": true,
+      "archive_entries": 456,
+      "archive_count": 1,
+      "autoload_requested": false,
+      "original_app_main_executed": false,
+      "gameplay_verified": false
     },
     "original_rooms_frame_rendered": true,
     "original_rooms_frame": {
@@ -184,13 +215,31 @@
       "value": "object"
     },
     {
-      "name": "initgroupfile",
+      "name": "import original resource initialization",
       "transition": "enter"
     },
     {
-      "name": "initgroupfile",
+      "name": "import original resource initialization",
       "transition": "return",
-      "value": 0
+      "value": "object"
+    },
+    {
+      "name": "original G_ScanGroups",
+      "transition": "enter"
+    },
+    {
+      "name": "original G_ScanGroups",
+      "transition": "return",
+      "value": null
+    },
+    {
+      "name": "original G_LoadGroups",
+      "transition": "enter"
+    },
+    {
+      "name": "original G_LoadGroups",
+      "transition": "return",
+      "value": null
     },
     {
       "name": "engineInit",
@@ -355,6 +404,42 @@
       "value": null
     },
     {
+      "name": "import original font functions",
+      "transition": "enter"
+    },
+    {
+      "name": "import original font functions",
+      "transition": "return",
+      "value": "object"
+    },
+    {
+      "name": "import original text initialization",
+      "transition": "enter"
+    },
+    {
+      "name": "import original text initialization",
+      "transition": "return",
+      "value": "object"
+    },
+    {
+      "name": "original G_InitText stage 0",
+      "transition": "enter"
+    },
+    {
+      "name": "original G_InitText stage 0",
+      "transition": "return",
+      "value": null
+    },
+    {
+      "name": "original G_InitText stage 1",
+      "transition": "enter"
+    },
+    {
+      "name": "original G_InitText stage 1",
+      "transition": "return",
+      "value": null
+    },
+    {
       "name": "import original division initializer",
       "transition": "enter"
     },
@@ -384,7 +469,7 @@
   ],
   "gameplay_verified": false,
   "format": "original-browser-engine-component/1",
-  "browser_version": "157.0.4341.42",
+  "browser_version": "157.0.4341.60",
   "console": [
     {
       "type": "error",
@@ -440,11 +525,39 @@
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"initgroupfile\",\"transition\":\"enter\"}"
+      "text": "SOURCE_TRACE {\"name\":\"import original resource initialization\",\"transition\":\"enter\"}"
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"initgroupfile\",\"transition\":\"return\",\"value\":0}"
+      "text": "SOURCE_TRACE {\"name\":\"import original resource initialization\",\"transition\":\"return\",\"value\":\"object\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_ScanGroups\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "source/duke3d/src/grpscan.cpp:474 Searching for game data..."
+    },
+    {
+      "type": "info",
+      "text": "source/duke3d/src/grpscan.cpp:442  duke3d.grp has checksum 0xfd3dcff1"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_ScanGroups\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_LoadGroups\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "source/duke3d/src/common.cpp:367 Using duke3d.grp as main data file."
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_LoadGroups\",\"transition\":\"return\",\"value\":null}"
     },
     {
       "type": "info",
@@ -600,6 +713,38 @@
     },
     {
       "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"import original font functions\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"import original font functions\",\"transition\":\"return\",\"value\":\"object\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"import original text initialization\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"import original text initialization\",\"transition\":\"return\",\"value\":\"object\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 0\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 0\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 1\",\"transition\":\"enter\"}"
+    },
+    {
+      "type": "info",
+      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 1\",\"transition\":\"return\",\"value\":null}"
+    },
+    {
+      "type": "info",
       "text": "SOURCE_TRACE {\"name\":\"import original division initializer\",\"transition\":\"enter\"}"
     },
     {
@@ -636,19 +781,21 @@
     "factory-output/source-first/browser-classic/browser-modules/source/mact/src/_source_legacy_scriplib_cpp_4133b6dd49e3.mjs": "4133b6dd49e3c77d7bb40feea70a016261ede00e05aee0f5cecc49f523ca7c07",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/anim.cpp.mjs": "da058e36b1b12d7862e22ae05528c17cf21e3d2409922b1ea8400eace5f25e06",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/cmdline.cpp.mjs": "65226941fa4d8b2dacbc3d7c91bdafb59c609d49a7e2e4e2fb873faa35ade093",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.mjs": "0c492415b05545ca9ef1315c16158062c3b29ecf31f07338f099b651ca4bd0e5",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/common.cpp.mjs": "e9829de539a473e540b76b56a7343361c9dda3eaf41943ca3939736038d9bdcd",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/config.cpp.mjs": "9b3efb080ab94f9c71c385413c04d0de64794ef2e926ed664686fe70fbe51663",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/demo.cpp.mjs": "f5ad0d991318075428280357be7f6f313a9a73ba21bf5b1e03ba80185280124e",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/dnames.cpp.mjs": "59eff4f8bae76638c09bd196738355f06837d45ca2a131796fe16ab70634e9b2",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.mjs": "2a7d6219176b45f968b4fb1438a1b5d41f248eff5c062246a6a7126b68080324",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/game.cpp.mjs": "975d4886e028852202368aed61734626a1add9a4dcc47c5da01f2707354a46df",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/global.cpp.mjs": "48eeaebe32fe8ed466673e923772fa06cce1a8ca393cb136fd97405bd68afed6",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/grpscan.cpp.mjs": "f4ff51459b2a012c59f22e0b9f2748fcd66c57c8cc61a98c60b4fcb8facb1139",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/menus.cpp.mjs": "18678f3b35f508496a13583c12d27645794eaf2978a11b0572b52bb40e101291",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/network.cpp.mjs": "4de5e56704cc6272bd10532054acb1f8cb89bc4f35ddd55966e772f593541c95",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/osdcmds.cpp.mjs": "fae6a81ec366e39d8f2f8cc53ed4285b4e428cf597caf8c89708559b6acaa708",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/player.cpp.mjs": "aa8ae580ec0abce589f2ae3daabc8bd82c6f1e0363ac2105674e40dfe51852ce",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/premap.cpp.mjs": "d0efe3d5bed0938b2246c41a72a98f4e718fe0349905251d7373bfbcd490b9a1",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/screens.cpp.mjs": "2d366c029b1122f7e478b600c5a888dc3809fc9e773781b0accd541c4cb6c271",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/text.cpp.mjs": "5b328ff436ea4033473d6e5a97e60a3b050b41d99e3d0439b590e3ef8f8d4643",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/sounds.cpp.mjs": "fc0406ff4a3ae04a66fdac208b52e68e6b49acd4009f779f146069f45741db72",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/text.cpp.mjs": "8e9cc1fd1e2ab83e67fe1bce4b4e65080f25305da251373e788f7568b84c1543",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_anim_cpp_142256c40bbd.mjs": "142256c40bbd6d876f306723739bc9159a288ae138897b9c2d7d3c2b34e612ad",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_anim_cpp_85feed146e80.mjs": "85feed146e806502b2794b72e85f9dae6ac09db1d852c0be8af3763ebc8501d8",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_cmdline_cpp_af84ffbefee3.mjs": "af84ffbefee37194b94417567aeb9d313c4608fbec35243baccf760d6539db94",
@@ -658,6 +805,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_93dfc3bd1e57.mjs": "93dfc3bd1e57bedb5713e92cd3278cc0edb0d4b22d929b6492ec8a744f7c13fe",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_a22fb088ffaf.mjs": "a22fb088ffaf97dd60f66730ec58f3a5247f68a43573eb96cf6aa6046afde160",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_c90e38763790.mjs": "c90e38763790e2a0958174b53fb2095c0e990bbf97d7778465e5d1ea0646e98d",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_d57ac5187664.mjs": "d57ac51876641e4c62fba9a2cfb8cec0b6cf70612931d9f5d3ac3a585221c084",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_common_cpp_e3d05fc5d4c9.mjs": "e3d05fc5d4c9326c2f28735cc552e7ccd8ed34b0b849783cb0e0e54a54140770",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_2d871da0029f.mjs": "2d871da0029ff2965a46891a0791ee3f126d84491d8f1af911cf6363cb1ba371",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_config_cpp_434fec6dc2f2.mjs": "434fec6dc2f2077dafff968e583c5e650cbe7bf07994d4c8f59d55e40436ecef",
@@ -666,10 +814,12 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_dnames_cpp_ce236998bac6.mjs": "ce236998bac682a1f04ad0b2cce3e88ff95a44a24e7d8c425d93edfeb0054fcf",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_dnames_cpp_ef970c79fbbf.mjs": "ef970c79fbbf86d47a83ce9f7bf63034f6ed81a7cb7ca69225cf2c4b0ba3069a",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_08a6f15f0f0a.mjs": "08a6f15f0f0a8c9d01f6f4fed6eac3801696d4cd1c17329a5d82124b1ac391a3",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_14f740665e84.mjs": "14f740665e84b8c95ae43cea8fe7a4e84fce791440685c058783dfc5611c4b10",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_40f98e4d029c.mjs": "40f98e4d029c75829df7d7e56becb7ab6ea24ae3d196c68f9c2bc235d80c09e2",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_5095f47ecf2c.mjs": "5095f47ecf2c015f7415493117a68849ab4ff2e5d16d209827c791e49ea2760f",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_65976b584746.mjs": "65976b584746eedabc888f0b969027693872c24a5df69bb35d5d9f02f8ffcc8a",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_72bc26617a3d.mjs": "72bc26617a3dd80590e7377320532b4588b6b3bf1701d84381ddd16fe9648d85",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_78d1b5cedfe1.mjs": "78d1b5cedfe1c9825ca4aac0ea7539e8e119f625187d13de82718871f412de87",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_game_cpp_b1e3774b17a3.mjs": "b1e3774b17a3fa3d2054b2bff82fef05d3c0bc7dee242a3483798e0de3545092",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_global_cpp_203cdd26ef71.mjs": "203cdd26ef712040757e9ca726a60884c59dd110eaf3a9b4227608558a2fd5e3",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_global_cpp_7cea82983dac.mjs": "7cea82983dacfd49cc13bd980aad8721c2477b4f433b2b06e94c41645e2eaacd",
@@ -679,9 +829,12 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_grpscan_cpp_1b6295a47bc1.mjs": "1b6295a47bc1e4f50a2649d582f5853ed90996ce17676f1708154a075a49bfb4",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_grpscan_cpp_831a77bfa26e.mjs": "831a77bfa26e9972f3e1fdc543dddd14de169144e631a802dac9482b7c132fb7",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_grpscan_cpp_9bbf1d56e764.mjs": "9bbf1d56e764a99fa4199d9ed86c09783a768191f0d44127f8e897a9c6521468",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_menus_cpp_8cea802c5990.mjs": "8cea802c5990a3e23e43cdd4132aa5d4171727d7e78b121d3942c9e52cea71a7",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_network_cpp_8c14b62929a8.mjs": "8c14b62929a8f9f1982c03bcf3cef94e64244e3aea0fb42cd74634b6887b6705",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_player_cpp_8a8a991c7e30.mjs": "8a8a991c7e30da4b358382373110dfe3c919de31059e183091112b8658cc75a7",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_screens_cpp_0fd05e3fd583.mjs": "0fd05e3fd583bb59199e7317301afc5f3d40a0ae93cde55ef78866600fad1ed3",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_sounds_cpp_74d37e03af29.mjs": "74d37e03af29b9893898f0cc0811003ac324a09e2719656614ba41fd126520dd",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_text_cpp_69b6c3959cbd.mjs": "69b6c3959cbd1f1bbca1cbbaf3fac960ff87235d614c036510aee783cc1db38e",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_text_cpp_d5fa5287ecdb.mjs": "d5fa5287ecdb311b198481da30bdbca5f87b54ca9b93c3868f30e84b84871f46",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/a-c.cpp.mjs": "3d97252d64526e93e429613307a4791b1c15a346607a67398ebd6750a9c57183",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/baselayer.cpp.mjs": "dbcedab768fd42b85aa859cdbc95071b789d05a27c509a566e83e3c6b69c9c89",
@@ -707,7 +860,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/pragmas.cpp.mjs": "21a1906f5c86e6cb2e1b8c5e11e05cd8f8cd6018a59b0fadbeff551da9843f91",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/rev.cpp.mjs": "c6979e18a81d94d31fb649c1aa6397529ac5cbd4719109324e27e1ca148413ef",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/screenshot.cpp.mjs": "3af210a80dc1f153c4d7c4cd60a2800e56ae1980b827c175a1972c798d9d12ef",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/screentext.cpp.mjs": "96bba866604b3ab45ef03e33868762267bfc96c173927549ab3877aceeb8adff",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/screentext.cpp.mjs": "94b27417e1d954a5cf938dc821b7ce9b15ed66dcdfeeaaf829b2a37a19874bd7",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/scriptfile.cpp.mjs": "7161534277e668173441e47a55aa100ee803a08c74b204f8b6a445594d969eed",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/sdlayer.cpp.mjs": "29f70c394bcfce42a37564d5d6a2035993700662c8a19fd163aa3c148cbe97fd",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/smalltextfont.cpp.mjs": "199a4a2c7753efa610029818a7a8ac7a38380cbbfce00d2fea583055630e9680",
@@ -815,7 +968,9 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_4b95ad898c8a.mjs": "4b95ad898c8a1d9a38e64e94e781e2c03eb99bed460b2569941bb8d5c1a66d5b",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_7140ad416c7a.mjs": "7140ad416c7ad671f2ad08104e3885c5f6553d25c9a10f2e1a3c8f2004cc2a58",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_pragmas_cpp_b084c46ca14c.mjs": "b084c46ca14cd3fd408b2d3c333e8bb923cf4ad352ecfa53b2c91fbdc2a02c4a",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_screentext_cpp_633db16ce76e.mjs": "633db16ce76eebc30dd7a9b8de92d6c0f80bcffd04bafa2125ff1c6dd9a9263d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_screentext_cpp_6fdbea5787b5.mjs": "6fdbea5787b51dd838c41a32a83f33d64dc5973ddbc38f149be42ff2fc167796",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_screentext_cpp_b4f2f0779128.mjs": "b4f2f0779128ac1d50983bb1e5ec4b8cb99bfe837c430aff05780a968f2c338b",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_scriptfile_cpp_5c759125b461.mjs": "5c759125b461d10b5a389b7df7f586f7d65d05e9c17558fddcc320c64e2dc491",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_129bd76e9bc2.mjs": "129bd76e9bc276672c7d65c3165cbf5645139b5cb877018bd331f7657b0b8a15",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_sdlayer_cpp_350a18085e20.mjs": "350a18085e20867414c3b2f77d38ac5f870e6619f49fabd2de28dd0a46bfd921",
@@ -887,7 +1042,7 @@
     "runtime/flac_abi.mjs": "8a247d77566df2efbb3544011616d294c86fe342d6ac4d7c3fa8d9a045683fcd",
     "runtime/generated_demangles.mjs": "9912b84e4f8bcbc3847c3070896d2a2ed253e12ab0debc8ddea29a07e0acdffa",
     "runtime/ieee_fma.mjs": "768a889a2214ae4e78633bd1e36f7c99b3e3850e5ea80f480f3ffca4639e94fc",
-    "runtime/index.mjs": "cc2dd31aa217c2ab5c9959eaa904ae2d8ed6cf8a7cce784657355b10ad250517",
+    "runtime/index.mjs": "5bfd75f8e2957e12f116b2663d596cd27778fc2effa86371a95f6067b305c776",
     "runtime/libdivide_abi.mjs": "da6139fee29c9366bec973c2ea1b1a4945a10e3fc0363fc32faff764ada8388e",
     "runtime/libdivide_division_source.mjs": "d8103c23c124ecf67ee7d8da5c331a358e19b49d52ff1493fce4e6bc45ba0971",
     "runtime/linker.mjs": "82b6cd537462fce8d278da4f0bcb98defe052210a576d1999c07068dc57c244c",
@@ -913,30 +1068,10 @@
   "menu_verified": false,
   "level_verified": false,
   "standalone_player_verified": false,
-  "original_engine_init_probe": {
-    "script": "work/verify_original_engine_init.py",
-    "sha256": "7646c18a4d2f70f6701e9339da33fbcae23b9902ff7cdaa158f4f40b08670121",
-    "manual_game_state_initialized": false,
-    "original_app_main_executed": false,
-    "gameplay_verified": false
-  },
-  "map_component_scope": {
-    "script": "work/verify_original_map_load.py",
-    "selected_all_grp_campaign_maps": false,
-    "original_app_main_executed": false,
-    "original_CON_executed": false,
-    "world_rendering_verified": false,
-    "gameplay_verified": false
-  },
   "original_rooms_capture": {
-    "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\evidence\\nov12-original-js-engine-masks.png",
+    "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\evidence\\nov16-original-text-startup.png",
     "sha256": "fac199fda80ebd92b83153953d1b6fe96a604373b8bdc39eac6b3b34905b7b89",
-    "caption": "Original JavaScript Build rooms/masks at raw MAP start; game/CON sprite initialization, app_main and gameplay remain unverified"
+    "caption": "Original raw MAP engine frame with original font initialization executed; no game menu, app_main or gameplay"
   },
-  "rooms_component_scope": {
-    "original_app_main_executed": false,
-    "original_CON_executed": false,
-    "masked_walls_and_sprites_verified": false,
-    "gameplay_verified": false
-  }
+  "native_font_oracle": "reports/nov16-native-original-font-oracle.json"
 }

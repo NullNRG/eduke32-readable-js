@@ -118,6 +118,14 @@ def storage_import_error(dependency,units,*,export_reader=exported_names):
         if 'scalar_array' in dependency:metadata['scalar_array']=dependency['scalar_array']
         if 'byte_record' in dependency:metadata['byte_record']=dependency['byte_record']
         if rows[0].get('private_storage')!=metadata:return 'private storage provider contract differs'
+        from source_std_unordered import ABI as STD_MAP_ABI, map_schema
+        library_maps=[p for p in rows[0].get('standard_library_adapters',[]) if p.get('abi')==STD_MAP_ABI and p.get('kind')=='map']
+        opaque=dependency.get('opaque_library')
+        schema=map_schema(metadata.get('original_type',''))
+        if opaque or schema and library_maps:
+            expected={'abi':STD_MAP_ABI,'kind':'map','schema':schema}
+            if not schema or opaque!=expected or not any(p.get('schema')==schema for p in library_maps):
+                return 'private opaque library storage lacks identical source type/service ABI'
         if {'name':name,**metadata} not in provider['manifest'].get('private_storage_exports',[]):
             return 'private storage export absent from provider manifest'
         if not provider.get('module') or dependency['binding'] not in export_reader(provider['module']):
