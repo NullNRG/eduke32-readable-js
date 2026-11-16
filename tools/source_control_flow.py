@@ -114,6 +114,10 @@ class SourceFlowPlan:
         self.goto_ops={}
         self.tail_return={}
         self.nested_terminal={}
+        self.continue_suffixes={}
+        self.loop_owners={}
+        self.suffix_required_scopes={}
+        self.jump_scopes={}
         self.regions=[]
         self.scopes={}
         self.positions={}
@@ -122,18 +126,29 @@ class SourceFlowPlan:
         self.control_exits={}
         self.elided_tail_labels=set()
         self.diagnostics=Counter()
-        self.passes=('find_nested_terminal_labels','index_labels','resolve_edges','validate_lifetimes','detect_tail_returns','form_regions','verify_nesting','bind_control_exits')
+        self.passes=('find_nested_terminal_labels','index_labels','resolve_edges','verify_copied_suffixes','validate_lifetimes','detect_tail_returns','form_regions','verify_nesting','bind_control_exits')
         for stage in self.passes: getattr(self,stage)()
 
     def find_nested_terminal_labels(self):
         """A jump to an error-return suffix can execute that source suffix.
 
-        Require an unconditional return and no loop exits or further jumps.
+        Require an unconditional return (or a direct Clang noreturn call)
+        and no loop exits or further jumps.
         Reject references to locals in the enclosing nested scope: duplicating
         a suffix must not import uninitialized storage from a different path.
         """
         def returns(node):
             if kind(node)=='ReturnStmt':return True
+            if kind(node)=='CallExpr':
+                seq=children(node)
+                callee=seq[0] if seq else {}
+                while kind(callee) in ('ParenExpr','ImplicitCastExpr') and len(children(callee))==1:
+                    callee=children(callee)[0]
+                decl=callee.get('referencedDecl',{})
+                typ=decl.get('type',{}).get('qualType','')
+                return (kind(callee)=='DeclRefExpr' and decl.get('kind')=='FunctionDecl' and
+                        bool(re.search(r'__attribute__\s*\(\(\s*noreturn\s*\)\)'
+                                       r'\s*(?:noexcept(?:\((?:true|false)\))?)?\s*$',typ)))
             if kind(node)=='CompoundStmt':
                 seq=children(node)
                 return bool(seq and returns(seq[-1]))
@@ -141,24 +156,62 @@ class SourceFlowPlan:
                 seq=children(node)
                 return bool(node.get('hasElse') and len(seq)>=3 and returns(seq[-1]) and returns(seq[-2]))
             return False
-        def visit(node,restricted=frozenset()):
+        local_decls=[x for x in descendants(self.body) if kind(x)=='VarDecl']
+        local_ids={x.get('id') for x in local_decls if x.get('id')}
+        local_names={x.get('name') for x in local_decls if x.get('name')}
+
+        def consider(label,statements,restricted,loop):
+            if kind(label)!='LabelStmt' or len(children(label))!=1:return
+            suffix={'kind':'CompoundStmt','inner':[children(label)[0],*statements]}
+            nodes=list(descendants(suffix))
+            refs=[x.get('referencedDecl',{}) for x in nodes if kind(x)=='DeclRefExpr']
+            uses={ref.get('id') for ref in refs}
+            # Goto functions hoist their JS locals. A function-local binding
+            # can capture a formerly external identifier in the copied code.
+            if any(ref.get('name') in local_names and ref.get('id') not in local_ids for ref in refs):return
+            bad={'BreakStmt','LabelStmt','CaseStmt','DefaultStmt','LambdaExpr'}
+            if any(kind(x) in bad for x in nodes):return
+            if returns(suffix) and not any(kind(x) in ('GotoStmt','ContinueStmt','VarDecl') for x in nodes):
+                self.nested_terminal[label.get('declId')]=suffix
+            if (loop and ends_in_continue(suffix) and not any(
+                kind(x) in loops or kind(x) in ('SwitchStmt','CXXBindTemporaryExpr')
+                or (kind(x)=='VarDecl' and (x.get('storageClass') or x.get('tls'))) for x in nodes)):
+                self.nested_terminal[label.get('declId')]=suffix
+                self.continue_suffixes[label.get('declId')]=loop
+            if label.get('declId') in self.nested_terminal:
+                self.suffix_required_scopes[label['declId']]={restricted[key] for key in uses if key in restricted}
+
+        loops={'ForStmt','WhileStmt','DoStmt','CXXForRangeStmt'}
+        def ends_in_continue(node):
+            seq=children(node)
+            return kind(node)=='ContinueStmt' or kind(node)=='CompoundStmt' and bool(seq) and ends_in_continue(seq[-1])
+
+        def visit(node,restricted=None,loop=None,scopes=()):
+            k=kind(node)
+            if k=='LambdaExpr':return
+            restricted=dict(restricted or {})
+            scopes=(*scopes,id(node))
+            if k in loops:loop=id(node)
+            if k=='GotoStmt':
+                self.loop_owners[id(node)]=loop
+                self.jump_scopes[id(node)]=frozenset(scopes)
             if kind(node)=='CompoundStmt':
                 seq=children(node)
-                local={x.get('id') for stmt in seq for x in children(stmt)
-                       if kind(stmt)=='DeclStmt' and kind(x)=='VarDecl'} if node is not self.body else set()
-                restricted=restricted|local
                 for i,stmt in enumerate(seq):
                     if node is not self.body and kind(stmt)=='LabelStmt':
-                        suffix={'kind':'CompoundStmt','inner':[children(stmt)[0],*seq[i+1:]]}
-                        uses={x.get('referencedDecl',{}).get('id') for x in descendants(suffix) if kind(x)=='DeclRefExpr'}
-                        if (returns(suffix) and not uses.intersection(restricted) and not any(
-                            kind(x) in ('GotoStmt','BreakStmt','ContinueStmt','LabelStmt') for x in descendants(suffix))):
-                            self.nested_terminal[stmt.get('declId')]=suffix
+                        consider(stmt,seq[i+1:],restricted,loop)
+                    if kind(stmt)=='DeclStmt' and node is not self.body:
+                        restricted.update((x.get('id'),id(node)) for x in children(stmt) if kind(x)=='VarDecl')
+            # Clang attaches a source label immediately after case/default to
+            # that dispatch node. Require its own terminal statement: never
+            # copy an implicit case fallthrough or enclosing switch suffix.
+            if k in ('CaseStmt','DefaultStmt') and children(node):
+                consider(children(node)[-1],[],restricted,loop)
             # A for/if initializer also belongs to its nested lexical scope.
-            if node is not self.body and kind(node) in ('ForStmt','IfStmt','SwitchStmt'):
-                restricted=restricted|{x.get('id') for stmt in children(node) if kind(stmt)=='DeclStmt'
-                    for x in children(stmt) if kind(x)=='VarDecl'}
-            for child in children(node):visit(child,restricted)
+            if node is not self.body and kind(node) in loops|{'IfStmt','SwitchStmt'}:
+                restricted.update((x.get('id'),id(node)) for stmt in children(node) if kind(stmt)=='DeclStmt'
+                    for x in children(stmt) if kind(x)=='VarDecl')
+            for child in children(node):visit(child,restricted,loop,scopes)
         visit(self.body)
 
     def index_labels(self):
@@ -194,6 +247,12 @@ class SourceFlowPlan:
             target=node.get('targetLabelDeclId');sid=self.label_scopes.get(target)
             positions=self.positions.get(id(node),{})
             if target in self.nested_terminal and (sid is None or sid not in positions):
+                if not self.suffix_required_scopes[target] <= self.jump_scopes[id(node)]:
+                    raise ControlFlowUnsupported('copied source suffix reads a local from an entered scope')
+                if target in self.continue_suffixes:
+                    if self.loop_owners.get(id(node))!=self.continue_suffixes[target]:
+                        raise ControlFlowUnsupported('copied source suffix crosses loop ownership')
+                    self.diagnostics['same_loop_terminal_jumps']+=1
                 self.tail_return[id(node)]=self.nested_terminal[target]
                 self.diagnostics['nested_terminal_jumps']+=1
                 continue
@@ -207,6 +266,30 @@ class SourceFlowPlan:
             self.diagnostics['forward_goto' if mode=='exit' else 'backward_goto']+=1
             if sid!=id(self.body):self.diagnostics['nested_lexical_jumps']+=1
         if not self.edges and not self.tail_return: raise ControlFlowUnsupported('label without any goto')
+
+    def verify_copied_suffixes(self):
+        # Only follow acyclic suffix-to-suffix jumps. An inner jump must not
+        # rely on a lexical block label absent at the new emission position.
+        visiting=set();checked=set()
+        required={id(suffix):self.suffix_required_scopes[target]
+                  for target,suffix in self.nested_terminal.items()}
+        def check(suffix,available):
+            identity=id(suffix)
+            if identity in visiting:raise ControlFlowUnsupported('recursive copied source suffix')
+            if not required[identity] <= available:
+                raise ControlFlowUnsupported('copied source suffix reads a local from an entered scope')
+            key=identity,available
+            if key in checked:return
+            visiting.add(identity)
+            nodes=list(descendants(suffix))
+            in_suffix={id(node) for node in nodes}
+            for node in nodes:
+                if kind(node)!='GotoStmt':continue
+                nested=self.tail_return.get(id(node))
+                if nested is None:raise ControlFlowUnsupported('copied source suffix crosses a lexical jump')
+                check(nested,available | (self.jump_scopes[id(node)] & in_suffix))
+            visiting.remove(identity);checked.add(key)
+        for position,suffix in self.tail_return.items():check(suffix,self.jump_scopes[position])
 
     def validate_lifetimes(self):
         # Lexical wrapping changes JS block boundaries. C locals therefore use

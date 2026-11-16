@@ -21,3 +21,13 @@ extern "C" int pointerAliasing(int shift) {
     b--;
     return (int)*a + (int)*(a+1) + (int)(a == b);
 }
+
+extern "C" int scriptWordRelocation(int shift) {
+    int64_t values[4] = {8, 16, 24, 32};
+    int64_t *base = &values[1];
+    int64_t step = (shift & 3) - 1;
+    int64_t *slot = step + base;
+    *slot = 50 + shift;
+    int64_t *end = int64_t{3} + base;
+    return int(*slot + (slot - base) + ((end == values + 4) ? 1000 : 0));
+}

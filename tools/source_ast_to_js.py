@@ -1489,6 +1489,11 @@ class Emit:
             # Pointer arithmetic is not JavaScript numeric arithmetic.
             # Require explicit array-view lowering before accepting it.
             if op in ('+','-','<','>','<=','>=') and ('*' in qual(a[0]) or '*' in qual(a[1])):
+                # Clang permits both pointer + index and index + pointer.
+                # Use the actual pointee's stride in either spelling.
+                if op=='+' and '*' not in qual(a[0]) and '*' in qual(a[1]):
+                    a=[a[1],a[0]]
+                    lhs,rhs=rhs,lhs
                 pointer=self.pointer_type(qual(a[0]))
                 record_width=self.indirect_pointer_stride(qual(a[0])) or self.record_pointer_stride(qual(a[0]))
                 stride=(pointer+'.BYTES_PER_ELEMENT' if pointer else record_width)

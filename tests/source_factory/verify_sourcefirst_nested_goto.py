@@ -9,6 +9,68 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=r'''
+#include <stdlib.h>
+int nested_fatal(int n){
+ int status=15;
+ if(n==1){
+ fatal:status+=n;exit(status);
+ }
+ if(n==2)goto fatal;
+ return 97;
+}
+int reject_fallthrough_side_entry(int n){
+ int result=0;
+ if(n)goto inside;
+ if(n==0){inside:result+=8;}
+ return result;
+}
+int case_suffixes(int n){
+ int acc=0;
+ for(int i=0;i<12;++i){
+  switch((n+i)%6){
+  case 0: acc+=11;goto also;
+  case 1: {
+   if((n+i)%7==0){
+   append:acc+=17+i;continue;
+   }
+   acc+=3;continue;
+  }
+  case 2:
+  also: {
+   int prior=acc;
+   acc+=13;
+   if(prior%2)goto append;
+   continue;
+  }
+  case 3:goto append;
+  case 4:{
+   int step=0;
+   retry:acc+=2;++step;
+   if(step<2)goto retry;
+   continue;
+  }
+  default:acc+=29;continue;
+  }
+ }
+ return acc;
+}
+int reject_wrong_continue_owner(int n){
+ int sum=0;
+ for(int i=0;i<2;i++){
+  for(int j=0;j<2;j++)if(n)goto outer;
+  if(!n){
+   outer:++sum;continue;
+  }
+ }
+ return sum;
+}
+int reject_recursive_suffix(int n){
+ for(int i=0;i<2;++i){
+  if(n){first:if(n>2)goto second;continue;}
+  if(n){second:if(n>2)goto first;continue;}
+ }
+ return n;
+}
 int nested_forward(int n){
  int sum=0;
  for(int i=0;i<8;i++){
@@ -125,7 +187,7 @@ int unproven_side_entry(int n){
 }
 '''
 FUNCTIONS=('nested_forward','nested_backward','nested_switch','nested_do_while',
-           'nested_alias','nested_range','nested_reentry','nested_addressed_for')
+           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes')
 
 def run(args,cwd):
  p=subprocess.run(args,cwd=cwd,capture_output=True,text=True,timeout=180)
@@ -134,7 +196,7 @@ def run(args,cwd):
 
 with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
  root=Path(directory);(root/'unit.cpp').write_text(SOURCE)
- (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(){for(int n=0;n<512;n++)printf("'
+ (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(int argc,char**argv){if(argc>1)return nested_fatal(atoi(argv[1]));for(int n=0;n<512;n++)printf("'
   +','.join('%d' for _ in FUNCTIONS)+'\\n",'+','.join(f+'(n)' for f in FUNCTIONS)+');}')
  native=root/'native.exe';run(['clang++','-std=c++14','main.cpp','-o',str(native)],root)
  expected=run([str(native)],root).splitlines()
@@ -147,6 +209,19 @@ with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
   assert rows[name]['control_flow']['detected']['nested_lexical_jumps']>0,rows[name]
  assert rows['unproven_side_entry']['status']=='blocked',rows['unproven_side_entry']
  assert 'different lexical scope' in rows['unproven_side_entry']['reason'],rows['unproven_side_entry']
+ assert rows['reject_fallthrough_side_entry']['status']=='blocked',rows['reject_fallthrough_side_entry']
+ assert rows['case_suffixes']['control_flow']['detected']['same_loop_terminal_jumps']==3
+ assert 'loop ownership' in rows['reject_wrong_continue_owner']['reason'],rows['reject_wrong_continue_owner']
+ assert 'recursive copied source suffix' in rows['reject_recursive_suffix']['reason'],rows['reject_recursive_suffix']
+ assert rows['nested_fatal']['status']=='source-first',rows['nested_fatal']
+ assert rows['nested_fatal']['control_flow']['detected']['nested_terminal_jumps']==1
+ expected_fatal=[subprocess.run([str(native),str(n)],cwd=root,timeout=10).returncode for n in range(3)]
+ assert expected_fatal==[97,16,17],expected_fatal
+ fatal_js='''async url=>{const m=await import(url);return [0,1,2].map(n=>{
+  try{return m.nested_fatal(n);}catch(e){if(e.name!=="CProcessExit")throw e;return e.status;}
+ });}'''
+ (root/'fatal.mjs').write_text('console.log(JSON.stringify(await ('+fatal_js+')('+json.dumps(module.as_uri())+')));')
+ assert json.loads(run(['node',str(root/'fatal.mjs')],root))==expected_fatal
  run(['node','--check',str(module)],root)
  js='async url=>{const m=await import(url),result=[];for(let n=0;n<512;n++)result.push(['+','.join('m.'+f+'(n)' for f in FUNCTIONS)+'].join(","));return result;}'
  (root/'run.mjs').write_text('console.log((await ('+js+')('+json.dumps(module.as_uri())+')).join("\\n"));')
@@ -158,6 +233,7 @@ with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
   page=browser.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
   observed=page.evaluate(js,'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode())
   assert observed==expected and not errors,(errors,observed[:2],expected[:2])
+  assert page.evaluate(fatal_js,'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode())==expected_fatal
   version=browser.version;browser.close()
  report={'format':'source-lexical-nested-goto-parity/1','passed':True,
   'native_node_cases':512,'native_chromium_cases':512,'compared_values':512*len(FUNCTIONS),
@@ -167,6 +243,8 @@ with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
   'checks':['forward and backward lexical jumps','original break/continue ownership across inserted loops',
    'switch exits and continue to enclosing loop','do/while and range-loop iteration',
    'borrowed/shadowed locals and single for-init storage','nested-to-outer restart',
-   'unproven side entry rejected'],'gameplay_verified':False}
+   'direct Clang noreturn side entry preserves exit status',
+   'switch-arm terminal suffixes preserve loop ownership and ordered continuation',
+   'unproven, cross-loop and cyclic copied side entries rejected'],'gameplay_verified':False}
  (ROOT/'reports/oct19-nested-goto-parity.json').write_text(json.dumps(report,indent=2)+'\n')
  print(json.dumps(report,indent=2))
