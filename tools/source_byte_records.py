@@ -415,7 +415,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         if isinstance(value,dict):
             return {key:(field_bindings[item] if key=='referencedMemberDecl' and isinstance(item,str) and item in field_bindings else declaration_shape(item)) for key,item in value.items()
                     if key not in ('id','loc','range','typeAliasDeclId','previousDecl','TemplateInstantiationPattern','_source_field_declaration',
-                                   '_source_member_declaration','_source_byte_method_call',
+                                   '_source_member_declaration','_source_byte_method_call','_source_cpp_function_selection','_source_cpp_function_binding',
                                    '_source_trivial_assignment_typedefs',
                                    'parentDeclContextId','isReferenced','isUsed')}
         if isinstance(value,list):return [declaration_shape(item) for item in value]

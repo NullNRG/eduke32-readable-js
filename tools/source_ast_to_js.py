@@ -45,6 +45,9 @@ from source_static_members import recover as recover_out_of_line_static_members,
 from source_instance_members import recover as recover_out_of_line_instance_members
 from source_local_lambdas import plan as plan_local_lambdas
 from source_sibling_tail import recover as recover_sibling_tail
+from source_backward_tail import recover as recover_backward_tail
+from source_cpp_function_bindings import (identity as cpp_function_identity, load as load_cpp_function_bindings,
+    bind as bind_cpp_functions, index as index_cpp_functions, rebind as rebind_cpp_functions, BINDING as CPP_FUNCTION_BINDING)
 from source_parameter_bindings import unique_parameters
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
@@ -1085,6 +1088,12 @@ class Emit:
                 'abi':'source-private-terminal-body-pointer-step/1',**{key:value for key,value in terminal.items() if key!='condition'}}]
             return '('+self.expr(terminal['condition'])+' ? ('+expression+') : void 0)'
         k=kind(n); a=kids(n)
+        if k in ('ImplicitCastExpr','CStyleCastExpr','CXXStaticCastExpr','CXXFunctionalCastExpr') and n.get('castKind')=='FloatingToBoolean':
+            if len(a)!=1:raise Unsupported('floating boolean conversion requires original operand')
+            # C++ tests floating values against zero. NaN converts to true;
+            # JavaScript Boolean(NaN) is false. Evaluate the source operand
+            # exactly once, including calls and volatile lvalue reads.
+            return '('+self.expr(a[0])+' !== 0)'
         if n.get('castKind')=='IntegralToPointer' and re.search(r'\(\s*\*\s*(?:const\s*)?\)',qual(n)):
             if len(a)!=1:raise Unsupported('Integer/function pointer conversion requires original operand')
             return 'cSourceAddresses.functionFromInteger('+self.expr(a[0])+')'
@@ -1305,6 +1314,7 @@ class Emit:
                         target=self.signature_symbols.get((name,spelling))
                         if target:return target
             if decl.get('kind')=='FunctionDecl':
+                if decl.get(CPP_FUNCTION_BINDING):return decl[CPP_FUNCTION_BINDING]['name']
                 # Type-directed C++ call resolution from Clang's semantic AST,
                 # never dispatch based on JavaScript runtime typeof/arity.
                 if decl.get('id') in self.function_symbols:
@@ -1314,6 +1324,8 @@ class Emit:
                     return self.signature_symbols[signature]
                 if name in self.ambiguous_source_names:
                     raise Unsupported('ambiguous C++ overload call: '+name+' '+str(signature[1]))
+                if name in getattr(self,'external_cpp_function_names',set()):
+                    raise Unsupported('external C++ overload requires original selected declaration: '+name)
             return self.static_locals.get(name,js_ident(name))
         if k=='MemberExpr':
             if not a:raise Unsupported('member without receiver')
@@ -2290,7 +2302,8 @@ class Emit:
                             inner.get('referencedDecl',{}).get('kind')=='FunctionDecl' and
                             (inner.get('referencedDecl',{}).get('id') in self.function_symbols or
                              (inner.get('referencedDecl',{}).get('name'),qual(inner.get('referencedDecl',{}))) in self.signature_symbols or
-                             inner.get('referencedDecl',{}).get('name') in getattr(self,'project_source_symbols',set())) else None)
+                             inner.get('referencedDecl',{}).get('name') in getattr(self,'project_source_symbols',set()) or
+                             inner.get('referencedDecl',{}).get(CPP_FUNCTION_BINDING,{}).get('name') in getattr(self,'project_source_symbols',set())) else None)
                 if cast=='ArrayToPointerDecay' and owner_lvalue(a[0]):return 'array'
                 if cast in ('NoOp','BitCast') and '*' in qual(n):return prove(a[0])
             if k in ('CStyleCastExpr','CXXStaticCastExpr','CXXReinterpretCastExpr') and len(a)==1:
@@ -2801,13 +2814,15 @@ class Emit:
             # arms, not an expression to execute once per branch. Keep the
             # original C++ initializer and condition evaluation order.
             has_init=bool(n.get('hasInit'))
-            if n.get('hasVar'):
-                raise Unsupported('if condition-variable lifetime requires class ABI')
-            if len(a)<2+int(has_init):raise Unsupported('if shape')
+            has_variable=bool(n.get('hasVar'))
+            prefix_count=int(has_init)+int(has_variable)
+            if len(a) not in (2+prefix_count,3+prefix_count):raise Unsupported('if shape')
             init=a[0] if has_init else None
-            condition_node=a[int(has_init)]
-            then_node=a[int(has_init)+1]
-            else_node=a[int(has_init)+2] if len(a)>int(has_init)+2 else None
+            variable=a[int(has_init)] if has_variable else None
+            condition_node=a[prefix_count]
+            then_node=a[prefix_count+1]
+            else_node=a[prefix_count+2] if len(a)>prefix_count+2 else None
+            initializers=[]
             if has_init:
                 declarations=kids(init) if kind(init)=='DeclStmt' else []
                 # Scope-specialization requires one trivially destructible
@@ -2822,17 +2837,36 @@ class Emit:
                 if any(kind(c) in ('CXXConstructExpr','CXXTemporaryObjectExpr')
                        for c in descendants(init)):
                     raise Unsupported('if initializer requires C++ constructor lifetime')
-                initializer=self.statements(init,level+1)
-                if not initializer.strip():raise Unsupported('if initializer is not emitted')
-                prefix=pad+'{\n'+initializer+'\n'
-                inner=level+1
-            else:
-                prefix='';inner=level
+                initializers.append(self.statements(init,level+1))
+            if has_variable:
+                declarations=kids(variable) if kind(variable)=='DeclStmt' else []
+                if len(declarations)!=1 or kind(declarations[0])!='VarDecl':
+                    raise Unsupported('if condition declaration requires exact Clang shape')
+                declaration=declarations[0]
+                typ=resolve_scalar_storage_alias(qual(declaration),self.type_aliases)
+                if ('&' in typ or not (scalar_info(typ) or typ in self.enum_types
+                    or has_outer_indirection(typ,tokens='*'))):
+                    raise Unsupported('if condition-variable lifetime requires class ABI')
+                def needs_temporary_lifetime(part):
+                    if kind(part)=='CXXBindTemporaryExpr':return True
+                    if kind(part) not in ('CXXConstructExpr','CXXTemporaryObjectExpr','MaterializeTemporaryExpr'):return False
+                    typ=resolve_scalar_storage_alias(qual(part),self.type_aliases)
+                    return not (scalar_info(typ) or normalized_record_name(typ,self.type_aliases) in self.trivial_destructors)
+                if any(needs_temporary_lifetime(part) for part in descendants(variable)):
+                    raise Unsupported('if condition-variable initializer requires original temporary lifetime')
+                # Execute once, then keep this exact local in scope through
+                # both arms. Early return/break/continue leave the block using
+                # ordinary structured JavaScript; no source work is duplicated.
+                initializers.append(self.statements(variable,level+1))
+            if any(not text.strip() for text in initializers):raise Unsupported('if initializer is not emitted')
+            scoped=has_init or has_variable
+            inner=level+1 if scoped else level
+            prefix=pad+'{\n'+'\n'.join(initializers)+'\n' if scoped else ''
             ip='  '*inner
             output=ip+f'if ({self.expr(condition_node)}) {{\n'+self.statements(then_node,inner+1)+'\n'+ip+'}'
             if else_node is not None:
                 output+=' else {\n'+self.statements(else_node,inner+1)+'\n'+ip+'}'
-            if has_init:return prefix+output+'\n'+pad+'}'
+            if scoped:return prefix+output+'\n'+pad+'}'
             return output
         if k=='WhileStmt':
             if n.get('hasVar'):
@@ -3308,6 +3342,12 @@ class Emit:
         for i,p in enumerate(params):
             argnames.append(js_ident(p.get('name') or 'arg'+str(i)))
         self.goto_plan=None;self.last_flow_report=None
+        backward_tail=(recover_backward_tail(bodies[-1],self.trivial_destructors,
+            lambda name:normalized_record_name(name,self.type_aliases))
+            if self.local_types['!return']=='void' else None)
+        if backward_tail:
+            bodies=[backward_tail['body']]
+            self.last_flow_report={key:value for key,value in backward_tail.items() if key!='body'}
         scalar_round=recover_scalar_round(n,getattr(self,'all_declarations',{}))
         if scalar_round:
             self.used_scalar_sse_round=scalar_round
@@ -4733,7 +4773,9 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
         except OSError:continue
     return matches[0] if len(matches)==1 else None
 
-def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None):
+def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None,external_cpp_functions=None):
+    cpp_names={proof['identity']['source_name'] for proof in (external_cpp_functions or {}).values()}
+    if cpp_names:rebind_cpp_functions(ast,index_cpp_functions(ast,cpp_names),cpp_names)
     normalize_specializations(ast)
     instance_member_definitions,instance_method_bindings=recover_out_of_line_instance_members(ast,source_root,source_rel,header_proof)
     lifetime_classes,lifetime_aliases=recover_lifetime_classes(ast)
@@ -5409,6 +5451,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     # JS `this`; layout evidence must not redirect it to detached byte storage.
     managed_record_names.update(header_record_factories)
     all_declarations={node.get('id'):node for top in ast for node in descendants(top) if node.get('id')}
+    bind_cpp_functions([*ast,*candidates],external_cpp_functions or {},by_id)
     global_pointer_variables,global_pointer_records=record_pointer_identities(ast,record_storage_views,source_root)
     def libc_adapter(decl):
         scalar=verified_libc_scalar_symbol(decl,all_declarations.get(decl.get('id'),{}),project_symbols)
@@ -5419,6 +5462,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if not standard_c_heap_runtime or original.get('mangledName')!=decl.get('name'):return None
         return adapter
     def resolve(decl):
+        if decl.get(CPP_FUNCTION_BINDING):return decl[CPP_FUNCTION_BINDING]['name']
         if decl.get('id') in by_id:return by_id[decl['id']]
         key=(decl.get('name'),decl.get('type',{}).get('qualType'))
         if key in by_signature:return by_signature[key]
@@ -5572,6 +5616,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         symbol=symbols.get(id(n))
         row={'name':symbol or name,'source_name':n.get('_source_record_name',name),'kind':kind(n),
              'line':n.get('loc',{}).get('line'),'original_type':qual(n)}
+        native_identity=cpp_function_identity(n)
+        if native_identity:row['cpp_function_identity']=native_identity
         if kind(n)=='FunctionDecl' and any(kind(arg)=='TemplateArgument' for arg in kids(n)):
             row['clang_template_mangled_name']=n.get('mangledName')
         if n.get('_source_instance_member'):
@@ -5676,6 +5722,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         em.instance_method_bindings=instance_method_bindings
         if kind(n)=='CXXRecordDecl' and n.get('name'):previous_class_prototypes.add(n['name'])
         em.type_aliases={**aliases,**n.get('_source_method_type_aliases',{})};em.global_storage_records=global_storage_records;em.function_symbols=by_id;em.signature_symbols=by_signature
+        em.external_cpp_function_names=cpp_names
         em.standard_heap_operators=heap_operators;em.heap_classes=set(addressable_classes)|set(lifetime_classes)
         em.verified_scoped_trivial_records=verified_scoped_trivial_records
         em.ambiguous_source_names=collision;em.trivial_destructors=trivial_destructors;em.aggregate_records=aggregate_records;em.pointer_span_records=pointer_span_records;em.enum_types=enum_types;em.member_operators=member_operators;em.member_conversions=member_conversions;em.member_conversion_names=member_conversion_names;em.copy_classes=copy_classes;em.constructor_factories=constructor_factories
@@ -5847,6 +5894,14 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             row['external_reference_imports']=[{'name':target,'reference_contract':contract}
                 for target,contract in sorted(contracts.items())
                 if target in project_symbols]
+            cpp_imports={part.get('referencedDecl',{}).get(CPP_FUNCTION_BINDING,{}).get('name'):part.get('referencedDecl',{}).get(CPP_FUNCTION_BINDING)
+                for part in descendants(n) if kind(part)=='DeclRefExpr' and part.get('referencedDecl',{}).get(CPP_FUNCTION_BINDING)}
+            for target,proof in sorted(cpp_imports.items()):
+                if target not in project_symbols:continue
+                existing=next((item for item in row['external_reference_imports'] if item['name']==target),None)
+                if existing is None:
+                    existing={'name':target};row['external_reference_imports'].append(existing)
+                existing['cpp_function_identity']=proof['identity']
             row['external_reference_imports'].extend({'name':target,'instance_method_contract':contract}
                 for target,contract in sorted(getattr(em,'used_instance_methods',{}).items()) if target in project_symbols)
             row['external_reference_imports'].extend({'name':target,'reference_class_abi':REFERENCE_ABI}
@@ -6072,6 +6127,7 @@ def main():
     c_storage_scope_report={'attempted':False,'proven_file_scope':0,'local_or_ambiguous_roots_rejected':0}
     static_reference_context=[]
     field_selection_index={}
+    cpp_function_selection_index={};external_cpp_functions={}
     full_enum_values={}
     standard_c_heap_runtime=bool(standard_heap_contract and standard_heap_contract.get('original_c_allocators_absent')) or comp is None
     def allocator_query(name,timeout=45):
@@ -6139,12 +6195,15 @@ def main():
         if field_selection_index:
             count=rebind_source_fields(args[0],field_selection_index)
             full_type_closure['field_references_rebound']=full_type_closure.get('field_references_rebound',0)+count
+        if cpp_function_selection_index:
+            rebind_cpp_functions(args[0],cpp_function_selection_index,{proof['identity']['source_name'] for proof in external_cpp_functions.values()})
         if standard_c_heap_runtime:
             complete_c_allocator_declarations(args[0],allocator_query,verified_libc_byte_symbol,
                 c_allocator_query_cache,c_allocator_declarations)
         return produce(*args,**kwargs,standard_heap_runtime=bool(standard_heap_contract) or (comp is None and opt.project_symbols is None),
                        standard_c_heap_runtime=standard_c_heap_runtime,
                        private_source_storage=private_source_storage,header_definition_owners=header_definition_owners,existing_source_storage=existing_source_storage,
+                       external_cpp_functions=external_cpp_functions,
                        header_inline_names=set(opt.header_inline_filter.split(',')) if opt.header_inline_filter is not None else None)
     args=[]
     # Preserve the original compilation *language*, not the filename suffix.
@@ -6380,6 +6439,7 @@ def main():
         return len(implicit_member_closure['proven'])!=before
     retry_implicit_member_closure()
     index=json.loads(opt.project_symbols.read_text()) if opt.project_symbols else {}
+    external_cpp_functions=load_cpp_function_bindings(opt.import_root,index)
     for name in existing_source_storage:
         # TU-private names are intentionally absent from the global export
         # index. They enter only this exact original unit's fragment map.
@@ -6609,6 +6669,8 @@ def main():
         # Keep the original same-TU declaration context before joining its
         # qualified target layout; never join merely by a matching short name.
         unresolved_record_views=any(row.get('reason','').startswith(('record pointer member requires original byte layout:',
+            'external C++ overload requires original selected declaration:',
+            'if condition-variable lifetime requires class ABI',
             'reference member access requires original field declaration:',
             'sizeof/alignof record layout:',
             'record field requires verified native storage:',
@@ -6628,6 +6690,7 @@ def main():
                 full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
+                cpp_function_selection_index.update(index_cpp_functions(complete,{proof['identity']['source_name'] for proof in external_cpp_functions.values()}))
                 full_type_closure['anonymous_typedef_trivial_assignment_names']=annotate_typedef_assignment_names(complete)
                 full_type_closure['explicit_member_calls_rebound']=rebind_explicit_operators(ast,complete)
                 full_type_closure['static_member_references_rebound']=rebind_static_references(ast,complete)

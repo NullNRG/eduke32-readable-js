@@ -52,6 +52,10 @@ def missing_exports(names, file):
     return {name for name in names if js_ident(name) not in defined}
 
 def storage_import_error(dependency,units,*,export_reader=exported_names):
+    if dependency.get('cpp_function_identity') is not None:
+        from source_cpp_function_bindings import import_error
+        error=import_error(dependency,units,export_reader)
+        if error:return error
     if dependency.get('instance_method_contract') is not None:
         from source_instance_members import import_error
         error=import_error(dependency,units,export_reader)
