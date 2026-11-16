@@ -12,7 +12,7 @@ Verified current work:
 - The entire original G_ScreenTextFromString parser matches 105 native cases covering three fonts, colour escapes, case flags, numeric width, whitespace, empty input and a controlled UTF-8 mapping. Output termination/bounds are checked. This is function/component parity, not original menu or gameplay acceptance.
 - Original font/game functions are unchanged. A typed standard-library service supplies the supported default-allocator unsigned/nested unordered_map operations. Native/full/filtered Node/Chromium comparisons pass 2,048 results. Custom allocation hooks and unproven multi-unit allocator ownership remain blocked. Opaque objects retain pointer identity and reject native byte-layout access; see STANDARD_LIBRARY_ADAPTERS.md.
 - Incremental function refresh now preserves original storage in an immutable source shard. Private library imports verify source ownership, original type and service ABI. The old map is retained; no second map or success stub is installed.
-- The previous frozen local compiler profile passed 65/65 under unchanged inputs (reports/nov16-con-lowering-ci-final.json), before the final shadowed-declaration fix. The latest revision has targeted native and browser regressions for that fix. These are component tests, not game acceptance.
+- The previous frozen local compiler profile passed 65/65 under unchanged inputs (reports/nov16-con-lowering-ci-final.json), before the final shadowed-declaration fix. The latest revision passed all seven targeted native and browser regressions (reports/nov16-con-shadowing-regression.json). These are component tests, not game acceptance.
 
 Additional verified controller/compiler checkpoint:
 

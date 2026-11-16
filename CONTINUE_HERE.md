@@ -2,7 +2,7 @@
 
 Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
 
-CON compiler checkpoint: `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering in the original unit. They still need a complete link. `G_Util_PtrToIdx2` is verified as an isolated original relocation function; this does not verify live script resizing. Start from the saved frontier and retry the original VM and variable providers before re-emitting the compiler.
+CON compiler checkpoint: `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering in the original unit. They still need a complete link. `G_Util_PtrToIdx2` is verified as an isolated original relocation function; this does not verify live script resizing. Start from [the exact current link frontier](reports/nov16-con-lowering-frontier.json) and retry the original VM and variable providers before re-emitting the compiler.
 
 `InputLabels`, `PalDataLabels`, `ProjectileLabels`, `TileDataLabels` and `UserdefsLabels` are linked. The other five tables still need Clang-proven `OffsetOfExpr` values, including macro-expanded record aliases and anonymous member paths. Keep their byte offsets tied to the selected target ABI.
 

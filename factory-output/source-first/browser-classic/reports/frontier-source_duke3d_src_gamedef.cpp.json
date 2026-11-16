@@ -1,23 +1,33 @@
 {
   "source": "source/duke3d/src/gamedef.cpp",
   "requested": [
-    "C_Compile"
+    "C_Compile",
+    "C_ParseCommand",
+    "C_SetScriptSize"
   ],
   "requested_resolved": {
-    "C_Compile": false
+    "C_Compile": false,
+    "C_ParseCommand": false,
+    "C_SetScriptSize": false
   },
-  "requested_export_bindings": {
-    "C_Compile": []
+  "requested_compiled": {
+    "C_Compile": false,
+    "C_ParseCommand": false,
+    "C_SetScriptSize": false
   },
   "requested_still_unlinked": [
-    "C_Compile"
+    "C_Compile",
+    "C_ParseCommand",
+    "C_SetScriptSize"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-8ad673f7702e9c9b/source/duke3d/src/gamedef.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-791683ea37e33606/source/duke3d/src/gamedef.cpp.manifest.json",
   "blocked": [
     {
       "name": "C_SetScriptSize",
-      "reason": "pointer arithmetic/comparison requires bounded memory view: long",
-      "dependencies": []
+      "reason": "unlinked identifiers: VM_ScriptInfo",
+      "dependencies": [
+        "VM_ScriptInfo"
+      ]
     },
     {
       "name": "C_GetNextLabelName",
@@ -35,18 +45,13 @@
     },
     {
       "name": "C_GetNextVarType",
-      "reason": "unlinked identifiers: ActorLabels, C_GetNextLabelName, InputLabels, PalDataLabels, PlayerLabels, ProjectileLabels, SectorLabels, TileDataLabels, TsprLabels, UserdefsLabels, WallLabels, aGameVars",
+      "reason": "unlinked identifiers: ActorLabels, C_GetNextLabelName, PlayerLabels, SectorLabels, TsprLabels, WallLabels, aGameVars, g_structVarIDs, g_thisActorVarID, h_actor, h_input, h_paldata",
       "dependencies": [
         "ActorLabels",
         "C_GetNextLabelName",
-        "InputLabels",
-        "PalDataLabels",
         "PlayerLabels",
-        "ProjectileLabels",
         "SectorLabels",
-        "TileDataLabels",
         "TsprLabels",
-        "UserdefsLabels",
         "WallLabels",
         "aGameVars",
         "g_structVarIDs",
@@ -78,16 +83,6 @@
         "C_GetNextVarType",
         "g_thisActorVarID"
       ]
-    },
-    {
-      "name": "C_CheckMalformedBranch",
-      "reason": "pointer arithmetic/comparison requires bounded memory view: long",
-      "dependencies": []
-    },
-    {
-      "name": "C_CheckEmptyBranch",
-      "reason": "pointer arithmetic/comparison requires bounded memory view: long",
-      "dependencies": []
     },
     {
       "name": "C_CountCaseStatements",
@@ -128,8 +123,40 @@
     },
     {
       "name": "C_ParseCommand",
-      "reason": "source control flow: goto target not at an original compound statement boundary",
-      "dependencies": []
+      "reason": "unlinked identifiers: ActorLabels, C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName, C_SetScriptSize, CheatDescriptions, CheatStrings, Gv_NewArray, Gv_NewVar",
+      "dependencies": [
+        "ActorLabels",
+        "C_GetManyVarsType",
+        "C_GetNextGameArrayName",
+        "C_GetNextLabelName",
+        "C_GetNextVarType",
+        "C_GetStructureIndexes",
+        "C_SetCfgName",
+        "C_SetScriptSize",
+        "CheatDescriptions",
+        "CheatStrings",
+        "Gv_NewArray",
+        "Gv_NewVar",
+        "PlayerLabels",
+        "SectorLabels",
+        "TsprLabels",
+        "WallLabels",
+        "aGameArrays",
+        "aGameVars",
+        "apScriptEvents",
+        "g_currentEvent",
+        "g_thisActorVarID",
+        "h_actor",
+        "h_input",
+        "h_player",
+        "h_projectile",
+        "h_sector",
+        "h_tiledata",
+        "h_tsprite",
+        "h_userdef",
+        "h_wall",
+        "scriptUpdateOpcodeForVariableType"
+      ]
     },
     {
       "name": "C_PrintStats",
@@ -142,8 +169,18 @@
     },
     {
       "name": "C_Compile",
-      "reason": "source control flow: goto enters a different lexical scope",
-      "dependencies": []
+      "reason": "unlinked identifiers: C_InitQuotes, C_ParseCommand, C_PrintStats, C_SetScriptSize, G_GameExit, Gv_Clear, Gv_Init, VM_InitHashTables, apScriptEvents",
+      "dependencies": [
+        "C_InitQuotes",
+        "C_ParseCommand",
+        "C_PrintStats",
+        "C_SetScriptSize",
+        "G_GameExit",
+        "Gv_Clear",
+        "Gv_Init",
+        "VM_InitHashTables",
+        "apScriptEvents"
+      ]
     },
     {
       "name": "vmStructHashTablePtrs__header_global_330da216c09dd07e",
@@ -151,6 +188,11 @@
       "dependencies": []
     }
   ],
-  "installed_closed_definitions": 910,
-  "original_gameplay_verified": false
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "1b25e9134239270ab2e92a1a5964707d11a1083a9d07cf10cd81a6168292a166",
+  "provider_index_sha256": "1dbdd9ff223453d1258c704ea3a6ce77318de700d667048dd851c3f118006ad5",
+  "query_limit": 256,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": false
 }

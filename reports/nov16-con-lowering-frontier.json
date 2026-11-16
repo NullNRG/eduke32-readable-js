@@ -1,0 +1,261 @@
+{
+  "format": "original-con-lowering-checkpoint/1",
+  "compiler_runtime_input_sha256": "1b25e9134239270ab2e92a1a5964707d11a1083a9d07cf10cd81a6168292a166",
+  "roots": [
+    {
+      "name": "C_Compile",
+      "reason": "unlinked identifiers: C_InitQuotes, C_ParseCommand, C_PrintStats, C_SetScriptSize, G_GameExit, Gv_Clear, Gv_Init, VM_InitHashTables, apScriptEvents",
+      "unresolved_references": [
+        "C_InitQuotes",
+        "C_ParseCommand",
+        "C_PrintStats",
+        "C_SetScriptSize",
+        "G_GameExit",
+        "Gv_Clear",
+        "Gv_Init",
+        "VM_InitHashTables",
+        "apScriptEvents"
+      ],
+      "structured_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "verify_copied_suffixes",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 1,
+          "nested_terminal_jumps": 1,
+          "shadowed_locals_renamed": 18,
+          "locals_checked": 19,
+          "exit_blocks": 0,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      }
+    },
+    {
+      "name": "C_ParseCommand",
+      "reason": "unlinked identifiers: ActorLabels, C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName, C_SetScriptSize, CheatDescriptions, CheatStrings, Gv_NewArray, Gv_NewVar",
+      "unresolved_references": [
+        "ActorLabels",
+        "C_GetManyVarsType",
+        "C_GetNextGameArrayName",
+        "C_GetNextLabelName",
+        "C_GetNextVarType",
+        "C_GetStructureIndexes",
+        "C_SetCfgName",
+        "C_SetScriptSize",
+        "CheatDescriptions",
+        "CheatStrings",
+        "Gv_NewArray",
+        "Gv_NewVar",
+        "PlayerLabels",
+        "SectorLabels",
+        "TsprLabels",
+        "WallLabels",
+        "aGameArrays",
+        "aGameVars",
+        "apScriptEvents",
+        "g_currentEvent",
+        "g_thisActorVarID",
+        "h_actor",
+        "h_input",
+        "h_player",
+        "h_projectile",
+        "h_sector",
+        "h_tiledata",
+        "h_tsprite",
+        "h_userdef",
+        "h_wall",
+        "scriptUpdateOpcodeForVariableType"
+      ],
+      "structured_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "verify_copied_suffixes",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 4,
+          "same_loop_terminal_jumps": 4,
+          "nested_terminal_jumps": 4,
+          "backward_goto": 2,
+          "nested_lexical_jumps": 2,
+          "shadowed_locals_renamed": 58,
+          "locals_checked": 49,
+          "exit_blocks": 0,
+          "natural_loops": 1,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      }
+    }
+  ],
+  "other_blocked_definitions_in_unit": [
+    {
+      "name": "C_SetScriptSize",
+      "reason": "unlinked identifiers: VM_ScriptInfo",
+      "dependencies": [
+        "VM_ScriptInfo"
+      ]
+    },
+    {
+      "name": "C_GetNextLabelName",
+      "reason": "unlinked identifiers: G_GameExit",
+      "dependencies": [
+        "G_GameExit"
+      ]
+    },
+    {
+      "name": "C_GetNextGameArrayName",
+      "reason": "unlinked identifiers: C_GetNextLabelName",
+      "dependencies": [
+        "C_GetNextLabelName"
+      ]
+    },
+    {
+      "name": "C_GetNextVarType",
+      "reason": "unlinked identifiers: ActorLabels, C_GetNextLabelName, PlayerLabels, SectorLabels, TsprLabels, WallLabels, aGameVars, g_structVarIDs, g_thisActorVarID, h_actor, h_input, h_paldata",
+      "dependencies": [
+        "ActorLabels",
+        "C_GetNextLabelName",
+        "PlayerLabels",
+        "SectorLabels",
+        "TsprLabels",
+        "WallLabels",
+        "aGameVars",
+        "g_structVarIDs",
+        "g_thisActorVarID",
+        "h_actor",
+        "h_input",
+        "h_paldata",
+        "h_player",
+        "h_projectile",
+        "h_sector",
+        "h_tiledata",
+        "h_tsprite",
+        "h_userdef",
+        "h_wall"
+      ]
+    },
+    {
+      "name": "C_GetManyVarsType",
+      "reason": "unlinked identifiers: C_GetNextVarType",
+      "dependencies": [
+        "C_GetNextVarType"
+      ]
+    },
+    {
+      "name": "C_GetStructureIndexes",
+      "reason": "unlinked identifiers: C_GetNextLabelName, C_GetNextVarType, g_thisActorVarID",
+      "dependencies": [
+        "C_GetNextLabelName",
+        "C_GetNextVarType",
+        "g_thisActorVarID"
+      ]
+    },
+    {
+      "name": "C_CountCaseStatements",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_Include",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_InitQuotes",
+      "reason": "unlinked identifiers: g_numObituaries, g_numSelfObituaries",
+      "dependencies": [
+        "g_numObituaries",
+        "g_numSelfObituaries"
+      ]
+    },
+    {
+      "name": "C_SetCfgName",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup",
+      "dependencies": [
+        "CONFIG_ReadSetup",
+        "CONFIG_WriteSetup"
+      ]
+    },
+    {
+      "name": "scriptUpdateOpcodeForVariableType",
+      "reason": "unlinked identifiers: aGameVars",
+      "dependencies": [
+        "aGameVars"
+      ]
+    },
+    {
+      "name": "C_PrintStats",
+      "reason": "unlinked identifiers: apScriptEvents, g_gameArrayCount, g_gameVarCount",
+      "dependencies": [
+        "apScriptEvents",
+        "g_gameArrayCount",
+        "g_gameVarCount"
+      ]
+    },
+    {
+      "name": "vmStructHashTablePtrs__header_global_330da216c09dd07e",
+      "reason": "static pointer initializer requires a proven original source address: UnaryOperator hashtable_t *",
+      "dependencies": []
+    }
+  ],
+  "provider_frontiers": {
+    "savegame": {
+      "G_Util_PtrToIdx2": true
+    },
+    "gamestructures": {
+      "ActorLabels": false,
+      "InputLabels": true,
+      "PalDataLabels": true,
+      "PlayerLabels": false,
+      "ProjectileLabels": true,
+      "SectorLabels": false,
+      "TileDataLabels": true,
+      "TsprLabels": false,
+      "UserdefsLabels": true,
+      "WallLabels": false
+    }
+  },
+  "native_relocation_parity": {
+    "native_source": "source/duke3d/src/savegame.cpp",
+    "function": "G_Util_PtrToIdx2",
+    "definition_sha256": "404e92805da702f4a6b9bf4fedfba47c645af5541a828c84f2cac6c179740790",
+    "native_node_chromium_cases": 256,
+    "compared_words": 40960,
+    "native_output_sha256": "b1b2fc117fd61346719343017d4654495e56df694470a3f44fef9aa7b9570e24",
+    "browser_version": "157.0.4341.60",
+    "modes": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "gameplay_verified": false
+  },
+  "compiler_ci_report": "reports/nov16-con-shadowing-regression.json",
+  "browser_engine_component_report": "reports/nov16-original-text-startup-frame.json",
+  "con_compilation_verified": false,
+  "original_app_main_executed": false,
+  "gameplay_verified": false,
+  "standalone_player_verified": false
+}
