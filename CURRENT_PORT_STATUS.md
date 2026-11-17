@@ -1,5 +1,7 @@
 # EDuke32 readable JavaScript status — November 16, 2026
 
+Original `Demo_WriteSync`, `G_CloseDemoWrite`, `dfwrite_LZ4`, `SV_AllocSnap` and `sv_freemem` now link. Chromium verified the original demo sync record bytes, two LZ4 file round trips, and snapshot allocation and teardown. `G_CloseDemoWrite` is available to the game-exit path. The active linker map also provides the three save-request globals from the last `app_main` audit. The strict release gate withheld `dist/index.html` with original startup closure and gameplay verification incomplete. [Startup frontier](reports/nov18-demo-startup-frontier.json) · [Demo record evidence](reports/nov18-original-demo-codec-write.json)
+
 **Original font initialization and text parsing now execute in the JavaScript engine. The full game is still not playable: original app_main has not booted.** No verified playable standalone dist/index.html exists.
 
 On November 17, all ten original CON structure-label tables were linked. The selected Clang target's ELF object matches all 548 label rows in Node and Chromium, including field offsets and signedness flags. Chromium runs the original `VM_InitHashTables` and matches all 548 hash lookups to their table indices. The original VM event storage is also linked. This checkpoint covers VM table initialization. `GAME.CON` compilation and gameplay remain unverified.

@@ -1,13 +1,18 @@
 {
   "source": "source/build/src/vfs.cpp",
   "requested": [
-    "klistpath"
+    "dfwrite_LZ4"
   ],
   "requested_resolved": {
-    "klistpath": true
+    "dfwrite_LZ4": true
+  },
+  "requested_export_bindings": {
+    "dfwrite_LZ4": [
+      "dfwrite_LZ4"
+    ]
   },
   "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_vfs.cpp/reachable-905542a332f1d6e9/source/build/src/vfs.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_vfs.cpp/reachable-18268a28a0089511/source/build/src/vfs.cpp.manifest.json",
   "blocked": [
     {
       "name": "_searchpath",
@@ -22,28 +27,13 @@
       ]
     },
     {
-      "name": "kdfread_LZ4",
-      "reason": "unlinked identifiers: LZ4_decompress_safe",
-      "dependencies": [
-        "LZ4_decompress_safe"
-      ]
-    },
-    {
       "name": "dfwrite",
       "reason": "unlinked identifiers: klzw_write_compressed",
       "dependencies": [
         "klzw_write_compressed"
       ]
-    },
-    {
-      "name": "dfwrite_LZ4",
-      "reason": "unlinked identifiers: LZ4_compressBound, LZ4_compress_fast",
-      "dependencies": [
-        "LZ4_compressBound",
-        "LZ4_compress_fast"
-      ]
     }
   ],
-  "installed_closed_definitions": 1,
+  "installed_closed_definitions": 2,
   "original_gameplay_verified": false
 }

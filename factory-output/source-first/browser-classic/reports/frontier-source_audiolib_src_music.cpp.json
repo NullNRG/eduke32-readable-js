@@ -1,19 +1,101 @@
 {
   "source": "source/audiolib/src/music.cpp",
   "requested": [
-    "MUSIC_Update"
+    "MUSIC_ErrorString",
+    "MUSIC_Shutdown"
   ],
   "requested_resolved": {
-    "MUSIC_Update": true
+    "MUSIC_ErrorString": true,
+    "MUSIC_Shutdown": false
   },
   "requested_export_bindings": {
-    "MUSIC_Update": [
-      "MUSIC_Update"
-    ]
+    "MUSIC_ErrorString": [
+      "MUSIC_ErrorString"
+    ],
+    "MUSIC_Shutdown": []
   },
-  "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_audiolib_src_music.cpp/reachable-18b03a284c0b34f2/source/audiolib/src/music.cpp.manifest.json",
-  "blocked": [],
-  "installed_closed_definitions": 1,
+  "requested_still_unlinked": [
+    "MUSIC_Shutdown"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_audiolib_src_music.cpp/reachable-bc0f6c656140fa0b/source/audiolib/src/music.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "MUSIC_Init",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "MUSIC_Shutdown",
+      "reason": "unlinked identifiers: MIDI_StopSong, SoundDriver_MIDI_Shutdown",
+      "dependencies": [
+        "MIDI_StopSong",
+        "SoundDriver_MIDI_Shutdown"
+      ]
+    },
+    {
+      "name": "MUSIC_SetVolume",
+      "reason": "unlinked identifiers: MIDI_SetVolume",
+      "dependencies": [
+        "MIDI_SetVolume"
+      ]
+    },
+    {
+      "name": "MUSIC_GetVolume",
+      "reason": "unlinked identifiers: MIDI_GetVolume",
+      "dependencies": [
+        "MIDI_GetVolume"
+      ]
+    },
+    {
+      "name": "MUSIC_SetLoopFlag",
+      "reason": "unlinked identifiers: MIDI_SetLoopFlag",
+      "dependencies": [
+        "MIDI_SetLoopFlag"
+      ]
+    },
+    {
+      "name": "MUSIC_Continue",
+      "reason": "unlinked identifiers: MIDI_ContinueSong",
+      "dependencies": [
+        "MIDI_ContinueSong"
+      ]
+    },
+    {
+      "name": "MUSIC_Pause",
+      "reason": "unlinked identifiers: MIDI_PauseSong",
+      "dependencies": [
+        "MIDI_PauseSong"
+      ]
+    },
+    {
+      "name": "MUSIC_StopSong",
+      "reason": "unlinked identifiers: MIDI_StopSong",
+      "dependencies": [
+        "MIDI_StopSong"
+      ]
+    },
+    {
+      "name": "MUSIC_PlaySong",
+      "reason": "unlinked identifiers: MIDI_PlaySong",
+      "dependencies": [
+        "MIDI_PlaySong"
+      ]
+    },
+    {
+      "name": "MUSIC_SetSongPosition",
+      "reason": "unlinked identifiers: MIDI_SetSongPosition",
+      "dependencies": [
+        "MIDI_SetSongPosition"
+      ]
+    },
+    {
+      "name": "MUSIC_GetSongPosition",
+      "reason": "unlinked identifiers: MIDI_GetSongPosition",
+      "dependencies": [
+        "MIDI_GetSongPosition"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 13,
   "original_gameplay_verified": false
 }

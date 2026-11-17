@@ -1,18 +1,23 @@
 {
   "source": "source/duke3d/src/demo.cpp",
   "requested": [
+    "Demo_WriteSync",
     "G_CloseDemoWrite"
   ],
   "requested_resolved": {
-    "G_CloseDemoWrite": false
+    "Demo_WriteSync": true,
+    "G_CloseDemoWrite": true
   },
-  "requested_compiled": {
-    "G_CloseDemoWrite": false
+  "requested_export_bindings": {
+    "Demo_WriteSync": [
+      "Demo_WriteSync"
+    ],
+    "G_CloseDemoWrite": [
+      "G_CloseDemoWrite"
+    ]
   },
-  "requested_still_unlinked": [
-    "G_CloseDemoWrite"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_demo.cpp/reachable-64a2ff26d25ad7a1/source/duke3d/src/demo.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_demo.cpp/reachable-a8f1f3e76e526c1b/source/duke3d/src/demo.cpp.manifest.json",
   "blocked": [
     {
       "name": "Demo_RestoreModes",
@@ -44,24 +49,10 @@
       ]
     },
     {
-      "name": "Demo_WriteSync",
-      "reason": "uninitialized scalar byte alias requires tracked object initialization",
-      "dependencies": []
-    },
-    {
       "name": "G_DemoRecord",
-      "reason": "unlinked identifiers: Demo_WriteSync, sv_writediff",
+      "reason": "unlinked identifiers: sv_writediff",
       "dependencies": [
-        "Demo_WriteSync",
         "sv_writediff"
-      ]
-    },
-    {
-      "name": "G_CloseDemoWrite",
-      "reason": "unlinked identifiers: Demo_WriteSync, sv_freemem",
-      "dependencies": [
-        "Demo_WriteSync",
-        "sv_freemem"
       ]
     },
     {
@@ -70,13 +61,6 @@
       "dependencies": [
         "Demo_RestoreModes",
         "sv_updatestate"
-      ]
-    },
-    {
-      "name": "Demo_ReadSync",
-      "reason": "unlinked identifiers: kdfread_LZ4",
-      "dependencies": [
-        "kdfread_LZ4"
       ]
     },
     {
@@ -133,30 +117,11 @@
       ]
     },
     {
-      "name": "FX_CheckMVErr__header_83b4ec715094",
-      "reason": "unlinked identifiers: FX_SetErrorCode__header_4af0a1210311",
-      "dependencies": [
-        "FX_SetErrorCode__header_4af0a1210311"
-      ]
-    },
-    {
-      "name": "FX_SetErrorCode__header_4af0a1210311",
-      "reason": "unlinked identifiers: FX_ErrorCode",
-      "dependencies": [
-        "FX_ErrorCode"
-      ]
-    },
-    {
       "name": "__cxx_operator_6d2a22ee5048dd1a",
       "reason": "C++ operator missing uniquely emitted source definition: operator< bool (const ClockTicks &, const ClockTicks &)",
       "dependencies": []
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "26c7b1231f3ce18944ac3d183aec30a3fe1050571e9578137c1ed7164fd76724",
-  "provider_index_sha256": "19a70d7715fe8125c74a0a33de351d31d9b6811c43c0366f4f34af52b708d706",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 3,
+  "original_gameplay_verified": false
 }

@@ -1,0 +1,165 @@
+{
+  "source": "source/audiolib/src/fx_man.cpp",
+  "requested": [
+    "FX_ErrorString",
+    "FX_Shutdown"
+  ],
+  "requested_resolved": {
+    "FX_ErrorString": false,
+    "FX_Shutdown": false
+  },
+  "requested_export_bindings": {
+    "FX_ErrorString": [],
+    "FX_Shutdown": []
+  },
+  "requested_still_unlinked": [
+    "FX_ErrorString",
+    "FX_Shutdown"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_audiolib_src_fx_man.cpp/reachable-f479ad8081841018/source/audiolib/src/fx_man.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "FX_ErrorString",
+      "reason": "unlinked identifiers: MV_ErrorString",
+      "dependencies": [
+        "MV_ErrorString"
+      ]
+    },
+    {
+      "name": "osdcmd_cvar_set_audiolib",
+      "reason": "unlinked identifiers: AL_SetStereo, AL_Stereo, ASS_MIDISoundDriver, MIDI_Restart, MV_Channels, MV_InitDataPtr, MV_MaxVoices, MV_MixRate, SDLDrv_PCM_CheckDriverName, SDLDrv_PCM_GetDriverName, SDLDrv_PCM_PrintDrivers",
+      "dependencies": [
+        "AL_SetStereo",
+        "AL_Stereo",
+        "ASS_MIDISoundDriver",
+        "MIDI_Restart",
+        "MV_Channels",
+        "MV_InitDataPtr",
+        "MV_MaxVoices",
+        "MV_MixRate",
+        "SDLDrv_PCM_CheckDriverName",
+        "SDLDrv_PCM_GetDriverName",
+        "SDLDrv_PCM_PrintDrivers"
+      ]
+    },
+    {
+      "name": "FX_InitCvars",
+      "reason": "unlinked identifiers: ALSA_ClientID, ALSA_PortID, AL_AdditiveMode, AL_PostAmp, AL_Stereo, ASS_EMIDICard, MV_LazyAlloc, SDLAudioDriverName, SF2_BankFile, SF2_EffectSampleBlockSize, osdcmd_cvar_set_audiolib",
+      "dependencies": [
+        "ALSA_ClientID",
+        "ALSA_PortID",
+        "AL_AdditiveMode",
+        "AL_PostAmp",
+        "AL_Stereo",
+        "ASS_EMIDICard",
+        "MV_LazyAlloc",
+        "SDLAudioDriverName",
+        "SF2_BankFile",
+        "SF2_EffectSampleBlockSize",
+        "osdcmd_cvar_set_audiolib"
+      ]
+    },
+    {
+      "name": "FX_Init",
+      "reason": "unlinked identifiers: MV_ErrorString, MV_Init, MV_MixRate, SoundDriver_IsPCMSupported",
+      "dependencies": [
+        "MV_ErrorString",
+        "MV_Init",
+        "MV_MixRate",
+        "SoundDriver_IsPCMSupported"
+      ]
+    },
+    {
+      "name": "FX_Shutdown",
+      "reason": "unlinked identifiers: MV_Shutdown",
+      "dependencies": [
+        "MV_Shutdown"
+      ]
+    },
+    {
+      "name": "FX_GetDevice",
+      "reason": "unlinked identifiers: ASS_PCMSoundDriver",
+      "dependencies": [
+        "ASS_PCMSoundDriver"
+      ]
+    },
+    {
+      "name": "FX_ReadFmt",
+      "reason": "unlinked identifiers: MV_IdentifyXMP",
+      "dependencies": [
+        "MV_IdentifyXMP"
+      ]
+    },
+    {
+      "name": "FX_BadFmt",
+      "reason": "unlinked identifiers: MV_SetErrorCode__header_97bc9ae96281",
+      "dependencies": [
+        "MV_SetErrorCode__header_97bc9ae96281"
+      ]
+    },
+    {
+      "name": "FX_BadFmt3D",
+      "reason": "unlinked identifiers: MV_SetErrorCode__header_97bc9ae96281",
+      "dependencies": [
+        "MV_SetErrorCode__header_97bc9ae96281"
+      ]
+    },
+    {
+      "name": "FX_Play",
+      "reason": "unsupported global array element type decltype(FX_Play) *",
+      "dependencies": []
+    },
+    {
+      "name": "FX_Play3D",
+      "reason": "unsupported global array element type decltype(FX_Play3D) *",
+      "dependencies": []
+    },
+    {
+      "name": "FX_PlayRaw",
+      "reason": "unlinked identifiers: MV_PlayRAW",
+      "dependencies": [
+        "MV_PlayRAW"
+      ]
+    },
+    {
+      "name": "FX_PlayLoopedRaw",
+      "reason": "unlinked identifiers: MV_PlayRAW",
+      "dependencies": [
+        "MV_PlayRAW"
+      ]
+    },
+    {
+      "name": "FX_StartDemandFeedPlayback",
+      "reason": "unlinked identifiers: MV_StartDemandFeedPlayback",
+      "dependencies": [
+        "MV_StartDemandFeedPlayback"
+      ]
+    },
+    {
+      "name": "FX_StartDemandFeedPlayback3D",
+      "reason": "unlinked identifiers: MV_StartDemandFeedPlayback3D",
+      "dependencies": [
+        "MV_StartDemandFeedPlayback3D"
+      ]
+    },
+    {
+      "name": "vtable_impl__header_global_e39c56835a78c6fa",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "dependencies": []
+    },
+    {
+      "name": "vtable_impl__header_global_8541ba8490139557",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "dependencies": []
+    },
+    {
+      "name": "MV_SetErrorCode__header_97bc9ae96281",
+      "reason": "unlinked identifiers: MV_ErrorCode",
+      "dependencies": [
+        "MV_ErrorCode"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 22,
+  "original_gameplay_verified": false
+}

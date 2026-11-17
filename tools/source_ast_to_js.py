@@ -928,7 +928,7 @@ class Emit:
         assigned=self.expression_temp()
         return binding+' = cRef(() => '+name+', '+assigned+' => { '+name+' = '+js_cast(assigned,qual(node))+'; })'
     def plan_byte_scalar_cells(self,function):
-        """Materialize initialized scalar locals whose address is reinterpreted.
+        """Materialize scalar locals whose address is reinterpreted.
 
         Their single native array becomes the original object representation;
         all scalar reads/writes and address aliases use that same storage. No
@@ -938,6 +938,31 @@ class Emit:
             if kind(node) in ('VarDecl','ParmVarDecl') and node.get('id')}
         parents={id(child):node for node in descendants(function) for child in kids(node)}
         selected={}
+        initialization_proofs={}
+        def initialized_by_first_use(declaration):
+            identity=declaration['id']
+            if identity in initialization_proofs:return initialization_proofs[identity]
+            initialization_proofs[identity]=False
+            statement=parents.get(id(declaration),{})
+            block=parents.get(id(statement),{})
+            if kind(statement)!='DeclStmt' or kind(block)!='CompoundStmt' or len(kids(statement))!=1:
+                return False
+            if any(kind(node) in ('GotoStmt','IndirectGotoStmt','LabelStmt','CaseStmt','DefaultStmt')
+                   for node in descendants(block)):
+                return False
+            def is_original_reference(node):
+                return kind(node)=='DeclRefExpr' and node.get('referencedDecl',{}).get('id')==identity
+            statements=kids(block)
+            position=next(i for i,stmt in enumerate(statements) if stmt is statement)
+            for later in statements[position+1:]:
+                references=[node for node in descendants(later) if is_original_reference(node)]
+                if not references:continue
+                if kind(later)=='BinaryOperator' and later.get('opcode')=='=' and len(kids(later))==2:
+                    lhs=kids(later)[0]
+                    while kind(lhs) in WRAPPERS and len(kids(lhs))==1:lhs=kids(lhs)[0]
+                    initialization_proofs[identity]=len(references)==1 and lhs is references[0]
+                break
+            return initialization_proofs[identity]
         casts={'CStyleCastExpr','CXXReinterpretCastExpr','CXXStaticCastExpr','ImplicitCastExpr'}
         for node in descendants(function):
             if kind(node) not in casts or '*' not in qual(node):continue
@@ -959,8 +984,8 @@ class Emit:
                     # `read(fd,&value,sizeof value)` needs storage before the
                     # call writes it. This allocates bytes, not a fabricated
                     # source initializer. Keep arbitrary uninitialized byte
-                    # reads/escaping aliases blocked. Every selected address
-                    # must be passed directly to a mutable pointer parameter.
+                    # reads and escaping aliases blocked unless a dominating
+                    # assignment already wrote the scalar before first use.
                     current=operation;parent=parents.get(id(current))
                     while parent and kind(parent) in WRAPPERS|casts:
                         current=parent;parent=parents.get(id(current))
@@ -969,7 +994,8 @@ class Emit:
                     signature=function_type_parts(self.call_type(parent)) if parent and position is not None else None
                     parameter=signature[1][position] if signature and position<len(signature[1]) else ''
                     parameter=re.sub(r'\b(?:restrict|__restrict|__restrict__)\b','',parameter).strip()
-                    if not parameter.endswith('*') or re.search(r'\bconst\b',parameter.rsplit('*',1)[0]):
+                    writable=parameter.endswith('*') and not re.search(r'\bconst\b',parameter.rsplit('*',1)[0])
+                    if not writable and not initialized_by_first_use(declaration):
                         raise Unsupported('uninitialized scalar byte alias requires tracked object initialization')
                 selected[identity]=native
         if selected and needs_cfg(function):

@@ -326,8 +326,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\vfs.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 100,
-  "emitted": 99,
+  "found": 102,
+  "emitted": 101,
   "blocked": 1,
   "definitions": [
     {
@@ -4086,6 +4086,97 @@
         "wildmatch"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "dfwrite_LZ4",
+      "source_name": "dfwrite_LZ4",
+      "kind": "FunctionDecl",
+      "line": 1480,
+      "original_type": "void (const void *, int, int, buildvfs_FILE)",
+      "linkage": "external",
+      "source_references": [
+        "ARRAY_SIZE__header_d8336ed114b0",
+        "B_PASS32__header_416cc10abcf4",
+        "LZ4_compressBound",
+        "LZ4_compress_fast",
+        "compressedDataStackBuf",
+        "fwrite",
+        "lz4CompressionLevel",
+        "xaligned_alloc__header_dfccd4cb96f1",
+        "xaligned_free__header_de7cc18f4b2c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_614b4dff60c54bf98cd5634e",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "char[131072]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              131072
+            ]
+          },
+          "name": "compressedDataStackBuf",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "lz4CompressionLevel",
+          "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "LZ4_compressBound",
+        "LZ4_compress_fast",
+        "compressedDataStackBuf",
+        "fwrite",
+        "lz4CompressionLevel"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "kdfread_LZ4",
+      "source_name": "kdfread_LZ4",
+      "kind": "FunctionDecl",
+      "line": 1448,
+      "original_type": "int32_t (void *, int, int, buildvfs_kfd)",
+      "linkage": "external",
+      "source_references": [
+        "ARRAY_SIZE__header_d8336ed114b0",
+        "B_PASS32__header_416cc10abcf4",
+        "LZ4_decompress_safe",
+        "compressedDataStackBuf",
+        "kread",
+        "xaligned_alloc__header_dfccd4cb96f1",
+        "xaligned_free__header_de7cc18f4b2c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_614b4dff60c54bf98cd5634e",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "char[131072]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              131072
+            ]
+          },
+          "name": "compressedDataStackBuf",
+          "consumer_source": "source/build/src/vfs.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "LZ4_decompress_safe",
+        "compressedDataStackBuf"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -7208,6 +7299,527 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "2fe76d914c8b0c86ab509e2c44dde31284356bc8a49648e2e0f1bc957560bcb3"
+    },
+    {
+      "module": "source/build/src/_source_legacy_vfs_cpp_4d574fe037fd.mjs",
+      "sha256": "4d574fe037fdd161facdd782d163a7240f4c51a30d6f05c2d40baf4b749dc8d5",
+      "original_source": "source/build/src/vfs.cpp",
+      "exports": [
+        "dfwrite_LZ4",
+        "kdfread_LZ4"
+      ],
+      "reexports": [
+        "dfwrite_LZ4",
+        "kdfread_LZ4"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bclosedir",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bcorrectfilename",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bgetsystemdrives",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bopendir",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Breaddir",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrtolower",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Bstrupr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_compressBound",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_compress_fast",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LZ4_decompress_safe",
+          "from": "source/build/src/lz4.c",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__errno_location",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "close",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "compressedDataStackBuf",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_614b4dff60c54bf98cd5634e",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "char[131072]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              131072
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fclose",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fdopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "filegrp",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_3a9ab4328ffa236764eb60c3",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filehan",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e58f38ca23a4c7031f169daa",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[64]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filenamsav",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0923db928126267627d131f",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "char[64][260]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64,
+              260
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "filepos",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_0e6a8863bdc69dd261cf550b",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[64]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "fstat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fwrite",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_modDir",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "gfilelist",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gfileoffs",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "int32_t *[]",
+          "original_type": "int32_t *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "gnumfiles",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40e26d32b6ca71fd78ad3b32",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfil",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b077455bc7a20cfc79ce2bba",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "intptr_t[8]",
+          "scalar_array": {
+            "array": "BigInt64Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfilgrp",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_22ad39b5d1fff4dd8ee9cb2a",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "uint8_t[8]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupfilpos",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d14239ea2126a8005fdc7edd",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int32_t[8]",
+          "scalar_array": {
+            "array": "Int32Array",
+            "dims": [
+              8
+            ]
+          },
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "groupname",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 8,
+          "element_declaration": "char *[]",
+          "original_type": "char *[8]",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kpzbuf",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84bfc13188837cd8ad2617ac",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "kpzbufsiz",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_82fc53700c75bce13e04b518",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "kzaddstack",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzcurhand",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c51318c3fc474f17943c1125",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "kzfindfile",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzfindfilestart",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzfs",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0c0d9a71eef382369e188fb4",
+          "abi": "source-global-cell/2",
+          "original_type": "struct kzfilestate",
+          "byte_record_schema_sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "2732ee8e4d2fb51a2389ab4111b2e3f75b77217fc1a81a21e96b67ce62f36e01"
+          }
+        },
+        {
+          "name": "kzopen",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzread",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kzseek",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lseek",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lz4CompressionLevel",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "maxsearchpathlen",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bd28db781fd61f721b55fb90",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "unsigned long",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "memcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "numgroupfiles",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_92d90c06123336f9a13fd848",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "open",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "pathsearchmode",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_787e3556986da6109d0447e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "read",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "searchpathhead",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8b2fddc852cc4e1abb4ae8af",
+          "owner_source": "source/build/src/vfs.cpp",
+          "original_type": "searchpath_t *",
+          "consumer_source": "source/build/src/vfs.cpp"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "toupperlookup",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "wildmatch",
+          "from": "source/build/src/kplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "432c6880504d1e9ccf71ddeb57e3ec9f4a9a3aeb70bd83cd964cec77f331f494"
     }
   ],
   "superseded_module_fragments": [

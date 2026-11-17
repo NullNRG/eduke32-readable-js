@@ -1,0 +1,3078 @@
+{
+  "source": "source/audiolib/src/multivoc.cpp",
+  "dependency_closure": {
+    "enabled": false,
+    "additional_ast_filters": [],
+    "additional_ast_roots": 0,
+    "rounds": 0,
+    "query_limit": 256,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": false,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\audiolib\\src\\multivoc.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 83,
+  "emitted": 83,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "Blrintf__header_554477256d10",
+      "source_name": "Blrintf",
+      "kind": "FunctionDecl",
+      "line": 706,
+      "original_type": "int32_t (const float)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 17604,
+        "source_line": 706,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "source_scalar_sse_round": {
+        "abi": "source-scalar-f32-nearest-even-i32/1",
+        "parameter": "x",
+        "parameter_id": "0x1219f2c26d8",
+        "native_wrappers": [
+          {
+            "name": "_mm_load_ss",
+            "clang_id": "0x1219f1c2818",
+            "ast_sha256": "be95ee4db46da287e1566b2b4b058b8f557d6709c74c34f379e86125915c6d22"
+          },
+          {
+            "name": "_mm_cvtss_si32",
+            "clang_id": "0x1219f1ba048",
+            "ast_sha256": "a7a49b5d91ea510867537ad10c38aa98c7f40e16eece7250561a214e13ec873e"
+          }
+        ],
+        "rounding": "default MXCSR: nearest, ties to even; masked invalid => INT32_MIN",
+        "vector_storage_elided": true,
+        "original_parameter_address_does_not_escape": true
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Empty__template_d798a222b9bae8c7",
+      "source_name": "Empty",
+      "kind": "FunctionDecl",
+      "line": 43,
+      "original_type": "bool (VoiceNode *const)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN2LL5EmptyIP9VoiceNodeEEbT_",
+        "original_type": "bool (VoiceNode *const)",
+        "source_name": "Empty"
+      },
+      "clang_template_mangled_name": "_ZN2LL5EmptyIP9VoiceNodeEEbT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 1133,
+        "source_line": 43,
+        "header_sha256": "29e0138d344c4f00162caf9d2d406e52614f643fb9ce50881d3e3fba4f03946b"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 1133,
+        "enclosing_record": "(free inline function)",
+        "type": "bool (VoiceNode *const)",
+        "semantic_sha256": "5e5562bcd56c911f43bbfab55cdcd62386efbb759ca04382de1d9e62c40eb0ad"
+      },
+      "physical_source": "source/build/include/linklist.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_d6a7f09a7fbf5ab2",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb21158",
+        "redeclaration_chain": [
+          "0x1219fb21158"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_2dab9d3c1b46b3d6",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb21270",
+        "redeclaration_chain": [
+          "0x1219fb21270"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_c8e9504c5fdd6057",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb213a0",
+        "redeclaration_chain": [
+          "0x1219fb213a0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FX_SoundValidAndActive__header_e795b03dc27c",
+      "source_name": "FX_SoundValidAndActive",
+      "kind": "FunctionDecl",
+      "line": 136,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/audiolib/include/fx_man.h",
+        "source_offset": 5452,
+        "source_line": 136,
+        "header_sha256": "0ccabbce44a8d47797a1981682a2fe202b4b99c47faee7f5ee138b36c652f4de"
+      },
+      "physical_source": "source/audiolib/include/fx_man.h",
+      "source_references": [
+        "MV_VoicePlaying"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Insert__template_a833a461de94f09a",
+      "source_name": "Insert",
+      "kind": "FunctionDecl",
+      "line": 15,
+      "original_type": "void (VoiceNode *const, VoiceNode *const)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN2LL6InsertIP9VoiceNodeEEvT_S3_",
+        "original_type": "void (VoiceNode *const, VoiceNode *const)",
+        "source_name": "Insert"
+      },
+      "clang_template_mangled_name": "_ZN2LL6InsertIP9VoiceNodeEEvT_S3_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 397,
+        "source_line": 15,
+        "header_sha256": "29e0138d344c4f00162caf9d2d406e52614f643fb9ce50881d3e3fba4f03946b"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 397,
+        "enclosing_record": "(free inline function)",
+        "type": "void (VoiceNode *const, VoiceNode *const)",
+        "semantic_sha256": "25f753480ca543800d1c8e918280def9006df212d1b05027b3d6580487c81742"
+      },
+      "physical_source": "source/build/include/linklist.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_BufferEmpty",
+      "source_name": "MV_BufferEmpty",
+      "kind": "VarDecl",
+      "line": 84,
+      "original_type": "int[32]",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_58611e27a1da29a5e2cf73ae",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int[32]",
+        "scalar_array": {
+          "array": "Int32Array",
+          "dims": [
+            32
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_BufferLength",
+      "source_name": "MV_BufferLength",
+      "kind": "VarDecl",
+      "line": 69,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_de9a3150e6a23bec9b056b81",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_BufferSize",
+      "source_name": "MV_BufferSize",
+      "kind": "VarDecl",
+      "line": 68,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_52b7fc592cc0ae06f2ba575b",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_CalcPanTable",
+      "source_name": "MV_CalcPanTable",
+      "kind": "FunctionDecl",
+      "line": 807,
+      "original_type": "void ()",
+      "linkage": "internal",
+      "source_references": [
+        "MV_PanTable"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_CallBackFunc",
+      "source_name": "MV_CallBackFunc",
+      "kind": "VarDecl",
+      "line": 93,
+      "original_type": "void (*)(intptr_t)",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_2e18f8fee903270951f3aeaf",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "void (*)(intptr_t)"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_Channels",
+      "source_name": "MV_Channels",
+      "kind": "VarDecl",
+      "line": 74,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_9eef96950efe01b75b43b902",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_ErrorCode",
+      "source_name": "MV_ErrorCode",
+      "kind": "VarDecl",
+      "line": 99,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_8a37c6e6dc891d5eba65e067",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GetMaxReverbDelay",
+      "source_name": "MV_GetMaxReverbDelay",
+      "kind": "FunctionDecl",
+      "line": 749,
+      "original_type": "int ()",
+      "linkage": "external",
+      "source_references": [
+        "MV_NumberOfBuffers"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GetMusicRoutineBuffer",
+      "source_name": "MV_GetMusicRoutineBuffer",
+      "kind": "FunctionDecl",
+      "line": 979,
+      "original_type": "MV_MusicRoutineBuffer ()",
+      "linkage": "external",
+      "source_references": [
+        "MV_BufferSize",
+        "MV_MusicBuffer"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GetNextDemandFeedBlock",
+      "source_name": "MV_GetNextDemandFeedBlock",
+      "kind": "FunctionDecl",
+      "line": 1011,
+      "original_type": "playbackstatus (VoiceNode *)",
+      "linkage": "internal",
+      "source_references": [
+        "min__template_c5ffcfb092321e6b"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GetReverbDelay",
+      "source_name": "MV_GetReverbDelay",
+      "kind": "FunctionDecl",
+      "line": 750,
+      "original_type": "int ()",
+      "linkage": "external",
+      "source_references": [
+        "MV_ReverbDelay",
+        "MV_SampleSize",
+        "tabledivide32__header_d0d47dde933e"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GetVoice",
+      "source_name": "MV_GetVoice",
+      "kind": "FunctionDecl",
+      "line": 338,
+      "original_type": "VoiceNode *(int)",
+      "linkage": "internal",
+      "source_references": [
+        "MV_Handles",
+        "MV_MaxVoices",
+        "MV_SetErrorCode__header_fa0e5b8ad773",
+        "current_verbosity_cutoff",
+        "loguru_log"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "current_verbosity_cutoff",
+        "loguru_log"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GetVolume",
+      "source_name": "MV_GetVolume",
+      "kind": "FunctionDecl",
+      "line": 837,
+      "original_type": "int ()",
+      "linkage": "external",
+      "source_references": [
+        "Blrintf__header_554477256d10",
+        "MV_GlobalVolume",
+        "fix16_to_float__header_f653a1768490"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_GlobalVolume",
+      "source_name": "MV_GlobalVolume",
+      "kind": "VarDecl",
+      "line": 101,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [
+        "fix16_one__header_global_4893317b55fdd91c"
+      ],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_f6503dd2f9475abde00d5b1a",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_Handles",
+      "source_name": "MV_Handles",
+      "kind": "VarDecl",
+      "line": 108,
+      "original_type": "VoiceNode **",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_911f7673d7a76103f5901064",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "VoiceNode **"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_InitDataPtr",
+      "source_name": "MV_InitDataPtr",
+      "kind": "VarDecl",
+      "line": 76,
+      "original_type": "void *",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_df3169c392bf05de38bfe108",
+        "abi": "source-global-cell/2",
+        "original_type": "void *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_Installed",
+      "source_name": "MV_Installed",
+      "kind": "VarDecl",
+      "line": 66,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_6ba894e05caa47d1bfdd0a0c",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_LazyAlloc",
+      "source_name": "MV_LazyAlloc",
+      "kind": "VarDecl",
+      "line": 78,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_a041cfaa612703140e111290",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_Locked",
+      "source_name": "MV_Locked",
+      "kind": "VarDecl",
+      "line": 104,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_863e87c70fe831130f94a0ec",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MaxVoices",
+      "source_name": "MV_MaxVoices",
+      "kind": "VarDecl",
+      "line": 73,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_671d938a8da950fac64efbdb",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MixBuffer",
+      "source_name": "MV_MixBuffer",
+      "kind": "VarDecl",
+      "line": 85,
+      "original_type": "char *[65]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "MV_MixBuffer",
+        "abi": "source-pointer-array/1",
+        "stride": 8,
+        "extent": 65,
+        "element_declaration": "char *[]",
+        "original_type": "char *[65]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MixDestination",
+      "source_name": "MV_MixDestination",
+      "kind": "VarDecl",
+      "line": 95,
+      "original_type": "char *",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_1e2fc3d4b9ce0dbbe47b0ceb",
+        "abi": "source-global-cell/2",
+        "original_type": "char *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MixPage",
+      "source_name": "MV_MixPage",
+      "kind": "VarDecl",
+      "line": 91,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_8733c2c3c2373c35c3f26ae4",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MixRate",
+      "source_name": "MV_MixRate",
+      "kind": "VarDecl",
+      "line": 75,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_60c5e8a990104b93db1b82e7",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MusicBuffer",
+      "source_name": "MV_MusicBuffer",
+      "kind": "VarDecl",
+      "line": 105,
+      "original_type": "char *",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_4031867f2af48f5f8b7065db",
+        "abi": "source-global-cell/2",
+        "original_type": "char *"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MusicCallback",
+      "source_name": "MV_MusicCallback",
+      "kind": "VarDecl",
+      "line": 106,
+      "original_type": "void (*)()",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_366786f45d5ff50d78e1793b",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "void (*)()"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_MusicRoutineBuffer",
+      "source_name": "MV_MusicRoutineBuffer",
+      "kind": "CXXRecordDecl",
+      "line": 149,
+      "original_type": "",
+      "linkage": "external",
+      "odr_inline": {
+        "source_header": "source/audiolib/include/multivoc.h",
+        "source_offset": 4717,
+        "enclosing_record": "MV_MusicRoutineBuffer",
+        "type": "MV_MusicRoutineBuffer",
+        "semantic_sha256": "e9cae48d06805fa7e6dee7b897f35ed5ea17ce077ea6e3e003e297a631509647",
+        "prototype_factory_abi": "source-header-record-factory/1"
+      },
+      "header_record_factory": true,
+      "physical_source": "source/audiolib/include/multivoc.h",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_NumberOfBuffers",
+      "source_name": "MV_NumberOfBuffers",
+      "kind": "VarDecl",
+      "line": 71,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_55acafd99436af2011d7d486",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_PanTable",
+      "source_name": "MV_PanTable",
+      "kind": "VarDecl",
+      "line": 64,
+      "original_type": "Pan[128][128]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "MV_PanTable",
+        "abi": "source-byte-record-array/1",
+        "stride": 2,
+        "dimensions": [
+          128,
+          128
+        ],
+        "schema_sha256": "9c6ba5b2e1bb3896ee778eed894b4b9fc1e79ac47aa38799f5d50760d952cfdb",
+        "original_type": "Pan[128][128]",
+        "native_element_layout": {
+          "abi": "source-record-field-storage/1",
+          "sha256": "9c6ba5b2e1bb3896ee778eed894b4b9fc1e79ac47aa38799f5d50760d952cfdb"
+        },
+        "native_nested_layout": {
+          "abi": "source-native-record-array-layout/2",
+          "sha256": "9c6ba5b2e1bb3896ee778eed894b4b9fc1e79ac47aa38799f5d50760d952cfdb"
+        },
+        "record_array_nested_data_view": "source-native-record-array-data-view/2",
+        "record_array_data_view": "source-native-record-array-data-view/1"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_ReverbDelay",
+      "source_name": "MV_ReverbDelay",
+      "kind": "VarDecl",
+      "line": 61,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_04bb4c1afe72ffab04a12fb4",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_ReverbLevel",
+      "source_name": "MV_ReverbLevel",
+      "kind": "VarDecl",
+      "line": 60,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_8ab29b01937a37b6b93b5306",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_ReverbVolume",
+      "source_name": "MV_ReverbVolume",
+      "kind": "VarDecl",
+      "line": 62,
+      "original_type": "int",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_116153779212623c7a04003f",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_RightChannelOffset",
+      "source_name": "MV_RightChannelOffset",
+      "kind": "VarDecl",
+      "line": 97,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_ca9f4f046a4443694bc8a5a4",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_SampleSize",
+      "source_name": "MV_SampleSize",
+      "kind": "VarDecl",
+      "line": 96,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_f26f74aea0df8d9a78820661",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_SetCallBack",
+      "source_name": "MV_SetCallBack",
+      "kind": "FunctionDecl",
+      "line": 839,
+      "original_type": "void (void (*)(intptr_t))",
+      "linkage": "external",
+      "source_references": [
+        "MV_CallBackFunc"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_SetErrorCode__header_fa0e5b8ad773",
+      "source_name": "MV_SetErrorCode",
+      "kind": "FunctionDecl",
+      "line": 231,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/audiolib/src/_multivc.h",
+        "source_offset": 5910,
+        "source_line": 231,
+        "header_sha256": "54a6ce0e8527f182fceeb2b86acdfa8a9f0977eb5109b432f926e065202d66e6"
+      },
+      "physical_source": "source/audiolib/src/_multivc.h",
+      "source_references": [
+        "MV_ErrorCode"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_SetMixMode",
+      "source_name": "MV_SetMixMode",
+      "kind": "FunctionDecl",
+      "line": 757,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "source_references": [
+        "MV_BufferLength",
+        "MV_BufferSize",
+        "MV_Channels",
+        "MV_Installed",
+        "MV_NumberOfBuffers",
+        "MV_RightChannelOffset",
+        "MV_SampleSize",
+        "tabledivide32__header_d0d47dde933e"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_SetReverbDelay",
+      "source_name": "MV_SetReverbDelay",
+      "kind": "FunctionDecl",
+      "line": 752,
+      "original_type": "void (int)",
+      "linkage": "external",
+      "source_references": [
+        "MV_GetMaxReverbDelay",
+        "MV_ReverbDelay",
+        "MV_SampleSize",
+        "max__template_b1cfaf2244c73238",
+        "min__template_774131ccff66371d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_VoicePlaying",
+      "source_name": "MV_VoicePlaying",
+      "kind": "FunctionDecl",
+      "line": 376,
+      "original_type": "int (int)",
+      "linkage": "external",
+      "source_references": [
+        "MV_Handles",
+        "MV_Installed",
+        "MV_MaxVoices",
+        "__source_byte_method_load_3d3a49581334a76615f4"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_Voices",
+      "source_name": "MV_Voices",
+      "kind": "VarDecl",
+      "line": 87,
+      "original_type": "VoiceNode *",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_c913bc40c747f8379816a88e",
+        "abi": "source-global-cell/2",
+        "original_type": "VoiceNode *",
+        "record_pointer_identity": {
+          "abi": "source-global-record-pointer-type/1",
+          "record_name": "VoiceNode",
+          "pointee_cv": [],
+          "pointer_cv": [],
+          "declaration": {
+            "source_header": "source/audiolib/src/_multivc.h",
+            "source_offset": 3969,
+            "enclosing_record": "VoiceNode",
+            "type": "VoiceNode",
+            "semantic_sha256": "5a8f19918410778bb51b599d526457647721d5cd3f48515db22a21f17209e5be",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          },
+          "layout_sha256": "1810935be2c6284cc48c34c81798d5ad4960dca4c9af19b866c0a0ab3a58384f"
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MV_VolumeSmoothFactor",
+      "source_name": "MV_VolumeSmoothFactor",
+      "kind": "VarDecl",
+      "line": 102,
+      "original_type": "int",
+      "linkage": "external",
+      "source_references": [
+        "fix16_one__header_global_4893317b55fdd91c"
+      ],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_d948bcfdda67a38fb8a65e07",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Move__template_45f4f2db05c479ff",
+      "source_name": "Move",
+      "kind": "FunctionDecl",
+      "line": 29,
+      "original_type": "void (VoiceNode *const, VoiceNode *const)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN2LL4MoveIP9VoiceNodeEEvT_S3_",
+        "original_type": "void (VoiceNode *const, VoiceNode *const)",
+        "source_name": "Move"
+      },
+      "clang_template_mangled_name": "_ZN2LL4MoveIP9VoiceNodeEEvT_S3_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 732,
+        "source_line": 29,
+        "header_sha256": "29e0138d344c4f00162caf9d2d406e52614f643fb9ce50881d3e3fba4f03946b"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 732,
+        "enclosing_record": "(free inline function)",
+        "type": "void (VoiceNode *const, VoiceNode *const)",
+        "semantic_sha256": "10f03e9f9686ed2ee7e8d34b586ca788a9b02225d8b059a75d114f223e44e334"
+      },
+      "physical_source": "source/build/include/linklist.h",
+      "source_references": [
+        "Insert__template_a833a461de94f09a",
+        "Unlink__template_843de158a7ee4205"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Remove__template_5d7072c0f1174e54",
+      "source_name": "Remove",
+      "kind": "FunctionDecl",
+      "line": 23,
+      "original_type": "void (VoiceNode *const)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN2LL6RemoveIP9VoiceNodeEEvT_",
+        "original_type": "void (VoiceNode *const)",
+        "source_name": "Remove"
+      },
+      "clang_template_mangled_name": "_ZN2LL6RemoveIP9VoiceNodeEEvT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 615,
+        "source_line": 23,
+        "header_sha256": "29e0138d344c4f00162caf9d2d406e52614f643fb9ce50881d3e3fba4f03946b"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 615,
+        "enclosing_record": "(free inline function)",
+        "type": "void (VoiceNode *const)",
+        "semantic_sha256": "f70b51b8fe76ab04bbf4ad544eb6e4bc08497c05c48cc407a10abdd8e9fc9604"
+      },
+      "physical_source": "source/build/include/linklist.h",
+      "source_references": [
+        "Reset__template_1e74985547608292",
+        "Unlink__template_843de158a7ee4205"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Reset__template_1e74985547608292",
+      "source_name": "Reset",
+      "kind": "FunctionDecl",
+      "line": 8,
+      "original_type": "void (VoiceNode *const)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN2LL5ResetIP9VoiceNodeEEvT_",
+        "original_type": "void (VoiceNode *const)",
+        "source_name": "Reset"
+      },
+      "clang_template_mangled_name": "_ZN2LL5ResetIP9VoiceNodeEEvT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 133,
+        "source_line": 8,
+        "header_sha256": "29e0138d344c4f00162caf9d2d406e52614f643fb9ce50881d3e3fba4f03946b"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 133,
+        "enclosing_record": "(free inline function)",
+        "type": "void (VoiceNode *const)",
+        "semantic_sha256": "04e66200819cfcf8aded1ba90a2a33c948edef032557a7e393631dea89732038"
+      },
+      "physical_source": "source/build/include/linklist.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "Unlink__template_843de158a7ee4205",
+      "source_name": "Unlink",
+      "kind": "FunctionDecl",
+      "line": 9,
+      "original_type": "void (VoiceNode *const)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN2LL6UnlinkIP9VoiceNodeEEvT_",
+        "original_type": "void (VoiceNode *const)",
+        "source_name": "Unlink"
+      },
+      "clang_template_mangled_name": "_ZN2LL6UnlinkIP9VoiceNodeEEvT_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 245,
+        "source_line": 9,
+        "header_sha256": "29e0138d344c4f00162caf9d2d406e52614f643fb9ce50881d3e3fba4f03946b"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/linklist.h",
+        "source_offset": 245,
+        "enclosing_record": "(free inline function)",
+        "type": "void (VoiceNode *const)",
+        "semantic_sha256": "5a53dee52d457530da5c67c8639a773ed38e95175ccf8bbca5e4f9c2fdf662ff"
+      },
+      "physical_source": "source/build/include/linklist.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_2b395f479b779960",
+      "source_name": "operator!=",
+      "kind": "FunctionDecl",
+      "line": 488,
+      "original_type": "bool (const ref_count_ptr<async::detail::task_base> &, std::nullptr_t)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN5async6detailneERKNS0_13ref_count_ptrINS0_9task_baseEEEDn",
+        "original_type": "bool (const ref_count_ptr<async::detail::task_base> &, std::nullptr_t)",
+        "source_name": "operator!="
+      },
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_operator_e73606c6bb71dfa0",
+      "source_name": "operator&",
+      "kind": "FunctionDecl",
+      "line": 104,
+      "original_type": "memory_order (memory_order, __memory_order_modifier)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZStanSt12memory_orderSt23__memory_order_modifier",
+        "original_type": "memory_order (memory_order, __memory_order_modifier)",
+        "source_name": "operator&"
+      },
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3116,
+        "source_line": 104,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3116,
+        "enclosing_record": "(free inline function)",
+        "type": "memory_order (memory_order, __memory_order_modifier)",
+        "semantic_sha256": "67b848a87d298d560bfd9e622ca0aaca2903a0b0219b641e137091231e9ef6d1"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 3116,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__cxx_record_ref_count_ptr_a19f50960d765cf5",
+      "source_name": "ref_count_ptr<async::detail::task_base>",
+      "kind": "CXXRecordDecl",
+      "line": 395,
+      "original_type": "",
+      "linkage": "external",
+      "source_references": [],
+      "cpp_reference_abi": "source-cpp-lvalue-reference/1",
+      "cpp_reference_required": false,
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__is_constant_evaluated",
+      "source_name": "__is_constant_evaluated",
+      "kind": "FunctionDecl",
+      "line": 516,
+      "original_type": "bool () noexcept",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt23__is_constant_evaluatedv",
+        "original_type": "bool () noexcept",
+        "source_name": "__is_constant_evaluated"
+      },
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h",
+        "source_offset": 14984,
+        "source_line": 516,
+        "header_sha256": "1e5f7b8ba78e7e160c4263ace6f031f7fdaa518f457112dcf8e92c147e29c605"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h",
+        "source_offset": 14984,
+        "enclosing_record": "(free inline function)",
+        "type": "bool () noexcept",
+        "semantic_sha256": "52ecc0abea6e7beed9f351b8da5a60c308a18f3a41cd0216d3d293f2c7b35d66"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h",
+        "source_offset": 14984,
+        "header_sha256": "1e5f7b8ba78e7e160c4263ace6f031f7fdaa518f457112dcf8e92c147e29c605",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_load_3d3a49581334a76615f4",
+      "source_name": "__source_byte_method_load_3d3a49581334a76615f4",
+      "kind": "FunctionDecl",
+      "line": 481,
+      "original_type": "int (const std::__atomic_base<int> *, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 13959,
+        "source_line": 481,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "mangled_name": "_ZNKSt13__atomic_baseIiE4loadESt12memory_order",
+        "original_type": "__int_type (memory_order) const noexcept",
+        "original_name": "load",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 4,
+          "align": 4,
+          "union": false,
+          "fields": {
+            "_M_i": {
+              "offset": 0,
+              "native": "Int32Array",
+              "size": 4
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "c91d2ee640209f9870ae71c39e9a2998d8647d6122762bf49f903bb77ee350e1",
+        "method_type": "int (memory_order) const noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__is_constant_evaluated"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "__source_byte_method_store_addf92f531e481c55e70",
+      "source_name": "__source_byte_method_store_addf92f531e481c55e70",
+      "kind": "FunctionDecl",
+      "line": 456,
+      "original_type": "void (std::__atomic_base<int> *, int, memory_order)",
+      "linkage": "internal",
+      "original_byte_method": {
+        "source_header": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+        "source_offset": 13151,
+        "source_line": 456,
+        "header_sha256": "e3642aa705c8b18b0bd8b39141dd1027a6f2dc73a7af56af9da1b1d63719d787",
+        "mangled_name": "_ZNSt13__atomic_baseIiE5storeEiSt12memory_order",
+        "original_type": "void (__int_type, memory_order) noexcept",
+        "original_name": "store",
+        "original_ast_kind": "CXXMethodDecl",
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "abi": "source-byte-instance-method/1",
+        "receiver_schema": {
+          "size": 4,
+          "align": 4,
+          "union": false,
+          "fields": {
+            "_M_i": {
+              "offset": 0,
+              "native": "Int32Array",
+              "size": 4
+            }
+          },
+          "arrayAlign": 1,
+          "projection": true,
+          "overlaps": false
+        },
+        "receiver_schema_sha256": "c91d2ee640209f9870ae71c39e9a2998d8647d6122762bf49f903bb77ee350e1",
+        "method_type": "void (int, memory_order) noexcept"
+      },
+      "physical_source": "C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/linux-sysroot/usr/include/c++/12/bits/atomic_base.h",
+      "source_references": [
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__is_constant_evaluated"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clamp__header_acff00012631",
+      "source_name": "clamp",
+      "kind": "FunctionDecl",
+      "line": 1093,
+      "original_type": "int (int, int, int)",
+      "clang_template_mangled_name": "_ZL5clampIiiiET_S0_T0_T1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 29810,
+        "source_line": 1093,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_deg_to_rad_mult__header_global_ca96090559e514d4",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb28e28",
+        "redeclaration_chain": [
+          "0x1219fb28e28"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_from_float__header_cc2ec3367744",
+      "source_name": "fix16_from_float",
+      "kind": "FunctionDecl",
+      "line": 47,
+      "original_type": "fix16_t (float)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1810,
+        "source_line": 47,
+        "header_sha256": "a45b52b076b4063ab38ddb6f72d21de2639e047387064664146a46d7022d7bcd"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [
+        "fix16_one__header_global_4893317b55fdd91c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_from_int__header_f52908b5a6ca",
+      "source_name": "fix16_from_int",
+      "kind": "FunctionDecl",
+      "line": 46,
+      "original_type": "fix16_t (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1720,
+        "source_line": 46,
+        "header_sha256": "a45b52b076b4063ab38ddb6f72d21de2639e047387064664146a46d7022d7bcd"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [
+        "fix16_one__header_global_4893317b55fdd91c"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_56990b17be0360a2",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb215e0",
+        "redeclaration_chain": [
+          "0x1219fb215e0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_4893317b55fdd91c",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb214d0",
+        "redeclaration_chain": [
+          "0x1219fb214d0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_rad_to_deg_mult__header_global_5f14566919e51ca3",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb28980",
+        "redeclaration_chain": [
+          "0x1219fb28980"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_to_float__header_f653a1768490",
+      "source_name": "fix16_to_float",
+      "kind": "FunctionDecl",
+      "line": 43,
+      "original_type": "float (fix16_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1525,
+        "source_line": 43,
+        "header_sha256": "a45b52b076b4063ab38ddb6f72d21de2639e047387064664146a46d7022d7bcd"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [
+        "flt_f161r__header_global_3a1df6c21418345f"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_3a1df6c21418345f",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219fb216f0",
+        "redeclaration_chain": [
+          "0x1219fb216f0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_defaultVideoModes__header_global_b94e26943c736430",
+      "source_name": "g_defaultVideoModes",
+      "kind": "VarDecl",
+      "line": 172,
+      "original_type": "const vec2_t[25]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 4847,
+        "source_line": 172,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x121a11c2e48",
+        "redeclaration_chain": [
+          "0x121a11c2e48"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "g_defaultVideoModes__header_global_b94e26943c736430",
+        "abi": "source-byte-record-array/1",
+        "stride": 8,
+        "dimensions": [
+          25
+        ],
+        "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+        "original_type": "const vec2_t[25]",
+        "native_element_layout": {
+          "abi": "source-record-field-storage/1",
+          "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+        },
+        "native_nested_layout": {
+          "abi": "source-native-record-array-layout/2",
+          "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+        },
+        "record_array_nested_data_view": "source-native-record-array-data-view/2",
+        "record_array_data_view": "source-native-record-array-data-view/1"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_2d1dc85e34ff422c",
+      "source_name": "g_keyAsciiTableShift",
+      "kind": "VarDecl",
+      "line": 196,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 6158,
+        "source_line": 196,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x121a11c68d0",
+        "redeclaration_chain": [
+          "0x121a11c68d0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_081cebaa696727f43eb6317c",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_afb0599256b5558e",
+      "source_name": "g_keyAsciiTable",
+      "kind": "VarDecl",
+      "line": 188,
+      "original_type": "const const char[128]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/baselayer.h",
+        "source_offset": 5455,
+        "source_line": 188,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x121a11c4aa0",
+        "redeclaration_chain": [
+          "0x121a11c4aa0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/baselayer.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_350ef9eb8ff01b19a4397e5e",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "const const char[128]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            128
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "get_internal_task__template_4cab75a8a2e891a2",
+      "source_name": "get_internal_task",
+      "kind": "FunctionDecl",
+      "line": 1275,
+      "original_type": "typename async::detail::basic_task<int>::internal_task_type *(const async::detail::basic_task<int> &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZN5async6detail17get_internal_taskINS0_10basic_taskIiEEEEPNT_18internal_task_typeERKS4_",
+        "original_type": "typename async::detail::basic_task<int>::internal_task_type *(const async::detail::basic_task<int> &)",
+        "source_name": "get_internal_task"
+      },
+      "clang_template_mangled_name": "_ZN5async6detail17get_internal_taskINS0_10basic_taskIiEEEEPNT_18internal_task_typeERKS4_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "source/build/include/libasync.h",
+        "source_offset": 37045,
+        "source_line": 1275,
+        "header_sha256": "49ac8464bc4b3e4ee364af662e8a6165e6608ab4656901ddbb383c674b9500a7"
+      },
+      "odr_inline": {
+        "source_header": "source/build/include/libasync.h",
+        "source_offset": 37045,
+        "enclosing_record": "(free inline function)",
+        "type": "typename async::detail::basic_task<int>::internal_task_type *(const async::detail::basic_task<int> &)",
+        "semantic_sha256": "de44c096250f381d5711d73932a4ce51fbefee36041ff958dfdb09148081809e"
+      },
+      "physical_source": "source/build/include/libasync.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "loopEndTags",
+      "source_name": "loopEndTags",
+      "kind": "VarDecl",
+      "line": 985,
+      "original_type": "const char *[2]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "loopEndTags",
+        "abi": "source-pointer-array/1",
+        "stride": 8,
+        "extent": 2,
+        "element_declaration": "const char *[]",
+        "original_type": "const char *[2]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "loopLengthTags",
+      "source_name": "loopLengthTags",
+      "kind": "VarDecl",
+      "line": 986,
+      "original_type": "const char *[2]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "loopLengthTags",
+        "abi": "source-pointer-array/1",
+        "stride": 8,
+        "extent": 2,
+        "element_declaration": "const char *[]",
+        "original_type": "const char *[2]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "loopStartTags",
+      "source_name": "loopStartTags",
+      "kind": "VarDecl",
+      "line": 984,
+      "original_type": "const char *[3]",
+      "linkage": "external",
+      "source_references": [],
+      "external_reference_imports": [],
+      "object_storage": {
+        "name": "loopStartTags",
+        "abi": "source-pointer-array/1",
+        "stride": 8,
+        "extent": 3,
+        "element_declaration": "const char *[]",
+        "original_type": "const char *[3]"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "max__template_b1cfaf2244c73238",
+      "source_name": "max",
+      "kind": "FunctionDecl",
+      "line": 254,
+      "original_type": "const int &(const int &, const int &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3maxIiERKT_S2_S2_",
+        "original_type": "const int &(const int &, const int &)",
+        "source_name": "max"
+      },
+      "clang_template_mangled_name": "_ZSt3maxIiERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "source_line": 254,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "96fd0e5e38df2311540efc8318b5f3f26ff6461f446d4d1f5dc09a201c8590d4"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "max__template_f609c7b01b7889e2",
+      "source_name": "max",
+      "kind": "FunctionDecl",
+      "line": 254,
+      "original_type": "const long &(const long &, const long &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3maxIlERKT_S2_S2_",
+        "original_type": "const long &(const long &, const long &)",
+        "source_name": "max"
+      },
+      "clang_template_mangled_name": "_ZSt3maxIlERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "source_line": 254,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "enclosing_record": "(free inline function)",
+        "type": "const long &(const long &, const long &)",
+        "semantic_sha256": "b8ef6024ec8890b00a7a2da78fec2c038af26dc54c0c11927b743a7dab9721ea"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "long",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "long",
+            "const": true
+          }
+        ],
+        "result": "long"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_774131ccff66371d",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const int &(const int &, const int &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3minIiERKT_S2_S2_",
+        "original_type": "const int &(const int &, const int &)",
+        "source_name": "min"
+      },
+      "clang_template_mangled_name": "_ZSt3minIiERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "827cd33afddd28371f9c9f66a8a152fff75298a0687de7e950037779fe554e49"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_c5ffcfb092321e6b",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const unsigned int &(const unsigned int &, const unsigned int &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3minIjERKT_S2_S2_",
+        "original_type": "const unsigned int &(const unsigned int &, const unsigned int &)",
+        "source_name": "min"
+      },
+      "clang_template_mangled_name": "_ZSt3minIjERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const unsigned int &(const unsigned int &, const unsigned int &)",
+        "semantic_sha256": "7ec0cb65721c03eeca306a1bc87a2a32ba17e8ee6bbb6d944e30527d3d98256b"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "unsigned int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "unsigned int",
+            "const": true
+          }
+        ],
+        "result": "unsigned int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_8b3bff012745dc91",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/audiolib/src/multivoc.cpp",
+        "clang_decl_id": "0x1219f2e86f8",
+        "redeclaration_chain": [
+          "0x1219f2e86f8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_d10b72d37635b704af22c0dd",
+        "owner_source": "source/audiolib/src/multivoc.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "tabledivide32__header_d0d47dde933e",
+      "source_name": "tabledivide32",
+      "kind": "FunctionDecl",
+      "line": 121,
+      "original_type": "int32_t (const int32_t, const int32_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/pragmas.h",
+        "source_offset": 3828,
+        "source_line": 121,
+        "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+      },
+      "physical_source": "source/build/include/pragmas.h",
+      "source_references": [
+        "divtable32",
+        "lastd_s32",
+        "libdivide_s32_do",
+        "libdivide_s32_gen"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "libdivide::libdivide_s32_t",
+          "source_record": "libdivide::libdivide_s32_t",
+          "clang_method_id": "0x1219fb2fff0",
+          "clang_assignment_signature": "libdivide_s32_t &(libdivide_s32_t &&) noexcept",
+          "assignment_mode": "moveAssign",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          }
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s32",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "divtable32",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/audiolib/src/multivoc.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "divtable32",
+        "lastd_s32",
+        "libdivide_s32_do",
+        "libdivide_s32_gen"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_alloc__header_9a0eef3e01d2",
+      "source_name": "xaligned_alloc",
+      "kind": "FunctionDecl",
+      "line": 1428,
+      "original_type": "void *(const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 38920,
+        "source_line": 1428,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_calloc__header_eb9cdb4cb122",
+      "source_name": "xaligned_calloc",
+      "kind": "FunctionDecl",
+      "line": 1436,
+      "original_type": "void *(const bsize_t, const bsize_t, const bsize_t)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39224,
+        "source_line": 1436,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "memset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Alloc__cxx_static_e0036cfb06bcfe42",
+        "g_sm_heap",
+        "handle_memerr",
+        "memset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "xaligned_free__header_d0f3becbf458",
+      "source_name": "xaligned_free",
+      "kind": "FunctionDecl",
+      "line": 1450,
+      "original_type": "void (void *const)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 39756,
+        "source_line": 1450,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_sm_heap",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Free__cxx_static_0dfd3f42f0dc2c05",
+        "g_sm_heap"
+      ],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "initial_declaration_selection": "clang-substring",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "ed505cab82213a4d224848d92fa85f782acad4dbdb4621d7f0c0ab8b60e1a3c7",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730"
+  },
+  "source_atomic_model": "single-isolate-private-storage/1",
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "e7645505b672e659631f5aeb2fb411863adc8edda6a832d2a319f05b66c649ac",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "61727844c970f04c8694aa8038835346f76ddb479be59fb49aec94c9db939389",
+    "semantic_fingerprint": "d906809df5e308b38ac6d3351d9a1dac3f959a172419a553ebc2ddb839055730",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 4280,
+    "sha256": "f7af9e3c3b18f1f39a9426c7ebabfb2f77f39259cc1acf41f0d15c67a6d9173f",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "ff0445c4ff2b70f8a1d7a5c0da453015c896391b90b0d892eaf92eb687a02809",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "3cc20506bcd56d2b62e1fe0eb3d70cc582413e66e9cb526f021e539c233abc42",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "c1557647da6fe3036c8cc0f085494cc23bac500e6f1617e8af4d06291d8bd62a",
+    "dependency_count": 393,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 1,
+      "objects": 1165180,
+      "ranges_omitted": 245229,
+      "allocator_body_ranges_retained": 4,
+      "macro_declaration_ranges_retained": 1787,
+      "semantic_barrier_ranges_retained": 1267,
+      "instance_method_ranges_retained": 17367,
+      "type_metadata_reuses": 221404,
+      "include_metadata_reuses": 223889,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 43420741,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 43420741,
+      "cache_hit": false,
+      "json_bytes": 490374871,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 102578191,
+      "cache_evicted_entries": 2,
+      "cache_evicted_bytes": 67391603,
+      "cache_retention_reason": "compressed-retained"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [
+    {
+      "name": "MV_Installed",
+      "binding": "__cxx_global_cell_6ba894e05caa47d1bfdd0a0c",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_BufferSize",
+      "binding": "__cxx_global_cell_52b7fc592cc0ae06f2ba575b",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_MaxVoices",
+      "binding": "__cxx_global_cell_671d938a8da950fac64efbdb",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_Channels",
+      "binding": "__cxx_global_cell_9eef96950efe01b75b43b902",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_MixRate",
+      "binding": "__cxx_global_cell_60c5e8a990104b93db1b82e7",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_InitDataPtr",
+      "binding": "__cxx_global_cell_df3169c392bf05de38bfe108",
+      "abi": "source-global-cell/2",
+      "original_type": "void *"
+    },
+    {
+      "name": "MV_LazyAlloc",
+      "binding": "__cxx_global_cell_a041cfaa612703140e111290",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_Voices",
+      "binding": "__cxx_global_cell_c913bc40c747f8379816a88e",
+      "abi": "source-global-cell/2",
+      "original_type": "VoiceNode *",
+      "record_pointer_identity": {
+        "abi": "source-global-record-pointer-type/1",
+        "record_name": "VoiceNode",
+        "pointee_cv": [],
+        "pointer_cv": [],
+        "declaration": {
+          "source_header": "source/audiolib/src/_multivc.h",
+          "source_offset": 3969,
+          "enclosing_record": "VoiceNode",
+          "type": "VoiceNode",
+          "semantic_sha256": "5a8f19918410778bb51b599d526457647721d5cd3f48515db22a21f17209e5be",
+          "prototype_factory_abi": "source-header-record-factory/1"
+        },
+        "layout_sha256": "1810935be2c6284cc48c34c81798d5ad4960dca4c9af19b866c0a0ab3a58384f"
+      }
+    },
+    {
+      "name": "MV_MixDestination",
+      "binding": "__cxx_global_cell_1e2fc3d4b9ce0dbbe47b0ceb",
+      "abi": "source-global-cell/2",
+      "original_type": "char *"
+    },
+    {
+      "name": "MV_SampleSize",
+      "binding": "__cxx_global_cell_f26f74aea0df8d9a78820661",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_RightChannelOffset",
+      "binding": "__cxx_global_cell_ca9f4f046a4443694bc8a5a4",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_ErrorCode",
+      "binding": "__cxx_global_cell_8a37c6e6dc891d5eba65e067",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_GlobalVolume",
+      "binding": "__cxx_global_cell_f6503dd2f9475abde00d5b1a",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_VolumeSmoothFactor",
+      "binding": "__cxx_global_cell_d948bcfdda67a38fb8a65e07",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_Locked",
+      "binding": "__cxx_global_cell_863e87c70fe831130f94a0ec",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_MusicBuffer",
+      "binding": "__cxx_global_cell_4031867f2af48f5f8b7065db",
+      "abi": "source-global-cell/2",
+      "original_type": "char *"
+    }
+  ],
+  "private_storage_exports": [
+    {
+      "name": "MV_ReverbLevel",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_8ab29b01937a37b6b93b5306",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_ReverbDelay",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_04bb4c1afe72ffab04a12fb4",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_ReverbVolume",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_116153779212623c7a04003f",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_BufferLength",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_de9a3150e6a23bec9b056b81",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_NumberOfBuffers",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_55acafd99436af2011d7d486",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_BufferEmpty",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_58611e27a1da29a5e2cf73ae",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int[32]",
+      "scalar_array": {
+        "array": "Int32Array",
+        "dims": [
+          32
+        ]
+      }
+    },
+    {
+      "name": "MV_MixPage",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_8733c2c3c2373c35c3f26ae4",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "int"
+    },
+    {
+      "name": "MV_CallBackFunc",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_2e18f8fee903270951f3aeaf",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "void (*)(intptr_t)"
+    },
+    {
+      "name": "MV_MusicCallback",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_366786f45d5ff50d78e1793b",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "void (*)()"
+    },
+    {
+      "name": "MV_Handles",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_911f7673d7a76103f5901064",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "VoiceNode **"
+    },
+    {
+      "name": "pow2char__header_global_8b3bff012745dc91",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_d10b72d37635b704af22c0dd",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTable__header_global_afb0599256b5558e",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_350ef9eb8ff01b19a4397e5e",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    },
+    {
+      "name": "g_keyAsciiTableShift__header_global_2d1dc85e34ff422c",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_081cebaa696727f43eb6317c",
+      "owner_source": "source/audiolib/src/multivoc.cpp",
+      "original_type": "const const char[128]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          128
+        ]
+      }
+    }
+  ],
+  "module_fragments": [
+    {
+      "module": "source/audiolib/src/_source_legacy_multivoc_cpp_e1b416c3d471.mjs",
+      "sha256": "e1b416c3d4710991f541fdbebdf0aad5f6325d6fcd06ac7099b4e2fe646a547f",
+      "original_source": "source/audiolib/src/multivoc.cpp",
+      "exports": [
+        "Blrintf__header_554477256d10",
+        "Empty__template_d798a222b9bae8c7",
+        "FIX16_MAX__header_global_d6a7f09a7fbf5ab2",
+        "FIX16_MIN__header_global_2dab9d3c1b46b3d6",
+        "FIX16_OVERFLOW__header_global_c8e9504c5fdd6057",
+        "FX_SoundValidAndActive__header_e795b03dc27c",
+        "Insert__template_a833a461de94f09a",
+        "MV_BufferEmpty",
+        "MV_BufferLength",
+        "MV_BufferSize",
+        "MV_CalcPanTable",
+        "MV_CallBackFunc",
+        "MV_Channels",
+        "MV_ErrorCode",
+        "MV_GetMaxReverbDelay",
+        "MV_GetMusicRoutineBuffer",
+        "MV_GetNextDemandFeedBlock",
+        "MV_GetReverbDelay",
+        "MV_GetVoice",
+        "MV_GetVolume",
+        "MV_GlobalVolume",
+        "MV_Handles",
+        "MV_InitDataPtr",
+        "MV_Installed",
+        "MV_LazyAlloc",
+        "MV_Locked",
+        "MV_MaxVoices",
+        "MV_MixBuffer",
+        "MV_MixDestination",
+        "MV_MixPage",
+        "MV_MixRate",
+        "MV_MusicBuffer",
+        "MV_MusicCallback",
+        "MV_MusicRoutineBuffer",
+        "MV_NumberOfBuffers",
+        "MV_PanTable",
+        "MV_ReverbDelay",
+        "MV_ReverbLevel",
+        "MV_ReverbVolume",
+        "MV_RightChannelOffset",
+        "MV_SampleSize",
+        "MV_SetCallBack",
+        "MV_SetErrorCode__header_fa0e5b8ad773",
+        "MV_SetMixMode",
+        "MV_SetReverbDelay",
+        "MV_VoicePlaying",
+        "MV_Voices",
+        "MV_VolumeSmoothFactor",
+        "Move__template_45f4f2db05c479ff",
+        "Remove__template_5d7072c0f1174e54",
+        "Reset__template_1e74985547608292",
+        "Unlink__template_843de158a7ee4205",
+        "__cxx_operator_2b395f479b779960",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__cxx_record_ref_count_ptr_a19f50960d765cf5",
+        "__is_constant_evaluated",
+        "__source_byte_method_load_3d3a49581334a76615f4",
+        "__source_byte_method_store_addf92f531e481c55e70",
+        "clamp__header_acff00012631",
+        "fix16_deg_to_rad_mult__header_global_ca96090559e514d4",
+        "fix16_from_float__header_cc2ec3367744",
+        "fix16_from_int__header_f52908b5a6ca",
+        "fix16_half__header_global_56990b17be0360a2",
+        "fix16_one__header_global_4893317b55fdd91c",
+        "fix16_rad_to_deg_mult__header_global_5f14566919e51ca3",
+        "fix16_to_float__header_f653a1768490",
+        "flt_f161r__header_global_3a1df6c21418345f",
+        "g_defaultVideoModes__header_global_b94e26943c736430",
+        "g_keyAsciiTableShift__header_global_2d1dc85e34ff422c",
+        "g_keyAsciiTable__header_global_afb0599256b5558e",
+        "get_internal_task__template_4cab75a8a2e891a2",
+        "loopEndTags",
+        "loopLengthTags",
+        "loopStartTags",
+        "max__template_b1cfaf2244c73238",
+        "max__template_f609c7b01b7889e2",
+        "min__template_774131ccff66371d",
+        "min__template_c5ffcfb092321e6b",
+        "pow2char__header_global_8b3bff012745dc91",
+        "tabledivide32__header_d0d47dde933e",
+        "xaligned_alloc__header_9a0eef3e01d2",
+        "xaligned_calloc__header_eb9cdb4cb122",
+        "xaligned_free__header_d0f3becbf458"
+      ],
+      "reexports": [
+        "Blrintf__header_554477256d10",
+        "Empty__template_d798a222b9bae8c7",
+        "FIX16_MAX__header_global_d6a7f09a7fbf5ab2",
+        "FIX16_MIN__header_global_2dab9d3c1b46b3d6",
+        "FIX16_OVERFLOW__header_global_c8e9504c5fdd6057",
+        "FX_SoundValidAndActive__header_e795b03dc27c",
+        "Insert__template_a833a461de94f09a",
+        "MV_BufferEmpty",
+        "MV_BufferLength",
+        "MV_BufferSize",
+        "MV_CalcPanTable",
+        "MV_CallBackFunc",
+        "MV_Channels",
+        "MV_ErrorCode",
+        "MV_GetMaxReverbDelay",
+        "MV_GetMusicRoutineBuffer",
+        "MV_GetNextDemandFeedBlock",
+        "MV_GetReverbDelay",
+        "MV_GetVoice",
+        "MV_GetVolume",
+        "MV_GlobalVolume",
+        "MV_Handles",
+        "MV_InitDataPtr",
+        "MV_Installed",
+        "MV_LazyAlloc",
+        "MV_Locked",
+        "MV_MaxVoices",
+        "MV_MixBuffer",
+        "MV_MixDestination",
+        "MV_MixPage",
+        "MV_MixRate",
+        "MV_MusicBuffer",
+        "MV_MusicCallback",
+        "MV_MusicRoutineBuffer",
+        "MV_NumberOfBuffers",
+        "MV_PanTable",
+        "MV_ReverbDelay",
+        "MV_ReverbLevel",
+        "MV_ReverbVolume",
+        "MV_RightChannelOffset",
+        "MV_SampleSize",
+        "MV_SetCallBack",
+        "MV_SetErrorCode__header_fa0e5b8ad773",
+        "MV_SetMixMode",
+        "MV_SetReverbDelay",
+        "MV_VoicePlaying",
+        "MV_Voices",
+        "MV_VolumeSmoothFactor",
+        "Move__template_45f4f2db05c479ff",
+        "Remove__template_5d7072c0f1174e54",
+        "Reset__template_1e74985547608292",
+        "Unlink__template_843de158a7ee4205",
+        "__cxx_operator_2b395f479b779960",
+        "__cxx_operator_e73606c6bb71dfa0",
+        "__cxx_record_ref_count_ptr_a19f50960d765cf5",
+        "__is_constant_evaluated",
+        "__source_byte_method_load_3d3a49581334a76615f4",
+        "__source_byte_method_store_addf92f531e481c55e70",
+        "clamp__header_acff00012631",
+        "fix16_deg_to_rad_mult__header_global_ca96090559e514d4",
+        "fix16_from_float__header_cc2ec3367744",
+        "fix16_from_int__header_f52908b5a6ca",
+        "fix16_half__header_global_56990b17be0360a2",
+        "fix16_one__header_global_4893317b55fdd91c",
+        "fix16_rad_to_deg_mult__header_global_5f14566919e51ca3",
+        "fix16_to_float__header_f653a1768490",
+        "flt_f161r__header_global_3a1df6c21418345f",
+        "g_defaultVideoModes__header_global_b94e26943c736430",
+        "g_keyAsciiTableShift__header_global_2d1dc85e34ff422c",
+        "g_keyAsciiTable__header_global_afb0599256b5558e",
+        "get_internal_task__template_4cab75a8a2e891a2",
+        "loopEndTags",
+        "loopLengthTags",
+        "loopStartTags",
+        "max__template_b1cfaf2244c73238",
+        "max__template_f609c7b01b7889e2",
+        "min__template_774131ccff66371d",
+        "min__template_c5ffcfb092321e6b",
+        "pow2char__header_global_8b3bff012745dc91",
+        "tabledivide32__header_d0d47dde933e",
+        "xaligned_alloc__header_9a0eef3e01d2",
+        "xaligned_calloc__header_eb9cdb4cb122",
+        "xaligned_free__header_d0f3becbf458",
+        "__cxx_private_cell_58611e27a1da29a5e2cf73ae",
+        "__cxx_private_cell_de9a3150e6a23bec9b056b81",
+        "__cxx_global_cell_52b7fc592cc0ae06f2ba575b",
+        "__cxx_private_cell_2e18f8fee903270951f3aeaf",
+        "__cxx_global_cell_9eef96950efe01b75b43b902",
+        "__cxx_global_cell_8a37c6e6dc891d5eba65e067",
+        "__cxx_global_cell_f6503dd2f9475abde00d5b1a",
+        "__cxx_private_cell_911f7673d7a76103f5901064",
+        "__cxx_global_cell_df3169c392bf05de38bfe108",
+        "__cxx_global_cell_6ba894e05caa47d1bfdd0a0c",
+        "__cxx_global_cell_a041cfaa612703140e111290",
+        "__cxx_global_cell_863e87c70fe831130f94a0ec",
+        "__cxx_global_cell_671d938a8da950fac64efbdb",
+        "__cxx_global_cell_1e2fc3d4b9ce0dbbe47b0ceb",
+        "__cxx_private_cell_8733c2c3c2373c35c3f26ae4",
+        "__cxx_global_cell_60c5e8a990104b93db1b82e7",
+        "__cxx_global_cell_4031867f2af48f5f8b7065db",
+        "__cxx_private_cell_366786f45d5ff50d78e1793b",
+        "__cxx_private_cell_55acafd99436af2011d7d486",
+        "__cxx_private_cell_04bb4c1afe72ffab04a12fb4",
+        "__cxx_private_cell_8ab29b01937a37b6b93b5306",
+        "__cxx_private_cell_116153779212623c7a04003f",
+        "__cxx_global_cell_ca9f4f046a4443694bc8a5a4",
+        "__cxx_global_cell_f26f74aea0df8d9a78820661",
+        "__cxx_global_cell_c913bc40c747f8379816a88e",
+        "__cxx_global_cell_d948bcfdda67a38fb8a65e07",
+        "__cxx_private_cell_081cebaa696727f43eb6317c",
+        "__cxx_private_cell_350ef9eb8ff01b19a4397e5e",
+        "__cxx_private_cell_d10b72d37635b704af22c0dd"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/audiolib/src/multivoc.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "869e122a6b70e67ab198e850bd28016d78c43dc3599989f7c81fb534ea4cbcb2"
+    }
+  ]
+}

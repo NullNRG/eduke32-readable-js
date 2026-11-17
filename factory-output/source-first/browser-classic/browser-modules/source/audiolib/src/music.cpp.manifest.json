@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\audiolib\\src\\music.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 1,
-  "emitted": 1,
+  "found": 14,
+  "emitted": 14,
   "blocked": 0,
   "definitions": [
     {
@@ -72,6 +72,451 @@
       "physical_source": "source/audiolib/src/music.cpp",
       "source_references": [],
       "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MAX__header_global_9e35a369558d5022",
+      "source_name": "FIX16_MAX",
+      "kind": "VarDecl",
+      "line": 31,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 667,
+        "source_line": 31,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b33d9a8",
+        "redeclaration_chain": [
+          "0x21c8b33d9a8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_MIN__header_global_3f566dd8cba4ebc9",
+      "source_name": "FIX16_MIN",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 764,
+        "source_line": 32,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b33dac0",
+        "redeclaration_chain": [
+          "0x21c8b33dac0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FIX16_OVERFLOW__header_global_516e0390b5a9a21f",
+      "source_name": "FIX16_OVERFLOW",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 861,
+        "source_line": 33,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b33dbf0",
+        "redeclaration_chain": [
+          "0x21c8b33dbf0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MUSIC_ErrorCode",
+      "source_name": "MUSIC_ErrorCode",
+      "kind": "VarDecl",
+      "line": 32,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/audiolib/src/music.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_da559094e68cf1623e5b20ad",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MUSIC_ErrorString",
+      "source_name": "MUSIC_ErrorString",
+      "kind": "FunctionDecl",
+      "line": 38,
+      "original_type": "const char *(const int)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_Z17MUSIC_ErrorStringi",
+        "original_type": "const char *(const int)",
+        "source_name": "MUSIC_ErrorString"
+      },
+      "linkage": "external",
+      "source_references": [
+        "MUSIC_ErrorCode",
+        "MUSIC_ErrorString"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "MUSIC_MidiFunctions",
+      "source_name": "MUSIC_MidiFunctions",
+      "kind": "VarDecl",
+      "line": 34,
+      "original_type": "struct midifuncs",
+      "linkage": "internal",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_daf76fd94aaa429b027b5e25",
+        "owner_source": "source/audiolib/src/music.cpp",
+        "original_type": "struct midifuncs",
+        "byte_record": {
+          "size": 96,
+          "align": 8,
+          "union": false,
+          "fields": {
+            "NoteOff": {
+              "offset": 0,
+              "pointer": true,
+              "size": 8
+            },
+            "NoteOn": {
+              "offset": 8,
+              "pointer": true,
+              "size": 8
+            },
+            "PolyAftertouch": {
+              "offset": 16,
+              "pointer": true,
+              "size": 8
+            },
+            "ControlChange": {
+              "offset": 24,
+              "pointer": true,
+              "size": 8
+            },
+            "ProgramChange": {
+              "offset": 32,
+              "pointer": true,
+              "size": 8
+            },
+            "ChannelAftertouch": {
+              "offset": 40,
+              "pointer": true,
+              "size": 8
+            },
+            "PitchBend": {
+              "offset": 48,
+              "pointer": true,
+              "size": 8
+            },
+            "ReleasePatches": {
+              "offset": 56,
+              "pointer": true,
+              "size": 8
+            },
+            "LoadPatch": {
+              "offset": 64,
+              "pointer": true,
+              "size": 8
+            },
+            "SetVolume": {
+              "offset": 72,
+              "pointer": true,
+              "size": 8
+            },
+            "GetVolume": {
+              "offset": 80,
+              "pointer": true,
+              "size": 8
+            },
+            "SysEx": {
+              "offset": 88,
+              "pointer": true,
+              "size": 8
+            }
+          },
+          "arrayAlign": 1,
+          "overlaps": false
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "clamp__header_de6079bb7710",
+      "source_name": "clamp",
+      "kind": "FunctionDecl",
+      "line": 1093,
+      "original_type": "int (int, int, int)",
+      "clang_template_mangled_name": "_ZL5clampIiiiET_S0_T0_T1_",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 29810,
+        "source_line": 1093,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_deg_to_rad_mult__header_global_f2802e68c43b5044",
+      "source_name": "fix16_deg_to_rad_mult",
+      "kind": "VarDecl",
+      "line": 114,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5371,
+        "source_line": 114,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b345678",
+        "redeclaration_chain": [
+          "0x21c8b345678"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_half__header_global_36b45e31c6669155",
+      "source_name": "fix16_half",
+      "kind": "VarDecl",
+      "line": 36,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1056,
+        "source_line": 36,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b33de30",
+        "redeclaration_chain": [
+          "0x21c8b33de30"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one__header_global_d395745c2520a600",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b33dd20",
+        "redeclaration_chain": [
+          "0x21c8b33dd20"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_rad_to_deg_mult__header_global_5479304c7c349429",
+      "source_name": "fix16_rad_to_deg_mult",
+      "kind": "VarDecl",
+      "line": 111,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 5190,
+        "source_line": 111,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b3451d0",
+        "redeclaration_chain": [
+          "0x21c8b3451d0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "flt_f161r__header_global_f24ce37b849138e1",
+      "source_name": "flt_f161r",
+      "kind": "VarDecl",
+      "line": 37,
+      "original_type": "const float",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1147,
+        "source_line": 37,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8b33df40",
+        "redeclaration_chain": [
+          "0x21c8b33df40"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char__header_global_aabc758d2164cbde",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/audiolib/src/music.cpp",
+        "clang_decl_id": "0x21c8ab4a6e8",
+        "redeclaration_chain": [
+          "0x21c8ab4a6e8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "enclosing-Clang-namespace",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_53046f9af7824cd5906b6a17",
+        "owner_source": "source/audiolib/src/music.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
@@ -198,8 +643,105 @@
     }
   ],
   "header_inline_filter": null,
-  "storage_exports": [],
-  "private_storage_exports": [],
+  "storage_exports": [
+    {
+      "name": "MUSIC_ErrorCode",
+      "binding": "__cxx_global_cell_da559094e68cf1623e5b20ad",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    }
+  ],
+  "private_storage_exports": [
+    {
+      "name": "MUSIC_MidiFunctions",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_daf76fd94aaa429b027b5e25",
+      "owner_source": "source/audiolib/src/music.cpp",
+      "original_type": "struct midifuncs",
+      "byte_record": {
+        "size": 96,
+        "align": 8,
+        "union": false,
+        "fields": {
+          "NoteOff": {
+            "offset": 0,
+            "pointer": true,
+            "size": 8
+          },
+          "NoteOn": {
+            "offset": 8,
+            "pointer": true,
+            "size": 8
+          },
+          "PolyAftertouch": {
+            "offset": 16,
+            "pointer": true,
+            "size": 8
+          },
+          "ControlChange": {
+            "offset": 24,
+            "pointer": true,
+            "size": 8
+          },
+          "ProgramChange": {
+            "offset": 32,
+            "pointer": true,
+            "size": 8
+          },
+          "ChannelAftertouch": {
+            "offset": 40,
+            "pointer": true,
+            "size": 8
+          },
+          "PitchBend": {
+            "offset": 48,
+            "pointer": true,
+            "size": 8
+          },
+          "ReleasePatches": {
+            "offset": 56,
+            "pointer": true,
+            "size": 8
+          },
+          "LoadPatch": {
+            "offset": 64,
+            "pointer": true,
+            "size": 8
+          },
+          "SetVolume": {
+            "offset": 72,
+            "pointer": true,
+            "size": 8
+          },
+          "GetVolume": {
+            "offset": 80,
+            "pointer": true,
+            "size": 8
+          },
+          "SysEx": {
+            "offset": 88,
+            "pointer": true,
+            "size": 8
+          }
+        },
+        "arrayAlign": 1,
+        "overlaps": false
+      }
+    },
+    {
+      "name": "pow2char__header_global_aabc758d2164cbde",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_53046f9af7824cd5906b6a17",
+      "owner_source": "source/audiolib/src/music.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    }
+  ],
   "module_fragments": [
     {
       "module": "source/audiolib/src/_source_legacy_music_cpp_190d10cbfede.mjs",
@@ -214,6 +756,47 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "91c0827d71dc5ec2d6cd724264588e8ecdaa5914746ae30c36c0a1e9abc7e1d4"
+    },
+    {
+      "module": "source/audiolib/src/_source_legacy_music_cpp_8087cb767dd1.mjs",
+      "sha256": "8087cb767dd1b914091c2da92cd6320cc408388f3b01e931977c0e8e624df66e",
+      "original_source": "source/audiolib/src/music.cpp",
+      "exports": [
+        "FIX16_MAX__header_global_9e35a369558d5022",
+        "FIX16_MIN__header_global_3f566dd8cba4ebc9",
+        "FIX16_OVERFLOW__header_global_516e0390b5a9a21f",
+        "MUSIC_ErrorCode",
+        "MUSIC_ErrorString",
+        "MUSIC_MidiFunctions",
+        "clamp__header_de6079bb7710",
+        "fix16_deg_to_rad_mult__header_global_f2802e68c43b5044",
+        "fix16_half__header_global_36b45e31c6669155",
+        "fix16_one__header_global_d395745c2520a600",
+        "fix16_rad_to_deg_mult__header_global_5479304c7c349429",
+        "flt_f161r__header_global_f24ce37b849138e1",
+        "pow2char__header_global_aabc758d2164cbde"
+      ],
+      "reexports": [
+        "FIX16_MAX__header_global_9e35a369558d5022",
+        "FIX16_MIN__header_global_3f566dd8cba4ebc9",
+        "FIX16_OVERFLOW__header_global_516e0390b5a9a21f",
+        "MUSIC_ErrorCode",
+        "MUSIC_ErrorString",
+        "MUSIC_MidiFunctions",
+        "clamp__header_de6079bb7710",
+        "fix16_deg_to_rad_mult__header_global_f2802e68c43b5044",
+        "fix16_half__header_global_36b45e31c6669155",
+        "fix16_one__header_global_d395745c2520a600",
+        "fix16_rad_to_deg_mult__header_global_5479304c7c349429",
+        "flt_f161r__header_global_f24ce37b849138e1",
+        "pow2char__header_global_aabc758d2164cbde",
+        "__cxx_global_cell_da559094e68cf1623e5b20ad",
+        "__cxx_private_cell_daf76fd94aaa429b027b5e25",
+        "__cxx_private_cell_53046f9af7824cd5906b6a17"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "b7a62045434dc2773b3ee16c3d477bad3b81fa152fe45c50f1d2ea2421480079"
     }
   ]
 }

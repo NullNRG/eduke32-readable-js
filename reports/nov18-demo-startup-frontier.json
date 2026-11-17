@@ -1,0 +1,262 @@
+{
+  "format": "sourcefactory-scoped-startup-frontier/1",
+  "compiler_runtime_input_sha256": "e7645505b672e659631f5aeb2fb411863adc8edda6a832d2a319f05b66c649ac",
+  "component_manifest_sha256": "c08a9a030995cc049fa5130ab45c40f604af8aa9b58df297999aee0847f28dd5",
+  "units": {
+    "source/duke3d/src/game.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json",
+      "linked": {
+        "G_Cleanup": true,
+        "G_Shutdown": false,
+        "G_GameExit": false
+      },
+      "blocked": [
+        {
+          "name": "G_GameExit",
+          "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens",
+          "dependencies": [
+            "G_BonusScreen",
+            "G_CloseDemoWrite",
+            "G_DisplayExtraScreens"
+          ]
+        },
+        {
+          "name": "G_Shutdown",
+          "reason": "unlinked identifiers: CONFIG_WriteSetup, S_MusicShutdown, S_SoundShutdown",
+          "dependencies": [
+            "CONFIG_WriteSetup",
+            "S_MusicShutdown",
+            "S_SoundShutdown"
+          ]
+        },
+        {
+          "name": "app_main",
+          "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_GameExit, G_NewGame, G_PlaybackDemo, G_SavePlayerMaybeMulti, G_SetupCheats, G_Startup",
+          "dependencies": [
+            "CONFIG_ReadSetup",
+            "CONFIG_WriteSetup",
+            "G_DisplayLogo",
+            "G_DoCheats",
+            "G_DrawRooms",
+            "G_EndOfLevel",
+            "G_GameExit",
+            "G_NewGame",
+            "G_PlaybackDemo",
+            "G_SavePlayerMaybeMulti",
+            "G_SetupCheats",
+            "G_Startup",
+            "G_UpdateScreenArea",
+            "Menu_Change",
+            "Menu_Init",
+            "P_ResetInventory",
+            "P_ResetWeapons",
+            "PrintBuildInfo",
+            "RTS_Init",
+            "ReadSaveGameHeaders",
+            "S_ClearSoundLocks",
+            "S_MusicStartup",
+            "S_SoundStartup",
+            "cacheAllSounds",
+            "drawframe_do",
+            "dukeConsoleClearBackground",
+            "dukeConsoleGetColumnWidth",
+            "dukeConsoleGetRowHeight",
+            "dukeConsoleOnShowCallback",
+            "dukeConsolePrintChar",
+            "dukeConsolePrintCursor",
+            "dukeConsolePrintString",
+            "engineFPSLimit",
+            "engineSetLogFile",
+            "g_lastautosave",
+            "g_quickload",
+            "g_saveRequested",
+            "loaddefinitionsfile",
+            "registerosdcommands"
+          ]
+        }
+      ]
+    },
+    "source/duke3d/src/demo.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_demo.cpp.json",
+      "linked": {
+        "Demo_WriteSync": true,
+        "G_CloseDemoWrite": true
+      },
+      "blocked": []
+    },
+    "source/duke3d/src/savegame.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_savegame.cpp.json",
+      "linked": {
+        "sv_freemem": true
+      },
+      "blocked": []
+    },
+    "source/duke3d/src/screens.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_screens.cpp.json",
+      "linked": {
+        "G_BonusScreen": false,
+        "G_DisplayExtraScreens": false
+      },
+      "blocked": [
+        {
+          "name": "G_DisplayExtraScreens",
+          "reason": "unlinked identifiers: S_StopMusic, gameDisplaySharewareScreens, gameDisplayTENScreen",
+          "dependencies": [
+            "S_StopMusic",
+            "gameDisplaySharewareScreens",
+            "gameDisplayTENScreen"
+          ]
+        },
+        {
+          "name": "G_BonusScreen",
+          "reason": "unlinked identifiers: G_BonusCutscenes, G_DisplayMPResultsScreen, G_FadePalette, I_CheckAllInput, I_ClearAllInput, S_ClearSoundLocks, S_PlaySound, S_StopMusic, engineFPSLimit, fadepal, gametext_, gametext_simple",
+          "dependencies": [
+            "G_BonusCutscenes",
+            "G_DisplayMPResultsScreen",
+            "G_FadePalette",
+            "I_CheckAllInput",
+            "I_ClearAllInput",
+            "S_ClearSoundLocks",
+            "S_PlaySound",
+            "S_StopMusic",
+            "engineFPSLimit",
+            "fadepal",
+            "gametext_",
+            "gametext_simple",
+            "menutext_",
+            "videoNextPage"
+          ]
+        }
+      ]
+    },
+    "source/build/src/vfs.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_build_src_vfs.cpp.json",
+      "linked": {
+        "dfwrite_LZ4": true
+      },
+      "blocked": []
+    },
+    "source/audiolib/src/music.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_audiolib_src_music.cpp.json",
+      "linked": {
+        "MUSIC_ErrorString": true,
+        "MUSIC_Shutdown": false
+      },
+      "blocked": [
+        {
+          "name": "MUSIC_Shutdown",
+          "reason": "unlinked identifiers: MIDI_StopSong, SoundDriver_MIDI_Shutdown",
+          "dependencies": [
+            "MIDI_StopSong",
+            "SoundDriver_MIDI_Shutdown"
+          ]
+        }
+      ]
+    },
+    "source/audiolib/src/fx_man.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_audiolib_src_fx_man.cpp.json",
+      "linked": {
+        "FX_ErrorString": false,
+        "FX_Shutdown": false
+      },
+      "blocked": [
+        {
+          "name": "FX_ErrorString",
+          "reason": "unlinked identifiers: MV_ErrorString",
+          "dependencies": [
+            "MV_ErrorString"
+          ]
+        },
+        {
+          "name": "FX_Shutdown",
+          "reason": "unlinked identifiers: MV_Shutdown",
+          "dependencies": [
+            "MV_Shutdown"
+          ]
+        }
+      ]
+    },
+    "source/audiolib/src/multivoc.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_audiolib_src_multivoc.cpp.json",
+      "linked": {
+        "MV_ErrorString": false,
+        "MV_Shutdown": false
+      },
+      "blocked": [
+        {
+          "name": "MV_Shutdown",
+          "reason": "unlinked identifiers: MV_KillAllVoices, MV_StopPlayback, SoundDriver_PCM_Shutdown, VoiceList, VoicePool",
+          "dependencies": [
+            "MV_KillAllVoices",
+            "MV_StopPlayback",
+            "SoundDriver_PCM_Shutdown",
+            "VoiceList",
+            "VoicePool"
+          ]
+        },
+        {
+          "name": "MV_ErrorString",
+          "reason": "unlinked identifiers: SoundDriver_PCM_ErrorString, SoundDriver_PCM_GetError",
+          "dependencies": [
+            "SoundDriver_PCM_ErrorString",
+            "SoundDriver_PCM_GetError"
+          ]
+        }
+      ]
+    }
+  },
+  "last_app_main_probe_dependencies": [
+    "CONFIG_ReadSetup",
+    "CONFIG_WriteSetup",
+    "G_DisplayLogo",
+    "G_DoCheats",
+    "G_DrawRooms",
+    "G_EndOfLevel",
+    "G_GameExit",
+    "G_NewGame",
+    "G_PlaybackDemo",
+    "G_SavePlayerMaybeMulti",
+    "G_SetupCheats",
+    "G_Startup",
+    "G_UpdateScreenArea",
+    "Menu_Change",
+    "Menu_Init",
+    "P_ResetInventory",
+    "P_ResetWeapons",
+    "PrintBuildInfo",
+    "RTS_Init",
+    "ReadSaveGameHeaders",
+    "S_ClearSoundLocks",
+    "S_MusicStartup",
+    "S_SoundStartup",
+    "cacheAllSounds",
+    "drawframe_do",
+    "dukeConsoleClearBackground",
+    "dukeConsoleGetColumnWidth",
+    "dukeConsoleGetRowHeight",
+    "dukeConsoleOnShowCallback",
+    "dukeConsolePrintChar",
+    "dukeConsolePrintCursor",
+    "dukeConsolePrintString",
+    "engineFPSLimit",
+    "engineSetLogFile",
+    "g_lastautosave",
+    "g_quickload",
+    "g_saveRequested",
+    "loaddefinitionsfile",
+    "registerosdcommands"
+  ],
+  "newly_available_provider_candidates": {
+    "g_lastautosave": "source/duke3d/src/savegame.cpp",
+    "g_quickload": "source/duke3d/src/savegame.cpp",
+    "g_saveRequested": "source/duke3d/src/savegame.cpp"
+  },
+  "original_demo_codec_write": "reports/nov18-original-demo-codec-write.json",
+  "original_demo_snapshot_heap": "reports/nov18-original-demo-snapshot-heap.json",
+  "scalar_proof": "reports/nov18-demo-scalar-proof.json",
+  "related_regressions": "reports/nov18-demo-regressions.json",
+  "strict_release_acceptance": "reports/nov18-demo-release-acceptance.json",
+  "original_app_main_executed": false,
+  "browser_gameplay_verified": false,
+  "dist_index_present": false
+}

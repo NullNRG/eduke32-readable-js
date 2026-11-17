@@ -1204,3 +1204,6 @@ export { ARRAY_SIZE__header_d8336ed114b0, FIX16_MAX__header_global_7c752513b708f
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { klistpath } from "./_source_legacy_vfs_cpp_a100ad340eb8.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { dfwrite_LZ4, kdfread_LZ4 } from "./_source_legacy_vfs_cpp_4d574fe037fd.mjs";

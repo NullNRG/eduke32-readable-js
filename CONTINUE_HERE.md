@@ -1,5 +1,7 @@
 # Continue the canonical EDuke32 JavaScript port
 
+The [current startup frontier](reports/nov18-demo-startup-frontier.json) records the demo-close provider and the latest direct startup dependencies. Use `python work/verify_original_demo_codec_write.py` and `python work/verify_original_demo_snapshot_heap.py` to reproduce the Chromium demo tests.
+
 Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
 
 The original `VM_ScriptInfo` and `C_SetScriptSize` execute in Chromium with relocation through the original allocator. All eight VM structure getters and the original variable-default reset link. Start from [the current link frontier](reports/nov17-vm-and-con-startup-frontier.json) and close the original exit and shutdown providers for `Gv_Init` and `C_Compile`.

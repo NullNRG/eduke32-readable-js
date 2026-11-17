@@ -1,0 +1,396 @@
+{
+  "source": "source/audiolib/src/multivoc.cpp",
+  "requested": [
+    "MV_ErrorString",
+    "MV_Shutdown"
+  ],
+  "requested_resolved": {
+    "MV_ErrorString": false,
+    "MV_Shutdown": false
+  },
+  "requested_export_bindings": {
+    "MV_ErrorString": [],
+    "MV_Shutdown": []
+  },
+  "requested_still_unlinked": [
+    "MV_ErrorString",
+    "MV_Shutdown"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_audiolib_src_multivoc.cpp/reachable-bc716f044dabb100/source/audiolib/src/multivoc.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "VoiceList",
+      "reason": "constructor requires complete original record: struct VoiceNode",
+      "dependencies": []
+    },
+    {
+      "name": "VoicePool",
+      "reason": "constructor requires complete original record: struct VoiceNode",
+      "dependencies": []
+    },
+    {
+      "name": "MV_Mix",
+      "reason": "unlinked identifiers: __source_byte_method_get_40aaacf4ba74c3b10b3d, __source_byte_method_ready_2e454084fce88ec4e1a9, __source_byte_method_valid_39f653a3f12082e702cf",
+      "dependencies": [
+        "__source_byte_method_get_40aaacf4ba74c3b10b3d",
+        "__source_byte_method_ready_2e454084fce88ec4e1a9",
+        "__source_byte_method_valid_39f653a3f12082e702cf"
+      ]
+    },
+    {
+      "name": "MV_PlayVoice",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('(unnamed at source/audiolib/src/_multivc.h:152:5)', 'operator=', '(unnamed struct at source/audiolib/src/_multivc.h:152:5) &(const (unnamed struct at source/audiolib/src/_multivc.h:152:5) &) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "MV_FreeHandle",
+      "reason": "record field requires verified native storage: VoiceNode::wavetype",
+      "dependencies": []
+    },
+    {
+      "name": "MV_CleanupVoice",
+      "reason": "record field requires verified native storage: VoiceNode::wavetype",
+      "dependencies": []
+    },
+    {
+      "name": "MV_StopVoice",
+      "reason": "unlinked identifiers: MV_CleanupVoice, MV_FreeHandle, MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a",
+      "dependencies": [
+        "MV_CleanupVoice",
+        "MV_FreeHandle",
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a"
+      ]
+    },
+    {
+      "name": "MV_ServiceVoc",
+      "reason": "unlinked identifiers: MV_CleanupVoice, MV_FreeHandle, MV_Mix, MV_Reverb, VoiceList",
+      "dependencies": [
+        "MV_CleanupVoice",
+        "MV_FreeHandle",
+        "MV_Mix",
+        "MV_Reverb",
+        "VoiceList"
+      ]
+    },
+    {
+      "name": "MV_BeginService",
+      "reason": "unlinked identifiers: MV_Lock__header_c3dae5dcc5ac, __source_byte_method_ready_2e454084fce88ec4e1a9, __source_byte_method_valid_39f653a3f12082e702cf, __source_byte_method_wait_31c44055ca47b5cef93f",
+      "dependencies": [
+        "MV_Lock__header_c3dae5dcc5ac",
+        "__source_byte_method_ready_2e454084fce88ec4e1a9",
+        "__source_byte_method_valid_39f653a3f12082e702cf",
+        "__source_byte_method_wait_31c44055ca47b5cef93f"
+      ]
+    },
+    {
+      "name": "MV_EndService",
+      "reason": "unlinked identifiers: MV_Unlock__header_986abf5bea9a",
+      "dependencies": [
+        "MV_Unlock__header_986abf5bea9a"
+      ]
+    },
+    {
+      "name": "MV_KillAllVoices",
+      "reason": "unlinked identifiers: MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a, VoiceList",
+      "dependencies": [
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a",
+        "VoiceList"
+      ]
+    },
+    {
+      "name": "MV_Kill",
+      "reason": "unlinked identifiers: MV_BeginService, MV_EndService, MV_StopVoice",
+      "dependencies": [
+        "MV_BeginService",
+        "MV_EndService",
+        "MV_StopVoice"
+      ]
+    },
+    {
+      "name": "MV_VoicesPlaying",
+      "reason": "unlinked identifiers: MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a, VoiceList",
+      "dependencies": [
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a",
+        "VoiceList"
+      ]
+    },
+    {
+      "name": "MV_GetLowestPriorityVoice",
+      "reason": "unlinked identifiers: VoiceList",
+      "dependencies": [
+        "VoiceList"
+      ]
+    },
+    {
+      "name": "MV_FinishAllocation",
+      "reason": "record field requires verified native storage: VoiceNode::wavetype",
+      "dependencies": []
+    },
+    {
+      "name": "MV_AllocVoice",
+      "reason": "unlinked identifiers: MV_FinishAllocation, MV_GetLowestPriorityVoice, MV_Kill, MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a, VoiceList, VoicePool",
+      "dependencies": [
+        "MV_FinishAllocation",
+        "MV_GetLowestPriorityVoice",
+        "MV_Kill",
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a",
+        "VoiceList",
+        "VoicePool"
+      ]
+    },
+    {
+      "name": "MV_VoiceAvailable",
+      "reason": "unlinked identifiers: MV_GetLowestPriorityVoice, MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a, VoiceList, VoicePool",
+      "dependencies": [
+        "MV_GetLowestPriorityVoice",
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a",
+        "VoiceList",
+        "VoicePool"
+      ]
+    },
+    {
+      "name": "MV_SetVoicePitch",
+      "reason": "unlinked identifiers: PITCH_GetScale",
+      "dependencies": [
+        "PITCH_GetScale"
+      ]
+    },
+    {
+      "name": "MV_SetPitch",
+      "reason": "unlinked identifiers: MV_BeginService, MV_EndService, MV_SetVoicePitch",
+      "dependencies": [
+        "MV_BeginService",
+        "MV_EndService",
+        "MV_SetVoicePitch"
+      ]
+    },
+    {
+      "name": "MV_SetFrequency",
+      "reason": "unlinked identifiers: MV_BeginService, MV_EndService, MV_SetVoicePitch",
+      "dependencies": [
+        "MV_BeginService",
+        "MV_EndService",
+        "MV_SetVoicePitch"
+      ]
+    },
+    {
+      "name": "MV_GetFrequency",
+      "reason": "unlinked identifiers: MV_BeginService, MV_EndService",
+      "dependencies": [
+        "MV_BeginService",
+        "MV_EndService"
+      ]
+    },
+    {
+      "name": "MV_SetVoiceMixMode",
+      "reason": "unsupported global array element type decltype(voice->mix)",
+      "dependencies": []
+    },
+    {
+      "name": "MV_SetVoiceVolume",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('(unnamed at source/audiolib/src/_multivc.h:152:5)', 'operator=', '(unnamed struct at source/audiolib/src/_multivc.h:152:5) &((unnamed struct at source/audiolib/src/_multivc.h:152:5) &&) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "MV_PauseVoice",
+      "reason": "unlinked identifiers: MV_BeginService, MV_EndService",
+      "dependencies": [
+        "MV_BeginService",
+        "MV_EndService"
+      ]
+    },
+    {
+      "name": "MV_GetPosition",
+      "reason": "record field requires verified native storage: VoiceNode::wavetype",
+      "dependencies": []
+    },
+    {
+      "name": "MV_SetPosition",
+      "reason": "record field requires verified native storage: VoiceNode::wavetype",
+      "dependencies": []
+    },
+    {
+      "name": "MV_EndLooping",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('(unnamed at source/audiolib/src/_multivc.h:142:5)', 'operator=', '(unnamed struct at source/audiolib/src/_multivc.h:142:5) &((unnamed struct at source/audiolib/src/_multivc.h:142:5) &&) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "MV_SetPan",
+      "reason": "unlinked identifiers: MV_BeginService, MV_EndService, MV_SetVoiceVolume",
+      "dependencies": [
+        "MV_BeginService",
+        "MV_EndService",
+        "MV_SetVoiceVolume"
+      ]
+    },
+    {
+      "name": "MV_Pan3D",
+      "reason": "unlinked identifiers: MV_SetPan",
+      "dependencies": [
+        "MV_SetPan"
+      ]
+    },
+    {
+      "name": "MV_SetReverb",
+      "reason": "unlinked identifiers: fix16_smul",
+      "dependencies": [
+        "fix16_smul"
+      ]
+    },
+    {
+      "name": "MV_StartPlayback",
+      "reason": "unlinked identifiers: MV_ServiceVoc, SoundDriver_PCM_BeginPlayback",
+      "dependencies": [
+        "MV_ServiceVoc",
+        "SoundDriver_PCM_BeginPlayback"
+      ]
+    },
+    {
+      "name": "MV_StopPlayback",
+      "reason": "unlinked identifiers: MV_Lock__header_c3dae5dcc5ac, MV_StopVoice, MV_Unlock__header_986abf5bea9a, SoundDriver_PCM_StopPlayback, VoiceList",
+      "dependencies": [
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_StopVoice",
+        "MV_Unlock__header_986abf5bea9a",
+        "SoundDriver_PCM_StopPlayback",
+        "VoiceList"
+      ]
+    },
+    {
+      "name": "MV_SetVolume",
+      "reason": "unlinked identifiers: fix16_smul",
+      "dependencies": [
+        "fix16_smul"
+      ]
+    },
+    {
+      "name": "MV_Init",
+      "reason": "unlinked identifiers: ASS_PCMSoundDriver, MV_StartPlayback, SoundDriver_PCM_Init, VoiceList, VoicePool",
+      "dependencies": [
+        "ASS_PCMSoundDriver",
+        "MV_StartPlayback",
+        "SoundDriver_PCM_Init",
+        "VoiceList",
+        "VoicePool"
+      ]
+    },
+    {
+      "name": "MV_Shutdown",
+      "reason": "unlinked identifiers: MV_KillAllVoices, MV_StopPlayback, SoundDriver_PCM_Shutdown, VoiceList, VoicePool",
+      "dependencies": [
+        "MV_KillAllVoices",
+        "MV_StopPlayback",
+        "SoundDriver_PCM_Shutdown",
+        "VoiceList",
+        "VoicePool"
+      ]
+    },
+    {
+      "name": "MV_HookMusicRoutine",
+      "reason": "unlinked identifiers: MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a",
+      "dependencies": [
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a"
+      ]
+    },
+    {
+      "name": "MV_UnhookMusicRoutine",
+      "reason": "unlinked identifiers: MV_Lock__header_c3dae5dcc5ac, MV_Unlock__header_986abf5bea9a",
+      "dependencies": [
+        "MV_Lock__header_c3dae5dcc5ac",
+        "MV_Unlock__header_986abf5bea9a"
+      ]
+    },
+    {
+      "name": "MV_ErrorString",
+      "reason": "unlinked identifiers: SoundDriver_PCM_ErrorString, SoundDriver_PCM_GetError",
+      "dependencies": [
+        "SoundDriver_PCM_ErrorString",
+        "SoundDriver_PCM_GetError"
+      ]
+    },
+    {
+      "name": "MV_StartDemandFeedPlayback",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('(unnamed at source/audiolib/src/_multivc.h:142:5)', 'operator=', '(unnamed struct at source/audiolib/src/_multivc.h:142:5) &((unnamed struct at source/audiolib/src/_multivc.h:142:5) &&) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "MV_StartDemandFeedPlayback3D",
+      "reason": "unlinked identifiers: MV_StartDemandFeedPlayback",
+      "dependencies": [
+        "MV_StartDemandFeedPlayback"
+      ]
+    },
+    {
+      "name": "vtable_impl__header_global_f5ae43addbaa3a04",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "dependencies": []
+    },
+    {
+      "name": "vtable_impl__header_global_5072bf4244f8ee6d",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "dependencies": []
+    },
+    {
+      "name": "__source_byte_method_valid_39f653a3f12082e702cf",
+      "reason": "C++ operator needs proven by-value operand ABI: const ref_count_ptr<async::detail::task_base> &",
+      "dependencies": []
+    },
+    {
+      "name": "__source_byte_method_ready_2e454084fce88ec4e1a9",
+      "reason": "record pointer member requires original byte layout: async::detail::task_base",
+      "dependencies": []
+    },
+    {
+      "name": "__source_byte_method_wait_31c44055ca47b5cef93f",
+      "reason": "record pointer member requires original byte layout: async::detail::task_base",
+      "dependencies": []
+    },
+    {
+      "name": "__source_byte_method_get_40aaacf4ba74c3b10b3d",
+      "reason": "record pointer member requires original byte layout: __cxx_record_task_result_holder_8cded7f0918a41f3",
+      "dependencies": []
+    },
+    {
+      "name": "__source_byte_method_get_internal_441af05ce2c9da030f8f",
+      "reason": "record pointer member requires original byte layout: typename async::detail::basic_task<int>::internal_task_type",
+      "dependencies": []
+    },
+    {
+      "name": "MV_Lock__header_c3dae5dcc5ac",
+      "reason": "statement FunctionDecl",
+      "dependencies": []
+    },
+    {
+      "name": "SortedInsert__template_7459a6e9532c0221",
+      "reason": "operator ->*",
+      "dependencies": []
+    },
+    {
+      "name": "MV_Unlock__header_986abf5bea9a",
+      "reason": "statement FunctionDecl",
+      "dependencies": []
+    },
+    {
+      "name": "divideu64__header_0dbcfc070a13",
+      "reason": "unlinked identifiers: libdivide_u64_gen",
+      "dependencies": [
+        "libdivide_u64_gen"
+      ]
+    },
+    {
+      "name": "fake_void_to_void__template_b5a4300c7bf68f6b",
+      "reason": "unlinked identifiers: forward",
+      "dependencies": [
+        "forward"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 83,
+  "original_gameplay_verified": false
+}

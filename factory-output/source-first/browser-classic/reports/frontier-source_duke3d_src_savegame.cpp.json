@@ -1,13 +1,18 @@
 {
   "source": "source/duke3d/src/savegame.cpp",
   "requested": [
-    "G_Util_PtrToIdx2"
+    "sv_freemem"
   ],
   "requested_resolved": {
-    "G_Util_PtrToIdx2": true
+    "sv_freemem": true
+  },
+  "requested_export_bindings": {
+    "sv_freemem": [
+      "sv_freemem"
+    ]
   },
   "requested_still_unlinked": [],
-  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_duke3d_src_savegame.cpp\\e8a2b7123751\\source\\duke3d\\src\\savegame.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_savegame.cpp/reachable-58489957f888b6b8/source/duke3d/src/savegame.cpp.manifest.json",
   "blocked": [
     {
       "name": "G_ResetInterpolations",
@@ -211,7 +216,7 @@
     },
     {
       "name": "postloadplayer",
-      "reason": "unlinked identifiers: A_CallSound, A_PlaySound, G_CacheMapData, G_ClearFIFO, G_ResetInterpolations, G_ResetTimers, G_ResetViewScreenData, G_SetupFilenameBasedMusic, G_UpdateScreenArea, P_ResetOffsets, P_UpdateScreenPal, S_ClearSoundLocks",
+      "reason": "unlinked identifiers: A_CallSound, A_PlaySound, G_CacheMapData, G_ClearFIFO, G_ResetInterpolations, G_ResetTimers, G_UpdateScreenArea, P_UpdateScreenPal, S_ClearSoundLocks, S_ContinueLevelMusic, S_PauseMusic, S_PlayLevelMusicOrNothing",
       "dependencies": [
         "A_CallSound",
         "A_PlaySound",
@@ -219,10 +224,7 @@
         "G_ClearFIFO",
         "G_ResetInterpolations",
         "G_ResetTimers",
-        "G_ResetViewScreenData",
-        "G_SetupFilenameBasedMusic",
         "G_UpdateScreenArea",
-        "P_ResetOffsets",
         "P_UpdateScreenPal",
         "S_ClearSoundLocks",
         "S_ContinueLevelMusic",
@@ -282,21 +284,8 @@
       "dependencies": [
         "MV_SetReverb"
       ]
-    },
-    {
-      "name": "FX_CheckMVErr__header_591146001ba4",
-      "reason": "unlinked identifiers: FX_SetErrorCode__header_886c7cf42414",
-      "dependencies": [
-        "FX_SetErrorCode__header_886c7cf42414"
-      ]
-    },
-    {
-      "name": "FX_SetErrorCode__header_886c7cf42414",
-      "reason": "unlinked identifiers: FX_ErrorCode",
-      "dependencies": [
-        "FX_ErrorCode"
-      ]
     }
   ],
+  "installed_closed_definitions": 886,
   "original_gameplay_verified": false
 }
