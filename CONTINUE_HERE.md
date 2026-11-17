@@ -2,7 +2,7 @@
 
 Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
 
-CON compiler checkpoint: `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering in the original unit. They still need a complete link. `G_Util_PtrToIdx2` is verified as an isolated original relocation function; this does not verify live script resizing. Start from [the exact current link frontier](reports/nov16-con-lowering-frontier.json) and retry the original VM and variable providers before re-emitting the compiler.
+The original `VM_ScriptInfo` and `C_SetScriptSize` execute in Chromium with relocation through the original allocator. All eight VM structure getters and the original variable-default reset link. Start from [the current link frontier](reports/nov17-vm-and-con-startup-frontier.json) and close the original exit and shutdown providers for `Gv_Init` and `C_Compile`.
 
 All ten original CON structure tables and `VM_InitHashTables` are linked. The original table oracle checks 548 rows against the selected Clang target's ELF object and exercises the original hash initializer and lookups in Chromium. The scalar initializer evaluator uses the existing optional libclang resources. It binds unique source sites only. See `reports/nov17-original-con-structure-label-parity.json`.
 
@@ -13,13 +13,14 @@ python tests/source_factory/verify_sourcefirst_nested_goto.py
 python work/verify_original_script_relocation.py
 python work/verify_original_con_structure_labels.py
 python work/verify_original_con_gamevars.py
+python work/verify_original_con_script_resize.py
 python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_ScriptInfo,apScriptEvents,g_currentEvent,g_thisActorVarID --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamestructures.cpp VM_InitHashTables --whole-unit --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamevars.cpp aGameVars,aGameArrays,Gv_NewVar,Gv_NewArray,Gv_Init,Gv_Clear --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_ParseCommand,C_SetScriptSize --whole-unit --install-closed-leaves
 ```
 
-Use the [November 17 CON dependency report](reports/nov17-con-link-frontier.json) for the updated link frontier. The original variable and array lifecycle is verified in Chromium. The VM diagnostic pass still needs an original `vec2<int>` provider with the consumer's required operator. Resolve that mismatch with source evidence before admitting the import.
+The [earlier November 17 CON dependency report](reports/nov17-con-link-frontier.json) records the original variable and array lifecycle test.
 
 ```powershell
 . work/session-env.ps1

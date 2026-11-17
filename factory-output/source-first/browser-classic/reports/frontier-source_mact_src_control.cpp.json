@@ -1,18 +1,18 @@
 {
   "source": "source/mact/src/control.cpp",
   "requested": [
-    "CONTROL_Startup"
+    "CONTROL_Shutdown"
   ],
   "requested_resolved": {
-    "CONTROL_Startup": true
+    "CONTROL_Shutdown": true
   },
   "requested_export_bindings": {
-    "CONTROL_Startup": [
-      "CONTROL_Startup"
+    "CONTROL_Shutdown": [
+      "CONTROL_Shutdown"
     ]
   },
   "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_mact_src_control.cpp/reachable-5f9e2aa01affb9f4/source/mact/src/control.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_mact_src_control.cpp/reachable-c1c3dab4cbc81018/source/mact/src/control.cpp.manifest.json",
   "blocked": [
     {
       "name": "controlUpdateMouseState",
@@ -69,13 +69,6 @@
       "dependencies": []
     },
     {
-      "name": "joydist",
-      "reason": "unlinked identifiers: ksqrt",
-      "dependencies": [
-        "ksqrt"
-      ]
-    },
-    {
       "name": "controlUpdateAxisState",
       "reason": "private array storage requires verified owner ABI: joyAxes",
       "dependencies": []
@@ -104,18 +97,10 @@
     },
     {
       "name": "CONTROL_GetInput",
-      "reason": "unlinked identifiers: controlPollDevices, controlUpdateGameFunctions, inputchecked",
+      "reason": "unlinked identifiers: controlPollDevices, controlUpdateGameFunctions",
       "dependencies": [
         "controlPollDevices",
-        "controlUpdateGameFunctions",
-        "inputchecked"
-      ]
-    },
-    {
-      "name": "CONTROL_Shutdown",
-      "reason": "unlinked identifiers: uninitinput",
-      "dependencies": [
-        "uninitinput"
+        "controlUpdateGameFunctions"
       ]
     },
     {
@@ -129,14 +114,6 @@
       "dependencies": []
     },
     {
-      "name": "Blrintf__header_58aa0dedf1d1",
-      "reason": "unlinked identifiers: _mm_cvtss_si32, _mm_load_ss",
-      "dependencies": [
-        "_mm_cvtss_si32",
-        "_mm_load_ss"
-      ]
-    },
-    {
       "name": "MOUSE_GetButtons__header_44c92e2c7630",
       "reason": "unlinked identifiers: mouseReadButtons",
       "dependencies": [
@@ -144,6 +121,6 @@
       ]
     }
   ],
-  "installed_closed_definitions": 7,
+  "installed_closed_definitions": 3,
   "original_gameplay_verified": false
 }

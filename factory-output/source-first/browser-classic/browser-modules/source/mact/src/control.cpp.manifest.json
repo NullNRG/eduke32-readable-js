@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\mact\\src\\control.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 85,
-  "emitted": 85,
+  "found": 88,
+  "emitted": 88,
   "blocked": 0,
   "definitions": [
     {
@@ -2317,6 +2317,94 @@
         "keystatus"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "Blrintf__header_58aa0dedf1d1",
+      "source_name": "Blrintf",
+      "kind": "FunctionDecl",
+      "line": 706,
+      "original_type": "int32_t (const float)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 17604,
+        "source_line": 706,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "source_scalar_sse_round": {
+        "abi": "source-scalar-f32-nearest-even-i32/1",
+        "parameter": "x",
+        "parameter_id": "0x1d577dda6e8",
+        "native_wrappers": [
+          {
+            "name": "_mm_load_ss",
+            "clang_id": "0x1d577cedad8",
+            "ast_sha256": "e3eeeafd409b1fcabe5602c183f85c178d4cf82cb8366e14ca9a3f550fc42556"
+          },
+          {
+            "name": "_mm_cvtss_si32",
+            "clang_id": "0x1d577ce4cf8",
+            "ast_sha256": "2445a69e7a7ca84a37b6b91f80d1d8fb247bd496b236826c50c61f437640f82d"
+          }
+        ],
+        "rounding": "default MXCSR: nearest, ties to even; masked invalid => INT32_MIN",
+        "vector_storage_elided": true,
+        "original_parameter_address_does_not_escape": true
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "CONTROL_Shutdown",
+      "source_name": "CONTROL_Shutdown",
+      "kind": "FunctionDecl",
+      "line": 777,
+      "original_type": "void ()",
+      "linkage": "external",
+      "source_references": [
+        "CONTROL_ClearAllBinds",
+        "CONTROL_Started",
+        "MOUSE_Shutdown__header_16a2f79379f6",
+        "uninitinput"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "CONTROL_Started",
+          "binding": "__cxx_global_cell_2688171c8879a106600f1781",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "CONTROL_Started",
+        "uninitinput"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "joydist",
+      "source_name": "joydist",
+      "kind": "FunctionDecl",
+      "line": 473,
+      "original_type": "int32_t (int, int)",
+      "linkage": "internal",
+      "source_references": [
+        "ksqrt"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "ksqrt"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -3502,6 +3590,467 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "6f2cfcbd9732f27fa762894f1753069c1a00c662811a40b2b33048674cf1dd54"
+    },
+    {
+      "module": "source/mact/src/_source_legacy_control_cpp_dbf5c75eafa5.mjs",
+      "sha256": "dbf5c75eafa56468f9da3a336d5add1077b9b62b061689bc604098df4d9143e6",
+      "original_source": "source/mact/src/control.cpp",
+      "exports": [
+        "Blrintf__header_58aa0dedf1d1",
+        "CONTROL_Shutdown",
+        "joydist"
+      ],
+      "reexports": [
+        "Blrintf__header_58aa0dedf1d1",
+        "CONTROL_Shutdown",
+        "joydist"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_BindsEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1e65dc992d264e8759155996",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_ButtonHeldState",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b8312e111f6fe15957946ec8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_ButtonState",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8dc312bd7532d829a4303d41",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "CONTROL_DoubleClickSpeed",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_5ab620eabccd7f7e9a2e183a",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "unsigned char",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Flags",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a",
+          "original_type": "ControlFunctionFlags_t[64]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "e4c60a549b7f69e73e805c24a9f7c0fbc556a7ff9d44b743a559d7ec1d3d271a"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_JoyPresent",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c28e8fde50b0de0481978ac3",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_JoySensitivityUnit",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_13fe4069a00cd4e00ddcfee4",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_JoystickEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c854633804f5e8ca5d3d09be",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_KeyBinds",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            266
+          ],
+          "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+          "original_type": "ConsoleKeyBind_t[266]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_KeyMapping",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 2,
+          "dimensions": [
+            64
+          ],
+          "schema_sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5",
+          "original_type": "ControlKeyMap_t[64]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "70565b5922fb1b1f501b2c5f54f4241f90620dbfc2c0eafb3fd49fe3116c00f5"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_LastSeenInput",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9e4cb87c453b25482a00c2b9",
+          "abi": "source-global-cell/2",
+          "original_type": "LastSeenInput"
+        },
+        {
+          "name": "CONTROL_MouseAxesSensitivity",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_MouseEnabled",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_86fecaa07f75517afdefdaa7",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_MousePresent",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b9b68728d746171839cea44e",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "CONTROL_MouseSensitivity",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_193dab9403d93f8a48781171",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_MouseSensitivityUnit",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_704184617e9508f023e26f36",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "CONTROL_NumJoyAxes",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_824f8026f7e76ffc76c8f2d6",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_NumJoyButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_40662c34a0c9dadd50c0dfb4",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_NumMouseButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c46ff66dbf70a8b13b808531",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "CONTROL_Started",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2688171c8879a106600f1781",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "ExtGetTime",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e0779d8c54d730200ae85183",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int32_t (*)()",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_LastScan",
+          "from": "source/mact/src/keyboard.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d04bbf920f464be9986867b9",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "OSD_Dispatch",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_RegisterCvar",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "abs",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_mouseBits",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1e0923736d676262c5e9d588",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "initinput",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inputdevices",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_816e78cbc24a2eb6f3b7a4ee",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "joyButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            32
+          ],
+          "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+          "original_type": "ControlButtonState_t[32]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "joyScanDevices",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 3,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1d578c20d88",
+                "fields": [
+                  {
+                    "id": "0x1d578c20138",
+                    "name": "numHats"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1d578c20d88",
+                "fields": [
+                  {
+                    "id": "0x1d578c200d0",
+                    "name": "numButtons"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1d578c20d88",
+                "fields": [
+                  {
+                    "id": "0x1d578c20000",
+                    "name": "numAxes"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "keySetCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "keystatus",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ksqrt",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mouseButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            10
+          ],
+          "schema_sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0",
+          "original_type": "ControlButtonState_t[10]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "505267b9b912554c41f9eccf2da09c670c565e2ab183cb1731302043cf5ef9f0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "mouseInit",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mouseUninit",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ticrate",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2cb0b96bc87c3c66bc327f51",
+          "owner_source": "source/mact/src/control.cpp",
+          "original_type": "int",
+          "consumer_source": "source/mact/src/control.cpp"
+        },
+        {
+          "name": "uninitinput",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "db1f05de237ad3cfeaa9e14efcb982bcafc8516e7cda246b1963f171d5e5d266"
     }
   ]
 }

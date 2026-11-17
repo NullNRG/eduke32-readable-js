@@ -8,3 +8,9 @@ export { ACCESSCARD____header_global_9ace22dca9940ef1, ACCESSSWITCH2____header_g
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { ActorLabels, PlayerLabels, SectorLabels, TsprLabels, VM_InitHashTables, WallLabels } from "./_source_legacy_gamestructures_cpp_e2dd2efb0419.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { VM_GetActiveProjectile, VM_GetPalData, VM_GetPlayerInput, VM_GetProjectile, VM_GetTileData, VM_GetUserdef, VM_SetActiveProjectile, VM_SetPlayerInput, VM_SetProjectile, VM_SetSprite, VM_SetTileData } from "./_source_legacy_gamestructures_cpp_09ffc197e31a.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { VM_GetPlayer, VM_GetSector } from "./_source_legacy_gamestructures_cpp_514218eded31.mjs";

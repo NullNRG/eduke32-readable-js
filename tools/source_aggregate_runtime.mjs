@@ -270,6 +270,15 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocat
 // Unlike Array.from(... cInitByteRecord()), this preserves memcpy, pointer
 // strides, and overlapping-union aliasing between consecutive C records.
 const cByteRecordArrayStorage = Symbol.for('source-first.clang-byte-record-array/1');
+const cRecordArrayByteAddress = (array, count, stride, fieldOffset, fieldSize) => {
+  const bytes = array?.[cByteRecordArrayStorage];
+  if (!(bytes instanceof Uint8Array) || array.length !== count || bytes.length !== count * stride ||
+      !Number.isSafeInteger(fieldOffset) || fieldOffset < 0 || fieldSize < 1 ||
+      fieldOffset + fieldSize > stride)
+    throw new TypeError('Strided field address requires the complete original byte array');
+  const pointer = cPointerOffset(bytes, fieldOffset, 1);
+  return {...pointer, stridedFieldOffset:fieldOffset, stridedFieldStride:stride};
+};
 const cByteRecordArray = (schema, count, prototypes={}, initializers=[], storage=null) => {
   if(schema?.projection && (!(storage instanceof Uint8Array)||typeof initializers==='function'||initializers.length))
     throw new TypeError('Nontrivial C++ array view cannot construct objects');

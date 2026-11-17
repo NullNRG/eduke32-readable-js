@@ -8,3 +8,6 @@ export { C_CheckEmptyBranch, C_CheckMalformedBranch } from "./_source_legacy_gam
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { C_InitQuotes, C_PrintStats, scriptUpdateOpcodeForVariableType, vmStructHashTablePtrs__header_global_330da216c09dd07e } from "./_source_legacy_gamedef_cpp_3ec570c7c98c.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { C_SetScriptSize } from "./_source_legacy_gamedef_cpp_e6c107e037bc.mjs";

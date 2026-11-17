@@ -11,3 +11,6 @@ export { g_numObituaries, g_numSelfObituaries, __cxx_global_cell_14c7f525d32b083
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { hudweap, __cxx_global_cell_428db7966f68b580bdb8b8d9 } from "./_source_legacy_player_cpp_4b20873da221.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { P_GetHudPal } from "./_source_legacy_player_cpp_33efc406baff.mjs";

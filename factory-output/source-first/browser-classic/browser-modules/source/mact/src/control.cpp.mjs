@@ -8,3 +8,6 @@ export { CONTROL_ResetJoystickValues, CONTROL_ScanForControllers, KB_KeyEvent__h
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { CONTROL_ProcessBinds, CONTROL_Startup, KB_Startup__header_2b3cccba17f3, MOUSE_ClearButton__header_5d3d96eb9d9e, MOUSE_Shutdown__header_16a2f79379f6, MOUSE_Startup__header_6c13e1130efe, controlKeyboardFunctionPressed } from "./_source_legacy_control_cpp_e536f4961d52.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Blrintf__header_58aa0dedf1d1, CONTROL_Shutdown, joydist } from "./_source_legacy_control_cpp_dbf5c75eafa5.mjs";

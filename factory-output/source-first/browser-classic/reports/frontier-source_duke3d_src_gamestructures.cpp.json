@@ -1,73 +1,29 @@
 {
   "source": "source/duke3d/src/gamestructures.cpp",
   "requested": [
-    "ActorLabels",
-    "PlayerLabels",
-    "SectorLabels",
-    "TsprLabels",
-    "WallLabels",
-    "VM_InitHashTables"
+    "VM_GetSector",
+    "VM_GetPlayer"
   ],
   "requested_resolved": {
-    "ActorLabels": true,
-    "PlayerLabels": true,
-    "SectorLabels": true,
-    "TsprLabels": true,
-    "WallLabels": true,
-    "VM_InitHashTables": true
+    "VM_GetSector": true,
+    "VM_GetPlayer": true
   },
   "requested_export_bindings": {
-    "ActorLabels": [
-      "ActorLabels"
+    "VM_GetSector": [
+      "VM_GetSector"
     ],
-    "PlayerLabels": [
-      "PlayerLabels"
-    ],
-    "SectorLabels": [
-      "SectorLabels"
-    ],
-    "TsprLabels": [
-      "TsprLabels"
-    ],
-    "WallLabels": [
-      "WallLabels"
-    ],
-    "VM_InitHashTables": [
-      "VM_InitHashTables"
+    "VM_GetPlayer": [
+      "VM_GetPlayer"
     ]
   },
   "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamestructures.cpp/reachable-638526b9d8267143/source/duke3d/src/gamestructures.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamestructures.cpp/reachable-cec4e29e6fe01fb7/source/duke3d/src/gamestructures.cpp.manifest.json",
   "blocked": [
     {
-      "name": "VM_GetSector",
-      "reason": "unlinked identifiers: GetAnimationGoal",
-      "dependencies": [
-        "GetAnimationGoal"
-      ]
-    },
-    {
       "name": "VM_SetSector",
-      "reason": "unlinked identifiers: GetAnimationGoal, SetAnimation",
+      "reason": "unlinked identifiers: SetAnimation",
       "dependencies": [
-        "GetAnimationGoal",
         "SetAnimation"
-      ]
-    },
-    {
-      "name": "VM_SetSprite",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_GetPlayer",
-      "reason": "unlinked identifiers: P_GetHudPal",
-      "dependencies": [
-        "P_GetHudPal"
       ]
     },
     {
@@ -80,112 +36,15 @@
       ]
     },
     {
-      "name": "VM_GetProjectile",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_SetProjectile",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_GetActiveProjectile",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_SetActiveProjectile",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_GetUserdef",
-      "reason": "unlinked identifiers: aGameVars, g_returnVarID, g_tw, insptr, vm",
-      "dependencies": [
-        "aGameVars",
-        "g_returnVarID",
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
       "name": "VM_SetUserdef",
-      "reason": "unlinked identifiers: G_UpdateScreenArea, ME_NEWGAMECUSTOMENTRIES, ME_NEWGAMECUSTOMSUBENTRIES, aGameVars, g_returnVarID, g_tw, insptr, vm",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, ME_NEWGAMECUSTOMENTRIES, ME_NEWGAMECUSTOMSUBENTRIES",
       "dependencies": [
         "G_UpdateScreenArea",
         "ME_NEWGAMECUSTOMENTRIES",
-        "ME_NEWGAMECUSTOMSUBENTRIES",
-        "aGameVars",
-        "g_returnVarID",
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_GetPlayerInput",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_SetPlayerInput",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_GetTileData",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_SetTileData",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
-      ]
-    },
-    {
-      "name": "VM_GetPalData",
-      "reason": "unlinked identifiers: g_tw, insptr, vm",
-      "dependencies": [
-        "g_tw",
-        "insptr",
-        "vm"
+        "ME_NEWGAMECUSTOMSUBENTRIES"
       ]
     }
   ],
-  "installed_closed_definitions": 6,
+  "installed_closed_definitions": 2,
   "original_gameplay_verified": false
 }

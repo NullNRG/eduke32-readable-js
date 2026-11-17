@@ -31,3 +31,6 @@ export { G_DoThirdPerson } from "./_source_legacy_game_cpp_14f740665e84.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { loaddefinitions_game, parsedefinitions_game, parsedefinitions_game_include } from "./_source_legacy_game_cpp_78d1b5cedfe1.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { A_InitEnemyFlags, A_ResetVars__header_9b335bd7219c, G_GetLogoFlags__header_fa27fcbb6c8d, G_PostCreateGameState, VM_HaveEvent__header_24d009939acc } from "./_source_legacy_game_cpp_95bf6f821876.mjs";

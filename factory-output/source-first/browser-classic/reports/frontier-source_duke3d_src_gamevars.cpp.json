@@ -1,27 +1,33 @@
 {
   "source": "source/duke3d/src/gamevars.cpp",
   "requested": [
-    "Gv_AddSystemVars",
+    "Gv_GetArrayOrStruct",
+    "Gv_GetVarByLabel",
     "Gv_ResetSystemDefaults",
     "Gv_Init"
   ],
   "requested_resolved": {
-    "Gv_AddSystemVars": true,
-    "Gv_ResetSystemDefaults": false,
+    "Gv_GetArrayOrStruct": true,
+    "Gv_GetVarByLabel": true,
+    "Gv_ResetSystemDefaults": true,
     "Gv_Init": false
   },
   "requested_export_bindings": {
-    "Gv_AddSystemVars": [
-      "Gv_AddSystemVars"
+    "Gv_GetArrayOrStruct": [
+      "Gv_GetArrayOrStruct"
     ],
-    "Gv_ResetSystemDefaults": [],
+    "Gv_GetVarByLabel": [
+      "Gv_GetVarByLabel"
+    ],
+    "Gv_ResetSystemDefaults": [
+      "Gv_ResetSystemDefaults"
+    ],
     "Gv_Init": []
   },
   "requested_still_unlinked": [
-    "Gv_ResetSystemDefaults",
     "Gv_Init"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamevars.cpp/reachable-49df987b481d6e76/source/duke3d/src/gamevars.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamevars.cpp/reachable-c2cb2317b3f9f7ef/source/duke3d/src/gamevars.cpp.manifest.json",
   "blocked": [
     {
       "name": "Gv_SkipLZ4Block",
@@ -41,66 +47,10 @@
       "dependencies": []
     },
     {
-      "name": "Gv_GetArrayOrStruct",
-      "reason": "unlinked identifiers: VM_GetActiveProjectile, VM_GetPalData, VM_GetPlayer, VM_GetPlayerInput, VM_GetProjectile, VM_GetSector, VM_GetTileData, VM_GetUserdef",
-      "dependencies": [
-        "VM_GetActiveProjectile",
-        "VM_GetPalData",
-        "VM_GetPlayer",
-        "VM_GetPlayerInput",
-        "VM_GetProjectile",
-        "VM_GetSector",
-        "VM_GetTileData",
-        "VM_GetUserdef"
-      ]
-    },
-    {
-      "name": "getvar__",
-      "reason": "unlinked identifiers: Gv_GetArrayOrStruct",
-      "dependencies": [
-        "Gv_GetArrayOrStruct"
-      ]
-    },
-    {
-      "name": "Gv_GetVar__cxx_0f0636c89656",
-      "reason": "unlinked identifiers: getvar__",
-      "dependencies": [
-        "getvar__"
-      ]
-    },
-    {
-      "name": "Gv_GetVar__cxx_e611afac4ee9",
-      "reason": "unlinked identifiers: getvar__",
-      "dependencies": [
-        "getvar__"
-      ]
-    },
-    {
-      "name": "Gv_GetManyVars",
-      "reason": "unlinked identifiers: getvar__",
-      "dependencies": [
-        "getvar__"
-      ]
-    },
-    {
-      "name": "Gv_GetVarByLabel",
-      "reason": "unlinked identifiers: Gv_GetVar__cxx_0f0636c89656",
-      "dependencies": [
-        "Gv_GetVar__cxx_0f0636c89656"
-      ]
-    },
-    {
-      "name": "Gv_ResetSystemDefaults",
-      "reason": "unlinked identifiers: Gv_GetVarByLabel",
-      "dependencies": [
-        "Gv_GetVarByLabel"
-      ]
-    },
-    {
       "name": "Gv_Init",
-      "reason": "unlinked identifiers: Gv_ResetSystemDefaults",
+      "reason": "unlinked identifiers: Gv_InitWeaponPointers",
       "dependencies": [
-        "Gv_ResetSystemDefaults"
+        "Gv_InitWeaponPointers"
       ]
     },
     {
@@ -111,6 +61,6 @@
       ]
     }
   ],
-  "installed_closed_definitions": 3,
+  "installed_closed_definitions": 7,
   "original_gameplay_verified": false
 }

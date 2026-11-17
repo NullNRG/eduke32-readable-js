@@ -1,0 +1,71 @@
+{
+  "format": "sourcefactory-scoped-startup-frontier/1",
+  "component_manifest_sha256": "6391883c01175937be69e3b2cac58c60eed806de3bbe6ed45842c4ae33146c8e",
+  "linked_original_definitions": {
+    "gamedef": [
+      "C_SetScriptSize"
+    ],
+    "gameexec": [
+      "VM_ScriptInfo"
+    ],
+    "gamestructures": [
+      "VM_GetActiveProjectile",
+      "VM_GetPalData",
+      "VM_GetPlayer",
+      "VM_GetPlayerInput",
+      "VM_GetProjectile",
+      "VM_GetSector",
+      "VM_GetTileData",
+      "VM_GetUserdef"
+    ],
+    "gamevars": [
+      "Gv_GetArrayOrStruct",
+      "Gv_GetVarByLabel",
+      "Gv_ResetSystemDefaults"
+    ]
+  },
+  "missing_direct_providers": {
+    "C_ParseCommand": [
+      "C_GetManyVarsType",
+      "C_GetNextGameArrayName",
+      "C_GetNextLabelName",
+      "C_GetNextVarType",
+      "C_GetStructureIndexes",
+      "C_SetCfgName"
+    ],
+    "C_Compile": [
+      "C_ParseCommand",
+      "G_GameExit",
+      "Gv_Init"
+    ],
+    "Gv_Init": [
+      "Gv_InitWeaponPointers"
+    ],
+    "Gv_InitWeaponPointers": [
+      "G_Shutdown"
+    ],
+    "G_GameExit": [
+      "G_BonusScreen",
+      "G_CloseDemoWrite",
+      "G_DisplayExtraScreens",
+      "g_demo_filePtr"
+    ],
+    "G_Cleanup": [
+      "G_FreeMapState"
+    ],
+    "G_Shutdown": [
+      "CONFIG_WriteSetup",
+      "CONTROL_Shutdown",
+      "G_Cleanup",
+      "S_MusicShutdown",
+      "S_SoundShutdown"
+    ]
+  },
+  "chromium_script_resize_report": "reports/nov17-original-con-script-resize.json",
+  "native_and_browser_targeted_regressions": "reports/nov17-vm-strided-regressions.json",
+  "strict_release_gate": "reports/nov17-vm-startup-acceptance.json",
+  "original_con_compiled": false,
+  "original_app_main_executed": false,
+  "browser_gameplay_verified": false,
+  "dist_index_html_present": false
+}

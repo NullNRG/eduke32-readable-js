@@ -1,34 +1,14 @@
 {
   "source": "source/duke3d/src/gamedef.cpp",
   "requested": [
-    "C_Compile",
-    "C_ParseCommand",
     "C_SetScriptSize"
   ],
   "requested_resolved": {
-    "C_Compile": false,
-    "C_ParseCommand": false,
-    "C_SetScriptSize": false
+    "C_SetScriptSize": true
   },
-  "requested_export_bindings": {
-    "C_Compile": [],
-    "C_ParseCommand": [],
-    "C_SetScriptSize": []
-  },
-  "requested_still_unlinked": [
-    "C_Compile",
-    "C_ParseCommand",
-    "C_SetScriptSize"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-ce36081a0e83c18b/source/duke3d/src/gamedef.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_duke3d_src_gamedef.cpp\\9b4d0285ebbd\\source\\duke3d\\src\\gamedef.cpp.manifest.json",
   "blocked": [
-    {
-      "name": "C_SetScriptSize",
-      "reason": "unlinked identifiers: VM_ScriptInfo",
-      "dependencies": [
-        "VM_ScriptInfo"
-      ]
-    },
     {
       "name": "C_GetNextLabelName",
       "reason": "unlinked identifiers: G_GameExit",
@@ -45,10 +25,9 @@
     },
     {
       "name": "C_GetNextVarType",
-      "reason": "unlinked identifiers: C_GetNextLabelName, g_structVarIDs",
+      "reason": "unlinked identifiers: C_GetNextLabelName",
       "dependencies": [
-        "C_GetNextLabelName",
-        "g_structVarIDs"
+        "C_GetNextLabelName"
       ]
     },
     {
@@ -90,28 +69,25 @@
     },
     {
       "name": "C_ParseCommand",
-      "reason": "unlinked identifiers: C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName, C_SetScriptSize",
+      "reason": "unlinked identifiers: C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName",
       "dependencies": [
         "C_GetManyVarsType",
         "C_GetNextGameArrayName",
         "C_GetNextLabelName",
         "C_GetNextVarType",
         "C_GetStructureIndexes",
-        "C_SetCfgName",
-        "C_SetScriptSize"
+        "C_SetCfgName"
       ]
     },
     {
       "name": "C_Compile",
-      "reason": "unlinked identifiers: C_ParseCommand, C_SetScriptSize, G_GameExit, Gv_Init",
+      "reason": "unlinked identifiers: C_ParseCommand, G_GameExit, Gv_Init",
       "dependencies": [
         "C_ParseCommand",
-        "C_SetScriptSize",
         "G_GameExit",
         "Gv_Init"
       ]
     }
   ],
-  "installed_closed_definitions": 4,
   "original_gameplay_verified": false
 }

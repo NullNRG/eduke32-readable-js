@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\gameexec.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 16,
-  "emitted": 16,
+  "found": 22,
+  "emitted": 22,
   "blocked": 0,
   "definitions": [
     {
@@ -376,6 +376,317 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "C_GetFileForOffset__header_037607ea1c7d",
+      "source_name": "C_GetFileForOffset",
+      "kind": "FunctionDecl",
+      "line": 92,
+      "original_type": "const char *(const int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/duke3d/src/gamedef.h",
+        "source_offset": 3143,
+        "source_line": 92,
+        "header_sha256": "33fb28d6f69f57a01ea03c84fd3250ca52cbabbf94da4269ebe75212df7c87a9"
+      },
+      "physical_source": "source/duke3d/src/gamedef.h",
+      "source_references": [
+        "vmoffset"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "vmoffset",
+          "binding": "__cxx_global_cell_781692351a9d53402cd867ca",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmofs *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "vmoffset"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "VM_ScriptInfo",
+      "source_name": "VM_ScriptInfo",
+      "kind": "FunctionDecl",
+      "line": 77,
+      "original_type": "void (const intptr_t *const, const int)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/gameexec.cpp",
+      "source_references": [
+        "C_GetFileForOffset__header_037607ea1c7d",
+        "VM_GetKeywordForID",
+        "apScript",
+        "bitmap_test__header_8c45ac8b8cb5",
+        "bitptr",
+        "current_verbosity_cutoff",
+        "g_currentEvent",
+        "g_scriptSize",
+        "g_totalLines",
+        "g_tw",
+        "insptr",
+        "loguru_log",
+        "max__template_a7028f3fa5c85a2b",
+        "min__template_e8de444c358aa8ec",
+        "sprintf",
+        "strcat",
+        "vm"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "apScript",
+          "binding": "__cxx_global_cell_38abf48ab8ba3db5fce877d9",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "bitptr",
+          "binding": "__cxx_global_cell_cc4a0559ddac06eb447295da",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "g_currentEvent",
+          "binding": "__cxx_global_cell_21076f22805c1a4afdf49a3b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptSize",
+          "binding": "__cxx_global_cell_3a4a097e79a13fa668e3fd57",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_totalLines",
+          "binding": "__cxx_global_cell_b8091875b3f39fe3d62b8019",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_tw",
+          "binding": "__cxx_global_cell_34a2426c22a51b0e2d5bc428",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "insptr",
+          "binding": "__cxx_global_cell_f5596e70af51a8f811191c88",
+          "abi": "source-global-cell/2",
+          "original_type": "const intptr_t *"
+        },
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "VM_GetKeywordForID",
+        "apScript",
+        "bitptr",
+        "current_verbosity_cutoff",
+        "g_currentEvent",
+        "g_scriptSize",
+        "g_totalLines",
+        "g_tw",
+        "insptr",
+        "loguru_log",
+        "sprintf",
+        "strcat",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "bitmap_test__header_8c45ac8b8cb5",
+      "source_name": "bitmap_test",
+      "kind": "FunctionDecl",
+      "line": 1198,
+      "original_type": "bool (const unsigned char *const, const int)",
+      "clang_template_mangled_name": "_ZL11bitmap_testIhEbPKT_i",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 33127,
+        "source_line": 1198,
+        "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [
+        "pow2char"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "max__template_a7028f3fa5c85a2b",
+      "source_name": "max",
+      "kind": "FunctionDecl",
+      "line": 254,
+      "original_type": "const long *const &(const long *const &, const long *const &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3maxIPKlERKT_S4_S4_",
+        "original_type": "const long *const &(const long *const &, const long *const &)",
+        "source_name": "max"
+      },
+      "clang_template_mangled_name": "_ZSt3maxIPKlERKT_S4_S4_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "source_line": 254,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "enclosing_record": "(free inline function)",
+        "type": "const long *const &(const long *const &, const long *const &)",
+        "semantic_sha256": "f646fd806c3379c921c7c516e144fde4e902f6e3dd02093da613c577509730fc"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 8423,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "long *",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "long *",
+            "const": true
+          }
+        ],
+        "result": "long *"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_e8de444c358aa8ec",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const long *const &(const long *const &, const long *const &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3minIPKlERKT_S4_S4_",
+        "original_type": "const long *const &(const long *const &, const long *const &)",
+        "source_name": "min"
+      },
+      "clang_template_mangled_name": "_ZSt3minIPKlERKT_S4_S4_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const long *const &(const long *const &, const long *const &)",
+        "semantic_sha256": "3148af681a49c05e33e2bd821939af6ae9f5a1063aae7848554116d5f184d891"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "long *",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "long *",
+            "const": true
+          }
+        ],
+        "result": "long *"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "pow2char",
+      "source_name": "pow2char",
+      "kind": "VarDecl",
+      "line": 1169,
+      "original_type": "const const char[8]",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/compat.h",
+        "source_offset": 32336,
+        "source_line": 1169,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "clang_decl_id": "0x21823a836f8",
+        "redeclaration_chain": [
+          "0x21823a836f8"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/compat.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "private_storage": {
+        "abi": "source-private-cell/1",
+        "binding": "__cxx_private_cell_6738639633754c71e1721944",
+        "owner_source": "source/duke3d/src/gameexec.cpp",
+        "original_type": "const const char[8]",
+        "scalar_array": {
+          "array": "Uint8Array",
+          "dims": [
+            8
+          ]
+        }
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -638,7 +949,21 @@
       "original_type": "int"
     }
   ],
-  "private_storage_exports": [],
+  "private_storage_exports": [
+    {
+      "name": "pow2char",
+      "abi": "source-private-cell/1",
+      "binding": "__cxx_private_cell_6738639633754c71e1721944",
+      "owner_source": "source/duke3d/src/gameexec.cpp",
+      "original_type": "const const char[8]",
+      "scalar_array": {
+        "array": "Uint8Array",
+        "dims": [
+          8
+        ]
+      }
+    }
+  ],
   "module_fragments": [
     {
       "module": "source/duke3d/src/_source_legacy_gameexec_cpp_2bbc176fa699.mjs",
@@ -710,6 +1035,129 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "28302a3922aea2a464ea0213abf981019ce69027afda570c315abbb04cdaf7a7"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_gameexec_cpp_5cc9fc50715c.mjs",
+      "sha256": "5cc9fc50715c896044b32abdc1b80fd9bb748b46616b470d98fa40cdbb22f761",
+      "original_source": "source/duke3d/src/gameexec.cpp",
+      "exports": [
+        "C_GetFileForOffset__header_037607ea1c7d",
+        "VM_ScriptInfo",
+        "bitmap_test__header_8c45ac8b8cb5",
+        "max__template_a7028f3fa5c85a2b",
+        "min__template_e8de444c358aa8ec",
+        "pow2char"
+      ],
+      "reexports": [
+        "C_GetFileForOffset__header_037607ea1c7d",
+        "VM_ScriptInfo",
+        "bitmap_test__header_8c45ac8b8cb5",
+        "max__template_a7028f3fa5c85a2b",
+        "min__template_e8de444c358aa8ec",
+        "pow2char",
+        "__cxx_private_cell_6738639633754c71e1721944"
+      ],
+      "imports": [
+        {
+          "name": "VM_GetKeywordForID",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "apScript",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_38abf48ab8ba3db5fce877d9",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "bitptr",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cc4a0559ddac06eb447295da",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_currentEvent",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_21076f22805c1a4afdf49a3b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptSize",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3a4a097e79a13fa668e3fd57",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_totalLines",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b8091875b3f39fe3d62b8019",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_tw",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_34a2426c22a51b0e2d5bc428",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "insptr",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f5596e70af51a8f811191c88",
+          "abi": "source-global-cell/2",
+          "original_type": "const intptr_t *"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vm",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "vmoffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_781692351a9d53402cd867ca",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmofs *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "d62dbaf015d6ce2d33ca6c2025c65f85d9b154e06ac954eb71653ea20e7105f3"
     }
   ]
 }

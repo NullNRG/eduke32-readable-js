@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\gamedef.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 916,
-  "emitted": 916,
+  "found": 917,
+  "emitted": 917,
   "blocked": 0,
   "definitions": [
     {
@@ -29363,6 +29363,108 @@
         "h_wall"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "C_SetScriptSize",
+      "source_name": "C_SetScriptSize",
+      "kind": "FunctionDecl",
+      "line": 1072,
+      "original_type": "void (int32_t)",
+      "linkage": "internal",
+      "source_references": [
+        "G_Util_PtrToIdx2",
+        "SILENCE_UNUSED__header_19ce759deb00",
+        "VM_ScriptInfo",
+        "apScript",
+        "bitmap_test__header_5cc6c8232c10",
+        "bitptr",
+        "bitstate",
+        "current_verbosity_cutoff",
+        "g_errorCnt",
+        "g_scriptPtr",
+        "g_scriptSize",
+        "g_tile",
+        "loguru_log",
+        "memset",
+        "min__template_774131ccff66371d",
+        "xrealloc__header_d10105957532"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "apScript",
+          "binding": "__cxx_global_cell_38abf48ab8ba3db5fce877d9",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "bitptr",
+          "binding": "__cxx_global_cell_cc4a0559ddac06eb447295da",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "bitstate",
+          "binding": "__cxx_global_cell_84099bb478ae12489bd3cc37",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "g_errorCnt",
+          "binding": "__cxx_global_cell_a9ed12f504f4bd101d4746c6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptPtr",
+          "binding": "__cxx_global_cell_7c95f40343184c865284ca02",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "g_scriptSize",
+          "binding": "__cxx_global_cell_3a4a097e79a13fa668e3fd57",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_tile",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "G_Util_PtrToIdx2",
+        "VM_ScriptInfo",
+        "apScript",
+        "bitptr",
+        "bitstate",
+        "current_verbosity_cutoff",
+        "g_errorCnt",
+        "g_scriptPtr",
+        "g_scriptSize",
+        "g_tile",
+        "loguru_log",
+        "memset"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -35915,6 +36017,3146 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "ff3d4508ab558dcfc0f4a76338ca28055898a0dfc558b5fb06bddd61a45d0156"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_gamedef_cpp_e6c107e037bc.mjs",
+      "sha256": "e6c107e037bc185dc04fe53bb820f64c95312d82c9dd3b32ace952f5dae15121",
+      "original_source": "source/duke3d/src/gamedef.cpp",
+      "exports": [
+        "C_SetScriptSize"
+      ],
+      "reexports": [
+        "C_SetScriptSize"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BULLETHOLE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a1318d87ddacc87fafe95fb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DefaultProjectile",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_14b7a7066c3f6d3c98286359",
+          "abi": "source-global-cell/2",
+          "original_type": "struct projectile_t",
+          "byte_record_schema_sha256": "2b339c50f2282935dc0264eae8578de007a05e9c52900f1fb8a451d551e451bf",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "2b339c50f2282935dc0264eae8578de007a05e9c52900f1fb8a451d551e451bf"
+          }
+        },
+        {
+          "name": "EventNames",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 164,
+          "element_declaration": "const char *[]",
+          "original_type": "const char *[164]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_Util_PtrToIdx2",
+          "from": "source/duke3d/src/savegame.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PIPEBOMB_BOUNCE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_339d184e498655528e0449ea",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SMALLSMOKE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3e77304d50ec83937ff1f45c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SpriteDeletionQueue",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "VM_ScriptInfo",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "aGameVars",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "actorvartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            1
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[1]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "apScript",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_38abf48ab8ba3db5fce877d9",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "apScriptEvents",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "apStrings",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 16384,
+          "element_declaration": "char *[]",
+          "original_type": "char *[16384]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "bitptr",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cc4a0559ddac06eb447295da",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "bitstate",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84099bb478ae12489bd3cc37",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "clearDefNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_actorRespawnTime",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9cec72372660080d153969ed",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_bouncemineRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fa1a761ad63424391ef2eb7e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_damageCameras",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0488c3aa4d43399b04094cf",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_defNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64336b74df686a41ba0b80a3",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_deleteQueueSize",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c7396d09498f79f4675d125b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_errorCnt",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a9ed12f504f4bd101d4746c6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_freezerSelfDamage",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_65816fd170522259e73c192a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameArrayCount",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_312b58e8a14f852e3cc5e7e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameVarCount",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8406f8e86b0ce3102350571c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_impactDamage",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_35041d56fffbae8d2a330213",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_itemRespawnTime",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_98f0b1f570a2f6307c66c6f0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_labelCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6742302ef915e025d82bcd36",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_labelsOnly",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c0d7a45cf66da756fe7006ee",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "bool",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_lineNumber",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_06245cf7a06b2fd69750f440",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_mapInfo",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            512
+          ],
+          "schema_sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56",
+          "original_type": "map_t[512]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_maxDefinedSkill",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e9576a5286a0997ea679c8d5",
+          "abi": "source-global-cell/2",
+          "original_type": "signed char"
+        },
+        {
+          "name": "g_maxPlayerHealth",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e75226e761a45fe1770321b0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_morterRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_55c709d3278bbdef67186917",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numBraces",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_fcad07c903c24c68027e9027",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "int",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_numFreezeBounces",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3b9a6643b5a8adfdd16c2c0e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numObituaries",
+          "from": "source/duke3d/src/player.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_14c7f525d32b0838223674c4",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numSelfObituaries",
+          "from": "source/duke3d/src/player.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_30b06f32517f69cb2a10e60b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numXStrings",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5cd4a87da022e338050a0e30",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_pipebombRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_164a2be3133df4f0c234cae8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_player",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_playerFriction",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bc77ba2124d9f9bdbae1a2b2",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_processingState",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8ebe202ae5fb6c8c9971153e",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "int",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_rpgRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c725c74fe2c9d83b97894533",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptActorOffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_06390b4cc7aa0b9ca95fea1a",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "long",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_scriptDebug",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_428952e2c5a589c67db10fcc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptEventOffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1b72215e06b29e323e0d276a",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "long",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_scriptFileName",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_scriptPtr",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7c95f40343184c865284ca02",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "g_scriptSize",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3a4a097e79a13fa668e3fd57",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptVersion",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f7e268c20b879c2fe3740be6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_seenineRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_af78946ba4f03068d5c18b7b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_shrinkerRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2519a794ef91626313d8500b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_skillNames",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            7,
+            33
+          ],
+          "original_type": "char[7][33]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_skipBranch",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f12cff23ac9a70d73719e4d2",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "bool",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_spriteGravity",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b1c97a6bfe6b79b1e897a68a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_startArmorAmount",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2bd4d302631cb2e7f9cab27e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_szCurrentBlockName",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_501929f182a6e7eae833bc82",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "char[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_szLastBlockName",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_21fc654e30adb9e60fcf1a9d",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "char[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_tile",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_tripbombLaserMode",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bb57c023dc177e6059e96f1a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_tripbombRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f06cc89b42ea26c6f8c956f2",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_volumeCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_00e4d69d02c23b6c86678573",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_volumeFlags",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_volumeNames",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            7,
+            33
+          ],
+          "original_type": "char[7][33]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_warningCnt",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_778291b6375dd09957e56c1b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "gamefunctions",
+          "from": "source/duke3d/src/config.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            63,
+            32
+          ],
+          "original_type": "char[63][32]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "globalvartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            1
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[1]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_actorvar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6e818e10e7fcc27dc3dc3c5b",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_arrays",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0457d06edefc3c775e2c32f",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "h_gamevars",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2d12a4ce62b5a2309382b8ea",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "h_globalvar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b56202585616aa9c65ec503a",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_iter",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7d62d0a0be2f41b3d20f464b",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_keywords",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d49b43ec9df2e70e05088d24",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_labels",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d4103f960bb678857722381c",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "h_playervar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_adb3542f30964081065bc3c4",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_varvar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2c502a82220a36abae3ae2b2",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inttables",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 4,
+          "element_declaration": "inthashtable_t *const[]",
+          "original_type": "inthashtable_t *const[4]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "isalnum",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isspace",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isxdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "iter_tokens",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            16
+          ],
+          "schema_sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280",
+          "original_type": "const tokenmap_t[16]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "keywords_for_private_opcodes",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            12
+          ],
+          "schema_sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280",
+          "original_type": "const tokenmap_t[12]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "label",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1aca80e8b55c802f7b43740d",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "labelcode",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bb1aad227706ae6ec200fcf0",
+          "abi": "source-global-cell/2",
+          "original_type": "int32_t *"
+        },
+        {
+          "name": "labeltype",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ca786e7ce472b03dc90a2ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "playervartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            1
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[1]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "pow2char__header_global_9393851f0c146808",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sscanf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtoll",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tables",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 5,
+          "element_declaration": "hashtable_t *const[]",
+          "original_type": "hashtable_t *const[5]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "tempbuf",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "textptr",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e2c5808de82af938e5d43808",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "char *",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "tolower",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 1,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1501c482a28",
+                "fields": [
+                  {
+                    "id": "0x1501c43b750",
+                    "name": "const_visibility"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "varvartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            31
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[31]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "vm_keywords",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            516
+          ],
+          "schema_sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280",
+          "original_type": "const tokenmap_t[516]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "vmoffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_781692351a9d53402cd867ca",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmofs *",
+          "record_pointer_identity": {
+            "abi": "source-global-record-pointer-type/1",
+            "record_name": "vmofs",
+            "pointee_cv": [],
+            "pointer_cv": [],
+            "declaration": {
+              "source_header": "source/duke3d/src/gamedef.h",
+              "source_offset": 3019,
+              "enclosing_record": "vmofs",
+              "type": "vmofs",
+              "semantic_sha256": "729c54fc8360ecf571463bb7dd90f6aad02160869d726eb3eb6312835ac38c50",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            },
+            "layout_sha256": "d600ba3d795590ca136182280e06cf7160227a85b7b8a208516a0adf9dec03d5"
+          }
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "b01ec3e157f65312270109f5edf39d2b02d47a244b33f4a28ea7196b606bc892"
+    }
+  ],
+  "superseded_module_fragments": [
+    {
+      "module": "source/duke3d/src/_source_legacy_gamedef_cpp_726905273f66.mjs",
+      "sha256": "726905273f66129835b48da6b1d15de8e966c66aac1a5c218e59ad64386be155",
+      "original_source": "source/duke3d/src/gamedef.cpp",
+      "exports": [
+        "C_SetScriptSize"
+      ],
+      "reexports": [
+        "C_SetScriptSize"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BULLETHOLE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a1318d87ddacc87fafe95fb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DefaultProjectile",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_14b7a7066c3f6d3c98286359",
+          "abi": "source-global-cell/2",
+          "original_type": "struct projectile_t",
+          "byte_record_schema_sha256": "2b339c50f2282935dc0264eae8578de007a05e9c52900f1fb8a451d551e451bf",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "2b339c50f2282935dc0264eae8578de007a05e9c52900f1fb8a451d551e451bf"
+          }
+        },
+        {
+          "name": "EventNames",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 164,
+          "element_declaration": "const char *[]",
+          "original_type": "const char *[164]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "G_Util_PtrToIdx2",
+          "from": "source/duke3d/src/savegame.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PIPEBOMB_BOUNCE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_339d184e498655528e0449ea",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SMALLSMOKE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3e77304d50ec83937ff1f45c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SpriteDeletionQueue",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "VM_ScriptInfo",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "aGameVars",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "actorvartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            1
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[1]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "apScript",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_38abf48ab8ba3db5fce877d9",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "apScriptEvents",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "apStrings",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 16384,
+          "element_declaration": "char *[]",
+          "original_type": "char *[16384]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "bitptr",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cc4a0559ddac06eb447295da",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "bitstate",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84099bb478ae12489bd3cc37",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "clearDefNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_actorRespawnTime",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9cec72372660080d153969ed",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_bouncemineRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fa1a761ad63424391ef2eb7e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_damageCameras",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0488c3aa4d43399b04094cf",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_defNamePtr",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_64336b74df686a41ba0b80a3",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "g_deleteQueueSize",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c7396d09498f79f4675d125b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_errorCnt",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a9ed12f504f4bd101d4746c6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_freezerSelfDamage",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_65816fd170522259e73c192a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameArrayCount",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_312b58e8a14f852e3cc5e7e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameVarCount",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8406f8e86b0ce3102350571c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_impactDamage",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_35041d56fffbae8d2a330213",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_itemRespawnTime",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_98f0b1f570a2f6307c66c6f0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_labelCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6742302ef915e025d82bcd36",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_labelsOnly",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_c0d7a45cf66da756fe7006ee",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "bool",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_lineNumber",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_06245cf7a06b2fd69750f440",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_mapInfo",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            512
+          ],
+          "schema_sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56",
+          "original_type": "map_t[512]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_maxDefinedSkill",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e9576a5286a0997ea679c8d5",
+          "abi": "source-global-cell/2",
+          "original_type": "signed char"
+        },
+        {
+          "name": "g_maxPlayerHealth",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e75226e761a45fe1770321b0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_morterRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_55c709d3278bbdef67186917",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numBraces",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_fcad07c903c24c68027e9027",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "int",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_numFreezeBounces",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3b9a6643b5a8adfdd16c2c0e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numObituaries",
+          "from": "source/duke3d/src/player.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_14c7f525d32b0838223674c4",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numSelfObituaries",
+          "from": "source/duke3d/src/player.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_30b06f32517f69cb2a10e60b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_numXStrings",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5cd4a87da022e338050a0e30",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_pipebombRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_164a2be3133df4f0c234cae8",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_player",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_playerFriction",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bc77ba2124d9f9bdbae1a2b2",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_processingState",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_8ebe202ae5fb6c8c9971153e",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "int",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_rpgRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c725c74fe2c9d83b97894533",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptActorOffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_06390b4cc7aa0b9ca95fea1a",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "long",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_scriptDebug",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_428952e2c5a589c67db10fcc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptEventOffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_1b72215e06b29e323e0d276a",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "long",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_scriptFileName",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_scriptPtr",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7c95f40343184c865284ca02",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "g_scriptSize",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3a4a097e79a13fa668e3fd57",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_scriptVersion",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f7e268c20b879c2fe3740be6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_seenineRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_af78946ba4f03068d5c18b7b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_shrinkerRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2519a794ef91626313d8500b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_skillNames",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            7,
+            33
+          ],
+          "original_type": "char[7][33]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_skipBranch",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_f12cff23ac9a70d73719e4d2",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "bool",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_spriteGravity",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b1c97a6bfe6b79b1e897a68a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_startArmorAmount",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2bd4d302631cb2e7f9cab27e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_szCurrentBlockName",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_501929f182a6e7eae833bc82",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "char[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_szLastBlockName",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_21fc654e30adb9e60fcf1a9d",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "char[64]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              64
+            ]
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_tile",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_tripbombLaserMode",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bb57c023dc177e6059e96f1a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_tripbombRadius",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f06cc89b42ea26c6f8c956f2",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_volumeCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_00e4d69d02c23b6c86678573",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_volumeFlags",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_volumeNames",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            7,
+            33
+          ],
+          "original_type": "char[7][33]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "g_warningCnt",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_778291b6375dd09957e56c1b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "gamefunctions",
+          "from": "source/duke3d/src/config.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            63,
+            32
+          ],
+          "original_type": "char[63][32]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "globalvartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            1
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[1]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_actorvar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_6e818e10e7fcc27dc3dc3c5b",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_arrays",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0457d06edefc3c775e2c32f",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "h_gamevars",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2d12a4ce62b5a2309382b8ea",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "h_globalvar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_b56202585616aa9c65ec503a",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_iter",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_7d62d0a0be2f41b3d20f464b",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_keywords",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_d49b43ec9df2e70e05088d24",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct hashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "__cxx_anonymous_0": {
+                "offset": 0,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "size": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              },
+              "items": {
+                "offset": 16,
+                "pointer": true,
+                "size": 8
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_labels",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d4103f960bb678857722381c",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "h_playervar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_adb3542f30964081065bc3c4",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "h_varvar",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_2c502a82220a36abae3ae2b2",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "struct inthashtable_t",
+          "byte_record": {
+            "size": 24,
+            "align": 8,
+            "union": false,
+            "fields": {
+              "items": {
+                "offset": 0,
+                "pointer": true,
+                "size": 8
+              },
+              "__cxx_anonymous_1": {
+                "offset": 8,
+                "byteRecord": {
+                  "size": 12,
+                  "align": 4,
+                  "union": true,
+                  "fields": {
+                    "count": {
+                      "offset": 0,
+                      "native": "Uint32Array",
+                      "size": 4
+                    },
+                    "prime": {
+                      "offset": 0,
+                      "byteRecord": {
+                        "size": 12,
+                        "align": 4,
+                        "union": false,
+                        "fields": {
+                          "v": {
+                            "offset": 0,
+                            "native": "Uint32Array",
+                            "size": 4
+                          },
+                          "d": {
+                            "offset": 4,
+                            "byteRecord": {
+                              "size": 5,
+                              "align": 1,
+                              "union": false,
+                              "fields": {
+                                "magic": {
+                                  "offset": 0,
+                                  "native": "Uint32Array",
+                                  "size": 4
+                                },
+                                "more": {
+                                  "offset": 4,
+                                  "native": "Uint8Array",
+                                  "size": 1
+                                }
+                              },
+                              "arrayAlign": 1,
+                              "overlaps": false
+                            }
+                          }
+                        },
+                        "arrayAlign": 1,
+                        "overlaps": false
+                      }
+                    }
+                  },
+                  "arrayAlign": 1,
+                  "overlaps": true
+                }
+              }
+            },
+            "arrayAlign": 1,
+            "overlaps": true
+          },
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_add",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_init",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inttables",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 4,
+          "element_declaration": "inthashtable_t *const[]",
+          "original_type": "inthashtable_t *const[4]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "isalnum",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isspace",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "isxdigit",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "iter_tokens",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            16
+          ],
+          "schema_sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280",
+          "original_type": "const tokenmap_t[16]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "keywords_for_private_opcodes",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            12
+          ],
+          "schema_sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280",
+          "original_type": "const tokenmap_t[12]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "label",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1aca80e8b55c802f7b43740d",
+          "abi": "source-global-cell/2",
+          "original_type": "char *"
+        },
+        {
+          "name": "labelcode",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bb1aad227706ae6ec200fcf0",
+          "abi": "source-global-cell/2",
+          "original_type": "int32_t *"
+        },
+        {
+          "name": "labeltype",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ca786e7ce472b03dc90a2ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "uint8_t *"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "playervartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            1
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[1]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "pow2char__header_global_9393851f0c146808",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sscanf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strtoll",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tables",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-pointer-array/1",
+          "stride": 8,
+          "extent": 5,
+          "element_declaration": "hashtable_t *const[]",
+          "original_type": "hashtable_t *const[5]",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "tempbuf",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "textptr",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_e2c5808de82af938e5d43808",
+          "owner_source": "source/duke3d/src/gamedef.cpp",
+          "original_type": "char *",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "tolower",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 1,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1501c482a28",
+                "fields": [
+                  {
+                    "id": "0x1501c43b750",
+                    "name": "const_visibility"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "varvartable",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 8,
+          "dimensions": [
+            31
+          ],
+          "schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "original_type": "const vec2_t[31]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "vm_keywords",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            516
+          ],
+          "schema_sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280",
+          "original_type": "const tokenmap_t[516]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "89348503b96065c5b7733e997bd2143c54a23781ee7285d90f4b5f4c13c52280"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gamedef.cpp"
+        },
+        {
+          "name": "vmoffset",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_781692351a9d53402cd867ca",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmofs *",
+          "record_pointer_identity": {
+            "abi": "source-global-record-pointer-type/1",
+            "record_name": "vmofs",
+            "pointee_cv": [],
+            "pointer_cv": [],
+            "declaration": {
+              "source_header": "source/duke3d/src/gamedef.h",
+              "source_offset": 3019,
+              "enclosing_record": "vmofs",
+              "type": "vmofs",
+              "semantic_sha256": "729c54fc8360ecf571463bb7dd90f6aad02160869d726eb3eb6312835ac38c50",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            },
+            "layout_sha256": "d600ba3d795590ca136182280e06cf7160227a85b7b8a208516a0adf9dec03d5"
+          }
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "95b2686545bebb4ba4154ace2722fb37133e6c2d09b7dc637439df10554146ed"
     }
   ]
 }

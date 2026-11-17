@@ -109,7 +109,12 @@ const cPointerOffset = (source, delta, stride=1, addressOnly=false) => {
   if (p.array && p.stride!==stride) throw new TypeError('Cannot reinterpret JS numeric-array element widths');
   const change=Number(delta)*stride, next=p.offset+change;
   const outside=next<p.lower||next>p.upper;
-  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || outside&&!addressOnly)
+  // The selected GNU ABI lets a strided field loop form its final raw byte
+  // address after the last field. Dereference still checks the original
+  // array's upper bound and rejects that address.
+  const stridedEnd=outside && !p.__cAddressOnly && next===p.upper+p.stridedFieldOffset &&
+      change===p.stridedFieldStride;
+  if (!Number.isSafeInteger(change) || !Number.isSafeInteger(next) || outside&&!addressOnly&&!stridedEnd)
     throw new RangeError('C pointer escapes original array bounds');
   if(p.__cPointer===true&&p.__cReference===true){
     if(next===p.offset)return p;

@@ -1,19 +1,302 @@
 {
   "source": "source/duke3d/src/savegame.cpp",
   "requested": [
-    "g_lastAutoSaveArbitraryID"
+    "G_Util_PtrToIdx2"
   ],
   "requested_resolved": {
-    "g_lastAutoSaveArbitraryID": true
-  },
-  "requested_export_bindings": {
-    "g_lastAutoSaveArbitraryID": [
-      "g_lastAutoSaveArbitraryID"
-    ]
+    "G_Util_PtrToIdx2": true
   },
   "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_savegame.cpp/reachable-4b0136b5957ac7ed/source/duke3d/src/savegame.cpp.manifest.json",
-  "blocked": [],
-  "installed_closed_definitions": 1,
+  "manifest": "factory-output\\source-first\\browser-classic\\boot-probes\\source_duke3d_src_savegame.cpp\\e8a2b7123751\\source\\duke3d\\src\\savegame.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_ResetInterpolations",
+      "reason": "unlinked identifiers: G_SetInterpolation",
+      "dependencies": [
+        "G_SetInterpolation"
+      ]
+    },
+    {
+      "name": "ReadSaveGameHeaders_Internal",
+      "reason": "trivial assignment requires matching Clang-proven pointer-free storage: ('menusave_t', 'operator=', 'menusave_t &(const menusave_t &) noexcept')",
+      "dependencies": []
+    },
+    {
+      "name": "ReadSaveGameHeaders",
+      "reason": "unlinked identifiers: ReadSaveGameHeaders_Internal",
+      "dependencies": [
+        "ReadSaveGameHeaders_Internal"
+      ]
+    },
+    {
+      "name": "G_LoadSaveHeaderNew",
+      "reason": "scalar byte alias across goto requires proven storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "sv_loadMhk",
+      "reason": "unlinked identifiers: engineLoadMHK",
+      "dependencies": [
+        "engineLoadMHK"
+      ]
+    },
+    {
+      "name": "G_LoadPlayer",
+      "reason": "record field requires verified native storage: sjson_node::tag",
+      "dependencies": []
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "g_timers",
+      "reason": "constructor requires Clang-identified record type: struct (unnamed at source/duke3d/src/savegame.cpp:776:8)",
+      "dependencies": []
+    },
+    {
+      "name": "G_SaveTimers",
+      "reason": "unlinked identifiers: g_timers",
+      "dependencies": [
+        "g_timers"
+      ]
+    },
+    {
+      "name": "G_RestoreTimers",
+      "reason": "unlinked identifiers: g_timers",
+      "dependencies": [
+        "g_timers"
+      ]
+    },
+    {
+      "name": "G_DeleteOldSaves",
+      "reason": "unlinked identifiers: ReadSaveGameHeaders",
+      "dependencies": [
+        "ReadSaveGameHeaders"
+      ]
+    },
+    {
+      "name": "G_CountOldSaves",
+      "reason": "unlinked identifiers: ReadSaveGameHeaders",
+      "dependencies": [
+        "ReadSaveGameHeaders"
+      ]
+    },
+    {
+      "name": "G_SavePlayer",
+      "reason": "unlinked identifiers: G_RestoreTimers, G_SaveTimers, opennextfile__cxx_instance_f72012a6285e5e7b605a, portableBackupSave, sv_saveandmakesnapshot",
+      "dependencies": [
+        "G_RestoreTimers",
+        "G_SaveTimers",
+        "opennextfile__cxx_instance_f72012a6285e5e7b605a",
+        "portableBackupSave",
+        "sv_saveandmakesnapshot"
+      ]
+    },
+    {
+      "name": "G_LoadPlayerMaybeMulti",
+      "reason": "unlinked identifiers: G_LoadPlayer",
+      "dependencies": [
+        "G_LoadPlayer"
+      ]
+    },
+    {
+      "name": "G_SavePlayerMaybeMulti",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, G_SavePlayer",
+      "dependencies": [
+        "CONFIG_WriteSetup",
+        "G_SavePlayer"
+      ]
+    },
+    {
+      "name": "dataspec_",
+      "reason": "class pointer/reference field requires ownership/alias lowering",
+      "dependencies": []
+    },
+    {
+      "name": "dataspec_gv_",
+      "reason": "class pointer/reference field requires ownership/alias lowering",
+      "dependencies": []
+    },
+    {
+      "name": "writespecdata",
+      "reason": "unlinked identifiers: dfwrite_LZ4",
+      "dependencies": [
+        "dfwrite_LZ4"
+      ]
+    },
+    {
+      "name": "readspecdata",
+      "reason": "unlinked identifiers: kdfread_LZ4",
+      "dependencies": [
+        "kdfread_LZ4"
+      ]
+    },
+    {
+      "name": "applydiff",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "svgm_udnetw",
+      "reason": "external object address requires a verified owner identity ABI: g_playerSpawnPoints playerspawn_t[16]",
+      "dependencies": []
+    },
+    {
+      "name": "svgm_secwsp",
+      "reason": "external object address requires a verified owner identity ABI: animwall animwalltype[512]",
+      "dependencies": []
+    },
+    {
+      "name": "sv_saveandmakesnapshot",
+      "reason": "uninitialized scalar byte alias requires tracked object initialization",
+      "dependencies": []
+    },
+    {
+      "name": "sv_loadsnapshot",
+      "reason": "unlinked identifiers: doloadplayer2, postloadplayer",
+      "dependencies": [
+        "doloadplayer2",
+        "postloadplayer"
+      ]
+    },
+    {
+      "name": "sv_writediff",
+      "reason": "unlinked identifiers: dfwrite_LZ4, svgm_secwsp, svgm_udnetw",
+      "dependencies": [
+        "dfwrite_LZ4",
+        "svgm_secwsp",
+        "svgm_udnetw"
+      ]
+    },
+    {
+      "name": "sv_readdiff",
+      "reason": "unlinked identifiers: applydiff, kdfread_LZ4, svgm_secwsp, svgm_udnetw",
+      "dependencies": [
+        "applydiff",
+        "kdfread_LZ4",
+        "svgm_secwsp",
+        "svgm_udnetw"
+      ]
+    },
+    {
+      "name": "dosaveplayer2",
+      "reason": "unlinked identifiers: Gv_WriteSave, svgm_secwsp, svgm_udnetw, writespecdata",
+      "dependencies": [
+        "Gv_WriteSave",
+        "svgm_secwsp",
+        "svgm_udnetw",
+        "writespecdata"
+      ]
+    },
+    {
+      "name": "doloadplayer2",
+      "reason": "unlinked identifiers: Gv_ReadSave, readspecdata, svgm_secwsp, svgm_udnetw",
+      "dependencies": [
+        "Gv_ReadSave",
+        "readspecdata",
+        "svgm_secwsp",
+        "svgm_udnetw"
+      ]
+    },
+    {
+      "name": "sv_updatestate",
+      "reason": "unlinked identifiers: readspecdata, svgm_secwsp, svgm_udnetw",
+      "dependencies": [
+        "readspecdata",
+        "svgm_secwsp",
+        "svgm_udnetw"
+      ]
+    },
+    {
+      "name": "postloadplayer",
+      "reason": "unlinked identifiers: A_CallSound, A_PlaySound, G_CacheMapData, G_ClearFIFO, G_ResetInterpolations, G_ResetTimers, G_ResetViewScreenData, G_SetupFilenameBasedMusic, G_UpdateScreenArea, P_ResetOffsets, P_UpdateScreenPal, S_ClearSoundLocks",
+      "dependencies": [
+        "A_CallSound",
+        "A_PlaySound",
+        "G_CacheMapData",
+        "G_ClearFIFO",
+        "G_ResetInterpolations",
+        "G_ResetTimers",
+        "G_ResetViewScreenData",
+        "G_SetupFilenameBasedMusic",
+        "G_UpdateScreenArea",
+        "P_ResetOffsets",
+        "P_UpdateScreenPal",
+        "S_ClearSoundLocks",
+        "S_ContinueLevelMusic",
+        "S_PauseMusic",
+        "S_PlayLevelMusicOrNothing",
+        "dukeValidateSectorEffectorPlaysSound",
+        "dukeValidateSectorPlaysSound"
+      ]
+    },
+    {
+      "name": "Sect_SetInterpolation__header_a225f6159968",
+      "reason": "unlinked identifiers: Sect_ToggleInterpolation",
+      "dependencies": [
+        "Sect_ToggleInterpolation"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_2c7edf69e83f",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_89917ecbdaa1",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "dependencies": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_c8d1e1cee471",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "G_NewGame_EnterLevel__header_fb7bab490726",
+      "reason": "unlinked identifiers: G_BackToMenu, G_EnterLevel, G_NewGame",
+      "dependencies": [
+        "G_BackToMenu",
+        "G_EnterLevel",
+        "G_NewGame"
+      ]
+    },
+    {
+      "name": "VM_OnEvent__header_76589c69ab2c",
+      "reason": "unlinked identifiers: VM_ExecuteEvent",
+      "dependencies": [
+        "VM_ExecuteEvent"
+      ]
+    },
+    {
+      "name": "FX_SetReverb__header_4a657121f559",
+      "reason": "unlinked identifiers: MV_SetReverb",
+      "dependencies": [
+        "MV_SetReverb"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_591146001ba4",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_886c7cf42414",
+      "dependencies": [
+        "FX_SetErrorCode__header_886c7cf42414"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_886c7cf42414",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
   "original_gameplay_verified": false
 }

@@ -1,18 +1,22 @@
 {
   "source": "source/duke3d/src/game.cpp",
   "requested": [
-    "G_CompileScripts"
+    "G_Shutdown",
+    "G_GameExit"
   ],
   "requested_resolved": {
-    "G_CompileScripts": false
+    "G_Shutdown": false,
+    "G_GameExit": false
   },
-  "requested_compiled": {
-    "G_CompileScripts": false
+  "requested_export_bindings": {
+    "G_Shutdown": [],
+    "G_GameExit": []
   },
   "requested_still_unlinked": [
-    "G_CompileScripts"
+    "G_Shutdown",
+    "G_GameExit"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-08c70ba2631d5ee8/source/duke3d/src/game.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-2ff1025c70c00e6b/source/duke3d/src/game.cpp.manifest.json",
   "blocked": [
     {
       "name": "gameTimerHandler",
@@ -76,32 +80,8 @@
     },
     {
       "name": "G_DumpDebugInfo",
-      "reason": "unlinked identifiers: Gv_DumpValues, VM_ScriptInfo, aGameVars, aplWeaponClip, aplWeaponFireDelay, aplWeaponFireSound, aplWeaponFlags, aplWeaponFlashColor, aplWeaponHoldDelay, aplWeaponInitialSound, aplWeaponReload, aplWeaponReloadSound1",
+      "reason": "unlinked identifiers: saveboard",
       "dependencies": [
-        "Gv_DumpValues",
-        "VM_ScriptInfo",
-        "aGameVars",
-        "aplWeaponClip",
-        "aplWeaponFireDelay",
-        "aplWeaponFireSound",
-        "aplWeaponFlags",
-        "aplWeaponFlashColor",
-        "aplWeaponHoldDelay",
-        "aplWeaponInitialSound",
-        "aplWeaponReload",
-        "aplWeaponReloadSound1",
-        "aplWeaponReloadSound2",
-        "aplWeaponSelectSound",
-        "aplWeaponShoots",
-        "aplWeaponShotsPerBurst",
-        "aplWeaponSound2Sound",
-        "aplWeaponSound2Time",
-        "aplWeaponSpawn",
-        "aplWeaponSpawnTime",
-        "aplWeaponTotalTime",
-        "aplWeaponWorksLike",
-        "g_gameVarCount",
-        "insptr",
         "saveboard"
       ]
     },
@@ -136,11 +116,10 @@
     },
     {
       "name": "G_DoSpriteAnimations",
-      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, g_scriptVersion, ldist",
+      "reason": "unlinked identifiers: G_DoEventAnimSprites, G_GetAngleDelta, ldist",
       "dependencies": [
         "G_DoEventAnimSprites",
         "G_GetAngleDelta",
-        "g_scriptVersion",
         "ldist"
       ]
     },
@@ -175,15 +154,9 @@
     },
     {
       "name": "G_Cleanup",
-      "reason": "unlinked identifiers: G_FreeMapState, Gv_Clear, bitptr, h_arrays, h_gamevars, h_labels, vmoffset",
+      "reason": "unlinked identifiers: G_FreeMapState",
       "dependencies": [
-        "G_FreeMapState",
-        "Gv_Clear",
-        "bitptr",
-        "h_arrays",
-        "h_gamevars",
-        "h_labels",
-        "vmoffset"
+        "G_FreeMapState"
       ]
     },
     {
@@ -206,20 +179,6 @@
       ]
     },
     {
-      "name": "A_InitEnemyFlags",
-      "reason": "unlinked identifiers: g_scriptVersion",
-      "dependencies": [
-        "g_scriptVersion"
-      ]
-    },
-    {
-      "name": "G_PostCreateGameState",
-      "reason": "unlinked identifiers: A_InitEnemyFlags",
-      "dependencies": [
-        "A_InitEnemyFlags"
-      ]
-    },
-    {
       "name": "G_FatalEngineInitError",
       "reason": "unlinked identifiers: G_Cleanup",
       "dependencies": [
@@ -228,14 +187,12 @@
     },
     {
       "name": "G_Startup",
-      "reason": "unlinked identifiers: G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_PostCreateGameState, G_Shutdown, Gv_FinalizeWeaponDefaults",
+      "reason": "unlinked identifiers: G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_Shutdown",
       "dependencies": [
         "G_CompileScripts",
         "G_FatalEngineInitError",
         "G_GameExit",
-        "G_PostCreateGameState",
-        "G_Shutdown",
-        "Gv_FinalizeWeaponDefaults"
+        "G_Shutdown"
       ]
     },
     {
@@ -264,11 +221,9 @@
     },
     {
       "name": "app_crashhandler",
-      "reason": "unlinked identifiers: G_CloseDemoWrite, VM_ScriptInfo, insptr",
+      "reason": "unlinked identifiers: G_CloseDemoWrite",
       "dependencies": [
-        "G_CloseDemoWrite",
-        "VM_ScriptInfo",
-        "insptr"
+        "G_CloseDemoWrite"
       ]
     },
     {
@@ -303,7 +258,6 @@
         "G_SetupCheats",
         "G_Startup",
         "G_UpdateScreenArea",
-        "Gv_ResetSystemDefaults",
         "Menu_Change",
         "Menu_Init",
         "P_ResetInventory",
@@ -397,20 +351,6 @@
       ]
     },
     {
-      "name": "A_ResetVars__header_9b335bd7219c",
-      "reason": "unlinked identifiers: aGameVars",
-      "dependencies": [
-        "aGameVars"
-      ]
-    },
-    {
-      "name": "VM_HaveEvent__header_24d009939acc",
-      "reason": "unlinked identifiers: apScriptEvents",
-      "dependencies": [
-        "apScriptEvents"
-      ]
-    },
-    {
       "name": "A_SetSprite__header_7ffa6130ca43",
       "reason": "unlinked identifiers: A_MoveSprite",
       "dependencies": [
@@ -429,13 +369,6 @@
       "reason": "unlinked identifiers: G_UpdateScreenArea",
       "dependencies": [
         "G_UpdateScreenArea"
-      ]
-    },
-    {
-      "name": "G_GetLogoFlags__header_fa27fcbb6c8d",
-      "reason": "unlinked identifiers: Gv_GetVarByLabel",
-      "dependencies": [
-        "Gv_GetVarByLabel"
       ]
     },
     {
@@ -476,11 +409,6 @@
       ]
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "7c8d0eb1efd3fdafecf47233258d47a68574e4196c17c55bda9060aabcb3599e",
-  "provider_index_sha256": "8bae0858ecb7b63ed89813c2f1e142db9e61cf3ab219dc0d3b4760de778d15c5",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 5,
+  "original_gameplay_verified": false
 }

@@ -1042,9 +1042,48 @@ class Emit:
                 return 'cRecordPointer('+expression+', '+json.dumps(view['byte_schema'],sort_keys=True)+')'
             raise Unsupported('record pointer member requires original byte layout: '+str(base))
         return expression
-    def record_object_expr(self,pointer_type,expression):
+    def record_object_expr(self,pointer_type,expression,field_name=None):
         """Use the same original storage for field reads, addresses and updates."""
+        if field_name:
+            base=normalized_record_name(pointer_type.rstrip().rstrip('*').strip(),self.type_aliases)
+            schema=self.global_storage_records.get(base,{}).get('byte_schema')
+            field=schema.get('fields',{}).get(field_name) if schema else None
+            if (field and (field.get('native') or field.get('pointer'))
+                    and not any(key in field for key in ('length','nativeArray','pointerArray','reference'))
+                    and schema_has_prototype(schema)):
+                # The enclosing object's size, alignment and the selected
+                # field stay as Clang proved them. This view cannot expose the
+                # record or its methods, so only its leaf field is materialized.
+                view={**schema,'fields':{field_name:field},'fieldView':True}
+                view.pop('prototype',None)
+                return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(view,sort_keys=True)+'))'
         return 'cRecordObject('+self.record_pointer_view(pointer_type,expression)+')'
+    def record_array_member_byte_address(self,node):
+        """Recognize a direct untyped conversion of &array[0].field."""
+        def unwrap(expr):
+            while kind(expr) in WRAPPERS and len(kids(expr))==1:
+                expr=kids(expr)[0]
+            return expr
+        node=unwrap(node)
+        if kind(node)!='UnaryOperator' or node.get('opcode')!='&' or len(kids(node))!=1:return None
+        member=unwrap(kids(node)[0])
+        if kind(member)!='MemberExpr' or member.get('isArrow') or len(kids(member))!=1:return None
+        subscript=unwrap(kids(member)[0])
+        if kind(subscript)!='ArraySubscriptExpr' or len(kids(subscript))!=2:return None
+        array, index=map(unwrap,kids(subscript))
+        if kind(array)!='DeclRefExpr' or kind(index)!='IntegerLiteral' or index.get('value')!='0':return None
+        extent=re.fullmatch(r'([^\[\]]+)\s*\[(\d+)\]',qual(array))
+        if not extent or not int(extent[2]):return None
+        name=normalized_record_name(extent[1].strip(),self.type_aliases)
+        schema=self.global_storage_records.get(name,{}).get('byte_schema')
+        field=schema.get('fields',{}).get(member.get('name')) if schema else None
+        decl=self.source_field_declaration(member)
+        if (not field or kind(decl)!='FieldDecl' or decl.get('isBitfield')
+                or not (field.get('pointer') or field.get('native'))
+                or any(key in field for key in ('length','pointerArray','nativeArray','reference'))):
+            return None
+        return (f'cRecordArrayByteAddress({self.expr(array)}, {extent[2]}, '
+                f'{schema["size"]}, {field["offset"]}, {field["size"]})')
     def raw_record_receiver(self,expression,arrow):
         spelling=qual(expression).strip()
         stripped=expression
@@ -1156,6 +1195,10 @@ class Emit:
             return 'cLifetime.expression(('+scope+') => '+value+', '+str(transfer).lower()+')'
         if k in WRAPPERS:
             if not a:raise Unsupported(f'{k}: empty')
+            if (k=='ImplicitCastExpr' and n.get('castKind')=='BitCast'
+                    and re.fullmatch(r'(?:const\s+)?void\s*\*',qual(n))):
+                byte_address=self.record_array_member_byte_address(a[0])
+                if byte_address:return byte_address
             if k=='ImplicitCastExpr' and n.get('castKind')=='IntegralToPointer':
                 return 'cSourceAddresses.decode('+self.expr(a[0])+')'
             if k=='ImplicitCastExpr' and n.get('castKind')=='ArrayToPointerDecay':
@@ -1411,10 +1454,11 @@ class Emit:
             # Typedef spelling and a filtered-out layout do not determine the
             # pointer representation: it may be a reference, array relocation,
             # or original class object. Resolve through the common ABI.
-            if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
-                receiver=self.record_object_expr(qual(a[0]),receiver)
-            member=receiver+'.'+name
             declaration=self.source_field_declaration(n)
+            if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
+                field_name=name if kind(declaration)=='FieldDecl' else None
+                receiver=self.record_object_expr(qual(a[0]),receiver,field_name)
+            member=receiver+'.'+name
             return member+'.value' if self.scalar_reference(qual(declaration)) else member
         if k=='ArraySubscriptExpr':
             base=a[0]
@@ -7439,7 +7483,7 @@ const cStackAlloc = amount => {
                       +'const cStaticReference = resolve => ({ __cReference:true, __cDeferredReference:true, resolve, get value() { return resolve().value; }, set value(value) { resolve().value=value; } });\n'
                       +emit_primitive_references()) if any(helper in body for helper in ('cRef(', 'cArrayRef(', 'cRecordObject(', 'cObjectFieldRef(', 'cStaticReference(')) else ''
     span_helpers=(HERE/'tools/source_pointer_span_runtime.mjs').read_text(encoding='utf-8')+'\n' if 'cxxPointerSpan(' in body else ''
-    aggregate_helpers=embedded_runtime(HERE/'tools/source_aggregate_runtime.mjs')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(', 'cNativeArray(')) else ''
+    aggregate_helpers=embedded_runtime(HERE/'tools/source_aggregate_runtime.mjs')+'\n' if any(x in body for x in ('cCopyAggregate(', 'cZeroAggregate(', 'cInitByteRecord(', 'cAssignAggregate(', 'cMarkAggregate(', 'cByteRecordArray(', 'cByteRecordNDArray(', 'cRecordPointer(', 'cPointerArray(', 'cNativeArray(', 'cRecordArrayByteAddress(')) else ''
     # Embedded helpers have dependencies too: record references call
     # cPointerElementRef, and aggregate record views call cPointer. Selecting
     # helpers from original function bodies alone stranded those bindings.

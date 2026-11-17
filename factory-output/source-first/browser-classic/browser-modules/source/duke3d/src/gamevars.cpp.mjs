@@ -8,3 +8,6 @@ export { Gv_Clear, Gv_Free, Gv_ResetVars } from "./_source_legacy_gamevars_cpp_2
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { Gv_AddSystemVars, Gv_RefreshPointers, Gv_SetVar__cxx_3507c00cfaa8 } from "./_source_legacy_gamevars_cpp_e7f096724dcc.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Gv_GetArrayOrStruct, Gv_GetManyVars, Gv_GetVarByLabel, Gv_GetVar__cxx_0f0636c89656, Gv_GetVar__cxx_e611afac4ee9, Gv_ResetSystemDefaults, getvar__ } from "./_source_legacy_gamevars_cpp_76c96d24ac5d.mjs";

@@ -1,6 +1,6 @@
 # EDuke32 readable JavaScript port
 
-The JavaScript port now initializes all ten original CON structure tables in Chromium. All 548 rows match a native build, and the original game-variable and array lifecycle runs in the browser. The remaining CON link dependencies are recorded in the current build report. The GRP launcher opens the engine preview. [Current status](CURRENT_PORT_STATUS.md) · [Build and resume commands](CONTINUE_HERE.md) · [CON link report](reports/nov17-con-link-frontier.json)
+Chromium now executes the original CON diagnostic and resizes a script allocation through the original allocator, preserving code and relocating script pointers. All eight VM structure getters and the game-variable default reset link. The remaining startup link reaches the parser, variable setup, and the original exit and shutdown paths. The GRP launcher opens the original Build engine map preview. [Current status](CURRENT_PORT_STATUS.md) · [Build and resume commands](CONTINUE_HERE.md) · [Current CON link report](reports/nov17-vm-and-con-startup-frontier.json)
 
 ## Original font startup verified — November 16
 

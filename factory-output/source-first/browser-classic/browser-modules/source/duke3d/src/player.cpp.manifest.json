@@ -70,8 +70,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\player.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 16,
-  "emitted": 16,
+  "found": 17,
+  "emitted": 17,
   "blocked": 0,
   "definitions": [
     {
@@ -514,6 +514,42 @@
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "P_GetHudPal",
+      "source_name": "P_GetHudPal",
+      "kind": "FunctionDecl",
+      "line": 1794,
+      "original_type": "int (const DukePlayer_t *)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/player.cpp",
+      "source_references": [
+        "g_noFloorPal",
+        "sector",
+        "sprite"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "sector",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sprite",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_noFloorPal",
+        "sector",
+        "sprite"
+      ],
       "unresolved_references": []
     }
   ],
@@ -1039,6 +1075,42 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "67aff4514b04885720281b0021e37aefb6e6049ef9be6ac0d693c19e2772bac8"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_player_cpp_33efc406baff.mjs",
+      "sha256": "33efc406baffb719edbb72ff9e02cb3f1ce0e806502cb7af4488656fc82986e8",
+      "original_source": "source/duke3d/src/player.cpp",
+      "exports": [
+        "P_GetHudPal"
+      ],
+      "reexports": [
+        "P_GetHudPal"
+      ],
+      "imports": [
+        {
+          "name": "g_noFloorPal",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sector",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9d5d7fcf3aa35a4809f92551",
+          "abi": "source-global-cell/2",
+          "original_type": "sectortype *"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "5b57f69b0113c235454d132937bb739fad00d886fee63495ec37bb9e946c9e00"
     }
   ]
 }
