@@ -2,85 +2,190 @@
   "source": "source/duke3d/src/gamestructures.cpp",
   "requested": [
     "ActorLabels",
-    "InputLabels",
-    "PalDataLabels",
     "PlayerLabels",
-    "ProjectileLabels",
     "SectorLabels",
-    "TileDataLabels",
     "TsprLabels",
-    "UserdefsLabels",
-    "WallLabels"
+    "WallLabels",
+    "VM_InitHashTables"
   ],
   "requested_resolved": {
-    "ActorLabels": false,
-    "InputLabels": true,
-    "PalDataLabels": true,
-    "PlayerLabels": false,
-    "ProjectileLabels": true,
-    "SectorLabels": false,
-    "TileDataLabels": true,
-    "TsprLabels": false,
-    "UserdefsLabels": true,
-    "WallLabels": false
+    "ActorLabels": true,
+    "PlayerLabels": true,
+    "SectorLabels": true,
+    "TsprLabels": true,
+    "WallLabels": true,
+    "VM_InitHashTables": true
   },
   "requested_export_bindings": {
-    "ActorLabels": [],
-    "InputLabels": [
-      "InputLabels"
+    "ActorLabels": [
+      "ActorLabels"
     ],
-    "PalDataLabels": [
-      "PalDataLabels"
+    "PlayerLabels": [
+      "PlayerLabels"
     ],
-    "PlayerLabels": [],
-    "ProjectileLabels": [
-      "ProjectileLabels"
+    "SectorLabels": [
+      "SectorLabels"
     ],
-    "SectorLabels": [],
-    "TileDataLabels": [
-      "TileDataLabels"
+    "TsprLabels": [
+      "TsprLabels"
     ],
-    "TsprLabels": [],
-    "UserdefsLabels": [
-      "UserdefsLabels"
+    "WallLabels": [
+      "WallLabels"
     ],
-    "WallLabels": []
+    "VM_InitHashTables": [
+      "VM_InitHashTables"
+    ]
   },
-  "requested_still_unlinked": [
-    "ActorLabels",
-    "PlayerLabels",
-    "SectorLabels",
-    "TsprLabels",
-    "WallLabels"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamestructures.cpp/reachable-c723266b5aa671fd/source/duke3d/src/gamestructures.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamestructures.cpp/reachable-638526b9d8267143/source/duke3d/src/gamestructures.cpp.manifest.json",
   "blocked": [
     {
-      "name": "SectorLabels",
-      "reason": "OffsetOfExpr",
-      "dependencies": []
+      "name": "VM_GetSector",
+      "reason": "unlinked identifiers: GetAnimationGoal",
+      "dependencies": [
+        "GetAnimationGoal"
+      ]
     },
     {
-      "name": "WallLabels",
-      "reason": "OffsetOfExpr",
-      "dependencies": []
+      "name": "VM_SetSector",
+      "reason": "unlinked identifiers: GetAnimationGoal, SetAnimation",
+      "dependencies": [
+        "GetAnimationGoal",
+        "SetAnimation"
+      ]
     },
     {
-      "name": "ActorLabels",
-      "reason": "OffsetOfExpr",
-      "dependencies": []
+      "name": "VM_SetSprite",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
     },
     {
-      "name": "TsprLabels",
-      "reason": "OffsetOfExpr",
-      "dependencies": []
+      "name": "VM_GetPlayer",
+      "reason": "unlinked identifiers: P_GetHudPal",
+      "dependencies": [
+        "P_GetHudPal"
+      ]
     },
     {
-      "name": "PlayerLabels",
-      "reason": "OffsetOfExpr",
-      "dependencies": []
+      "name": "VM_SetPlayer",
+      "reason": "unlinked identifiers: Menu_Close, Menu_Open, P_UpdateScreenPal",
+      "dependencies": [
+        "Menu_Close",
+        "Menu_Open",
+        "P_UpdateScreenPal"
+      ]
+    },
+    {
+      "name": "VM_GetProjectile",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_SetProjectile",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_GetActiveProjectile",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_SetActiveProjectile",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_GetUserdef",
+      "reason": "unlinked identifiers: aGameVars, g_returnVarID, g_tw, insptr, vm",
+      "dependencies": [
+        "aGameVars",
+        "g_returnVarID",
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_SetUserdef",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, ME_NEWGAMECUSTOMENTRIES, ME_NEWGAMECUSTOMSUBENTRIES, aGameVars, g_returnVarID, g_tw, insptr, vm",
+      "dependencies": [
+        "G_UpdateScreenArea",
+        "ME_NEWGAMECUSTOMENTRIES",
+        "ME_NEWGAMECUSTOMSUBENTRIES",
+        "aGameVars",
+        "g_returnVarID",
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_GetPlayerInput",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_SetPlayerInput",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_GetTileData",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_SetTileData",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "VM_GetPalData",
+      "reason": "unlinked identifiers: g_tw, insptr, vm",
+      "dependencies": [
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
     }
   ],
-  "installed_closed_definitions": 5,
+  "installed_closed_definitions": 6,
   "original_gameplay_verified": false
 }

@@ -2,6 +2,8 @@
 
 **Original font initialization and text parsing now execute in the JavaScript engine. The full game is still not playable: original app_main has not booted.** No verified playable standalone dist/index.html exists.
 
+On November 17, all ten original CON structure-label tables were linked. The selected Clang target's ELF object matches all 548 label rows in Node and Chromium, including field offsets and signedness flags. Chromium runs the original `VM_InitHashTables` and matches all 548 hash lookups to their table indices. The original VM event storage is also linked. This checkpoint covers VM table initialization. `GAME.CON` compilation and gameplay remain unverified.
+
 The existing engine-player.html accepts a local GRP/MAP and renders through the original Build engine. It remains a raw-map engine preview; no original game menu, player session or substituted gameplay is being presented.
 
 Verified current work:

@@ -262,7 +262,7 @@ def parse_ast_file(stream, *, retain_ranges=False):
             # query can prove exact explicit operator selection, including
             # overloads. JSON places `name` after `range`, so retain this node
             # kind rather than guessing from a field not decoded yet.
-            semantic_barrier=(stack[-1][0].get('kind') in ('GCCAsmStmt','MemberExpr','DeclRefExpr') or
+            semantic_barrier=(stack[-1][0].get('kind') in ('GCCAsmStmt','MemberExpr','DeclRefExpr','OffsetOfExpr') or
                 stack[-1][0].get('kind')=='CompoundStmt' and any(
                     isinstance(frame[0],dict) and frame[0].get('kind')=='FunctionDecl'
                     and frame[0].get('loc',{}).get('expansionLoc') for frame in stack[:-1]))
@@ -298,6 +298,7 @@ def parse_ast_file(stream, *, retain_ranges=False):
                 # function types cannot distinguish non-type specializations.
                 # Other variable/function refs retain no extra span data.
                 if (not retain_ranges and node.get('kind')=='DeclRefExpr' and 'range' in node
+                        and not (node.get('nonOdrUseReason')=='constant' and node.get('type',{}).get('qualType')=='const bool')
                         and node.get('referencedDecl',{}).get('kind')!='CXXMethodDecl'
                         and node.get('foundReferencedDecl',{}).get('kind')!='FunctionTemplateDecl'):
                     node.pop('range')

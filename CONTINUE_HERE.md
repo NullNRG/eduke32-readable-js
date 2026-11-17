@@ -4,13 +4,14 @@ Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-
 
 CON compiler checkpoint: `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering in the original unit. They still need a complete link. `G_Util_PtrToIdx2` is verified as an isolated original relocation function; this does not verify live script resizing. Start from [the exact current link frontier](reports/nov16-con-lowering-frontier.json) and retry the original VM and variable providers before re-emitting the compiler.
 
-`InputLabels`, `PalDataLabels`, `ProjectileLabels`, `TileDataLabels` and `UserdefsLabels` are linked. The other five tables still need Clang-proven `OffsetOfExpr` values, including macro-expanded record aliases and anonymous member paths. Keep their byte offsets tied to the selected target ABI.
+All ten original CON structure tables and `VM_InitHashTables` are linked. The original table oracle checks 548 rows against the selected Clang target's ELF object and exercises the original hash initializer and lookups in Chromium. The scalar initializer evaluator uses the existing optional libclang resources. It binds unique source sites only. See `reports/nov17-original-con-structure-label-parity.json`.
 
 ```powershell
 . work/session-env.ps1
 python tests/source_factory/verify_sourcefirst_pointer_alias.py
 python tests/source_factory/verify_sourcefirst_nested_goto.py
 python work/verify_original_script_relocation.py
+python work/verify_original_con_structure_labels.py
 python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_ScriptInfo,apScriptEvents,g_currentEvent,g_thisActorVarID --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamestructures.cpp VM_InitHashTables --whole-unit --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamevars.cpp aGameVars,aGameArrays,Gv_NewVar,Gv_NewArray,Gv_Init,Gv_Clear --install-closed-leaves

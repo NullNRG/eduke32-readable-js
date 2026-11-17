@@ -1265,6 +1265,8 @@ class Emit:
         if k=='CXXThisExpr':return getattr(self,'byte_this_parameter',None) or 'this'
         if k=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
+            if '_source_evaluated_array_constant' in n:
+                return 'true' if n['_source_evaluated_array_constant'] else 'false'
             constant=getattr(self,'non_odr_static_values',{}).get(decl.get('id')) if n.get('nonOdrUseReason')=='constant' else None
             if constant:
                 self.used_static_constants=getattr(self,'used_static_constants',{})|{decl['id']:constant}
@@ -2175,6 +2177,9 @@ class Emit:
             # InitListExpr. A JS array DOES NOT overlay its fields. Refuse to
             # emit code until the precise original byte representation exists.
             raise Unsupported('C aggregate list requires verified storage shape: '+t)
+        if k=='OffsetOfExpr' and '_source_evaluated_array_constant' in n:
+            value=n['_source_evaluated_array_constant']
+            return str(value)+'n'
         if k=='UnaryExprOrTypeTraitExpr':
             # Sizes of scalar C types are statically known for the original LP64 target.
             arg_t=n.get('argType',{}).get('qualType') or (qual(a[0]) if a else '')
@@ -4660,6 +4665,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
         for child in emitted_children(n):collect(child,k)
     collect(node)
     def walk(n):
+        if '_source_evaluated_array_constant' in n:return
         if id(n) in (library_service_nodes or set()):
             children=emitted_children(n)
             if kind(n)=='CXXOperatorCallExpr':children=children[1:]
@@ -6201,6 +6207,7 @@ def main():
         ast_decode.append(decode);return declarations
     def produce_current(*args,**kwargs):
         nonlocal c_storage_scopes
+        offset_constants.bind(args[0])
         flex_level=0
         for flag in compiler_arguments:
             if flag.startswith('-fstrict-flex-arrays='):flex_level=int(flag.rsplit('=',1)[1])
@@ -6289,6 +6296,8 @@ def main():
     args+=opt.extra
     args+=target_args
     compiler_arguments=tuple(args)
+    from source_offset_constants import OffsetConstants
+    offset_constants=OffsetConstants(root,opt.source,[*language,*compiler_arguments])
     ast_cache_inputs=(source_ast_input_fingerprint(root,frontend,language,args,opt.source)
                       if opt.ast_cache_dir else None)
     if (ast_cache_inputs and ast_cache_inputs.get('preprocessor_verified') is True
@@ -7464,6 +7473,7 @@ const cStackAlloc = amount => {
     result['filtered_c_storage_scope']=c_storage_scope_report
     result['compiler_runtime_input_sha256']=compiler_revision
     result['compiler_runtime_inputs_unchanged']=True
+    if offset_constants.report['attempted']:result['original_offset_constants']=offset_constants.report
     if standard_heap_contract:result['standard_heap_contract']=standard_heap_contract
     result['record_layout_extraction']={'explicitly_required':opt.require_record_layouts,
         'records':len(layouts),'sha256':hashlib.sha256(json.dumps(layouts,sort_keys=True).encode()).hexdigest(),
