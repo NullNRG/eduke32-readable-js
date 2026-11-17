@@ -1,6 +1,6 @@
 # EDuke32 readable JavaScript port
 
-The original `C_ParseCommand` and `C_Compile` now pass structured control-flow lowering. Their original VM, game-variable and other providers still need to link before a CON script can run. Original controller defaults execute in Chromium; original script relocation matches 256 native comparison cases in Node and Chromium. See [current status](CURRENT_PORT_STATUS.md) and [resume commands](CONTINUE_HERE.md). The engine preview is available; there is no playable game bundle yet.
+The JavaScript port now initializes all ten original CON structure tables in Chromium. All 548 rows match a native build, and the original game-variable and array lifecycle runs in the browser. The remaining CON link dependencies are recorded in the current build report. The GRP launcher opens the engine preview. [Current status](CURRENT_PORT_STATUS.md) · [Build and resume commands](CONTINUE_HERE.md) · [CON link report](reports/nov17-con-link-frontier.json)
 
 ## Original font startup verified — November 16
 

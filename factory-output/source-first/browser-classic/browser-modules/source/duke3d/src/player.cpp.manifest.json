@@ -70,8 +70,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\player.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 15,
-  "emitted": 15,
+  "found": 16,
+  "emitted": 16,
   "blocked": 0,
   "definitions": [
     {
@@ -485,6 +485,31 @@
         "binding": "__cxx_global_cell_30b06f32517f69cb2a10e60b",
         "abi": "source-global-cell/2",
         "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "hudweap",
+      "source_name": "hudweap",
+      "kind": "VarDecl",
+      "line": 33,
+      "original_type": "struct hudweapon_t",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/player.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_428db7966f68b580bdb8b8d9",
+        "abi": "source-global-cell/2",
+        "original_type": "struct hudweapon_t",
+        "byte_record_schema_sha256": "5bf061e827b1549bf6e55eeb57f6b2ba36f55c9c1a7a0727d3ce3d3a31eb7cb4",
+        "byte_record_native_layout": {
+          "abi": "source-record-field-storage/1",
+          "sha256": "5bf061e827b1549bf6e55eeb57f6b2ba36f55c9c1a7a0727d3ce3d3a31eb7cb4"
+        }
       },
       "external_storage_imports": [],
       "status": "source-first",
@@ -916,6 +941,17 @@
       "binding": "__cxx_global_cell_30b06f32517f69cb2a10e60b",
       "abi": "source-global-cell/2",
       "original_type": "int"
+    },
+    {
+      "name": "hudweap",
+      "binding": "__cxx_global_cell_428db7966f68b580bdb8b8d9",
+      "abi": "source-global-cell/2",
+      "original_type": "struct hudweapon_t",
+      "byte_record_schema_sha256": "5bf061e827b1549bf6e55eeb57f6b2ba36f55c9c1a7a0727d3ce3d3a31eb7cb4",
+      "byte_record_native_layout": {
+        "abi": "source-record-field-storage/1",
+        "sha256": "5bf061e827b1549bf6e55eeb57f6b2ba36f55c9c1a7a0727d3ce3d3a31eb7cb4"
+      }
     }
   ],
   "private_storage_exports": [],
@@ -988,6 +1024,21 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "39a10c2704e0bf937da9f04927716cb2327176eba26c4aadf928bf378bb66345"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_player_cpp_4b20873da221.mjs",
+      "sha256": "4b20873da22103417089c8cc1e9452ab24620e5923b6986b0c7767e5ac069e4e",
+      "original_source": "source/duke3d/src/player.cpp",
+      "exports": [
+        "hudweap"
+      ],
+      "reexports": [
+        "hudweap",
+        "__cxx_global_cell_428db7966f68b580bdb8b8d9"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "67aff4514b04885720281b0021e37aefb6e6049ef9be6ac0d693c19e2772bac8"
     }
   ]
 }

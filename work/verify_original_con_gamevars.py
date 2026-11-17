@@ -44,7 +44,19 @@ PROBE = r'''async base => {
     variable.Gv_Clear();
     expect(count().every(x => x === 0), 'Original cleanup did not clear counts');
     expect(v.szLabel == null && a.szLabel == null && a.pValues == null, 'Original cleanup retained stale storage');
-    return {original_creates_executed:2, original_cleanup_executed:true,
+    vm.VM_InitHashTables();
+    variable.Gv_AddSystemVars();
+    const systemCounts = count();
+    expect(systemCounts[0] > 100 && systemCounts[1] > 2, 'Original system defaults did not initialize');
+    for (const name of ['sprite','__actor__','player','sector','wall','THISACTOR','RETURN']) {
+      const index = Number(hash.hash_find(script.h_gamevars,bytes(name)));
+      expect(index >= 0 && sourceCString(variable.aGameVars[index].szLabel,runtime.heap) === name,
+        'Missing original system variable ' + name);
+    }
+    variable.Gv_Clear();
+    expect(count().every(x => x === 0), 'Original system variable cleanup did not clear counts');
+    return {original_system_variables_initialized:true, system_counts:systemCounts,
+      original_creates_executed:2, original_cleanup_executed:true,
       values_and_owner_storage_verified:true, final_counts:count(), original_app_main_executed:false};
   } finally {
     release();
@@ -82,7 +94,7 @@ def main():
         server.server_close()
     (ROOT / 'reports/nov17-original-con-gamevar-lifecycle.json').write_text(
         json.dumps(result, indent=2) + '\n', encoding='utf-8')
-    print('PASS original game-variable and array creation and cleanup in Chromium')
+    print('PASS original game-variable, array and system-variable lifecycle in Chromium')
 
 
 if __name__ == '__main__':

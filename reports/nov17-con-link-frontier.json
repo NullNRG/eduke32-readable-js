@@ -1881,5 +1881,127 @@
   "original_con_compilation_verified": false,
   "original_app_main_executed": false,
   "browser_gameplay_verified": false,
-  "original_playable_bundle_present": false
+  "original_playable_bundle_present": false,
+  "game_variable_provider_frontier": {
+    "source": "source/duke3d/src/gamevars.cpp",
+    "requested": [
+      "Gv_AddSystemVars",
+      "Gv_ResetSystemDefaults",
+      "Gv_Init"
+    ],
+    "requested_resolved": {
+      "Gv_AddSystemVars": true,
+      "Gv_ResetSystemDefaults": false,
+      "Gv_Init": false
+    },
+    "requested_export_bindings": {
+      "Gv_AddSystemVars": [
+        "Gv_AddSystemVars"
+      ],
+      "Gv_ResetSystemDefaults": [],
+      "Gv_Init": []
+    },
+    "requested_still_unlinked": [
+      "Gv_ResetSystemDefaults",
+      "Gv_Init"
+    ],
+    "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamevars.cpp/reachable-49df987b481d6e76/source/duke3d/src/gamevars.cpp.manifest.json",
+    "blocked": [
+      {
+        "name": "Gv_SkipLZ4Block",
+        "reason": "unlinked identifiers: kdfread_LZ4",
+        "dependencies": [
+          "kdfread_LZ4"
+        ]
+      },
+      {
+        "name": "Gv_ReadSave",
+        "reason": "record pointer member requires original byte layout: mapstate_t",
+        "dependencies": []
+      },
+      {
+        "name": "Gv_WriteSave",
+        "reason": "record pointer member requires original byte layout: mapstate_t",
+        "dependencies": []
+      },
+      {
+        "name": "Gv_GetArrayOrStruct",
+        "reason": "unlinked identifiers: VM_GetActiveProjectile, VM_GetPalData, VM_GetPlayer, VM_GetPlayerInput, VM_GetProjectile, VM_GetSector, VM_GetTileData, VM_GetUserdef",
+        "dependencies": [
+          "VM_GetActiveProjectile",
+          "VM_GetPalData",
+          "VM_GetPlayer",
+          "VM_GetPlayerInput",
+          "VM_GetProjectile",
+          "VM_GetSector",
+          "VM_GetTileData",
+          "VM_GetUserdef"
+        ]
+      },
+      {
+        "name": "getvar__",
+        "reason": "unlinked identifiers: Gv_GetArrayOrStruct",
+        "dependencies": [
+          "Gv_GetArrayOrStruct"
+        ]
+      },
+      {
+        "name": "Gv_GetVar__cxx_0f0636c89656",
+        "reason": "unlinked identifiers: getvar__",
+        "dependencies": [
+          "getvar__"
+        ]
+      },
+      {
+        "name": "Gv_GetVar__cxx_e611afac4ee9",
+        "reason": "unlinked identifiers: getvar__",
+        "dependencies": [
+          "getvar__"
+        ]
+      },
+      {
+        "name": "Gv_GetManyVars",
+        "reason": "unlinked identifiers: getvar__",
+        "dependencies": [
+          "getvar__"
+        ]
+      },
+      {
+        "name": "Gv_GetVarByLabel",
+        "reason": "unlinked identifiers: Gv_GetVar__cxx_0f0636c89656",
+        "dependencies": [
+          "Gv_GetVar__cxx_0f0636c89656"
+        ]
+      },
+      {
+        "name": "Gv_ResetSystemDefaults",
+        "reason": "unlinked identifiers: Gv_GetVarByLabel",
+        "dependencies": [
+          "Gv_GetVarByLabel"
+        ]
+      },
+      {
+        "name": "Gv_Init",
+        "reason": "unlinked identifiers: Gv_ResetSystemDefaults",
+        "dependencies": [
+          "Gv_ResetSystemDefaults"
+        ]
+      },
+      {
+        "name": "Gv_InitWeaponPointers",
+        "reason": "unlinked identifiers: G_Shutdown",
+        "dependencies": [
+          "G_Shutdown"
+        ]
+      }
+    ],
+    "installed_closed_definitions": 3,
+    "original_gameplay_verified": false
+  },
+  "vm_diagnostic_link_error": {
+    "function": "VM_ScriptInfo",
+    "symbol": "__cxx_record_vec2_2150e186aab2ebda",
+    "provider": "source/build/src/clip.cpp",
+    "reason": "Consumer requires the original vec2<int>::operator!= and the provider contract does not supply it."
+  }
 }

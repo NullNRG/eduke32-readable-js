@@ -4,7 +4,7 @@
 
 On November 17, all ten original CON structure-label tables were linked. The selected Clang target's ELF object matches all 548 label rows in Node and Chromium, including field offsets and signedness flags. Chromium runs the original `VM_InitHashTables` and matches all 548 hash lookups to their table indices. The original VM event storage is also linked. This checkpoint covers VM table initialization. `GAME.CON` compilation and gameplay remain unverified.
 
-Original `Gv_NewVar`, `Gv_NewArray`, `Gv_Free` and `Gv_Clear` now link. Chromium created a variable and an array, checked their names, values and original hash indices, and confirmed that cleanup cleared the counts and storage. The selected compiler checks passed 7/7. The current gate still reports unresolved startup closure and no verified standalone game. The current CON link report lists the original definitions still required.
+Original `Gv_NewVar`, `Gv_NewArray`, `Gv_Free` and `Gv_Clear` now link. Chromium created a variable and an array, checked their names, values and original hash indices, and confirmed that cleanup cleared the counts and storage. Original `Gv_AddSystemVars` registered 335 variables and six arrays before the second cleanup. `Gv_Init` still needs the original system-default reset and its VM lookup dependencies. The selected compiler checks passed 7/7. The current gate reports unresolved startup closure and no verified standalone game.
 
 The existing engine-player.html accepts a local GRP/MAP and renders through the original Build engine. It remains a raw-map engine preview; no original game menu, player session or substituted gameplay is being presented.
 

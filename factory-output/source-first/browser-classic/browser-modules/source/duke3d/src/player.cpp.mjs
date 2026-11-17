@@ -8,3 +8,6 @@ export { g_myAimMode, __cxx_global_cell_08999a64c4501ca30fea06a5 } from "./_sour
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { g_numObituaries, g_numSelfObituaries, __cxx_global_cell_14c7f525d32b0838223674c4, __cxx_global_cell_30b06f32517f69cb2a10e60b } from "./_source_legacy_player_cpp_2b80339d5584.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { hudweap, __cxx_global_cell_428db7966f68b580bdb8b8d9 } from "./_source_legacy_player_cpp_4b20873da221.mjs";

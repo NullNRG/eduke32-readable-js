@@ -5,3 +5,6 @@ export { ACCESSCARD____header_global_f5dd999f9d36539d, ACCESSSWITCH2____header_g
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { Gv_Clear, Gv_Free, Gv_ResetVars } from "./_source_legacy_gamevars_cpp_283f8ad165f5.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Gv_AddSystemVars, Gv_RefreshPointers, Gv_SetVar__cxx_3507c00cfaa8 } from "./_source_legacy_gamevars_cpp_e7f096724dcc.mjs";
