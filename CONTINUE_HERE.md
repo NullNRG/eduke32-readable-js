@@ -22,6 +22,8 @@ python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_
 
 Create a private continuation ZIP with `npm run handoff:project`. It includes the original GRP, source, active recovery modules and verification reports. The packager includes a portable semantic cache only when its fingerprint agrees with the current snapshot. For a package without that cache, use `npm run compile:game -- --stop-after semantic` to regenerate the index after setting up the local toolchain.
 
+The [exit-provider frontier](reports/nov17-exit-provider-frontier.json) follows the live chain below `G_GameExit` and `G_Shutdown`. Original demo finalization now gets past Clang's `offsetof` expression. The remaining configuration dependency reaches the original locale hash/map types. The native tests cover large record field views. `python work/verify_original_mapstate_cleanup.py` exercises the linked cleanup and original allocator through the project launcher in Chromium.
+
 The [earlier November 17 CON dependency report](reports/nov17-con-link-frontier.json) records the original variable and array lifecycle test.
 
 ```powershell

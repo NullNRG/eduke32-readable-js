@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Native/C++ vs Node vs Chromium bounded, Clang-layout C++ record-pointer ABI."""
 from pathlib import Path
-import asyncio, json, random, shutil, subprocess, sys, tempfile
+import asyncio, json, os, random, shutil, subprocess, sys, tempfile
 from playwright.async_api import async_playwright
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE='tests/source_factory/source_first_record_pointer_fixture.cpp'
@@ -49,7 +49,8 @@ with tempfile.TemporaryDirectory(prefix='source_record_pointer_') as td:
     assert node==expected,next(((i,x,y) for i,(x,y) in enumerate(zip(node,expected)) if x!=y),None)
     async def browser():
       async with async_playwright() as p:
-        b=await p.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox'])
+        chromium = os.environ.get('EDUKE_CHROMIUM_EXECUTABLE') or shutil.which('chromium')
+        b=await p.chromium.launch(executable_path=chromium,headless=True,args=['--no-sandbox'])
         try:
           page=await b.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
           result=await page.evaluate('''async ({code,filteredCode,inputs})=>{

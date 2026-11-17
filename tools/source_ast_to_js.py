@@ -1039,6 +1039,8 @@ class Emit:
         if base not in getattr(self,'managed_record_names',set()) or base in getattr(self,'native_byte_classes',set()):
             view=getattr(self,'record_storage_views',{}).get(base,{})
             if view.get('byte_schema'):
+                if view['byte_schema']['size']>1048576:
+                    raise Unsupported('large record pointer requires a proven source field: '+str(base))
                 return 'cRecordPointer('+expression+', '+json.dumps(view['byte_schema'],sort_keys=True)+')'
             raise Unsupported('record pointer member requires original byte layout: '+str(base))
         return expression
@@ -1047,6 +1049,14 @@ class Emit:
         if field_name:
             base=normalized_record_name(pointer_type.rstrip().rstrip('*').strip(),self.type_aliases)
             schema=self.global_storage_records.get(base,{}).get('byte_schema')
+            if not schema:
+                storage_view=getattr(self,'record_storage_views',{}).get(base,{}).get('byte_schema')
+                if storage_view and storage_view['size']>1048576:
+                    field=storage_view['fields'].get(field_name)
+                    if not field:
+                        raise Unsupported('large record pointer requires a proven source field: '+str(base)+'.'+field_name)
+                    view={**storage_view,'fields':{field_name:field},'fieldView':True}
+                    return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(view,sort_keys=True)+'))'
             field=schema.get('fields',{}).get(field_name) if schema else None
             if (field and (field.get('native') or field.get('pointer'))
                     and not any(key in field for key in ('length','nativeArray','pointerArray','reference'))
@@ -2593,9 +2603,10 @@ class Emit:
             return f'cArrayRef({self.expr(a[0])}, {self.expr(a[1])})'
         if k=='MemberExpr' and re.fullmatch(r'[A-Za-z_$][\w$]*',n.get('name','')):
             receiver=self.expr(a[0])
-            if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
-                receiver=self.record_object_expr(qual(a[0]),receiver)
             declaration=self.source_field_declaration(n)
+            if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
+                field_name=n['name'] if kind(declaration)=='FieldDecl' else None
+                receiver=self.record_object_expr(qual(a[0]),receiver,field_name)
             if self.scalar_reference(qual(declaration)):return receiver+'.'+n['name']
             return f'cObjectFieldRef({receiver}, {json.dumps(n["name"])})'
         if k in ('CallExpr','CXXMemberCallExpr'):

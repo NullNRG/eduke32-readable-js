@@ -1,15 +1,16 @@
-"""Bind Clang-evaluated offsets and non-ODR booleans to original array initializers."""
+"""Bind Clang-evaluated source offsets and array initializer constants."""
 from collections import defaultdict
 from pathlib import Path
 import ctypes
 
 
-def authored_globals(ast, source):
-    """Descend only declaration scopes, never function or template bodies."""
+def authored_declarations(ast, source):
+    """Find file-scope definitions and function bodies in original source."""
     for n in ast:
         if n.get('kind') in ('TranslationUnitDecl', 'NamespaceDecl', 'LinkageSpecDecl'):
-            yield from authored_globals(n.get('inner', ()), source)
-        elif n.get('kind') == 'VarDecl' and n.get('init') and n.get('name'):
+            yield from authored_declarations(n.get('inner', ()), source)
+        elif n.get('name') and (n.get('kind') == 'VarDecl' and n.get('init') or
+                n.get('kind') == 'FunctionDecl' and any(x.get('kind') == 'CompoundStmt' for x in n.get('inner', ()))):
             loc = n.get('loc', {})
             if ('offset' in loc and 'includedFrom' not in loc and
                     (not loc.get('file') or Path(loc['file']).as_posix() == source)):
@@ -33,14 +34,14 @@ class OffsetConstants:
 
     def bind(self, ast):
         groups = defaultdict(list)
-        for decl in authored_globals(ast, self.source):
+        for decl in authored_declarations(ast, self.source):
             for n in nodes(decl):
                 kind = n.get('kind')
                 ref = n.get('referencedDecl', {})
                 typ = n.get('type', {}).get('desugaredQualType', n.get('type', {}).get('qualType'))
                 if kind == 'OffsetOfExpr':
                     binding = 'offsetof'
-                elif (kind == 'DeclRefExpr' and n.get('nonOdrUseReason') == 'constant' and
+                elif (decl.get('kind') == 'VarDecl' and kind == 'DeclRefExpr' and n.get('nonOdrUseReason') == 'constant' and
                       ref.get('kind') == 'VarDecl' and typ == 'const bool' and ref.get('name')):
                     binding = 'bool:' + ref['name']
                 else:
@@ -100,18 +101,19 @@ class OffsetConstants:
         dispose = lib.clang_EvalResult_dispose
         dispose.argtypes, dispose.restype = [ctypes.c_void_p], None
 
-        def globals_in(scope):
+        def declarations_in(scope):
             for cursor in scope.get_children():
                 if not cursor.location.file or Path(cursor.location.file.name) != source:
                     continue
                 if cursor.kind in (c.CursorKind.NAMESPACE, c.CursorKind.LINKAGE_SPEC, c.CursorKind.UNEXPOSED_DECL):
-                    yield from globals_in(cursor)
-                elif cursor.kind == c.CursorKind.VAR_DECL and cursor.is_definition():
+                    yield from declarations_in(cursor)
+                elif cursor.kind in (c.CursorKind.VAR_DECL, c.CursorKind.FUNCTION_DECL) and cursor.is_definition():
                     yield cursor
 
         values = defaultdict(list)
-        for decl in globals_in(tu.cursor):
-            if decl.type.kind != c.TypeKind.CONSTANTARRAY:
+        for decl in declarations_in(tu.cursor):
+            is_array = decl.kind == c.CursorKind.VAR_DECL and decl.type.kind == c.TypeKind.CONSTANTARRAY
+            if not is_array and decl.kind != c.CursorKind.FUNCTION_DECL:
                 continue
             for expr in decl.walk_preorder():
                 typ = expr.type.get_canonical().spelling
@@ -124,7 +126,7 @@ class OffsetConstants:
                     if not fields or any(not f.referenced or f.referenced.kind != c.CursorKind.FIELD_DECL for f in fields):
                         continue
                     binding = 'offsetof'
-                elif expr.kind == c.CursorKind.DECL_REF_EXPR and typ == 'const bool':
+                elif is_array and expr.kind == c.CursorKind.DECL_REF_EXPR and typ == 'const bool':
                     ref = expr.referenced
                     if not ref or ref.kind != c.CursorKind.VAR_DECL or ref.storage_class != c.StorageClass.STATIC:
                         continue

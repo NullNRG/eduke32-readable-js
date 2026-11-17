@@ -124,7 +124,8 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocat
   if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
       !values || Object.keys(values).length || schema.prototype))
     throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
-  if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>1048576 ||
+  const sizeLimit=schema.projection && schema.fieldView ? 268435456 : 1048576;
+  if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>sizeLimit ||
       !schema.fields || typeof schema.fields!=='object')
     throw new TypeError('Unverified Clang byte-record schema');
   const bytes=storage || new Uint8Array(schema.size);

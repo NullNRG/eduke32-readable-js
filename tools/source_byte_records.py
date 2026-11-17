@@ -613,7 +613,8 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             # representation as all other native pointer slots. The schema
             # below attests that representation; unknown addresses still fail
             # when decoded/dereferenced rather than inventing an allocation.
-        if not valid or not layout or not (fields or storage_views and record.get('bases')) or not (0 < layout['size'] <= 1048576):
+        size_limit = 268435456 if storage_views else 1048576
+        if not valid or not layout or not (fields or storage_views and record.get('bases')) or not (0 < layout['size'] <= size_limit):
             active.remove(identity)
             cached[identity] = None
             return None
@@ -624,6 +625,7 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
         result = {'size': layout['size'], 'align': layout['align'],
                   'union': record.get('tagUsed') == 'union', 'fields': {},
                   'arrayAlign': 1}
+        large_view = storage_views and layout['size'] > 1048576
         if storage_views:result['projection']=True
         elif methods:result['prototype']=record['name']
         overlaps = result['union']
@@ -694,6 +696,12 @@ def recover_byte_records(ast, layouts, aliases, source_root=None, layout_aliases
             while base in aliases and base not in seen:
                 seen.add(base)
                 base = clean_type(aliases[base])
+            if large_view and not (has_outer_indirection(base, '*') or
+                                   base in native and not dims and not field.get('isBitfield')):
+                # A large projection exposes proved scalar and pointer slots.
+                # Materializing its unrelated nested arrays would create a
+                # second object graph for memory the field access never reads.
+                continue
             if field.get('isBitfield'):
                 width=offset.get('bit_width');start=offset.get('bit_start');primitive=scalar_info(base)
                 constants=[child for child in children(field) if child.get('kind')=='ConstantExpr' and child.get('value') is not None]

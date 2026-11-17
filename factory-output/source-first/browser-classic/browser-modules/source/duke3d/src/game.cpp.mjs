@@ -34,3 +34,6 @@ export { loaddefinitions_game, parsedefinitions_game, parsedefinitions_game_incl
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { A_InitEnemyFlags, A_ResetVars__header_9b335bd7219c, G_GetLogoFlags__header_fa27fcbb6c8d, G_PostCreateGameState, VM_HaveEvent__header_24d009939acc } from "./_source_legacy_game_cpp_95bf6f821876.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { G_Cleanup, G_FatalEngineInitError } from "./_source_legacy_game_cpp_be9e62e60baf.mjs";

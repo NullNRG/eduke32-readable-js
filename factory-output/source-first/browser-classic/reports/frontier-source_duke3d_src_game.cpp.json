@@ -1,14 +1,19 @@
 {
   "source": "source/duke3d/src/game.cpp",
   "requested": [
+    "G_Cleanup",
     "G_Shutdown",
     "G_GameExit"
   ],
   "requested_resolved": {
+    "G_Cleanup": true,
     "G_Shutdown": false,
     "G_GameExit": false
   },
   "requested_export_bindings": {
+    "G_Cleanup": [
+      "G_Cleanup"
+    ],
     "G_Shutdown": [],
     "G_GameExit": []
   },
@@ -16,7 +21,7 @@
     "G_Shutdown",
     "G_GameExit"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-2ff1025c70c00e6b/source/duke3d/src/game.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-900603983b138c8f/source/duke3d/src/game.cpp.manifest.json",
   "blocked": [
     {
       "name": "gameTimerHandler",
@@ -42,12 +47,11 @@
     },
     {
       "name": "G_GameExit",
-      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens, g_demo_filePtr",
+      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens",
       "dependencies": [
         "G_BonusScreen",
         "G_CloseDemoWrite",
-        "G_DisplayExtraScreens",
-        "g_demo_filePtr"
+        "G_DisplayExtraScreens"
       ]
     },
     {
@@ -153,19 +157,10 @@
       "dependencies": []
     },
     {
-      "name": "G_Cleanup",
-      "reason": "unlinked identifiers: G_FreeMapState",
-      "dependencies": [
-        "G_FreeMapState"
-      ]
-    },
-    {
       "name": "G_Shutdown",
-      "reason": "unlinked identifiers: CONFIG_WriteSetup, CONTROL_Shutdown, G_Cleanup, S_MusicShutdown, S_SoundShutdown",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, S_MusicShutdown, S_SoundShutdown",
       "dependencies": [
         "CONFIG_WriteSetup",
-        "CONTROL_Shutdown",
-        "G_Cleanup",
         "S_MusicShutdown",
         "S_SoundShutdown"
       ]
@@ -179,18 +174,10 @@
       ]
     },
     {
-      "name": "G_FatalEngineInitError",
-      "reason": "unlinked identifiers: G_Cleanup",
-      "dependencies": [
-        "G_Cleanup"
-      ]
-    },
-    {
       "name": "G_Startup",
-      "reason": "unlinked identifiers: G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_Shutdown",
+      "reason": "unlinked identifiers: G_CompileScripts, G_GameExit, G_Shutdown",
       "dependencies": [
         "G_CompileScripts",
-        "G_FatalEngineInitError",
         "G_GameExit",
         "G_Shutdown"
       ]
@@ -242,7 +229,7 @@
     },
     {
       "name": "app_main",
-      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_FatalEngineInitError, G_GameExit, G_NewGame, G_PlaybackDemo, G_SavePlayerMaybeMulti, G_SetupCheats",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_GameExit, G_NewGame, G_PlaybackDemo, G_SavePlayerMaybeMulti, G_SetupCheats, G_Startup",
       "dependencies": [
         "CONFIG_ReadSetup",
         "CONFIG_WriteSetup",
@@ -250,7 +237,6 @@
         "G_DoCheats",
         "G_DrawRooms",
         "G_EndOfLevel",
-        "G_FatalEngineInitError",
         "G_GameExit",
         "G_NewGame",
         "G_PlaybackDemo",
@@ -409,6 +395,6 @@
       ]
     }
   ],
-  "installed_closed_definitions": 5,
+  "installed_closed_definitions": 2,
   "original_gameplay_verified": false
 }

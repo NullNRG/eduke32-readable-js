@@ -4,15 +4,15 @@
     "G_FreeMapState"
   ],
   "requested_resolved": {
-    "G_FreeMapState": false
+    "G_FreeMapState": true
   },
   "requested_export_bindings": {
-    "G_FreeMapState": []
+    "G_FreeMapState": [
+      "G_FreeMapState"
+    ]
   },
-  "requested_still_unlinked": [
-    "G_FreeMapState"
-  ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_premap.cpp/reachable-fc160f0c093a77ad/source/duke3d/src/premap.cpp.manifest.json",
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_premap.cpp/reachable-0ac4ebd55308ab66/source/duke3d/src/premap.cpp.manifest.json",
   "blocked": [
     {
       "name": "G_DemoLoadScreen",
@@ -136,10 +136,9 @@
     },
     {
       "name": "G_NewGame",
-      "reason": "unlinked identifiers: G_BonusScreen, G_FreeMapState, G_PlayE4Cutscene, Gv_InitWeaponPointers, Menu_Close, S_Cleanup, S_PauseSounds, S_StopAllSounds, g_lastautosave, g_lastusersave, g_quickload",
+      "reason": "unlinked identifiers: G_BonusScreen, G_PlayE4Cutscene, Gv_InitWeaponPointers, Menu_Close, S_Cleanup, S_PauseSounds, S_StopAllSounds, g_lastautosave, g_lastusersave, g_quickload",
       "dependencies": [
         "G_BonusScreen",
-        "G_FreeMapState",
         "G_PlayE4Cutscene",
         "Gv_InitWeaponPointers",
         "Menu_Close",
@@ -216,11 +215,6 @@
       ]
     },
     {
-      "name": "G_FreeMapState",
-      "reason": "record pointer member requires original byte layout: mapstate_t",
-      "dependencies": []
-    },
-    {
       "name": "rotatesprite_fs__header_94f133c5c3ef",
       "reason": "unlinked identifiers: rotatesprite_",
       "dependencies": [
@@ -291,6 +285,6 @@
       ]
     }
   ],
-  "installed_closed_definitions": 837,
+  "installed_closed_definitions": 1,
   "original_gameplay_verified": false
 }

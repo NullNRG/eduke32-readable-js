@@ -14,3 +14,6 @@ export { CONFIG_GetGameFuncOnJoystick, CONFIG_WriteSettings } from "./_source_le
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { CONFIG_SetGameControllerAxesModern, CONFIG_SetGameControllerDefaults } from "./_source_legacy_config_cpp_6c16b648cb16.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { VM_HaveEvent__header_ba688cb33ca2 } from "./_source_legacy_config_cpp_bbfd1e78c50e.mjs";

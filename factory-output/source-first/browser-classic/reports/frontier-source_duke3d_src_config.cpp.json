@@ -1,18 +1,22 @@
 {
   "source": "source/duke3d/src/config.cpp",
   "requested": [
-    "CONFIG_SetDefaults"
+    "CONFIG_WriteSetup",
+    "C_SetCfgName"
   ],
   "requested_resolved": {
-    "CONFIG_SetDefaults": false
+    "CONFIG_WriteSetup": false,
+    "C_SetCfgName": false
   },
-  "requested_compiled": {
-    "CONFIG_SetDefaults": false
+  "requested_export_bindings": {
+    "CONFIG_WriteSetup": [],
+    "C_SetCfgName": []
   },
   "requested_still_unlinked": [
-    "CONFIG_SetDefaults"
+    "CONFIG_WriteSetup",
+    "C_SetCfgName"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_config.cpp/reachable-0a2d55823c3abd3e/source/duke3d/src/config.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_config.cpp/reachable-d717e55441c4d8b5/source/duke3d/src/config.cpp.manifest.json",
   "blocked": [
     {
       "name": "CONFIG_SetDefaults",
@@ -22,25 +26,27 @@
       ]
     },
     {
+      "name": "CONFIG_ReadSetup",
+      "reason": "unlinked identifiers: localeSetCurrent",
+      "dependencies": [
+        "localeSetCurrent"
+      ]
+    },
+    {
+      "name": "CONFIG_WriteSetup",
+      "reason": "unlinked identifiers: localeGetCurrent",
+      "dependencies": [
+        "localeGetCurrent"
+      ]
+    },
+    {
       "name": "VM_OnEvent__header_113b22de5320",
       "reason": "unlinked identifiers: VM_ExecuteEvent",
       "dependencies": [
         "VM_ExecuteEvent"
       ]
-    },
-    {
-      "name": "VM_HaveEvent__header_ba688cb33ca2",
-      "reason": "unlinked identifiers: apScriptEvents",
-      "dependencies": [
-        "apScriptEvents"
-      ]
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "7c8d0eb1efd3fdafecf47233258d47a68574e4196c17c55bda9060aabcb3599e",
-  "provider_index_sha256": "2ea0d48d14203e22942f47bc1f835348ad601df7f481e9a4fa88e7c2ccc1c15b",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 1,
+  "original_gameplay_verified": false
 }

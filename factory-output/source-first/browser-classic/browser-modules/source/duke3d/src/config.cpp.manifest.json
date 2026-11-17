@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\config.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 849,
-  "emitted": 849,
+  "found": 850,
+  "emitted": 850,
   "blocked": 0,
   "definitions": [
     {
@@ -25796,6 +25796,31 @@
         "ud"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "VM_HaveEvent__header_ba688cb33ca2",
+      "source_name": "VM_HaveEvent",
+      "kind": "FunctionDecl",
+      "line": 44,
+      "original_type": "int (const int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/duke3d/src/gameexec.h",
+        "source_offset": 1580,
+        "source_line": 44,
+        "header_sha256": "eb26c4cff6f60e236bf4c33fd1ef0c2a2415e442a03fc8b184a7353d787106e6"
+      },
+      "physical_source": "source/duke3d/src/gameexec.h",
+      "source_references": [
+        "apScriptEvents"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "apScriptEvents"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -29300,6 +29325,492 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "11c3f6bf9bc8abf1a66adeef5cb6259125ec2de0498ab2d64de435cbeee9e0d3"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_config_cpp_bbfd1e78c50e.mjs",
+      "sha256": "bbfd1e78c50ecb95d4446541b24a51c34be2c31ad3a41a2aae1efd12f56af882",
+      "original_source": "source/duke3d/src/config.cpp",
+      "exports": [
+        "VM_HaveEvent__header_ba688cb33ca2"
+      ],
+      "reexports": [
+        "VM_HaveEvent__header_ba688cb33ca2"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "AppProperName",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7ad9490ab779b926bf483166",
+          "abi": "source-global-cell/2",
+          "original_type": "const char *"
+        },
+        {
+          "name": "Bstrtoken",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_BindKey",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_ClearAllBinds",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_FreeKeyBind",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_KeyBinds",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 24,
+          "dimensions": [
+            266
+          ],
+          "schema_sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500",
+          "original_type": "ConsoleKeyBind_t[266]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "24557d04215b6b15df0af1f4cdd9d60d47d6ff46fcfe45ecc251ca99184d2500"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/config.cpp"
+        },
+        {
+          "name": "CONTROL_MapAnalogAxis",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_MapButton",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_MapDigitalAxis",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_SetAnalogAxisInvert",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CONTROL_SetAnalogAxisSensitivity",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CrosshairColors",
+          "from": "source/duke3d/src/screens.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d16777dd8cd77fdf0c735c4c",
+          "abi": "source-global-cell/2",
+          "original_type": "struct palette_t",
+          "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+          }
+        },
+        {
+          "name": "DefaultCrosshairColors",
+          "from": "source/duke3d/src/screens.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c7221fd6ffce6a41cc43a6f8",
+          "abi": "source-global-cell/2",
+          "original_type": "struct palette_t",
+          "byte_record_schema_sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "ec95ab605c4c9da739461fa3b2876734189e3e70ae8601847c4cacc00644b630"
+          }
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "JOYSTICK_SetDeadZone",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_ScanCodeToString",
+          "from": "source/mact/src/keyboard.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_StringToScanCode",
+          "from": "source/mact/src/keyboard.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_CaptureKey",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_Exec",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_WriteAliases",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_WriteCvars",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SCRIPT_GetDouble",
+          "from": "source/mact/src/scriplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SCRIPT_GetNumber",
+          "from": "source/mact/src/scriplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SCRIPT_GetString",
+          "from": "source/mact/src/scriplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SCRIPT_Init",
+          "from": "source/mact/src/scriplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SCRIPT_PutNumber",
+          "from": "source/mact/src/scriplib.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "__errno_location",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "apScriptEvents",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fclose",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fopen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fwrite",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_crosshairSum",
+          "from": "source/duke3d/src/screens.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b9224c19fd76cc2e0a63ab16",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameType",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_setupFileName",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "gamefunctions",
+          "from": "source/duke3d/src/config.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            63,
+            32
+          ],
+          "original_type": "char[63][32]",
+          "consumer_source": "source/duke3d/src/config.cpp"
+        },
+        {
+          "name": "h_gamefuncs",
+          "from": "source/duke3d/src/config.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3f867168dc2e6af035c1cc31",
+          "abi": "source-global-cell/2",
+          "original_type": "struct hashtable_t",
+          "byte_record_schema_sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a7ff3e210fe62e419fa59e124eef74d4d6f7c62d9178d3a8750e741fc38c7ef8"
+          }
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "hash_findcase",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joyGetName",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 2,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1caf3884778",
+                "fields": [
+                  {
+                    "id": "0x1caf3860f80",
+                    "name": "numAxes"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1caf3884778",
+                "fields": [
+                  {
+                    "id": "0x1caf3861050",
+                    "name": "numButtons"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mbtn_to_name",
+          "from": "source/duke3d/src/config.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            10,
+            2,
+            32
+          ],
+          "original_type": "const char[10][2][32]",
+          "consumer_source": "source/duke3d/src/config.cpp"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memmove",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sctokeylut__header_global_c278a7b696219d09",
+          "from": "source/duke3d/src/config.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "stat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strerror",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strrchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tempbuf",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tolower",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 3,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1caf41fd0e8",
+                "fields": [
+                  {
+                    "id": "0x1caf41fc418",
+                    "name": "config"
+                  },
+                  {
+                    "id": "0x1caf41fc198",
+                    "name": "scripthandle"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1caf41fd0e8",
+                "fields": [
+                  {
+                    "id": "0x1caf41fc418",
+                    "name": "config"
+                  },
+                  {
+                    "id": "0x1caf41fc198",
+                    "name": "scripthandle"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1caf41fd0e8",
+                "fields": [
+                  {
+                    "id": "0x1caf41fc418",
+                    "name": "config"
+                  },
+                  {
+                    "id": "0x1caf41fc198",
+                    "name": "scripthandle"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "80d4167e546c8e9ff7736872890cb3ba064c60b2498bac57dcde2f3ea249d1d5"
     }
   ]
 }

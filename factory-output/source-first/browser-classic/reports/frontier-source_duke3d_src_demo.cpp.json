@@ -1,23 +1,18 @@
 {
   "source": "source/duke3d/src/demo.cpp",
   "requested": [
-    "G_CloseDemoWrite",
-    "g_demo_filePtr"
+    "G_CloseDemoWrite"
   ],
   "requested_resolved": {
-    "G_CloseDemoWrite": false,
-    "g_demo_filePtr": true
+    "G_CloseDemoWrite": false
   },
-  "requested_export_bindings": {
-    "G_CloseDemoWrite": [],
-    "g_demo_filePtr": [
-      "g_demo_filePtr"
-    ]
+  "requested_compiled": {
+    "G_CloseDemoWrite": false
   },
   "requested_still_unlinked": [
     "G_CloseDemoWrite"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_demo.cpp/reachable-d4c33f41b4daa594/source/duke3d/src/demo.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_demo.cpp/reachable-64a2ff26d25ad7a1/source/duke3d/src/demo.cpp.manifest.json",
   "blocked": [
     {
       "name": "Demo_RestoreModes",
@@ -63,8 +58,11 @@
     },
     {
       "name": "G_CloseDemoWrite",
-      "reason": "OffsetOfExpr",
-      "dependencies": []
+      "reason": "unlinked identifiers: Demo_WriteSync, sv_freemem",
+      "dependencies": [
+        "Demo_WriteSync",
+        "sv_freemem"
+      ]
     },
     {
       "name": "Demo_UpdateState",
@@ -147,8 +145,18 @@
       "dependencies": [
         "FX_ErrorCode"
       ]
+    },
+    {
+      "name": "__cxx_operator_6d2a22ee5048dd1a",
+      "reason": "C++ operator missing uniquely emitted source definition: operator< bool (const ClockTicks &, const ClockTicks &)",
+      "dependencies": []
     }
   ],
-  "installed_closed_definitions": 830,
-  "original_gameplay_verified": false
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "26c7b1231f3ce18944ac3d183aec30a3fe1050571e9578137c1ed7164fd76724",
+  "provider_index_sha256": "19a70d7715fe8125c74a0a33de351d31d9b6811c43c0366f4f34af52b708d706",
+  "query_limit": 256,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": false
 }

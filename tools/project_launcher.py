@@ -126,7 +126,9 @@ class Handler(SimpleHTTPRequestHandler):
         resolved=(self.server.project.root/path.lstrip('/')).resolve()
         if not resolved.is_relative_to(self.server.project.root):return self.json(403,{'error':'Outside project'})
         parts=Path(path.lstrip('/')).parts
-        allowed=not parts or path in ('/index.html','/engine-startup.html','/engine-player.html','/engine-level.html','/engine-level-runner.mjs','/grp-launcher.mjs','/tools/source_address_runtime.mjs') or parts[0] in ('runtime','factory-output','reports','dist','handoffs') or path in ('/CONTINUE_HERE.md','/CURRENT_PORT_STATUS.md','/BUILD_PORTABILITY.md','/ENGINEERING_CHECKPOINT.md','/PORT_GUIDE.md')
+        browser_helpers = ('/tools/source_address_runtime.mjs', '/tools/source_aggregate_runtime.mjs',
+                           '/tools/source_pointer_runtime.mjs')
+        allowed=not parts or path in ('/index.html','/engine-startup.html','/engine-player.html','/engine-level.html','/engine-level-runner.mjs','/grp-launcher.mjs') or path in browser_helpers or parts[0] in ('runtime','factory-output','reports','dist','handoffs') or path in ('/CONTINUE_HERE.md','/CURRENT_PORT_STATUS.md','/BUILD_PORTABILITY.md','/ENGINEERING_CHECKPOINT.md','/PORT_GUIDE.md')
         if not allowed or any(p.startswith('.') for p in parts):return self.json(404,{'error':'Not a public project artifact'})
         if resolved.is_dir() and path not in ('/','/index.html'):return self.json(404,{'error':'Directory listing disabled'})
         return super().do_GET()

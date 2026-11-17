@@ -1,0 +1,200 @@
+{
+  "format": "sourcefactory-exit-provider-frontier/1",
+  "profile": "browser-classic-single-player",
+  "component_manifest_sha256": "2b234e18ab413e1e90b32b8db4df8605a1cc91b7813a52b4744ac95265681155",
+  "compiler_runtime_input_sha256": "d38d07a96056a1aea8901da22e1a9644da05228c267ba587bfae52ab413c287d",
+  "units": {
+    "source/duke3d/src/game.cpp": {
+      "linked": {
+        "G_Cleanup": true,
+        "G_Shutdown": false,
+        "G_GameExit": false
+      },
+      "blocked": [
+        {
+          "name": "G_GameExit",
+          "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens",
+          "dependencies": [
+            "G_BonusScreen",
+            "G_CloseDemoWrite",
+            "G_DisplayExtraScreens"
+          ]
+        },
+        {
+          "name": "G_Shutdown",
+          "reason": "unlinked identifiers: CONFIG_WriteSetup, S_MusicShutdown, S_SoundShutdown",
+          "dependencies": [
+            "CONFIG_WriteSetup",
+            "S_MusicShutdown",
+            "S_SoundShutdown"
+          ]
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json"
+    },
+    "source/duke3d/src/gamedef.cpp": {
+      "linked": {},
+      "blocked": [
+        {
+          "name": "C_SetCfgName",
+          "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup",
+          "dependencies": [
+            "CONFIG_ReadSetup",
+            "CONFIG_WriteSetup"
+          ]
+        },
+        {
+          "name": "C_ParseCommand",
+          "reason": "unlinked identifiers: C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName",
+          "dependencies": [
+            "C_GetManyVarsType",
+            "C_GetNextGameArrayName",
+            "C_GetNextLabelName",
+            "C_GetNextVarType",
+            "C_GetStructureIndexes",
+            "C_SetCfgName"
+          ]
+        },
+        {
+          "name": "C_Compile",
+          "reason": "unlinked identifiers: C_ParseCommand, G_GameExit, Gv_Init",
+          "dependencies": [
+            "C_ParseCommand",
+            "G_GameExit",
+            "Gv_Init"
+          ]
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_gamedef.cpp.json"
+    },
+    "source/duke3d/src/gamevars.cpp": {
+      "linked": {
+        "Gv_Init": false
+      },
+      "blocked": [
+        {
+          "name": "Gv_Init",
+          "reason": "unlinked identifiers: Gv_InitWeaponPointers",
+          "dependencies": [
+            "Gv_InitWeaponPointers"
+          ]
+        },
+        {
+          "name": "Gv_InitWeaponPointers",
+          "reason": "unlinked identifiers: G_Shutdown",
+          "dependencies": [
+            "G_Shutdown"
+          ]
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_gamevars.cpp.json"
+    },
+    "source/duke3d/src/demo.cpp": {
+      "linked": {
+        "G_CloseDemoWrite": false
+      },
+      "blocked": [
+        {
+          "name": "Demo_WriteSync",
+          "reason": "uninitialized scalar byte alias requires tracked object initialization",
+          "dependencies": []
+        },
+        {
+          "name": "G_CloseDemoWrite",
+          "reason": "unlinked identifiers: Demo_WriteSync, sv_freemem",
+          "dependencies": [
+            "Demo_WriteSync",
+            "sv_freemem"
+          ]
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_demo.cpp.json"
+    },
+    "source/duke3d/src/premap.cpp": {
+      "linked": {
+        "G_FreeMapState": true
+      },
+      "blocked": [],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_premap.cpp.json"
+    },
+    "source/duke3d/src/config.cpp": {
+      "linked": {
+        "CONFIG_WriteSetup": false
+      },
+      "blocked": [
+        {
+          "name": "CONFIG_ReadSetup",
+          "reason": "unlinked identifiers: localeSetCurrent",
+          "dependencies": [
+            "localeSetCurrent"
+          ]
+        },
+        {
+          "name": "CONFIG_WriteSetup",
+          "reason": "unlinked identifiers: localeGetCurrent",
+          "dependencies": [
+            "localeGetCurrent"
+          ]
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_config.cpp.json"
+    },
+    "source/duke3d/src/sounds.cpp": {
+      "linked": {
+        "S_MusicShutdown": false,
+        "S_SoundShutdown": false
+      },
+      "blocked": [
+        {
+          "name": "S_SoundShutdown",
+          "reason": "unlinked identifiers: FX_ErrorString, FX_Shutdown, G_GameExit",
+          "dependencies": [
+            "FX_ErrorString",
+            "FX_Shutdown",
+            "G_GameExit"
+          ]
+        },
+        {
+          "name": "S_MusicShutdown",
+          "reason": "unlinked identifiers: MUSIC_ErrorString, MUSIC_Shutdown",
+          "dependencies": [
+            "MUSIC_ErrorString",
+            "MUSIC_Shutdown"
+          ]
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_sounds.cpp.json"
+    },
+    "source/build/src/screentext.cpp": {
+      "linked": {
+        "localeSetCurrent": false,
+        "localeGetCurrent": false
+      },
+      "blocked": [
+        {
+          "name": "localeSetCurrent",
+          "reason": "constructor requires complete original record: std::__detail::_Node_iterator<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false, false>",
+          "dependencies": []
+        },
+        {
+          "name": "localeGetCurrent",
+          "reason": "constructor requires complete original record: std::__detail::_Node_iterator<std::pair<const LocaleCharWrapper_t, std::unordered_map<LocaleCharWrapper_t, LocaleCharWrapper_t, LocaleCharWrapper_hash>>, false, false>",
+          "dependencies": []
+        }
+      ],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_build_src_screentext.cpp.json"
+    },
+    "source/mact/src/control.cpp": {
+      "linked": {
+        "CONTROL_Shutdown": true
+      },
+      "blocked": [],
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_mact_src_control.cpp.json"
+    }
+  },
+  "original_mapstate_cleanup_report": "reports/nov17-original-mapstate-cleanup.json",
+  "compiler_regressions": "reports/nov17-large-record-offset-final-regressions.json",
+  "release_acceptance": "reports/nov17-classic-release-acceptance.json",
+  "original_app_main_executed": false,
+  "browser_gameplay_verified": false
+}
