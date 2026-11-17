@@ -5,3 +5,6 @@ export { CHAINGUNSPRITE____header_global_351a0ad962b59414, DEVISTATORSPRITE____h
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { g_myAimMode, __cxx_global_cell_08999a64c4501ca30fea06a5 } from "./_source_legacy_player_cpp_2fc4b0d53904.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { g_numObituaries, g_numSelfObituaries, __cxx_global_cell_14c7f525d32b0838223674c4, __cxx_global_cell_30b06f32517f69cb2a10e60b } from "./_source_legacy_player_cpp_2b80339d5584.mjs";

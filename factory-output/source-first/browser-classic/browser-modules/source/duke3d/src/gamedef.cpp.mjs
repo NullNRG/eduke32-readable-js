@@ -5,3 +5,6 @@ export { ACCESSCARD____header_global_9e7cc2a113f0cbbb, ACCESSSWITCH2____header_g
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { C_CheckEmptyBranch, C_CheckMalformedBranch } from "./_source_legacy_gamedef_cpp_b93a86300ca3.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { C_InitQuotes, C_PrintStats, scriptUpdateOpcodeForVariableType, vmStructHashTablePtrs__header_global_330da216c09dd07e } from "./_source_legacy_gamedef_cpp_3ec570c7c98c.mjs";

@@ -1,0 +1,162 @@
+{
+  "source": "source/duke3d/src/gamevars.cpp",
+  "requested": [
+    "Gv_Free",
+    "Gv_Clear",
+    "Gv_ResetVars"
+  ],
+  "requested_resolved": {
+    "Gv_Free": true,
+    "Gv_Clear": true,
+    "Gv_ResetVars": true
+  },
+  "requested_export_bindings": {
+    "Gv_Free": [
+      "Gv_Free"
+    ],
+    "Gv_Clear": [
+      "Gv_Clear"
+    ],
+    "Gv_ResetVars": [
+      "Gv_ResetVars"
+    ]
+  },
+  "requested_still_unlinked": [],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamevars.cpp/reachable-036d70b34a658bde/source/duke3d/src/gamevars.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "Gv_SkipLZ4Block",
+      "reason": "unlinked identifiers: kdfread_LZ4",
+      "dependencies": [
+        "kdfread_LZ4"
+      ]
+    },
+    {
+      "name": "Gv_ReadSave",
+      "reason": "record pointer member requires original byte layout: mapstate_t",
+      "dependencies": []
+    },
+    {
+      "name": "Gv_WriteSave",
+      "reason": "record pointer member requires original byte layout: mapstate_t",
+      "dependencies": []
+    },
+    {
+      "name": "Gv_GetArrayOrStruct",
+      "reason": "unlinked identifiers: VM_GetActiveProjectile, VM_GetPalData, VM_GetPlayer, VM_GetPlayerInput, VM_GetProjectile, VM_GetSector, VM_GetTileData, VM_GetUserdef, g_structVarIDs, g_tw, insptr, vm",
+      "dependencies": [
+        "VM_GetActiveProjectile",
+        "VM_GetPalData",
+        "VM_GetPlayer",
+        "VM_GetPlayerInput",
+        "VM_GetProjectile",
+        "VM_GetSector",
+        "VM_GetTileData",
+        "VM_GetUserdef",
+        "g_structVarIDs",
+        "g_tw",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "getvar__",
+      "reason": "unlinked identifiers: Gv_GetArrayOrStruct, insptr",
+      "dependencies": [
+        "Gv_GetArrayOrStruct",
+        "insptr"
+      ]
+    },
+    {
+      "name": "Gv_GetVar__cxx_0f0636c89656",
+      "reason": "unlinked identifiers: getvar__",
+      "dependencies": [
+        "getvar__"
+      ]
+    },
+    {
+      "name": "Gv_GetVar__cxx_e611afac4ee9",
+      "reason": "unlinked identifiers: getvar__, vm",
+      "dependencies": [
+        "getvar__",
+        "vm"
+      ]
+    },
+    {
+      "name": "Gv_GetManyVars",
+      "reason": "unlinked identifiers: getvar__, insptr, vm",
+      "dependencies": [
+        "getvar__",
+        "insptr",
+        "vm"
+      ]
+    },
+    {
+      "name": "Gv_SetVar__cxx_3507c00cfaa8",
+      "reason": "unlinked identifiers: vm",
+      "dependencies": [
+        "vm"
+      ]
+    },
+    {
+      "name": "Gv_GetVarByLabel",
+      "reason": "unlinked identifiers: Gv_GetVar__cxx_0f0636c89656",
+      "dependencies": [
+        "Gv_GetVar__cxx_0f0636c89656"
+      ]
+    },
+    {
+      "name": "Gv_ResetSystemDefaults",
+      "reason": "unlinked identifiers: Gv_GetVarByLabel, g_aimAngleVarID, g_angRangeVarID, g_hitagVarID, g_lotagVarID, g_radiusDmgStatnums, g_returnVarID, g_structVarIDs, g_textureVarID, g_weaponVarID, g_worksLikeVarID, g_zRangeVarID",
+      "dependencies": [
+        "Gv_GetVarByLabel",
+        "g_aimAngleVarID",
+        "g_angRangeVarID",
+        "g_hitagVarID",
+        "g_lotagVarID",
+        "g_radiusDmgStatnums",
+        "g_returnVarID",
+        "g_structVarIDs",
+        "g_textureVarID",
+        "g_weaponVarID",
+        "g_worksLikeVarID",
+        "g_zRangeVarID"
+      ]
+    },
+    {
+      "name": "Gv_AddSystemVars",
+      "reason": "unlinked identifiers: g_lastAutoSaveArbitraryID, g_radiusDmgStatnums, hudweap",
+      "dependencies": [
+        "g_lastAutoSaveArbitraryID",
+        "g_radiusDmgStatnums",
+        "hudweap"
+      ]
+    },
+    {
+      "name": "Gv_Init",
+      "reason": "unlinked identifiers: Gv_AddSystemVars, Gv_ResetSystemDefaults",
+      "dependencies": [
+        "Gv_AddSystemVars",
+        "Gv_ResetSystemDefaults"
+      ]
+    },
+    {
+      "name": "Gv_InitWeaponPointers",
+      "reason": "unlinked identifiers: G_Shutdown",
+      "dependencies": [
+        "G_Shutdown"
+      ]
+    },
+    {
+      "name": "Gv_RefreshPointers",
+      "reason": "unlinked identifiers: g_lastAutoSaveArbitraryID, g_radiusDmgStatnums, hudweap",
+      "dependencies": [
+        "g_lastAutoSaveArbitraryID",
+        "g_radiusDmgStatnums",
+        "hudweap"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 3,
+  "original_gameplay_verified": false
+}

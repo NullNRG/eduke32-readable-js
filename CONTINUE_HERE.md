@@ -12,11 +12,14 @@ python tests/source_factory/verify_sourcefirst_pointer_alias.py
 python tests/source_factory/verify_sourcefirst_nested_goto.py
 python work/verify_original_script_relocation.py
 python work/verify_original_con_structure_labels.py
+python work/verify_original_con_gamevars.py
 python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_ScriptInfo,apScriptEvents,g_currentEvent,g_thisActorVarID --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamestructures.cpp VM_InitHashTables --whole-unit --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamevars.cpp aGameVars,aGameArrays,Gv_NewVar,Gv_NewArray,Gv_Init,Gv_Clear --install-closed-leaves
 python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_ParseCommand,C_SetScriptSize --whole-unit --install-closed-leaves
 ```
+
+Use the [November 17 CON dependency report](reports/nov17-con-link-frontier.json) for the updated link frontier. The original variable and array lifecycle is verified in Chromium. The VM diagnostic pass still needs an original `vec2<int>` provider with the consumer's required operator. Resolve that mismatch with source evidence before admitting the import.
 
 ```powershell
 . work/session-env.ps1

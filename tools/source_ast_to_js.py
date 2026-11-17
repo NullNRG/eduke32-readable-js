@@ -3116,6 +3116,14 @@ class Emit:
                                     return True
                                 if kind(n) in WRAPPERS and len(kids(n))==1:
                                     return member_receiver(kids(n)[0])
+                                if (borrowed_record and 'byteRecord' in record_schema
+                                    and kind(n)=='MemberExpr' and not n.get('isArrow')
+                                    and len(kids(n))==1 and '&' not in qual(n)
+                                    and self.source_field_declaration(n).get('kind')=='FieldDecl'):
+                                    # Anonymous aggregate access adds a Clang
+                                    # field receiver, but still reads a value
+                                    # from this same byte-backed subobject.
+                                    return member_receiver(kids(n)[0])
                                 return False
                             if member_receiver(kids(root)[0]):return True
                         return all(member_value_only(v) for v in kids(root))

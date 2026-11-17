@@ -10,17 +10,17 @@
     "C_ParseCommand": false,
     "C_SetScriptSize": false
   },
-  "requested_compiled": {
-    "C_Compile": false,
-    "C_ParseCommand": false,
-    "C_SetScriptSize": false
+  "requested_export_bindings": {
+    "C_Compile": [],
+    "C_ParseCommand": [],
+    "C_SetScriptSize": []
   },
   "requested_still_unlinked": [
     "C_Compile",
     "C_ParseCommand",
     "C_SetScriptSize"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-791683ea37e33606/source/duke3d/src/gamedef.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-ce36081a0e83c18b/source/duke3d/src/gamedef.cpp.manifest.json",
   "blocked": [
     {
       "name": "C_SetScriptSize",
@@ -45,27 +45,10 @@
     },
     {
       "name": "C_GetNextVarType",
-      "reason": "unlinked identifiers: ActorLabels, C_GetNextLabelName, PlayerLabels, SectorLabels, TsprLabels, WallLabels, aGameVars, g_structVarIDs, g_thisActorVarID, h_actor, h_input, h_paldata",
+      "reason": "unlinked identifiers: C_GetNextLabelName, g_structVarIDs",
       "dependencies": [
-        "ActorLabels",
         "C_GetNextLabelName",
-        "PlayerLabels",
-        "SectorLabels",
-        "TsprLabels",
-        "WallLabels",
-        "aGameVars",
-        "g_structVarIDs",
-        "g_thisActorVarID",
-        "h_actor",
-        "h_input",
-        "h_paldata",
-        "h_player",
-        "h_projectile",
-        "h_sector",
-        "h_tiledata",
-        "h_tsprite",
-        "h_userdef",
-        "h_wall"
+        "g_structVarIDs"
       ]
     },
     {
@@ -77,11 +60,10 @@
     },
     {
       "name": "C_GetStructureIndexes",
-      "reason": "unlinked identifiers: C_GetNextLabelName, C_GetNextVarType, g_thisActorVarID",
+      "reason": "unlinked identifiers: C_GetNextLabelName, C_GetNextVarType",
       "dependencies": [
         "C_GetNextLabelName",
-        "C_GetNextVarType",
-        "g_thisActorVarID"
+        "C_GetNextVarType"
       ]
     },
     {
@@ -99,14 +81,6 @@
       ]
     },
     {
-      "name": "C_InitQuotes",
-      "reason": "unlinked identifiers: g_numObituaries, g_numSelfObituaries",
-      "dependencies": [
-        "g_numObituaries",
-        "g_numSelfObituaries"
-      ]
-    },
-    {
       "name": "C_SetCfgName",
       "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup",
       "dependencies": [
@@ -115,84 +89,29 @@
       ]
     },
     {
-      "name": "scriptUpdateOpcodeForVariableType",
-      "reason": "unlinked identifiers: aGameVars",
-      "dependencies": [
-        "aGameVars"
-      ]
-    },
-    {
       "name": "C_ParseCommand",
-      "reason": "unlinked identifiers: ActorLabels, C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName, C_SetScriptSize, CheatDescriptions, CheatStrings, Gv_NewArray, Gv_NewVar",
+      "reason": "unlinked identifiers: C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName, C_SetScriptSize",
       "dependencies": [
-        "ActorLabels",
         "C_GetManyVarsType",
         "C_GetNextGameArrayName",
         "C_GetNextLabelName",
         "C_GetNextVarType",
         "C_GetStructureIndexes",
         "C_SetCfgName",
-        "C_SetScriptSize",
-        "CheatDescriptions",
-        "CheatStrings",
-        "Gv_NewArray",
-        "Gv_NewVar",
-        "PlayerLabels",
-        "SectorLabels",
-        "TsprLabels",
-        "WallLabels",
-        "aGameArrays",
-        "aGameVars",
-        "apScriptEvents",
-        "g_currentEvent",
-        "g_thisActorVarID",
-        "h_actor",
-        "h_input",
-        "h_player",
-        "h_projectile",
-        "h_sector",
-        "h_tiledata",
-        "h_tsprite",
-        "h_userdef",
-        "h_wall",
-        "scriptUpdateOpcodeForVariableType"
-      ]
-    },
-    {
-      "name": "C_PrintStats",
-      "reason": "unlinked identifiers: apScriptEvents, g_gameArrayCount, g_gameVarCount",
-      "dependencies": [
-        "apScriptEvents",
-        "g_gameArrayCount",
-        "g_gameVarCount"
+        "C_SetScriptSize"
       ]
     },
     {
       "name": "C_Compile",
-      "reason": "unlinked identifiers: C_InitQuotes, C_ParseCommand, C_PrintStats, C_SetScriptSize, G_GameExit, Gv_Clear, Gv_Init, VM_InitHashTables, apScriptEvents",
+      "reason": "unlinked identifiers: C_ParseCommand, C_SetScriptSize, G_GameExit, Gv_Init",
       "dependencies": [
-        "C_InitQuotes",
         "C_ParseCommand",
-        "C_PrintStats",
         "C_SetScriptSize",
         "G_GameExit",
-        "Gv_Clear",
-        "Gv_Init",
-        "VM_InitHashTables",
-        "apScriptEvents"
+        "Gv_Init"
       ]
-    },
-    {
-      "name": "vmStructHashTablePtrs__header_global_330da216c09dd07e",
-      "reason": "static pointer initializer requires a proven original source address: UnaryOperator hashtable_t *",
-      "dependencies": []
     }
   ],
-  "original_gameplay_verified": false,
-  "compiler_runtime_input_sha256": "1b25e9134239270ab2e92a1a5964707d11a1083a9d07cf10cd81a6168292a166",
-  "provider_index_sha256": "1dbdd9ff223453d1258c704ea3a6ce77318de700d667048dd851c3f118006ad5",
-  "query_limit": 256,
-  "dependency_budget_exhausted": false,
-  "unqueried_references": [],
-  "probe_only": false
+  "installed_closed_definitions": 4,
+  "original_gameplay_verified": false
 }

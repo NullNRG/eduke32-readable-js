@@ -17,20 +17,28 @@ extern "C" int pointers(int n){int values[3]={n,n+3,n+7};int* slots[3]={&values[
  int sum=0;for(int* p:slots)sum+=*p;return sum;}
 extern "C" int patterns(){static char const* extensions[]={"*.grp","*.ssi","*.dat","*.zip"};
  int sum=0;for(char const* p:extensions){sum+=p[2];p=nullptr;}return sum;}
+struct Nested { union { int *slot; long long bits; }; };
+void write_value(int *ptr,int n){*ptr=n;}
+extern "C" int nested_field(int n){
+ int values[2]={n,n+1};Nested records[2]={{{&values[0]}},{{&values[1]}}};
+ int delta=24;
+ for(auto &entry:records){write_value(entry.slot,n+delta);entry.slot=nullptr;delta+=2;}
+ return values[0]+2*values[1];
+}
 struct Record{int n;};int reject(){Record r[2]{};int s=0;for(Record x:r)s+=x.n;return s;}
 ''')
     (root/'main.cpp').write_text('''#include <cstdio>
-extern "C" int scalar(int),pointers(int),patterns();
-int main(){printf("%d\\n",patterns());for(int n=-128;n<128;n++)printf("%d,%d\\n",scalar(n),pointers(n));}
+extern "C" int scalar(int),pointers(int),patterns(),nested_field(int);
+int main(){printf("%d\\n",patterns());for(int n=-128;n<128;n++)printf("%d,%d,%d\\n",scalar(n),pointers(n),nested_field(n));}
 ''')
     exe=root/'oracle.exe';run(['clang++','-std=c++14',root/'unit.cpp',root/'main.cpp','-o',exe])
     expected=run([exe]).splitlines();out=root/'out'
-    run([sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','unit.cpp','--out-dir',out])
+    run([sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--source','unit.cpp','--out-dir',out,'--require-record-layouts'])
     module=out/'unit.cpp.mjs';doc=json.loads(module.with_suffix('.manifest.json').read_text())
     rows={r['name']:r for r in doc['definitions']}
-    for n in ('scalar','pointers','patterns'):assert rows[n]['status']=='source-first',rows[n]
+    for n in ('scalar','pointers','patterns','nested_field'):assert rows[n]['status']=='source-first',rows[n]
     assert rows['reject']['status']=='blocked' and 'by-value requires' in rows['reject']['reason'],rows['reject']
-    js='async url=>{const m=await import(url);return [String(m.patterns()),...Array.from({length:256},(_,i)=>{const n=i-128;return m.scalar(n)+","+m.pointers(n);})];}'
+    js='async url=>{const m=await import(url);return [String(m.patterns()),...Array.from({length:256},(_,i)=>{const n=i-128;return [m.scalar(n),m.pointers(n),m.nested_field(n)].join(",");})];}'
     runner=root/'run.mjs';runner.write_text('console.log(JSON.stringify(await ('+js+')('+json.dumps(module.as_uri())+')));')
     assert json.loads(run(['node',runner]))==expected
     if os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'):
@@ -42,4 +50,4 @@ int main(){printf("%d\\n",patterns());for(int n=-128;n<128;n++)printf("%d,%d\\n"
                 actual=page.evaluate(js,'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode())
                 assert actual==expected and not errors,(actual[:4],errors)
             finally:browser.close()
-print('PASS native/Node/Chromium: 512 scalar/pointer results plus original-style GRP search patterns; local references mutate copies, pointer writes retain source identity; record copies stay blocked')
+print('PASS native/Node/Chromium: 768 scalar/pointer results plus original-style GRP search patterns; pointer values from nested fields retain source identity; record copies stay blocked')

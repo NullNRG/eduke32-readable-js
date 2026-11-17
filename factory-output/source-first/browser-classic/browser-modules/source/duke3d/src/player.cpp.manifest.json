@@ -70,8 +70,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\player.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 13,
-  "emitted": 13,
+  "found": 15,
+  "emitted": 15,
   "blocked": 0,
   "definitions": [
     {
@@ -443,6 +443,46 @@
       "external_reference_imports": [],
       "global_storage": {
         "binding": "__cxx_global_cell_08999a64c4501ca30fea06a5",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_numObituaries",
+      "source_name": "g_numObituaries",
+      "kind": "VarDecl",
+      "line": 41,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/player.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_14c7f525d32b0838223674c4",
+        "abi": "source-global-cell/2",
+        "original_type": "int"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "g_numSelfObituaries",
+      "source_name": "g_numSelfObituaries",
+      "kind": "VarDecl",
+      "line": 42,
+      "original_type": "int",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/player.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_30b06f32517f69cb2a10e60b",
         "abi": "source-global-cell/2",
         "original_type": "int"
       },
@@ -864,6 +904,18 @@
       "binding": "__cxx_global_cell_08999a64c4501ca30fea06a5",
       "abi": "source-global-cell/2",
       "original_type": "int"
+    },
+    {
+      "name": "g_numObituaries",
+      "binding": "__cxx_global_cell_14c7f525d32b0838223674c4",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
+    },
+    {
+      "name": "g_numSelfObituaries",
+      "binding": "__cxx_global_cell_30b06f32517f69cb2a10e60b",
+      "abi": "source-global-cell/2",
+      "original_type": "int"
     }
   ],
   "private_storage_exports": [],
@@ -918,6 +970,24 @@
       "imports": [],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "2193c4c4c547d2bf066523132909863694dc5fcffa09e9c03041278d4703844a"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_player_cpp_2b80339d5584.mjs",
+      "sha256": "2b80339d55840f72e819edc9fb3d9e631e056d082a173113a7c25157e2ef87e2",
+      "original_source": "source/duke3d/src/player.cpp",
+      "exports": [
+        "g_numObituaries",
+        "g_numSelfObituaries"
+      ],
+      "reexports": [
+        "g_numObituaries",
+        "g_numSelfObituaries",
+        "__cxx_global_cell_14c7f525d32b0838223674c4",
+        "__cxx_global_cell_30b06f32517f69cb2a10e60b"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "39a10c2704e0bf937da9f04927716cb2327176eba26c4aadf928bf378bb66345"
     }
   ]
 }
