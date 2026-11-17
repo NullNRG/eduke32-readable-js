@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\sounds.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 839,
-  "emitted": 839,
+  "found": 841,
+  "emitted": 841,
   "blocked": 0,
   "definitions": [
     {
@@ -26084,6 +26084,56 @@
         "handle_memerr"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "G_GetLogoFlags__header_26835414235c",
+      "source_name": "G_GetLogoFlags",
+      "kind": "FunctionDecl",
+      "line": 130,
+      "original_type": "int32_t ()",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/duke3d/src/game.h",
+        "source_offset": 4035,
+        "source_line": 130,
+        "header_sha256": "765ebd092aa01e5fa7cb3016421adfc1be370720c955b6e31d87b045e4c03b00"
+      },
+      "physical_source": "source/duke3d/src/game.h",
+      "source_references": [
+        "Gv_GetVarByLabel"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "Gv_GetVarByLabel"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "VM_HaveEvent__header_271c78e13dbb",
+      "source_name": "VM_HaveEvent",
+      "kind": "FunctionDecl",
+      "line": 44,
+      "original_type": "int (const int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/duke3d/src/gameexec.h",
+        "source_offset": 1580,
+        "source_line": 44,
+        "header_sha256": "eb26c4cff6f60e236bf4c33fd1ef0c2a2415e442a03fc8b184a7353d787106e6"
+      },
+      "physical_source": "source/duke3d/src/gameexec.h",
+      "source_references": [
+        "apScriptEvents"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "apScriptEvents"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -28390,6 +28440,387 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "a53e50a52ce732b2676c813fe028db48c54ac359ecbebf37162975a269c138f1"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_sounds_cpp_fb28ea20c9b5.mjs",
+      "sha256": "fb28ea20c9b50e43aeea4ff9e9df7f154aa964c7d036f159b6b8958836602bde",
+      "original_source": "source/duke3d/src/sounds.cpp",
+      "exports": [
+        "G_GetLogoFlags__header_26835414235c",
+        "VM_HaveEvent__header_271c78e13dbb"
+      ],
+      "reexports": [
+        "G_GetLogoFlags__header_26835414235c",
+        "VM_HaveEvent__header_271c78e13dbb"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Gv_GetVarByLabel",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "MUSICANDSFX",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fc83519ec427aacbbf91b1d2",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "abs",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "allocateBlock__cxx_instance_99800f45e11302f01003",
+          "from": "source/build/src/cache1d.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "instance_method_contract": {
+            "abi": "source-instance-method-this/1",
+            "mangled_name": "_ZN7cache1d13allocateBlockEPliPc",
+            "owner": "cache1d",
+            "declaration_type": "void (intptr_t *, int32_t, char *)",
+            "class_header_proof": {
+              "source_header": "source/build/include/cache1d.h",
+              "source_offset": 745,
+              "enclosing_record": "cache1d",
+              "type": "cache1d",
+              "semantic_sha256": "d4466df232dd2bee0cf040e50180eceed0c0e898d7414c67687f167e202a9efe",
+              "prototype_factory_abi": "source-header-record-factory/1"
+            }
+          }
+        },
+        {
+          "name": "apScriptEvents",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/sounds.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_a6743a8c57663f87",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_72c0af76fbeb42a9",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "flt_f161r__header_global_8fe34ec50a118a36",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_cache",
+          "from": "source/build/src/cache1d.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_244052970f7b7b3f1ddb8062",
+          "abi": "source-global-cell/2",
+          "original_type": "cache1d",
+          "record_layout_sha256": "740728b85afc2f355f29c32badacd762039eb96ef7e7748abaa4dbc8844d8096"
+        },
+        {
+          "name": "g_highestSoundIdx",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ee31083067930f45ce0bf187",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_loadFromGroupOnly",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_603507b56f38a5986b111afe",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "g_mapInfo",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            512
+          ],
+          "schema_sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56",
+          "original_type": "map_t[512]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/sounds.cpp"
+        },
+        {
+          "name": "g_musicIndex",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_621f7119e880a71b275a5bee",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_sounds",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_967815c905458390bb332151",
+          "abi": "source-global-cell/2",
+          "original_type": "sound_t **"
+        },
+        {
+          "name": "getangle",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "h_dsound",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d0f2af35a9f9b5534e1c222a",
+          "abi": "source-global-cell/2",
+          "original_type": "struct inthashtable_t",
+          "byte_record_schema_sha256": "6b1ca3ac8c3cf2c85cfdd35873c4e633730f365be4591fcb8e7db9b62fc6a6ea",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6b1ca3ac8c3cf2c85cfdd35873c4e633730f365be4591fcb8e7db9b62fc6a6ea"
+          }
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kfilelength",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4loadfrommod",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kread",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "nullsound",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f513886a13ac5b6ce90c04ec",
+          "abi": "source-global-cell/2",
+          "original_type": "struct sound_t",
+          "byte_record_schema_sha256": "9f8bd457f43430b7db2b354f9c1561cd7deebb29d8ea52095cea9f798389eabf",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9f8bd457f43430b7db2b354f9c1561cd7deebb29d8ea52095cea9f798389eabf"
+          }
+        },
+        {
+          "name": "nullvoice",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f54c3830d6284aa0bf063bdd",
+          "abi": "source-global-cell/2",
+          "original_type": "struct voiceinfo_t",
+          "byte_record_schema_sha256": "55f4de1bea11833adfb5c98f25bdb688caef5190ac53fc6213ddeec434370a4e",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "55f4de1bea11833adfb5c98f25bdb688caef5190ac53fc6213ddeec434370a4e"
+          }
+        },
+        {
+          "name": "pow2char__header_global_3413e2ea088e597f",
+          "from": "source/duke3d/src/sounds.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "sscanf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strrchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "toupper",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 2,
+            "accesses": [
+              {
+                "clang_reference_id": "0x233694e7248",
+                "fields": [
+                  {
+                    "id": "0x233694e4110",
+                    "name": "music_level"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x233694e7248",
+                "fields": [
+                  {
+                    "id": "0x233694e40a8",
+                    "name": "music_episode"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wrandomseed",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c51fcdf4111f2095a57e764d",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned int"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "19368111772a66e644df5d9115561620eb61dffe82d3d570f515507a7286e6c7"
     }
   ]
 }

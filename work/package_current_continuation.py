@@ -30,10 +30,15 @@ def selected(root,public=False):
     profile=json.loads((root/'tools/browser_classic_profile.json').read_text())
     state=json.loads((root/'reports/project-current-status.json').read_text())
     semantic_payload=root/'reports/semantic-browser-checkpoint/index.jsonl.gz'
-    metadata=json.loads(semantic_payload.with_suffix('.json').read_text())
-    with gzip.open(semantic_payload,'rt',encoding='utf-8') as stream:header=json.loads(next(stream))
-    if not (metadata.get('semantic_fingerprint')==header.get('semantic_fingerprint')==(state.get('semantic_index',{}).get('fingerprint') or state.get('semantic_fingerprint'))):
-        raise ValueError('Semantic export and current snapshot differ; refresh the export/status before packaging')
+    snapshot=json.loads((root/'HANDOFF_SNAPSHOT.json').read_text(encoding='utf-8'))
+    metadata_path=semantic_payload.with_suffix('.json')
+    if semantic_payload.is_file() and metadata_path.is_file():
+        metadata=json.loads(metadata_path.read_text())
+        with gzip.open(semantic_payload,'rt',encoding='utf-8') as stream:
+            header=json.loads(next(stream))
+        fingerprint=snapshot.get('semantic_fingerprint')
+        if fingerprint and fingerprint==metadata.get('semantic_fingerprint')==header.get('semantic_fingerprint'):
+            add(semantic_payload);add(metadata_path)
     roots={profile['build_root'],profile['migration_input'],*state.get('continuation_artifact_roots',[])}
     for relative in roots:
         folder=package_tool.safe_path(root,relative)
@@ -71,12 +76,18 @@ def selected(root,public=False):
     for path in (root/'reports').rglob('*'):
         if not path.is_file():continue
         relative=path.relative_to(root/'reports')
-        if (relative.parts[0]=='semantic-browser-checkpoint' or path.name.startswith(('oct29-','oct30-','oct31-','nov01-','nov02-','nov03-','nov04-','nov05-','project-current-status'))
+        if (path.name.startswith(('oct29-','oct30-','oct31-','nov01-','nov02-','nov03-','nov04-','nov05-','project-current-status'))
                 or relative.parts[0] in ('native-oracle','semantic-continuation','evidence')):
             if path.suffix in ('.json','.gz','.log','.md','.png'):add(path)
     add(root/'reports/historical-latest/dependency-graph.json')
     add(root/'reports/port-acceptance.json')
     add(root/profile['engine_execution_report'])
+    report_keys=('current_scoped_startup_frontier','current_acceptance_report',
+                 'latest_frozen_targeted_regression','original_con_script_resize_report',
+                 'original_con_gamevar_lifecycle_report','original_con_gamevar_lookup_report',
+                 'original_con_structure_tables_report','current_video_report')
+    for key in report_keys:
+        if snapshot.get(key):add(package_tool.safe_path(root,snapshot[key]))
     for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):
         add(root/'reports'/name)
     return sorted(chosen)

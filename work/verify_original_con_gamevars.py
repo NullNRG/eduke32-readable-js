@@ -41,6 +41,10 @@ PROBE = r'''async base => {
       sourceCString(a.szLabel,runtime.heap) === 'FACTORY_ARRAY', 'Original label storage differs');
     expect(Number(hash.hash_find(script.h_gamevars,v.szLabel)) === 0 &&
       Number(hash.hash_find(script.h_arrays,a.szLabel)) === 0, 'Original hash lookup differs');
+    expect(variable.Gv_GetVarByLabel(bytes('FACTORY_VAR'), 29, -1, 0) === -8191,
+      'Original variable getter did not return the stored value');
+    expect(variable.Gv_GetVarByLabel(bytes('FACTORY_UNKNOWN'), 29, -1, 0) === 29,
+      'Original variable getter did not return the supplied default');
     variable.Gv_Clear();
     expect(count().every(x => x === 0), 'Original cleanup did not clear counts');
     expect(v.szLabel == null && a.szLabel == null && a.pValues == null, 'Original cleanup retained stale storage');
@@ -57,7 +61,7 @@ PROBE = r'''async base => {
     expect(count().every(x => x === 0), 'Original system variable cleanup did not clear counts');
     return {original_system_variables_initialized:true, system_counts:systemCounts,
       original_creates_executed:2, original_cleanup_executed:true,
-      values_and_owner_storage_verified:true, final_counts:count(), original_app_main_executed:false};
+      values_and_owner_storage_verified:true, original_label_lookup_and_default_verified:true, final_counts:count(), original_app_main_executed:false};
   } finally {
     release();
     runtime.close();
@@ -92,7 +96,7 @@ def main():
     finally:
         server.shutdown()
         server.server_close()
-    (ROOT / 'reports/nov17-original-con-gamevar-lifecycle.json').write_text(
+    (ROOT / 'reports/nov17-original-con-gamevar-lookup.json').write_text(
         json.dumps(result, indent=2) + '\n', encoding='utf-8')
     print('PASS original game-variable, array and system-variable lifecycle in Chromium')
 

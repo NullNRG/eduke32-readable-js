@@ -20,6 +20,8 @@ python work/recover_boot_reachable.py source/duke3d/src/gamevars.cpp aGameVars,a
 python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_ParseCommand,C_SetScriptSize --whole-unit --install-closed-leaves
 ```
 
+Create a private continuation ZIP with `npm run handoff:project`. It includes the original GRP, source, active recovery modules and verification reports. The packager includes a portable semantic cache only when its fingerprint agrees with the current snapshot. For a package without that cache, use `npm run compile:game -- --stop-after semantic` to regenerate the index after setting up the local toolchain.
+
 The [earlier November 17 CON dependency report](reports/nov17-con-link-frontier.json) records the original variable and array lifecycle test.
 
 ```powershell

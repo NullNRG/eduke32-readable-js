@@ -1,23 +1,22 @@
 {
   "source": "source/duke3d/src/sounds.cpp",
   "requested": [
-    "S_DefineMusic",
-    "S_DefineSound"
+    "S_MusicShutdown",
+    "S_SoundShutdown"
   ],
   "requested_resolved": {
-    "S_DefineMusic": true,
-    "S_DefineSound": true
+    "S_MusicShutdown": false,
+    "S_SoundShutdown": false
   },
   "requested_export_bindings": {
-    "S_DefineMusic": [
-      "S_DefineMusic"
-    ],
-    "S_DefineSound": [
-      "S_DefineSound"
-    ]
+    "S_MusicShutdown": [],
+    "S_SoundShutdown": []
   },
-  "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_sounds.cpp/reachable-e02d7762d6b9bd14/source/duke3d/src/sounds.cpp.manifest.json",
+  "requested_still_unlinked": [
+    "S_MusicShutdown",
+    "S_SoundShutdown"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_sounds.cpp/reachable-c5e9cbad61153779/source/duke3d/src/sounds.cpp.manifest.json",
   "blocked": [
     {
       "name": "freeSlotReadIndex",
@@ -86,9 +85,8 @@
     },
     {
       "name": "S_RestartMusic",
-      "reason": "unlinked identifiers: G_GetLogoFlags__header_26835414235c, S_PlayLevelMusicOrNothing, S_PlaySpecialMusicOrNothing",
+      "reason": "unlinked identifiers: S_PlayLevelMusicOrNothing, S_PlaySpecialMusicOrNothing",
       "dependencies": [
-        "G_GetLogoFlags__header_26835414235c",
         "S_PlayLevelMusicOrNothing",
         "S_PlaySpecialMusicOrNothing"
       ]
@@ -292,13 +290,6 @@
       ]
     },
     {
-      "name": "G_GetLogoFlags__header_26835414235c",
-      "reason": "unlinked identifiers: Gv_GetVarByLabel",
-      "dependencies": [
-        "Gv_GetVarByLabel"
-      ]
-    },
-    {
       "name": "VM_OnEventWithReturn__header_7f9a122159e1",
       "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
       "dependencies": [
@@ -383,13 +374,6 @@
       ]
     },
     {
-      "name": "VM_HaveEvent__header_271c78e13dbb",
-      "reason": "unlinked identifiers: apScriptEvents",
-      "dependencies": [
-        "apScriptEvents"
-      ]
-    },
-    {
       "name": "FX_SetErrorCode__header_a12cfef2df41",
       "reason": "unlinked identifiers: FX_ErrorCode",
       "dependencies": [
@@ -397,6 +381,6 @@
       ]
     }
   ],
-  "installed_closed_definitions": 839,
+  "installed_closed_definitions": 2,
   "original_gameplay_verified": false
 }

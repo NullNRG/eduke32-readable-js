@@ -1,8 +1,13 @@
 """Run complete original G_InitText in the source-engine/ART Chromium probe."""
-import ast,base64,hashlib,json,sys
+import argparse,ast,base64,hashlib,json,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def main():
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--checkpoint',default='nov16',choices=('nov16','nov17'))
+ stamp=parser.parse_args().checkpoint
+ evidence=f'reports/evidence/{stamp}-original-text-startup.png'
+ report_path=f'reports/{stamp}-original-text-startup-frame.json'
  oracle=json.loads((ROOT/'reports/nov16-native-original-font-oracle.json').read_text())
  path=ROOT/'work/verify_original_masked_frame.py';tree=ast.parse(path.read_text());arguments=sys.argv[:]
  try:
@@ -69,17 +74,17 @@ def main():
         original_app_main_executed:false,gameplay_verified:false};
 '''.replace('ORACLE',json.dumps(oracle,separators=(',',':')))
    node.value=node.value.replace(marker,injected+marker);matches+=1
-  elif node.value=='reports/nov12-original-masked-frame.json':node.value='reports/nov16-original-text-startup-frame.json'
-  elif node.value=='reports/evidence/nov12-original-js-engine-masks.png':node.value='reports/evidence/nov16-original-text-startup.png'
+  elif node.value=='reports/nov12-original-masked-frame.json':node.value=report_path
+  elif node.value=='reports/evidence/nov12-original-js-engine-masks.png':node.value=evidence
  assert matches==1
- report=ROOT/'reports/nov16-original-text-startup-frame.json';sys.argv=['original-text-frame','--report',str(report)]
+ report=ROOT/report_path;sys.argv=['original-text-frame','--report',str(report)]
  try:exec(compile(ast.fix_missing_locations(tree),str(path),'exec'),{'__file__':str(path),'__name__':'__main__'})
  finally:
   if report.is_file():
    doc=json.loads(report.read_text());initialization=doc.get('engine_initialization') or {};encoded=initialization.pop('rooms_only_capture_png',None)
    if encoded:
-    pixels=base64.b64decode(encoded.split(',',1)[1]);image=ROOT/'reports/evidence/nov16-original-text-startup.png';image.write_bytes(pixels)
-    doc['original_rooms_capture']={'path':str(image),'sha256':hashlib.sha256(pixels).hexdigest(),'caption':'Original raw MAP engine frame with original font initialization executed; no game menu, app_main or gameplay'}
+    pixels=base64.b64decode(encoded.split(',',1)[1]);image=ROOT/evidence;image.write_bytes(pixels)
+    doc['original_rooms_capture']={'path':evidence,'sha256':hashlib.sha256(pixels).hexdigest(),'caption':'Original raw MAP engine frame with original font initialization executed; no game menu, app_main or gameplay'}
    doc['native_font_oracle']='reports/nov16-native-original-font-oracle.json';doc['gameplay_verified']=False
    report.write_text(json.dumps(doc,indent=2)+'\n')
    assert doc.get('component_passed') and initialization.get('original_text_startup',{}).get('original_full_G_InitText_executed'),doc.get('error',doc.get('page_errors'))

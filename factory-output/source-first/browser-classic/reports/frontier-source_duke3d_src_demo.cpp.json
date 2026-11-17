@@ -1,24 +1,154 @@
 {
   "source": "source/duke3d/src/demo.cpp",
   "requested": [
-    "Demo_PlayFirst",
-    "Demo_SetFirst"
+    "G_CloseDemoWrite",
+    "g_demo_filePtr"
   ],
   "requested_resolved": {
-    "Demo_PlayFirst": true,
-    "Demo_SetFirst": true
+    "G_CloseDemoWrite": false,
+    "g_demo_filePtr": true
   },
   "requested_export_bindings": {
-    "Demo_PlayFirst": [
-      "Demo_PlayFirst"
-    ],
-    "Demo_SetFirst": [
-      "Demo_SetFirst"
+    "G_CloseDemoWrite": [],
+    "g_demo_filePtr": [
+      "g_demo_filePtr"
     ]
   },
-  "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_demo.cpp/reachable-1a4330d6e3449555/source/duke3d/src/demo.cpp.manifest.json",
-  "blocked": [],
-  "installed_closed_definitions": 6,
+  "requested_still_unlinked": [
+    "G_CloseDemoWrite"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_demo.cpp/reachable-d4c33f41b4daa594/source/duke3d/src/demo.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "Demo_RestoreModes",
+      "reason": "unlinked identifiers: Menu_Close, Menu_Open",
+      "dependencies": [
+        "Menu_Close",
+        "Menu_Open"
+      ]
+    },
+    {
+      "name": "Demo_PrepareWarp",
+      "reason": "unlinked identifiers: S_ClearSoundLocks",
+      "dependencies": [
+        "S_ClearSoundLocks"
+      ]
+    },
+    {
+      "name": "G_OpenDemoRead",
+      "reason": "unlinked identifiers: sv_loadsnapshot",
+      "dependencies": [
+        "sv_loadsnapshot"
+      ]
+    },
+    {
+      "name": "G_OpenDemoWrite",
+      "reason": "unlinked identifiers: sv_saveandmakesnapshot",
+      "dependencies": [
+        "sv_saveandmakesnapshot"
+      ]
+    },
+    {
+      "name": "Demo_WriteSync",
+      "reason": "uninitialized scalar byte alias requires tracked object initialization",
+      "dependencies": []
+    },
+    {
+      "name": "G_DemoRecord",
+      "reason": "unlinked identifiers: Demo_WriteSync, sv_writediff",
+      "dependencies": [
+        "Demo_WriteSync",
+        "sv_writediff"
+      ]
+    },
+    {
+      "name": "G_CloseDemoWrite",
+      "reason": "OffsetOfExpr",
+      "dependencies": []
+    },
+    {
+      "name": "Demo_UpdateState",
+      "reason": "unlinked identifiers: Demo_RestoreModes, sv_updatestate",
+      "dependencies": [
+        "Demo_RestoreModes",
+        "sv_updatestate"
+      ]
+    },
+    {
+      "name": "Demo_ReadSync",
+      "reason": "unlinked identifiers: kdfread_LZ4",
+      "dependencies": [
+        "kdfread_LZ4"
+      ]
+    },
+    {
+      "name": "<anonymous>",
+      "reason": "ambiguous/overloaded source definitions require type-qualified JS identifiers",
+      "dependencies": []
+    },
+    {
+      "name": "Demo_DisplayProfStatus",
+      "reason": "unlinked identifiers: gametext_, videoNextPage",
+      "dependencies": [
+        "gametext_",
+        "videoNextPage"
+      ]
+    },
+    {
+      "name": "G_PlaybackDemo",
+      "reason": "source control flow: goto enters a different lexical scope",
+      "dependencies": []
+    },
+    {
+      "name": "FX_StopAllSounds__header_c1d1ce222de4",
+      "reason": "unlinked identifiers: MV_KillAllVoices",
+      "dependencies": [
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "rotatesprite__header_328d55a71e3d",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "rotatesprite_fs__header_8a32f080609a",
+      "reason": "unlinked identifiers: rotatesprite_",
+      "dependencies": [
+        "rotatesprite_"
+      ]
+    },
+    {
+      "name": "MOUSE_GetButtons__header_415153ce8498",
+      "reason": "unlinked identifiers: mouseReadButtons",
+      "dependencies": [
+        "mouseReadButtons"
+      ]
+    },
+    {
+      "name": "gameHandleEvents__header_176448fdfe86",
+      "reason": "unlinked identifiers: handleevents",
+      "dependencies": [
+        "handleevents"
+      ]
+    },
+    {
+      "name": "FX_CheckMVErr__header_83b4ec715094",
+      "reason": "unlinked identifiers: FX_SetErrorCode__header_4af0a1210311",
+      "dependencies": [
+        "FX_SetErrorCode__header_4af0a1210311"
+      ]
+    },
+    {
+      "name": "FX_SetErrorCode__header_4af0a1210311",
+      "reason": "unlinked identifiers: FX_ErrorCode",
+      "dependencies": [
+        "FX_ErrorCode"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 830,
   "original_gameplay_verified": false
 }
