@@ -2,7 +2,7 @@
  * that contains game resources. No claim of host-disk, networking or process access.
  * Linux x86-64 struct stat/dirent64 byte layouts are explicit.
  */
-import { sourceCString, sourceSizedBytes, sourceOutputBytes } from './source_bytes.mjs';
+import { sourceCString, sourceSizedBytes, sourceInputBytes, sourceOutputBytes } from './source_bytes.mjs';
 export function createPosixVFS({heap,fs,errnoLocation,streams=new Map()}={}){
   if(!heap||!fs||typeof errnoLocation!=='function')throw TypeError('POSIX VFS needs heap/fs/errno');
   const E={EPERM:1,ENOENT:2,EBADF:9,EEXIST:17,ENOTDIR:20,EISDIR:21,EINVAL:22,ENOSPC:28,EROFS:30,ERANGE:34};
@@ -82,7 +82,7 @@ export function createPosixVFS({heap,fs,errnoLocation,streams=new Map()}={}){
       const h=fds.get(Number(fd)),sink=streams.get(Number(fd));
       if(!h&&!sink)return fail('EBADF');
       count=Number(count);if(!Number.isSafeInteger(count)||count<0)return fail('EINVAL');
-      const bytes=sourceSizedBytes(ptr,count,heap);
+      const bytes=sourceInputBytes(ptr,count,heap);
       if(sink){sink(bytes.slice());return BigInt(count);}
       if(!h.write)return fail('EBADF');
       const old=fs.readFile(h.path);if(h.append)h.pos=old.length;

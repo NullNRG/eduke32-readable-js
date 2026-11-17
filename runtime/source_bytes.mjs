@@ -78,6 +78,29 @@ export function sourceCString(value, heap) {
   return new TextDecoder().decode(bytes.slice(0,end));
 }
 
+const scalarIOTag=Symbol.for('source-first.scalar-lvalue-io/1');
+const scalarIOTypes=[Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,
+  BigInt64Array,BigUint64Array,Float32Array,Float64Array];
+
+function scalarTransfer(value,count,writable) {
+  const tag=value[scalarIOTag],property=Object.getOwnPropertyDescriptor(value,'value');
+  if(value.__cReference!==true || tag.abi!=='source-scalar-lvalue-io/1' ||
+      !scalarIOTypes.includes(tag.Type) || typeof property?.get!=='function' ||
+      writable && typeof property.set!=='function')
+    throw TypeError('Host scalar I/O requires a verified source lvalue');
+  count=Number(count);
+  if(!Number.isSafeInteger(count) || count<0 || count>tag.Type.BYTES_PER_ELEMENT)
+    throw RangeError('Host scalar I/O exceeds its original type width');
+  const transfer=new tag.Type([value.value]);
+  return {bytes:new Uint8Array(transfer.buffer,0,count),transfer};
+}
+
+/** Read typed scalar bytes for a synchronous host call without granting a C address. */
+export function sourceInputBytes(value,count,heap) {
+  if(!value?.[scalarIOTag] || sourceByteView(value))return sourceSizedBytes(value,count,heap);
+  return scalarTransfer(value,count,false).bytes;
+}
+
 /** Typed scalar output marshaling at a synchronous host I/O boundary.
  * Actual byte-backed storage is borrowed. A source scalar lvalue instead
  * carries a Clang-selected primitive type; partial writes preserve its other
@@ -85,18 +108,12 @@ export function sourceCString(value, heap) {
  * This temporary transfer span is never exposed as the scalar's C address.
  */
 export function sourceOutputBytes(value,count,heap) {
-  const tag=value?.[Symbol.for('source-first.scalar-lvalue-io/1')];
-  if(!tag || sourceByteView(value))return {bytes:sourceSizedBytes(value,count,heap),commit(){}};
-  const types=[Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,BigInt64Array,BigUint64Array,Float32Array,Float64Array];
-  if(value?.__cReference!==true||tag.abi!=='source-scalar-lvalue-io/1'||!types.includes(tag.Type)||typeof Object.getOwnPropertyDescriptor(value,'value')?.set!=='function')
-    throw TypeError('Host scalar output requires a verified writable source lvalue');
-  count=Number(count);const width=tag.Type.BYTES_PER_ELEMENT;
-  if(!Number.isSafeInteger(count)||count<0||count>width)throw RangeError('Host scalar output exceeds its original type width');
-  const transfer=new tag.Type([value.value]),bytes=new Uint8Array(transfer.buffer,0,count);
+  if(!value?.[scalarIOTag] || sourceByteView(value))return {bytes:sourceSizedBytes(value,count,heap),commit(){}};
+  const {bytes,transfer}=scalarTransfer(value,count,true);
   let completed=false;
   return {bytes,commit(written){
     if(completed)throw TypeError('Source scalar transfer already committed');
-    if(!Number.isSafeInteger(written)||written<0||written>count)throw RangeError('Invalid host scalar output length');
+    if(!Number.isSafeInteger(written)||written<0||written>bytes.length)throw RangeError('Invalid host scalar output length');
     completed=true;if(written)value.value=transfer[0];
   }};
 }

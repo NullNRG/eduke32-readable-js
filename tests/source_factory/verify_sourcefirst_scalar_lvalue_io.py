@@ -1,4 +1,4 @@
-"""Synchronous file reads commit native-width bytes into original scalar lvalues."""
+"""Synchronous file I/O preserves original scalar lvalues and their widths."""
 import json,subprocess,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -20,12 +20,17 @@ with tempfile.TemporaryDirectory() as folder:
 const runtime=new NativeRuntime(),heap=runtime.heap,s=runtime.library.symbols;
 const names=TYPES,expected=EXPECTED,data=Uint8Array.of(32,43,54,65,76,87,98,109);
 runtime.fs.mountBytes('bytes.bin',data);const path=Uint8Array.from([...new TextEncoder().encode('bytes.bin'),0]);
+const string=text=>new TextEncoder().encode(text+'\0');
 const hex=bytes=>Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
 try{
  for(const [name,n,want]of expected){m.reset();const ref=m['address_'+name]();assert.equal(ref,m['address_'+name]());
   assert.throws(()=>sourceHeapAddress(ref,heap),/own heap/);
   const fd=s.open(path,0);assert(fd>=0);assert.equal(s.read(fd,ref,Number(n)),BigInt(n));s.close(fd);
   const Type=globalThis[names[name]],a=new Type([m[name]]);assert.equal(hex(new Uint8Array(a.buffer)),want,[name,n]);
+  const output=s.fopen(string('scalar.bin'),string('wb'));assert(output);
+  assert.equal(s.fwrite(ref,1,Number(n),output),Number(n));s.fclose(output);
+  assert.equal(hex(runtime.fs.readFile('scalar.bin')),want.slice(0,2*Number(n)),[name,n]);
+  assert.equal(m['address_'+name](),ref);assert.equal(m[name],a[0]);
  }
  const ref=m.address_g16();m.reset();const value=m.g16,fd=s.open(path,0);
  assert.throws(()=>s.read(fd,ref,3),/type width/);assert.equal(m.g16,value);assert.equal(s.lseek(fd,0,1),0n);
@@ -33,7 +38,9 @@ try{
  assert.equal(s.read(-9,ref,2),-1);assert.equal(m.g16,value);
  assert.throws(()=>sourceOutputBytes({__cReference:true,value:1},2,heap),/own heap/);
  const empty=sourceOutputBytes(ref,0,heap);empty.commit(0);assert.throws(()=>empty.commit(0),/already committed/);
- console.log('PASS '+expected.length+' native/JS scalar file-read states, exact widths, partial-byte preservation, original lvalue identity, EOF/error behavior and rejected allocation ownership');
+ const output=s.fopen(string('scalar.bin'),string('wb'));
+ assert.throws(()=>s.fwrite(ref,1,3,output),/type width/);assert.equal(s.ftell(output),0);s.fclose(output);
+ console.log('PASS '+expected.length+' native/JS scalar file-read and file-write states, exact widths, partial-byte preservation, original lvalue identity, EOF/error behavior and rejected allocation ownership');
 }finally{runtime.close();}
 '''.replace('TYPES',json.dumps({n:t for _,n,_,t in cases})).replace('EXPECTED',json.dumps(expected)))
     print(run(['node',script],ROOT).strip())

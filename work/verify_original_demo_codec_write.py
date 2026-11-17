@@ -39,7 +39,7 @@ PROBE = r'''async base => {
     }
     if (runtime.heap.allocations.size!==heapBefore) throw Error('Original LZ4 writer leaked scratch storage');
     const demo = await import(base+'/source/duke3d/src/demo.cpp.mjs');
-    const {ud,recsync} = await import(base+'/source/duke3d/src/global.cpp.mjs');
+    const {ud,recsync,apStrings} = await import(base+'/source/duke3d/src/global.cpp.mjs');
     const count=3, inputBytes=20;
     const expectedInput = new Uint8Array(count*inputBytes);
     const expectedView = new DataView(expectedInput.buffer);
@@ -67,8 +67,29 @@ PROBE = r'''async base => {
         !decoded.every((value,index)=>value===expectedInput[index])) {
       throw Error('Original demo sync payload differs');
     }
+    const file=libc.fopen(str('close.edm'),str('wb'));
+    if (!file) throw Error('Original demo close fixture could not open its file');
+    const header=new Uint8Array(64).fill(0xa7);
+    if (Number(libc.fwrite(header,1n,64n,file))!==64) throw Error('Failed to stage demo header');
+    const quote = new Uint8Array(64);
+    apStrings[122]=quote;
+    demo.__cxx_global_cell_e17a5783e4d4a0690d42cb8d().value=90;
+    ud.fta_on=0;
+    ud.recstat=ud.m_recstat=1;
+    cell.value=file;
+    demo.G_CloseDemoWrite();
+    demo.G_CloseDemoWrite();
+    const finalized=runtime.fs.readFile('close.edm');
+    const finalizedView=new DataView(finalized.buffer,finalized.byteOffset);
+    const decoder=new TextDecoder();
+    if (cell.value!==null || ud.recstat!==0 || ud.m_recstat!==0 || finalized.length!==68 ||
+        finalizedView.getInt32(28,true)!==90 || decoder.decode(finalized.subarray(64))!=='EnD!' ||
+        decoder.decode(quote.subarray(0,quote.indexOf(0)))!=='DEMO RECORDING STOPPED') {
+      throw Error('Original demo finalization did not patch the header, close, and publish its quote');
+    }
     return {original_lz4_vfs_write_verified:true, records:written, scratch_storage_released:true,
-            original_demo_sync_executed:true, demo_sync_records:count, demo_sync_bytes:sync.length};
+            original_demo_sync_executed:true, demo_sync_records:count, demo_sync_bytes:sync.length,
+            original_demo_close_executed:true, finalized_header_count:90, finalized_file_bytes:finalized.length};
   } finally {
     release();
     runtime.close();

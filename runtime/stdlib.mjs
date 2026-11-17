@@ -1,5 +1,5 @@
 import { ABIHeap } from './abi.mjs';
-import { sourceHeapAddress, sourceCString, sourceSizedBytes } from './source_bytes.mjs';
+import { sourceHeapAddress, sourceCString, sourceSizedBytes, sourceInputBytes } from './source_bytes.mjs';
 import { VirtualFS } from './filesystem.mjs';
 import { createCPrintf } from './c_printf.mjs';
 import { createCIntegerParse } from './c_integer_parse.mjs';
@@ -297,7 +297,7 @@ export function createStdlib({ heap = new ABIHeap(), fs = new VirtualFS(), stdou
       if(size===0||count===0)return 0;
       if(!Number.isSafeInteger(size*count)||size<0||count<0)throw RangeError('fwrite overflow');
       const sink=streams.get(sourceHeapAddress(file,heap));
-      if(sink){sink(sourceSizedBytes(ptr,size*count,heap).slice());return count;}
+      if(sink){sink(sourceInputBytes(ptr,size*count,heap).slice());return count;}
       const h=getHandle(file),n=posix.write(h.fd,ptr,size*count);
       if(n<0n){h.error=true;return 0;}return Math.floor(Number(n)/size);
     },
