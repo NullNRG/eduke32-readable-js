@@ -1,10 +1,27 @@
 """Canonical classic-browser compile/link pipeline; strict game gate stays closed."""
-import argparse,hashlib,json,subprocess,sys
+import argparse,hashlib,json,subprocess,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def read(path):return json.loads(path.read_text())
 def write(path,data):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,indent=2)+'\n')
 def run(*args):return subprocess.run([sys.executable,*map(str,args)],cwd=ROOT).returncode
+
+def refresh_changed_primary(source,commands,previous_sources,previous_commands,report):
+    """Reuse a complete checkpoint when the original semantic delta is proved."""
+    if not previous_commands or not commands.with_suffix('.header-definitions.witness.json').is_file():
+        return False
+    changed=[(relative,before) for relative,before in previous_sources.items()
+             if (source/relative).read_bytes()!=before]
+    if len(changed)!=1:return False
+    relative,before=changed[0]
+    with tempfile.TemporaryDirectory(prefix='eduke-semantic-before-') as directory:
+        before_source=Path(directory)/Path(relative).name
+        before_source.write_bytes(before)
+        old_commands=Path(directory)/'compile_commands.json'
+        old_commands.write_bytes(previous_commands)
+        return run('tools/refresh_semantic_unit.py',relative,'--before',before_source,
+                   '--before-commands',old_commands,'--report',report)==0
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--max-units',type=int,default=0,help='Diagnostic partial run; zero selects every browser unit')
@@ -12,9 +29,19 @@ def main():
         help='Diagnostic checkpoint only; does not build or verify a playable game')
     p.add_argument('--timeout',type=int,default=240);a=p.parse_args()
     if a.max_units<0:p.error('--max-units must be nonnegative')
+    profile=read(ROOT/'tools/browser_classic_profile.json')
+    previous_sources={}
+    previous_commands=None
+    if not a.max_units and a.stop_after!='prepare':
+        from prepare_browser_classic import ADAPTATIONS
+        previous_root=ROOT/profile['prepared_source_root']
+        previous_db=ROOT/profile['derived_commands']
+        if previous_db.is_file():
+            previous_commands=previous_db.read_bytes()
+            previous_sources={relative:(previous_root/relative).read_bytes() for relative,_,_ in ADAPTATIONS
+                if Path(relative).suffix in ('.c','.cc','.cpp','.cxx') and (previous_root/relative).is_file()}
     code=run('tools/prepare_browser_classic.py')
     if code:return code
-    profile=read(ROOT/'tools/browser_classic_profile.json')
     prepared=read(ROOT/'reports/browser-classic-preparation.json')
     build=ROOT/profile['build_root'];commands=ROOT/prepared['command_database'];source=Path(prepared['source_root'])
     write(build/'build-profile.json',{'format':'sourcefactory-browser-build/1','profile':profile['name'],
@@ -34,18 +61,22 @@ def main():
     if a.stop_after=='prepare':
         print('DIAGNOSTIC: browser source preparation only; no engine/gameplay verification.')
         return 0
-    semantic_code=run('tools/source_semantic_index.py','--root',source,'--commands',commands,
+    refreshed=refresh_changed_primary(source,commands,previous_sources,previous_commands,
+                                       build/'reports/browser-classic-semantic-refresh.json')
+    semantic_code=0 if refreshed else run('tools/source_semantic_index.py','--root',source,'--commands',commands,
         '--resume','--max-units',a.max_units,'--out',build/'reports/semantic-index.sqlite')
     write(build/'semantic-extraction-result.json',{'returncode':semantic_code,
+        'refreshed_one_primary_source':refreshed,
         'partial_diagnostic_requested':bool(a.max_units or a.stop_after),'gameplay_verified':False})
     # A configured multi-unit program may override standard new/delete in any
     # unit. Enable the language heap only with a fresh whole-program proof.
     from source_standard_heap_contract import contract_path, create as create_heap_contract
-    contract_path(commands).unlink(missing_ok=True)
-    if not semantic_code and not a.max_units:
-        create_heap_contract(source,commands,build/'reports/semantic-index.sqlite')
-        from source_header_definitions import create as create_header_contract
-        create_header_contract(source,commands,build/'reports/semantic-index.sqlite')
+    if not refreshed:
+        contract_path(commands).unlink(missing_ok=True)
+        if not semantic_code and not a.max_units:
+            create_heap_contract(source,commands,build/'reports/semantic-index.sqlite')
+            from source_header_definitions import create as create_header_contract
+            create_header_contract(source,commands,build/'reports/semantic-index.sqlite')
     if a.stop_after=='semantic':
         print('DIAGNOSTIC: source ownership checkpoint only; no engine/gameplay verification.')
         return semantic_code

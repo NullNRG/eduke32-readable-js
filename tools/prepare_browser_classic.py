@@ -102,6 +102,11 @@ def browser_timer(data):
     return replace_once(data, b'#include <atomic>\n',
         b'#include <atomic>\n\n#ifdef EDUKE32_BROWSER\n# undef HAVE_TIMER_RDTSC\n#endif\n')
 
+def browser_con_dispatch(data):
+    return replace_once(data,
+        b'#if defined __GNUC__ || defined __clang__\n# define CON_USE_COMPUTED_GOTO',
+        b'#if (defined __GNUC__ || defined __clang__) && !defined(EDUKE32_BROWSER)\n# define CON_USE_COMPUTED_GOTO')
+
 ADAPTATIONS=(
     (DRIVERS,browser_drivers,'Exclude ALSA backend; retain original SDL, OPL and mixer behavior'),
     (COMPAT,browser_allocator_compat,'Select original GenericAllocator for browser allocation wrappers; preserve original error handling'),
@@ -113,6 +118,8 @@ ADAPTATIONS=(
      'Exclude editor ImGui interception/cleanup and native controller haptics from the classic browser platform; preserve original software video, event translation and device input'),
     ('source/build/src/timer.cpp',browser_timer,
      'Use the original SDL timer path in browsers without CPU cycle counter instructions'),
+    ('source/duke3d/src/gameexec.cpp',browser_con_dispatch,
+     'Select the original portable CON switch dispatcher for browser JavaScript'),
     ('GNUmakefile',browser_make,'Exclude unused pool and thread-cache units from original Make browser selection'),
 )
 def restore_source_archive(archive,destination,expected_sha):

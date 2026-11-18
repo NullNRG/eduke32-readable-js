@@ -1,6 +1,7 @@
 """Configuration derivation preserves captured commands and refuses false coverage."""
 import importlib.util,json,sys,tempfile
 from pathlib import Path
+from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[2]
 spec=importlib.util.spec_from_file_location('browser_classic_profile',ROOT/'tools/browser_classic_profile.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
@@ -42,3 +43,36 @@ try:m.with_source_defines(profile,wrong)
 except ValueError:pass
 else:raise AssertionError('Conflicting original codec configuration accepted')
 print('Portable codec option applies only to its original source unit; other commands remain independent and conflicts are rejected.')
+
+sys.path.insert(0,str(ROOT/'tools'))
+import build_browser_classic as build
+
+with tempfile.TemporaryDirectory() as directory:
+    root=Path(directory)
+    commands=root/'compile_commands.json'
+    commands.write_text('new commands')
+    commands.with_suffix('.header-definitions.witness.json').write_text('{}')
+    (root/'changed.cpp').write_bytes(b'new source')
+    (root/'unchanged.cpp').write_bytes(b'same source')
+    before={'changed.cpp':b'original source','unchanged.cpp':b'same source'}
+    report=root/'semantic-refresh.json'
+
+    def refreshed(tool,source,source_option,before_source,commands_option,before_commands,report_option,target):
+        assert (tool,source)==('tools/refresh_semantic_unit.py','changed.cpp')
+        assert (source_option,commands_option,report_option)==('--before','--before-commands','--report')
+        assert before_source.read_bytes()==before[source]
+        assert before_commands.read_bytes()==b'original commands' and target==report
+        return 0
+
+    with patch.object(build,'run',side_effect=refreshed) as run:
+        assert build.refresh_changed_primary(root,commands,before,b'original commands',report)
+        assert run.call_count==1
+        assert not run.call_args.args[3].exists()
+    with patch.object(build,'run',return_value=1):
+        assert not build.refresh_changed_primary(root,commands,before,b'original commands',report)
+    (root/'unchanged.cpp').write_bytes(b'another change')
+    with patch.object(build,'run') as run:
+        assert not build.refresh_changed_primary(root,commands,before,b'original commands',report)
+        run.assert_not_called()
+
+print('A single edited source uses the attested semantic refresh; failures and several edits use full extraction.')

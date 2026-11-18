@@ -1,5 +1,7 @@
 # Continue the canonical EDuke32 JavaScript port
 
+The classic browser profile selects EDuke32’s original portable CON switch dispatcher. Run `python tests/source_factory/verify_sourcefirst_browser_con_dispatch.py` after preparing the sources. The build tries the existing attested single-source semantic refresh when exactly one prepared primary source changes and falls back to full extraction when the prior checkpoint or header observations fail validation.
+
 The [current startup frontier](reports/nov18-demo-startup-frontier.json) records the demo-close provider and the latest direct startup dependencies. Use `python work/verify_original_demo_codec_write.py` and `python work/verify_original_demo_snapshot_heap.py` to reproduce the Chromium demo tests. Use `python work/verify_original_browser_frame_clock.py` to reproduce original SDL startup and frame pacing.
 
 Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
