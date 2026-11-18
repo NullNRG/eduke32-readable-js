@@ -337,5 +337,35 @@
   "browser_frame_clock_report": "reports/nov18-original-browser-frame-clock.json",
   "portable_original_con_switch_preprocessing_verified": true,
   "source_ownership_selected_units": 111,
-  "original_RTS_archive_report": "reports/nov18-original-rts-archive.json"
+  "original_RTS_archive_report": "reports/nov18-original-rts-archive.json",
+  "portable_vm_fragment_failure": {
+    "source": "source/duke3d/src/gameexec.cpp",
+    "phase": "verify emitted fragment imports",
+    "diagnostic": "Fragment storage ABI rejected: __cxx_record_vec2_2150e186aab2ebda: source header constructor requires identical original specialization and methods",
+    "source_header": "source/build/include/vec.h",
+    "specialization": "vec2<int>",
+    "owner": "source/build/src/clip.cpp",
+    "storage_and_declarations_proof_matches": true,
+    "required_methods_missing_from_owner": [
+      [
+        "operator!=",
+        "bool (const vec2<int>)"
+      ]
+    ],
+    "owner_method_exports": [
+      [
+        "operator+",
+        "const vec2<int> (const vec2<int>) const"
+      ],
+      [
+        "operator-",
+        "const vec2<int> (const vec2<int>) const"
+      ],
+      [
+        "operator*",
+        "const vec2<int> (const vec2<int>) const"
+      ]
+    ],
+    "fragment_installed": false
+  }
 }
