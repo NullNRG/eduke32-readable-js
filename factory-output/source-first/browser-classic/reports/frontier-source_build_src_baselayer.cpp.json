@@ -1,51 +1,97 @@
 {
   "source": "source/build/src/baselayer.cpp",
   "requested": [
-    "keySetCallback",
-    "keystatus",
-    "inputchecked",
-    "g_mouseBits",
-    "g_mouseLockedToWindow",
-    "mouseReadButtons"
+    "engineFPSLimit",
+    "engineSetLogFile"
   ],
   "requested_resolved": {
-    "keySetCallback": true,
-    "keystatus": true,
-    "inputchecked": false,
-    "g_mouseBits": true,
-    "g_mouseLockedToWindow": true,
-    "mouseReadButtons": false
+    "engineFPSLimit": true,
+    "engineSetLogFile": false
   },
   "requested_export_bindings": {
-    "keySetCallback": [
-      "keySetCallback"
+    "engineFPSLimit": [
+      "engineFPSLimit"
     ],
-    "keystatus": [
-      "keystatus"
-    ],
-    "inputchecked": [],
-    "g_mouseBits": [
-      "g_mouseBits"
-    ],
-    "g_mouseLockedToWindow": [
-      "g_mouseLockedToWindow"
-    ],
-    "mouseReadButtons": []
+    "engineSetLogFile": []
   },
   "requested_still_unlinked": [
-    "inputchecked",
-    "mouseReadButtons"
+    "engineSetLogFile"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_baselayer.cpp/reachable-122b9115420c02d6/source/build/src/baselayer.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_build_src_baselayer.cpp/reachable-f37ecdafedf7bb6a/source/build/src/baselayer.cpp.manifest.json",
   "blocked": [
     {
-      "name": "mouseReadButtons",
-      "reason": "unlinked identifiers: appactive",
+      "name": "thread_id__header_global_1d08a0af80323dfe",
+      "reason": "thread-local header variable requires original thread storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "engineSetupLogging",
+      "reason": "C++ conversion requires linked source-defined class method: operator void (*)(const loguru::Message &)",
+      "dependencies": []
+    },
+    {
+      "name": "engineSetLogFile",
+      "reason": "unlinked identifiers: add_callback, add_file, remove_callback",
       "dependencies": [
-        "appactive"
+        "add_callback",
+        "add_file",
+        "remove_callback"
       ]
+    },
+    {
+      "name": "keyFlushScans",
+      "reason": "external object address requires a verified owner identity ABI: g_keyFIFO char[64]",
+      "dependencies": []
+    },
+    {
+      "name": "keyFlushChars",
+      "reason": "external object address requires a verified owner identity ABI: g_keyAsciiFIFO char[64]",
+      "dependencies": []
+    },
+    {
+      "name": "maybe_redirect_outputs",
+      "reason": "unlinked identifiers: stderr, stdout",
+      "dependencies": [
+        "stderr",
+        "stdout"
+      ]
+    },
+    {
+      "name": "vtable_impl__header_global_4658c0e2f001e160",
+      "reason": "static pointer initializer requires a proven original source address: ImplicitCastExpr void (*)(task_base *) noexcept",
+      "dependencies": []
+    },
+    {
+      "name": "vtable_impl__header_global_c11f32ebfd827283",
+      "reason": "constexpr function evaluation requires Clang-proven constant initializer",
+      "dependencies": []
+    },
+    {
+      "name": "thread_wait_handler__header_global_fc8966951c89a9d6",
+      "reason": "thread-local header variable requires original thread storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "owning_threadpool__header_global_09f663af153daa4a",
+      "reason": "thread-local header variable requires original thread storage lifetime",
+      "dependencies": []
+    },
+    {
+      "name": "floor",
+      "reason": "builtin __builtin_floorf",
+      "dependencies": []
+    },
+    {
+      "name": "ceil",
+      "reason": "builtin __builtin_ceilf",
+      "dependencies": []
+    },
+    {
+      "name": "generic_wait_handler__header_f7b7b7d0dd81",
+      "reason": "constructor requires complete original record: task_wait_event",
+      "dependencies": []
     }
   ],
-  "installed_closed_definitions": 6,
+  "installed_closed_definitions": 5,
   "original_gameplay_verified": false
 }

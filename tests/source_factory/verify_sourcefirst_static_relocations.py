@@ -49,7 +49,9 @@ static Missing forbidden_numeric={(int *)123};
 static int *choose_address(){return &count;}
 static Missing forbidden_dynamic={choose_address()};
 extern "C" int exercise(int n){
+  static Entry local_entry={&count,twice,"L"};
   *entries[n&1].setting+=n;
+  *local_entry.setting+=n&1;
   *aliases[n%3]^=n;
   first.next->value+=n&3;
   second.next->value^=n&7;
@@ -86,6 +88,9 @@ int main(){printf("%d,%d\n",identities(),initialization_check());for(int i=0;i<5
     run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(directory),
          '--source','unit.cpp','--out-dir',str(directory/'out')],directory)
     module=directory/'out/unit.cpp.mjs'
+    local_record = next(line for line in module.read_text().splitlines()
+                        if line.startswith('let __static_exercise_local_entry = '))
+    assert 'cStaticInitializerValues(' in local_record and 'cStaticReference(' in local_record
     manifest=json.loads(module.with_suffix('.manifest.json').read_text())
     definitions={row['source_name']:row for row in manifest['definitions']}
     for name in ('entries','aliases','first','second','forward','exercise','identities'):

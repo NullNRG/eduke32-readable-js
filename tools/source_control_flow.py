@@ -21,6 +21,38 @@ def descendants(node):
     yield node
     for child in children(node): yield from descendants(child)
 
+def recover_forward_if_label(body, guard_name):
+    """Keep a bare if-branch label reachable without re-evaluating its condition."""
+    statements=children(body)
+    nodes=list(descendants(body))
+    labels=[node for node in nodes if kind(node)=='LabelStmt']
+    jumps=[node for node in nodes if kind(node)=='GotoStmt']
+    if len(labels)!=1 or not jumps or any(kind(n) in ('AddrLabelExpr','IndirectGotoStmt') for n in nodes):
+        return None
+    label=labels[0]
+    target=label.get('declId')
+    if not target or len(children(label))!=1 or kind(children(label)[0])=='DeclStmt':return None
+    for index,statement in enumerate(statements):
+        branch=children(statement)
+        if (kind(statement)=='IfStmt' and len(branch)==2 and branch[1] is label
+                and not any(statement.get(key) for key in ('hasInit','hasVar','hasElse','isConstexpr','isConsteval'))):
+            break
+    else:return None
+    before={id(node) for statement in statements[:index] for node in descendants(statement)}
+    if any(jump.get('targetLabelDeclId')!=target or id(jump) not in before for jump in jumps):return None
+    if any(node.get('name')==guard_name or node.get('referencedDecl',{}).get('name')==guard_name for node in nodes):
+        return None
+    # Fallthrough saves the condition once. Each proven forward jump skips
+    # that expression, so its initialized true value enters the labeled body.
+    boolean={'qualType':'bool'}
+    variable={'kind':'VarDecl','id':guard_name,'name':guard_name,'type':boolean}
+    def ref():return {'kind':'DeclRefExpr','type':boolean,'referencedDecl':variable}
+    setup={'kind':'DeclStmt','inner':[{**variable,'init':'c','inner':[
+        {'kind':'CXXBoolLiteralExpr','type':boolean,'value':True}]}]}
+    condition={'kind':'BinaryOperator','type':boolean,'opcode':'=','inner':[ref(),branch[0]]}
+    landing={**label,'inner':[{'kind':'IfStmt','inner':[ref(),children(label)[0]]}]}
+    return {**body,'inner':[setup,*statements[:index],condition,landing,*statements[index+1:]]}
+
 def recover_loop_terminal_jumps(body, trivial_destructors=(), canonical_type=lambda value:value):
     """Inline a source cleanup suffix ending in continue to the SAME loop.
 

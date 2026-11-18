@@ -259,6 +259,11 @@ def build(snapshot,out,report_path,entry_source='source/duke3d/src/game.cpp',ent
     # the browser C/SDL platform ABI over duplicate OS implementations.
     host={name:'browser-abi/sdl_provider' for name in sdl if IDENT.fullmatch(name)}
     host.update({name:OWNER for name in c if IDENT.fullmatch(name) and name not in sdl})
+    # The original clock owns the engine tick rate and frame limiter state.
+    # Once it is linked, retain the platform timer service only for older
+    # diagnostic modules that import it explicitly.
+    source_timer=source.get('timerInit')=='source/build/src/timer.cpp' and 'timerInit' in replaced.get('source/build/src/timer.cpp',set())
+    if source_timer:host.pop('timerInit',None)
     # libdivide is an original third-party arithmetic library, not Duke gameplay.
     # Keep its exact four signed generator implementations in one browser-native
     # service module. They are validated against the bundled C++ header over the
@@ -371,6 +376,7 @@ def build(snapshot,out,report_path,entry_source='source/duke3d/src/game.cpp',ent
         'browser_libc_symbols':len(c),'browser_sdl_symbols':len(sdl),
         'source_emitted_verified_owners':len(source),'ambiguous_original_owners':len(ambiguous),
         'browser_override_existing_emitted':overlap,
+        'original_timer_selected':source_timer,
         'source_exports_shadowed_by_partial_modules':shadowed,
         'source_shadowed_count':len(shadowed),
         'combined_provider_count':len(index),'app_main_direct_missing_snapshot':len(refs),

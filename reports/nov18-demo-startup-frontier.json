@@ -1,22 +1,22 @@
 {
   "format": "sourcefactory-scoped-startup-frontier/1",
-  "compiler_runtime_input_sha256": "e455f9e5be5ca5c6450c404a6bf6dec3569ed9f8d9acf980005358a173285175",
-  "component_manifest_sha256": "c08a9a030995cc049fa5130ab45c40f604af8aa9b58df297999aee0847f28dd5",
+  "compiler_runtime_input_sha256": "f5b2829c3b2ddb97a9436c9f66bf08249d1435bd3b483dde9d9c0e498a381a1e",
+  "component_manifest_sha256": "165973431db0ada57e9d8006e306f4430f7f2a712984496f460a44264f003099",
   "units": {
     "source/duke3d/src/game.cpp": {
       "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json",
       "linked": {
-        "G_Cleanup": true,
-        "G_Shutdown": false,
-        "G_GameExit": false
+        "app_main": false,
+        "G_Startup": false,
+        "G_GameExit": false,
+        "G_Shutdown": false
       },
       "blocked": [
         {
           "name": "G_GameExit",
-          "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens",
+          "reason": "unlinked identifiers: G_BonusScreen, G_DisplayExtraScreens",
           "dependencies": [
             "G_BonusScreen",
-            "G_CloseDemoWrite",
             "G_DisplayExtraScreens"
           ]
         },
@@ -27,6 +27,15 @@
             "CONFIG_WriteSetup",
             "S_MusicShutdown",
             "S_SoundShutdown"
+          ]
+        },
+        {
+          "name": "G_Startup",
+          "reason": "unlinked identifiers: G_CompileScripts, G_GameExit, G_Shutdown",
+          "dependencies": [
+            "G_CompileScripts",
+            "G_GameExit",
+            "G_Shutdown"
           ]
         },
         {
@@ -65,11 +74,7 @@
             "dukeConsolePrintChar",
             "dukeConsolePrintCursor",
             "dukeConsolePrintString",
-            "engineFPSLimit",
             "engineSetLogFile",
-            "g_lastautosave",
-            "g_quickload",
-            "g_saveRequested",
             "loaddefinitionsfile",
             "registerosdcommands"
           ]
@@ -203,6 +208,71 @@
           ]
         }
       ]
+    },
+    "source/audiolib/src/midi.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_audiolib_src_midi.cpp.json",
+      "linked": {
+        "MIDI_StopSong": false
+      },
+      "blocked": [
+        {
+          "name": "MIDI_StopSong",
+          "reason": "unlinked identifiers: MIDI_Reset, SoundDriver_MIDI_HaltPlayback",
+          "dependencies": [
+            "MIDI_Reset",
+            "SoundDriver_MIDI_HaltPlayback"
+          ]
+        }
+      ]
+    },
+    "source/build/src/baselayer.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_build_src_baselayer.cpp.json",
+      "linked": {
+        "engineFPSLimit": true,
+        "engineSetLogFile": false
+      },
+      "blocked": [
+        {
+          "name": "engineSetLogFile",
+          "reason": "unlinked identifiers: add_callback, add_file, remove_callback",
+          "dependencies": [
+            "add_callback",
+            "add_file",
+            "remove_callback"
+          ]
+        }
+      ]
+    },
+    "source/build/src/timer.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_build_src_timer.cpp.json",
+      "linked": {
+        "timerInit": true,
+        "osdcmd_sys_timer": true
+      },
+      "blocked": []
+    },
+    "source/duke3d/src/premap.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_premap.cpp.json",
+      "linked": {
+        "P_ResetWeapons": false,
+        "P_ResetInventory": false
+      },
+      "blocked": [
+        {
+          "name": "P_ResetWeapons",
+          "reason": "unlinked identifiers: VM_OnEvent__header_3f38cdcba119",
+          "dependencies": [
+            "VM_OnEvent__header_3f38cdcba119"
+          ]
+        },
+        {
+          "name": "P_ResetInventory",
+          "reason": "unlinked identifiers: VM_OnEvent__header_3f38cdcba119",
+          "dependencies": [
+            "VM_OnEvent__header_3f38cdcba119"
+          ]
+        }
+      ]
     }
   },
   "last_app_main_probe_dependencies": [
@@ -238,25 +308,20 @@
     "dukeConsolePrintChar",
     "dukeConsolePrintCursor",
     "dukeConsolePrintString",
-    "engineFPSLimit",
     "engineSetLogFile",
-    "g_lastautosave",
-    "g_quickload",
-    "g_saveRequested",
     "loaddefinitionsfile",
     "registerosdcommands"
   ],
-  "newly_available_provider_candidates": {
-    "g_lastautosave": "source/duke3d/src/savegame.cpp",
-    "g_quickload": "source/duke3d/src/savegame.cpp",
-    "g_saveRequested": "source/duke3d/src/savegame.cpp"
-  },
+  "newly_available_provider_candidates": {},
   "original_demo_codec_write": "reports/nov18-original-demo-codec-write.json",
   "original_demo_snapshot_heap": "reports/nov18-original-demo-snapshot-heap.json",
   "scalar_proof": "reports/nov18-demo-scalar-proof.json",
-  "related_regressions": "reports/nov18-demo-final-regressions.json",
-  "strict_release_acceptance": "reports/nov18-demo-release-acceptance.json",
+  "related_regressions": "reports/nov18-startup-final-regressions.json",
+  "strict_release_acceptance": "reports/nov18-startup-release-acceptance.json",
   "original_app_main_executed": false,
   "browser_gameplay_verified": false,
-  "dist_index_present": false
+  "dist_index_present": false,
+  "browser_timer_profile_preprocessed": true,
+  "browser_timer_initialization_executed": true,
+  "browser_frame_clock_report": "reports/nov18-original-browser-frame-clock.json"
 }

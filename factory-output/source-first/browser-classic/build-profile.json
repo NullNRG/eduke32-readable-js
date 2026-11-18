@@ -42,6 +42,12 @@
       "reason": "Exclude editor ImGui interception/cleanup and native controller haptics from the classic browser platform; preserve original software video, event translation and device input"
     },
     {
+      "file": "source/build/src/timer.cpp",
+      "original_sha256": "96b14906b0909a9d891af711d07f2de2f2df44bbfc291b06fc332c5ebb46a9d5",
+      "browser_sha256": "105333c945135761a97be9b47c9830cf0e7e36d490c375e945ad2c090d8efd30",
+      "reason": "Use the original SDL timer path in browsers without CPU cycle counter instructions"
+    },
+    {
       "file": "GNUmakefile",
       "original_sha256": "6b6503ecec2c89fb884c82ceeae1be8d3ffe0bb29168e9dda61bb6241add9829",
       "browser_sha256": "2d58743e9cb29026d2c40a6ba7d182d7717b80d0bb51e49ebc3e54ec55dd4b0c",
@@ -49,7 +55,7 @@
     }
   ],
   "allocator_backend": "original-sm-GenericAllocator",
-  "diagnostic_stop_after": "prepare",
+  "diagnostic_stop_after": "semantic",
   "execution_policy": {
     "format": "readable-engine-native-services/1",
     "engine_language": "readable-javascript",

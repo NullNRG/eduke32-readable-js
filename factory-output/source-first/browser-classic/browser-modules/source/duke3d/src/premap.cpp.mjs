@@ -1365,3 +1365,6 @@ export { ACCESSCARD____header_global_32ad913a678022b0, ACCESSSWITCH2____header_g
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { G_FreeMapState } from "./_source_legacy_premap_cpp_d5a53643d288.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { FX_CheckMVErr__header_27c2c5a34cc6, FX_SetErrorCode__header_865055474cdf, FX_SoundActive__header_7103d17c9fb1 } from "./_source_legacy_premap_cpp_535e4f426b51.mjs";

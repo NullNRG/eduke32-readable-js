@@ -24,6 +24,13 @@ int reject_fallthrough_side_entry(int n){
  if(n==0){inside:result+=8;}
  return result;
 }
+int forward_if_label(int n){
+ int result=0;
+ if(n&1)goto inside;
+ if(++result && n%3==0)
+ inside:result+=8;
+ return result;
+}
 int case_suffixes(int n){
  int acc=0;
  for(int i=0;i<12;++i){
@@ -187,7 +194,7 @@ int unproven_side_entry(int n){
 }
 '''
 FUNCTIONS=('nested_forward','nested_backward','nested_switch','nested_do_while',
-           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes')
+           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes','forward_if_label')
 
 def run(args,cwd):
  p=subprocess.run(args,cwd=cwd,capture_output=True,text=True,timeout=180)
@@ -206,7 +213,8 @@ with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
  rows={r['source_name']:r for r in manifest['definitions']}
  for name in FUNCTIONS:
   assert rows[name]['status']=='source-first',rows[name]
-  assert rows[name]['control_flow']['detected']['nested_lexical_jumps']>0,rows[name]
+  detection='forward_unbraced_if_label' if name=='forward_if_label' else 'nested_lexical_jumps'
+  assert rows[name]['control_flow']['detected'][detection]>0,rows[name]
  assert rows['unproven_side_entry']['status']=='blocked',rows['unproven_side_entry']
  assert 'different lexical scope' in rows['unproven_side_entry']['reason'],rows['unproven_side_entry']
  assert rows['reject_fallthrough_side_entry']['status']=='blocked',rows['reject_fallthrough_side_entry']

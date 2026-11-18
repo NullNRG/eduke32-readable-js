@@ -1,18 +1,22 @@
 {
   "source": "source/duke3d/src/premap.cpp",
   "requested": [
-    "G_FreeMapState"
+    "P_ResetWeapons",
+    "P_ResetInventory"
   ],
   "requested_resolved": {
-    "G_FreeMapState": true
+    "P_ResetWeapons": false,
+    "P_ResetInventory": false
   },
   "requested_export_bindings": {
-    "G_FreeMapState": [
-      "G_FreeMapState"
-    ]
+    "P_ResetWeapons": [],
+    "P_ResetInventory": []
   },
-  "requested_still_unlinked": [],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_premap.cpp/reachable-0ac4ebd55308ab66/source/duke3d/src/premap.cpp.manifest.json",
+  "requested_still_unlinked": [
+    "P_ResetWeapons",
+    "P_ResetInventory"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_premap.cpp/reachable-4a411eae1109373c/source/duke3d/src/premap.cpp.manifest.json",
   "blocked": [
     {
       "name": "G_DemoLoadScreen",
@@ -35,12 +39,11 @@
     },
     {
       "name": "G_CacheMapData",
-      "reason": "unlinked identifiers: G_DoLoadScreen, S_TryPlaySpecialMusic, cacheAllSounds, engineFPSLimit",
+      "reason": "unlinked identifiers: G_DoLoadScreen, S_TryPlaySpecialMusic, cacheAllSounds",
       "dependencies": [
         "G_DoLoadScreen",
         "S_TryPlaySpecialMusic",
-        "cacheAllSounds",
-        "engineFPSLimit"
+        "cacheAllSounds"
       ]
     },
     {
@@ -136,7 +139,7 @@
     },
     {
       "name": "G_NewGame",
-      "reason": "unlinked identifiers: G_BonusScreen, G_PlayE4Cutscene, Gv_InitWeaponPointers, Menu_Close, S_Cleanup, S_PauseSounds, S_StopAllSounds, g_lastautosave, g_lastusersave, g_quickload",
+      "reason": "unlinked identifiers: G_BonusScreen, G_PlayE4Cutscene, Gv_InitWeaponPointers, Menu_Close, S_Cleanup, S_PauseSounds, S_StopAllSounds",
       "dependencies": [
         "G_BonusScreen",
         "G_PlayE4Cutscene",
@@ -144,10 +147,7 @@
         "Menu_Close",
         "S_Cleanup",
         "S_PauseSounds",
-        "S_StopAllSounds",
-        "g_lastautosave",
-        "g_lastusersave",
-        "g_quickload"
+        "S_StopAllSounds"
       ]
     },
     {
@@ -257,34 +257,13 @@
       ]
     },
     {
-      "name": "FX_SoundActive__header_7103d17c9fb1",
-      "reason": "unlinked identifiers: MV_VoicePlaying",
-      "dependencies": [
-        "MV_VoicePlaying"
-      ]
-    },
-    {
       "name": "FX_SetReverb__header_6a1d71eb1a60",
       "reason": "unlinked identifiers: MV_SetReverb",
       "dependencies": [
         "MV_SetReverb"
       ]
-    },
-    {
-      "name": "FX_CheckMVErr__header_27c2c5a34cc6",
-      "reason": "unlinked identifiers: FX_SetErrorCode__header_865055474cdf",
-      "dependencies": [
-        "FX_SetErrorCode__header_865055474cdf"
-      ]
-    },
-    {
-      "name": "FX_SetErrorCode__header_865055474cdf",
-      "reason": "unlinked identifiers: FX_ErrorCode",
-      "dependencies": [
-        "FX_ErrorCode"
-      ]
     }
   ],
-  "installed_closed_definitions": 1,
+  "installed_closed_definitions": 3,
   "original_gameplay_verified": false
 }

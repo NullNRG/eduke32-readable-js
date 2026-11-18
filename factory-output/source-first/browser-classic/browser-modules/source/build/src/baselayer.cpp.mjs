@@ -2037,3 +2037,6 @@ export function tabledivide64__header_4c9e43263490(n, d) {
 export function divscale__header_18a18144367e(eax, ebx, ecx) {
   return i32(tabledivide64__header_4c9e43263490(i64((BigInt(i64(eax)) << BigInt(i32((u32((u32(ecx) & 255)) & 255))))), i64(ebx)));
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { engineFPSLimit, joyReadButtons, mouseReadAbs, mouseReadButtons, mouseReadPos } from "./_source_legacy_baselayer_cpp_b98c4052df16.mjs";

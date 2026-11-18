@@ -59,8 +59,8 @@
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\timer.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
   "found": 44,
-  "emitted": 38,
-  "blocked": 6,
+  "emitted": 40,
+  "blocked": 4,
   "definitions": [
     {
       "name": "fix16_rad_to_deg_mult__header_global_a6bb872a04076351",
@@ -787,56 +787,6 @@
       "unresolved_references": []
     },
     {
-      "name": "osdcmd_sys_timer",
-      "source_name": "osdcmd_sys_timer",
-      "kind": "FunctionDecl",
-      "line": 217,
-      "original_type": "int (osdcmdptr_t)",
-      "linkage": "internal",
-      "source_references": [
-        "OSD_ParsingScript",
-        "clockLastSampleTime",
-        "cpu",
-        "current_verbosity_cutoff",
-        "loguru_log",
-        "osdcmd_cvar_set",
-        "sys_timer",
-        "timerGetNanoTicks",
-        "timerGetPerformanceFrequency"
-      ],
-      "status": "blocked",
-      "reason": "source control flow: goto target not at an original compound statement boundary"
-    },
-    {
-      "name": "timerInit",
-      "source_name": "timerInit",
-      "kind": "FunctionDecl",
-      "line": 254,
-      "original_type": "int (const int)",
-      "linkage": "external",
-      "source_references": [
-        "OSD_RegisterCvar",
-        "SDL_InitSubSystem",
-        "clockLastSampleTime",
-        "clockTicksPerSecond",
-        "osdcmd_sys_timer",
-        "sys_timer",
-        "timerGetFractionalTicks",
-        "timerGetNanoTicks",
-        "timerSampleRDTSC",
-        "tsc_freq",
-        "usertimercallback"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: osdcmd_sys_timer, timerSampleRDTSC",
-      "unresolved_references": [
-        "osdcmd_sys_timer",
-        "timerSampleRDTSC"
-      ]
-    },
-    {
       "name": "timerSetCallback",
       "source_name": "timerSetCallback",
       "kind": "FunctionDecl",
@@ -1267,6 +1217,147 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "osdcmd_sys_timer",
+      "source_name": "osdcmd_sys_timer",
+      "kind": "FunctionDecl",
+      "line": 221,
+      "original_type": "int (osdcmdptr_t)",
+      "linkage": "internal",
+      "physical_source": "source/build/src/timer.cpp",
+      "source_references": [
+        "OSD_ParsingScript",
+        "clockLastSampleTime",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osdcmd_cvar_set",
+        "sys_timer",
+        "timerGetNanoTicks",
+        "timerGetPerformanceFrequency"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "clockLastSampleTime",
+          "binding": "__cxx_global_cell_c599d8eb562f5be0095fc09c",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_db5d72e777887f5f0d3a283c",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "int",
+          "name": "sys_timer",
+          "consumer_source": "source/build/src/timer.cpp"
+        }
+      ],
+      "status": "source-first",
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "verify_copied_suffixes",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 1,
+          "forward_goto": 1,
+          "shadowed_locals_renamed": 0,
+          "locals_checked": 2,
+          "exit_blocks": 1,
+          "natural_loops": 0,
+          "reducible": 1,
+          "forward_unbraced_if_label": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [
+        "OSD_ParsingScript",
+        "clockLastSampleTime",
+        "current_verbosity_cutoff",
+        "loguru_log",
+        "osdcmd_cvar_set",
+        "sys_timer",
+        "timerGetNanoTicks",
+        "timerGetPerformanceFrequency"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "timerInit",
+      "source_name": "timerInit",
+      "kind": "FunctionDecl",
+      "line": 258,
+      "original_type": "int (const int)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_Z9timerIniti",
+        "original_type": "int (const int)",
+        "source_name": "timerInit"
+      },
+      "linkage": "external",
+      "physical_source": "source/build/src/timer.cpp",
+      "source_references": [
+        "OSD_RegisterCvar",
+        "SDL_InitSubSystem",
+        "clockLastSampleTime",
+        "clockTicksPerSecond",
+        "osdcmd_sys_timer",
+        "sys_timer",
+        "timerGetNanoTicks",
+        "usertimercallback"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "clockLastSampleTime",
+          "binding": "__cxx_global_cell_c599d8eb562f5be0095fc09c",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9bf3f9df2ac908b4b68699d4",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "int",
+          "name": "clockTicksPerSecond",
+          "consumer_source": "source/build/src/timer.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_db5d72e777887f5f0d3a283c",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "int",
+          "name": "sys_timer",
+          "consumer_source": "source/build/src/timer.cpp"
+        },
+        {
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bd2eb821dd4732a4c6521d79",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "void (*)()",
+          "name": "usertimercallback",
+          "consumer_source": "source/build/src/timer.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "OSD_RegisterCvar",
+        "SDL_InitSubSystem",
+        "clockLastSampleTime",
+        "clockTicksPerSecond",
+        "sys_timer",
+        "timerGetNanoTicks",
+        "usertimercallback"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -1560,5 +1651,102 @@
   "unconsumed_legacy_export_omissions": [],
   "unreferenced_type_wrapper_blockers": [],
   "recompiled_owner_sha256": "f078f37289264afd14eb25749cb336cba25392962d0febc1fee1bf44faa323b4",
-  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration."
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration.",
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_timer_cpp_cc5c7db32b37.mjs",
+      "sha256": "cc5c7db32b379de151434aae12b5a857634cd2c8cd31caf9c4f3581152de8386",
+      "original_source": "source/build/src/timer.cpp",
+      "exports": [
+        "osdcmd_sys_timer",
+        "timerInit"
+      ],
+      "reexports": [
+        "osdcmd_sys_timer",
+        "timerInit"
+      ],
+      "imports": [
+        {
+          "name": "OSD_ParsingScript",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_RegisterCvar",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SDL_InitSubSystem",
+          "from": "browser-abi/sdl_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "clockLastSampleTime",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c599d8eb562f5be0095fc09c",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "clockTicksPerSecond",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_9bf3f9df2ac908b4b68699d4",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/timer.cpp"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "sys_timer",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_db5d72e777887f5f0d3a283c",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "int",
+          "consumer_source": "source/build/src/timer.cpp"
+        },
+        {
+          "name": "timerGetNanoTicks",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetPerformanceFrequency",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "usertimercallback",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_bd2eb821dd4732a4c6521d79",
+          "owner_source": "source/build/src/timer.cpp",
+          "original_type": "void (*)()",
+          "consumer_source": "source/build/src/timer.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "33332e58f24112102acecbc9ee9ac86d3faa5ca0fbb52ee40db0ac96142a3fe2"
+    }
+  ]
 }

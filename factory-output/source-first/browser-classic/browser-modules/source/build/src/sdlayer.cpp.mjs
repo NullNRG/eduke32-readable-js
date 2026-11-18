@@ -136,7 +136,7 @@ import { sprintf } from "../../../browser-abi/libc_provider.mjs";
 import { strcpy } from "../../../browser-abi/libc_provider.mjs";
 import { strlen } from "../../../browser-abi/libc_provider.mjs";
 import { sysReadCPUID } from "../../../browser-abi/libc_provider.mjs";
-import { timerInit } from "../../../browser-abi/libc_provider.mjs";
+import { timerInit } from "./timer.cpp.mjs";
 import { validmode } from "./engine.cpp.mjs";
 import { __cxx_global_cell_959ecb0f89b58217d69a30a7 } from "./engine.cpp.mjs";
 import { videoFadePalette } from "./palette.cpp.mjs";

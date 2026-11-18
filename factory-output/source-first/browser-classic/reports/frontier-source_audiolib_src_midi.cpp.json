@@ -1,0 +1,139 @@
+{
+  "source": "source/audiolib/src/midi.cpp",
+  "requested": [
+    "MIDI_StopSong"
+  ],
+  "requested_resolved": {
+    "MIDI_StopSong": false
+  },
+  "requested_export_bindings": {
+    "MIDI_StopSong": []
+  },
+  "requested_still_unlinked": [
+    "MIDI_StopSong"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_audiolib_src_midi.cpp/reachable-74e8a61db75489d8/source/audiolib/src/midi.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "MIDI_GetDevice",
+      "reason": "unlinked identifiers: ASS_MIDISoundDriver",
+      "dependencies": [
+        "ASS_MIDISoundDriver"
+      ]
+    },
+    {
+      "name": "MIDI_Restart",
+      "reason": "unlinked identifiers: MIDI_PlaySong, MIDI_SetSongPosition",
+      "dependencies": [
+        "MIDI_PlaySong",
+        "MIDI_SetSongPosition"
+      ]
+    },
+    {
+      "name": "_MIDI_MetaEvent",
+      "reason": "unlinked identifiers: MIDI_SetTempo",
+      "dependencies": [
+        "MIDI_SetTempo"
+      ]
+    },
+    {
+      "name": "MIDI_ServiceRoutine",
+      "reason": "unlinked identifiers: _MIDI_MetaEvent",
+      "dependencies": [
+        "_MIDI_MetaEvent"
+      ]
+    },
+    {
+      "name": "MIDI_AllNotesOff",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "dependencies": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "name": "MIDI_Reset",
+      "reason": "unlinked identifiers: MIDI_AllNotesOff, SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "dependencies": [
+        "MIDI_AllNotesOff",
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "name": "MIDI_SetVolume",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "dependencies": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "name": "MIDI_GetVolume",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "dependencies": [
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "name": "MIDI_PauseSong",
+      "reason": "unlinked identifiers: MIDI_AllNotesOff",
+      "dependencies": [
+        "MIDI_AllNotesOff"
+      ]
+    },
+    {
+      "name": "MIDI_StopSong",
+      "reason": "unlinked identifiers: MIDI_Reset, SoundDriver_MIDI_HaltPlayback",
+      "dependencies": [
+        "MIDI_Reset",
+        "SoundDriver_MIDI_HaltPlayback"
+      ]
+    },
+    {
+      "name": "MIDI_PlaySong",
+      "reason": "unlinked identifiers: MIDI_Reset, MIDI_StopSong, SoundDriver_MIDI_StartPlayback",
+      "dependencies": [
+        "MIDI_Reset",
+        "MIDI_StopSong",
+        "SoundDriver_MIDI_StartPlayback"
+      ]
+    },
+    {
+      "name": "MIDI_SetTempo",
+      "reason": "unlinked identifiers: SoundDriver_MIDI_SetTempo",
+      "dependencies": [
+        "SoundDriver_MIDI_SetTempo"
+      ]
+    },
+    {
+      "name": "_MIDI_ProcessNextTick",
+      "reason": "unlinked identifiers: _MIDI_MetaEvent",
+      "dependencies": [
+        "_MIDI_MetaEvent"
+      ]
+    },
+    {
+      "name": "MIDI_SetSongPosition",
+      "reason": "unlinked identifiers: MIDI_PauseSong, MIDI_Reset, MIDI_SetVolume, SoundDriver_MIDI_Lock, SoundDriver_MIDI_Unlock",
+      "dependencies": [
+        "MIDI_PauseSong",
+        "MIDI_Reset",
+        "MIDI_SetVolume",
+        "SoundDriver_MIDI_Lock",
+        "SoundDriver_MIDI_Unlock"
+      ]
+    },
+    {
+      "name": "_MIDI_InitEMIDI",
+      "reason": "unlinked identifiers: ASS_EMIDICard, SoundDriver_MIDI_GetCardType",
+      "dependencies": [
+        "ASS_EMIDICard",
+        "SoundDriver_MIDI_GetCardType"
+      ]
+    }
+  ],
+  "installed_closed_definitions": 60,
+  "original_gameplay_verified": false
+}

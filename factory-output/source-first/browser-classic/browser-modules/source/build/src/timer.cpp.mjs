@@ -1451,3 +1451,6 @@ export function __cxx_operator_11a696315e969ab4(lhs, rhs) {
 export function __cxx_operator_9d5bfff63c86ec9c(lhs, rhs) {
   return Boolean(__cxx_operator_11a696315e969ab4(rhs, lhs));
 }
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { osdcmd_sys_timer, timerInit } from "./_source_legacy_timer_cpp_cc5c7db32b37.mjs";

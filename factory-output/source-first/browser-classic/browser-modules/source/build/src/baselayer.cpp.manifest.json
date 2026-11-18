@@ -59,8 +59,8 @@
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\build\\src\\baselayer.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
   "found": 105,
-  "emitted": 89,
-  "blocked": 16,
+  "emitted": 94,
+  "blocked": 11,
   "definitions": [
     {
       "name": "fix16_rad_to_deg_mult__header_global_48319d0eb71d99ae",
@@ -1258,109 +1258,6 @@
       "unresolved_references": []
     },
     {
-      "name": "mouseReadPos",
-      "source_name": "mouseReadPos",
-      "kind": "FunctionDecl",
-      "line": 340,
-      "original_type": "void (int32_t *, int32_t *)",
-      "linkage": "external",
-      "source_references": [
-        "appactive",
-        "g_mouseEnabled",
-        "g_mouseGrabbed",
-        "g_mousePos"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: appactive",
-      "unresolved_references": [
-        "appactive"
-      ]
-    },
-    {
-      "name": "mouseReadAbs",
-      "source_name": "mouseReadAbs",
-      "kind": "FunctionDecl",
-      "line": 353,
-      "original_type": "int32_t (vec2_t *const, const vec2_t *const)",
-      "linkage": "external",
-      "source_references": [
-        "appactive",
-        "divscale16__header_e954170d3dc9",
-        "g_mouseEnabled",
-        "g_mouseInsideWindow",
-        "max__template_b1cfaf2244c73238",
-        "osd",
-        "rotatesprite_y_offset",
-        "rotatesprite_yxaspect",
-        "scale__header_011db2d976ec",
-        "xdim",
-        "xres",
-        "ydim",
-        "yres"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "osd",
-          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
-          "abi": "source-global-cell/2",
-          "original_type": "osdmain_t *"
-        },
-        {
-          "name": "xdim",
-          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        },
-        {
-          "name": "ydim",
-          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: appactive, rotatesprite_y_offset, rotatesprite_yxaspect, xres, yres",
-      "unresolved_references": [
-        "appactive",
-        "rotatesprite_y_offset",
-        "rotatesprite_yxaspect",
-        "xres",
-        "yres"
-      ]
-    },
-    {
-      "name": "mouseReadButtons",
-      "source_name": "mouseReadButtons",
-      "kind": "FunctionDecl",
-      "line": 368,
-      "original_type": "int32_t ()",
-      "linkage": "external",
-      "source_references": [
-        "appactive",
-        "g_mouseBits",
-        "g_mouseEnabled",
-        "g_mouseInsideWindow",
-        "osd"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "osd",
-          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
-          "abi": "source-global-cell/2",
-          "original_type": "osdmain_t *"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: appactive",
-      "unresolved_references": [
-        "appactive"
-      ]
-    },
-    {
       "name": "joystick",
       "source_name": "joystick",
       "kind": "VarDecl",
@@ -1399,25 +1296,6 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
-    },
-    {
-      "name": "joyReadButtons",
-      "source_name": "joyReadButtons",
-      "kind": "FunctionDecl",
-      "line": 376,
-      "original_type": "void (int32_t *)",
-      "linkage": "external",
-      "source_references": [
-        "appactive",
-        "joystick"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [],
-      "status": "blocked",
-      "reason": "unlinked identifiers: appactive",
-      "unresolved_references": [
-        "appactive"
-      ]
     },
     {
       "name": "joyHasButton",
@@ -1779,35 +1657,6 @@
       "unresolved_references": [
         "stderr",
         "stdout"
-      ]
-    },
-    {
-      "name": "engineFPSLimit",
-      "source_name": "engineFPSLimit",
-      "kind": "FunctionDecl",
-      "line": 891,
-      "original_type": "int (const bool)",
-      "linkage": "external",
-      "source_references": [
-        "calcFrameDelay__header_71d089a3b620",
-        "g_frameDelay",
-        "r_maxfps",
-        "refreshfreq",
-        "timerGetNanoTicks"
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "refreshfreq",
-          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
-          "abi": "source-global-cell/2",
-          "original_type": "double"
-        }
-      ],
-      "status": "blocked",
-      "reason": "unlinked identifiers: timerGetNanoTicks",
-      "unresolved_references": [
-        "timerGetNanoTicks"
       ]
     },
     {
@@ -2913,6 +2762,361 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "engineFPSLimit",
+      "source_name": "engineFPSLimit",
+      "kind": "FunctionDecl",
+      "line": 891,
+      "original_type": "int (const bool)",
+      "linkage": "external",
+      "source_references": [
+        "calcFrameDelay__header_71d089a3b620",
+        "g_frameDelay",
+        "r_maxfps",
+        "refreshfreq",
+        "timerGetNanoTicks"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_frameDelay",
+          "binding": "__cxx_global_cell_5669eb8f22367bb78b701754",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "r_maxfps",
+          "binding": "__cxx_global_cell_9856254f6c33ff5182a27f76",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "refreshfreq",
+          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
+          "abi": "source-global-cell/2",
+          "original_type": "double"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_frameDelay",
+        "r_maxfps",
+        "refreshfreq",
+        "timerGetNanoTicks"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "joyReadButtons",
+      "source_name": "joyReadButtons",
+      "kind": "FunctionDecl",
+      "line": 376,
+      "original_type": "void (int32_t *)",
+      "linkage": "external",
+      "source_references": [
+        "appactive",
+        "joystick"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "appactive",
+          "binding": "__cxx_global_cell_026e4893be4e21af32359651",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "joystick",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 1,
+            "accesses": [
+              {
+                "clang_reference_id": "0x26b68ef5358",
+                "fields": [
+                  {
+                    "id": "0x26b67806ec8",
+                    "name": "bits"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "appactive",
+        "joystick"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "mouseReadAbs",
+      "source_name": "mouseReadAbs",
+      "kind": "FunctionDecl",
+      "line": 353,
+      "original_type": "int32_t (vec2_t *const, const vec2_t *const)",
+      "linkage": "external",
+      "source_references": [
+        "appactive",
+        "divscale16__header_e954170d3dc9",
+        "g_mouseEnabled",
+        "g_mouseInsideWindow",
+        "max__template_b1cfaf2244c73238",
+        "osd",
+        "rotatesprite_y_offset",
+        "rotatesprite_yxaspect",
+        "scale__header_011db2d976ec",
+        "xdim",
+        "xres",
+        "ydim",
+        "yres"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "appactive",
+          "binding": "__cxx_global_cell_026e4893be4e21af32359651",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "g_mouseEnabled",
+          "binding": "__cxx_global_cell_489f4a2f5e930aaf72c81254",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mouseInsideWindow",
+          "binding": "__cxx_global_cell_80f8e5fd148b9081d92a796f",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "rotatesprite_y_offset",
+          "binding": "__cxx_global_cell_f6c55103bb34c1bae0a56530",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "rotatesprite_yxaspect",
+          "binding": "__cxx_global_cell_1eb1cfb64d199abe24ad949b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "xdim",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "xres",
+          "binding": "__cxx_global_cell_56bd65d018548900199db93f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ydim",
+          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "yres",
+          "binding": "__cxx_global_cell_18fd7bea782d2fdc86805764",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "appactive",
+        "g_mouseEnabled",
+        "g_mouseInsideWindow",
+        "osd",
+        "rotatesprite_y_offset",
+        "rotatesprite_yxaspect",
+        "xdim",
+        "xres",
+        "ydim",
+        "yres"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "mouseReadButtons",
+      "source_name": "mouseReadButtons",
+      "kind": "FunctionDecl",
+      "line": 368,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "source_references": [
+        "appactive",
+        "g_mouseBits",
+        "g_mouseEnabled",
+        "g_mouseInsideWindow",
+        "osd"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "appactive",
+          "binding": "__cxx_global_cell_026e4893be4e21af32359651",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "g_mouseBits",
+          "binding": "__cxx_global_cell_1e0923736d676262c5e9d588",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_mouseEnabled",
+          "binding": "__cxx_global_cell_489f4a2f5e930aaf72c81254",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mouseInsideWindow",
+          "binding": "__cxx_global_cell_80f8e5fd148b9081d92a796f",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "osd",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "appactive",
+        "g_mouseBits",
+        "g_mouseEnabled",
+        "g_mouseInsideWindow",
+        "osd"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "mouseReadPos",
+      "source_name": "mouseReadPos",
+      "kind": "FunctionDecl",
+      "line": 340,
+      "original_type": "void (int32_t *, int32_t *)",
+      "linkage": "external",
+      "source_references": [
+        "appactive",
+        "g_mouseEnabled",
+        "g_mouseGrabbed",
+        "g_mousePos"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "appactive",
+          "binding": "__cxx_global_cell_026e4893be4e21af32359651",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "g_mouseEnabled",
+          "binding": "__cxx_global_cell_489f4a2f5e930aaf72c81254",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mouseGrabbed",
+          "binding": "__cxx_global_cell_98758ea3e7ef83f477f7ff1f",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mousePos",
+          "binding": "__cxx_global_cell_52921ad2f7df0862590c48b4",
+          "abi": "source-global-cell/2",
+          "original_type": "vec2<int>",
+          "byte_record_schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 4,
+            "accesses": [
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b671993b0",
+                    "name": "y"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b67199350",
+                    "name": "x"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b671993b0",
+                    "name": "y"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b67199350",
+                    "name": "x"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "appactive",
+        "g_mouseEnabled",
+        "g_mouseGrabbed",
+        "g_mousePos"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -3602,5 +3806,627 @@
   "unconsumed_legacy_export_omissions": [],
   "unreferenced_type_wrapper_blockers": [],
   "recompiled_owner_sha256": "dbcedab768fd42b85aa859cdbc95071b789d05a27c509a566e83e3c6b69c9c89",
-  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration."
+  "activation_policy": "Fresh runtime only; execute original global/engine initialization. No live-state migration.",
+  "module_fragments": [
+    {
+      "module": "source/build/src/_source_legacy_baselayer_cpp_b98c4052df16.mjs",
+      "sha256": "b98c4052df16b2080b86f3475250ea89cbb05ccfb5f2de4979b9ce1351ae0a35",
+      "original_source": "source/build/src/baselayer.cpp",
+      "exports": [
+        "engineFPSLimit",
+        "joyReadButtons",
+        "mouseReadAbs",
+        "mouseReadButtons",
+        "mouseReadPos"
+      ],
+      "reexports": [
+        "engineFPSLimit",
+        "joyReadButtons",
+        "mouseReadAbs",
+        "mouseReadButtons",
+        "mouseReadPos"
+      ],
+      "imports": [
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Create__cxx_static_b7202f8c9d4230a6",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Destroy__cxx_static_777d0ae31c789182",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_Puts",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OSD_RegisterCvar",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "appactive",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_026e4893be4e21af32359651",
+          "abi": "source-global-cell/2",
+          "original_type": "char"
+        },
+        {
+          "name": "current_verbosity_cutoff",
+          "from": "source/build/src/loguru.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/build/src/baselayer.cpp"
+        },
+        {
+          "name": "g_frameDelay",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5669eb8f22367bb78b701754",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned long"
+        },
+        {
+          "name": "g_keyAsciiEnd",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ee6f4502eccd328f27b46fb8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_keyAsciiFIFO",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_keyAsciiPos",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6fc8c10b0aec7fd31285ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_keyFIFO",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_keyFIFOend",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_df1f765f773d5b8f0f0da51c",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_keyFIFOpos",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8244e5f039497bc6364338f8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_keyNameTable",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-native-array/1",
+          "array": "Uint8Array",
+          "dimensions": [
+            256,
+            24
+          ],
+          "original_type": "char[256][24]",
+          "consumer_source": "source/build/src/baselayer.cpp"
+        },
+        {
+          "name": "g_keyRemapTable",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_mouseBits",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1e0923736d676262c5e9d588",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_mouseCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1cf0029028a3e73171a1adee",
+          "abi": "source-global-cell/2",
+          "original_type": "void (*)(int32_t, int32_t)"
+        },
+        {
+          "name": "g_mouseClickState",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e05bfe76ea6b9140ad7ed9e7",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_mouseEnabled",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_489f4a2f5e930aaf72c81254",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mouseGrabbed",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_98758ea3e7ef83f477f7ff1f",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mouseInsideWindow",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_80f8e5fd148b9081d92a796f",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_mousePos",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_52921ad2f7df0862590c48b4",
+          "abi": "source-global-cell/2",
+          "original_type": "vec2<int>",
+          "byte_record_schema_sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "be8e7ec9f94d97a848715fdb533b628ffa751dae128850ad4ebc96ac6ae4e01d"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 4,
+            "accesses": [
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b671993b0",
+                    "name": "y"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b67199350",
+                    "name": "x"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b671993b0",
+                    "name": "y"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x26b68ef1f90",
+                "fields": [
+                  {
+                    "id": "0x26b67199350",
+                    "name": "x"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_useLogCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_079877be927e9ceeb785b6a6",
+          "abi": "source-global-cell/2",
+          "original_type": "bool"
+        },
+        {
+          "name": "g_videoContrast",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_eb7ec64efb5dec6e758a65c7",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "g_videoGamma",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_92f6ec0c3a993b574f308abb",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "g_videoSaturation",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6f1e8c839618189cf2ebd7a",
+          "abi": "source-global-cell/2",
+          "original_type": "float"
+        },
+        {
+          "name": "gameVerbosityCallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cb5e428fb755e6264fd9139d",
+          "abi": "source-global-cell/2",
+          "original_type": "const char *(*)(loguru::Verbosity)"
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 1,
+            "accesses": [
+              {
+                "clang_reference_id": "0x26b68ef5358",
+                "fields": [
+                  {
+                    "id": "0x26b678070d0",
+                    "name": "validButtons"
+                  }
+                ],
+                "result_type": "unsigned int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "keypresscallback",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_77d14caa4bb6e2cb2f6b3f8f",
+          "abi": "source-global-cell/2",
+          "original_type": "void (*)(int32_t, int32_t)"
+        },
+        {
+          "name": "keystatus",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "loguru_log",
+          "from": "browser-abi/loguru_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lz4CompressionLevel",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2e953df8db08c3fc6f0c3e07",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "maxspritesonscreen",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4723a60d88a1aa0814b17967",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "novoxmips",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7e42dba8ea8f9a8bc3318fdc",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "osd",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a97be12fac9e104b96ea90d",
+          "abi": "source-global-cell/2",
+          "original_type": "osdmain_t *"
+        },
+        {
+          "name": "osdcmd_cvar_set",
+          "from": "source/build/src/osd.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "r_borderless",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_67da6fc124c3ab1d5da4a606",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_fpgrouscan",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_d33e7d272649317fa29cc706",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_maxfps",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9856254f6c33ff5182a27f76",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_rotatespriteinterp",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_839b6dd579d4126718a101c3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_screenxy",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_585083e70b316eace630e342",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned int"
+        },
+        {
+          "name": "r_tror_nomaskpass",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8afc3f1714c50fd848123c08",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "r_usenewaspect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1719e7bd91d790092d913225",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "refreshfreq",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84c518e352f66f31d8eaf74c",
+          "abi": "source-global-cell/2",
+          "original_type": "double"
+        },
+        {
+          "name": "rotatesprite_y_offset",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f6c55103bb34c1bae0a56530",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "rotatesprite_yxaspect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1eb1cfb64d199abe24ad949b",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "screenshot_dir",
+          "from": "source/build/src/screenshot.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "setvlinebpl",
+          "from": "source/build/src/a-c.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "snprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "startwin_isopen",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "startwin_puts",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetNanoTickRate",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "timerGetNanoTicks",
+          "from": "source/build/src/timer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "usehightile",
+          "from": "source/build/src/hightile.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_528ff86eb213577eb56b717e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "usevoxels",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_77d5c24237b7b046074e378d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "videoSetPalette",
+          "from": "source/build/src/palette.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "vsnprintf",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "xdim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_22f848239c12c0d9f2b6f9e3",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "xres",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_56bd65d018548900199db93f",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ydim",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ce636929c03d679219ea2982",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "ylookup",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6ef139bca6611fb821515c5d",
+          "abi": "source-global-cell/2",
+          "original_type": "intptr_t *"
+        },
+        {
+          "name": "yres",
+          "from": "source/build/src/sdlayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_18fd7bea782d2fdc86805764",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "1c88ab14caab9475fd3f9af0332d70a1f2039d564265cade02083b275a854941"
+    }
+  ]
 }

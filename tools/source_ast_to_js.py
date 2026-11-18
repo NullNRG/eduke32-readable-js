@@ -11,7 +11,7 @@ from collections import Counter
 from functools import lru_cache
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from source_control_flow import SourceFlowPlan, ControlFlowUnsupported, recover_loop_terminal_jumps
+from source_control_flow import SourceFlowPlan, ControlFlowUnsupported, recover_forward_if_label, recover_loop_terminal_jumps
 from source_scalar_round import recover as recover_scalar_round, RUNTIME as SCALAR_ROUND_RUNTIME
 import source_std_unordered as std_unordered
 from source_runtime_helpers import embedded as embedded_runtime
@@ -2478,6 +2478,7 @@ class Emit:
             +json.dumps(schema['dims'])+', '+self.byte_record_prototypes(schema)+', '+initial+')')
 
     def byte_record_initializer(self,schema,node):
+        static_relocations=not self.current_function or getattr(self,'static_byte_relocations',False)
         """Materialize the original selected union member into shared bytes."""
         record=schema['byteRecord'];values=kids(node)
         if kind(node)=='ImplicitValueInitExpr' or (kind(node)=='CXXConstructExpr' and not values):
@@ -2544,14 +2545,14 @@ class Emit:
                     values=[]
                     for item in items:
                         expression=self.expr(item)
-                        if field.get('pointerArray') and not self.current_function:
+                        if field.get('pointerArray') and static_relocations:
                             expression='null' if expression in ('0','0n','null') else self.static_pointer_initializer(item)
                         values.append(expression)
                     return '['+', '.join(values)+']'
                 result=array_values(value,field['dims'])
             elif 'byteRecord' in field:
                 result=self.byte_record_initializer({'byteRecord':field['byteRecord']},value)
-            elif field.get('pointer') and not self.current_function:
+            elif field.get('pointer') and static_relocations:
                 literal=value
                 while kind(literal) in WRAPPERS and len(kids(literal))==1:literal=kids(literal)[0]
                 if kind(literal)=='StringLiteral':
@@ -2575,7 +2576,7 @@ class Emit:
             else:result=self.expr(value)
             initializers.append(json.dumps(name)+': '+result)
         initial='{'+', '.join(initializers)+'}'
-        if not self.current_function:initial='cStaticInitializerValues('+initial+')'
+        if static_relocations:initial='cStaticInitializerValues('+initial+')'
         return 'cInitByteRecord('+json.dumps(record,sort_keys=True)+', '+initial+', null, '+self.byte_record_prototypes(schema)+')'
 
     def is_lvalue(self,n):
@@ -2824,7 +2825,18 @@ class Emit:
                         raise Unsupported('nonconstant function-static initializer',
                             required_records=(qual(initializer),) if not record and
                                 kind(initializer)=='CXXConstructExpr' and not kids(initializer) else ())
-                    if re.search(r'\[\d+\]',t) or ('*' in t and any(kind(v)=='StringLiteral' for v in descendants(initializer))):
+                    if (kind(initializer)=='InitListExpr' and schema and 'byteRecord' in schema and
+                        any(kind(v)=='UnaryOperator' and v.get('opcode')=='&' for v in descendants(initializer)) and
+                        not any(kind(v) in ('CallExpr','CXXMemberCallExpr','CXXConstructExpr','CXXNewExpr') or
+                                kind(v)=='ImplicitCastExpr' and v.get('castKind')=='LValueToRValue'
+                                for v in descendants(initializer))):
+                        # Static aggregate relocations must not inspect the
+                        # owner value during cyclic fragment evaluation.
+                        old=getattr(self,'static_byte_relocations',False)
+                        self.static_byte_relocations=True
+                        try:value=self.byte_record_initializer(schema,initializer)
+                        finally:self.static_byte_relocations=old
+                    elif re.search(r'\[\d+\]',t) or ('*' in t and any(kind(v)=='StringLiteral' for v in descendants(initializer))):
                         # A C function-static array/pointer has the same native
                         # storage semantics as a file-static aggregate: stable
                         # byte memory, correct NUL capacity, never JS strings.
@@ -3495,7 +3507,10 @@ class Emit:
             header=(name if method else 'export function '+name)
             return header+'('+argnames[0]+') {\n  return cSSEFloat32ToInt32('+argnames[0]+');\n}'
         resume=None
+        forward_if_label=None
         if any(kind(v)=='GotoStmt' for v in descendants(bodies[-1])):
+            forward_if_label=recover_forward_if_label(bodies[-1],self.expression_temp())
+            if forward_if_label:bodies=[forward_if_label]
             resume=recover_resume_dispatch(bodies[-1],self.expression_temp())
             if resume:bodies=[resume['body']]
         terminal_jumps=recover_loop_terminal_jumps(bodies[-1],self.trivial_destructors,
@@ -3539,6 +3554,9 @@ class Emit:
         if sibling_tail:
             self.last_flow_report={**(self.last_flow_report or {}),
                 'sibling_branch_tail':{key:value for key,value in sibling_tail.items() if key!='body'}}
+        if forward_if_label:
+            report=self.last_flow_report or {}
+            self.last_flow_report={**report,'detected':{**report.get('detected',{}),'forward_unbraced_if_label':1}}
         if self.c_variadic:argnames.append('...__cxx_varargs')
         prefix=[]
         for param in params:

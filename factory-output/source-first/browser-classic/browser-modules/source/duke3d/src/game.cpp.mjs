@@ -37,3 +37,6 @@ export { A_InitEnemyFlags, A_ResetVars__header_9b335bd7219c, G_GetLogoFlags__hea
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { G_Cleanup, G_FatalEngineInitError } from "./_source_legacy_game_cpp_be9e62e60baf.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { FX_CheckMVErr__header_d57fb66bb209, FX_SetErrorCode__header_c6eb91badbc8, app_crashhandler } from "./_source_legacy_game_cpp_e8b9c32f7261.mjs";

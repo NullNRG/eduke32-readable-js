@@ -97,6 +97,11 @@ def browser_make(data):
         b'# Browser allocations use smmalloc_generic.cpp; pool/TLS optimizations are excluded.\n'
         b'ifeq ($(SUBPLATFORM),BROWSER)\n'
         b'    engine_excl += smmalloc.cpp smmalloc_tls.cpp\nendif\n\nengine_objs := \\\n')
+
+def browser_timer(data):
+    return replace_once(data, b'#include <atomic>\n',
+        b'#include <atomic>\n\n#ifdef EDUKE32_BROWSER\n# undef HAVE_TIMER_RDTSC\n#endif\n')
+
 ADAPTATIONS=(
     (DRIVERS,browser_drivers,'Exclude ALSA backend; retain original SDL, OPL and mixer behavior'),
     (COMPAT,browser_allocator_compat,'Select original GenericAllocator for browser allocation wrappers; preserve original error handling'),
@@ -106,6 +111,8 @@ ADAPTATIONS=(
      'Exclude desktop output-monitor selection from the browser console; retain original video mode and rendering paths'),
     ('source/build/src/sdlayer.cpp',browser_classic_sdl,
      'Exclude editor ImGui interception/cleanup and native controller haptics from the classic browser platform; preserve original software video, event translation and device input'),
+    ('source/build/src/timer.cpp',browser_timer,
+     'Use the original SDL timer path in browsers without CPU cycle counter instructions'),
     ('GNUmakefile',browser_make,'Exclude unused pool and thread-cache units from original Make browser selection'),
 )
 def restore_source_archive(archive,destination,expected_sha):

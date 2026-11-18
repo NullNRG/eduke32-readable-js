@@ -1,27 +1,30 @@
 {
   "source": "source/duke3d/src/game.cpp",
   "requested": [
-    "G_Cleanup",
-    "G_Shutdown",
-    "G_GameExit"
+    "app_main",
+    "G_Startup",
+    "G_GameExit",
+    "G_Shutdown"
   ],
   "requested_resolved": {
-    "G_Cleanup": true,
-    "G_Shutdown": false,
-    "G_GameExit": false
+    "app_main": false,
+    "G_Startup": false,
+    "G_GameExit": false,
+    "G_Shutdown": false
   },
   "requested_export_bindings": {
-    "G_Cleanup": [
-      "G_Cleanup"
-    ],
-    "G_Shutdown": [],
-    "G_GameExit": []
+    "app_main": [],
+    "G_Startup": [],
+    "G_GameExit": [],
+    "G_Shutdown": []
   },
   "requested_still_unlinked": [
-    "G_Shutdown",
-    "G_GameExit"
+    "app_main",
+    "G_Startup",
+    "G_GameExit",
+    "G_Shutdown"
   ],
-  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-900603983b138c8f/source/duke3d/src/game.cpp.manifest.json",
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-406dc6a9b31328e3/source/duke3d/src/game.cpp.manifest.json",
   "blocked": [
     {
       "name": "gameTimerHandler",
@@ -47,10 +50,9 @@
     },
     {
       "name": "G_GameExit",
-      "reason": "unlinked identifiers: G_BonusScreen, G_CloseDemoWrite, G_DisplayExtraScreens",
+      "reason": "unlinked identifiers: G_BonusScreen, G_DisplayExtraScreens",
       "dependencies": [
         "G_BonusScreen",
-        "G_CloseDemoWrite",
         "G_DisplayExtraScreens"
       ]
     },
@@ -184,20 +186,18 @@
     },
     {
       "name": "G_BackToMenu",
-      "reason": "unlinked identifiers: G_CloseDemoWrite, Menu_Change, Menu_Open",
+      "reason": "unlinked identifiers: Menu_Change, Menu_Open",
       "dependencies": [
-        "G_CloseDemoWrite",
         "Menu_Change",
         "Menu_Open"
       ]
     },
     {
       "name": "G_EndOfLevel",
-      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_CloseDemoWrite, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_UpdateScreenPal",
+      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_DoOrderScreen, G_EnterLevel, G_UpdateScreenArea, Menu_Change, Menu_Open, P_UpdateScreenPal",
       "dependencies": [
         "G_BackToMenu",
         "G_BonusScreen",
-        "G_CloseDemoWrite",
         "G_DoOrderScreen",
         "G_EnterLevel",
         "G_UpdateScreenArea",
@@ -207,15 +207,8 @@
       ]
     },
     {
-      "name": "app_crashhandler",
-      "reason": "unlinked identifiers: G_CloseDemoWrite",
-      "dependencies": [
-        "G_CloseDemoWrite"
-      ]
-    },
-    {
       "name": "drawframe_do",
-      "reason": "unlinked identifiers: G_DisplayRest, G_DrawBackground, G_DrawRooms, G_HandleLocalKeys, P_GetInput, S_Update, g_saveRequested, videoNextPage",
+      "reason": "unlinked identifiers: G_DisplayRest, G_DrawBackground, G_DrawRooms, G_HandleLocalKeys, P_GetInput, S_Update, videoNextPage",
       "dependencies": [
         "G_DisplayRest",
         "G_DrawBackground",
@@ -223,7 +216,6 @@
         "G_HandleLocalKeys",
         "P_GetInput",
         "S_Update",
-        "g_saveRequested",
         "videoNextPage"
       ]
     },
@@ -263,11 +255,7 @@
         "dukeConsolePrintChar",
         "dukeConsolePrintCursor",
         "dukeConsolePrintString",
-        "engineFPSLimit",
         "engineSetLogFile",
-        "g_lastautosave",
-        "g_quickload",
-        "g_saveRequested",
         "loaddefinitionsfile",
         "registerosdcommands"
       ]
@@ -379,22 +367,8 @@
       "dependencies": [
         "handleevents"
       ]
-    },
-    {
-      "name": "FX_CheckMVErr__header_d57fb66bb209",
-      "reason": "unlinked identifiers: FX_SetErrorCode__header_c6eb91badbc8",
-      "dependencies": [
-        "FX_SetErrorCode__header_c6eb91badbc8"
-      ]
-    },
-    {
-      "name": "FX_SetErrorCode__header_c6eb91badbc8",
-      "reason": "unlinked identifiers: FX_ErrorCode",
-      "dependencies": [
-        "FX_ErrorCode"
-      ]
     }
   ],
-  "installed_closed_definitions": 2,
+  "installed_closed_definitions": 3,
   "original_gameplay_verified": false
 }

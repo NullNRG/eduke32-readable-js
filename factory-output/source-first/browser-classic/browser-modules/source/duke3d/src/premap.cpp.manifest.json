@@ -592,8 +592,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\premap.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 937,
-  "emitted": 885,
+  "found": 940,
+  "emitted": 888,
   "blocked": 52,
   "definitions": [
     {
@@ -29791,6 +29791,86 @@
         "g_mapInfo"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "FX_CheckMVErr__header_27c2c5a34cc6",
+      "source_name": "FX_CheckMVErr",
+      "kind": "FunctionDecl",
+      "line": 97,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/audiolib/include/fx_man.h",
+        "source_offset": 3175,
+        "source_line": 97,
+        "header_sha256": "0ccabbce44a8d47797a1981682a2fe202b4b99c47faee7f5ee138b36c652f4de"
+      },
+      "physical_source": "source/audiolib/include/fx_man.h",
+      "source_references": [
+        "FX_SetErrorCode__header_865055474cdf"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "FX_SetErrorCode__header_865055474cdf",
+      "source_name": "FX_SetErrorCode",
+      "kind": "FunctionDecl",
+      "line": 91,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/audiolib/include/fx_man.h",
+        "source_offset": 3070,
+        "source_line": 91,
+        "header_sha256": "0ccabbce44a8d47797a1981682a2fe202b4b99c47faee7f5ee138b36c652f4de"
+      },
+      "physical_source": "source/audiolib/include/fx_man.h",
+      "source_references": [
+        "FX_ErrorCode"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "FX_ErrorCode",
+          "binding": "__cxx_global_cell_103ca1df5a9531b359a2ae15",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "FX_ErrorCode"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "FX_SoundActive__header_7103d17c9fb1",
+      "source_name": "FX_SoundActive",
+      "kind": "FunctionDecl",
+      "line": 135,
+      "original_type": "int (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/audiolib/include/fx_man.h",
+        "source_offset": 5365,
+        "source_line": 135,
+        "header_sha256": "0ccabbce44a8d47797a1981682a2fe202b4b99c47faee7f5ee138b36c652f4de"
+      },
+      "physical_source": "source/audiolib/include/fx_man.h",
+      "source_references": [
+        "MV_VoicePlaying"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "MV_VoicePlaying"
+      ],
+      "unresolved_references": []
     }
   ],
   "imports": [
@@ -35861,6 +35941,1464 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "4fd072534d14e523299b22b5aa067a6714bde0d366129fad4aad42f82c00e343"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_premap_cpp_535e4f426b51.mjs",
+      "sha256": "535e4f426b51c9db34d26a652d0cb0f2fde32f1c7a85a65a435bf1371aee896b",
+      "original_source": "source/duke3d/src/premap.cpp",
+      "exports": [
+        "FX_CheckMVErr__header_27c2c5a34cc6",
+        "FX_SetErrorCode__header_865055474cdf",
+        "FX_SoundActive__header_7103d17c9fb1"
+      ],
+      "reexports": [
+        "FX_CheckMVErr__header_27c2c5a34cc6",
+        "FX_SetErrorCode__header_865055474cdf",
+        "FX_SoundActive__header_7103d17c9fb1"
+      ],
+      "imports": [
+        {
+          "name": "APLAYER____header_global_04ff51bc5bef4a15",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "ATOMICHEALTH____header_global_6e9160ba0c4e7461",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Alloc__cxx_static_e0036cfb06bcfe42",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BIGALPHANUM",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0fbad066388aec9bc0812b21",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BLOOD",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c9f5b99404f021accad355ba",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BLOODPOOL",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e9c70db6a9bd06de6f9cc3bc",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BOSS1____header_global_1c970140290a24dc",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BOSS2____header_global_218b3b5c9b5e738d",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BOSS3____header_global_d32ab7486a36eef7",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "BOTTOMSTATUSBAR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_fffbe90549f36d5aaad66f3d",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BROKEFIREHYDRENT",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f86a649ca2355560a13b0cf4",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BULLETHOLE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_5a1318d87ddacc87fafe95fb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BURNING",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c1626fe25aff8c4ce391eaf3",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "BURNING2",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2b22a2a61faf5f95d989393a",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "Bcorrectfilename",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CAMERA1____header_global_7aa08ecd9c9a2aca",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "CHAINGUN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_be5f3f16c99aa0c4c7540262",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "CHAINGUNSPRITE____header_global_d37d7e13f48d5ef2",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "COMMANDERSTAYPUT____header_global_ad5a092bb2b9715b",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "COMMANDER____header_global_715d840b8ddaf0ac",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "COOLEXPLOSION1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c7f866ce14e549933acc1cbe",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "CRACKKNUCKLES",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1b0bff222d8809f7fbd3cd76",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DEVISTATOR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_82312e2589b56fe5cc11c57c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "DEVISTATORSPRITE____header_global_cbde8299850b9be3",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "DIPSWITCH2____header_global_85ac53055c73eb30",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "DIPSWITCH____header_global_86be21ba5e8f6b87",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "DRONE____header_global_bd4a3b1587008412",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "DUKECAR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8f8dcb7c3b51717f2e3a3dd6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "ENDALPHANUM",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_36ae8e7e0609e1ba98b670b6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "EXPLODINGBARREL____header_global_f1074f07da432250",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "EXPLOSION2",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_25cbe21ca8a9a4695d94e535",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FEMPIC1____header_global_5b3b0c117f251ad6",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FIRELASER",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_e2e9453cb6f12d122c5aba13",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FIRSTGUN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3091fde9946d0f8f8c52c3ba",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FIRSTGUNRELOAD",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_95d62fe0514824747cf49304",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FIRSTGUNRELOADWIDE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8d2e80a7bc33d9b4080fb621",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FOOTPRINTS",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_36231d056ee6787e9bb7a345",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FORCERIPPLE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_7b86ef66324f53c53fc423bf",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FRAGBAR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_84d2dd86f9f51362b17ebd56",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FRANKENSTINESWITCH____header_global_863412e5298f5446",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FREEZE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ce204cf41f715f7bc62e94bd",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FREEZEBLAST",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0aa6eda7dfb9c2ede217d4d4",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FREEZEFIREWIDE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ad87882d827341ad8b88251c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FREEZESPRITE____header_global_2f0e764f6e25069d",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "FREEZEWIDE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_24988840ad48be2de2945e50",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "FX_ErrorCode",
+          "from": "source/audiolib/src/fx_man.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_103ca1df5a9531b359a2ae15",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "FindDistance2D",
+          "from": "source/build/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Free__cxx_static_0dfd3f42f0dc2c05",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "GROWSPARK",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_182ff03ee4fe21aadf00a8be",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "GROWSPRITEICON____header_global_144a59e7a3892d50",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Gv_GetVarByLabel",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HANDHOLDINGLASER",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a1135ec6e3c71ee50e4480df",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "HANDREMOTE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_acdfc92622d3adf87a8c9b83",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "HANDSWITCH____header_global_f93d1ab618ea3ee8",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HBOMBAMMO____header_global_43ae0f9da947926d",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HEADJIB1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_024cb03099f4ebe4e904e0c3",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "HEAVYHBOMB____header_global_5a4ab7f1f5ff0277",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "HORSEONSIDE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f13b605fb648b1d7f729b6d9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "HYDRENT____header_global_87ed7cd6d909085d",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "JIBS1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0e614da155f16cc9b796f0c3",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "JIBS5",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c25b3a6a52aa73f52a0509c5",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "JIBS6",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_eea9e575f4e2c4d6c0928470",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "LEGJIB1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8d5a93f20024e31b2875d9f0",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "LIGHTSWITCH2____header_global_6357212fa205b625",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIGHTSWITCH____header_global_b34f103a26dab3a8",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZMANFEEDING____header_global_8ecc99d8ce56e1c3",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZMANHEAD1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2f0e8d79c711208a237aca1a",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "LIZMANJUMP____header_global_4cdb62beca173dfe",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZMANLEG1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0a62c4f567a52ee7c34e157d",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "LIZMANSPITTING____header_global_03715fca07d27cb2",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZMAN____header_global_ca39696268727119",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZTROOP",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6a1608b639cf2124e1e22224",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "LIZTROOPDUCKING____header_global_a9e4f18ef6038dfc",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZTROOPJETPACK____header_global_8897a488b9064db6",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZTROOPONTOILET____header_global_ec9b832cf632d40c",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZTROOPRUNNING____header_global_443d2605f7f7962d",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZTROOPSHOOT____header_global_b1822b18afcd84ce",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LIZTROOP____header_global_c52cabf2d5613557",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "LOCKSWITCH1____header_global_3ea45d29d0398635",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "MENUSCREEN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_dad6b8dfc3360f532fcdeef7",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "MINIFONT",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6fbe8071f2d3ec6b869cc5ab",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "MORTER",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_985283c00932ad3b444c2e0c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "MV_VoicePlaying",
+          "from": "source/audiolib/src/multivoc.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "NEWBEASTSTAYPUT____header_global_49a750f112860e4a",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "NEWBEAST____header_global_4c03c5adc55c4068",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "NUKEBARREL____header_global_8b36a449c9ce0ec1",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OCTABRAINSTAYPUT____header_global_cf1da6608760a647",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OCTABRAIN____header_global_689a6a1af7ed45f8",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "OOZFILTER____header_global_36aab99e7d1ad4de",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PIGCOPDIVE____header_global_cba7285a0b061c90",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PIGCOP____header_global_45f55c8a84570a94",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "POWERSWITCH1____header_global_374323185635c763",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "POWERSWITCH2____header_global_119fafb52517645b",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "PULLSWITCH____header_global_5bd00b6fec1c4e96",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "RECON____header_global_0377532aa2bc1deb",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "RESPAWN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_625686547d15e0a2d83c5a00",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "RPG",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9871087b1b184d775c972766",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "RPGGUN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4d4d9952253b467f7433e949",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "RPGGUNWIDE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b475343f8c2f0809964dd2a7",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "RPGSPRITE____header_global_066c410c336420e5",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "RUBBERCAN____header_global_7de9e9c10066e4e8",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "Realloc__cxx_static_478d5da25b6b3923",
+          "from": "source/build/src/smmalloc_generic.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SCRAP1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cb2e5f45f99b612ba5ac2f61",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SEENINE____header_global_055b5db8cd1774b4",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SHARK____header_global_e17aa52659119941",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SHELL",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_665d998270647c7ad8e0914d",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHOTGUN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0371d4defc194a93e64fb6eb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHOTGUNSHELL",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_87081bf72dadfcd3df68bcc9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHOTGUNSPRITE____header_global_4f34f54c276001ef",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SHOTSPARK1",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_1b018f3cb172f441e7f0f065",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHRINKER",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_67305eaca81f492a2d16db0d",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHRINKEREXPLOSION",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0f4943fcd6c98282bf62d957",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHRINKERSPRITE____header_global_7c2ecee5231e301a",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SHRINKERWIDE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f6b813ba37e5625ce29852fb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SHRINKSPARK",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9692e293ae4e47d74f5370cb",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SLOTDOOR____header_global_b745b3d622f2a5ce",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SMALLSMOKE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3e77304d50ec83937ff1f45c",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "SPACEDOORSWITCH____header_global_440262ccfa772baa",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "SPACELIGHTSWITCH____header_global_dfa3c006108f04a8",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "STALLBROKE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_0320f9d831087b12797dbc5d",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "STALL____header_global_2a45e2fb451315d5",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "STARTALPHANUM",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_422622c8cb49e6e2f50691e9",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "TOILETBROKE",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_2f7c670664331a2f5c3b11c0",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "TOILETWATER",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4476046d1cec3bc727c078a6",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "TOILETWATER____header_global_24add7a840d056a8",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "TOILET____header_global_26d4be4f96b56aa6",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "TRANSPORTERBEAM",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_03f819a5bfb8778356e20231",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "TRANSPORTERSTAR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_be2f2cbec5e6aa5438c57195",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "TRIPBOMB",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_6743eb681e7c6613e1edf344",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "TRIPBOMBSPRITE____header_global_3f9abf3ea7ea5ea3",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "VIEWSCREEN",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_9908277a5acbd254268b129f",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "WIDESCREENSTATUSBAR",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_66791bf155916fdf0696318d",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "WOODENHORSE____header_global_b1d26eabc3959639",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "W_FORCEFIELD",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c99daea533b9e2c6503c0f71",
+          "abi": "source-global-cell/2",
+          "original_type": "short"
+        },
+        {
+          "name": "aGameArrays",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            512
+          ],
+          "schema_sha256": "df2a6c63a48e514691668a72364d46ab304263b88bf4b8f1f73f007dc6d72754",
+          "original_type": "gamearray_t[512]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "df2a6c63a48e514691668a72364d46ab304263b88bf4b8f1f73f007dc6d72754"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "df2a6c63a48e514691668a72364d46ab304263b88bf4b8f1f73f007dc6d72754"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "aGameVars",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "actor",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 96,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2",
+          "original_type": "actor_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "e1c6865cd4da1c9697f55da1bafd8ae7f018ff05b1754cf4fe7229eb4ce3f6d2"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "apScriptEvents",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "boardfilename",
+          "from": "source/duke3d/src/game.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "connectpoint2",
+          "from": "source/build/src/mmulti.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "divtable32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "divtable64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 9,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757",
+          "original_type": "libdivide::libdivide_s64_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "530e844acf5f4aae77d6501332d2314b0565b5453efe01e50ae4b2242323f757"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "fix16_half__header_global_a38bd6397241b43f",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "fix16_one__header_global_6881ab7737c3bc6a",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_activeVscrSprite",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_gameArrayCount",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_312b58e8a14f852e3cc5e7e0",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameType",
+          "from": "source/duke3d/src/common.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_c0e288040dbf9a805036c27d",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gameVarCount",
+          "from": "source/duke3d/src/gamevars.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_8406f8e86b0ce3102350571c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_gametypeFlags",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_mapInfo",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            512
+          ],
+          "schema_sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56",
+          "original_type": "map_t[512]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "6de068e7a8779cedca37745b68d85f4bc314f30b41ff02d56a465c5487314b56"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "g_netServer",
+          "from": "source/duke3d/src/network.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_3107730442a78d066f9d60b4",
+          "abi": "source-global-cell/2",
+          "original_type": "ENetHost *"
+        },
+        {
+          "name": "g_player",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "g_playerFriction",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_bc77ba2124d9f9bdbae1a2b2",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_playerSpawnCnt",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_723c54e02b4279ab2035081e",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_playerSpawnPoints",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 16,
+          "dimensions": [
+            16
+          ],
+          "schema_sha256": "2d2838d9e64b3cf4f980bae9dceb95951122073c5272a99fb0b2b7c50856510f",
+          "original_type": "playerspawn_t[16]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "2d2838d9e64b3cf4f980bae9dceb95951122073c5272a99fb0b2b7c50856510f"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "2d2838d9e64b3cf4f980bae9dceb95951122073c5272a99fb0b2b7c50856510f"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "g_precacheCount",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_205a0089da357ef0b8c198c5",
+          "owner_source": "source/duke3d/src/premap.cpp",
+          "original_type": "int",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "g_scriptVersion",
+          "from": "source/duke3d/src/gamedef.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f7e268c20b879c2fe3740be6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_sm_heap",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_11016d3c7177543e564ab46c",
+          "abi": "source-global-cell/2",
+          "original_type": "void *"
+        },
+        {
+          "name": "g_spriteGravity",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_b1c97a6bfe6b79b1e897a68a",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "g_tile",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "gotpic",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "h_dynamictilemap",
+          "from": "source/duke3d/src/dnames.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a98bb585faaf2a8f60d62e9a",
+          "abi": "source-global-cell/2",
+          "original_type": "struct inthashtable_t",
+          "byte_record_schema_sha256": "6b1ca3ac8c3cf2c85cfdd35873c4e633730f365be4591fcb8e7db9b62fc6a6ea",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "6b1ca3ac8c3cf2c85cfdd35873c4e633730f365be4591fcb8e7db9b62fc6a6ea"
+          }
+        },
+        {
+          "name": "handle_memerr",
+          "from": "source/build/src/compat.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "headspritesect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "headspritestat",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "inthash_find",
+          "from": "source/build/src/hash.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kclose",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "kopen4loadfrommod",
+          "from": "source/build/src/vfs.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "lastd_s32",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6e3cfd4eba13fb9886cb240",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "lastd_s64",
+          "from": "source/build/src/pragmas.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f8287b2e627d0e3f51b90c55",
+          "abi": "source-global-cell/2",
+          "original_type": "long"
+        },
+        {
+          "name": "libdivide_s32_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s32_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_do",
+          "from": "browser-abi/libdivide_source",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "libdivide_s64_gen",
+          "from": "browser-abi/libdivide_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "memset",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "nextspritesect",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "nextspritestat",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "picanm",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861",
+          "original_type": "picanm_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "09298c20acb0240414a60a77a6b06392b3cc6a5d1bcf64f1dbc6a72de7c9e861"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "pow2char__header_global_33bfb448c11fbddb",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "precachehightile",
+          "from": "source/duke3d/src/premap.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-private-cell/1",
+          "binding": "__cxx_private_cell_150c1e3000f614335e147fdf",
+          "owner_source": "source/duke3d/src/premap.cpp",
+          "original_type": "uint8_t[2][3840]",
+          "scalar_array": {
+            "array": "Uint8Array",
+            "dims": [
+              2,
+              3840
+            ]
+          },
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "randomseed",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_cff3db0365d00ccd4662087c",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "sprite",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4a046e33ecf7aced9bfd0007",
+          "abi": "source-global-cell/2",
+          "original_type": "spritetype *"
+        },
+        {
+          "name": "strcasecmp",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcat",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strcpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strlen",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strncpy",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "strrchr",
+          "from": "browser-abi/libc_provider",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "tilesiz",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 4,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b",
+          "original_type": "vec2_16_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "f4f12920f6f4737af8866144b0aeb616a892e97e7ac6d0cda4c0030af2002b4b"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/premap.cpp"
+        },
+        {
+          "name": "ud",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_f0a85e81a4cdc5b0ffa6b6ba",
+          "abi": "source-global-cell/2",
+          "original_type": "struct user_defs",
+          "byte_record_schema_sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c6ffb91dd3ddbc7ebf3bdd27c7656d766480dca15665db949423ececb12a32b3"
+          },
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 2,
+            "accesses": [
+              {
+                "clang_reference_id": "0x1fbc1012918",
+                "fields": [
+                  {
+                    "id": "0x1fbc100f5a0",
+                    "name": "volume_number"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x1fbc1012918",
+                "fields": [
+                  {
+                    "id": "0x1fbc100f538",
+                    "name": "level_number"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wall",
+          "from": "source/build/src/engine.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_4d8aaa64f68587b18e27604c",
+          "abi": "source-global-cell/2",
+          "original_type": "walltype *"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "3b516db422fe6dad754ef3e084c4722316c1841a910b251512ab59082eb0f1b3"
     }
   ]
 }
