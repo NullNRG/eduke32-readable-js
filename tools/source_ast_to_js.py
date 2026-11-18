@@ -3538,7 +3538,7 @@ class Emit:
         else:
             if any(kind(v)=='GotoStmt' for v in descendants(bodies[-1])):
                 try:self.goto_plan=SourceFlowPlan(bodies[-1],self.trivial_destructors,
-                    lambda name:normalized_record_name(name,self.type_aliases))
+                    lambda name:normalized_record_name(name,self.type_aliases),self.local_lambda_plans)
                 except ControlFlowUnsupported as exc:raise Unsupported('source control flow: '+str(exc))
                 parameter_ids={param.get('id') for param in params}
                 self.goto_plan.hoisted_locals.extend(binding for identity,binding in self.local_reference_cells.items() if identity not in parameter_ids)

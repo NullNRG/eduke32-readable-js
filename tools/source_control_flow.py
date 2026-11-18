@@ -17,9 +17,10 @@ class ControlFlowUnsupported(Exception):
 
 def kind(node): return node.get('kind','')
 def children(node): return [n for n in node.get('inner',[]) if n]
-def descendants(node):
+def descendants(node, lambda_boundaries=()):
     yield node
-    for child in children(node): yield from descendants(child)
+    if kind(node)=='LambdaExpr' and node.get('id') in lambda_boundaries:return
+    for child in children(node): yield from descendants(child,lambda_boundaries)
 
 def recover_forward_if_label(body, guard_name):
     """Keep a bare if-branch label reachable without re-evaluating its condition."""
@@ -134,12 +135,20 @@ class Region:
 
 class SourceFlowPlan:
     """An extensible series of recognizers, then a semantics-checked rewriter."""
-    def __init__(self, function_body, trivial_destructors=None, canonical_type=None):
+    def __init__(self, function_body, trivial_destructors=None, canonical_type=None, lambda_plans=None):
         self.body=function_body
         # Source-of-truth: Clang CXXRecordDecl.definitionData.dtor.trivial.
         # An absent/ambiguous record is NEVER presumed trivially destructible.
         self.trivial_destructors=set(trivial_destructors or ())
         self.canonical_type=canonical_type or (lambda name:name)
+        # A proved reference closure cannot escape the source function or
+        # destroy captured objects. Its parameters, locals and loop exits belong
+        # to the separately emitted callable, never to this goto scope.
+        closures={identity:proof for identity,proof in (lambda_plans or {}).items()
+            if not any(kind(node) in ('GotoStmt','LabelStmt','IndirectGotoStmt','AddrLabelExpr')
+                       for node in descendants(proof['body']))}
+        self.lambda_boundaries=frozenset(closures)
+        self.lambda_constructors={identity for proof in closures.values() for identity in proof['constructor_ids']}
         self.statements=children(function_body)
         self.labels={}
         self.label_at={}
@@ -244,11 +253,11 @@ class SourceFlowPlan:
         # may leave nested statements, but cannot enter a sibling/inner scope.
         # This preserves original loop conditions and initialization without
         # dispatching a synthetic program counter.
-        for scope in descendants(self.body):
+        for scope in descendants(self.body,self.lambda_boundaries):
             if kind(scope)!='CompoundStmt':continue
             sid=id(scope);seq=children(scope);self.scopes[sid]=seq
             for i,node in enumerate(seq):
-                for child in descendants(node):
+                for child in descendants(node,self.lambda_boundaries):
                     self.positions.setdefault(id(child),{})[sid]=i
                 current=node
                 while kind(current)=='LabelStmt':
@@ -259,7 +268,7 @@ class SourceFlowPlan:
                     self.labels[key]=(name,i);self.label_scopes[key]=sid
                     if scope is self.body:self.label_at.setdefault(i,[]).append(current)
                     current=children(current)[0] if children(current) else {}
-        for node in descendants(self.body):
+        for node in descendants(self.body,self.lambda_boundaries):
             if kind(node)=='LabelStmt' and node.get('declId') not in self.labels and node.get('declId') not in self.nested_terminal:
                 raise ControlFlowUnsupported('goto target not at an original compound statement boundary')
         self.diagnostics['labels']=len(self.labels)
@@ -267,7 +276,7 @@ class SourceFlowPlan:
     def resolve_edges(self):
         if not self.labels and not self.nested_terminal: raise ControlFlowUnsupported('goto without source label')
         self.edges=[]
-        for node in descendants(self.body):
+        for node in descendants(self.body,self.lambda_boundaries):
             if kind(node)!='GotoStmt':continue
             target=node.get('targetLabelDeclId');sid=self.label_scopes.get(target)
             positions=self.positions.get(id(node),{})
@@ -325,18 +334,21 @@ class SourceFlowPlan:
                 'CXXDestructorDecl','CXXCtorInitializer','LambdaExpr',
                 'IndirectGotoStmt','AddrLabelExpr','SEHLeaveStmt'}
         locals_seen=set()
-        body_nodes=list(descendants(self.body))
+        body_nodes=list(descendants(self.body,self.lambda_boundaries))
         local_decls=[n for n in body_nodes if kind(n)=='VarDecl']
         local_ids={n.get('id') for n in local_decls if n.get('id')}
         local_names={n.get('name') for n in local_decls if n.get('name')}
-        refs=[n.get('referencedDecl',{}) for n in body_nodes if kind(n)=='DeclRefExpr']
+        reference_nodes=descendants(self.body) if self.lambda_boundaries else body_nodes
+        refs=[n.get('referencedDecl',{}) for n in reference_nodes if kind(n)=='DeclRefExpr']
         nonlocal_names={ref.get('name') for ref in refs if ref.get('id') not in local_ids}
         self.hoisted_locals=[]
         self.alpha_locals={}
         self.diagnostics['shadowed_locals_renamed']=0
         for node in body_nodes:
             k=kind(node)
+            if k=='LambdaExpr' and node.get('id') in self.lambda_boundaries:continue
             if k in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
+                if node.get('id') in self.lambda_constructors:continue
                 # C++ classes with an explicitly Clang-proven trivial destructor
                 # need no exit cleanups. The original AST expression is emitted
                 # in its original position, even when a backward goto re-enters
@@ -367,6 +379,7 @@ class SourceFlowPlan:
             if k=='LabelStmt' and node.get('isSideEntry'):
                 raise ControlFlowUnsupported('side entry into cleanup scope')
         self.diagnostics['locals_checked']=len(locals_seen)
+        if self.lambda_boundaries:self.diagnostics['separate_reference_closures']=len(self.lambda_boundaries)
 
     def detect_tail_returns(self):
         """Replace a forward goto-to-final-return with an ordinary early return.
@@ -436,6 +449,7 @@ class SourceFlowPlan:
         loops={'ForStmt','WhileStmt','DoStmt','CXXForRangeStmt'}
         def visit(node,breaks=(),continues=()):
             k=kind(node)
+            if k=='LambdaExpr' and node.get('id') in self.lambda_boundaries:return
             if k in loops or k=='SwitchStmt':
                 label=f'__source_control_{len(self.control_labels)}'
                 self.control_labels[id(node)]=label

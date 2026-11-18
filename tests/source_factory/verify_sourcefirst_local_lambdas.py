@@ -16,21 +16,29 @@ int pair(int n) { int v=n;auto a=[&](int x){v+=x;return v;};
  auto b=[&](int x){return v-x;};int first=a(3);return first+b(2); }
 int loop(int n) { int sum=0;for(int i=0;i<5;i++) {int v=n+i;
  auto f=[&](int x){v+=x;sum+=v;};f(i);v++;f(2);}return sum; }
+int jump_with_closure(int n) { int sum=n;
+ auto f=[&](int steps){for(int i=0;i<steps;i++){
+  if(i==1)continue;sum+=i;if(sum==13)break;}return sum;};
+ if(n&1)goto ready;
+ {int value=f(3);sum+=value;}
+ ready: {int value=f(5);return sum+value;}
+}
 int sink(int (*p)(int));
 int byvalue(int n){auto f=[=](int x){return n+x;};return f(1);}
 int copy(int n){auto f=[&](int x){return n+x;};auto g=f;return g(1);}
 int object_address(int n){auto f=[&](int x){return n+x;};return (&f)==nullptr;}
+int goto_value_capture(int n){auto f=[=](){return n;};if(n)goto ready; n++;ready:return f();}
 auto escape(int &n){auto f=[&](int x){return n+x;};return f;}
 '''
-NAMES=['mutate','address','refs','record','pair','loop']
-REJECT=['byvalue','copy','object_address','escape']
+NAMES=['mutate','address','refs','record','pair','loop','jump_with_closure']
+REJECT=['byvalue','copy','object_address','escape','goto_value_capture']
 def run(command,cwd):
  r=subprocess.run(list(map(str,command)),cwd=cwd,capture_output=True,text=True,timeout=180)
  assert r.returncode==0,(command,r.stdout[-1500:],r.stderr[-2500:])
  return r.stdout.strip()
 with tempfile.TemporaryDirectory(prefix='source-local-lambda-') as directory:
  root=Path(directory);(root/'unit.cpp').write_text(SOURCE)
- (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(){for(int n=-256;n<256;n++)printf("%d %d %d %d %d %d\\n",'+','.join(name+'(n)' for name in NAMES)+');}')
+ (root/'main.cpp').write_text('#include <cstdio>\n#include "unit.cpp"\nint main(){for(int n=-256;n<256;n++)printf("'+' '.join('%d' for _ in NAMES)+'\\n",'+','.join(name+'(n)' for name in NAMES)+');}')
  run(['clang++','-std=c++14',root/'main.cpp','-o',root/'native.exe'],root)
  expected=run([root/'native.exe'],root).splitlines();modules=[]
  evaluator='''async ({url,names})=>{const m=await import(url),result=[];for(let n=-256;n<256;n++)result.push(names.map(name=>m[name](n)).join(' '));return result;}'''
@@ -43,9 +51,12 @@ with tempfile.TemporaryDirectory(prefix='source-local-lambda-') as directory:
    assert rows[name]['status']=='source-first',rows[name]
    if name!='refs':assert rows[name].get('source_local_lambdas'),rows[name]
   for name in REJECT:assert rows[name]['status']=='blocked',rows[name]
+  assert rows['jump_with_closure']['control_flow']['detected']['separate_reference_closures']==1
   argument={'url':module.as_uri(),'names':NAMES}
   (root/'run.mjs').write_text('console.log((await ('+evaluator+')('+json.dumps(argument)+')).join("\\n"));')
-  assert run(['node',root/'run.mjs'],ROOT).splitlines()==expected
+  actual=run(['node',root/'run.mjs'],ROOT).splitlines()
+  assert actual==expected,next(((i,a,b) for i,(a,b) in enumerate(zip(actual,expected)) if a!=b),
+                              (len(actual),len(expected)))
   modules.append(module)
  browser_checked=bool(os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'))
  if browser_checked:
@@ -55,4 +66,4 @@ with tempfile.TemporaryDirectory(prefix='source-local-lambda-') as directory:
    for module in modules:
     assert page.evaluate(evaluator,{'url':'data:text/javascript;base64,'+base64.b64encode(module.read_bytes()).decode(),'names':NAMES})==expected
    browser.close()
-print('PASS: 3,072 native/full/filtered Node'+('/Chromium' if browser_checked else '')+' closure results; scalar mutation, address aliases, reference parameters, const record references, multiple closures and loop lifetime; value captures/copies/addresses/escape rejected')
+print(f'PASS: {512*len(NAMES):,} native/full/filtered Node'+('/Chromium' if browser_checked else '')+' closure results; scalar mutation, address aliases, reference parameters, const record references, multiple closures, goto and loop lifetime; value captures/copies/addresses/escape rejected')
