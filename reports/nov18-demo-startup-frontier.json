@@ -1,7 +1,7 @@
 {
   "format": "sourcefactory-scoped-startup-frontier/1",
-  "compiler_runtime_input_sha256": "f5b2829c3b2ddb97a9436c9f66bf08249d1435bd3b483dde9d9c0e498a381a1e",
-  "component_manifest_sha256": "165973431db0ada57e9d8006e306f4430f7f2a712984496f460a44264f003099",
+  "compiler_runtime_input_sha256": "287d23b5b8c97d731dea7dff574a7bc53f99243b6e6729d0e3d75252b949f749",
+  "component_manifest_sha256": "b91a9cac4a63a99f0031e70927a18efbe8039236490fd8ec40a73be8b39c56b3",
   "units": {
     "source/duke3d/src/game.cpp": {
       "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_game.cpp.json",
@@ -273,6 +273,15 @@
           ]
         }
       ]
+    },
+    "source/duke3d/src/rts.cpp": {
+      "report": "factory-output/source-first/browser-classic/reports/frontier-source_duke3d_src_rts.cpp.json",
+      "linked": {
+        "RTS_Init": true,
+        "RTS_IsInitialized": true,
+        "RTS_SoundLength": true
+      },
+      "blocked": []
     }
   },
   "last_app_main_probe_dependencies": [
@@ -312,16 +321,21 @@
     "loaddefinitionsfile",
     "registerosdcommands"
   ],
-  "newly_available_provider_candidates": {},
+  "newly_available_provider_candidates": {
+    "RTS_Init": "source/duke3d/src/rts.cpp"
+  },
   "original_demo_codec_write": "reports/nov18-original-demo-codec-write.json",
   "original_demo_snapshot_heap": "reports/nov18-original-demo-snapshot-heap.json",
   "scalar_proof": "reports/nov18-demo-scalar-proof.json",
-  "related_regressions": "reports/nov18-startup-final-regressions.json",
-  "strict_release_acceptance": "reports/nov18-startup-release-acceptance.json",
+  "related_regressions": "reports/nov18-con-portable-regressions.json",
+  "strict_release_acceptance": "reports/nov18-portable-vm-release-acceptance.json",
   "original_app_main_executed": false,
   "browser_gameplay_verified": false,
   "dist_index_present": false,
   "browser_timer_profile_preprocessed": true,
   "browser_timer_initialization_executed": true,
-  "browser_frame_clock_report": "reports/nov18-original-browser-frame-clock.json"
+  "browser_frame_clock_report": "reports/nov18-original-browser-frame-clock.json",
+  "portable_original_con_switch_preprocessing_verified": true,
+  "source_ownership_selected_units": 111,
+  "original_RTS_archive_report": "reports/nov18-original-rts-archive.json"
 }
