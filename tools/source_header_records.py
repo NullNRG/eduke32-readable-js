@@ -409,6 +409,25 @@ def demanded_header_records(ast,candidates,storage_records,aliases,normalize,sch
         if candidate.get('kind')=='CXXRecordDecl' and candidate.get('name'):
             needed.add(candidate['name'])
         for node in walk(candidate):
+            # Calling an instance operator through an existing object need
+            # not construct anything in this function. Follow the original
+            # Clang method call and its typed receiver; ordinary eligibility,
+            # method lowering and native-layout checks still apply below.
+            if node.get('kind')=='CXXOperatorCallExpr':
+                args=[child for child in node.get('inner',[]) if child]
+                if len(args)>=2:
+                    callee=args[0]
+                    while callee.get('kind') in ('ImplicitCastExpr','ParenExpr') and len(callee.get('inner',[]))==1:
+                        callee=callee['inner'][0]
+                    declaration=callee.get('referencedDecl',{})
+                    # Implicit copy/move assignment already uses exact native
+                    # aggregate storage. Discovering a new prototype for it
+                    # would change the representation of an existing object.
+                    if declaration.get('kind')=='CXXMethodDecl' and declaration.get('name')!='operator=':
+                        receiver=args[1].get('type',{})
+                        spelling=receiver.get('desugaredQualType') or receiver.get('qualType','')
+                        selected=normalize(spelling,aliases)
+                        if selected and re.fullmatch(r'[A-Za-z_]\w*',selected):needed.add(selected)
             if node.get('kind') in ('CXXConstructExpr','CXXTemporaryObjectExpr'):
                 spelling=(node.get('type',{}).get('desugaredQualType') or
                           node.get('type',{}).get('qualType','')).strip()

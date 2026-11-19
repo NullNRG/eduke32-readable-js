@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\gameexec.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 64,
-  "emitted": 64,
+  "found": 66,
+  "emitted": 66,
   "blocked": 0,
   "definitions": [
     {
@@ -2063,6 +2063,60 @@
         "handle_memerr"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "fix16_from_int__header_6768ed80e668",
+      "source_name": "fix16_from_int",
+      "kind": "FunctionDecl",
+      "line": 46,
+      "original_type": "fix16_t (int)",
+      "linkage": "internal",
+      "original_header_function": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 1720,
+        "source_line": 46,
+        "header_sha256": "a45b52b076b4063ab38ddb6f72d21de2639e047387064664146a46d7022d7bcd"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [
+        "fix16_one"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "fix16_one",
+      "source_name": "fix16_one",
+      "kind": "VarDecl",
+      "line": 35,
+      "original_type": "const int",
+      "linkage": "internal",
+      "header_global_definition": {
+        "source_header": "source/build/include/fix16.h",
+        "source_offset": 967,
+        "source_line": 35,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "clang_decl_id": "0x1e46d1c03d0",
+        "redeclaration_chain": [
+          "0x1e46d1c03d0"
+        ],
+        "linkage": "internal",
+        "definition_rule": "namespace-scope-non-extern-storage",
+        "scope_evidence": "nonlocal-native-mangling",
+        "clang_initializer_kind": "c",
+        "physical_origin_proof": "unique-original-header-identifier-byte-offset",
+        "source_kind": "header"
+      },
+      "physical_source": "source/build/include/fix16.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -2875,6 +2929,22 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "f0321a210d09c7a80894b81635e472172d4c304421589da75ad85c14a64203d1"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_gameexec_cpp_55892892fd06.mjs",
+      "sha256": "55892892fd06cf90d6a8514048c5a70f7ead087497e7f860ce62ec5af9e142a1",
+      "original_source": "source/duke3d/src/gameexec.cpp",
+      "exports": [
+        "fix16_from_int__header_6768ed80e668",
+        "fix16_one"
+      ],
+      "reexports": [
+        "fix16_from_int__header_6768ed80e668",
+        "fix16_one"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "8259a362f85fb11c024402c4f38549e3eac067289de7e83e37217d6080d93530"
     }
   ]
 }
