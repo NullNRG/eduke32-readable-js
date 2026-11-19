@@ -385,6 +385,11 @@ class SourceFlowPlan:
                 # CXXBindTemporaryExpr/nontrivial destructor scopes still fail.
                 t=node.get('type',{}).get('desugaredQualType') or node.get('type',{}).get('qualType','')
                 t=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',t).strip()
+                # A fixed-size array's destruction is the destruction of its
+                # elements. Preserve construction at the original statement
+                # and prove the selected element type through the same Clang
+                # aliases and destructor evidence as a scalar record.
+                t=re.sub(r'(?:\s*\[\s*\d+\s*\])+$','',t).strip()
                 if self.canonical_type(t) not in self.trivial_destructors:
                     raise ControlFlowUnsupported('goto C++ lifetime requires Clang-proven trivial destructor: '+t,
                                                  required_records=(t,))

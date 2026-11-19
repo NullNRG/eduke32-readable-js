@@ -2876,6 +2876,19 @@ class Emit:
                               in ('void ()','void () noexcept')):
                     raise Unsupported('va_list initializer requires explicit source va_copy semantics')
                 return pad+(f'{name} = cVariadic.empty();' if self.goto_plan else f'let {name} = cVariadic.empty();')
+            if re.search(r'\[\s*\d+\s*\]$',t) and len(a)==1 and kind(a[0])=='CXXConstructExpr':
+                element=re.sub(r'\[\s*\d+\s*\]','',t).strip()
+                record=self.aggregate_records.get(normalized_record_name(element,self.type_aliases),{})
+                if (not kids(a[0]) and qual(a[0])==t
+                        and a[0].get('ctorType',{}).get('qualType') in ('void ()','void () noexcept')
+                        and record.get('copyable') and record.get('trivial_default_constructor')
+                        and record.get('trivial_destructor') and record.get('byte_schema')):
+                    # Reuse declaration-time native array allocation for an
+                    # implicit, trivial C++ element default constructor. The
+                    # original AST node authorizes storage only, with authored
+                    # constructors and member initializers remaining explicit.
+                    self.storage_constructor_nodes=getattr(self,'storage_constructor_nodes',set())|{id(a[0])}
+                    a=[]
             if a:
                 deferred=getattr(self,'deferred_pointer_limits',{}).get(n.get('id'))
                 if deferred:

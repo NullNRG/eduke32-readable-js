@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory() as folder:
  const Vec<T>operator*(Vec<T>b)const{return {T(x*b.x),T(y*b.y)};}
 };
 ''')
-    (root/'one.cpp').write_text('#include "vec.hpp"\nextern "C" int first(int n){Vec<int>a{n,n+3},b{7,9};auto c=(a+b)*(a-b);if(n&1)goto ready;c.x+=2;ready:return c.x+c.y;}\n')
+    (root/'one.cpp').write_text('#include "vec.hpp"\nextern "C" int first(int n){Vec<int>a{n,n+3},b{7,9};auto c=(a+b)*(a-b);Vec<int>samples[2];samples[0]=c;if(n&1)goto ready;c.x+=2;ready:return c.x+c.y+samples[0].x;}\n')
     (root/'two.cpp').write_text('#include "vec.hpp"\nextern "C" int second(int n){Vec<int>a; a.x=n;a.y=n+3;Vec<int>b{7,9};auto c=a-b;return c.x+c.y;}\n')
     (root/'main.cpp').write_text('#include <cstdio>\nextern "C" int first(int),second(int);int main(){for(int n=-256;n<256;n++)printf("%d %d\\n",first(n),second(n));}\n')
     exe=root/'native.exe';run(['clang++',root/'one.cpp',root/'two.cpp',root/'main.cpp','-o',exe],root)
@@ -25,6 +25,7 @@ with tempfile.TemporaryDirectory() as folder:
     base=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',root,'--header-dependency-closure','--dependency-closure','--require-record-layouts']
     run([*base,'--source','one.cpp','--out-dir',out],ROOT)
     owner=json.loads((out/'one.cpp.manifest.json').read_text())
+    assert owner['blocked']==0,owner['definitions']
     index=root/'symbols.json';index.write_text(json.dumps({r['name']:'one.cpp' for r in owner['definitions'] if r['status']=='source-first'}))
     run([*base,'--source','two.cpp','--out-dir',stage,'--project-symbols',index,'--import-root',out],ROOT)
     consumer=json.loads((stage/'two.cpp.manifest.json').read_text());assert consumer['blocked']==0,consumer
