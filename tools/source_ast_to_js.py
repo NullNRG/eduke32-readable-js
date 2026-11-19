@@ -5962,6 +5962,8 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         em.project_source_symbols=set(project_symbols)
         em.global_binding_collisions=reserved_bindings
         em.expression_bindings=reserved_bindings|{js_ident(v['name']) for v in descendants(n) if v.get('name')}
+        record_reference_groups=None
+        record_access_contracts={}
         try:
             # Reference validation and emission are one safety gate.  A failed
             # Clang declaration-identity audit must never be silently cleared
@@ -6019,10 +6021,22 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 if mutable_scalar_global(decl,aliases,enum_types) or record_address:
                     em.external_global_cells[refid]=storage_metadata(decl,refname)
                     if record_address:
-                        related={part.get('referencedDecl',{}).get('id') for part in descendants(n)
-                            if kind(part)=='DeclRefExpr' and part.get('referencedDecl',{}).get('kind')=='VarDecl'
-                            and part.get('referencedDecl',{}).get('id') not in local_ids and resolve(part['referencedDecl'])==refname}
-                        access=field_access_contract(n,related,all_declarations,lambda typ:resolve_scalar_storage_alias(typ,aliases))
+                        # Each source record has one access contract for this
+                        # unchanged body. VM dispatchers reference the same
+                        # record thousands of times; retain the exact full-body
+                        # proof once, including a failed field-only proof.
+                        if refname not in record_access_contracts:
+                            if record_reference_groups is None:
+                                record_reference_groups={}
+                                for part in descendants(n):
+                                    selected=part.get('referencedDecl',{})
+                                    if (kind(part)=='DeclRefExpr' and selected.get('kind')=='VarDecl'
+                                            and selected.get('id') not in local_ids):
+                                        record_reference_groups.setdefault(resolve(selected),set()).add(selected.get('id'))
+                            record_access_contracts[refname]=field_access_contract(n,
+                                record_reference_groups.get(refname,set()),all_declarations,
+                                lambda typ:resolve_scalar_storage_alias(typ,aliases))
+                        access=record_access_contracts[refname]
                         if access:em.external_global_cells[refid]['byte_record_data_access']=access
                     em.global_address_cells[refid]=em.external_global_cells[refid]
                     if record_address:em.external_aggregate_globals.add(refid)
