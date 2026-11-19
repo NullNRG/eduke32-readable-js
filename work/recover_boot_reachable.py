@@ -87,7 +87,35 @@ def main():
             raise ValueError('Saved source/header/configuration/toolchain content fingerprint differs')
         stage=manifest.parents[len(Path(source).parts)-1]
     else:
-        with (stage/'compile.log').open('w') as log:subprocess.run(list(map(str,command)),cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
+        with (stage/'compile.log').open('w') as log:
+            result=subprocess.run(list(map(str,command)),cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=900)
+        if result.returncode:
+            rejected_path=stage/(source+'.rejected-imports.json')
+            if rejected_path.is_file():
+                from source_ast_to_js import compiler_runtime_revision
+                rejected=json.loads(rejected_path.read_text(encoding='utf-8'))
+                if (rejected.get('source')==source and rejected.get('compiler_runtime_input_sha256')==compiler_runtime_revision()
+                        and rejected.get('module_written') is False and rejected.get('link_verified') is False):
+                    affected=set(rejected['affected_definitions'])
+                    definitions=rejected['candidate_definitions']
+                    frontier={'source':source,'requested':names.split(','),
+                        'requested_resolved':{name:name in existing for name in names.split(',')},
+                        'requested_lowered':{name:any(row.get('source_name')==name and row.get('status')=='source-first'
+                            for row in definitions) for name in names.split(',')},
+                        'requested_compiled':{name:False for name in names.split(',')},
+                        'requested_still_unlinked':[name for name in names.split(',') if name not in existing],
+                        'blocked':[{'name':row['name'],'reason':row.get('reason','rejected source-provider import'),
+                            'dependencies':row.get('unresolved_references',[]),'affected_by_rejected_import':row['name'] in affected}
+                            for row in definitions if row.get('status')=='blocked' or row['name'] in affected],
+                        'import_rejections':rejected['rejected_imports'],
+                        'rejected_import_catalog':rejected_path.relative_to(ROOT).as_posix(),
+                        'compiler_runtime_input_sha256':rejected['compiler_runtime_input_sha256'],
+                        'probe_only':args.probe_only,'installed':False,'original_gameplay_verified':False}
+                    frontier_path.write_text(json.dumps(frontier,indent=2)+'\n',encoding='utf-8')
+                    print(json.dumps({'installed':False,'rejected_imports':len(rejected['rejected_imports']),
+                        'affected_definitions':len(affected),'frontier':frontier_path.relative_to(ROOT).as_posix()},indent=2))
+                    return result.returncode
+            result.check_returncode()
         manifest=stage/(source+'.manifest.json');doc=json.loads(manifest.read_text())
     requested={row['name']:row for row in doc['definitions'] if row.get('source_name') in names.split(',')}
     frontier={'source':source,'requested':names.split(','),'requested_resolved':{name:name in existing for name in names.split(',')},

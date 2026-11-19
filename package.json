@@ -79,7 +79,7 @@
     "test:libc-printf": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_printf.py",
     "test:libc-case": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_case_strings.py",
     "test:link-resume": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_link_checkpoint.py",
-    "test:link-transactions": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_link_transactions.py",
+    "test:link-transactions": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_link_transactions.py && node tools/run_python.mjs tests/source_factory/verify_sourcefirst_fragment_import_catalog.py",
     "test:linkage": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_internal_linkage.py",
     "test:missing-map": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_missing_map.py",
     "test:nttp-alignment": "node tools/run_python.mjs tests/source_factory/verify_sourcefirst_nttp_assume_aligned.py && node tools/run_python.mjs tests/source_factory/verify_sourcefirst_nttp_original.py",

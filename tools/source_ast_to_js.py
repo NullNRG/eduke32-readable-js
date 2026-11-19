@@ -7467,26 +7467,22 @@ def main():
                 if key in metadata and metadata[key]!=value:
                     raise ValueError('Conflicting original reference/class import proof: '+item['name'])
                 metadata[key]=value
+    rejected_import_path=outfile.with_suffix('.rejected-imports.json')
+    if opt.import_root:
+        from source_fragment_imports import audit_fragment_imports,rejected_import_report
+        failures=audit_fragment_imports(used_imports,index,storage_imports,reference_imports,
+            opt.import_root,NATIVE_POINTER_ABI,js_ident)
+        if failures:
+            if compiler_runtime_revision()!=compiler_revision:
+                raise SystemExit('Compiler/runtime inputs changed during source emission; previous output preserved. Retry under one frozen revision.')
+            rejected=rejected_import_report(opt.source,compiler_revision,report,failures)
+            temporary=rejected_import_path.with_suffix('.json.tmp')
+            temporary.write_bytes((json.dumps(rejected,indent=2)+'\n').encode('utf-8'))
+            temporary.replace(rejected_import_path)
+            raise SystemExit('\n'.join(failure['reason'] for failure in failures)+
+                '\nRejected import catalog: '+str(rejected_import_path))
     for name in used_imports:
         target=(opt.import_root or opt.out_dir)/(index[name]+'.mjs')
-        if opt.import_root:
-            from browser_target_closure import active_exports
-            binding=storage_imports.get(name,{}).get('binding',js_ident(name))
-            if not target.is_file() or binding not in active_exports(target):
-                raise SystemExit('Fragment import has no actual implementation: '+name)
-            pointer_provider=target.with_suffix('.manifest.json')
-            if not pointer_provider.is_file() or json.loads(pointer_provider.read_text()).get('native_pointer_abi')!=NATIVE_POINTER_ABI:
-                raise SystemExit('Fragment provider native-pointer ABI differs: '+name)
-            if name in storage_imports or name in reference_imports:
-                from source_first_global_link import storage_import_error
-                provider_manifest=target.with_suffix('.manifest.json')
-                if not provider_manifest.is_file():raise SystemExit('Fragment storage provider lacks source proof: '+name)
-                dep={**storage_imports.get(name,{}),**reference_imports.get(name,{}),'from':index[name],'native_pointer_abi':NATIVE_POINTER_ABI}
-                error=storage_import_error(dep,{index[name]:{'manifest':json.loads(provider_manifest.read_text()),'module':target}})
-                if error:
-                    provider_doc=json.loads(provider_manifest.read_text())
-                    proven=[row.get('global_storage',{}) for row in provider_doc.get('definitions',[]) if row.get('name')==name]
-                    raise SystemExit('Fragment storage ABI rejected: '+name+': '+error+'\n'+json.dumps({'consumer':dep,'provider_storage':proven},sort_keys=True))
         spec=os.path.relpath(target, outfile.parent).replace(os.sep,'/')
         if not spec.startswith('.'):spec='./'+spec
         binding=storage_imports.get(name,{}).get('binding',js_ident(name))
@@ -7603,5 +7599,6 @@ const cStackAlloc = amount => {
         outfile.unlink(missing_ok=True)
         result['output']=None
     mf=outfile.with_suffix('.manifest.json');mf.write_text(json.dumps(result,indent=2))
+    rejected_import_path.unlink(missing_ok=True)
     print(json.dumps({'file':str(outfile),'found':result['found'],'emitted':result['emitted'],'blocked':result['blocked'],'manifest':str(mf)},indent=2))
 if __name__=='__main__':main()
