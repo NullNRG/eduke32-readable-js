@@ -1,6 +1,8 @@
 # EDuke32 readable JavaScript port
 
-Chromium now executes the original CON diagnostic and resizes a script allocation through the original allocator, preserving code and relocating script pointers. All eight VM structure getters and the game-variable default reset link. The remaining startup link reaches the parser, variable setup, and the original exit and shutdown paths. The GRP launcher opens the original Build engine map preview. [Current status](CURRENT_PORT_STATUS.md) · [Build and resume commands](CONTINUE_HERE.md) · [Current CON link report](reports/nov17-vm-and-con-startup-frontier.json)
+November 19 checkpoint: the original JavaScript Build engine loads the supplied GRP, ART and E1L1 MAP, initializes video and palettes, and renders rooms and masks in Chromium. The latest capture has zero page exceptions; original font initialization and 105 native text-parser cases also pass. [Current rendering evidence](reports/nov19-original-text-startup-frame.json).
+
+Original `VM_Execute` passes source lowering but still has unresolved original providers. The active module now includes 41 additional closed header definitions and a native/browser-verified user-map query. All 11 targeted compiler regressions pass. Original `app_main`, game menus, simulation and the offline playable `dist/index.html` remain unverified. [Current status](CURRENT_PORT_STATUS.md) · [Resume commands](CONTINUE_HERE.md) · [Current regression evidence](reports/nov19-record-access-cache-regressions.json).
 
 ## Original font startup verified — November 16
 
@@ -16,9 +18,9 @@ Read [PORT_GUIDE.md](PORT_GUIDE.md) for what works, how the translation and brow
 
 Original **E1L1 rooms and sprites now render in Chromium through the original Build engine in readable JavaScript**. The full game is not playable yet. Original app_main, CON/menu startup, controls, weapons/enemies, audio and saves remain unverified. There is no verified playable dist/index.html.
 
-![Original JavaScript Build rooms and sprites; raw-map component, not gameplay](reports/evidence/nov12-original-js-engine-masks.png)
+![Original JavaScript Build rooms and sprites; raw-map component, not gameplay](reports/evidence/nov19-original-text-startup.png)
 
-[Execution report](reports/nov12-original-masked-frame.json) binds original GRP/ART/MAP loading, sky, room/mask drawing and stable repeated presentation to exact source modules and runtime bytes. Read CURRENT_PORT_STATUS.md for test scope and remaining work. The user prohibits paid external services; verification runs locally and GitHub checkpoint commits use [skip ci].
+[Execution report](reports/nov19-original-text-startup-frame.json) binds original GRP/ART/MAP loading, sky, room/mask drawing and stable repeated presentation to exact source modules and runtime bytes. Read CURRENT_PORT_STATUS.md for test scope and remaining work. The user prohibits paid external services; verification runs locally and GitHub checkpoint commits use [skip ci].
 
 November 13 checkpoint: original `Anim_Init` executes in Node and Chromium and matches native C++ for all 12 animation records and 44 sound cues. Shared reference-member/static-lifetime lowering passes native comparisons, and all 59 local compiler CI-profile checks pass under unchanged inputs. See [animation verification](reports/nov13-original-animation-init.json) and the [current startup frontier](reports/nov13-app-main-current-frontier.json). The full game still does not boot.
 
