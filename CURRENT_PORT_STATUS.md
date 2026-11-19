@@ -1,3 +1,13 @@
+# EDuke32 readable JavaScript status — November 19, 2026
+
+The original portable `VM_Execute` passes source lowering, including its original switch dispatch, eight reference closures and local lifetime checks. It has not linked or executed. A bounded 32-query probe recorded 136 unresolved references before the latest header-provider installation; this is a dependency frontier, not a count of all remaining fixes. The original `app_main`, menu and gameplay remain unverified, and `dist/index.html` is withheld by the release gate.
+
+The active gameexec module now includes 41 additional closed original header definitions and the original `G_HaveUserMap`. Its user-map query matches native C++ in 36 Chromium cases using the original 2,036-byte user_defs layout. Typed min/swap overloads remain distinct. The compiler preserves original immutable header-array storage across primary-source edits only after comparing actual initializer expressions and scalar helper definitions. Shared nested record field access now checks physical byte layouts without requiring unused JavaScript method prototypes.
+
+All 11 targeted compiler regressions pass under frozen inputs. A fresh Chromium run executes original engineSetupAllocator and enginePreInit, validates 65,532 original divider records and enumerates original video modes. These component checks do not establish original game boot or gameplay. The current strict release audit fails startup closure, uniform current-revision emission, complete semantics, whole-program linkage, reachable gameplay and offline-game delivery.
+
+Current evidence: [11-test regression](reports/nov19-current-final-regressions.json), [fresh engine startup](reports/nov19-current-engine-component.json), [native/browser user-map query](reports/nov19-original-user-map-query.json), [release gate](reports/nov19-current-release-acceptance.json). The next work is exact same-translation-unit private function ownership, remaining vector factory ABI contracts and the original CON/startup dependency closure. No synthetic providers or game-state initialization bypasses were added.
+
 # EDuke32 readable JavaScript status â€” November 18, 2026
 
 The classic browser profile selects the original CON switch dispatcher, and all 111 selected source units parsed under that profile. The compiler supports source-proven reference closures across surrounding `goto` regions. Chromium verified original `RTS_Init` and lump lookup against a mounted archive, including the optional missing-file path. [RTS evidence](reports/nov18-original-rts-archive.json) · [Compiler regressions](reports/nov18-con-portable-regressions.json)

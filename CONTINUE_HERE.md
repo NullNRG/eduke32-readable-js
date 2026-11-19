@@ -1,3 +1,17 @@
+# Current continuation — November 19, 2026
+
+Read CURRENT_PORT_STATUS.md and reports/nov19-current-release-acceptance.json first. Original VM_Execute passes semantic lowering but is unresolved. The 136-reference probe predates installation of 41 original header providers; do not use it as a fresh comprehensive blocker count. G_HaveUserMap now executes with native/Chromium parity. Same-TU private header functions need exact declaration/body/storage ownership when imported by subsequent fragments; never add global aliases for static functions or select arbitrary min/swap overloads. Remaining vec2/vec3 factory failures must retain strict ABI checks.
+
+```powershell
+. work/session-env.ps1
+python work/verify_original_user_map_query.py
+python work/verify_fresh_engine_startup.py --report reports/nov19-current-engine-component.json
+python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_Execute --query-limit 32 --probe-only
+python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --reports factory-output/source-first/browser-classic/reports --out reports/nov19-current-release-acceptance.json --strict
+```
+
+Keep Clang jobs serial. Reuse exact attested inputs and the existing canonical compiler. All 111 native selected units were parsed for the portable browser configuration; this is distinct from uniform current-compiler JS emission and full semantic completeness, which remain false. Original game boot/menu/gameplay and the standalone player remain unverified. Keep GitHub checkpoints frequent and asset-free; use [skip ci] and local verification to avoid paid services.
+
 # Continue the canonical EDuke32 JavaScript port
 
 The classic browser profile selects EDuke32’s original portable CON switch dispatcher. Run `python tests/source_factory/verify_sourcefirst_browser_con_dispatch.py` after preparing the sources. The build tries the existing attested single-source semantic refresh when exactly one prepared primary source changes and falls back to full extraction when the prior checkpoint or header observations fail validation. The compiler now keeps proven nonescaping reference closures in their own scope when lowering outer jumps. Native, Node and Chromium closure comparisons pass.
