@@ -1,4 +1,4 @@
-"""Reattest unchanged, immutable header arrays after a primary source edit."""
+"""Reattest unchanged numeric header constants after a primary source edit."""
 import hashlib
 import json
 import re
@@ -35,9 +35,7 @@ for(let fileIndex=0;fileIndex<files.length;fileIndex++){
   for(const declaration of statement.declarationList.declarations){
    if(!ts.isIdentifier(declaration.name))continue;
    const name=declaration.name.text,spec=specs[name],init=declaration.initializer;
-   if(!spec||!init||!ts.isNewExpression(init)||!ts.isIdentifier(init.expression)||init.expression.text!==spec.array||
-      bindings.has(spec.array)||bindings.has('Number')||bindings.has('BigInt')||init.arguments?.length!==1||
-      !ts.isArrayLiteralExpression(init.arguments[0])||init.arguments[0].elements.length!==spec.length)continue;
+   if(!spec||!init||bindings.has('Number')||bindings.has('BigInt'))continue;
    const used=new Set();
    function literal(node){
     if(ts.isNumericLiteral(node)||ts.isBigIntLiteral(node))return true;
@@ -49,7 +47,12 @@ for(let fileIndex=0;fileIndex<files.length;fileIndex++){
     }
     return false;
    }
-   if(!init.arguments[0].elements.every(literal)||[...used].some(name=>!functions.get(name)))continue;
+   if(spec.array){
+    if(!ts.isNewExpression(init)||!ts.isIdentifier(init.expression)||init.expression.text!==spec.array||
+       bindings.has(spec.array)||init.arguments?.length!==1||!ts.isArrayLiteralExpression(init.arguments[0])||
+       init.arguments[0].elements.length!==spec.length||!init.arguments[0].elements.every(literal))continue;
+   }else if(!literal(init))continue;
+   if([...used].some(name=>!functions.get(name)))continue;
    rows.push({name,fileIndex,initializer:printer.printNode(ts.EmitHint.Expression,init,file),
     helpers:Object.fromEntries([...used].sort().map(name=>[name,printer.printNode(ts.EmitHint.Unspecified,functions.get(name),file)]))});
   }
@@ -69,16 +72,18 @@ def attest(owner_module, source, current_rows, old_values, current_code):
         proof = row.get('header_global_definition', {})
         old_proof = previous.get('header_global_definition', {})
         spelling = row.get('original_type', '')
+        scalar = bool(re.fullmatch(r'const (?:signed |unsigned )?(?:char|short|int|long|long long|bool|float|double)', spelling))
+        numeric_array = (len(array.get('dims', [])) == 1 and 0 < array['dims'][0] <= 1_000_000
+                         and array.get('array') in ('Int8Array', 'Uint8Array', 'Int16Array', 'Uint16Array',
+                                                   'Int32Array', 'Uint32Array', 'BigInt64Array', 'BigUint64Array'))
         if (row.get('status') == 'source-first' and row.get('kind') == 'VarDecl'
                 and row.get('linkage') == 'internal' and re.search(r'\bconst\b', spelling)
                 and not re.search(r'\bvolatile\b|[*&]', spelling)
-                and private.get('owner_source') == source and private == previous.get('private_storage')
+                and (not private and scalar or private.get('owner_source') == source)
+                and private == previous.get('private_storage', {})
                 and spelling == previous.get('original_type') and proof and old_proof
                 and all(proof.get(key) == old_proof.get(key) for key in identity)
-                and proof.get('translation_unit') == source and len(array.get('dims', [])) == 1
-                and 0 < array['dims'][0] <= 1_000_000
-                and array.get('array') in ('Int8Array', 'Uint8Array', 'Int16Array', 'Uint16Array',
-                                           'Int32Array', 'Uint32Array', 'BigInt64Array', 'BigUint64Array')):
+                and proof.get('translation_unit') == source and (numeric_array or scalar and not private)):
             eligible[row['name']] = row
     if not eligible:
         return {}, []
@@ -87,7 +92,8 @@ def attest(owner_module, source, current_rows, old_values, current_code):
         return {}, []
     exported = active_exports(owner_module)
     eligible = {name: row for name, row in eligible.items()
-                if name in exported and row['private_storage']['binding'] in exported}
+                if name in exported and (not row.get('private_storage')
+                                         or row['private_storage']['binding'] in exported)}
     if not eligible:
         return {}, []
     root = owner_module.parents[len(Path(source).parts) - 1]
@@ -100,8 +106,9 @@ def attest(owner_module, source, current_rows, old_values, current_code):
         if hashlib.sha256(data).hexdigest() != fragment['sha256']:
             raise ValueError('Original header storage fragment content changed')
         files[path] = data
-    specs = {name: {'array': row['private_storage']['scalar_array']['array'],
+    specs = {name: ({'array': row['private_storage']['scalar_array']['array'],
                     'length': row['private_storage']['scalar_array']['dims'][0]}
+                   if row.get('private_storage', {}).get('scalar_array') else {})
              for name, row in eligible.items()}
     result = subprocess.run(['node', '--input-type=module', '-e', PARSER], cwd=ROOT,
                             input=json.dumps({'files': [data.decode('utf-8') for data in files.values()] + [current_code],
@@ -118,9 +125,10 @@ def attest(owner_module, source, current_rows, old_values, current_code):
                 or previous[0]['helpers'] != current[0]['helpers']):
             continue
         borrowed[name] = old_values[name]
-        proofs.append({'abi': 'source-immutable-header-array-reattestation/1', 'name': name,
+        proofs.append({'abi': ('source-immutable-header-array-reattestation/1' if row.get('private_storage')
+                              else 'source-immutable-header-scalar-reattestation/1'), 'name': name,
                        'original_header': row['header_global_definition'],
-                       'private_storage': row['private_storage'],
+                       'private_storage': row.get('private_storage'),
                        'initializer_sha256': hashlib.sha256(current[0]['initializer'].encode()).hexdigest(),
                        'scalar_helper_sha256': {key: hashlib.sha256(value.encode()).hexdigest()
                                                 for key, value in current[0]['helpers'].items()},

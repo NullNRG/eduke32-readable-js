@@ -26,6 +26,13 @@ extern "C" int later(int n){return factor*n+factor;}
     document=compile_fragment()
     assert not any(row['kind']=='VarDecl' for row in document['definitions']),document['definitions']
     assert document['imports']==[{'name':name,'from':'unit.cpp','native_pointer_abi':'source-lp64-addresses/2'}],document['imports']
+    unit=source/'unit.cpp'
+    unit.write_text(unit.read_text().replace('factor*n+factor','factor*n+factor+n'))
+    document=compile_fragment()
+    assert document['ast_cache_inputs']!=initial['ast_cache_inputs']
+    assert not any(row['kind']=='VarDecl' for row in document['definitions']),document['definitions']
+    assert [row['name'] for row in document['header_storage_reattestations']]==[name],document
+    assert document['header_storage_reattestations'][0]['abi']=='source-immutable-header-scalar-reattestation/1'
     install=[sys.executable,ROOT/'tools/install_verified_fragment.py','--manifest',fragment/'unit.cpp.manifest.json',
         '--target',owner,'--exports','later','--report',base/'install.json']
     run(install)
@@ -37,8 +44,9 @@ extern "C" int later(int n){return factor*n+factor;}
     header.write_text('static const int factor=9;\n')
     stale=compile_fragment()
     assert any(row['name']==name and row['kind']=='VarDecl' for row in stale['definitions']),stale['definitions']
+    assert not stale.get('header_storage_reattestations'),stale
     assert 'duplicates existing original storage' in run(install,success=False)
-print('PASS 512 native/JS values: same-TU header constant imported from its existing owner; changed original header prevents stale reuse and installation')
+print('PASS 512 native/JS values: same-TU header constant survives primary-source edits; changed initializer prevents stale reuse and installation')
 
 with tempfile.TemporaryDirectory(prefix='header-array-fragment-',dir=ROOT/'work') as folder:
     base=Path(folder);source=base/'original';source.mkdir();owner=base/'owner';fragment=base/'fragment'

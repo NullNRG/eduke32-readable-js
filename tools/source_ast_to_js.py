@@ -7516,7 +7516,8 @@ def main():
             report,existing_header_values,emit_scalar_helpers(candidate_code)+'\n'+candidate_code)
         if borrowed:
             existing_source_storage.update(borrowed)
-            private_source_storage.update({name:row['private_storage'] for name,row in borrowed.items()})
+            private_source_storage.update({name:row['private_storage'] for name,row in borrowed.items()
+                                           if row.get('private_storage')})
             index.update({name:opt.source for name in borrowed})
             emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
                 project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
