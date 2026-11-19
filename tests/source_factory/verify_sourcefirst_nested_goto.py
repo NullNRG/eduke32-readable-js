@@ -61,6 +61,37 @@ int case_suffixes(int n){
  }
  return acc;
 }
+int flat_case_suffix(int n){
+ int acc=0;
+ for(int i=0;i<12;i++){
+  switch((n+i)%3){
+  case 0:if(n%5==0)goto fault;acc+=3;continue;
+  case 1:if(n%7==0)goto fault;acc+=5;continue;
+  default:
+  fault:do{acc+=11+i;acc^=n;}while(0);continue;
+  }
+ }
+ return acc;
+}
+int local_record(int n){
+ struct Value{int x;Value(const Value&other):x(other.x){}};
+ int result=n;
+ if(n&1)goto done;
+ result+=4;
+ done:return result;
+}
+int local_anonymous(int n){
+ struct{int x;}value;
+ value.x=n;if(n&1)goto done;
+ value.x+=4;
+ done:return value.x;
+}
+int anonymous_nontrivial(int n){
+ struct Life{~Life(){}};
+ struct{Life field;}value;
+ if(n)goto done;
+ done:return n;
+}
 int reject_wrong_continue_owner(int n){
  int sum=0;
  for(int i=0;i<2;i++){
@@ -194,7 +225,7 @@ int unproven_side_entry(int n){
 }
 '''
 FUNCTIONS=('nested_forward','nested_backward','nested_switch','nested_do_while',
-           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes','forward_if_label')
+           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes','forward_if_label','flat_case_suffix','local_record','local_anonymous')
 
 def run(args,cwd):
  p=subprocess.run(args,cwd=cwd,capture_output=True,text=True,timeout=180)
@@ -208,16 +239,19 @@ with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
  native=root/'native.exe';run(['clang++','-std=c++14','main.cpp','-o',str(native)],root)
  expected=run([str(native)],root).splitlines()
  run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(root),
-      '--source','unit.cpp','--out-dir',str(root/'out')],root)
+      '--source','unit.cpp','--out-dir',str(root/'out'),'--require-record-layouts'],root)
  module=root/'out/unit.cpp.mjs';manifest=json.loads(module.with_suffix('.manifest.json').read_text())
  rows={r['source_name']:r for r in manifest['definitions']}
  for name in FUNCTIONS:
   assert rows[name]['status']=='source-first',rows[name]
   detection='forward_unbraced_if_label' if name=='forward_if_label' else 'nested_lexical_jumps'
+  if name=='flat_case_suffix':detection='same_loop_terminal_jumps'
+  if name in ('local_record','local_anonymous'):detection='forward_goto'
   assert rows[name]['control_flow']['detected'][detection]>0,rows[name]
  assert rows['unproven_side_entry']['status']=='blocked',rows['unproven_side_entry']
  assert 'different lexical scope' in rows['unproven_side_entry']['reason'],rows['unproven_side_entry']
  assert rows['reject_fallthrough_side_entry']['status']=='blocked',rows['reject_fallthrough_side_entry']
+ assert rows['anonymous_nontrivial']['status']=='blocked' and 'lifetime' in rows['anonymous_nontrivial']['reason'],rows['anonymous_nontrivial']
  assert rows['case_suffixes']['control_flow']['detected']['same_loop_terminal_jumps']==3
  assert 'loop ownership' in rows['reject_wrong_continue_owner']['reason'],rows['reject_wrong_continue_owner']
  assert 'recursive copied source suffix' in rows['reject_recursive_suffix']['reason'],rows['reject_recursive_suffix']

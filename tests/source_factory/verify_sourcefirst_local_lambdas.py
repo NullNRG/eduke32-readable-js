@@ -23,15 +23,22 @@ int jump_with_closure(int n) { int sum=n;
  {int value=f(3);sum+=value;}
  ready: {int value=f(5);return sum+value;}
 }
+int chained(int n){int v=n;auto step=[&](int d){v+=d;return v;};
+ auto wrap=[&](int d){return step(d)+v;};return wrap(3)+step(4);}
+int chained_jump(int n){int v=n;auto step=[&](int d){v+=d;return v;};
+ auto middle=[&](int d){return step(d)+1;};auto top=[&](int d){return middle(d)+v;};
+ if(n&1)goto ready;v+=2;ready:return top(3)+step(4);}
 int sink(int (*p)(int));
 int byvalue(int n){auto f=[=](int x){return n+x;};return f(1);}
 int copy(int n){auto f=[&](int x){return n+x;};auto g=f;return g(1);}
 int object_address(int n){auto f=[&](int x){return n+x;};return (&f)==nullptr;}
 int goto_value_capture(int n){auto f=[=](){return n;};if(n)goto ready; n++;ready:return f();}
 auto escape(int &n){auto f=[&](int x){return n+x;};return f;}
+auto captured_escape(int &n){auto f=[&](int x){return n+x;};auto g=[&](int x){return f(x);};return g;}
+int closure_copy_capture(int n){auto f=[&](int x){return n+x;};auto g=[=](int x){return f(x);};return g(1);}
 '''
-NAMES=['mutate','address','refs','record','pair','loop','jump_with_closure']
-REJECT=['byvalue','copy','object_address','escape','goto_value_capture']
+NAMES=['mutate','address','refs','record','pair','loop','jump_with_closure','chained','chained_jump']
+REJECT=['byvalue','copy','object_address','escape','goto_value_capture','captured_escape','closure_copy_capture']
 def run(command,cwd):
  r=subprocess.run(list(map(str,command)),cwd=cwd,capture_output=True,text=True,timeout=180)
  assert r.returncode==0,(command,r.stdout[-1500:],r.stderr[-2500:])

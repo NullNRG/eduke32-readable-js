@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory() as folder:
  const Vec<T>operator*(Vec<T>b)const{return {T(x*b.x),T(y*b.y)};}
 };
 ''')
-    (root/'one.cpp').write_text('#include "vec.hpp"\nextern "C" int first(int n){Vec<int>a{n,n+3},b{7,9};auto c=(a+b)*(a-b);return c.x+c.y;}\n')
+    (root/'one.cpp').write_text('#include "vec.hpp"\nextern "C" int first(int n){Vec<int>a{n,n+3},b{7,9};auto c=(a+b)*(a-b);if(n&1)goto ready;c.x+=2;ready:return c.x+c.y;}\n')
     (root/'two.cpp').write_text('#include "vec.hpp"\nextern "C" int second(int n){Vec<int>a; a.x=n;a.y=n+3;Vec<int>b{7,9};auto c=a-b;return c.x+c.y;}\n')
     (root/'main.cpp').write_text('#include <cstdio>\nextern "C" int first(int),second(int);int main(){for(int n=-256;n<256;n++)printf("%d %d\\n",first(n),second(n));}\n')
     exe=root/'native.exe';run(['clang++',root/'one.cpp',root/'two.cpp',root/'main.cpp','-o',exe],root)

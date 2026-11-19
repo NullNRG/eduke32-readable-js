@@ -23,6 +23,8 @@ def strip(node):
 def plan(function):
     nodes = list(walk(function))
     parents = {id(child): node for node in nodes for child in children(node)}
+    capture_owners = {id(child): node.get('id') for node in nodes if node.get('kind') == 'LambdaExpr'
+                      for child in children(node) if child.get('kind') == 'DeclRefExpr'}
     result = {}
     local_ids = {n.get('id') for n in nodes if n.get('kind') in ('VarDecl', 'ParmVarDecl')}
     for declaration in nodes:
@@ -58,9 +60,12 @@ def plan(function):
             continue
         if any(n.get('kind') in ('CXXBindTemporaryExpr', 'CXXNewExpr') for n in walk(initial)):
             continue
-        identity = declaration.get('id'); calls = {}; valid = bool(identity and method.get('id'))
+        identity = declaration.get('id'); calls = {}; captured_by = set(); valid = bool(identity and method.get('id'))
         for reference in nodes:
             if reference.get('kind') != 'DeclRefExpr' or reference.get('referencedDecl', {}).get('id') != identity:
+                continue
+            if id(reference) in capture_owners:
+                captured_by.add(capture_owners[id(reference)])
                 continue
             receiver = reference; parent = parents.get(id(receiver))
             while parent and parent.get('kind') in WRAPPERS and len(children(parent)) == 1:
@@ -78,5 +83,16 @@ def plan(function):
             'operator_id': method['id'], 'operator_type': method['type'],
             'method': method, 'body': bodies[0], 'calls': calls,
             'constructor_ids': constructors,
+            'reference_capture_users': sorted(captured_by),
             'captures': [c['referencedDecl'] for c in captures]}
+    # A closure may be borrowed by another proven local closure. If that
+    # borrower escapes or has an unsupported capture, reject its borrowed
+    # closures as well, including every transitive reference capture.
+    while True:
+        rejected = {identity for identity, proof in result.items()
+                    if any(user not in result for user in proof['reference_capture_users'])}
+        if not rejected:
+            break
+        for identity in rejected:
+            del result[identity]
     return result

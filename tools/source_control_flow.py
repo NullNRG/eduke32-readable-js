@@ -12,13 +12,16 @@ import copy
 from source_cpp_types import has_outer_indirection
 
 class ControlFlowUnsupported(Exception):
-    pass
+    def __init__(self,message,*,required_records=()):
+        super().__init__(message)
+        self.required_records=tuple(required_records)
 
 
 def kind(node): return node.get('kind','')
 def children(node): return [n for n in node.get('inner',[]) if n]
 def descendants(node, lambda_boundaries=()):
     yield node
+    if kind(node) in ('RecordDecl','CXXRecordDecl'):return
     if kind(node)=='LambdaExpr' and node.get('id') in lambda_boundaries:return
     for child in children(node): yield from descendants(child,lambda_boundaries)
 
@@ -200,6 +203,20 @@ class SourceFlowPlan:
         def consider(label,statements,restricted,loop):
             if kind(label)!='LabelStmt' or len(children(label))!=1:return
             suffix={'kind':'CompoundStmt','inner':[children(label)[0],*statements]}
+            for index,statement in enumerate(children(suffix)):
+                if kind(statement)!='DoStmt' or len(children(statement))!=2:continue
+                body,condition=children(statement)
+                while kind(condition) in ('ImplicitCastExpr','ParenExpr') and len(children(condition))==1:
+                    condition=children(condition)[0]
+                zero=(kind(condition)=='IntegerLiteral' and str(condition.get('value'))=='0'
+                      or kind(condition)=='CXXBoolLiteralExpr' and condition.get('value') is False)
+                if (zero and kind(body)=='CompoundStmt' and not any(kind(part) in loops|{
+                        'BreakStmt','ContinueStmt','GotoStmt','IndirectGotoStmt','LabelStmt','CaseStmt','DefaultStmt'}
+                        for part in descendants(body))):
+                    # A do/while(0) macro without internal control transfers
+                    # is exactly its lexical block. Retain that scope while
+                    # exposing the original outer-loop terminal continuation.
+                    suffix['inner'][index]=body
             nodes=list(descendants(suffix))
             refs=[x.get('referencedDecl',{}) for x in nodes if kind(x)=='DeclRefExpr']
             uses={ref.get('id') for ref in refs}
@@ -222,7 +239,7 @@ class SourceFlowPlan:
 
         def visit(node,restricted=None,loop=None,scopes=()):
             k=kind(node)
-            if k=='LambdaExpr':return
+            if k in ('LambdaExpr','RecordDecl','CXXRecordDecl'):return
             restricted=dict(restricted or {})
             scopes=(*scopes,id(node))
             if k in loops:loop=id(node)
@@ -234,11 +251,23 @@ class SourceFlowPlan:
                 for i,stmt in enumerate(seq):
                     if node is not self.body and kind(stmt)=='LabelStmt':
                         consider(stmt,seq[i+1:],restricted,loop)
+                    if kind(stmt) in ('CaseStmt','DefaultStmt'):
+                        entry=stmt
+                        while kind(entry) in ('CaseStmt','DefaultStmt') and children(entry):
+                            entry=children(entry)[-1]
+                        following=i+1
+                        while following<len(seq) and kind(seq[following]) not in ('CaseStmt','DefaultStmt'):
+                            following+=1
+                        # A label may own only the first statement of a flat
+                        # switch arm. Prove its terminating suffix up to the
+                        # next dispatch label using the same lifetime and
+                        # loop-owner checks as every other copied suffix.
+                        consider(entry,seq[i+1:following],restricted,loop)
                     if kind(stmt)=='DeclStmt' and node is not self.body:
                         restricted.update((x.get('id'),id(node)) for x in children(stmt) if kind(x)=='VarDecl')
             # Clang attaches a source label immediately after case/default to
-            # that dispatch node. Require its own terminal statement: never
-            # copy an implicit case fallthrough or enclosing switch suffix.
+            # that dispatch node. A self-contained terminal body is safe too.
+            # Implicit fallthrough and enclosing switch suffixes stay blocked.
             if k in ('CaseStmt','DefaultStmt') and children(node):
                 consider(children(node)[-1],[],restricted,loop)
             # A for/if initializer also belongs to its nested lexical scope.
@@ -357,7 +386,8 @@ class SourceFlowPlan:
                 t=node.get('type',{}).get('desugaredQualType') or node.get('type',{}).get('qualType','')
                 t=re.sub(r'\b(?:const|volatile|struct|class|union)\b','',t).strip()
                 if self.canonical_type(t) not in self.trivial_destructors:
-                    raise ControlFlowUnsupported('goto C++ lifetime requires Clang-proven trivial destructor: '+t)
+                    raise ControlFlowUnsupported('goto C++ lifetime requires Clang-proven trivial destructor: '+t,
+                                                 required_records=(t,))
                 self.diagnostics['trivial_constructions_checked']+=1
             if k in unsafe: raise ControlFlowUnsupported('goto crosses unsupported C++ lifetime/control flow: '+k)
             if k=='VarDecl' and node.get('name') and node.get('storageClass')!='static':
@@ -449,6 +479,7 @@ class SourceFlowPlan:
         loops={'ForStmt','WhileStmt','DoStmt','CXXForRangeStmt'}
         def visit(node,breaks=(),continues=()):
             k=kind(node)
+            if k in ('RecordDecl','CXXRecordDecl'):return
             if k=='LambdaExpr' and node.get('id') in self.lambda_boundaries:return
             if k in loops or k=='SwitchStmt':
                 label=f'__source_control_{len(self.control_labels)}'

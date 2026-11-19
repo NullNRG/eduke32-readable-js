@@ -1007,16 +1007,31 @@ class Emit:
                 if any(kind(v) in ('GotoStmt','LabelStmt') for v in descendants(stmt))),default=0)
             direct={decl.get('id'):index for index,stmt in enumerate(statements) if kind(stmt)=='DeclStmt'
                 for decl in kids(stmt) if kind(decl)=='VarDecl'}
+            isolated=set()
+            for identity in selected:
+                declaration=declarations[identity]
+                statement=parents.get(id(declaration),{})
+                block=parents.get(id(statement),{})
+                if kind(statement)!='DeclStmt' or len(kids(statement))!=1 or kind(block)!='CompoundStmt' or block is body:
+                    continue
+                scope=list(descendants(block))
+                if any(kind(part) in ('GotoStmt','IndirectGotoStmt','LabelStmt','CaseStmt','DefaultStmt','LambdaExpr') for part in scope):
+                    continue
+                scope_nodes={id(part) for part in scope}
+                if all(id(part) in scope_nodes for part in descendants(function)
+                        if kind(part)=='DeclRefExpr' and part.get('referencedDecl',{}).get('id')==identity):
+                    isolated.add(identity)
             # Parameters are materialized in the function prefix. An automatic
-            # scalar is safe only when its direct function-scope declaration
-            # precedes EVERY source label/jump. Nested/bypassed or re-entered
-            # declarations remain blocked; SourceFlowPlan still checks all
-            # nontrivial C++ lifetimes independently.
+            # scalar must dominate every jump or belong to a lexical block
+            # without a side-entry label/jump. Its storage initializer runs on
+            # every original block entry. SourceFlowPlan separately checks
+            # all nontrivial C++ lifetimes and preserves declaration execution.
             if not all(kind(declarations[identity])=='ParmVarDecl' or
-                    identity in direct and direct[identity]<first_entry for identity in selected):
+                    identity in direct and direct[identity]<first_entry or identity in isolated for identity in selected):
                 raise Unsupported('scalar byte alias across goto requires proven storage lifetime')
             self.byte_scalar_goto_lifetime={'abi':'source-dominating-scalar-byte-storage/1',
-                'declarations':sorted(selected),'all_storage_precedes_labels_and_jumps':True}
+                'declarations':sorted(selected),'all_storage_precedes_labels_and_jumps':not isolated,
+                'isolated_lexical_storage':sorted(isolated)}
 
         for identity in selected:
             if identity not in self.local_reference_cells:self.local_reference_cells[identity]=self.expression_temp()
@@ -1147,6 +1162,9 @@ class Emit:
             child.range_aliases[capture['id']]=self.expr({'kind':'DeclRefExpr','referencedDecl':capture,'type':capture['type']})
         child.inherited_reference_cells=dict(self.local_reference_cells)
         child.inherited_byte_scalar_cells=dict(self.byte_scalar_cells)
+        captured_ids={capture['id'] for capture in proof['captures']}
+        child.inherited_local_lambda_plans={identity:outer for identity,outer in self.local_lambda_plans.items()
+            if outer['variable_id'] in captured_ids}
         method={**proof['method'],'kind':'FunctionDecl'}
         symbol=self.expression_temp();child.expression_temp_sequence=self.expression_temp_sequence
         text=child.function(method,method=True,symbol=symbol)
@@ -3464,6 +3482,10 @@ class Emit:
             return f'export const {name} = {global_initializer(n,self.enum_values,self.record_layouts,self.global_storage_records,self.type_aliases,self.enum_types,self)};'
         return f'export const {name} = {js_cast(self.expr(value),qual(n))};'
     def function(self,n,method=False,symbol=None):
+        from source_switch_cases import recover_guarded_cases
+        n,case_recoveries=recover_guarded_cases(n)
+        if case_recoveries:
+            self.used_guarded_switch_cases=getattr(self,'used_guarded_switch_cases',[])+case_recoveries
         try:n,parameter_bindings=unique_parameters(n,js_ident)
         except ValueError as error:raise Unsupported(str(error)) from error
         if parameter_bindings:
@@ -3488,7 +3510,7 @@ class Emit:
         self.comparison_pointer_values=comparison_pointer_values(n,lambda typ:resolve_scalar_storage_alias(typ,self.type_aliases))
         self.local_reference_cells={**getattr(self,'inherited_reference_cells',{}),**self.plan_local_reference_cells(n)}
         self.byte_scalar_cells={**getattr(self,'inherited_byte_scalar_cells',{}),**self.plan_byte_scalar_cells(n)}
-        self.local_lambda_plans=plan_local_lambdas(n)
+        self.local_lambda_plans={**getattr(self,'inherited_local_lambda_plans',{}),**plan_local_lambdas(n)}
         argnames=[]
         for i,p in enumerate(params):
             argnames.append(js_ident(p.get('name') or 'arg'+str(i)))
@@ -3539,7 +3561,8 @@ class Emit:
             if any(kind(v)=='GotoStmt' for v in descendants(bodies[-1])):
                 try:self.goto_plan=SourceFlowPlan(bodies[-1],self.trivial_destructors,
                     lambda name:normalized_record_name(name,self.type_aliases),self.local_lambda_plans)
-                except ControlFlowUnsupported as exc:raise Unsupported('source control flow: '+str(exc))
+                except ControlFlowUnsupported as exc:
+                    raise Unsupported('source control flow: '+str(exc),required_records=exc.required_records)
                 parameter_ids={param.get('id') for param in params}
                 self.goto_plan.hoisted_locals.extend(binding for identity,binding in self.local_reference_cells.items() if identity not in parameter_ids)
                 self.last_flow_report={'passes':list(self.goto_plan.passes),'detected':dict(self.goto_plan.diagnostics),'strategy':'structured-source-labels-no-opcode-dispatch'}
@@ -4952,11 +4975,28 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
     # because it has a C++ class name. Ambiguous type names are fail-closed.
     destructor_evidence={}
     def collect_record_traits(node):
+        if kind(node)=='DeclStmt':
+            anonymous=[child for child in kids(node) if kind(child)=='CXXRecordDecl'
+                and child.get('completeDefinition') and not child.get('name')]
+            if len(anonymous)==1:
+                # One C++ declaration statement shares its anonymous type
+                # specifier across the following declarators. Join only
+                # by-value objects to their exact constructor type, without
+                # inferring destruction from an anonymous spelling or size.
+                trivial=anonymous[0].get('definitionData',{}).get('dtor',{}).get('trivial') is True
+                for declaration in kids(node):
+                    spelling=clean_record_type(qual(declaration))
+                    if (kind(declaration)=='VarDecl' and re.fullmatch(
+                            r'\((?:unnamed|anonymous)(?: (?:struct|class|union))? at .+:\d+:\d+\)',spelling)
+                            and any(kind(child)=='CXXConstructExpr' and qual(child)==qual(declaration) for child in kids(declaration))):
+                        destructor_evidence.setdefault(spelling,set()).add(trivial)
         if kind(node)=='CXXRecordDecl' and node.get('completeDefinition'):
-            name=node.get('name','')
             dtor=node.get('definitionData',{}).get('dtor',{})
-            if name:
-                destructor_evidence.setdefault(name,set()).add(dtor.get('trivial') is True)
+            spellings={node.get('name'),node.get('_source_record_name'),node.get('_source_record_qualified_name'),
+                       *node.get('_source_self_type_spellings',[])}
+            for spelling in spellings:
+                if spelling:
+                    destructor_evidence.setdefault(spelling,set()).add(dtor.get('trivial') is True)
         for child in kids(node):collect_record_traits(child)
     for root in ast:collect_record_traits(root)
     trivial_destructors={name for name,values in destructor_evidence.items() if values=={True}}
@@ -6141,6 +6181,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if getattr(em,'used_terminal_pointer_steps',None):row['terminal_pointer_steps']=em.used_terminal_pointer_steps
             if getattr(em,'used_terminal_body_pointer_steps',None):row['terminal_body_pointer_steps']=em.used_terminal_body_pointer_steps
             if getattr(em,'byte_scalar_goto_lifetime',None):row['byte_scalar_goto_lifetime']=em.byte_scalar_goto_lifetime
+            if getattr(em,'used_guarded_switch_cases',None):row['source_guarded_switch_cases']=em.used_guarded_switch_cases
             if em.last_flow_report:row['control_flow']=em.last_flow_report
             source.append((n,code,row))
         except Unsupported as e:
