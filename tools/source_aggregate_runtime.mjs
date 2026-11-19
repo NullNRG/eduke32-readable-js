@@ -121,8 +121,14 @@ const cInitByteRecord = (schema, values={}, storage=null, prototypes={}, allocat
   if(schema.pointerEncoding && (schema.pointerEncoding!=='source-lp64-addresses/2' ||
       globalThis[Symbol.for('source-first.native-pointer-abi')]!==schema.pointerEncoding))
     throw new TypeError('Overlapping pointer union requires the verified source address ABI');
+  const borrowedClass=schema.borrowedClass==='source-existing-scalar-class/1' && schema.projection===true &&
+    typeof schema.prototype==='string' && /^[A-Za-z_]\w*$/.test(schema.prototype) &&
+    !schema.union && !schema.overlaps && Object.keys(schema.fields||{}).length>0 &&
+    Object.values(schema.fields).every(field=>Object.keys(field).every(key=>['native','offset','size'].includes(key)) &&
+      ['Int8Array','Uint8Array','Int16Array','Uint16Array','Int32Array','Uint32Array','BigInt64Array','BigUint64Array','Float32Array','Float64Array'].includes(field.native) &&
+      field.size===globalThis[field.native].BYTES_PER_ELEMENT);
   if(schema.projection && (!(storage instanceof Uint8Array) || typeof values==='function' ||
-      !values || Object.keys(values).length || schema.prototype))
+      !values || Object.keys(values).length || schema.prototype && !borrowedClass))
     throw new TypeError('Nontrivial C++ field view requires existing storage without initialization');
   const sizeLimit=schema.projection && schema.fieldView ? 268435456 : 1048576;
   if (!Number.isSafeInteger(schema.size) || schema.size<1 || schema.size>sizeLimit ||

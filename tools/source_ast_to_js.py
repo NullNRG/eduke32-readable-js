@@ -2193,6 +2193,13 @@ class Emit:
             target=qual(n)
             if target.strip().endswith('*'):
                 base=normalized_record_name(target.strip()[:-1],self.type_aliases)
+                if n.get('castKind')=='IntegralToPointer' and base in getattr(self,'managed_record_names',set()):
+                    borrowed=getattr(self,'borrowed_scalar_class_schemas',{}).get(base)
+                    if not borrowed:
+                        raise Unsupported('native class address cast requires complete verified scalar storage: '+str(base))
+                    shape={'byteRecord':borrowed}
+                    return ('cRecordPointer('+original+', '+json.dumps(borrowed,sort_keys=True)
+                        +', '+self.byte_record_prototypes(shape)+')')
                 record=self.global_storage_records.get(base,{})
                 if record.get('byte_schema'):
                     shape={'byteRecord':record['byte_schema']}
@@ -5185,6 +5192,16 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                         allow_pointer_storage=True,enum_types=enum_types) is not None for field in fields)
             except Unsupported:supported=False
             if supported:addressable_classes.add(name)
+    borrowed_scalar_class_schemas={}
+    for name in addressable_classes:
+        schema=record_storage_views.get(name,{}).get('byte_schema',{})
+        fields=schema.get('fields',{})
+        if (schema.get('projection') is True and not schema.get('union') and not schema.get('overlaps')
+                and 0<schema.get('size',0)<=1048576 and fields
+                and all(set(field)<= {'native','offset','size'} and field.get('native')
+                        for field in fields.values())):
+            borrowed_scalar_class_schemas[name]={**schema,'prototype':name,
+                'borrowedClass':'source-existing-scalar-class/1'}
     project_symbols=project_symbols or {}
     template_source_bytes=None
     source_template_ids=set()
@@ -5940,6 +5957,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         em.source_class_providers=source_class_providers
         em.managed_record_names=managed_record_names
         em.record_storage_views=record_storage_views
+        em.borrowed_scalar_class_schemas=borrowed_scalar_class_schemas
         em.native_byte_classes=native_byte_classes
         em.member_method_symbols=member_method_symbols;em.overloaded_member_names=overloaded_member_names
         em.non_odr_static_values=non_odr_static_values

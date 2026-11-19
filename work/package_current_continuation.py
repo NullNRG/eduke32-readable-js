@@ -90,7 +90,9 @@ def selected(root,public=False):
                  'original_demo_codec_report','original_demo_snapshot_report',
                  'original_browser_frame_clock_report','original_rts_archive_report',
                  'current_vm_import_audit','current_vm_rejected_import_catalog',
-                 'original_global_array_attestation_report','current_engine_component_report')
+                 'original_global_array_attestation_report','current_engine_component_report',
+                 'original_user_map_query_report','original_fix16_integer_conversion_report',
+                 'original_fix16_arithmetic_report','original_con_variable_operators_report')
     for key in report_keys:
         if snapshot.get(key):add(package_tool.safe_path(root,snapshot[key]))
     for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):

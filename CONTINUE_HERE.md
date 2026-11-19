@@ -1,75 +1,73 @@
-# Current continuation — November 19, 2026
+# Continue the canonical EDuke32 JavaScript port
 
-Read CURRENT_PORT_STATUS.md and reports/nov19-current-release-acceptance.json first. Original VM_Execute passes semantic lowering but is unresolved. The 136-reference probe predates installation of 41 original header providers; do not use it as a fresh comprehensive blocker count. G_HaveUserMap now executes with native/Chromium parity. Same-TU private header functions need exact declaration/body/storage ownership when imported by subsequent fragments; never add global aliases for static functions or select arbitrary min/swap overloads. Remaining vec2/vec3 factory failures must retain strict ABI checks.
+Work in the existing repository. Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov19-continuation-frontier.json first. These distinguish source lowering, linking, execution and gameplay. Do not assume that the rendered raw-map preview is an original game session.
+
+## Reproduce the verified checkpoint
+
+On the configured Windows host:
 
 ```powershell
 . work/session-env.ps1
-python work/verify_original_user_map_query.py
+python work/verify_original_con_variable_operators.py
+python work/verify_original_fix16_arithmetic.py
+python work/verify_original_fix16_integer_conversion.py
 python work/verify_fresh_engine_startup.py --report reports/nov19-current-engine-component.json
-python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_Execute --query-limit 32 --probe-only
+python work/verify_original_text_startup_frame.py --checkpoint nov19
+python tools/recover_browser_component.py --snapshot
+```
+
+Read reports/nov19-final-shared-regressions.json for the exact 20 tests and source/compiler/runtime fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
+
+## First repair: original CON division
+
+The nine arithmetic helpers already link and pass native/Chromium tests in seven storage modes. Do not replace them with new implementations. `Gv_DivVar` remains the separate division path.
+
+```powershell
+python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp Gv_DivVar --included-functions --query-limit 32 --probe-only
+```
+
+Original definition: source/duke3d/src/gamevars.h in the prepared source tree. Its `goto jmp` enters a label attached to `default:` and then executes the original assignment and switch break. Extend tools/source_control_flow.py (find_nested_terminal_labels/index_labels/resolve_edges) with a same-switch terminal-break recognizer. Require the exact source switch/loop owner, original break binding and existing lifetime/scope/alias checks. Keep nested/sibling switch transfers and entered storage rejected. No synthetic dispatcher and no deleted break.
+
+Use native/Node/Chromium differential tests, including pointer-target mutation and all defined original storage modes. Original branchfree divider storage must be initialized through the original initializer. Exclude undefined divisions from parity inputs and test VM error handling separately.
+
+## Ownership and remaining VM closure
+
+```powershell
+python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_Execute --query-limit 64 --probe-only
+```
+
+This is a diagnostic frontier, not a complete coverage measurement. The saved 136-reference probe predates later helper changes. Do not repeatedly rerun all 111 units for a compiler-only change.
+
+TU-private functions are correctly excluded from the global owner index. Add exact same-TU callable reuse in tools/source_cpp_function_bindings.py/source_ast_to_js.py using Clang-selected mangling/type, TU, original header/body and preprocessing evidence. Preserve function objects, static state and pointer identity. Do not globally alias source_name or choose arbitrary min/swap overloads. Template identities must include native specialization arguments and actual required body/reference ABI.
+
+Vector imports still require real original factory implementations. Inspect tools/source_header_records.py and source_first_global_link.py. Obtain an actual method superset from Clang's original definitions; extend proofs for verified anonymous-union/nested-vector storage where appropriate. Keep source bytes, target layout, required methods and alias identity checked. Never merge incompatible factories or drop prototype verification.
+
+The component audit reports duplicate immutable header storage in engine.cpp and savegame.cpp. Inspect the exact active fragments listed in reports/nov19-continuation-frontier.json. Use the existing initializer/identity checks and verified fragment mechanism to retain one storage owner. Do not delete fragments, ignore immutable addresses or fabricate manifests.
+
+## Safe incremental recovery/refresh
+
+```powershell
+python work/recover_boot_reachable.py SOURCE NAMES --included-functions --install-closed-leaves
+python tools/recover_browser_component.py SOURCE NAMES --refresh-fragment-sha256 FULL_64_HEX_HASH --preserve-fragment-storage
+```
+
+Use the actual active hash from the owner manifest. The installer preserves unchanged functions, verified header factories and original storage only when retained definitions do not capture replaced functions. Every emitted duplicate VarDecl is rejected. Read local compile/integration logs; the last script exit alone does not prove every requested overload family resolved.
+
+The authoritative profile is tools/browser_classic_profile.json. All launchers/compiler/linker/audits must consume its active paths. Preserve AST caches only under their source/header/configuration/ABI/toolchain fingerprints. Emission keys also include compiler/runtime helpers. Keep heavy Clang work serial.
+
+## Original game boot and release
+
+After shared closure repairs, refresh these actual chains rather than seeding game state:
+
+```powershell
+python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_ParseCommand --whole-unit --install-closed-leaves
+python work/recover_boot_reachable.py source/duke3d/src/game.cpp G_Startup,app_main --whole-unit --install-closed-leaves
+npm run compile:game
 python tools/verify_port_acceptance.py --build-root factory-output/source-first/browser-classic --reports factory-output/source-first/browser-classic/reports --out reports/nov19-current-release-acceptance.json --strict
 ```
 
-Keep Clang jobs serial. Reuse exact attested inputs and the existing canonical compiler. All 111 native selected units were parsed for the portable browser configuration; this is distinct from uniform current-compiler JS emission and full semantic completeness, which remain false. Original game boot/menu/gameplay and the standalone player remain unverified. Keep GitHub checkpoints frequent and asset-free; use [skip ci] and local verification to avoid paid services.
+The strict gate currently fails. Reconcile the selected 111-unit profile with stale 113-unit attempt evidence and verify the complete selected set once shared semantics stabilize. Implement actual original startup/resources/CON/menu, then the yielding source frame loop, gameplay/input/audio/save paths. Require real menu/E1L1 captures, 60 seconds of controlled gameplay, native state comparisons, save/restart restoration and offline HTML tests. The separate 90% declaration recovery metric still needs stable identities and a comparable baseline.
 
-# Continue the canonical EDuke32 JavaScript port
+`npm run serve:project` opens the developer dashboard. engine-player.html accepts a local GRP/MAP and displays the original raw-map renderer. Neither is the completed game. Publish dist/index.html only after actual gameplay verification. Public Git/Pages must be asset-free; players supply their GRP. Private local offline builds may embed supplied assets.
 
-The classic browser profile selects EDuke32’s original portable CON switch dispatcher. Run `python tests/source_factory/verify_sourcefirst_browser_con_dispatch.py` after preparing the sources. The build tries the existing attested single-source semantic refresh when exactly one prepared primary source changes and falls back to full extraction when the prior checkpoint or header observations fail validation. The compiler now keeps proven nonescaping reference closures in their own scope when lowering outer jumps. Native, Node and Chromium closure comparisons pass.
-
-The [current startup frontier](reports/nov18-demo-startup-frontier.json) records the demo-close provider and the latest direct startup dependencies. Use `python work/verify_original_demo_codec_write.py` and `python work/verify_original_demo_snapshot_heap.py` to reproduce the Chromium demo tests. Use `python work/verify_original_browser_frame_clock.py` to reproduce original SDL startup and frame pacing. Use `python work/verify_original_rts_archive.py` to verify original RTS archive startup.
-
-Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json, reports/nov16-static-method-ci.json and reports/nov16-post-font-app-main-frontier.json. Read reports/nov16-static-method-startup-frontier.json and reports/nov16-original-controller-defaults.json. Original controller defaults, G_InitText and text parsing now execute; app_main/menu/gameplay do not. Do not rebuild the native 111-unit semantic index for compiler-only changes.
-
-The original `VM_ScriptInfo` and `C_SetScriptSize` execute in Chromium with relocation through the original allocator. All eight VM structure getters and the original variable-default reset link. Start from [the current link frontier](reports/nov17-vm-and-con-startup-frontier.json) and close the original exit and shutdown providers for `Gv_Init` and `C_Compile`.
-
-All ten original CON structure tables and `VM_InitHashTables` are linked. The original table oracle checks 548 rows against the selected Clang target's ELF object and exercises the original hash initializer and lookups in Chromium. The scalar initializer evaluator uses the existing optional libclang resources. It binds unique source sites only. See `reports/nov17-original-con-structure-label-parity.json`.
-
-```powershell
-. work/session-env.ps1
-python tests/source_factory/verify_sourcefirst_pointer_alias.py
-python tests/source_factory/verify_sourcefirst_nested_goto.py
-python work/verify_original_script_relocation.py
-python work/verify_original_con_structure_labels.py
-python work/verify_original_con_gamevars.py
-python work/verify_original_con_script_resize.py
-python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_ScriptInfo,apScriptEvents,g_currentEvent,g_thisActorVarID --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/gamestructures.cpp VM_InitHashTables --whole-unit --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/gamevars.cpp aGameVars,aGameArrays,Gv_NewVar,Gv_NewArray,Gv_Init,Gv_Clear --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile,C_ParseCommand,C_SetScriptSize --whole-unit --install-closed-leaves
-```
-
-Create a private continuation ZIP with `npm run handoff:project`. It includes the original GRP, source, active recovery modules and verification reports. The packager includes a portable semantic cache only when its fingerprint agrees with the current snapshot. For a package without that cache, use `npm run compile:game -- --stop-after semantic` to regenerate the index after setting up the local toolchain.
-
-The [exit-provider frontier](reports/nov17-exit-provider-frontier.json) follows the live chain below `G_GameExit` and `G_Shutdown`. Original demo finalization now gets past Clang's `offsetof` expression. The remaining configuration dependency reaches the original locale hash/map types. The native tests cover large record field views. `python work/verify_original_mapstate_cleanup.py` exercises the linked cleanup and original allocator through the project launcher in Chromium.
-
-The [earlier November 17 CON dependency report](reports/nov17-con-link-frontier.json) records the original variable and array lifecycle test.
-
-```powershell
-. work/session-env.ps1
-python tests/source_factory/verify_sourcefirst_static_pod_constructor.py
-python work/verify_original_controller_defaults.py
-python tests/source_factory/verify_sourcefirst_unordered_maps.py
-python tests/source_factory/verify_sourcefirst_private_unordered.py
-python tests/source_factory/verify_sourcefirst_preserved_storage_refresh.py
-node --test tests/source_factory/unordered_map_service.test.mjs
-python work/native_original_font_oracle.py
-python work/verify_original_text_startup_frame.py
-python work/reproduce_source_ci.py
-```
-
-The font oracle compiles exact original font definitions and the G_InitText mapping-statement suffix, plus the entire original text parser. It does not execute native G_InitText allocation/tile loading or the native full game. The browser executes the entire original G_InitText against real assets. Controlled mapping overrides test emplace preservation and UTF-8; they are test inputs, not seeded game state or launcher defaults.
-
-The definitions/GRP chain is now linked, with real G_ScanGroups and G_LoadGroups execution. Next: complete packed function-static arrays containing ClockTicks and original assignment/lifetime semantics for rotatesprite/menu/HUD, configuration and original CON compilation/game-state startup. Retry original app_main against its refreshed dependency map. Retain original C++ game behavior and real failure paths.
-
-```powershell
-python work/recover_boot_reachable.py source/duke3d/src/config.cpp CONFIG_ReadSetup,CONFIG_WriteSetup --whole-unit --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/gamedef.cpp C_Compile --whole-unit --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/game.cpp G_CompileScripts --whole-unit --install-closed-leaves
-python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --whole-unit --install-closed-leaves
-```
-
-For a fragment containing functions only, refresh its complete exact interface with tools/recover_browser_component.py SOURCE NAMES --refresh-fragment-sha256 HASH --whole-unit-refresh. For a mixed fragment, select every function export and add --preserve-fragment-storage: the original immutable shard and its variable/getter exports remain the storage owner. The installer rejects partial replacement without that mode, foreign storage ABIs and preserved storage that may capture a replaced function. Do not rebuild or duplicate the map's original storage merely to refresh its functions. Inspect current module_fragments before choosing a hash; the original mixed font shard has already been split into preserved storage and refreshed functions.
-
-Use npm run serve:project and engine-player.html for the local GRP picker. Regenerate its runner with npm run build:engine-launcher. A playable release still requires original menus, CON/game state, controls/combat/enemies, audio, saves, offline HTML and sustained verified gameplay.
-
-Keep compilation/browser checks local, Clang jobs serial and checkpoint commits marked [skip ci]. Push source and factual evidence to NullNRG/eduke32-readable-js. No paid services, cloud builds, GRPs, SDKs or raw AST/SQLite caches. Do not label or deploy a playable release before acceptance passes.
+Use `npm run handoff:project` for a compact private continuation ZIP with current source, active fragments, input assets and evidence. It is not a fresh start. Never publish that asset-bearing ZIP. GitHub source checkpoints use [skip ci], local verification and no paid services.

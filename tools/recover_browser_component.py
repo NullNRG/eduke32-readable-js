@@ -117,7 +117,7 @@ def main():
       '--import-root',str(OUT),'--dependency-closure','--header-dependency-closure',
       '--enum-closure','--require-record-layouts','--ast-cache-dir',str(CACHE)]
  if not a.full and not a.whole_unit_refresh:cmd+=['--filter',','.join(pending),'--exact-filter']
- if not a.whole_unit_refresh:cmd+=['--header-inlines']
+ if not a.whole_unit_refresh:cmd+=['--header-inlines','--header-inline-filter',','.join(pending)]
  log=BASE/'reports'/('boot-'+a.source.replace('/','_')+'.log')
  print('Compile original '+a.source+' ['+','.join(pending)+']',flush=True)
  with log.open('w') as stream:

@@ -50,8 +50,12 @@ def main():
             retained=set(replacing['exports'])-set(a.exports)
             if not retained or any(definitions.get(name,{}).get('kind')!='FunctionDecl' for name in a.exports):
                 raise ValueError('Storage-preserving refresh must replace function definitions only')
-            if any(definitions.get(name,{}).get('kind')!='VarDecl' for name in retained):
-                raise ValueError('Storage-preserving refresh must retain every non-function definition')
+            if any(definitions.get(name,{}).get('kind') not in ('VarDecl','FunctionDecl') and not (
+                    definitions.get(name,{}).get('kind')=='CXXRecordDecl'
+                    and definitions[name].get('header_record_factory') is True
+                    and definitions[name].get('odr_inline',{}).get('prototype_factory_abi')=='source-header-record-factory/1')
+                    for name in retained):
+                raise ValueError('Storage-preserving refresh retains only original storage, functions and verified header factories')
             def captures(name,seen):
                 if name in a.exports:return True
                 if name in seen:return False
