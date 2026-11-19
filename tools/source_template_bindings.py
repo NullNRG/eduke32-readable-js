@@ -29,7 +29,7 @@ def contexts(complete):
     return [*instances.values(), *owners]
 
 
-def _sites(roots):
+def _sites(roots, anchors=None, names=None):
     for top in roots:
         for owner in walk(top):
             if owner.get('kind') not in ('FunctionDecl', 'CXXMethodDecl'):
@@ -39,12 +39,15 @@ def _sites(roots):
                       if child.get('kind') == 'CompoundStmt']
             if not owner.get('mangledName') or not isinstance(offset, int) or len(bodies) != 1:
                 continue
+            anchor=(owner['kind'],owner['mangledName'],owner.get('type',{}).get('qualType'),offset)
+            if anchors is not None and anchor not in anchors:continue
+            references = [ref for ref in walk(bodies[0]) if ref.get('kind') == 'DeclRefExpr'
+                          and ref.get('referencedDecl', {}).get('kind') == 'FunctionDecl']
+            if not references or names is not None and not any(ref['referencedDecl'].get('name') in names for ref in references):continue
             digest = hashlib.sha256(json.dumps(
                 _semantic(bodies[0]), sort_keys=True, separators=(',', ':')).encode()).hexdigest()
             prefix = (owner['kind'], owner['mangledName'],
                       owner.get('type', {}).get('qualType'), offset, digest)
-            references = [ref for ref in walk(bodies[0]) if ref.get('kind') == 'DeclRefExpr'
-                          and ref.get('referencedDecl', {}).get('kind') == 'FunctionDecl']
             for ordinal, ref in enumerate(references):
                 position = _position(ref)
                 # Macro sites need a physical expansion proof, which this join
@@ -55,15 +58,19 @@ def _sites(roots):
 
 def rebind(filtered, complete):
     instances = _instances(complete)
+    if not instances:return 0
+    anchors={(node['kind'],node.get('mangledName'),node.get('type',{}).get('qualType'),node.get('loc',{}).get('offset'))
+             for top in filtered for node in walk(top) if node.get('kind') in ('FunctionDecl','CXXMethodDecl')}
+    names={node.get('name') for node in instances.values()}
     selections = {}
-    for key, ref in _sites(complete):
+    for key, ref in _sites(complete,anchors,names):
         declaration = instances.get(ref.get('referencedDecl', {}).get('id'))
         if declaration:
             identity = (declaration['name'], declaration['mangledName'],
                         declaration.get('type', {}).get('qualType'))
             selections.setdefault(key, {})[identity] = declaration
     count = 0
-    for key, ref in _sites(filtered):
+    for key, ref in _sites(filtered,anchors,names):
         choices = selections.get(key, {})
         if len(choices) != 1:
             continue

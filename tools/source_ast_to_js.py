@@ -2110,6 +2110,11 @@ class Emit:
                          and not param.endswith('&&') and re.search(r'\bconst\b',param))
             is_move=bool(name and len(a)==1 and owner==name and param.endswith('&&'))
             if is_copy or is_move:
+                authored=self.constructor_factories.get(name,{}).get(ctor)
+                if authored:
+                    self.used_class_constructors=getattr(self,'used_class_constructors',set())|{js_ident(name)}
+                    target=(f'({js_ident(name)}())' if name in getattr(self,'header_record_factories',set()) else js_ident(name))
+                    return f'{target}.{authored}({self.constructor_arguments(n)})'
                 if record and record.get('byte_schema') and record.get('moveable' if is_move else 'copyable'):
                     schema={'byteRecord':record['byte_schema']}
                     self.byte_record_prototypes(schema)

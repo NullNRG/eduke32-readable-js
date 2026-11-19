@@ -72,7 +72,8 @@ def attest(owner_module, source, current_rows, old_values, current_code):
         proof = row.get('header_global_definition', {})
         old_proof = previous.get('header_global_definition', {})
         spelling = row.get('original_type', '')
-        scalar = bool(re.fullmatch(r'const (?:signed |unsigned )?(?:char|short|int|long|long long|bool|float|double)', spelling))
+        scalar = bool(re.fullmatch(r'const (?:signed |unsigned )?(?:char|short|int|long|long long|bool|float|double)', spelling)
+                      or re.fullmatch(r'const (?:[A-Za-z_]\w*::)*[A-Za-z_]\w*', spelling))
         numeric_array = (len(array.get('dims', [])) == 1 and 0 < array['dims'][0] <= 1_000_000
                          and array.get('array') in ('Int8Array', 'Uint8Array', 'Int16Array', 'Uint16Array',
                                                    'Int32Array', 'Uint32Array', 'BigInt64Array', 'BigUint64Array'))

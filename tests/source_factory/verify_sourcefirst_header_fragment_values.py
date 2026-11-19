@@ -7,7 +7,7 @@ def run(args,success=True):
     assert (task.returncode==0)==success,(args,task.stdout[-1500:],task.stderr[-3000:]);return task.stdout+task.stderr
 with tempfile.TemporaryDirectory(prefix='header-fragment-values-',dir=ROOT/'work') as folder:
     base=Path(folder);source=base/'original';source.mkdir();owner=base/'owner';fragment=base/'fragment'
-    header=source/'values.hpp';header.write_text('static const int factor=7;\n')
+    header=source/'values.hpp';header.write_text('typedef int HeaderValue; static const HeaderValue factor=7;\n')
     (source/'unit.cpp').write_text('''#include "values.hpp"
 extern "C" int owner_read(){return factor;}
 extern "C" int later(int n){return factor*n+factor;}
@@ -41,7 +41,7 @@ extern "C" int later(int n){return factor*n+factor;}
     expected=run([oracle]).splitlines()
     runner=base/'run.mjs';runner.write_text('import {later,owner_read} from '+json.dumps((owner/'unit.cpp.mjs').as_uri())+';for(let n=0;n<256;n++)console.log(later(n)+","+owner_read());')
     assert run(['node',runner]).splitlines()==expected
-    header.write_text('static const int factor=9;\n')
+    header.write_text('typedef int HeaderValue; static const HeaderValue factor=9;\n')
     stale=compile_fragment()
     assert any(row['name']==name and row['kind']=='VarDecl' for row in stale['definitions']),stale['definitions']
     assert not stale.get('header_storage_reattestations'),stale

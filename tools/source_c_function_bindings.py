@@ -24,6 +24,9 @@ def rebind(filtered,complete):
         if node.get('kind')=='FunctionDecl' and node.get('name') in SCALAR_NAMES
         and node.get('mangledName')==node.get('name')
         and not any(child.get('kind')=='CompoundStmt' for child in node.get('inner',[]))}
+    if not declarations:return 0
+    anchors={(node['kind'],node.get('mangledName'),node.get('type',{}).get('qualType'),node.get('loc',{}).get('offset'))
+             for top in filtered for node in walk(top) if node.get('kind') in ('FunctionDecl','CXXMethodDecl')}
     def sites(roots):
         for top in roots:
             for owner in walk(top):
@@ -31,10 +34,12 @@ def rebind(filtered,complete):
                 offset=owner.get('loc',{}).get('offset');mangled=owner.get('mangledName')
                 bodies=[child for child in owner.get('inner',[]) if child.get('kind')=='CompoundStmt']
                 if not mangled or not isinstance(offset,int) or len(bodies)!=1:continue
-                digest=hashlib.sha256(json.dumps(_semantic(bodies[0]),sort_keys=True,separators=(',',':')).encode()).hexdigest()
-                prefix=(owner['kind'],mangled,owner.get('type',{}).get('qualType'),offset,digest)
+                if (owner['kind'],mangled,owner.get('type',{}).get('qualType'),offset) not in anchors:continue
                 refs=[node for node in walk(bodies[0]) if node.get('kind')=='DeclRefExpr'
                       and node.get('referencedDecl',{}).get('kind')=='FunctionDecl']
+                if not any(ref['referencedDecl'].get('name') in SCALAR_NAMES for ref in refs):continue
+                digest=hashlib.sha256(json.dumps(_semantic(bodies[0]),sort_keys=True,separators=(',',':')).encode()).hexdigest()
+                prefix=(owner['kind'],mangled,owner.get('type',{}).get('qualType'),offset,digest)
                 for ordinal,ref in enumerate(refs):yield (*prefix,ordinal),ref
     proven={}
     for key,ref in sites(complete):
