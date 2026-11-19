@@ -2113,6 +2113,7 @@ class Emit:
                 if record and record.get('byte_schema') and record.get('moveable' if is_move else 'copyable'):
                     schema={'byteRecord':record['byte_schema']}
                     self.byte_record_prototypes(schema)
+                    self.storage_constructor_nodes=getattr(self,'storage_constructor_nodes',set())|{id(n)}
                     return f'cCopyAggregate({self.expr(a[0])}, {json.dumps(schema,sort_keys=True)})'
                 if class_fields is not None:
                     target=js_ident(name)+('()' if name in self.header_record_factories else '')
@@ -2124,6 +2125,7 @@ class Emit:
                 schema=aggregate_type_schema(qual(n),self.aggregate_records,self.type_aliases,self.record_layouts,enum_types=self.enum_types)
                 if schema is None:
                     raise Unsupported('aggregate copy requires verified pointer-free field shape: '+str(name))
+                self.storage_constructor_nodes=getattr(self,'storage_constructor_nodes',set())|{id(n)}
                 return f'cCopyAggregate({self.expr(a[0])}, {json.dumps(schema,sort_keys=True)})'
             cname=normalized_record_name(qual(n),self.type_aliases)
             # A proven trivial default constructor needs storage, not a

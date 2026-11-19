@@ -73,12 +73,33 @@ int flat_case_suffix(int n){
  }
  return acc;
 }
+int flat_dispatch_exit(int n){
+ int acc=0;
+ if(n==511)goto outer_done;
+ for(int i=0;i<12;i++){
+  switch((n+i)%3){
+  case 0:if(n%5==0)goto fault;acc+=3;break;
+  case 1:if(n%7==0)goto fault;acc+=5;break;
+  default:acc+=7;break;
+  fault:acc+=11+i;acc^=n;continue;
+  }
+  acc+=13;
+ }
+ outer_done:return acc;
+}
 int local_record(int n){
  struct Value{int x;Value(const Value&other):x(other.x){}};
  int result=n;
  if(n&1)goto done;
  result+=4;
  done:return result;
+}
+int local_copy(int n){
+ struct CopyFields{int x;};
+ CopyFields first{n};CopyFields second=first;
+ if(n&1)goto done;
+ second.x+=4;
+ done:return second.x;
 }
 int local_anonymous(int n){
  struct{int x;}value;
@@ -225,7 +246,7 @@ int unproven_side_entry(int n){
 }
 '''
 FUNCTIONS=('nested_forward','nested_backward','nested_switch','nested_do_while',
-           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes','forward_if_label','flat_case_suffix','local_record','local_anonymous')
+           'nested_alias','nested_range','nested_reentry','nested_addressed_for','case_suffixes','forward_if_label','flat_case_suffix','flat_dispatch_exit','local_record','local_copy','local_anonymous')
 
 def run(args,cwd):
  p=subprocess.run(args,cwd=cwd,capture_output=True,text=True,timeout=180)
@@ -245,9 +266,9 @@ with tempfile.TemporaryDirectory(prefix='eduke-nested-goto-') as directory:
  for name in FUNCTIONS:
   assert rows[name]['status']=='source-first',rows[name]
   detection='forward_unbraced_if_label' if name=='forward_if_label' else 'nested_lexical_jumps'
-  if name=='flat_case_suffix':detection='same_loop_terminal_jumps'
-  if name in ('local_record','local_anonymous'):detection='forward_goto'
-  assert rows[name]['control_flow']['detected'][detection]>0,rows[name]
+  if name in ('flat_case_suffix','flat_dispatch_exit'):detection='same_loop_terminal_jumps'
+  if name in ('local_record','local_copy','local_anonymous'):detection='forward_goto'
+  assert rows[name]['control_flow']['detected'].get(detection,0)>0,rows[name]
  assert rows['unproven_side_entry']['status']=='blocked',rows['unproven_side_entry']
  assert 'different lexical scope' in rows['unproven_side_entry']['reason'],rows['unproven_side_entry']
  assert rows['reject_fallthrough_side_entry']['status']=='blocked',rows['reject_fallthrough_side_entry']

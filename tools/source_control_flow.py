@@ -309,7 +309,12 @@ class SourceFlowPlan:
             if kind(node)!='GotoStmt':continue
             target=node.get('targetLabelDeclId');sid=self.label_scopes.get(target)
             positions=self.positions.get(id(node),{})
-            if target in self.nested_terminal and (sid is None or sid not in positions):
+            crosses_dispatch=False
+            if target in self.labels and sid in positions:
+                begin,end=sorted((positions[sid],self.labels[target][1]))
+                crosses_dispatch=any(kind(statement) in ('CaseStmt','DefaultStmt')
+                    for statement in self.scopes[sid][begin:end])
+            if target in self.nested_terminal and (sid is None or sid not in positions or crosses_dispatch):
                 if not self.suffix_required_scopes[target] <= self.jump_scopes[id(node)]:
                     raise ControlFlowUnsupported('copied source suffix reads a local from an entered scope')
                 if target in self.continue_suffixes:
