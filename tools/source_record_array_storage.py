@@ -4,19 +4,12 @@ An optional generated JS prototype is not native in-object storage. Consumers
 that require a prototype retain the full schema contract. This does not change
 record construction, assignment, pointer bounds, or lifetime checks.
 """
-import copy,hashlib,json,re
-from source_record_data_access import layout_contract, LAYOUT_ABI
+import hashlib,json,re
+from source_record_data_access import layout_contract, LAYOUT_ABI, physical_schema
 
 DATA_VIEW_ABI = 'source-native-record-array-data-view/1'
 NESTED_LAYOUT_ABI = 'source-native-record-array-layout/2'
 NESTED_VIEW_ABI = 'source-native-record-array-data-view/2'
-
-def physical_schema(schema):
-    result=copy.deepcopy(schema);result.pop('prototype',None)
-    for field in result.get('fields',{}).values():
-        for key in ('byteRecord','recordArray'):
-            if key in field:field[key]=physical_schema(field[key])
-    return result
 
 def needs_prototype(schema):
     return bool(schema.get('prototype') or any(needs_prototype(field[key])
@@ -24,7 +17,7 @@ def needs_prototype(schema):
 
 
 def metadata(schema):
-    result = {'native_element_layout': layout_contract(schema),
+    result = {'native_element_layout': layout_contract(schema,preserve_nested_prototypes=True),
               'native_nested_layout': {'abi':NESTED_LAYOUT_ABI,
                 'sha256':hashlib.sha256(json.dumps(physical_schema(schema),sort_keys=True).encode()).hexdigest()}}
     if not needs_prototype(schema):result['record_array_nested_data_view']=NESTED_VIEW_ABI

@@ -3,17 +3,25 @@
 Only direct scalar/pointer field expressions qualify. Whole-object use,
 construction, method calls and unknown member declarations remain strict.
 """
-import hashlib,json,re
+import copy,hashlib,json,re
 from source_scalar_types import scalar_info
 from source_cpp_types import has_outer_indirection
 
 LAYOUT_ABI='source-record-field-storage/1'
 ACCESS_ABI='source-record-field-access/1'
 
-def layout_contract(schema):
+def physical_schema(schema):
+    result=copy.deepcopy(schema);result.pop('prototype',None)
+    for field in result.get('fields',{}).values():
+        for key in ('byteRecord','recordArray'):
+            if key in field:field[key]=physical_schema(field[key])
+    return result
+
+def layout_contract(schema,*,preserve_nested_prototypes=False):
     # A JavaScript prototype is not an in-object C++ vptr. All actual native
     # fields, offsets, widths, alignment, unions and projection flags remain.
-    physical={key:value for key,value in schema.items() if key!='prototype'}
+    physical=({key:value for key,value in schema.items() if key!='prototype'}
+              if preserve_nested_prototypes else physical_schema(schema))
     return {'abi':LAYOUT_ABI,'sha256':hashlib.sha256(json.dumps(physical,sort_keys=True).encode()).hexdigest()}
 
 def scalar_or_pointer_type(spelling):

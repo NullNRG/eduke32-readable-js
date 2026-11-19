@@ -8,6 +8,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'tools'))
 import recover_browser_component as component
 from browser_target_closure import active_exports,build
+def source_lowered(row):
+    return row.get('status')=='source-first' or row.get('reason','').startswith('unlinked identifiers:')
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('names')
     parser.add_argument('--query-limit',type=int,default=256)
@@ -100,7 +102,7 @@ def main():
                     definitions=rejected['candidate_definitions']
                     frontier={'source':source,'requested':names.split(','),
                         'requested_resolved':{name:name in existing for name in names.split(',')},
-                        'requested_lowered':{name:any(row.get('source_name')==name and row.get('status')=='source-first'
+                        'requested_lowered':{name:any(row.get('source_name')==name and source_lowered(row)
                             for row in definitions) for name in names.split(',')},
                         'requested_compiled':{name:False for name in names.split(',')},
                         'requested_still_unlinked':[name for name in names.split(',') if name not in existing],
@@ -119,6 +121,7 @@ def main():
         manifest=stage/(source+'.manifest.json');doc=json.loads(manifest.read_text())
     requested={row['name']:row for row in doc['definitions'] if row.get('source_name') in names.split(',')}
     frontier={'source':source,'requested':names.split(','),'requested_resolved':{name:name in existing for name in names.split(',')},
+        'requested_lowered':{name:any(row.get('source_name')==name and source_lowered(row) for row in requested.values()) for name in names.split(',')},
         'requested_compiled':{name:any(row.get('source_name')==name and row['status']=='source-first' for row in requested.values()) for name in names.split(',')},
         'requested_still_unlinked':[name for name in names.split(',') if name not in existing],'manifest':manifest.relative_to(ROOT).as_posix(),
         'blocked':[{'name':row['name'],'reason':row.get('reason'),'dependencies':row.get('unresolved_references',[])}

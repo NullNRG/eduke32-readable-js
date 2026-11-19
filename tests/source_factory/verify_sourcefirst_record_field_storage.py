@@ -13,9 +13,10 @@ with tempfile.TemporaryDirectory() as folder:
     root=Path(folder);original=root/'original';original.mkdir();out=root/'out'
     (original/'types.hpp').write_text('''#pragma once
 template<class T> struct Vec {T x,y;int sum()const{return x+y;}};extern Vec<int> shared;
+struct Wrap{Vec<int> child;int marker;};extern Wrap wrapped;
 ''')
-    (original/'one.cpp').write_text('#include "types.hpp"\nVec<int> shared;extern "C" int get(){return shared.x+shared.y;}\n')
-    (original/'two.cpp').write_text('#include "types.hpp"\nextern "C" int step(int n){Vec<int> local{7,9};int localSum=local.sum();shared.x+=n;shared.y-=n*3;return shared.x*31+shared.y+localSum;}\n')
+    (original/'one.cpp').write_text('#include "types.hpp"\nVec<int> shared;Wrap wrapped;extern "C" int get(){return shared.x+shared.y+wrapped.child.x+wrapped.child.y+wrapped.marker;}\n')
+    (original/'two.cpp').write_text('#include "types.hpp"\nextern "C" int step(int n){Vec<int> local{7,9};int localSum=local.sum();shared.x+=n;shared.y-=n*3;wrapped.child.x+=n;wrapped.child.y-=n*2;wrapped.marker++;return shared.x*31+shared.y+localSum+wrapped.child.x+wrapped.marker;}\n')
     (original/'main.cpp').write_text('''#include <cstdio>
 extern "C" int step(int);extern "C" int get();
 int main(){for(int n=-64;n<64;n++){int a=step(n);printf("%d %d\\n",a,get());}}
@@ -50,6 +51,10 @@ int main(){for(int n=-64;n<64;n++){int a=step(n);printf("%d %d\\n",a,get());}}
     provider=next(r['global_storage'] for r in owner['definitions'] if r['name']=='shared')
     assert dependency['byte_record_schema_sha256']!=provider['byte_record_schema_sha256'],'Fixture must reproduce prototype-only ABI mismatch'
     assert compatible(dependency,provider),dependency
+    nested=next(d for d in consumer['imports'] if d['name']=='wrapped')
+    nested_provider=next(r['global_storage'] for r in owner['definitions'] if r['name']=='wrapped')
+    assert nested['byte_record_schema_sha256']!=nested_provider['byte_record_schema_sha256'],nested
+    assert compatible(nested,nested_provider),nested
     units={'one.cpp':{'manifest':owner,'module':out/'one.cpp.mjs'}}
     assert storage_import_error(dependency,units) is None
     wrong=copy.deepcopy(dependency);wrong.pop('byte_record_data_access')

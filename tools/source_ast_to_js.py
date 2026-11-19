@@ -7508,6 +7508,19 @@ def main():
                     source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
         except (subprocess.TimeoutExpired,OSError):
             prototype_layout_closure['status']='unavailable'
+    header_storage_reattestations=[]
+    if opt.import_root and existing_header_values and owner_input_fingerprint!=ast_cache_inputs:
+        from source_header_array_reuse import attest
+        candidate_code='\n\n'.join(emitted)
+        borrowed,header_storage_reattestations=attest(opt.import_root/(opt.source+'.mjs'),opt.source,
+            report,existing_header_values,emit_scalar_helpers(candidate_code)+'\n'+candidate_code)
+        if borrowed:
+            existing_source_storage.update(borrowed)
+            private_source_storage.update({name:row['private_storage'] for name,row in borrowed.items()})
+            index.update({name:opt.source for name in borrowed})
+            emitted,report=produce_current(ast,src,opt.source,opt.filter,include_header_inlines=opt.header_inlines,
+                project_symbols=index,record_layouts=layouts,enum_constants=enum_closure['proven_values'],
+                source_root=root,header_dependency_closure=opt.header_dependency_closure,compile_as_cpp=compile_as_cpp)
     outfile=opt.out_dir/Path(opt.source+'.mjs');outfile.parent.mkdir(parents=True,exist_ok=True)
     body='\n\n'.join(emitted)
     used_imports=sorted({dep for item in report if item['status']=='source-first' for dep in item.get('external_imports',[])})
@@ -7622,6 +7635,7 @@ const cStackAlloc = amount => {
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}
     result['toolchain']=toolchain
+    if header_storage_reattestations:result['header_storage_reattestations']=header_storage_reattestations
     result['initial_declaration_selection']='exact' if opt.exact_filter else 'clang-substring'
     result['native_pointer_abi']=NATIVE_POINTER_ABI
     if header_definition_contract:result['header_definition_contract']=header_definition_contract
