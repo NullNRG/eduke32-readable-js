@@ -1,6 +1,6 @@
 # Continue the canonical EDuke32 JavaScript port
 
-Work in the existing repository. Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov19-continuation-frontier.json first. These distinguish source lowering, linking, execution and gameplay. Do not assume that the rendered raw-map preview is an original game session.
+Work in the existing repository. Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov23-continuation-frontier.json first. These distinguish source lowering, linking, execution and gameplay. Do not assume that the rendered raw-map preview is an original game session.
 
 ## Reproduce the verified checkpoint
 
@@ -9,24 +9,25 @@ On the configured Windows host:
 ```powershell
 . work/session-env.ps1
 python work/verify_original_con_variable_operators.py
+python work/verify_original_con_division.py
 python work/verify_original_fix16_arithmetic.py
 python work/verify_original_fix16_integer_conversion.py
 python work/verify_fresh_engine_startup.py --report reports/nov19-current-engine-component.json
-python work/verify_original_text_startup_frame.py --checkpoint nov19
+python work/verify_original_text_startup_frame.py --checkpoint nov23
 python tools/recover_browser_component.py --snapshot
 ```
 
-Read reports/nov19-final-shared-regressions.json for the exact 20 tests and source/compiler/runtime fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
+Read reports/nov23-switch-break-regressions.json for the eight tests on the latest compiler and reports/nov19-final-shared-regressions.json for the earlier 20-test checkpoint and its fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
 
-## Current repair: original CON division
+## Completed checkpoint: original CON division
 
-The nine arithmetic helpers already link and pass native/Chromium tests in seven storage modes. The November 23 same-switch terminal-break recognizer passes seven targeted regressions. Original `Gv_DivVar` is being retried; inspect its new recovery report before assuming it linked. Do not reimplement the nine verified helpers.
+The nine arithmetic helpers link and pass native/Chromium tests in seven storage modes. Original `Gv_DivVar` now also links and passes 783 native/Chromium divisions / 3,132 checked values across six storage modes. Eight targeted regressions pass. Do not reimplement these verified helpers. Next work is private callable ownership, original vector contracts and VM/startup closure.
 
 ```powershell
-python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp Gv_DivVar --included-functions --query-limit 32 --probe-only
+python work/verify_original_con_division.py
 ```
 
-Original definition: source/duke3d/src/gamevars.h in the prepared source tree. Its `goto jmp` enters a label attached to `default:` and then executes the original assignment and switch break. The recognizer is now implemented in tools/source_control_flow.py (find_nested_terminal_labels/index_labels/resolve_edges); validate the original definition and investigate subsequent failures. Require the exact source switch/loop owner, original break binding and existing lifetime/scope/alias checks. Keep nested/sibling switch transfers and entered storage rejected. No synthetic dispatcher and no deleted break.
+Original definition: source/duke3d/src/gamevars.h in the prepared source tree. Its `goto jmp` enters a label attached to `default:` and then executes the original assignment and switch break. tools/source_control_flow.py requires the exact source switch/loop owner and existing lifetime/scope/alias checks. The emitter consistently spells its original `var` local as `__cxx_var`. Nested/sibling switch transfers and entered storage remain rejected. No synthetic dispatcher and no deleted break.
 
 Use native/Node/Chromium differential tests, including pointer-target mutation and all defined original storage modes. Original branchfree divider storage must be initialized through the original initializer. Exclude undefined divisions from parity inputs and test VM error handling separately.
 
@@ -36,13 +37,13 @@ Use native/Node/Chromium differential tests, including pointer-target mutation a
 python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_Execute --query-limit 64 --probe-only
 ```
 
-This is a diagnostic frontier, not a complete coverage measurement. The saved 136-reference probe predates later helper changes. Do not repeatedly rerun all 111 units for a compiler-only change.
+This is a diagnostic frontier, not a complete coverage measurement. The November 23 probe still has 136 unresolved references and one vec3 factory rejection affecting five candidate definitions. Forty-four unresolved names have active same-TU provider candidates; the exact candidate bindings/types are listed in reports/nov23-continuation-frontier.json. These include already verified helpers, so prove caller identities before duplicating implementations. Do not repeatedly rerun all 111 units for a compiler-only change.
 
 TU-private functions are correctly excluded from the global owner index. Add exact same-TU callable reuse in tools/source_cpp_function_bindings.py/source_ast_to_js.py using Clang-selected mangling/type, TU, original header/body and preprocessing evidence. Preserve function objects, static state and pointer identity. Do not globally alias source_name or choose arbitrary min/swap overloads. Template identities must include native specialization arguments and actual required body/reference ABI.
 
 Vector imports still require real original factory implementations. Inspect tools/source_header_records.py and source_first_global_link.py. Obtain an actual method superset from Clang's original definitions; extend proofs for verified anonymous-union/nested-vector storage where appropriate. Keep source bytes, target layout, required methods and alias identity checked. Never merge incompatible factories or drop prototype verification.
 
-The component audit reports duplicate immutable header storage in engine.cpp and savegame.cpp. Inspect the exact active fragments listed in reports/nov19-continuation-frontier.json. Use the existing initializer/identity checks and verified fragment mechanism to retain one storage owner. Do not delete fragments, ignore immutable addresses or fabricate manifests.
+The component audit reports duplicate immutable header storage in engine.cpp and savegame.cpp. Inspect the exact active fragments listed in reports/nov23-continuation-frontier.json. Use the existing initializer/identity checks and verified fragment mechanism to retain one storage owner. Do not delete fragments, ignore immutable addresses or fabricate manifests.
 
 ## Safe incremental recovery/refresh
 

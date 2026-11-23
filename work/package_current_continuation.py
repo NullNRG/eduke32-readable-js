@@ -92,7 +92,9 @@ def selected(root,public=False):
                  'current_vm_import_audit','current_vm_rejected_import_catalog',
                  'original_global_array_attestation_report','current_engine_component_report',
                  'original_user_map_query_report','original_fix16_integer_conversion_report',
-                 'original_fix16_arithmetic_report','original_con_variable_operators_report')
+                 'original_fix16_arithmetic_report','original_con_variable_operators_report',
+                 'original_con_division_report','current_continuation_frontier',
+                 'current_release_acceptance_report','header_witness_restoration_report')
     for key in report_keys:
         if snapshot.get(key):add(package_tool.safe_path(root,snapshot[key]))
     for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):

@@ -6,13 +6,15 @@ This project translates original EDuke32 game/Build C/C++ source into readable J
 
 - Original E1L1 GRP/ART/MAP loading, palettes, room/mask rendering, font initialization and presentation execute in Chromium with zero page exceptions.
 - Nine original CON arithmetic helpers match 1,512 native mutations across seven storage modes. Eight original fixed-point arithmetic functions match 4,192 native/Chromium values.
-- Twenty shared compiler/runtime regressions pass. The active component audit has zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings. Whole-program release acceptance remains blocked.
+- Original CON division additionally passes 783 native/Chromium operations and 3,132 checked values. Eight targeted compiler/runtime regressions pass on the November 23 compiler. The current component audit has zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings. Whole-program release acceptance remains blocked.
 
-[Current status and evidence](CURRENT_PORT_STATUS.md) · [How to continue and what to fix](CONTINUE_HERE.md) · [Machine-readable issues](reports/nov19-continuation-frontier.json) · [Continuation prompt](LLM_CONTINUATION_PROMPT.md)
+[Current status and evidence](CURRENT_PORT_STATUS.md) · [How to continue and what to fix](CONTINUE_HERE.md) · [Machine-readable issues](reports/nov23-continuation-frontier.json) · [Continuation prompt](LLM_CONTINUATION_PROMPT.md)
 
-![Original JavaScript Build renderer — raw E1L1 engine test, not gameplay](reports/evidence/nov19-original-text-startup.png)
+[Release-blocker tracker #2](https://github.com/NullNRG/eduke32-readable-js/issues/2) records the dependency order, affected tools and verification required for the original game release. The November 23 checkpoint adds same-switch terminal-break recovery, JavaScript-safe goto declarations and original CON division; original-game integration is verified separately.
 
-[Current rendering evidence](reports/nov19-original-text-startup-frame.json) binds the capture to actual module/runtime bytes. Use `npm run serve:project` and engine-player.html for the local GRP/MAP engine preview. Public assets are user-supplied; the preview is not a completed game session.
+![Original JavaScript Build renderer — raw E1L1 engine test, not gameplay](reports/evidence/nov23-original-text-startup.png)
+
+[Current rendering evidence](reports/nov23-original-text-startup-frame.json) binds the capture to actual module/runtime bytes. Use `npm run serve:project` and engine-player.html for the local GRP/MAP engine preview. Public assets are user-supplied; the preview is not a completed game session.
 
 ## Build and development
 

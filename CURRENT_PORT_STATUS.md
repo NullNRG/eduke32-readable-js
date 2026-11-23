@@ -4,19 +4,21 @@ The original Build engine renders a raw E1L1 scene in Chromium through readable 
 
 ## November 23 compiler checkpoint
 
-The source control-flow pass now recognizes terminal case/default-label suffixes that break out of the same original switch. Seven targeted regressions pass, including 4,608 native/full/filtered Node/Chromium comparisons and rejection of nested-control/entered-storage transfers. Original Gv_DivVar recovery is running; linking/execution is not yet claimed. [Regression evidence](reports/nov23-switch-break-regressions.json)
+The source control-flow pass now recognizes terminal case/default-label suffixes that break out of the same original switch. Eight targeted regressions pass, including 4,608 native/full/filtered Node/Chromium comparisons and rejection of nested-control/entered-storage transfers. Goto-local declarations now use the same JavaScript-safe spelling as their references, fixing the original C++ local named `var`. [Regression evidence](reports/nov23-switch-break-regressions.json)
+
+Original `Gv_DivVar` is linked and passes **783 native/Chromium divisions / 3,132 checked values** across global, per-player, per-actor, int32, int16 and Q16 storage. Original `enginePreInit` initializes the divider tables. Defined nonzero division inputs are tested; full VM execution is not claimed. The existing nine arithmetic helpers still pass all 1,512 mutations after integration. [Division evidence](reports/nov23-original-con-division.json)
 
 A newline-only header-witness mismatch from the previous checkpoint was repaired by reconstructing the exact previously attested CRLF bytes and matching the unchanged recorded SHA-256. Ownership/ABI checks remain enabled. Git already preserves raw bytes. [Restoration evidence](reports/nov23-header-witness-restoration.json)
 
 ## Verified current checkpoint
 
-- **20/20 shared compiler/runtime regressions pass** under frozen inputs. [Results](reports/nov19-final-shared-regressions.json)
+- **8/8 targeted compiler/runtime regressions pass** on the November 23 compiler. The earlier November 19 checkpoint passed 20/20 shared tests under its recorded inputs; a new complete historical-suite run is not claimed. [Current results](reports/nov23-switch-break-regressions.json) · [Earlier results](reports/nov19-final-shared-regressions.json)
 - The original nine CON arithmetic helpers execute in Chromium and match **1,512 native mutations / 6,048 checked values** across global, per-player, per-actor, int32, int16, Q16 and raw-Q16 storage. The original 32-byte game-variable storage is checked. This is function-level verification; complete VM byte-storage parity and CON execution are not claimed. [Evidence](reports/nov19-original-con-variable-operators.json)
 - The original fixed-point implementation unit links with 29 definitions and no blockers in that unit. Eight arithmetic/saturation functions match **4,192 native/Chromium values**. Original integer-to-fixed conversion separately matches 519 cases. [Arithmetic](reports/nov19-original-fix16-arithmetic.json) · [Conversion](reports/nov19-original-fix16-integer-conversion.json)
-- The current source modules run original allocator/engine initialization, GRP recognition/loading, ART/MAP loading, palettes, room/mask drawing, font initialization and presentation. The full renderer rerun has zero page exceptions and reproduces the E1L1 capture below. The canonical component manifest confirms evidence matches current module/runtime bytes. [Current rendering proof](reports/nov19-original-text-startup-frame.json) · [Fresh pre-initialization](reports/nov19-current-engine-component.json)
+- The November 23 source modules run original allocator/engine initialization, GRP recognition/loading, ART/MAP loading, palettes, room/mask drawing, font initialization and presentation. The full renderer rerun has zero page exceptions and reproduces the E1L1 capture below. Its evidence records actual module/runtime hashes. [Current rendering proof](reports/nov23-original-text-startup-frame.json)
 - Original font initialization checks 1,536 mapping entries and six pointer identities; the original text parser matches 105 native cases. Original user-map lookup matches native C++ in 36 Chromium cases with the original 2,036-byte user_defs layout. [User-map query](reports/nov19-original-user-map-query.json)
 
-![Original JavaScript Build renderer; raw E1L1 engine test, not gameplay](reports/evidence/nov19-original-text-startup.png)
+![Original JavaScript Build renderer; raw E1L1 engine test, not gameplay](reports/evidence/nov23-original-text-startup.png)
 
 ## Implemented shared fixes
 
@@ -26,9 +28,9 @@ Incremental recovery reuses unchanged immutable header arrays, primitive constan
 
 ## Open issues and next work
 
-The current component audit has **zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings**. These component results do not establish whole-program linkage. [Machine-readable issues and repair approach](reports/nov19-continuation-frontier.json)
+The current component audit has **zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings**. These component results do not establish whole-program linkage. [Machine-readable issues and repair approach](reports/nov23-continuation-frontier.json)
 
-1. Recover original `Gv_DivVar`: its jump to a flat default-label suffix ending in `break` needs exact same-switch control/lifetime proof.
+1. Completed November 23: original `Gv_DivVar` same-switch control flow, JavaScript-safe local declarations, linking and native/Chromium division verification. Continue with shared ownership and VM closure below.
 2. Resolve same-TU private header-function ownership and template ODR ambiguity without name-only aliases, duplicated state or arbitrary overload selection.
 3. Resolve the original vec2/vec3 factory method/layout contracts. A real emitted provider must supply every required original method; anonymous-union/native-alias proofs must remain strict.
 4. Repair existing duplicate header storage in engine.cpp and savegame.cpp, preserving one original address/cell and actual source initializers. The exact duplicates are in the issue report.
@@ -37,6 +39,6 @@ The current component audit has **zero invalid imports, 46 ambiguous ownership g
 
 The classic profile selects **111 native units** and excludes desktop dialogs, enhanced rendering, multiplayer and optional codecs. All selected units were parsed previously; only 69 units currently have partial browser modules. This is not uniform current-revision JavaScript completion. Historical 156-unit inventories and export totals use different configurations/counting methods.
 
-The latest complete VM probe passed source lowering but had 136 unresolved references and one vec3 factory rejection. It was a 32-query probe before later helper changes, not a current comprehensive blocker count. The acceptance report also contains stale 113-unit attempt evidence with two excluded allocator units; configuration/build provenance must be reconciled. [Strict acceptance](reports/nov19-current-release-acceptance.json)
+The November 23 VM probe passed source lowering but still has **136 unresolved references and one vec3 factory rejection affecting five candidate definitions**. Forty-four unresolved names have matching active declarations in the same unit; these are provider candidates, not proven caller bindings. Prioritize exact callable/constant identity joins before reimplementing existing helpers. This is a 32-query diagnostic, not a comprehensive whole-program count. The acceptance report still contains stale 113-unit attempt evidence with two excluded allocator units; configuration/build provenance must be reconciled. [Current VM frontier](reports/nov23-vm-closure-frontier.json) · [Strict acceptance](reports/nov23-current-release-acceptance.json)
 
 Use [CONTINUE_HERE.md](CONTINUE_HERE.md) for exact commands and implementation locations. Preserve readable original game/Build JavaScript. Native WASM is permitted only for the approved low-level platform/audio utilities. No substitute engine, fake boot, success stubs or emulation. Verification stays local; checkpoint pushes use [skip ci]. Never publish GRPs, SDKs, caches or asset-bearing HTML.

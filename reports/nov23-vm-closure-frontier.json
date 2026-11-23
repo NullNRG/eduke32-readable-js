@@ -1,0 +1,239 @@
+{
+  "source": "source/duke3d/src/gameexec.cpp",
+  "requested": [
+    "VM_Execute"
+  ],
+  "requested_resolved": {
+    "VM_Execute": false
+  },
+  "requested_lowered": {
+    "VM_Execute": true
+  },
+  "requested_compiled": {
+    "VM_Execute": false
+  },
+  "requested_still_unlinked": [
+    "VM_Execute"
+  ],
+  "blocked": [
+    {
+      "name": "A_Dodge",
+      "reason": "unlinked identifiers: klabs, krand",
+      "dependencies": [
+        "klabs",
+        "krand"
+      ],
+      "affected_by_rejected_import": true
+    },
+    {
+      "name": "A_FurthestVisiblePoint",
+      "reason": "unlinked identifiers: krand",
+      "dependencies": [
+        "krand"
+      ],
+      "affected_by_rejected_import": true
+    },
+    {
+      "name": "VM_Execute",
+      "reason": "unlinked identifiers: A_AddToDeleteQueue, A_CheckHitSprite, A_DoGuts, A_Dodge, A_FindPlayer, A_FurthestVisiblePoint, A_IncurDamage, A_InsertSprite, A_MoveSector, A_PlaySound, A_RadiusDamage, A_ShootWithZvel",
+      "dependencies": [
+        "A_AddToDeleteQueue",
+        "A_CheckHitSprite",
+        "A_DoGuts",
+        "A_Dodge",
+        "A_FindPlayer",
+        "A_FurthestVisiblePoint",
+        "A_IncurDamage",
+        "A_InsertSprite",
+        "A_MoveSector",
+        "A_PlaySound",
+        "A_RadiusDamage",
+        "A_ShootWithZvel",
+        "A_Spawn",
+        "A_SpawnCeilingGlass",
+        "A_SpawnGlass",
+        "A_SpawnMultiple",
+        "A_SpawnRandomGlass",
+        "A_SpawnWallGlass",
+        "Anim_Play",
+        "FEM1__",
+        "FEM2__",
+        "FEM3__",
+        "FEM4__",
+        "FEM5__",
+        "FEM6__",
+        "FEM7__",
+        "FEM8__",
+        "FEM9__",
+        "FX_StopAllSounds",
+        "G_ActivateBySector",
+        "G_CheckActivatorMotion",
+        "G_CheckForSpaceCeiling",
+        "G_CheckForSpaceFloor",
+        "G_ClearCameraView",
+        "G_DrawTXDigiNumZ",
+        "G_GameExit",
+        "G_GetAngleDelta",
+        "G_GetTimeDate",
+        "G_HaveUserMap",
+        "G_InitTimer",
+        "G_OperateActivators",
+        "G_OperateMasterSwitches",
+        "G_OperateRespawns",
+        "G_OperateSectors",
+        "G_PrintGameText",
+        "G_RestoreMapState",
+        "G_SaveMapState",
+        "G_ScreenText",
+        "G_ScreenTextSize",
+        "G_ShowView",
+        "G_StartTrackSlotWrap",
+        "G_TileHasActor",
+        "Gv_AddVar",
+        "Gv_AndVar",
+        "Gv_DivVar",
+        "Gv_FillWithVars",
+        "Gv_GetArrayAllocSize",
+        "Gv_GetArrayValue",
+        "Gv_ModVar",
+        "Gv_MulVar",
+        "Gv_OrVar",
+        "Gv_ShiftVarL",
+        "Gv_ShiftVarR",
+        "Gv_SubVar",
+        "Gv_XorVar",
+        "ME_NEWGAMECUSTOMENTRIES",
+        "ME_NEWGAMECUSTOML3ENTRIES",
+        "ME_NEWGAMECUSTOMSUBENTRIES",
+        "Menu_Change",
+        "NAKED1__",
+        "PODFEM1__",
+        "P_AddKills",
+        "P_CheckWeapon",
+        "P_DropWeapon",
+        "P_FindOtherPlayer",
+        "P_ForceAngle",
+        "P_GetP",
+        "P_PalFrom",
+        "P_SelectNextInvItem",
+        "ResizeArray",
+        "STATUE__",
+        "S_ChangeSoundPitch",
+        "S_GetMusicPosition",
+        "S_PlaySound",
+        "S_SetMusicPosition",
+        "S_StopEnvSound",
+        "S_StopMusic",
+        "Screen_Play",
+        "Sect_ClearInterpolation",
+        "Sect_SetInterpolation",
+        "SetArray",
+        "VM_AddAmmo",
+        "VM_AddInventory",
+        "VM_AddWeapon",
+        "VM_CheckSquished",
+        "VM_DrawTile",
+        "VM_DrawTilePal",
+        "VM_DrawTilePalSmall",
+        "VM_DrawTileSmall",
+        "VM_Fall",
+        "VM_GetStruct",
+        "VM_ResetPlayer",
+        "VM_SetPlayer",
+        "VM_SetSector",
+        "VM_SetStruct",
+        "VM_SetUserdef",
+        "clamp2",
+        "communityapiSetStat",
+        "communityapiUnlockAchievement",
+        "divscale",
+        "drawlinergb",
+        "dukeMaybeDrawFrame",
+        "getzrange",
+        "isanearoperator",
+        "klabs",
+        "krand",
+        "ksgn",
+        "ldist",
+        "min",
+        "minitext_",
+        "mulscale",
+        "mulscale15",
+        "mulscale16",
+        "osdcmd_cheatsinfo_stat",
+        "otherp",
+        "paletteGetClosestColorUpToIndex",
+        "renderDrawLine",
+        "rotatesprite_",
+        "scale",
+        "swap",
+        "system_15bit_rand",
+        "tileGetMapping",
+        "xaligned_alloc",
+        "xaligned_free",
+        "xcalloc",
+        "xmalloc"
+      ],
+      "affected_by_rejected_import": true
+    },
+    {
+      "name": "A_CheckEnemySprite__header_cb8b0a29f07c",
+      "reason": "rejected source-provider import",
+      "dependencies": [],
+      "affected_by_rejected_import": true
+    },
+    {
+      "name": "A_SetSprite__header_5482ddf649da",
+      "reason": "unlinked identifiers: A_MoveSprite",
+      "dependencies": [
+        "A_MoveSprite"
+      ],
+      "affected_by_rejected_import": true
+    },
+    {
+      "name": "A_Shoot__header_d8874145e761",
+      "reason": "unlinked identifiers: A_ShootWithZvel",
+      "dependencies": [
+        "A_ShootWithZvel"
+      ],
+      "affected_by_rejected_import": false
+    },
+    {
+      "name": "A_MoveSprite__header_da5e254d1207",
+      "reason": "unlinked identifiers: A_GetClipdist, A_MoveSpriteClipdist",
+      "dependencies": [
+        "A_GetClipdist",
+        "A_MoveSpriteClipdist"
+      ],
+      "affected_by_rejected_import": false
+    }
+  ],
+  "import_rejections": [
+    {
+      "name": "__cxx_record_vec3_82cfac1168cb3a1b",
+      "provider": "source/build/src/engine.cpp",
+      "category": "storage-or-reference-abi",
+      "reason": "Fragment storage ABI rejected: __cxx_record_vec3_82cfac1168cb3a1b: source header constructor requires identical original specialization and methods",
+      "dependency": {
+        "name": "__cxx_record_vec3_82cfac1168cb3a1b",
+        "header_record_proof": {
+          "source_header": "source/build/include/vec.h",
+          "source_offset": 886,
+          "enclosing_record": "vec3<int>",
+          "type": "vec3<int>",
+          "semantic_sha256": "ca21aa616656d0bd3633ab6e99b46e6e65268895f596b64d0bc0621b597a4e36",
+          "prototype_factory_abi": "source-header-record-factory/1"
+        },
+        "from": "source/build/src/engine.cpp",
+        "native_pointer_abi": "source-lp64-addresses/2"
+      }
+    }
+  ],
+  "rejected_import_catalog": "reports/nov23-vm-closure-rejected-imports.json",
+  "compiler_runtime_input_sha256": "8795d29d6ea84bca48f92c50cafd41b7b3496a302ed647f25583a7944a387d27",
+  "probe_only": true,
+  "installed": false,
+  "original_gameplay_verified": false,
+  "dependency_query_limit": 32,
+  "scope": "Bounded current-revision diagnostic, not a complete selected-program blocker inventory"
+}
