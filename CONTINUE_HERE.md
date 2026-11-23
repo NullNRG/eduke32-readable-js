@@ -18,15 +18,15 @@ python tools/recover_browser_component.py --snapshot
 
 Read reports/nov19-final-shared-regressions.json for the exact 20 tests and source/compiler/runtime fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
 
-## First repair: original CON division
+## Current repair: original CON division
 
-The nine arithmetic helpers already link and pass native/Chromium tests in seven storage modes. Do not replace them with new implementations. `Gv_DivVar` remains the separate division path.
+The nine arithmetic helpers already link and pass native/Chromium tests in seven storage modes. The November 23 same-switch terminal-break recognizer passes seven targeted regressions. Original `Gv_DivVar` is being retried; inspect its new recovery report before assuming it linked. Do not reimplement the nine verified helpers.
 
 ```powershell
 python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp Gv_DivVar --included-functions --query-limit 32 --probe-only
 ```
 
-Original definition: source/duke3d/src/gamevars.h in the prepared source tree. Its `goto jmp` enters a label attached to `default:` and then executes the original assignment and switch break. Extend tools/source_control_flow.py (find_nested_terminal_labels/index_labels/resolve_edges) with a same-switch terminal-break recognizer. Require the exact source switch/loop owner, original break binding and existing lifetime/scope/alias checks. Keep nested/sibling switch transfers and entered storage rejected. No synthetic dispatcher and no deleted break.
+Original definition: source/duke3d/src/gamevars.h in the prepared source tree. Its `goto jmp` enters a label attached to `default:` and then executes the original assignment and switch break. The recognizer is now implemented in tools/source_control_flow.py (find_nested_terminal_labels/index_labels/resolve_edges); validate the original definition and investigate subsequent failures. Require the exact source switch/loop owner, original break binding and existing lifetime/scope/alias checks. Keep nested/sibling switch transfers and entered storage rejected. No synthetic dispatcher and no deleted break.
 
 Use native/Node/Chromium differential tests, including pointer-target mutation and all defined original storage modes. Original branchfree divider storage must be initialized through the original initializer. Exclude undefined divisions from parity inputs and test VM error handling separately.
 

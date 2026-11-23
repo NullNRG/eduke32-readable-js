@@ -1,6 +1,12 @@
-# Current EDuke32 JavaScript port status — November 19, 2026
+# Current EDuke32 JavaScript port status — November 23, 2026
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
+
+## November 23 compiler checkpoint
+
+The source control-flow pass now recognizes terminal case/default-label suffixes that break out of the same original switch. Seven targeted regressions pass, including 4,608 native/full/filtered Node/Chromium comparisons and rejection of nested-control/entered-storage transfers. Original Gv_DivVar recovery is running; linking/execution is not yet claimed. [Regression evidence](reports/nov23-switch-break-regressions.json)
+
+A newline-only header-witness mismatch from the previous checkpoint was repaired by reconstructing the exact previously attested CRLF bytes and matching the unchanged recorded SHA-256. Ownership/ABI checks remain enabled. Git already preserves raw bytes. [Restoration evidence](reports/nov23-header-witness-restoration.json)
 
 ## Verified current checkpoint
 

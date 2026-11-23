@@ -159,6 +159,8 @@ class SourceFlowPlan:
         self.tail_return={}
         self.nested_terminal={}
         self.continue_suffixes={}
+        self.switch_break_suffixes={}
+        self.break_owners={}
         self.loop_owners={}
         self.suffix_required_scopes={}
         self.jump_scopes={}
@@ -200,7 +202,7 @@ class SourceFlowPlan:
                 seq=children(node)
                 return bool(node.get('hasElse') and len(seq)>=3 and returns(seq[-1]) and returns(seq[-2]))
             return False
-        def consider(label,statements,restricted,loop):
+        def consider(label,statements,restricted,loop,break_owner):
             if kind(label)!='LabelStmt' or len(children(label))!=1:return
             suffix={'kind':'CompoundStmt','inner':[children(label)[0],*statements]}
             for index,statement in enumerate(children(suffix)):
@@ -220,16 +222,32 @@ class SourceFlowPlan:
             nodes=list(descendants(suffix))
             refs=[x.get('referencedDecl',{}) for x in nodes if kind(x)=='DeclRefExpr']
             uses={ref.get('id') for ref in refs}
-            bad={'BreakStmt','LabelStmt','CaseStmt','DefaultStmt','LambdaExpr'}
+            bad={'LabelStmt','CaseStmt','DefaultStmt','LambdaExpr'}
             if any(kind(x) in bad for x in nodes):return
-            if returns(suffix) and not any(kind(x) in ('GotoStmt','ContinueStmt','VarDecl') for x in nodes):
-                self.nested_terminal[label.get('declId')]=suffix
-            if (loop and ends_in_continue(suffix) and not any(
+            matched=False
+            if returns(suffix) and not any(kind(x) in ('GotoStmt','BreakStmt','ContinueStmt','VarDecl') for x in nodes):
+                matched=True
+                self.continue_suffixes.pop(label.get('declId'),None)
+                self.switch_break_suffixes.pop(label.get('declId'),None)
+            if (loop and ends_in_continue(suffix) and not any(kind(x)=='BreakStmt' for x in nodes) and not any(
                 kind(x) in loops or kind(x) in ('SwitchStmt','CXXBindTemporaryExpr')
                 or (kind(x)=='VarDecl' and (x.get('storageClass') or x.get('tls'))) for x in nodes)):
-                self.nested_terminal[label.get('declId')]=suffix
+                matched=True
                 self.continue_suffixes[label.get('declId')]=loop
-            if label.get('declId') in self.nested_terminal:
+                self.switch_break_suffixes.pop(label.get('declId'),None)
+            # A flat case/default label may own just its first expression.
+            # Copy the complete terminating arm only when its single break
+            # still exits this exact source switch, with no new control scope.
+            if (break_owner and break_owner[0]=='SwitchStmt' and children(suffix)
+                and kind(children(suffix)[-1])=='BreakStmt'
+                and sum(kind(x)=='BreakStmt' for x in nodes)==1
+                and not any(kind(x) in loops|{'SwitchStmt','GotoStmt','ContinueStmt','ReturnStmt','VarDecl',
+                                             'CXXBindTemporaryExpr'} for x in nodes)):
+                matched=True
+                self.switch_break_suffixes[label.get('declId')]=(break_owner[1],loop)
+                self.continue_suffixes.pop(label.get('declId'),None)
+            if matched:
+                self.nested_terminal[label.get('declId')]=suffix
                 self.suffix_required_scopes[label['declId']]={restricted[key] for key in uses if key in restricted}
 
         loops={'ForStmt','WhileStmt','DoStmt','CXXForRangeStmt'}
@@ -237,20 +255,22 @@ class SourceFlowPlan:
             seq=children(node)
             return kind(node)=='ContinueStmt' or kind(node)=='CompoundStmt' and bool(seq) and ends_in_continue(seq[-1])
 
-        def visit(node,restricted=None,loop=None,scopes=()):
+        def visit(node,restricted=None,loop=None,scopes=(),break_owner=None):
             k=kind(node)
             if k in ('LambdaExpr','RecordDecl','CXXRecordDecl'):return
             restricted=dict(restricted or {})
             scopes=(*scopes,id(node))
             if k in loops:loop=id(node)
+            if k in loops or k=='SwitchStmt':break_owner=(k,id(node))
             if k=='GotoStmt':
                 self.loop_owners[id(node)]=loop
+                self.break_owners[id(node)]=break_owner
                 self.jump_scopes[id(node)]=frozenset(scopes)
             if kind(node)=='CompoundStmt':
                 seq=children(node)
                 for i,stmt in enumerate(seq):
                     if node is not self.body and kind(stmt)=='LabelStmt':
-                        consider(stmt,seq[i+1:],restricted,loop)
+                        consider(stmt,seq[i+1:],restricted,loop,break_owner)
                     if kind(stmt) in ('CaseStmt','DefaultStmt'):
                         entry=stmt
                         while kind(entry) in ('CaseStmt','DefaultStmt') and children(entry):
@@ -262,19 +282,19 @@ class SourceFlowPlan:
                         # switch arm. Prove its terminating suffix up to the
                         # next dispatch label using the same lifetime and
                         # loop-owner checks as every other copied suffix.
-                        consider(entry,seq[i+1:following],restricted,loop)
+                        consider(entry,seq[i+1:following],restricted,loop,break_owner)
                     if kind(stmt)=='DeclStmt' and node is not self.body:
                         restricted.update((x.get('id'),id(node)) for x in children(stmt) if kind(x)=='VarDecl')
             # Clang attaches a source label immediately after case/default to
             # that dispatch node. A self-contained terminal body is safe too.
             # Implicit fallthrough and enclosing switch suffixes stay blocked.
             if k in ('CaseStmt','DefaultStmt') and children(node):
-                consider(children(node)[-1],[],restricted,loop)
+                consider(children(node)[-1],[],restricted,loop,break_owner)
             # A for/if initializer also belongs to its nested lexical scope.
             if node is not self.body and kind(node) in loops|{'IfStmt','SwitchStmt'}:
                 restricted.update((x.get('id'),id(node)) for stmt in children(node) if kind(stmt)=='DeclStmt'
                     for x in children(stmt) if kind(x)=='VarDecl')
-            for child in children(node):visit(child,restricted,loop,scopes)
+            for child in children(node):visit(child,restricted,loop,scopes,break_owner)
         visit(self.body)
 
     def index_labels(self):
@@ -321,6 +341,12 @@ class SourceFlowPlan:
                     if self.loop_owners.get(id(node))!=self.continue_suffixes[target]:
                         raise ControlFlowUnsupported('copied source suffix crosses loop ownership')
                     self.diagnostics['same_loop_terminal_jumps']+=1
+                if target in self.switch_break_suffixes:
+                    owner,loop=self.switch_break_suffixes[target]
+                    if (self.break_owners.get(id(node))!=('SwitchStmt',owner)
+                            or self.loop_owners.get(id(node))!=loop):
+                        raise ControlFlowUnsupported('copied source suffix crosses switch/loop ownership')
+                    self.diagnostics['same_switch_terminal_break_jumps']+=1
                 self.tail_return[id(node)]=self.nested_terminal[target]
                 self.diagnostics['nested_terminal_jumps']+=1
                 continue
