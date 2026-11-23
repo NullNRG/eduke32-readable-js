@@ -13,7 +13,10 @@ const printer=ts.createPrinter({removeComments:true,newLine:ts.NewLineKind.LineF
 const casts=new Set(['i8','u8','i16','u16','i32','u32','i64','u64']);
 for(let fileIndex=0;fileIndex<files.length;fileIndex++){
  const file=ts.createSourceFile('source.mjs',files[fileIndex],ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
- if(file.parseDiagnostics.length)throw Error('Invalid original source module');
+ if(file.parseDiagnostics.length)throw Error('Invalid source module '+fileIndex+': '+file.parseDiagnostics.map(d=>{
+  const p=file.getLineAndCharacterOfPosition(d.start??0);
+  return `${p.line+1}:${p.character+1} ${ts.flattenDiagnosticMessageText(d.messageText,' ')} near ${JSON.stringify(files[fileIndex].slice(Math.max(0,(d.start??0)-80),(d.start??0)+120))}`;
+ }).join('; '));
  const functions=new Map(),bindings=new Set();
  for(const statement of file.statements){
   if(ts.isFunctionDeclaration(statement)&&statement.name){

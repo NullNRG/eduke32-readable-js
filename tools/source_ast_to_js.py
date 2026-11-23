@@ -3594,7 +3594,7 @@ class Emit:
                 self.goto_plan.hoisted_locals.extend(binding for identity,binding in self.local_reference_cells.items() if identity not in parameter_ids)
                 self.last_flow_report={'passes':list(self.goto_plan.passes),'detected':dict(self.goto_plan.diagnostics),'strategy':'structured-source-labels-no-opcode-dispatch'}
             try:
-                text=(('  let '+', '.join(self.goto_plan.hoisted_locals)+';\n' if self.goto_plan.hoisted_locals else '')+self.goto_plan.emit(self)) if self.goto_plan else self.statements(bodies[-1])
+                text=(('  let '+', '.join(map(js_ident,self.goto_plan.hoisted_locals))+';\n' if self.goto_plan.hoisted_locals else '')+self.goto_plan.emit(self)) if self.goto_plan else self.statements(bodies[-1])
             finally:
                 self.goto_plan=None
         if resume:

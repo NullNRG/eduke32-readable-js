@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def main():
  parser=argparse.ArgumentParser(description=__doc__)
- parser.add_argument('--checkpoint',default='nov16',choices=('nov16','nov17','nov19'))
+ parser.add_argument('--checkpoint',default='nov16',choices=('nov16','nov17','nov19','nov23'))
  stamp=parser.parse_args().checkpoint
  evidence=f'reports/evidence/{stamp}-original-text-startup.png'
  report_path=f'reports/{stamp}-original-text-startup-frame.json'

@@ -4,13 +4,13 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=r"""
 extern "C" int pointer_case(int mode,int n){
- int a=n,b=n+13,c=n-17;int*p=&a;
+ int a=n,b=n+13,c=n-17;int*var=&a;
  switch(mode&7){
- case 0:p=&b;goto apply;
- case 1:p=&c;
- default:apply:*p=*p*3+7;*p^=n;break;
+ case 0:var=&b;goto apply;
+ case 1:var=&c;
+ default:apply:*var=*var*3+7;*var^=n;break;
  case 2:a+=11;break;
- case 3:p=&b;goto apply;
+ case 3:var=&b;goto apply;
  }
  return a*17+b*19+c*23;
 }

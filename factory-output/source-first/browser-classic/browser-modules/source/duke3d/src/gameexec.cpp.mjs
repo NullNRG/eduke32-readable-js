@@ -21,3 +21,6 @@ export { fix16_from_int__header_6768ed80e668, fix16_one } from "./_source_legacy
 // Original Clang-generated fragment; imports existing owner storage.
 export { Fix16, fix16_from_dbl__header_8e5e515ebb29, fix16_from_float__header_cb7bb7dfd505, fix16_half, fix16_mod__header_57cd079f1117, fix16_to_dbl__header_978a8ec758b1, fix16_to_float__header_1ddac830bf2c, fix16_to_int__header_826ef69a44f3, flt_f161r, tabledivide32__header_453730bd97a3 } from "./_source_legacy_gameexec_cpp_20f89a5724c7.mjs";
 export { Gv_AddVar, Gv_AndVar, Gv_ModVar, Gv_MulVar, Gv_OrVar, Gv_ShiftVarL, Gv_ShiftVarR, Gv_SubVar, Gv_XorVar } from "./_source_legacy_gameexec_cpp_db2efcad7d34.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { Gv_DivVar } from "./_source_legacy_gameexec_cpp_d2a638535044.mjs";
