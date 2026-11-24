@@ -21,9 +21,13 @@ python tools/recover_browser_component.py --snapshot
 
 Read reports/nov23-header-value-regressions.json for the 13 targeted tests on the latest compiler and reports/nov19-final-shared-regressions.json for the earlier 20-test checkpoint and its fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
 
+## November 24 original entry follow-up
+
+The current compiler lowers `app_main` after reconnecting the native ClockTicks conversion declaration. Read reports/nov24-app-main-current-frontier.json for the 42 direct unresolved names in the bounded probe. Refresh existing private callable providers with exact source and byte proofs before reimplementing them. Continue with original CON compilation, menus, and the game loop. The verified direct Chromium game module import currently has neither entry export.
+
 ## November 24 storage and sector follow-up
 
-After loading `work/session-env.ps1`, run `python work/verify_original_script_relocation.py` and `python work/verify_original_sector_tags.py`. The active engine and savegame storage have single owners. Keep the pointer relocation parity checks when changing the CON loader. The current launcher engine test passes after normal engine-first initialization. Sector-first import fails while initializing save descriptor entries that evaluate `ARRAY_SIZE(g_origins)` at runtime. Lower the verified original compile-time extent and preserve original pointer bytes and order for the remaining initializer entries.
+After loading `work/session-env.ps1`, run `python work/verify_original_script_relocation.py` and `python work/verify_original_sector_tags.py`. The active engine and savegame storage have single owners. Keep the pointer relocation parity checks when changing the CON loader. The current launcher engine test passes after normal engine-first initialization. Sector-first import now passes after folding the original compile-time `ARRAY_SIZE(g_origins)` and removing the address bridge’s read of typed scalar storage during static initialization. Run `python work/refresh_save_array_extent.py --prove-only` to recheck the exact extent. Keep the two save descriptor address checks in the sector test.
 
 The timer storage is installed. Close `G_UpdateScreenArea` and `videoCaptureScreen` before relinking the timer callback chain. The newest completed VM probe used the modules before that timer storage and the four sector helpers were installed. Use the fresh 89-name report as its measured scope and recompile affected definitions.
 

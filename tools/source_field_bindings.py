@@ -32,7 +32,8 @@ def index(complete,types):
     # Restrict targets to the actual retained type declarations. Do not retain
     # full function ASTs or manufacture a field from receiver/name spelling.
     declarations={node['id']:{key:node[key] for key in ('id','kind','name','type','loc') if key in node}
-        for root in types for node in walk(root) if node.get('kind') in ('FieldDecl','CXXMethodDecl') and node.get('id')}
+        for root in types for node in walk(root)
+        if node.get('kind') in ('FieldDecl','CXXMethodDecl','CXXConversionDecl') and node.get('id')}
     result={}
     for key,member in sites(complete):
         reference=member.get('field',{}) if member['kind']=='InitListExpr' else member

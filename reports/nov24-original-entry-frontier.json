@@ -1,0 +1,136 @@
+{
+  "source": "source/duke3d/src/game.cpp",
+  "requested": [
+    "app_main",
+    "G_Startup"
+  ],
+  "requested_resolved": {
+    "app_main": false,
+    "G_Startup": false
+  },
+  "requested_lowered": {
+    "app_main": false,
+    "G_Startup": true
+  },
+  "requested_compiled": {
+    "app_main": false,
+    "G_Startup": false
+  },
+  "requested_still_unlinked": [
+    "app_main",
+    "G_Startup"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-4abca67a58276f78/source/duke3d/src/game.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "gameTimerHandler",
+      "reason": "unlinked identifiers: G_HandleSpecialKeys",
+      "dependencies": [
+        "G_HandleSpecialKeys"
+      ]
+    },
+    {
+      "name": "G_HandleSpecialKeys",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, videoCaptureScreen",
+      "dependencies": [
+        "G_UpdateScreenArea",
+        "videoCaptureScreen"
+      ]
+    },
+    {
+      "name": "G_GameExit",
+      "reason": "unlinked identifiers: G_BonusScreen, G_DisplayExtraScreens, VM_OnEventWithReturn",
+      "dependencies": [
+        "G_BonusScreen",
+        "G_DisplayExtraScreens",
+        "VM_OnEventWithReturn"
+      ]
+    },
+    {
+      "name": "G_Cleanup",
+      "reason": "unlinked identifiers: G_FreeHashAnim, newgamechoices_recursive_free",
+      "dependencies": [
+        "G_FreeHashAnim",
+        "newgamechoices_recursive_free"
+      ]
+    },
+    {
+      "name": "G_Shutdown",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, G_Cleanup, S_MusicShutdown, S_SoundShutdown",
+      "dependencies": [
+        "CONFIG_WriteSetup",
+        "G_Cleanup",
+        "S_MusicShutdown",
+        "S_SoundShutdown"
+      ]
+    },
+    {
+      "name": "G_CompileScripts",
+      "reason": "unlinked identifiers: C_Compile, G_GameExit, VM_OnEvent, xmalloc, xrealloc",
+      "dependencies": [
+        "C_Compile",
+        "G_GameExit",
+        "VM_OnEvent",
+        "xmalloc",
+        "xrealloc"
+      ]
+    },
+    {
+      "name": "G_CheckGametype",
+      "reason": "unlinked identifiers: clamp",
+      "dependencies": [
+        "clamp"
+      ]
+    },
+    {
+      "name": "G_HandleMemErr",
+      "reason": "unlinked identifiers: engineDestroyAllocator",
+      "dependencies": [
+        "engineDestroyAllocator"
+      ]
+    },
+    {
+      "name": "G_FatalEngineInitError",
+      "reason": "unlinked identifiers: G_Cleanup, engineDestroyAllocator",
+      "dependencies": [
+        "G_Cleanup",
+        "engineDestroyAllocator"
+      ]
+    },
+    {
+      "name": "G_Startup",
+      "reason": "unlinked identifiers: G_CheckGametype, G_CompileScripts, G_FatalEngineInitError, G_GameExit, G_HandleMemErr, G_Shutdown",
+      "dependencies": [
+        "G_CheckGametype",
+        "G_CompileScripts",
+        "G_FatalEngineInitError",
+        "G_GameExit",
+        "G_HandleMemErr",
+        "G_Shutdown"
+      ]
+    },
+    {
+      "name": "app_main",
+      "reason": "instance call requires exact source declaration: operator int",
+      "dependencies": []
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "c3064c424c7d9c1901fdb63ca953fd999f977dfb8ac0eff3a622a3dc69cdef3d",
+  "provider_index_sha256": "2c3f145cf1849fdabfc13e162cf3fa4466eb44a32875329a3dadf37eb481662b",
+  "query_limit": 16,
+  "dependency_budget_exhausted": true,
+  "unqueried_references": [
+    "G_FreeHashAnim",
+    "G_UpdateScreenArea",
+    "VM_OnEvent",
+    "VM_OnEventWithReturn",
+    "clamp",
+    "engineDestroyAllocator",
+    "newgamechoices_recursive_free",
+    "videoCaptureScreen",
+    "xmalloc",
+    "xrealloc"
+  ],
+  "probe_only": true
+}

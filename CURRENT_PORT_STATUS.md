@@ -2,11 +2,19 @@
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
 
+## November 24 original entry lowering checkpoint
+
+The original game module imports directly in Chromium. The compiler now reconnects Clang-selected conversion declarations in filtered bodies, including the original `ClockTicks::operator int` used by `app_main`. The 16-query diagnostic lowers the original entry and leaves **42 direct unresolved names**. The count is scoped to this probe. `G_Startup` is also source-lowered and awaits its original CON and error-handling dependencies. The strict release check still requires linked startup, game menus, playable simulation and the offline page. [Chromium import](reports/nov24-original-game-module-import.json) · [Entry frontier](reports/nov24-app-main-current-frontier.json) · [Startup frontier](reports/nov24-original-entry-frontier.json)
+
+## November 24 save descriptor startup checkpoint
+
+The compiler now emits Clang-proven numeric extents for direct, type-derived array calls in static initializers. The original save descriptor uses its native 2,048-element count and retains its deferred pointer to `g_origins`. The address runtime now forms the address of typed scalar storage without reading the uninitialized value of `g_deleteQueueSize`. Sector-first Chromium loading passes and verifies both original descriptor addresses. Fresh engine startup also passes with no page exceptions. The original game, globals and savegame modules can each load first in a fresh Node runtime. [Native extent](reports/nov24-original-save-array-extent.json) · [Start order and tag checks](reports/nov24-original-sector-tags.json) · [Engine startup](reports/nov24-engine-after-save-initialization.json)
+
 ## November 24 storage and sector checkpoint
 
 The active module audit now finds zero duplicate source storage and zero invalid imports. The original engine constant keeps a single address cell. Recompiling the original `G_Util_PtrToIdx2` replaced a historical savegame shard with a single active function and preserved its native relocation behavior across 40,960 compared words. The original player timer cell is linked. Four sector helpers link, with 4,096 native/Chromium values checked for the two sector tag queries. [Relocation parity](reports/nov24-original-script-relocation-full-parity.json) · [Sector parity](reports/nov24-original-sector-tags.json)
 
-The latest completed bounded VM probe measured 89 unresolved names and two ABI rejections affecting four candidates before the timer and sector installs. The timer lowers but remains behind `G_UpdateScreenArea` and `videoCaptureScreen`. The normal engine-first browser startup test passes on the active modules. A sector-first import exposes an eager savegame initializer that reads `g_origins` to compute its fixed array extent. This is a separate initialization ordering blocker. [VM frontier](reports/nov24-vm-current-frontier.json) · [Timer frontier](reports/nov24-original-game-timer-frontier.json) · [Current engine verification](reports/nov24-current-engine-after-storage.json)
+The latest completed bounded VM probe measured 89 unresolved names and two ABI rejections affecting four candidates before the timer and sector installs. The timer lowers but remains behind `G_UpdateScreenArea` and `videoCaptureScreen`. The normal engine-first browser startup test passes on the active modules. The two early reads exposed by sector-first import were fixed in the newer checkpoint above. [VM frontier](reports/nov24-vm-current-frontier.json) · [Timer frontier](reports/nov24-original-game-timer-frontier.json) · [Current engine verification](reports/nov24-current-engine-after-storage.json)
 
 ## November 24 scalar writer and angle helper
 

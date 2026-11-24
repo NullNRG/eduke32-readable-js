@@ -1,0 +1,288 @@
+{
+  "source": "source/duke3d/src/game.cpp",
+  "requested": [
+    "app_main"
+  ],
+  "requested_resolved": {
+    "app_main": false
+  },
+  "requested_lowered": {
+    "app_main": true
+  },
+  "requested_compiled": {
+    "app_main": false
+  },
+  "requested_still_unlinked": [
+    "app_main"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-e3610973368037a2/source/duke3d/src/game.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_GameExit",
+      "reason": "unlinked identifiers: G_BonusScreen, G_DisplayExtraScreens, G_Shutdown, VM_OnEventWithReturn",
+      "dependencies": [
+        "G_BonusScreen",
+        "G_DisplayExtraScreens",
+        "G_Shutdown",
+        "VM_OnEventWithReturn"
+      ]
+    },
+    {
+      "name": "G_DrawRooms",
+      "reason": "unlinked identifiers: Blrintf, G_AnimateCamSprite, G_ClearGotMirror, G_DoConveyorInterp, G_DoInterpolations, G_DoSpriteAnimations, G_DoThirdPerson, G_DrawBackground, G_GetCameraPosition, G_HandleMirror, G_InterpolateLights, G_OROR_DupeSprites",
+      "dependencies": [
+        "Blrintf",
+        "G_AnimateCamSprite",
+        "G_ClearGotMirror",
+        "G_DoConveyorInterp",
+        "G_DoInterpolations",
+        "G_DoSpriteAnimations",
+        "G_DoThirdPerson",
+        "G_DrawBackground",
+        "G_GetCameraPosition",
+        "G_HandleMirror",
+        "G_InterpolateLights",
+        "G_OROR_DupeSprites",
+        "G_ResetConveyorInterp",
+        "G_RestoreInterpolations",
+        "G_SE40",
+        "I_AddForceFeedback",
+        "VM_OnEvent",
+        "VM_OnEventWithReturn",
+        "clamp",
+        "divscale22",
+        "fix16_clamp",
+        "getzsofslope",
+        "klabs",
+        "mulscale16",
+        "r_ambientlightrecip",
+        "rotatesprite_win",
+        "swap",
+        "swapbufreverse",
+        "videoGetRenderMode"
+      ]
+    },
+    {
+      "name": "G_FatalEngineInitError",
+      "reason": "unlinked identifiers: G_Cleanup, engineDestroyAllocator",
+      "dependencies": [
+        "G_Cleanup",
+        "engineDestroyAllocator"
+      ]
+    },
+    {
+      "name": "G_EndOfLevel",
+      "reason": "unlinked identifiers: G_BackToMenu, G_BonusScreen, G_DoOrderScreen, G_EnterLevel, G_HaveUserMap, G_UpdateScreenArea, Menu_Change, Menu_Open, P_UpdateScreenPal, VM_OnEventWithReturn",
+      "dependencies": [
+        "G_BackToMenu",
+        "G_BonusScreen",
+        "G_DoOrderScreen",
+        "G_EnterLevel",
+        "G_HaveUserMap",
+        "G_UpdateScreenArea",
+        "Menu_Change",
+        "Menu_Open",
+        "P_UpdateScreenPal",
+        "VM_OnEventWithReturn"
+      ]
+    },
+    {
+      "name": "app_main",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup, G_DisplayLogo, G_DoCheats, G_DrawRooms, G_EndOfLevel, G_FatalEngineInitError, G_GameExit, G_NewGame, G_PlaybackDemo, G_SavePlayerMaybeMulti, G_SetupCheats",
+      "dependencies": [
+        "CONFIG_ReadSetup",
+        "CONFIG_WriteSetup",
+        "G_DisplayLogo",
+        "G_DoCheats",
+        "G_DrawRooms",
+        "G_EndOfLevel",
+        "G_FatalEngineInitError",
+        "G_GameExit",
+        "G_NewGame",
+        "G_PlaybackDemo",
+        "G_SavePlayerMaybeMulti",
+        "G_SetupCheats",
+        "G_SetupGameButtons",
+        "G_Startup",
+        "G_UpdateScreenArea",
+        "Menu_Change",
+        "Menu_Init",
+        "P_ResetInventory",
+        "P_ResetWeapons",
+        "P_SetupMiscInputSettings",
+        "PrintBuildInfo",
+        "ReadSaveGameHeaders",
+        "S_ClearSoundLocks",
+        "S_MusicStartup",
+        "S_SoundStartup",
+        "VM_OnEvent",
+        "cacheAllSounds",
+        "drawframe_do",
+        "dukeConsoleClearBackground",
+        "dukeConsoleGetColumnWidth",
+        "dukeConsoleGetRowHeight",
+        "dukeConsoleOnShowCallback",
+        "dukeConsolePrintChar",
+        "dukeConsolePrintCursor",
+        "dukeConsolePrintString",
+        "dukeVerbosityCallback",
+        "engineDestroyAllocator",
+        "engineSetLogFile",
+        "gameHandleEvents",
+        "idle",
+        "loaddefinitionsfile",
+        "registerosdcommands"
+      ]
+    },
+    {
+      "name": "G_DoMoveThings",
+      "reason": "unlinked identifiers: A_MoveCyclers, A_MoveDummyPlayers, G_AnimateWalls, G_DemoRecord, G_MoveWorld, G_UpdateInterpolations, P_CheckSectors, P_HandleSharedKeys, P_ProcessInput, P_QuickKill, krand",
+      "dependencies": [
+        "A_MoveCyclers",
+        "A_MoveDummyPlayers",
+        "G_AnimateWalls",
+        "G_DemoRecord",
+        "G_MoveWorld",
+        "G_UpdateInterpolations",
+        "P_CheckSectors",
+        "P_HandleSharedKeys",
+        "P_ProcessInput",
+        "P_QuickKill",
+        "krand"
+      ]
+    },
+    {
+      "name": "FX_StopAllSounds__header_dc180f51db89",
+      "reason": "unlinked identifiers: FX_CheckMVErr, MV_KillAllVoices",
+      "dependencies": [
+        "FX_CheckMVErr",
+        "MV_KillAllVoices"
+      ]
+    },
+    {
+      "name": "G_NewGame_EnterLevel__header_96c36a42496f",
+      "reason": "unlinked identifiers: G_BackToMenu, G_EnterLevel, G_NewGame",
+      "dependencies": [
+        "G_BackToMenu",
+        "G_EnterLevel",
+        "G_NewGame"
+      ]
+    },
+    {
+      "name": "G_GetTeamPalette__header_a2181cbc67c1",
+      "reason": "unlinked identifiers: ARRAY_SIZE",
+      "dependencies": [
+        "ARRAY_SIZE"
+      ]
+    },
+    {
+      "name": "fix16_from_int__header_a4fc00426563",
+      "reason": "unlinked identifiers: fix16_one",
+      "dependencies": [
+        "fix16_one"
+      ]
+    },
+    {
+      "name": "fix16_to_int__header_e5543c7659b8",
+      "reason": "unlinked identifiers: fix16_half, fix16_one",
+      "dependencies": [
+        "fix16_half",
+        "fix16_one"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "28cab32d1e2d5bf02fd929f924003d8c9674dd4ea3560ab25db734ca351f5d6a",
+  "provider_index_sha256": "2c3f145cf1849fdabfc13e162cf3fa4466eb44a32875329a3dadf37eb481662b",
+  "query_limit": 16,
+  "dependency_budget_exhausted": true,
+  "unqueried_references": [
+    "ARRAY_SIZE",
+    "A_MoveCyclers",
+    "A_MoveDummyPlayers",
+    "Blrintf",
+    "FX_CheckMVErr",
+    "G_AnimateCamSprite",
+    "G_AnimateWalls",
+    "G_BackToMenu",
+    "G_BonusScreen",
+    "G_Cleanup",
+    "G_ClearGotMirror",
+    "G_DemoRecord",
+    "G_DisplayExtraScreens",
+    "G_DoConveyorInterp",
+    "G_DoInterpolations",
+    "G_DoOrderScreen",
+    "G_DoSpriteAnimations",
+    "G_DoThirdPerson",
+    "G_DrawBackground",
+    "G_EnterLevel",
+    "G_GetCameraPosition",
+    "G_HandleMirror",
+    "G_HaveUserMap",
+    "G_InterpolateLights",
+    "G_MoveWorld",
+    "G_OROR_DupeSprites",
+    "G_ResetConveyorInterp",
+    "G_RestoreInterpolations",
+    "G_SE40",
+    "G_SavePlayerMaybeMulti",
+    "G_SetupCheats",
+    "G_SetupGameButtons",
+    "G_Shutdown",
+    "G_Startup",
+    "G_UpdateInterpolations",
+    "G_UpdateScreenArea",
+    "I_AddForceFeedback",
+    "MV_KillAllVoices",
+    "Menu_Change",
+    "Menu_Init",
+    "Menu_Open",
+    "P_CheckSectors",
+    "P_HandleSharedKeys",
+    "P_ProcessInput",
+    "P_QuickKill",
+    "P_ResetInventory",
+    "P_ResetWeapons",
+    "P_SetupMiscInputSettings",
+    "P_UpdateScreenPal",
+    "PrintBuildInfo",
+    "ReadSaveGameHeaders",
+    "S_ClearSoundLocks",
+    "S_MusicStartup",
+    "S_SoundStartup",
+    "VM_OnEvent",
+    "VM_OnEventWithReturn",
+    "cacheAllSounds",
+    "clamp",
+    "divscale22",
+    "drawframe_do",
+    "dukeConsoleClearBackground",
+    "dukeConsoleGetColumnWidth",
+    "dukeConsoleGetRowHeight",
+    "dukeConsoleOnShowCallback",
+    "dukeConsolePrintChar",
+    "dukeConsolePrintCursor",
+    "dukeConsolePrintString",
+    "dukeVerbosityCallback",
+    "engineDestroyAllocator",
+    "engineSetLogFile",
+    "fix16_clamp",
+    "fix16_half",
+    "fix16_one",
+    "gameHandleEvents",
+    "getzsofslope",
+    "idle",
+    "klabs",
+    "krand",
+    "loaddefinitionsfile",
+    "mulscale16",
+    "r_ambientlightrecip",
+    "registerosdcommands",
+    "rotatesprite_win",
+    "swap",
+    "swapbufreverse",
+    "videoGetRenderMode"
+  ],
+  "probe_only": true
+}
