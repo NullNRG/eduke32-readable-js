@@ -50,6 +50,7 @@ from source_backward_tail import recover as recover_backward_tail
 from source_cpp_function_bindings import (identity as cpp_function_identity, load as load_cpp_function_bindings,
     bind as bind_cpp_functions, index as index_cpp_functions, rebind as rebind_cpp_functions, BINDING as CPP_FUNCTION_BINDING)
 import source_tu_function_bindings as tu_functions
+import source_non_odr_constants as header_constants
 from source_parameter_bindings import unique_parameters
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
@@ -1365,6 +1366,11 @@ class Emit:
             decl=n.get('referencedDecl',{})
             if '_source_evaluated_array_constant' in n:
                 return 'true' if n['_source_evaluated_array_constant'] else 'false'
+            header_constant=n.get(header_constants.BINDING) if n.get('nonOdrUseReason')=='constant' else None
+            if header_constant:
+                key=(header_constant['source_header'],header_constant['source_offset'])
+                self.used_header_constants={**getattr(self,'used_header_constants',{}),key:header_constant}
+                return js_cast(str(header_constant['value'])+('n' if is_wide_integer(header_constant['type']) else ''),header_constant['type'])
             constant=getattr(self,'non_odr_static_values',{}).get(decl.get('id')) if n.get('nonOdrUseReason')=='constant' else None
             if constant:
                 self.used_static_constants=getattr(self,'used_static_constants',{})|{decl['id']:constant}
@@ -3450,7 +3456,12 @@ class Emit:
             return statement
         if k=='CaseStmt':
             if len(a)<2:raise Unsupported('case layout')
-            label=pad+f'case {self.expr(a[0])}:'
+            # Clang has converted the case ConstantExpr to the promoted
+            # switch domain. sizeof/alignof may emit a numeric literal even
+            # though that native type is size_t: JS strict case comparison
+            # must still use BigInt for the converted 64/128-bit label.
+            case_type=resolve_scalar_storage_alias(qual(a[0]),self.type_aliases)
+            label=pad+f'case {js_cast(self.expr(a[0]),case_type)}:'
             if kind(a[-1]) in ('CaseStmt','DefaultStmt'):
                 return label+'\n'+self.statements(a[-1],level)
             return label+' {\n'+self.statements(a[-1],level+1)+'\n'+pad+'}'
@@ -4854,6 +4865,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
                 if cls and ref.get('id') not in (trivial_assignments or {}) and id(n) not in (storage_assignment_nodes or set()) and ref.get('id') not in lambda_operators:result.add(js_ident(cls))
         if kind(n)=='DeclRefExpr':
             decl=n.get('referencedDecl',{})
+            if n.get('nonOdrUseReason')=='constant' and n.get(header_constants.BINDING):return
             if n.get('nonOdrUseReason')=='constant' and decl.get('id') in (non_odr_static_values or {}):return
             dk=decl.get('kind')
             if dk=='CXXMethodDecl' and decl.get('id') in (static_method_owners or {}):
@@ -6091,6 +6103,7 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             if getattr(em,'used_parameter_bindings',None):row['source_parameter_bindings']=em.used_parameter_bindings
             if getattr(em,'used_comparison_pointer_values',None):row['address_comparison_pointer_temporaries']={'abi':'source-local-pointer-address-values/1','declarations':sorted(em.used_comparison_pointer_values),'memory_bounds_checks_retained':True}
             if getattr(em,'used_static_constants',None):row['non_odr_static_constants']=sorted(em.used_static_constants.values(),key=lambda x:(x['source_header'],x['member_offset'] or 0,x['name']))
+            if getattr(em,'used_header_constants',None):row['non_odr_header_constants']=sorted(em.used_header_constants.values(),key=lambda p:(p['source_header'],p['source_offset'],p['name']))
             if kind(n)=='CXXRecordDecl' and name in header_record_proofs:
                 factory_symbol=symbol or js_ident(name)
                 original='export class '+factory_symbol+' {'
@@ -6415,6 +6428,7 @@ def main():
     static_reference_context=[]
     field_selection_index={}
     cpp_function_selection_index={};external_cpp_functions={};std_unordered_selection_index={};std_unordered_allocator_blocked=False
+    header_constant_selection_index={}
     full_enum_values={}
     standard_c_heap_runtime=bool(standard_heap_contract and standard_heap_contract.get('original_c_allocators_absent')) or comp is None
     def allocator_query(name,timeout=45):
@@ -6428,6 +6442,7 @@ def main():
     def produce_current(*args,**kwargs):
         nonlocal c_storage_scopes
         offset_constants.bind(args[0])
+        header_constants.rebind(args[0],header_constant_selection_index)
         flex_level=0
         for flag in compiler_arguments:
             if flag.startswith('-fstrict-flex-arrays='):flex_level=int(flag.rsplit('=',1)[1])
@@ -6749,7 +6764,9 @@ def main():
     external_cpp_functions.update(private_callables)
     index.update({contract['name']:opt.source for contract in private_callables.values()})
     private_names={contract['identity']['source_name'] for contract in private_callables.values()}
-    if private_names and any(node.get('referencedDecl',{}).get('name') in private_names
+    needs_header_constants=any(node.get('nonOdrUseReason')=='constant' and node.get('referencedDecl',{}).get('kind')=='VarDecl'
+            for tree in ast for node in descendants(tree) if kind(node)=='DeclRefExpr')
+    if needs_header_constants or private_names and any(node.get('referencedDecl',{}).get('name') in private_names
             for tree in ast for node in descendants(tree) if kind(node)=='DeclRefExpr'):
         full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
         full_cache=None
@@ -6760,6 +6777,8 @@ def main():
         ast_decode.append(decode)
         all_callable_names={contract['identity']['source_name'] for contract in external_cpp_functions.values()}
         cpp_function_selection_index.update(index_cpp_functions(complete,all_callable_names,external_cpp_functions))
+        globals,origins=recover_original_header_globals(complete,root,opt.source,compile_as_cpp)
+        header_constant_selection_index.update(header_constants.index(complete,globals,origins))
     for name in existing_source_storage:
         # TU-private names are intentionally absent from the global export
         # index. They enter only this exact original unit's fragment map.
@@ -7010,6 +7029,8 @@ def main():
                 full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
+                globals,origins=recover_original_header_globals(complete,root,opt.source,compile_as_cpp)
+                header_constant_selection_index.update(header_constants.index(complete,globals,origins))
                 cpp_function_selection_index.update(index_cpp_functions(complete,{proof['identity']['source_name'] for proof in external_cpp_functions.values()},external_cpp_functions))
                 normalize_specializations(complete)
                 std_unordered_allocator_blocked=std_unordered.custom_allocation(complete)

@@ -39,6 +39,7 @@ jobs:
           python tests/source_factory/verify_sourcefirst_predefined.py
           python tests/source_factory/verify_sourcefirst_private_fragments.py
           python tests/source_factory/verify_sourcefirst_tu_callables.py
+          python tests/source_factory/verify_sourcefirst_non_odr_header_constants.py
           python tests/source_factory/verify_sourcefirst_private_nested_records.py
       - name: Verify boot container storage and original source namespaces
         run: |
@@ -67,6 +68,7 @@ jobs:
           python tests/source_factory/verify_sourcefirst_pointer_comparison_values.py
           python tests/source_factory/verify_sourcefirst_terminal_continue.py
           python tests/source_factory/verify_sourcefirst_switch_break_suffix.py
+          python tests/source_factory/verify_sourcefirst_switch_integer_domains.py
           python tests/source_factory/verify_sourcefirst_scalar_retention_attrs.py
           python tests/source_factory/verify_sourcefirst_scalar_sse_round.py
           python tests/source_factory/verify_sourcefirst_scoped_assignment_types.py
