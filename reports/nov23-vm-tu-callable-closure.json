@@ -1,14 +1,16 @@
 {
   "format": "original-vm-tu-callable-closure/1",
-  "updated_utc": "2026-11-24T01:43:10.906348+00:00",
+  "updated_utc": "2026-11-24T02:01:58.015731+00:00",
+  "compiler_runtime_input_sha256": "bc35da7bd559e629856c06e824f991fed1d787933912be076c62415e464bda04",
   "baseline": "reports/nov23-vm-closure-frontier.json",
   "current": "reports/nov23-vm-tu-callable-frontier.json",
   "dependency_query_limit": 32,
   "baseline_unresolved": 136,
-  "current_unresolved": 127,
+  "current_unresolved": 126,
   "resolved_original_calls": [
     "Gv_AddVar",
     "Gv_AndVar",
+    "Gv_DivVar",
     "Gv_ModVar",
     "Gv_MulVar",
     "Gv_OrVar",
@@ -85,6 +87,27 @@
       },
       "consumer_source": "source/duke3d/src/gameexec.cpp",
       "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+    },
+    {
+      "name": "Gv_DivVar",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_DivVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_DivVar",
+        "source_offset": 11279,
+        "body_sha256": "ae10429e8b361c783fcd0edde036a64f3e07311daf561428ae0c52260c8a09d0",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 11279,
+          "source_line": 243,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+        }
+      },
+      "consumer_source": "source/duke3d/src/gameexec.cpp",
+      "implementation_sha256": "d2a6385350447b24580af3742846c386df49697c0d5658c72418cff48cd1abf0"
     },
     {
       "name": "Gv_ModVar",

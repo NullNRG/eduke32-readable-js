@@ -5,6 +5,7 @@ from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools'))
 from source_first_global_link import storage_import_error
 from source_tu_function_bindings import ABI,load
+from source_cpp_function_bindings import sites,rebind,SELECTION
 
 def run(args,ok=True):
  p=subprocess.run(list(map(str,args)),cwd=ROOT,capture_output=True,text=True,timeout=180)
@@ -15,7 +16,9 @@ with tempfile.TemporaryDirectory(prefix='tu-callables-',dir=ROOT/'work') as fold
  (root/'index.html').write_text('<!doctype html><link rel="icon" href="data:,">')
  (source/'helpers.hpp').write_text('''static int tick(int n){static int total=7;total+=n;return total;}
 static int tick(double n){return (int)n-1000;}
+int external_pick(int);int external_pick(double);
 ''')
+ (source/'external.cpp').write_text('int external_pick(int n){return n+101;}\nint external_pick(double n){return (int)n-301;}')
  (source/'unit.cpp').write_text('''#include "helpers.hpp"
 typedef int (*Callback)(int);
 extern "C" int owner_read(int n){return tick(n);}
@@ -23,7 +26,7 @@ extern "C" Callback owner_address(){return tick;}
 extern "C" int fragment_step(int n){Callback p=tick;return p(n)+tick((double)n);}
 extern "C" Callback fragment_address(){return tick;}
 extern "C" int extra_step(int n){return tick(n*2);}
-extern "C" int late_overloads(int n){return tick(n)+tick((double)n);}
+extern "C" int late_overloads(int n){return external_pick(n)+tick(n)+external_pick((double)n)+tick((double)n);}
 ''')
  (source/'other.cpp').write_text('#include "helpers.hpp"\nextern "C" int other_read(int n){return tick(n);}')
  def compile(unit,out,names,existing=None):
@@ -32,9 +35,20 @@ extern "C" int late_overloads(int n){return tick(n)+tick((double)n);}
   if existing:args+=['--project-symbols',root/'symbols.json','--import-root',existing]
   run(args);d=json.loads((out/(unit+'.manifest.json')).read_text());assert d['blocked']==0,d['definitions'];return d
  (root/'symbols.json').write_text('{}')
+ external=compile('external.cpp',owner,'external_pick')
+ (root/'symbols.json').write_text(json.dumps({r['name']:'external.cpp' for r in external['definitions'] if r['status']=='source-first'}))
  first=compile('unit.cpp',owner,'owner_read,owner_address,fragment_step')
  funcs=[r for r in first['definitions'] if r.get('cpp_function_identity',{}).get('abi')==ABI]
  assert len(funcs)==2,funcs
+ # Reconnection must reject a wrong selected name/type even if an ordinal
+ # key was obtained from a different callable-name subset of the same body.
+ selected=funcs[0]['cpp_function_identity']
+ for name,typ in [('unrelated',selected['original_type']),('tick','int (char)')]:
+  reference={'kind':'DeclRefExpr','referencedDecl':{'kind':'FunctionDecl','name':name,'type':{'qualType':typ}}}
+  caller={'kind':'FunctionDecl','mangledName':'_Z6calleri','type':{'qualType':'int (int)'},'loc':{'offset':0},
+          'inner':[{'kind':'CompoundStmt','inner':[reference]}]}
+  key,_=next(sites([caller],{name}));rebind([caller],{key:{'mismatch':selected}},{name})
+  assert SELECTION not in reference['referencedDecl']
  # Keep only the original owner/callback entrypoints plus both overloads.
  # fragment_step is compiled here to demand both original header overloads;
  # a second original entrypoint is used for actual incremental installation.
@@ -81,7 +95,7 @@ extern "C" int owner_read(int),fragment_step(int),extra_step(int),other_read(int
 extern "C" Callback owner_address(),fragment_address();
 int main(){for(int n=0;n<256;n++){int a=owner_read(n),b=fragment_step(n),c=extra_step(n),d=other_read(n),e=late_overloads(n);printf("%d,%d,%d,%d,%d,%d\\n",a,b,c,d,e,(int)(owner_address()==fragment_address()));}}
 ''')
- exe=root/'native.exe';run(['clang++','-std=c++14',source/'unit.cpp',source/'other.cpp',root/'driver.cpp','-o',exe]);expected=run([exe]).splitlines()
+ exe=root/'native.exe';run(['clang++','-std=c++14',source/'unit.cpp',source/'other.cpp',source/'external.cpp',root/'driver.cpp','-o',exe]);expected=run([exe]).splitlines()
  expression='''async base=>{const a=await import(base+'/unit.cpp.mjs'),b=await import(base+'/other.cpp.mjs'),rows=[];for(let n=0;n<256;n++){const x=a.owner_read(n),y=a.fragment_step(n),z=a.extra_step(n),w=b.other_read(n),v=a.late_overloads(n);rows.push([x,y,z,w,v,Number(a.owner_address()===a.fragment_address())].join(','));}return rows;}'''
  runner=root/'run.mjs';runner.write_text('console.log(JSON.stringify(await ('+expression+')('+json.dumps(owner.as_uri())+')));')
  assert json.loads(run(['node',runner]))==expected

@@ -45,7 +45,12 @@ def index(complete,names,contracts=None):
 def rebind(ast,proofs,names):
     for key,reference in sites(ast,names):
         choices=proofs.get(key,{})
-        if len(choices)==1:reference['referencedDecl'][SELECTION]=next(iter(choices.values()))
+        if len(choices)==1:
+            proof=next(iter(choices.values()));declaration=reference['referencedDecl']
+            if (proof.get('source_name')==declaration.get('name')
+                    and proof.get('original_type')==declaration.get('type',{}).get('qualType')):
+                declaration[SELECTION]=proof
+            else:declaration.pop(SELECTION,None)
 def load(root,owners):
     if root is None:return {}
     from source_first_global_link import exported_names
@@ -79,7 +84,9 @@ def bind(ast,contracts,local_ids):
             selected=declaration.get(SELECTION)
             proof=contracts.get(json.dumps(selected,sort_keys=True)) if selected else None
             if declaration.get('id') in local_ids and not (proof and proof['identity'].get('abi')==tu_functions.ABI):continue
-            if proof:declaration[BINDING]=proof
+            if (proof and proof['identity'].get('source_name')==declaration.get('name')
+                    and proof['identity'].get('original_type')==declaration.get('type',{}).get('qualType')):
+                declaration[BINDING]=proof
 def import_error(dependency,units,export_reader):
     expected=dependency.get('cpp_function_identity')
     if expected is None:return None

@@ -1,6 +1,6 @@
 The current deliverable is an original Build-engine renderer running in readable JavaScript, not the complete original game. Original `app_main`, menus, simulation and offline gameplay remain release gates. Do not replace those paths with a demonstration engine or success stubs.
 
-Verified compiler/division checkpoint: `dce10b7`. The November 23 renderer refresh passed with zero page exceptions and the same E1L1 image checksum. Its exact module/runtime bytes match the canonical component manifest.
+Verified November 23 compiler/callable checkpoint (current main; exact fingerprints in the reports). The November 23 renderer refresh passed with zero page exceptions and the same E1L1 image checksum. Its exact module/runtime bytes match the canonical component manifest.
 
 - Original engine initialization, GRP/ART/MAP loading, palette, rooms/masks and text rendering have Chromium execution evidence. The raw E1L1 preview is not a gameplay recording.
 - Nine original CON arithmetic operations match 1,512 native mutations / 6,048 checked values. Fixed-point arithmetic matches 4,192 values.
@@ -10,10 +10,10 @@ Verified compiler/division checkpoint: `dce10b7`. The November 23 renderer refre
 Remaining work, in dependency order:
 
 1. Completed November 23: original `Gv_DivVar` recovery and differential verification using original divider initialization. The production parser failure was an illegal JavaScript declaration of C++ local `var`; declarations now use the same `__cxx_var` spelling as references. Reproduce with `python work/verify_original_con_division.py` after loading `work/session-env.ps1`.
-2. Prove same-TU private callable/constant reuse from Clang declaration identity, original body/type and preprocessing evidence. The fresh bounded VM probe has 136 unresolved references; 44 names have active same-TU provider candidates, including already verified helpers. These candidates are not proven bindings. Preserve function objects and static storage across fragments; do not use name-only aliases.
+2. Prove same-TU private callable/constant reuse from Clang declaration identity, original body/type and preprocessing evidence. The TU-callable contract is implemented and ten original CON operator calls now bind without changing their JS bytes. The fresh 32-query VM probe drops from 136 to 126 unresolved references; 34 remaining names have active same-TU provider candidates. These remaining candidates are not proven bindings. Refresh original providers and prove constant ownership rather than duplicating code. Preserve function objects and static storage across fragments; do not use name-only aliases.
 3. Supply original vec2/vec3 factories with the required original methods and layout/anonymous-union proofs. The November 23 probe rejects one vec3 specialization/method contract affecting five candidate definitions. Keep method and alias checks strict.
 4. Resolve existing duplicate header storage in engine.cpp and savegame.cpp. The fresh component audit has zero invalid imports, 46 ambiguous owner groups and two storage-conflict source units. This is a component audit, not whole-game verification.
-5. Close `VM_Execute`, script compilation and original `G_Startup`/`app_main`; execute resource initialization and original navigable menus. The fresh VM probe used a 32-query bound and does not measure the entire remaining game graph.
+5. Close `VM_Execute`, script compilation and original `G_Startup`/`app_main`; execute resource initialization and original navigable menus. The current VM probe used a 32-query bound and does not measure the entire remaining game graph.
 6. Integrate the original yielding game loop, world rendering, input, enemies/weapons/collision, sound/music, progression and persistence. Verify at least 60 seconds, save/reload and offline operation before publishing `dist/index.html`.
 7. Run uniform current-revision verification for all 111 selected classic native units. Only 69 source units currently have partial browser modules. This is distinct from complete-game linkage and execution.
 

@@ -6758,7 +6758,8 @@ def main():
             full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
         complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
         ast_decode.append(decode)
-        cpp_function_selection_index.update(index_cpp_functions(complete,private_names,external_cpp_functions))
+        all_callable_names={contract['identity']['source_name'] for contract in external_cpp_functions.values()}
+        cpp_function_selection_index.update(index_cpp_functions(complete,all_callable_names,external_cpp_functions))
     for name in existing_source_storage:
         # TU-private names are intentionally absent from the global export
         # index. They enter only this exact original unit's fragment map.

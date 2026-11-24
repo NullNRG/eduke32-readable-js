@@ -6,7 +6,7 @@ This project translates original EDuke32 game/Build C/C++ source into readable J
 
 - Original E1L1 GRP/ART/MAP loading, palettes, room/mask rendering, font initialization and presentation execute in Chromium with zero page exceptions.
 - Nine original CON arithmetic helpers match 1,512 native mutations across seven storage modes. Eight original fixed-point arithmetic functions match 4,192 native/Chromium values.
-- Original CON division additionally passes 783 native/Chromium operations and 3,132 checked values. Eight targeted compiler/runtime regressions pass on the November 23 compiler. The current component audit has zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings. Whole-program release acceptance remains blocked.
+- Original CON division additionally passes 783 native/Chromium operations and 3,132 checked values. Ten targeted compiler/linker regressions pass on the current November 23 compiler. All ten operator calls now bind inside original VM source; its bounded unresolved-reference count falls from 136 to 126. The component audit has zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings. Whole-program release acceptance remains blocked.
 
 [Current status and evidence](CURRENT_PORT_STATUS.md) · [How to continue and what to fix](CONTINUE_HERE.md) · [Machine-readable issues](reports/nov23-continuation-frontier.json) · [Continuation prompt](LLM_CONTINUATION_PROMPT.md)
 

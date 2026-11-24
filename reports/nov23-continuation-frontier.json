@@ -1,7 +1,7 @@
 {
   "format": "eduke32-continuation-frontier/1",
-  "updated_utc": "2026-11-23T22:09:56.904252+00:00",
-  "compiler_runtime_input_sha256": "8795d29d6ea84bca48f92c50cafd41b7b3496a302ed647f25583a7944a387d27",
+  "updated_utc": "2026-11-24T02:01:58.015731+00:00",
+  "compiler_runtime_input_sha256": "bc35da7bd559e629856c06e824f991fed1d787933912be076c62415e464bda04",
   "selected_native_profile_units": 111,
   "source_units_with_partial_modules": 69,
   "whole_selected_program_current_revision_verified": false,
@@ -13,12 +13,13 @@
   "original_app_main_executed": false,
   "gameplay_verified": false,
   "verified_reports": {
-    "shared_regressions": "reports/nov23-switch-break-regressions.json",
-    "con_operators": "reports/nov19-original-con-variable-operators.json",
+    "shared_regressions": "reports/nov23-tu-callable-regressions.json",
+    "con_operators": "reports/nov23-tu-original-con-operators.json",
     "fixed_point_arithmetic": "reports/nov19-original-fix16-arithmetic.json",
     "engine_rendering": "reports/nov23-original-text-startup-frame.json",
     "acceptance": "reports/nov23-current-release-acceptance.json",
-    "con_division": "reports/nov23-original-con-division.json"
+    "con_division": "reports/nov23-original-con-division.json",
+    "tu_callable_closure": "reports/nov23-vm-tu-callable-closure.json"
   },
   "issues": [
     {
@@ -41,17 +42,19 @@
     {
       "id": "same-tu-private-function-linking",
       "priority": 1,
-      "failure": "TU-private header helpers are intentionally absent from the project-global provider map; installing helpers alone does not resolve later bounded VM probes.",
+      "failure": "Native TU-callable contracts are implemented; ten original CON operator calls now resolve. Remaining matching providers require original-byte/source-verified refresh; constant ownership still needs separate proof.",
       "implementation": [
+        "tools/source_tu_function_bindings.py",
         "tools/source_cpp_function_bindings.py",
         "tools/source_ast_to_js.py",
-        "work/recover_boot_reachable.py"
+        "tools/install_verified_fragment.py"
       ],
-      "approach": "Add exact same-TU private callable ownership with Clang-selected mangling/type, original header/body and current preprocessing evidence. Preserve original function identity/static state; never add source_name-only global aliases or select an arbitrary overload.",
+      "approach": "Use the implemented source-clang-tu-function-identity/1 contract. Refresh remaining original provider functions from Clang and verify actual implementation bytes; retain exact TU ownership, function/static/callback identity, template specialization and reference ABI. Constants require original initializer/storage proofs. Never add source_name-only aliases.",
       "validation": "Two TUs including one static helper, shared same-TU state and pointer identity across incremental fragments, independent cross-TU state, changed-body rejection.",
-      "status": "open",
-      "current_probe": "reports/nov23-vm-closure-frontier.json",
-      "installed_same_tu_candidate_names": 44
+      "status": "implemented-with-remaining-provider-rollout",
+      "current_probe": "reports/nov23-vm-tu-callable-frontier.json",
+      "installed_same_tu_candidate_names": 34,
+      "evidence": "reports/nov23-vm-tu-callable-closure.json"
     },
     {
       "id": "vector-prototype-abi",
@@ -3700,15 +3703,15 @@
       "validation": "npm run compile:game reproducibility, strict acceptance, native game comparison, networking-disabled HTML, asset-free public release with local GRP selection."
     }
   ],
-  "counting_note": "The November 23 136-reference VM probe is bounded to 32 dependency queries. Forty-four unresolved names have active same-TU candidates but lack proven caller joins. This is not a comprehensive whole-program remaining-work count.",
+  "counting_note": "The current 32-query VM probe has 126 unresolved references after ten verified original call bindings; 34 unresolved names have active same-TU candidates. This is not a whole-program remaining-work count.",
   "current_vm_probe": {
-    "frontier": "reports/nov23-vm-closure-frontier.json",
-    "rejected_imports": "reports/nov23-vm-closure-rejected-imports.json",
+    "frontier": "reports/nov23-vm-tu-callable-frontier.json",
+    "rejected_imports": "reports/nov23-vm-tu-callable-rejected-imports.json",
     "dependency_queries_limit": 32,
-    "unresolved_reference_count": 136,
+    "unresolved_reference_count": 126,
     "rejected_factory_count": 1,
     "affected_definitions": 5,
-    "installed_same_tu_candidate_names": 44,
+    "installed_same_tu_candidate_names": 34,
     "same_tu_candidates": {
       "FEM1__": [
         {
@@ -3798,30 +3801,6 @@
           "original_type": "int32_t (const int)"
         }
       ],
-      "Gv_AddVar": [
-        {
-          "binding": "Gv_AddVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_AndVar": [
-        {
-          "binding": "Gv_AndVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_DivVar": [
-        {
-          "binding": "Gv_DivVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
       "Gv_GetArrayAllocSize": [
         {
           "binding": "Gv_GetArrayAllocSize",
@@ -3836,62 +3815,6 @@
           "kind": "FunctionDecl",
           "linkage": "internal",
           "original_type": "int (const int, int)"
-        }
-      ],
-      "Gv_ModVar": [
-        {
-          "binding": "Gv_ModVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_MulVar": [
-        {
-          "binding": "Gv_MulVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_OrVar": [
-        {
-          "binding": "Gv_OrVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_ShiftVarL": [
-        {
-          "binding": "Gv_ShiftVarL",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_ShiftVarR": [
-        {
-          "binding": "Gv_ShiftVarR",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_SubVar": [
-        {
-          "binding": "Gv_SubVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
-        }
-      ],
-      "Gv_XorVar": [
-        {
-          "binding": "Gv_XorVar",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (const int, const int32_t)"
         }
       ],
       "NAKED1__": [
@@ -4112,6 +4035,347 @@
       ]
     },
     "candidates_are_not_proven_caller_bindings": true,
-    "complete_whole_program_measurement": false
+    "complete_whole_program_measurement": false,
+    "resolved_original_calls": [
+      "Gv_AddVar",
+      "Gv_AndVar",
+      "Gv_DivVar",
+      "Gv_ModVar",
+      "Gv_MulVar",
+      "Gv_OrVar",
+      "Gv_ShiftVarL",
+      "Gv_ShiftVarR",
+      "Gv_SubVar",
+      "Gv_XorVar"
+    ],
+    "original_call_contracts": [
+      {
+        "name": "Gv_AddVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_AddVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_AddVar",
+          "source_offset": 12519,
+          "body_sha256": "ebd3e60b2e6a4b60e5f625820e885ff56e1335375f8d0afbab4fac1ee6ffd50d",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12519,
+            "source_line": 282,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12539,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 282,
+              "col": 21,
+              "tokLen": 9,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "e0f50e7a5000326d34860eae65c02c9cb6d151030d10f69f091083dc4ebdbe57"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_AndVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_AndVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_AndVar",
+          "source_offset": 12659,
+          "body_sha256": "842db4f8c46396601138c3da317123a2c28f19be8c9852b117f12bd05aaf46ae",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12659,
+            "source_line": 286,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12679,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 286,
+              "col": 21,
+              "tokLen": 9,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "29345bb3ac63276f38131422ebbf9d84c4803423b4afc67ee4a92cc0697bf4a1"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_DivVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_DivVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_DivVar",
+          "source_offset": 11279,
+          "body_sha256": "ae10429e8b361c783fcd0edde036a64f3e07311daf561428ae0c52260c8a09d0",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 11279,
+            "source_line": 243,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "d2a6385350447b24580af3742846c386df49697c0d5658c72418cff48cd1abf0"
+      },
+      {
+        "name": "Gv_ModVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_ModVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_ModVar",
+          "source_offset": 12624,
+          "body_sha256": "db1ec6125982fe4f91b20b8e9aa6ecbef23d55b9baf818460c6d3cb89f3d49cb",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12624,
+            "source_line": 285,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12644,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 285,
+              "col": 21,
+              "tokLen": 9,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "405ad33e552c3f161782c46280834ff7dc48a3750ab2470b6a170f6c622b1cee"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_MulVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_MulVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_MulVar",
+          "source_offset": 12589,
+          "body_sha256": "3137b0e685d48d1ddb0a392397e8f5af35f673e0e3d460a062e98e47fd30f77b",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12589,
+            "source_line": 284,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12609,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 284,
+              "col": 21,
+              "tokLen": 9,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "1cee39b3aaeb97a480815c3322cc1204d43789dfa6c4d98e059d1112085f982c"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_OrVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL8Gv_OrVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_OrVar",
+          "source_offset": 12729,
+          "body_sha256": "abbec6beabf85ca3fb10a124a2ed61659fa90efc19a7781181a549ec2b15189f",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12729,
+            "source_line": 288,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12749,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 288,
+              "col": 21,
+              "tokLen": 8,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "95525ea8cea9b44e7628328bceaa17f6387bc86d0dc93fb323ab6b648aab9070"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_ShiftVarL",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL12Gv_ShiftVarLii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_ShiftVarL",
+          "source_offset": 12763,
+          "body_sha256": "fbaa7c12eac9d8e6e17a175344b956381fea74d63c0846c0a1903156c65664a1",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12763,
+            "source_line": 289,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12783,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 289,
+              "col": 21,
+              "tokLen": 12,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "0abfb4e174b74bbe1aca0a767f27fe1388aa26f1d8f893f307d4082078017ec6"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_ShiftVarR",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL12Gv_ShiftVarRii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_ShiftVarR",
+          "source_offset": 12802,
+          "body_sha256": "718f22b03955f06de232f90a5d9f0fa165de13fcc66d33bb89992c85c36e576b",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12802,
+            "source_line": 290,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12822,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 290,
+              "col": 21,
+              "tokLen": 12,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "ff012ce19ea86e85572115e60137521afc87e04d8b816b39a618fd5bf21028da"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_SubVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_SubVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_SubVar",
+          "source_offset": 12554,
+          "body_sha256": "555ecb3fd6ac1a8c44deb938c4d74fcc9dd078b01c0e5d1aba2425771607e357",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12554,
+            "source_line": 283,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12574,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 283,
+              "col": 21,
+              "tokLen": 9,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "91e89b12b9f338f709622499995891204a0bff316cb7293e70c27e4ca0cf152d"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "Gv_XorVar",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL9Gv_XorVarii",
+          "original_type": "void (const int, const int32_t)",
+          "source_name": "Gv_XorVar",
+          "source_offset": 12694,
+          "body_sha256": "34d8e23ab91acdfc57815411e6afe0737b296fcb065c60981e13bd775cba478a",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 12694,
+            "source_line": 287,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+            "expansion_token": "VM_GAMEVAR_OPERATOR",
+            "clang_spelling_location": {
+              "offset": 12714,
+              "file": "source/duke3d/src/gamevars.h",
+              "line": 287,
+              "col": 21,
+              "tokLen": 9,
+              "includedFrom": {
+                "file": "source/duke3d/src/game.h"
+              }
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "7cd773f396c994dda9175843c9c552dab5ffea8aa84f59ea666d33977d6e0219"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      }
+    ]
   }
 }
