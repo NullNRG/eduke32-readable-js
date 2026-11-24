@@ -66,6 +66,7 @@ for(let fileIndex=0;fileIndex<files.length;fileIndex++){
 def attest(owner_module, source, current_rows, old_values, current_code):
     from browser_target_closure import active_exports
 
+    owner_module = Path(owner_module).resolve()
     eligible = {}
     identity = ('source_header', 'source_offset', 'translation_unit', 'linkage')
     for row in current_rows:
