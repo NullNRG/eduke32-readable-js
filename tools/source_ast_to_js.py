@@ -2682,6 +2682,11 @@ class Emit:
         while kind(n) in WRAPPERS and kids(n):n=kids(n)[0]
         if kind(n)=='DeclRefExpr' and n.get('referencedDecl',{}).get('id') in getattr(self,'external_aggregate_globals',set()):
             raise Unsupported('external aggregate assignment requires verified copy/storage ABI')
+    def switch_integer_expression(self, node):
+        # Apply Clang's converted type on both sides of JS strict comparison.
+        # A source expression such as sizeof may emit a plain numeric literal.
+        native_type = resolve_scalar_storage_alias(qual(node), self.type_aliases)
+        return js_cast(self.expr(node), native_type)
     def statements(self,n,level=1):
         guard=n.get('_source_resume_guard')
         if guard and kind(n) not in ('CompoundStmt','DeclStmt','VarDecl','CaseStmt','DefaultStmt'):
@@ -2693,9 +2698,9 @@ class Emit:
         if k=='SourceResumeDispatchStmt':
             arms=[]
             for arm in n['arms']:
-                label='default' if arm['condition'] is None else 'case '+self.expr(arm['condition'])
+                label='default' if arm['condition'] is None else 'case '+self.switch_integer_expression(arm['condition'])
                 arms.append(pad+'  '+label+': '+n['selector']+' = '+json.dumps(arm['label'])+'; break;')
-            return pad+'switch ('+self.expr(n['condition'])+') {\n'+'\n'.join(arms)+'\n'+pad+'}'
+            return pad+'switch ('+self.switch_integer_expression(n['condition'])+') {\n'+'\n'.join(arms)+'\n'+pad+'}'
         if k=='SourceResumeLabelStmt':
             return (pad+'// Original resume label: '+n['name']+'\n'+pad+'if ('+
                 resume_allowed_expression(n['selector'],[n['name']])+') {\n'+pad+'  '+n['selector']+' = null;\n'+
@@ -3451,17 +3456,13 @@ class Emit:
             else:inner=level
             padinner='  '*inner
             arms=self.statements(a[-1],inner+1)
-            statement=padinner+control+f'switch ({self.expr(a[int(has_init)])}) {{\n{arms}\n{padinner}}}'
+            condition = self.switch_integer_expression(a[int(has_init)])
+            statement=padinner+control+f'switch ({condition}) {{\n{arms}\n{padinner}}}'
             if has_init:return pad+'{\n'+initializer+'\n'+statement+'\n'+pad+'}'
             return statement
         if k=='CaseStmt':
             if len(a)<2:raise Unsupported('case layout')
-            # Clang has converted the case ConstantExpr to the promoted
-            # switch domain. sizeof/alignof may emit a numeric literal even
-            # though that native type is size_t: JS strict case comparison
-            # must still use BigInt for the converted 64/128-bit label.
-            case_type=resolve_scalar_storage_alias(qual(a[0]),self.type_aliases)
-            label=pad+f'case {js_cast(self.expr(a[0]),case_type)}:'
+            label=pad+f'case {self.switch_integer_expression(a[0])}:'
             if kind(a[-1]) in ('CaseStmt','DefaultStmt'):
                 return label+'\n'+self.statements(a[-1],level)
             return label+' {\n'+self.statements(a[-1],level+1)+'\n'+pad+'}'
