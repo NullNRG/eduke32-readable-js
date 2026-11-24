@@ -849,15 +849,6 @@ export function __cxx_global_cell_9541123d8c6d2c52896ac26a() {
 }
 
 // C/C++ source: source/build/include/compat.h:1169
-export const pow2char__header_global_712730224f5e2862 = new Uint8Array([(u32(1) & 255), (u32(2) & 255), (u32(4) & 255), (u32(8) & 255), (u32(16) & 255), (u32(32) & 255), (u32(64) & 255), (u32(128) & 255)]);
-function __cxx_static_address_3dbbd23dc4df226e70c52d7b() {
-  return __cxx_static_address_3dbbd23dc4df226e70c52d7b.reference || (__cxx_static_address_3dbbd23dc4df226e70c52d7b.reference = {
-    __cReference: true,
-    get value() { return pow2char__header_global_712730224f5e2862; },
-    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
-  });
-}
-export function __cxx_private_cell_3dbbd23dc4df226e70c52d7b() { return __cxx_static_address_3dbbd23dc4df226e70c52d7b(); }
 
 // C/C++ source: source/build/include/build.h:810
 export let palookup = cPointerArray(256);

@@ -14,3 +14,6 @@ export { hudweap, __cxx_global_cell_428db7966f68b580bdb8b8d9 } from "./_source_l
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { P_GetHudPal } from "./_source_legacy_player_cpp_33efc406baff.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { g_lastInputTicks, __cxx_global_cell_579cbee071346f2d65498ce0 } from "./_source_legacy_player_cpp_94de5c84d61d.mjs";

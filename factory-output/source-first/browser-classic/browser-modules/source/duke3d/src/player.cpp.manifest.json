@@ -70,8 +70,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\player.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 17,
-  "emitted": 17,
+  "found": 18,
+  "emitted": 18,
   "blocked": 0,
   "definitions": [
     {
@@ -551,6 +551,26 @@
         "sprite"
       ],
       "unresolved_references": []
+    },
+    {
+      "name": "g_lastInputTicks",
+      "source_name": "g_lastInputTicks",
+      "kind": "VarDecl",
+      "line": 3017,
+      "original_type": "unsigned long",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/player.cpp",
+      "source_references": [],
+      "external_reference_imports": [],
+      "global_storage": {
+        "binding": "__cxx_global_cell_579cbee071346f2d65498ce0",
+        "abi": "source-global-cell/2",
+        "original_type": "unsigned long"
+      },
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -988,6 +1008,12 @@
         "abi": "source-record-field-storage/1",
         "sha256": "5bf061e827b1549bf6e55eeb57f6b2ba36f55c9c1a7a0727d3ce3d3a31eb7cb4"
       }
+    },
+    {
+      "name": "g_lastInputTicks",
+      "binding": "__cxx_global_cell_579cbee071346f2d65498ce0",
+      "abi": "source-global-cell/2",
+      "original_type": "unsigned long"
     }
   ],
   "private_storage_exports": [],
@@ -1111,6 +1137,21 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "5b57f69b0113c235454d132937bb739fad00d886fee63495ec37bb9e946c9e00"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_player_cpp_94de5c84d61d.mjs",
+      "sha256": "94de5c84d61d22b7422c8f5f9d6b29641e8a68e1d0b256d8498f76b3df80c4a6",
+      "original_source": "source/duke3d/src/player.cpp",
+      "exports": [
+        "g_lastInputTicks"
+      ],
+      "reexports": [
+        "g_lastInputTicks",
+        "__cxx_global_cell_579cbee071346f2d65498ce0"
+      ],
+      "imports": [],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "908261b1dfd9cc47b03b5038215f9e97d598fd4b4f8fe266f2cb9f14cbcb7305"
     }
   ]
 }

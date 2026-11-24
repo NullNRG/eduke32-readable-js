@@ -1021,7 +1021,7 @@ export { apptitle, numsectors, numwalls, r_displayindex, validmode, __cxx_global
 export { pow2char__header_global_712730224f5e2862, qsetmode, xdim, ydim, ylookup, __cxx_private_cell_3dbbd23dc4df226e70c52d7b, __cxx_global_cell_6fba320e7d23de23519fe332, __cxx_global_cell_22f848239c12c0d9f2b6f9e3, __cxx_global_cell_ce636929c03d679219ea2982, __cxx_global_cell_6ef139bca6611fb821515c5d } from "./_source_legacy_engine_cpp_b109dbbe1c92.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
-export { inpreparemirror, mirrorBuffer, palookup, __cxx_global_cell_9541123d8c6d2c52896ac26a, __cxx_global_cell_96cc27380f17556df4ccc300 } from "./_source_legacy_engine_cpp_bb4ab6fdc107.mjs";
+export { inpreparemirror, mirrorBuffer, palookup, __cxx_global_cell_9541123d8c6d2c52896ac26a, __cxx_global_cell_96cc27380f17556df4ccc300 } from "./_source_legacy_engine_cpp_e63d41b450e8.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { printext256 } from "./_source_legacy_engine_cpp_c106aed1475b.mjs";
