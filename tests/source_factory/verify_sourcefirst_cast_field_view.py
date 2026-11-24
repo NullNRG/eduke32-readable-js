@@ -22,15 +22,23 @@ template<class T> struct Vec {
     T x, y;
     const Vec<T> operator+(const Vec<T>& rhs) const { return {x+rhs.x,y+rhs.y}; }
 };
-struct Sprite { Vec<int> position; int player; int neighbor; };
+struct Sprite {
+    Vec<int> position;
+    union { struct { int player; }; int raw_player; };
+    int neighbor;
+};
 ''')
     (root / 'unit.cpp').write_text('''#include "types.hpp"
 extern "C" int player(const void* sprite){return ((const Sprite*)sprite)->player;}
 extern "C" int advance(void* sprite,int delta){return ((Sprite*)sprite)->player+=delta;}
+extern "C" int neighbor(const void* sprite){return ((const Sprite*)sprite)->neighbor;}
 extern "C" int sample(int n){
     Vec<int> a{n,11}, b{9,5};
-    Sprite local{a+b,n,12345};
-    return advance(&local,n*3)+player(&local)+local.position.x+local.neighbor;
+    Sprite local{};
+    local.position=a+b;
+    local.player=n;
+    local.neighbor=12345;
+    return advance(&local,n*3)+player(&local)+local.position.x+neighbor(&local);
 }
 ''')
     (root / 'main.cpp').write_text('''#include <cstdio>
@@ -50,7 +58,7 @@ int main(){for(int n=-256;n<256;n++)printf("%d\\n",sample(n));}
     rows = {row['name']: row for row in manifest['definitions']}
     factories = {row['name'] for row in rows.values() if row.get('header_record_factory')}
     assert factories, 'The aggregate must instantiate a real vector prototype'
-    for name in ('player', 'advance'):
+    for name in ('player', 'advance', 'neighbor'):
         row = rows[name]
         dependencies = {*row.get('source_references', []), *row.get('external_imports', [])}
         assert not dependencies & factories, (name, dependencies, factories)

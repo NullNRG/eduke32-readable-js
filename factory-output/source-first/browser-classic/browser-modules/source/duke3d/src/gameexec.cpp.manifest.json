@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\gameexec.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 88,
-  "emitted": 88,
+  "found": 91,
+  "emitted": 91,
   "blocked": 0,
   "definitions": [
     {
@@ -3985,6 +3985,145 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "A_CheckEnemySprite",
+      "source_name": "A_CheckEnemySprite",
+      "kind": "FunctionDecl",
+      "line": 511,
+      "original_type": "int (const void *const)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL18A_CheckEnemySpritePKv",
+        "original_type": "int (const void *const)",
+        "source_name": "A_CheckEnemySprite",
+        "source_offset": 15787,
+        "body_sha256": "8baeca57968ead80dc35b16705cab9b1508c0d84712b130ccbabf7288ccb88b5",
+        "original_definition": {
+          "source_header": "source/duke3d/src/actors.h",
+          "source_offset": 15787,
+          "source_line": 511,
+          "header_sha256": "f98fdb13f2f3736c11b40fd0584c9f7dd5ea31d4d9636e890362c5d9869dc4d2"
+        }
+      },
+      "original_header_function": {
+        "source_header": "source/duke3d/src/actors.h",
+        "source_offset": 15787,
+        "source_line": 511,
+        "header_sha256": "f98fdb13f2f3736c11b40fd0584c9f7dd5ea31d4d9636e890362c5d9869dc4d2"
+      },
+      "physical_source": "source/duke3d/src/actors.h",
+      "source_references": [
+        "A_CheckEnemyTile__header_c07f565e0d70"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "A_CheckEnemyTile__header_c07f565e0d70",
+      "source_name": "A_CheckEnemyTile",
+      "kind": "FunctionDecl",
+      "line": 471,
+      "original_type": "int (const int)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL16A_CheckEnemyTilei",
+        "original_type": "int (const int)",
+        "source_name": "A_CheckEnemyTile",
+        "source_offset": 14197,
+        "body_sha256": "7ddfb508562dab6a17eeb7056e995295e0a6cfe127d1e47b5e2f1234f24e6f1a",
+        "original_definition": {
+          "source_header": "source/duke3d/src/actors.h",
+          "source_offset": 14197,
+          "source_line": 471,
+          "header_sha256": "f98fdb13f2f3736c11b40fd0584c9f7dd5ea31d4d9636e890362c5d9869dc4d2"
+        }
+      },
+      "original_header_function": {
+        "source_header": "source/duke3d/src/actors.h",
+        "source_offset": 14197,
+        "source_line": 471,
+        "header_sha256": "f98fdb13f2f3736c11b40fd0584c9f7dd5ea31d4d9636e890362c5d9869dc4d2"
+      },
+      "physical_source": "source/duke3d/src/actors.h",
+      "source_references": [
+        "g_tile"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "g_tile",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "g_tile"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "P_GetP",
+      "source_name": "P_GetP",
+      "kind": "FunctionDecl",
+      "line": 422,
+      "original_type": "int (const void *)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL6P_GetPPKv",
+        "original_type": "int (const void *)",
+        "source_name": "P_GetP",
+        "source_offset": 15971,
+        "body_sha256": "f5697814a2757de6fb76b5428311c232baa97c33614f5e6319b7a0280df33cd8",
+        "original_definition": {
+          "source_header": "source/duke3d/src/player.h",
+          "source_offset": 15971,
+          "source_line": 422,
+          "header_sha256": "27240f06153d01749f1881f4d46544ab18d73d31ed08c82c80da86986f893dcb"
+        }
+      },
+      "original_header_function": {
+        "source_header": "source/duke3d/src/player.h",
+        "source_offset": 15971,
+        "source_line": 422,
+        "header_sha256": "27240f06153d01749f1881f4d46544ab18d73d31ed08c82c80da86986f893dcb"
+      },
+      "physical_source": "source/duke3d/src/player.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -5441,6 +5580,48 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "07b8830239040e8dcfc9a14f0b2204f3777abf5270efd030906de38696de47d5"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_gameexec_cpp_26a04fef9afd.mjs",
+      "sha256": "26a04fef9afd4b392619bbdda00cec47bd5782a5cdabb24e54394abf80ab64e1",
+      "original_source": "source/duke3d/src/gameexec.cpp",
+      "exports": [
+        "A_CheckEnemySprite",
+        "A_CheckEnemyTile__header_c07f565e0d70",
+        "P_GetP"
+      ],
+      "reexports": [
+        "A_CheckEnemySprite",
+        "A_CheckEnemyTile__header_c07f565e0d70",
+        "P_GetP"
+      ],
+      "imports": [
+        {
+          "name": "g_tile",
+          "from": "source/duke3d/src/global.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "abi": "source-byte-record-array/1",
+          "stride": 40,
+          "dimensions": [
+            30720
+          ],
+          "schema_sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11",
+          "original_type": "tiledata_t[30720]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "c3c38c5e40a381b593fea9414a3835428a93926faad075febf3d0f4656dc3e11"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "e758ffcb2dd2c0e796fd896233fe308e586242368e208458e354c726186c8c11"
     }
   ],
   "superseded_module_fragments": [

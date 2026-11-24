@@ -10,7 +10,21 @@ import recover_browser_component as component
 from browser_target_closure import active_exports,build
 def source_lowered(row):
     return row.get('status')=='source-first' or row.get('reason','').startswith('unlinked identifiers:')
-def main():
+def retryable_roots(requested, definitions, affected, existing):
+    """Select exact, closed functions from the rejected batch for fresh emission."""
+    roots = []
+    for name in requested:
+        candidates = [row for row in definitions if row.get('source_name') == name]
+        if len(candidates) != 1:
+            continue
+        row = candidates[0]
+        if (row.get('kind') == 'FunctionDecl' and row['status'] == 'source-first'
+                and row['name'] not in affected and row['name'] not in existing):
+            roots.append(name)
+    return roots
+
+
+def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('source');parser.add_argument('names')
     parser.add_argument('--query-limit',type=int,default=256)
     parser.add_argument('--probe-only',action='store_true',help='Save a separate targeted frontier without installing partial work')
@@ -18,7 +32,7 @@ def main():
     parser.add_argument('--whole-unit',action='store_true',help='Extract an original unit once; reuse existing storage and install only ABI-verified new definitions')
     parser.add_argument('--install-closed-leaves',action='store_true',help='Install verified dependencies while keeping a blocked requested root unresolved')
     parser.add_argument('--reuse-manifest',type=Path,help='Require current compiler and preprocessor content fingerprints before reusing an emission')
-    args=parser.parse_args();source,names=args.source,args.names;out=component.OUT;base=component.BASE
+    args=parser.parse_args(argv);source,names=args.source,args.names;out=component.OUT;base=component.BASE
     if args.query_limit<1:parser.error('--query-limit must be positive')
     suffix='-'+re.sub(r'[^A-Za-z0-9_]','_',names) if args.probe_only else ''
     frontier_path=base/'reports'/('frontier-'+source.replace('/','_')+suffix+'.json')
@@ -89,11 +103,12 @@ def main():
             raise ValueError('Saved source/header/configuration/toolchain content fingerprint differs')
         stage=manifest.parents[len(Path(source).parts)-1]
     else:
+        rejected_path=stage/(source+'.rejected-imports.json')
+        previous_rejection=rejected_path.stat().st_mtime_ns if rejected_path.is_file() else None
         with (stage/'compile.log').open('w') as log:
             result=subprocess.run(list(map(str,command)),cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         if result.returncode:
-            rejected_path=stage/(source+'.rejected-imports.json')
-            if rejected_path.is_file():
+            if rejected_path.is_file() and rejected_path.stat().st_mtime_ns != previous_rejection:
                 from source_ast_to_js import compiler_runtime_revision
                 rejected=json.loads(rejected_path.read_text(encoding='utf-8'))
                 if (rejected.get('source')==source and rejected.get('compiler_runtime_input_sha256')==compiler_runtime_revision()
@@ -114,7 +129,30 @@ def main():
                         'compiler_runtime_input_sha256':rejected['compiler_runtime_input_sha256'],
                         'probe_only':args.probe_only,'installed':False,'original_gameplay_verified':False}
                     frontier_path.write_text(json.dumps(frontier,indent=2)+'\n',encoding='utf-8')
-                    print(json.dumps({'installed':False,'rejected_imports':len(rejected['rejected_imports']),
+                    if args.install_closed_leaves and not args.probe_only:
+                        roots = retryable_roots(frontier['requested'], definitions, affected, existing)
+                        if roots and len(roots) < len(frontier['requested']):
+                            # A second, smaller compile runs the same emitter and
+                            # strict installer. Rejected batch bytes never install.
+                            retry = [source, ','.join(roots), '--query-limit', str(args.query_limit)]
+                            if args.included_functions:
+                                retry.append('--included-functions')
+                            print('Retry independent original definitions: ' + ', '.join(roots), flush=True)
+                            try:
+                                code = main(retry)
+                                detail = json.loads(frontier_path.read_text(encoding='utf-8'))
+                                frontier['independent_retry'] = {
+                                    'requested': roots, 'exit_code': code, 'result': detail}
+                                if code == 0:
+                                    for name in roots:
+                                        frontier['requested_compiled'][name] = True
+                                        frontier['requested_resolved'][name] = True
+                                    frontier['requested_still_unlinked'] = [
+                                        name for name, resolved in frontier['requested_resolved'].items() if not resolved]
+                                    frontier['installed'] = bool(detail.get('installed_closed_definitions'))
+                            finally:
+                                frontier_path.write_text(json.dumps(frontier, indent=2)+'\n', encoding='utf-8')
+                    print(json.dumps({'installed':frontier['installed'],'rejected_imports':len(rejected['rejected_imports']),
                         'affected_definitions':len(affected),'frontier':frontier_path.relative_to(ROOT).as_posix()},indent=2))
                     return result.returncode
             result.check_returncode()

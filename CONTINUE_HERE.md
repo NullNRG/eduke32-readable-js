@@ -23,7 +23,9 @@ Read reports/nov23-header-value-regressions.json for the 13 targeted tests on th
 
 ## November 24 original scalar writes
 
-Run `python work/verify_original_vm_leaf_operations.py` after loading `work/session-env.ps1` to compare the installed writer and angle helper against native C++. The first mixed helper batch exposed vec2/vec3 factory requirements even in `P_GetP`, whose original body reads a scalar sprite field through a pointer cast. Its emitter materializes the full record before the field projection. Keep the native extent and alignment checks while eliminating unused prototype materialization only for a verified leaf access.
+Run `python work/verify_original_vm_leaf_operations.py` after loading `work/session-env.ps1` to compare the installed writer and angle helper against native C++. The first mixed helper batch exposed vec2/vec3 factory requirements even in `P_GetP`, whose original body reads a scalar sprite field through a pointer cast. The compiler now projects direct scalar accesses through opaque-pointer casts onto the checked native field view. The new regression proves reads and writes while preserving native extent and alignment. The 91-name VM diagnostic predates this field change. Actor addresses also propagate through VM state, so the scalar fix alone cannot establish the actor array contract.
+
+Original `P_GetP` and `A_CheckEnemySprite` now link through the scalar field path, together with their enemy tile flag dependency. Run `python work/verify_original_sprite_queries.py` to compare the original exports with native C++ in the selected classic configuration. Recompute the VM frontier after the installed source changes before updating the 91-name measurement.
 
 ## Completed checkpoint: original CON division
 

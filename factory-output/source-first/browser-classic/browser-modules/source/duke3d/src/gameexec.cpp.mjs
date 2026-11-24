@@ -29,3 +29,6 @@ export { Gv_DivVar } from "./_source_legacy_gameexec_cpp_d2a638535044.mjs";
 
 // Original Clang-generated fragment; imports existing owner storage.
 export { G_GetAngleDelta, VM_SetStruct } from "./_source_legacy_gameexec_cpp_fb5e2304f79d.mjs";
+
+// Original Clang-generated fragment; imports existing owner storage.
+export { A_CheckEnemySprite, A_CheckEnemyTile__header_c07f565e0d70, P_GetP } from "./_source_legacy_gameexec_cpp_26a04fef9afd.mjs";

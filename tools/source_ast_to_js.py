@@ -1098,23 +1098,62 @@ class Emit:
             return view
         return None
 
-    def record_member_object_expr(self, pointer, field_name):
+    def anonymous_member_name(self, node):
+        names = {identity: field for record in self.aggregate_records.values()
+                 for identity, field in record.get('anonymous_members', {}).items()}
+        name = names.get(node.get('referencedMemberDecl'))
+        if name:
+            return name
+        names = {record.get('anonymous_member_types', {}).get(clean_record_type(qual(node)))
+                 for record in self.aggregate_records.values()} - {None}
+        return next(iter(names)) if len(names) == 1 else None
+
+    def opaque_scalar_field_object(self, member, field_name):
         # The pointer cast directly feeds one original Clang field access.
         # An opaque address needs only its checked leaf view, not prototypes
         # for unrelated members of the enclosing record.
-        cast = pointer
+        if not field_name:
+            return None
+        selected = member
+        cast = kids(selected)[0]
+        path = []
+        while kind(cast) == 'MemberExpr' and not cast.get('name') and len(kids(cast)) == 1:
+            name = self.anonymous_member_name(cast)
+            if not name:
+                return None
+            path.append(name)
+            selected = cast
+            cast = kids(cast)[0]
+        if not selected.get('isArrow'):
+            return None
         while kind(cast) == 'ParenExpr' and len(kids(cast)) == 1:
             cast = kids(cast)[0]
         operands = kids(cast)
-        if (field_name and kind(cast) in ('CStyleCastExpr','CXXStaticCastExpr','CXXReinterpretCastExpr')
+        if (kind(cast) in ('CStyleCastExpr','CXXStaticCastExpr','CXXReinterpretCastExpr')
                 and cast.get('castKind') == 'BitCast' and len(operands) == 1
                 and re.fullmatch(r'(?:(?:const|volatile)\s+)*void\s*\*', qual(operands[0]))):
             owner = normalized_record_name(qual(cast).rstrip().rstrip('*').strip(), self.type_aliases)
             schema = self.global_storage_records.get(owner, {}).get('byte_schema')
-            view = self.scalar_record_field_view(schema, field_name)
-            if view and schema_has_prototype(schema):
+            if not schema_has_prototype(schema):
+                return None
+            record = schema
+            offset = 0
+            for name in reversed(path):
+                field = record.get('fields', {}).get(name, {})
+                if 'byteRecord' not in field:
+                    return None
+                offset += field['offset']
+                record = field['byteRecord']
+            leaf = self.scalar_record_field_view(record, field_name)
+            if leaf:
+                field = leaf['fields'][field_name]
+                if path and field.get('bitfield'):
+                    return None
+                view = {**schema, 'fields': {field_name: {**field, 'offset': offset + field['offset']}},
+                        'fieldView': True}
+                view.pop('prototype', None)
                 return 'cRecordObject(cRecordPointer('+self.expr(operands[0])+', '+json.dumps(view,sort_keys=True)+'))'
-        return self.record_object_expr(qual(pointer), self.expr(pointer), field_name)
+        return None
 
     def record_object_expr(self,pointer_type,expression,field_name=None):
         """Use the same original storage for field reads, addresses and updates."""
@@ -1486,14 +1525,7 @@ class Emit:
                 if n.get('isArrow'):receiver='cRecordObject('+receiver+')'
                 return '('+receiver+').'+evidence['destroy_symbol']
             if not name:
-                names={identity:field for record in self.aggregate_records.values()
-                       for identity,field in record.get('anonymous_members',{}).items()}
-                name=names.get(n.get('referencedMemberDecl'),'')
-                if not name:
-                    physical_names={record.get('anonymous_member_types',{}).get(clean_record_type(qual(n)))
-                        for record in self.aggregate_records.values()}
-                    physical_names.discard(None)
-                    if len(physical_names)==1:name=next(iter(physical_names))
+                name=self.anonymous_member_name(n) or ''
             if self.raw_record_receiver(a[0],n.get('isArrow',False)) and name:
                 owner=normalized_record_name(qual(a[0]).rstrip(' *&'),self.type_aliases)
                 schema=getattr(self,'record_storage_views',{}).get(owner,{}).get('byte_schema',{})
@@ -1537,11 +1569,12 @@ class Emit:
             # pointer representation: it may be a reference, array relocation,
             # or original class object. Resolve through the common ABI.
             declaration=self.source_field_declaration(n)
-            if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
-                field_name=name if kind(declaration)=='FieldDecl' else None
-                receiver=self.record_member_object_expr(a[0],field_name)
-            else:
+            field_name=name if kind(declaration)=='FieldDecl' else None
+            receiver=self.opaque_scalar_field_object(n,field_name)
+            if receiver is None:
                 receiver=self.expr(a[0])
+                if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
+                    receiver=self.record_object_expr(qual(a[0]),receiver,field_name)
             member=receiver+'.'+name
             return member+'.value' if self.scalar_reference(qual(declaration)) else member
         if k=='ArraySubscriptExpr':
@@ -2692,11 +2725,12 @@ class Emit:
             return f'cArrayRef({self.expr(a[0])}, {self.expr(a[1])})'
         if k=='MemberExpr' and re.fullmatch(r'[A-Za-z_$][\w$]*',n.get('name','')):
             declaration=self.source_field_declaration(n)
-            if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
-                field_name=n['name'] if kind(declaration)=='FieldDecl' else None
-                receiver=self.record_member_object_expr(a[0],field_name)
-            else:
+            field_name=n['name'] if kind(declaration)=='FieldDecl' else None
+            receiver=self.opaque_scalar_field_object(n,field_name)
+            if receiver is None:
                 receiver=self.expr(a[0])
+                if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
+                    receiver=self.record_object_expr(qual(a[0]),receiver,field_name)
             if self.scalar_reference(qual(declaration)):return receiver+'.'+n['name']
             return f'cObjectFieldRef({receiver}, {json.dumps(n["name"])})'
         if k in ('CallExpr','CXXMemberCallExpr'):

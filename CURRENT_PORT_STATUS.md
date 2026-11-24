@@ -6,9 +6,11 @@ The original Build engine renders a raw E1L1 scene in Chromium through readable 
 
 The active component includes the original `VM_SetStruct` and `G_GetAngleDelta`. Chromium matched the native C++ source on 768 scalar writes and 2,049 angle deltas. The writer test checks every byte, including adjacent bytes that must stay intact. The compiler also normalizes the switch expression and labels to their Clang integer types, including in recovered resume dispatches. Four targeted regressions pass. [Original function results](reports/nov24-original-vm-leaves.json) · [Compiler regressions](reports/nov24-switch-discriminant-regressions.json)
 
-The renderer image below is from the November 23 module set. The new module set is undergoing the same Chromium render check. The original game entry point is still absent. The November 23 diagnostic below gives the prior VM count.
+The bounded VM probe after installing both helpers reports **91 unresolved names**, down from 93. Its two rejected imports still require an actor alias and nested prototype proof and a compatible vec3 factory. It was measured before the subsequent scalar field compiler fix, which passes six targeted regressions. The original game entry point is still absent. [VM diagnostic](reports/nov24-vm-provider-frontier.json) · [Field and pointer regressions](reports/nov24-cast-field-regressions.json)
 
-## Latest shared-provider and integer-semantics checkpoint
+Opaque pointer casts used directly for scalar member access now preserve the original field offset through anonymous unions and structs. The compiler keeps the original object extent and alignment checks. Original `P_GetP`, `A_CheckEnemySprite` and the enemy tile flag helper link. Chromium matched native C++ on 512 original sprite queries, and all seven field and pointer regressions passed. [Sprite queries](reports/nov24-original-sprite-queries.json) · [Regressions](reports/nov24-anonymous-cast-regressions.json)
+
+## November 23 shared-provider and integer-semantics checkpoint
 
 Nineteen existing original helpers now have verified same-TU callable contracts; together with the ten CON operators, 29 calls bind through original Clang identity and implementation bytes. Typed readers were recompiled after fixing native 64-bit switch labels emitted as JavaScript Numbers. Shared constant lowering now substitutes only Clang-proven non-ODR integral uses; address and volatile uses retain storage dependencies.
 

@@ -97,6 +97,8 @@ def selected(root,public=False):
                  'current_release_acceptance_report','header_witness_restoration_report')
     report_keys+=('current_tu_callable_closure_report','original_con_callable_contract_install_report',
                   'original_con_division_callable_contract_install_report','original_tu_operator_runtime_report')
+    report_keys+=('current_provider_closure_report','original_bulk_helper_report','original_typed_reader_report',
+                  'original_vm_leaf_report','original_sprite_query_report','current_cast_field_source_probe')
     for key in report_keys:
         if snapshot.get(key):add(package_tool.safe_path(root,snapshot[key]))
     for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):
