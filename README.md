@@ -5,16 +5,14 @@ This project translates original EDuke32 game/Build C/C++ source into readable J
 **Current status: original engine rendering works; original game boot and playable gameplay are not verified. No verified playable dist/index.html exists.**
 
 - Original E1L1 GRP/ART/MAP loading, palettes, room/mask rendering, font initialization and presentation execute in Chromium with zero page exceptions.
-- Nine original CON arithmetic helpers match 1,512 native mutations across seven storage modes. Eight original fixed-point arithmetic functions match 4,192 native/Chromium values.
-- Original CON division additionally passes 783 native/Chromium operations and 3,132 checked values. Ten targeted compiler/linker regressions pass on the current November 23 compiler. All ten operator calls now bind inside original VM source; its bounded unresolved-reference count falls from 136 to 126. The component audit has zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings. Whole-program release acceptance remains blocked.
+- Native comparison covers the original CON arithmetic and division helpers. The new original scalar writer, angle delta and sprite query tests pass in Chromium.
+- Original game startup still needs CON and menu closure, including actor array aliases and compatible vector factories. The [VM diagnostic](reports/nov24-vm-provider-frontier.json) lists the unresolved names and rejected imports for its recorded build.
 
-[Current status and evidence](CURRENT_PORT_STATUS.md) · [How to continue and what to fix](CONTINUE_HERE.md) · [Machine-readable issues](reports/nov23-continuation-frontier.json) · [Continuation prompt](LLM_CONTINUATION_PROMPT.md)
+[Current status and evidence](CURRENT_PORT_STATUS.md) · [Continuation commands](CONTINUE_HERE.md) · [Release tracker](https://github.com/NullNRG/eduke32-readable-js/issues/2)
 
-[Release-blocker tracker #2](https://github.com/NullNRG/eduke32-readable-js/issues/2) records the dependency order, affected tools and verification required for the original game release. The November 23 checkpoint adds same-switch terminal-break recovery, JavaScript-safe goto declarations and original CON division; original-game integration is verified separately.
+![Original JavaScript Build renderer, E1L1 map capture](reports/evidence/nov24-original-text-startup.png)
 
-![Original JavaScript Build renderer — raw E1L1 engine test, not gameplay](reports/evidence/nov23-original-text-startup.png)
-
-[Current rendering evidence](reports/nov23-original-text-startup-frame.json) binds the capture to actual module/runtime bytes. Use `npm run serve:project` and engine-player.html for the local GRP/MAP engine preview. Public assets are user-supplied; the preview is not a completed game session.
+[Renderer evidence](reports/nov24-original-text-startup-frame.json) records the module hashes and browser trace. Run `npm run serve:project` and open the engine preview to load a local GRP and MAP.
 
 ## Build and development
 
