@@ -1,0 +1,99 @@
+{
+  "source": "source/duke3d/src/game.cpp",
+  "requested": [
+    "G_InitTimer",
+    "gameTimerHandler",
+    "G_HandleSpecialKeys"
+  ],
+  "requested_resolved": {
+    "G_InitTimer": false,
+    "gameTimerHandler": false,
+    "G_HandleSpecialKeys": false
+  },
+  "requested_lowered": {
+    "G_InitTimer": true,
+    "gameTimerHandler": true,
+    "G_HandleSpecialKeys": true
+  },
+  "requested_compiled": {
+    "G_InitTimer": false,
+    "gameTimerHandler": false,
+    "G_HandleSpecialKeys": false
+  },
+  "requested_still_unlinked": [
+    "G_InitTimer",
+    "gameTimerHandler",
+    "G_HandleSpecialKeys"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-c6a331aef4af94db/source/duke3d/src/game.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "gameTimerHandler",
+      "reason": "unlinked identifiers: G_HandleSpecialKeys",
+      "dependencies": [
+        "G_HandleSpecialKeys"
+      ]
+    },
+    {
+      "name": "G_HandleSpecialKeys",
+      "reason": "unlinked identifiers: G_UpdateScreenArea, videoCaptureScreen",
+      "dependencies": [
+        "G_UpdateScreenArea",
+        "videoCaptureScreen"
+      ]
+    },
+    {
+      "name": "G_GameExit",
+      "reason": "unlinked identifiers: G_BonusScreen, G_DisplayExtraScreens",
+      "dependencies": [
+        "G_BonusScreen",
+        "G_DisplayExtraScreens"
+      ]
+    },
+    {
+      "name": "G_InitTimer",
+      "reason": "unlinked identifiers: gameTimerHandler",
+      "dependencies": [
+        "gameTimerHandler"
+      ]
+    },
+    {
+      "name": "G_Cleanup",
+      "reason": "unlinked identifiers: G_FreeHashAnim, newgamechoices_recursive_free",
+      "dependencies": [
+        "G_FreeHashAnim",
+        "newgamechoices_recursive_free"
+      ]
+    },
+    {
+      "name": "G_Shutdown",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, G_Cleanup, S_MusicShutdown, S_SoundShutdown",
+      "dependencies": [
+        "CONFIG_WriteSetup",
+        "G_Cleanup",
+        "S_MusicShutdown",
+        "S_SoundShutdown"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_58b695402eef",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue, VM_HaveEvent",
+      "dependencies": [
+        "VM_ExecuteEventWithValue",
+        "VM_HaveEvent"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "562d3dc513b1562d02b0f04bc3bc760d358036699608fa062703b24eff0e7ce4",
+  "provider_index_sha256": "989cb9b7586fa21401c1833d78347e582e5e25743f07b6e4c6a3544119650d47",
+  "query_limit": 12,
+  "dependency_budget_exhausted": true,
+  "unqueried_references": [
+    "G_FreeHashAnim",
+    "VM_ExecuteEventWithValue",
+    "VM_HaveEvent",
+    "newgamechoices_recursive_free"
+  ],
+  "probe_only": false
+}

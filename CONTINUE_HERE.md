@@ -1,6 +1,6 @@
 # Continue the canonical EDuke32 JavaScript port
 
-Work in the existing repository. Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov23-continuation-frontier.json first. These distinguish source lowering, linking, execution and gameplay. Do not assume that the rendered raw-map preview is an original game session.
+Work in the existing repository. Read CURRENT_PORT_STATUS.md, HANDOFF_SNAPSHOT.json and reports/nov24-vm-current-frontier.json first. These distinguish source lowering, linking, execution and gameplay. Do not assume that the rendered raw-map preview is an original game session.
 
 ## Reproduce the verified checkpoint
 
@@ -20,6 +20,12 @@ python tools/recover_browser_component.py --snapshot
 ```
 
 Read reports/nov23-header-value-regressions.json for the 13 targeted tests on the latest compiler and reports/nov19-final-shared-regressions.json for the earlier 20-test checkpoint and its fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
+
+## November 24 storage and sector follow-up
+
+After loading `work/session-env.ps1`, run `python work/verify_original_script_relocation.py` and `python work/verify_original_sector_tags.py`. The active engine and savegame storage have single owners. Keep the pointer relocation parity checks when changing the CON loader. The current launcher engine test passes after normal engine-first initialization. Sector-first import fails while initializing save descriptor entries that evaluate `ARRAY_SIZE(g_origins)` at runtime. Lower the verified original compile-time extent and preserve original pointer bytes and order for the remaining initializer entries.
+
+The timer storage is installed. Close `G_UpdateScreenArea` and `videoCaptureScreen` before relinking the timer callback chain. The newest completed VM probe used the modules before that timer storage and the four sector helpers were installed. Use the fresh 89-name report as its measured scope and recompile affected definitions.
 
 ## November 24 original scalar writes
 

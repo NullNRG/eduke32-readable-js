@@ -2,6 +2,12 @@
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
 
+## November 24 storage and sector checkpoint
+
+The active module audit now finds zero duplicate source storage and zero invalid imports. The original engine constant keeps a single address cell. Recompiling the original `G_Util_PtrToIdx2` replaced a historical savegame shard with a single active function and preserved its native relocation behavior across 40,960 compared words. The original player timer cell is linked. Four sector helpers link, with 4,096 native/Chromium values checked for the two sector tag queries. [Relocation parity](reports/nov24-original-script-relocation-full-parity.json) · [Sector parity](reports/nov24-original-sector-tags.json)
+
+The latest completed bounded VM probe measured 89 unresolved names and two ABI rejections affecting four candidates before the timer and sector installs. The timer lowers but remains behind `G_UpdateScreenArea` and `videoCaptureScreen`. The normal engine-first browser startup test passes on the active modules. A sector-first import exposes an eager savegame initializer that reads `g_origins` to compute its fixed array extent. This is a separate initialization ordering blocker. [VM frontier](reports/nov24-vm-current-frontier.json) · [Timer frontier](reports/nov24-original-game-timer-frontier.json) · [Current engine verification](reports/nov24-current-engine-after-storage.json)
+
 ## November 24 scalar writer and angle helper
 
 The active component includes the original `VM_SetStruct` and `G_GetAngleDelta`. Chromium matched the native C++ source on 768 scalar writes and 2,049 angle deltas. The writer test checks every byte, including adjacent bytes that must stay intact. The compiler also normalizes the switch expression and labels to their Clang integer types, including in recovered resume dispatches. Four targeted regressions pass. [Original function results](reports/nov24-original-vm-leaves.json) · [Compiler regressions](reports/nov24-switch-discriminant-regressions.json)
@@ -49,7 +55,7 @@ Incremental recovery reuses unchanged immutable header arrays, primitive constan
 
 ## Open issues and next work
 
-The current component audit has **zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings**. These component results do not establish whole-program linkage. [Machine-readable issues and repair approach](reports/nov23-continuation-frontier.json)
+The earlier component audit had **zero invalid imports, 46 ambiguous ownership groups and two source units with duplicate-storage findings**. Both duplicate storage findings are repaired in the checkpoint above. These component results do not establish whole-program linkage. [Machine-readable issues and repair approach](reports/nov23-continuation-frontier.json)
 
 1. Completed November 23: original `Gv_DivVar` same-switch control flow, JavaScript-safe local declarations, linking and native/Chromium division verification. Continue with shared ownership and VM closure below.
 2. Roll out the verified TU-callable contract to remaining provider candidates. Refresh original functions with exact source/implementation proofs; handle immutable constants and template ODR identities separately. Do not add name-only aliases or duplicate state.

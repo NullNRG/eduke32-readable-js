@@ -2,172 +2,6 @@
   "component_passed": true,
   "original_engine_startup_verified": true,
   "fresh_startup_without_precalled_helpers": true,
-  "engine_initialization": {
-    "original_engineInit_executed": true,
-    "original_native_trig_crc_constants_passed": true,
-    "palette_and_lookup_bytes_verified": 74496,
-    "original_palette_loaded": true,
-    "grp_entries": 456,
-    "palette_flags": 7,
-    "palette_shades": 32,
-    "original_app_main_executed": false,
-    "original_CON_executed": false,
-    "original_world_rendered": false,
-    "original_enginePostInit_executed": true,
-    "original_videoSetGameMode_executed": true,
-    "video": {
-      "width": 640,
-      "height": 480
-    },
-    "original_maps_loaded": [
-      {
-        "name": "E1L1.MAP",
-        "counts": {
-          "sectors": 325,
-          "walls": 1975,
-          "sprites": 644
-        },
-        "start": {
-          "position": [
-            -31243,
-            7160,
-            -181472
-          ],
-          "angle": 422,
-          "sector": 306
-        },
-        "geometry_bytes_verified": 83928
-      }
-    ],
-    "original_artLoadFiles_executed": true,
-    "original_cache_initBuffer_executed": true,
-    "original_art_archive_files_verified": 20,
-    "original_art_tile_dimensions_verified": 10240,
-    "original_art_nonempty_tiles": 3546,
-    "original_cache_initial_blocks": 1,
-    "original_cache_bytes": 16777216,
-    "art_oracle": "original GRP ART headers and original cacheindex_t LP64 layout; no manually populated tile/cache state",
-    "original_map_geometry_bytes_verified": 83928,
-    "original_E1L1_map_loaded": true,
-    "original_map_counts": {
-      "sectors": 325,
-      "walls": 1975,
-      "sprites": 644
-    },
-    "original_map_start": {
-      "position": [
-        -31243,
-        7160,
-        -181472
-      ],
-      "angle": 422,
-      "sector": 306
-    },
-    "original_geometry_start_inside": true,
-    "map_oracle": "supplied original version-7 MAP header, full sector/wall bytes, every sprite coordinate, extents and counts; no manual world-state initialization",
-    "original_game_sky_initialization_executed": true,
-    "original_division_callback_boundary_cases": 8,
-    "original_canvas_presentation_calls": [
-      {
-        "input_visible": 209720,
-        "zero_alpha": 0,
-        "displayed": 209720,
-        "crc32": 3734315993
-      },
-      {
-        "input_visible": 219481,
-        "zero_alpha": 0,
-        "displayed": 219481,
-        "crc32": 3586999079
-      }
-    ],
-    "original_repeat_presentation": {
-      "changed_pixels": 0,
-      "indexed_before": {
-        "nonzero": 212651,
-        "colors": 102,
-        "crc32": 2083265037
-      },
-      "indexed_after": {
-        "nonzero": 212651,
-        "colors": 102,
-        "crc32": 2083265037
-      },
-      "destination_before": {
-        "pixels": 407696,
-        "visible": 209720,
-        "crc32": 2628275477,
-        "heap_bytes": 134217728,
-        "palette_crc32": 2104748368
-      },
-      "destination_after": {
-        "pixels": 407696,
-        "visible": 209720,
-        "crc32": 2628275477,
-        "heap_bytes": 134217728,
-        "palette_crc32": 2104748368
-      }
-    },
-    "original_mask_renderer": {
-      "executed": true,
-      "queued_sprites": 52,
-      "queued_walls": 0,
-      "changed_pixels": 23695,
-      "indexed_after": {
-        "nonzero": 222602,
-        "colors": 133,
-        "crc32": 168279882
-      },
-      "destination_after": {
-        "pixels": 407696,
-        "visible": 219481,
-        "crc32": 2226405043,
-        "heap_bytes": 134217728,
-        "palette_crc32": 2104748368
-      },
-      "original_game_sprite_animation_executed": false,
-      "original_gameplay_verified": false
-    },
-    "original_text_startup": {
-      "original_full_G_InitText_executed": true,
-      "original_font_services_executed": true,
-      "initialization_calls": 2,
-      "native_mapping_entries": 1536,
-      "native_pointer_identity_checks": 6,
-      "glyph_buffers": [
-        {
-          "address": 2473792,
-          "bytes": 512
-        },
-        {
-          "address": 20274304,
-          "bytes": 512
-        }
-      ],
-      "native_original_text_parser_cases": 105,
-      "native_oracle_scope": "Exact original font functions and exact G_InitText mapping statements; excludes native allocation, tileLoad and complete game parity",
-      "original_game_menu_rendered": false,
-      "gameplay_verified": false
-    },
-    "original_resource_group_loading": {
-      "original_G_ScanGroups_executed": true,
-      "original_G_LoadGroups_executed": true,
-      "original_group_selected": true,
-      "archive_entries": 456,
-      "archive_count": 1,
-      "autoload_requested": false,
-      "original_app_main_executed": false,
-      "gameplay_verified": false
-    },
-    "original_rooms_frame_rendered": true,
-    "original_rooms_frame": {
-      "result": 0,
-      "width": 640,
-      "height": 480,
-      "colors": 126,
-      "visible_pixels": 219481
-    }
-  },
   "trace": [
     {
       "name": "import original engine",
@@ -204,240 +38,6 @@
       "name": "enginePreInit",
       "transition": "return",
       "value": 0
-    },
-    {
-      "name": "import original VFS",
-      "transition": "enter"
-    },
-    {
-      "name": "import original VFS",
-      "transition": "return",
-      "value": "object"
-    },
-    {
-      "name": "import original resource initialization",
-      "transition": "enter"
-    },
-    {
-      "name": "import original resource initialization",
-      "transition": "return",
-      "value": "object"
-    },
-    {
-      "name": "original G_ScanGroups",
-      "transition": "enter"
-    },
-    {
-      "name": "original G_ScanGroups",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original G_LoadGroups",
-      "transition": "enter"
-    },
-    {
-      "name": "original G_LoadGroups",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "engineInit",
-      "transition": "enter"
-    },
-    {
-      "name": "engineInit",
-      "transition": "return",
-      "value": 0
-    },
-    {
-      "name": "OSD_Init",
-      "transition": "enter"
-    },
-    {
-      "name": "OSD_Init",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "enginePostInit",
-      "transition": "enter"
-    },
-    {
-      "name": "enginePostInit",
-      "transition": "return",
-      "value": 0
-    },
-    {
-      "name": "videoSetGameMode",
-      "transition": "enter"
-    },
-    {
-      "name": "videoSetGameMode",
-      "transition": "return",
-      "value": 0
-    },
-    {
-      "name": "import original ART",
-      "transition": "enter"
-    },
-    {
-      "name": "import original ART",
-      "transition": "return",
-      "value": "object"
-    },
-    {
-      "name": "artLoadFiles original tiles000.art",
-      "transition": "enter"
-    },
-    {
-      "name": "artLoadFiles original tiles000.art",
-      "transition": "return",
-      "value": 0
-    },
-    {
-      "name": "import original cache",
-      "transition": "enter"
-    },
-    {
-      "name": "import original cache",
-      "transition": "return",
-      "value": "object"
-    },
-    {
-      "name": "engineLoadBoard E1L1.MAP",
-      "transition": "enter"
-    },
-    {
-      "name": "engineLoadBoard E1L1.MAP",
-      "transition": "return",
-      "value": 0
-    },
-    {
-      "name": "inside original map start",
-      "transition": "enter"
-    },
-    {
-      "name": "inside original map start",
-      "transition": "return",
-      "value": 1
-    },
-    {
-      "name": "original G_InitMultiPsky with original tile globals",
-      "transition": "enter"
-    },
-    {
-      "name": "original G_InitMultiPsky with original tile globals",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original divideu32_noinline boundary checks",
-      "transition": "enter"
-    },
-    {
-      "name": "original divideu32_noinline boundary checks",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original videoSetPalette",
-      "transition": "enter"
-    },
-    {
-      "name": "original videoSetPalette",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original videoSetViewableArea",
-      "transition": "enter"
-    },
-    {
-      "name": "original videoSetViewableArea",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original renderDrawRoomsQ16 E1L1 map start",
-      "transition": "enter"
-    },
-    {
-      "name": "original renderDrawRoomsQ16 E1L1 map start",
-      "transition": "return",
-      "value": 0
-    },
-    {
-      "name": "original videoShowFrame rooms",
-      "transition": "enter"
-    },
-    {
-      "name": "original videoShowFrame rooms",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original videoShowFrame repeated presentation check",
-      "transition": "enter"
-    },
-    {
-      "name": "original videoShowFrame repeated presentation check",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original renderDrawMasks raw E1L1 engine state",
-      "transition": "enter"
-    },
-    {
-      "name": "original renderDrawMasks raw E1L1 engine state",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original videoShowFrame masks",
-      "transition": "enter"
-    },
-    {
-      "name": "original videoShowFrame masks",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "import original font functions",
-      "transition": "enter"
-    },
-    {
-      "name": "import original font functions",
-      "transition": "return",
-      "value": "object"
-    },
-    {
-      "name": "import original text initialization",
-      "transition": "enter"
-    },
-    {
-      "name": "import original text initialization",
-      "transition": "return",
-      "value": "object"
-    },
-    {
-      "name": "original G_InitText stage 0",
-      "transition": "enter"
-    },
-    {
-      "name": "original G_InitText stage 0",
-      "transition": "return",
-      "value": null
-    },
-    {
-      "name": "original G_InitText stage 1",
-      "transition": "enter"
-    },
-    {
-      "name": "original G_InitText stage 1",
-      "transition": "return",
-      "value": null
     },
     {
       "name": "import original division initializer",
@@ -517,234 +117,6 @@
     },
     {
       "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original VFS\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original VFS\",\"transition\":\"return\",\"value\":\"object\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original resource initialization\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original resource initialization\",\"transition\":\"return\",\"value\":\"object\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_ScanGroups\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "source/duke3d/src/grpscan.cpp:474 Searching for game data..."
-    },
-    {
-      "type": "info",
-      "text": "source/duke3d/src/grpscan.cpp:442  duke3d.grp has checksum 0xfd3dcff1"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_ScanGroups\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_LoadGroups\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "source/duke3d/src/common.cpp:367 Using duke3d.grp as main data file."
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_LoadGroups\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"engineInit\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"engineInit\",\"transition\":\"return\",\"value\":0}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"OSD_Init\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"OSD_Init\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"enginePostInit\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"enginePostInit\",\"transition\":\"return\",\"value\":0}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"videoSetGameMode\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"videoSetGameMode\",\"transition\":\"return\",\"value\":0}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original ART\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original ART\",\"transition\":\"return\",\"value\":\"object\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"artLoadFiles original tiles000.art\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "source/build/src/cache1d.cpp:98 Initialized 16.0M cache"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"artLoadFiles original tiles000.art\",\"transition\":\"return\",\"value\":0}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original cache\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original cache\",\"transition\":\"return\",\"value\":\"object\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"engineLoadBoard E1L1.MAP\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"engineLoadBoard E1L1.MAP\",\"transition\":\"return\",\"value\":0}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"inside original map start\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"inside original map start\",\"transition\":\"return\",\"value\":1}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_InitMultiPsky with original tile globals\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_InitMultiPsky with original tile globals\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original divideu32_noinline boundary checks\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original divideu32_noinline boundary checks\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoSetPalette\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoSetPalette\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoSetViewableArea\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoSetViewableArea\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original renderDrawRoomsQ16 E1L1 map start\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original renderDrawRoomsQ16 E1L1 map start\",\"transition\":\"return\",\"value\":0}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame rooms\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame rooms\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame repeated presentation check\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "warning",
-      "text": "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame repeated presentation check\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original renderDrawMasks raw E1L1 engine state\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original renderDrawMasks raw E1L1 engine state\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame masks\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original videoShowFrame masks\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original font functions\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original font functions\",\"transition\":\"return\",\"value\":\"object\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original text initialization\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"import original text initialization\",\"transition\":\"return\",\"value\":\"object\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 0\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 0\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 1\",\"transition\":\"enter\"}"
-    },
-    {
-      "type": "info",
-      "text": "SOURCE_TRACE {\"name\":\"original G_InitText stage 1\",\"transition\":\"return\",\"value\":null}"
-    },
-    {
-      "type": "info",
       "text": "SOURCE_TRACE {\"name\":\"import original division initializer\",\"transition\":\"enter\"}"
     },
     {
@@ -798,12 +170,12 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/menus.cpp.mjs": "18678f3b35f508496a13583c12d27645794eaf2978a11b0572b52bb40e101291",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/network.cpp.mjs": "4de5e56704cc6272bd10532054acb1f8cb89bc4f35ddd55966e772f593541c95",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/osdcmds.cpp.mjs": "fae6a81ec366e39d8f2f8cc53ed4285b4e428cf597caf8c89708559b6acaa708",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/player.cpp.mjs": "3daf8bcdfda79fa2a9ebef9173f8ae76bcebfad6d92883a3b5920522b79c5d42",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/player.cpp.mjs": "36f392b64f8a8eb1c6d36786aa232f52fbad42ba934adfc3d651b40b63da4406",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/premap.cpp.mjs": "028f3909696a0cbe6e68319a3ef500da6641fd84c7560fd4cdbbaf3bd7f43e81",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/rts.cpp.mjs": "bd626ccf1088e3bf1e247a7c4fa9a4e96219501483f9b091efdf86fd7f087333",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/savegame.cpp.mjs": "01e234d44701dbca628a0bbeefd60a8147ba99272ec18068d99471961ed1e437",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/savegame.cpp.mjs": "b2a870e084693dceebeea89aa1c514af0b5bf5ecaa0b90ec101c136131d8aa4b",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/screens.cpp.mjs": "429ac27052a6f2cef0358114cfd0a349c61714c50b709dd46951b5561ef22243",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/sector.cpp.mjs": "cb18f6c17900b4f4d3345eb3ed20fc87f8b7ed9a8d2f1df16e38a66565b42b03",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/sector.cpp.mjs": "2ccf7753b42c3dab567097dfb5297e1716407c8c82f513051902d2bb5f13e4d4",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/sounds.cpp.mjs": "d233d16593307de447411ac8f805d2c47d09b6c6e5d859657cbe55c1289a0f00",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/text.cpp.mjs": "8e9cc1fd1e2ab83e67fe1bce4b4e65080f25305da251373e788f7568b84c1543",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_actors_cpp_8ed4f4debf7b.mjs": "8ed4f4debf7b30fa785ede1c5a2eaf201d492f102166cb2b219dafeaafd11dcc",
@@ -884,17 +256,19 @@
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_player_cpp_33efc406baff.mjs": "33efc406baffb719edbb72ff9e02cb3f1ce0e806502cb7af4488656fc82986e8",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_player_cpp_4b20873da221.mjs": "4b20873da22103417089c8cc1e9452ab24620e5923b6986b0c7767e5ac069e4e",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_player_cpp_8a8a991c7e30.mjs": "8a8a991c7e30da4b358382373110dfe3c919de31059e183091112b8658cc75a7",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_player_cpp_94de5c84d61d.mjs": "94de5c84d61d22b7422c8f5f9d6b29641e8a68e1d0b256d8498f76b3df80c4a6",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_premap_cpp_449b0a8d280f.mjs": "449b0a8d280f47e41fcc2d3ef9c063cedccff686b24142b9044df64ec6ef31ae",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_premap_cpp_535e4f426b51.mjs": "535e4f426b51c9db34d26a652d0cb0f2fde32f1c7a85a65a435bf1371aee896b",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_premap_cpp_d5a53643d288.mjs": "d5a53643d288f60bded47edb825091b5de79c3a53d612e191a01e59df8616e81",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_rts_cpp_923c666ae541.mjs": "923c666ae5411e6d44bea55d25479a0a72ac61d6054e473aa31520ba075dbecb",
-    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_savegame_cpp_4dd4994b031c.mjs": "4dd4994b031c9a8df63a298073548a199c8fd774f2a5db30eee905009932defb",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_savegame_cpp_3d230b728ac5.mjs": "3d230b728ac5049e1d6ae9fa1ff4dc2b79a23c505f36d0542e183750837a0811",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_savegame_cpp_6d05f1a161ce.mjs": "6d05f1a161ced6892c37c59cacd8d213ecd6c025c5179795d7ad448e3b72ffc6",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_savegame_cpp_ceb4cf605a67.mjs": "ceb4cf605a670d0e5c9873204f28eac5941bbca261b1b94837dba0bbb5464a44",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_savegame_cpp_d7b0afc8f872.mjs": "d7b0afc8f872a599b5b9f150c4d4dcdd17b5c7c9bbae70b1db6803d5693892d0",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_screens_cpp_0fd05e3fd583.mjs": "0fd05e3fd583bb59199e7317301afc5f3d40a0ae93cde55ef78866600fad1ed3",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_screens_cpp_af7403b919da.mjs": "af7403b919da6b3a6493874efe671db1e41bb8dd901a764d3c3351af9cba9507",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_sector_cpp_a2012276ce68.mjs": "a2012276ce683abbca182a7c8701384a98868c5ea5dd40bf58eefc8246e6bd46",
+    "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_sector_cpp_bf689eebda35.mjs": "bf689eebda35b077ace9180630f6af10b14c3ee2d2a4e735733b016302971b57",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_sounds_cpp_74d37e03af29.mjs": "74d37e03af29b9893898f0cc0811003ac324a09e2719656614ba41fd126520dd",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_sounds_cpp_fb28ea20c9b5.mjs": "fb28ea20c9b50e43aeea4ff9e9df7f154aa964c7d036f159b6b8958836602bde",
     "factory-output/source-first/browser-classic/browser-modules/source/duke3d/src/_source_legacy_text_cpp_69b6c3959cbd.mjs": "69b6c3959cbd1f1bbca1cbbaf3fac960ff87235d614c036510aee783cc1db38e",
@@ -908,7 +282,7 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/communityapi.cpp.mjs": "a4af1049cdcf59dc499d274c1d0ff157ad751df0f93458949211abee5b6a81b4",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/compat.cpp.mjs": "a03da66aafd9bb61e91a102d717421a67cbdac9793fd05ebc841d90fd969c45e",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/crc32.cpp.mjs": "4824ffa65fe53a44640f921c3affd3c30106aaa9f9fd31c924352f929398e858",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "31b4da19e0712653e3a5c19f7401e5896a6abb24508e5009edebd99012a8e75a",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/engine.cpp.mjs": "960309c5ff60310b07e773a735bc75664a7134973c8645a86092e8564332f509",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/fix16.cpp.mjs": "3f0a0c472cf79c2fe2a03c8a8ac6d4722f4932519dfca9dbde08b4c4b34c09cb",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hash.cpp.mjs": "b3e29426d81723d498d9291eedf9696774a7005091dbb0f5f37122ee54f1f4b6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/hightile.cpp.mjs": "60ea1a1d940dd1d08cbeb9f5c17e766767ddfb2a0cc65948839cbeacb5d436cd",
@@ -988,10 +362,10 @@
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_ab395e6bd4e1.mjs": "ab395e6bd4e16efec2614ce7722d205c22e883fdbc86adb699102ad9156693e6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_af0ec10e2fe7.mjs": "af0ec10e2fe7b9233ebfdc9d85016549db9c916758d90df9bceb6e090fdfc1a3",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_b109dbbe1c92.mjs": "b109dbbe1c929ae64f9c876b68a78d3aca562b835f672388d7658c3053724fa9",
-    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_bb4ab6fdc107.mjs": "bb4ab6fdc1075f3760a09c89e60ab4d4623b73533166c84e8a40f14eaa75c74d",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_be9a97ad2eaf.mjs": "be9a97ad2eafda63ae1e5ad0291bfcebd98c415a426a17845c6b95944d7b3b5a",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_c106aed1475b.mjs": "c106aed1475b13e2b8c3f6b6895a5a5d51687633c541be147c839a04a39442ac",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_dc856c60c172.mjs": "dc856c60c172cfbe01a0e55817352252af8e2b971a409eed8c7a69958c3e6250",
+    "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_e63d41b450e8.mjs": "e63d41b450e8c61bf8228a4a271dc747e6047d8d4f46bc8693358f24e1f3c134",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_edc8d0b413d0.mjs": "edc8d0b413d0638312e056db89b6b05454f78a782db7dce873a125fd68d12ef6",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_f313c6453b01.mjs": "f313c6453b011d95bda3ee4a109de11fcd591654db42ee8e995a8193038cf7b2",
     "factory-output/source-first/browser-classic/browser-modules/source/build/src/_source_legacy_engine_cpp_fac278f79cb6.mjs": "fac278f79cb6437a16bacaa592de786c9e4129b3eb3dfc8f896502be25647983",
@@ -1144,10 +518,11 @@
   "menu_verified": false,
   "level_verified": false,
   "standalone_player_verified": false,
-  "original_rooms_capture": {
-    "path": "reports/evidence/nov24-original-text-startup.png",
-    "sha256": "fac199fda80ebd92b83153953d1b6fe96a604373b8bdc39eac6b3b34905b7b89",
-    "caption": "Original raw MAP engine frame with original font initialization executed; no game menu, app_main or gameplay"
-  },
-  "native_font_oracle": "reports/nov16-native-original-font-oracle.json"
+  "fresh_startup_probe": {
+    "script": "work/verify_fresh_engine_startup.py",
+    "sha256": "a60db22538e731f7e3a242d08e57483c323170dd2af3fcede764b37d1f90616e",
+    "reused_component_harness_sha256": "ecf840d9ac355c4bb1b386ede1b3b9d7d0515a55c80f0505d12ed554b7a1cd7c",
+    "shared_probe_sha256": "0c871b84d23a68460717a6f622df8394219fec353debf0f8bfbf3e3ca8b4ad7d",
+    "manual_division_system_mode_initializers_called": false
+  }
 }
