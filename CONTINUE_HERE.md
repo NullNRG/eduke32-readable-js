@@ -10,6 +10,8 @@ On the configured Windows host:
 . work/session-env.ps1
 python work/verify_original_con_variable_operators.py
 python work/verify_original_con_division.py
+python work/verify_original_bulk_vm_helpers.py
+python work/verify_original_vm_array_access.py
 python work/verify_original_fix16_arithmetic.py
 python work/verify_original_fix16_integer_conversion.py
 python work/verify_fresh_engine_startup.py --report reports/nov19-current-engine-component.json
@@ -17,7 +19,7 @@ python work/verify_original_text_startup_frame.py --checkpoint nov23
 python tools/recover_browser_component.py --snapshot
 ```
 
-Read reports/nov23-tu-callable-regressions.json for the ten tests on the latest compiler and reports/nov19-final-shared-regressions.json for the earlier 20-test checkpoint and its fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
+Read reports/nov23-header-value-regressions.json for the 13 targeted tests on the latest compiler and reports/nov19-final-shared-regressions.json for the earlier 20-test checkpoint and its fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
 
 ## Completed checkpoint: original CON division
 
@@ -37,13 +39,17 @@ Use native/Node/Chromium differential tests, including pointer-target mutation a
 python work/recover_boot_reachable.py source/duke3d/src/gameexec.cpp VM_Execute --query-limit 64 --probe-only
 ```
 
-This is a diagnostic frontier, not a complete coverage measurement. The current November 23 probe has 126 unresolved references and one vec3 factory rejection affecting five candidate definitions. Ten original CON operator call bindings now verify. Thirty-four unresolved names still have active same-TU provider candidates; exact bindings/types are listed in reports/nov23-continuation-frontier.json. These include existing implementations, so refresh their source contracts before duplicating code. Do not repeatedly rerun all 111 units for a compiler-only change.
+This is a diagnostic frontier, not a complete coverage measurement. The latest November 23 probe has 93 unresolved names and two ABI-rejected imports affecting five candidate definitions. Twenty-nine original helper/operator call bindings now verify and thirteen non-ODR tile constants fold from native declaration facts. Exact rejected imports and candidate definitions are in reports/nov23-vm-provider-rejected-imports.json. These include existing implementations, so refresh their source contracts before duplicating code. Do not repeatedly rerun all 111 units for a compiler-only change.
 
-TU-private functions stay outside the global owner index. tools/source_tu_function_bindings.py now loads only this exact TU's verified native body/type/mangling, preprocessor fingerprint and original implementation bytes. tools/source_cpp_function_bindings.py proves selected callsites and rejects name/type mismatches. Imports retain function objects, local statics and callbacks. All ten CON operator contracts are installed and verified in original VM callsites.
+TU-private functions stay outside the global owner index. tools/source_tu_function_bindings.py now loads only this exact TU's verified native body/type/mangling, preprocessor fingerprint and original implementation bytes. tools/source_cpp_function_bindings.py proves selected callsites and rejects name/type mismatches. Imports retain function objects, local statics and callbacks. All ten CON operator and nineteen shared helper contracts are installed and verified in original VM callsites.
 
 Continue by refreshing remaining original providers, not by editing manifest identities manually. tools/install_verified_fragment.py supports metadata reattestation when a fresh source compile produces the exact existing function shard bytes; its report must say implementation_bytes_unchanged. Mixed storage fragments still require an explicit hash and the existing preservation/capture checks. Some legacy helper exports use encoded JS names: select their original Clang names and retain aliases only with original header/template identity proofs. Do not globally alias source_name or choose arbitrary min/swap overloads. Template identities must include native specialization arguments and actual required body/reference ABI. Constant ownership needs its existing initializer/storage proof, not the callable contract.
 
 After provider metadata changes, regenerate the VM probe without --reuse-manifest. The global symbol map alone does not reflect newly available TU-private contracts.
+
+The current actor provider (`global.cpp`, actor_t[16384], stride 96) already owns contiguous native bytes. The consumer's physical nested layout matches, but it expects nested vec3 prototypes absent from the provider schema. Do not replace the actor buffer, invent storage, or accept physical equality without proving the actual operations. Extend data-only use proofs only for genuine direct scalar/pointer access; methods, escapes and whole-object operations must retain their original contracts.
+
+The typed-reader switch fix belongs in tools/source_ast_to_js.py CaseStmt lowering: Clang's converted case type must match the discriminant's Number/BigInt domain. Non-ODR constants are selected by full-TU native declaration ID, caller body/type/offset and reference ordinal in tools/source_non_odr_constants.py. Address/volatile references must retain storage.
 
 Vector imports still require real original factory implementations. Inspect tools/source_header_records.py and source_first_global_link.py. Obtain an actual method superset from Clang's original definitions; extend proofs for verified anonymous-union/nested-vector storage where appropriate. Keep source bytes, target layout, required methods and alias identity checked. Never merge incompatible factories or drop prototype verification.
 

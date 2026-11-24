@@ -1,7 +1,7 @@
 {
   "format": "eduke32-continuation-frontier/1",
-  "updated_utc": "2026-11-24T02:01:58.015731+00:00",
-  "compiler_runtime_input_sha256": "bc35da7bd559e629856c06e824f991fed1d787933912be076c62415e464bda04",
+  "updated_utc": "2026-11-24T06:37:49.650254+00:00",
+  "compiler_runtime_input_sha256": "c3700121cc2752ca2610a053d3b0c59c36da57c9c4cb37883634942a3f3a641e",
   "selected_native_profile_units": 111,
   "source_units_with_partial_modules": 69,
   "whole_selected_program_current_revision_verified": false,
@@ -13,13 +13,16 @@
   "original_app_main_executed": false,
   "gameplay_verified": false,
   "verified_reports": {
-    "shared_regressions": "reports/nov23-tu-callable-regressions.json",
+    "shared_regressions": "reports/nov23-header-value-regressions.json",
     "con_operators": "reports/nov23-tu-original-con-operators.json",
     "fixed_point_arithmetic": "reports/nov19-original-fix16-arithmetic.json",
     "engine_rendering": "reports/nov23-original-text-startup-frame.json",
     "acceptance": "reports/nov23-current-release-acceptance.json",
     "con_division": "reports/nov23-original-con-division.json",
-    "tu_callable_closure": "reports/nov23-vm-tu-callable-closure.json"
+    "tu_callable_closure": "reports/nov23-vm-tu-callable-closure.json",
+    "bulk_helpers": "reports/nov23-original-bulk-vm-helpers.json",
+    "typed_readers": "reports/nov23-original-vm-array-access.json",
+    "current_provider_closure": "reports/nov23-vm-provider-closure.json"
   },
   "issues": [
     {
@@ -42,7 +45,7 @@
     {
       "id": "same-tu-private-function-linking",
       "priority": 1,
-      "failure": "Native TU-callable contracts are implemented; ten original CON operator calls now resolve. Remaining matching providers require original-byte/source-verified refresh; constant ownership still needs separate proof.",
+      "failure": "29 original callable contracts now bind; 13 non-ODR tile constant uses lower from native declaration facts. Remaining original dependency closure is unresolved.",
       "implementation": [
         "tools/source_tu_function_bindings.py",
         "tools/source_cpp_function_bindings.py",
@@ -51,15 +54,14 @@
       ],
       "approach": "Use the implemented source-clang-tu-function-identity/1 contract. Refresh remaining original provider functions from Clang and verify actual implementation bytes; retain exact TU ownership, function/static/callback identity, template specialization and reference ABI. Constants require original initializer/storage proofs. Never add source_name-only aliases.",
       "validation": "Two TUs including one static helper, shared same-TU state and pointer identity across incremental fragments, independent cross-TU state, changed-body rejection.",
-      "status": "implemented-with-remaining-provider-rollout",
-      "current_probe": "reports/nov23-vm-tu-callable-frontier.json",
-      "installed_same_tu_candidate_names": 34,
-      "evidence": "reports/nov23-vm-tu-callable-closure.json"
+      "status": "implemented-with-remaining-dependency-closure",
+      "current_probe": "reports/nov23-vm-provider-frontier.json",
+      "evidence": "reports/nov23-vm-provider-closure.json"
     },
     {
       "id": "vector-prototype-abi",
       "priority": 1,
-      "failure": "November 23 bounded VM probe rejects one vec3<int> original specialization/method contract, affecting five candidate definitions.",
+      "failure": "vec3 factory and actor nested prototype contracts rejected; five candidate definitions affected. Actor provider already has contiguous native storage.",
       "implementation": [
         "tools/source_header_records.py",
         "tools/source_first_global_link.py"
@@ -67,7 +69,7 @@
       "approach": "Obtain an actual emitted original provider with the required Clang-instantiated methods. Extend audited subset proofs for real anonymous-union/nested-vector layouts where justified; retain exact layout, original method bodies and aliases. Never discard prototype checks or synthesize a merged factory.",
       "validation": "Native class/union alias parity, cross-TU method and prototype identity, changed layouts/types/method bodies rejected.",
       "status": "open",
-      "evidence": "reports/nov23-vm-closure-rejected-imports.json"
+      "evidence": "reports/nov23-vm-provider-rejected-imports.json"
     },
     {
       "id": "active-storage-duplicates",
@@ -3705,350 +3707,41 @@
   ],
   "counting_note": "The current 32-query VM probe has 126 unresolved references after ten verified original call bindings; 34 unresolved names have active same-TU candidates. This is not a whole-program remaining-work count.",
   "current_vm_probe": {
-    "frontier": "reports/nov23-vm-tu-callable-frontier.json",
-    "rejected_imports": "reports/nov23-vm-tu-callable-rejected-imports.json",
+    "frontier": "reports/nov23-vm-provider-frontier.json",
+    "rejected_imports": "reports/nov23-vm-provider-rejected-imports.json",
     "dependency_queries_limit": 32,
-    "unresolved_reference_count": 126,
-    "rejected_factory_count": 1,
-    "affected_definitions": 5,
-    "installed_same_tu_candidate_names": 34,
-    "same_tu_candidates": {
-      "FEM1__": [
-        {
-          "binding": "FEM1____header_global_297037199b00c474",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM2__": [
-        {
-          "binding": "FEM2____header_global_58353aa7e06bbff4",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM3__": [
-        {
-          "binding": "FEM3____header_global_676a8af9cc30a2a9",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM4__": [
-        {
-          "binding": "FEM4____header_global_b41449071b9701bc",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM5__": [
-        {
-          "binding": "FEM5____header_global_a2a420a3b30176d2",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM6__": [
-        {
-          "binding": "FEM6____header_global_a680fc71537ed382",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM7__": [
-        {
-          "binding": "FEM7____header_global_23be0f3fe16f6559",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM8__": [
-        {
-          "binding": "FEM8____header_global_3671cf701ca9adc2",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "FEM9__": [
-        {
-          "binding": "FEM9____header_global_3609e22a07c2e3c1",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "G_HaveUserMap": [
-        {
-          "binding": "G_HaveUserMap",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int ()"
-        }
-      ],
-      "G_TileHasActor": [
-        {
-          "binding": "G_TileHasActor",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (const int)"
-        }
-      ],
-      "Gv_GetArrayAllocSize": [
-        {
-          "binding": "Gv_GetArrayAllocSize",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "size_t (const int)"
-        }
-      ],
-      "Gv_GetArrayValue": [
-        {
-          "binding": "Gv_GetArrayValue",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int (const int, int)"
-        }
-      ],
-      "NAKED1__": [
-        {
-          "binding": "NAKED1____header_global_88e23fc4c5c91ded",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "PODFEM1__": [
-        {
-          "binding": "PODFEM1____header_global_8386796196dbac32",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "STATUE__": [
-        {
-          "binding": "STATUE____header_global_19e5f17ba8d51b86",
-          "kind": "VarDecl",
-          "linkage": "internal",
-          "original_type": "const short"
-        }
-      ],
-      "VM_GetStruct": [
-        {
-          "binding": "VM_GetStruct",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int (const uint32_t, intptr_t *const)"
-        }
-      ],
-      "divscale": [
-        {
-          "binding": "divscale",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (int32_t, int32_t, int32_t)"
-        }
-      ],
-      "klabs": [
-        {
-          "binding": "klabs",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (const int32_t)"
-        }
-      ],
-      "krand": [
-        {
-          "binding": "krand",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t ()"
-        }
-      ],
-      "ksgn": [
-        {
-          "binding": "ksgn",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int (int32_t)"
-        }
-      ],
-      "min": [
-        {
-          "binding": "min__template_e8de444c358aa8ec",
-          "kind": "FunctionDecl",
-          "linkage": "external",
-          "original_type": "const long *const &(const long *const &, const long *const &)"
-        },
-        {
-          "binding": "min__cxx_d283c7086cbc",
-          "kind": "FunctionDecl",
-          "linkage": "external",
-          "original_type": "const unsigned long &(const unsigned long &, const unsigned long &)"
-        },
-        {
-          "binding": "min__template_774131ccff66371d",
-          "kind": "FunctionDecl",
-          "linkage": "external",
-          "original_type": "const int &(const int &, const int &)"
-        },
-        {
-          "binding": "min__template_c5ffcfb092321e6b",
-          "kind": "FunctionDecl",
-          "linkage": "external",
-          "original_type": "const unsigned int &(const unsigned int &, const unsigned int &)"
-        }
-      ],
-      "mulscale": [
-        {
-          "binding": "mulscale",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (int32_t, int32_t, int32_t)"
-        }
-      ],
-      "mulscale15": [
-        {
-          "binding": "mulscale15",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (int32_t, int32_t)"
-        }
-      ],
-      "mulscale16": [
-        {
-          "binding": "mulscale16",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (int32_t, int32_t)"
-        }
-      ],
-      "paletteGetClosestColorUpToIndex": [
-        {
-          "binding": "paletteGetClosestColorUpToIndex",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (int32_t, int32_t, int32_t, int32_t)"
-        }
-      ],
-      "scale": [
-        {
-          "binding": "scale",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int32_t (int32_t, int32_t, int32_t)"
-        }
-      ],
-      "swap": [
-        {
-          "binding": "swap__cxx_7c777213a9e6",
-          "kind": "FunctionDecl",
-          "linkage": "external",
-          "original_type": "void (exception_ptr &, exception_ptr &)"
-        },
-        {
-          "binding": "swap__header_0b14202ce217",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (long *const, long *const)"
-        },
-        {
-          "binding": "swap__header_24455250e12d",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (char *const, char *const)"
-        },
-        {
-          "binding": "swap__header_ca2695be6ef7",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (int *const, int *const)"
-        },
-        {
-          "binding": "swap__header_d6b543c36567",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (unsigned char *const, unsigned char *const)"
-        },
-        {
-          "binding": "swap__header_ee3764741019",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (long **const, long **const)"
-        }
-      ],
-      "system_15bit_rand": [
-        {
-          "binding": "system_15bit_rand",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "uint16_t ()"
-        }
-      ],
-      "tileGetMapping": [
-        {
-          "binding": "tileGetMapping",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "int (const int)"
-        }
-      ],
-      "xaligned_alloc": [
-        {
-          "binding": "xaligned_alloc",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void *(const bsize_t, const bsize_t)"
-        }
-      ],
-      "xaligned_free": [
-        {
-          "binding": "xaligned_free",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void (void *const)"
-        }
-      ],
-      "xcalloc": [
-        {
-          "binding": "xcalloc",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void *(const bsize_t, const bsize_t)"
-        }
-      ],
-      "xmalloc": [
-        {
-          "binding": "xmalloc",
-          "kind": "FunctionDecl",
-          "linkage": "internal",
-          "original_type": "void *(const bsize_t)"
-        }
-      ]
-    },
-    "candidates_are_not_proven_caller_bindings": true,
-    "complete_whole_program_measurement": false,
-    "resolved_original_calls": [
-      "Gv_AddVar",
-      "Gv_AndVar",
-      "Gv_DivVar",
-      "Gv_ModVar",
-      "Gv_MulVar",
-      "Gv_OrVar",
-      "Gv_ShiftVarL",
-      "Gv_ShiftVarR",
-      "Gv_SubVar",
-      "Gv_XorVar"
+    "unresolved_reference_count": 93,
+    "rejected_import_count": 2,
+    "affected_definitions": [
+      "A_CheckEnemySprite__header_cb8b0a29f07c",
+      "A_Dodge",
+      "A_FurthestVisiblePoint",
+      "A_SetSprite__header_5482ddf649da",
+      "VM_Execute"
     ],
+    "complete_whole_program_measurement": false,
     "original_call_contracts": [
+      {
+        "name": "G_TileHasActor",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL14G_TileHasActori",
+          "original_type": "int32_t (const int)",
+          "source_name": "G_TileHasActor",
+          "source_offset": 4647,
+          "body_sha256": "3b7c53880423dc4fa173d8e1fefeaaba3b4405917a496cbc9980b38fbe44013c",
+          "original_definition": {
+            "source_header": "source/duke3d/src/duke3d.h",
+            "source_offset": 4647,
+            "source_line": 158,
+            "header_sha256": "7ddcde3dcd92d8ad667a9059fb5abde10f5b59d77678357c2e28d4b3d618e720"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
       {
         "name": "Gv_AddVar",
         "cpp_function_identity": {
@@ -4137,6 +3830,48 @@
         },
         "consumer_source": "source/duke3d/src/gameexec.cpp",
         "implementation_sha256": "d2a6385350447b24580af3742846c386df49697c0d5658c72418cff48cd1abf0"
+      },
+      {
+        "name": "Gv_GetArrayAllocSize",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL20Gv_GetArrayAllocSizei",
+          "original_type": "size_t (const int)",
+          "source_name": "Gv_GetArrayAllocSize",
+          "source_offset": 4779,
+          "body_sha256": "74b65377bc4a4869881b47733fb3f8e7354b245e0d3c3e52c8d946493c68e486",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 4779,
+            "source_line": 125,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "Gv_GetArrayValue",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL16Gv_GetArrayValueii",
+          "original_type": "int (const int, int)",
+          "source_name": "Gv_GetArrayValue",
+          "source_offset": 4999,
+          "body_sha256": "bf5c3d4531709894a3bc71fb1026300fd333009eae5fb14d09eb2489b31b1eb1",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 4999,
+            "source_line": 128,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "a70ba171cdf8e6f602e845cb306cdfad1624bad6b622277b1bf62943819d7c6c"
       },
       {
         "name": "Gv_ModVar",
@@ -4375,6 +4110,520 @@
         },
         "consumer_source": "source/duke3d/src/gameexec.cpp",
         "implementation_sha256": "db2efcad7d34cbe4c0ef7841ec05191abbf01e6ade4d06a8d332d7cbb2c71539"
+      },
+      {
+        "name": "VM_GetStruct",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL12VM_GetStructjPl",
+          "original_type": "int (const uint32_t, intptr_t *const)",
+          "source_name": "VM_GetStruct",
+          "source_offset": 7240,
+          "body_sha256": "2ccdb70d9207a30ad43f6e2053e6248c96c42b9d5da2596d1265d5d3ff145186",
+          "original_definition": {
+            "source_header": "source/duke3d/src/gamevars.h",
+            "source_offset": 7240,
+            "source_line": 185,
+            "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "a70ba171cdf8e6f602e845cb306cdfad1624bad6b622277b1bf62943819d7c6c"
+      },
+      {
+        "name": "divscale",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL8divscaleiii",
+          "original_type": "int32_t (int32_t, int32_t, int32_t)",
+          "source_name": "divscale",
+          "source_offset": 5472,
+          "body_sha256": "41c9dd52db90fe2730d7101bec32efb94434354f35248391d8affcf593a87b71",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 5472,
+            "source_line": 164,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "klabs",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL5klabsi",
+          "original_type": "int32_t (const int32_t)",
+          "source_name": "klabs",
+          "source_offset": 10206,
+          "body_sha256": "8cb737f355ae0b3163fb66cbb4657aae72e78d3bfaecdc48e17ba08f51dc5ffc",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 10206,
+            "source_line": 321,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "krand",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL5krandv",
+          "original_type": "int32_t ()",
+          "source_name": "krand",
+          "source_offset": 610,
+          "body_sha256": "652c676fd17c0e4ac81a55c2e2374a47cb0686012c94c8d878b8b1748b4e1a8c",
+          "original_definition": {
+            "source_header": "source/build/include/random.h",
+            "source_offset": 610,
+            "source_line": 27,
+            "header_sha256": "afd03520b10106e91130eddeb4e206b5a3bd791e9d8c1cb1a3c8a3396fcae71c"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "ksgn",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL4ksgni",
+          "original_type": "int (int32_t)",
+          "source_name": "ksgn",
+          "source_offset": 10363,
+          "body_sha256": "16d1e6898233cc36f8e4c33846ca46b981f7e8a77fd22f816d681d22a03a0a4f",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 10363,
+            "source_line": 328,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "mulscale",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL8mulscaleiii",
+          "original_type": "int32_t (int32_t, int32_t, int32_t)",
+          "source_name": "mulscale",
+          "source_offset": 10485,
+          "body_sha256": "6da3986de922f7fc8463815cd87bd372807018353f1f6e2ff654dc19b7e76981",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 10485,
+            "source_line": 332,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "mulscale15",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL10mulscale15ii",
+          "original_type": "int32_t (int32_t, int32_t)",
+          "source_name": "mulscale15",
+          "source_offset": 8063,
+          "body_sha256": "ab4c26b7ce9ceacda243045d5b78ddb163756c0b30b784f0931f04277fea9f7e",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 8063,
+            "source_line": 228,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+            "expansion_token": "EDUKE32_GENERATE_PRAGMAS",
+            "clang_spelling_location": {
+              "offset": 1345,
+              "file": "<scratch space>",
+              "line": 96,
+              "col": 1,
+              "tokLen": 10
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "fa517ce497d7a5f18d1f2d7ff6a35e4fc1daee79493f2524410fe4cf727389fd"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "mulscale16",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL10mulscale16ii",
+          "original_type": "int32_t (int32_t, int32_t)",
+          "source_name": "mulscale16",
+          "source_offset": 8063,
+          "body_sha256": "7c86411193aff227818f7533df32ff22290161390f6df8e6a4bc8ed6957f5018",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 8063,
+            "source_line": 228,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec",
+            "expansion_token": "EDUKE32_GENERATE_PRAGMAS",
+            "clang_spelling_location": {
+              "offset": 1383,
+              "file": "<scratch space>",
+              "line": 99,
+              "col": 1,
+              "tokLen": 10
+            },
+            "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+            "expanded_body_sha256": "5768914ff298188ebab3bb4e1e9b2966503224786e8f201cbc2ef5eafc6024d5"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "paletteGetClosestColorUpToIndex",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL31paletteGetClosestColorUpToIndexiiii",
+          "original_type": "int32_t (int32_t, int32_t, int32_t, int32_t)",
+          "source_name": "paletteGetClosestColorUpToIndex",
+          "source_offset": 627,
+          "body_sha256": "6c10ad8ce2b167499fb6b5b17503e5ba1f621c6991a2c3c78391105f75ebe90a",
+          "original_definition": {
+            "source_header": "source/build/include/colmatch.h",
+            "source_offset": 627,
+            "source_line": 16,
+            "header_sha256": "b07937e19df5152c01af2c5dcfb7885c759baa09e3574d53d2a76178e9371670"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "scale",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL5scaleiii",
+          "original_type": "int32_t (int32_t, int32_t, int32_t)",
+          "source_name": "scale",
+          "source_offset": 5941,
+          "body_sha256": "02604215fa356351c6ef2367f92234159fb09aea8c82ad8eef158f94fdf0233d",
+          "original_definition": {
+            "source_header": "source/build/include/pragmas.h",
+            "source_offset": 5941,
+            "source_line": 174,
+            "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "system_15bit_rand",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL17system_15bit_randv",
+          "original_type": "uint16_t ()",
+          "source_name": "system_15bit_rand",
+          "source_offset": 34111,
+          "body_sha256": "0e2b5169219222f7c4fee438f9956ff1a085bce1de1b2832636eb58fda4a05ca",
+          "original_definition": {
+            "source_header": "source/build/include/compat.h",
+            "source_offset": 34111,
+            "source_line": 1231,
+            "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "tileGetMapping",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL14tileGetMappingi",
+          "original_type": "int (const int)",
+          "source_name": "tileGetMapping",
+          "source_offset": 58780,
+          "body_sha256": "b5a6cb6ba006376462564ce402da4c9f31452d4e408bb719ece349ca964b6c5a",
+          "original_definition": {
+            "source_header": "source/duke3d/src/dnames.h",
+            "source_offset": 58780,
+            "source_line": 1608,
+            "header_sha256": "145640bc284ea13e943c2894a55cb3839fc4f5f8df4737a2b5cda1fa651d526f"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "xaligned_alloc",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL14xaligned_allocmm",
+          "original_type": "void *(const bsize_t, const bsize_t)",
+          "source_name": "xaligned_alloc",
+          "source_offset": 38920,
+          "body_sha256": "e2b0e21a32d822696c7818c7ff0a652119ecff71917b9a0de8f2d7887f5321cf",
+          "original_definition": {
+            "source_header": "source/build/include/compat.h",
+            "source_offset": 38920,
+            "source_line": 1428,
+            "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "xaligned_free",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL13xaligned_freePv",
+          "original_type": "void (void *const)",
+          "source_name": "xaligned_free",
+          "source_offset": 39756,
+          "body_sha256": "51a13d4687f606111ede8e24f794343eddb788a19d14f9a2b05d6be1cd266901",
+          "original_definition": {
+            "source_header": "source/build/include/compat.h",
+            "source_offset": 39756,
+            "source_line": 1450,
+            "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "xcalloc",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL7xcallocmm",
+          "original_type": "void *(const bsize_t, const bsize_t)",
+          "source_name": "xcalloc",
+          "source_offset": 37938,
+          "body_sha256": "1335730b5ac03bf773e24b0bcb2dc7b6d52e607af5b253cf731f117ee79084bd",
+          "original_definition": {
+            "source_header": "source/build/include/compat.h",
+            "source_offset": 37938,
+            "source_line": 1400,
+            "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      },
+      {
+        "name": "xmalloc",
+        "cpp_function_identity": {
+          "abi": "source-clang-tu-function-identity/1",
+          "translation_unit": "source/duke3d/src/gameexec.cpp",
+          "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+          "mangled_name": "_ZL7xmallocm",
+          "original_type": "void *(const bsize_t)",
+          "source_name": "xmalloc",
+          "source_offset": 37660,
+          "body_sha256": "16c2413ffefc1d299a4b1aec4fafea5d133768caa32cc47d8df752b81e949b73",
+          "original_definition": {
+            "source_header": "source/build/include/compat.h",
+            "source_offset": 37660,
+            "source_line": 1392,
+            "header_sha256": "fa2c2edaa016f334f4f5fd3cefb77de323201407b5dfefe240927d456783a0bf"
+          }
+        },
+        "consumer_source": "source/duke3d/src/gameexec.cpp",
+        "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+      }
+    ],
+    "non_odr_header_constants": [
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 603,
+        "type": "const short",
+        "name": "NAKED1__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL8NAKED1__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 15147,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "7355858c6d91e1e165270fa59bb9027986a617114d6c4aec91117baa1c287b2c"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 753,
+        "type": "const short",
+        "name": "STATUE__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL8STATUE__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 16980,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "fcd04d4a5c52d1215f95415eb606000a742b3a9c36587c480947e637edd2ea9c"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1294,
+        "type": "const short",
+        "name": "PODFEM1__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL9PODFEM1__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23256,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "065fded983adee173b7dd15a62afd5f6f1e54217225a69532fca2d2156ee091a"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1312,
+        "type": "const short",
+        "name": "FEM1__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM1__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23400,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "9a0bb9eb746df55f5de7b9a05e70f35e1ab847f260c73a758c551758a64113b3"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1317,
+        "type": "const short",
+        "name": "FEM2__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM2__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23448,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "f43582c2fb8e82ed6fabceebc646c7af278103272c1e81ab503747fea4873f47"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1321,
+        "type": "const short",
+        "name": "FEM3__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM3__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23496,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "5e93f86fba5ce1d8c6282312e64d80dfde1f738348de39917aadd7382883f0a4"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1323,
+        "type": "const short",
+        "name": "FEM5__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM5__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23544,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "7c5b7c0c5d130798c5fc4a4c6e356c3686ea00dedf528210c3f9f1778da11461"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1325,
+        "type": "const short",
+        "name": "FEM4__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM4__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23640,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "0d74d7bf6f7b71aee7271c4c4b9f6454d56c6ceef8a87a591f11540f89e10fbd"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1334,
+        "type": "const short",
+        "name": "FEM6__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM6__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23688,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "4d5bebde040474324e575a5535e5f80965191fce4ec7ed2f27a66cd7367165b9"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1336,
+        "type": "const short",
+        "name": "FEM8__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM8__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 23784,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "cca3a9eb18db2d22f47f572dd847d270194e0749dedce11104e3f5e02d030a36"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 1395,
+        "type": "const short",
+        "name": "FEM7__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM7__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 24408,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "e77f65fec5aa5e9ecb90d309c5e69ddbabefc2dc10552f8e4b3643bc69510584"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 3450,
+        "type": "const short",
+        "name": "FEM9__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL6FEM9__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 33000,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "ebb9ab5e7d0cd38d88d0bbbc7b98df61968e383f5d534be43c69e32fce13df0a"
+      },
+      {
+        "abi": "source-clang-non-odr-header-integer/1",
+        "value": 4864,
+        "type": "const short",
+        "name": "FEM10__",
+        "original_type": "const int16_t",
+        "mangled_name": "_ZL7FEM10__",
+        "source_header": "source/duke3d/src/dnames.h",
+        "source_offset": 35400,
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "initializer_sha256": "072ed00814037f434d267eca6a76269353d550b71c21aed326ef9c345154253a"
       }
     ]
   }

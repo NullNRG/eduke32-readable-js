@@ -1,3 +1,9 @@
+Latest shared-provider checkpoint: 19 existing helpers refreshed with source/implementation identity proof; 29 original call bindings now verify. Native non-ODR constant folding resolves 13 tile constants without duplicating storage. The original scalar reader exposed mismatched Number/BigInt switch labels; generic case conversion now preserves Clang's promoted type.
+
+Local validation: 13/13 targeted regressions; 5,120 native/Chromium math/random/allocator values and 588 native/Chromium array/scalar values. Reports bind comparisons to actual module/runtime hashes. Successful allocation scope only; no allocation-failure parity claim. The current bounded VM probe has 93 unresolved names and two rejected imports (vec3 factory and actor nested prototypes), affecting five candidates. Actor already has contiguous native storage; do not replace its buffer. Original A_Dodge lowers but remains ABI-blocked. See reports/nov23-vm-provider-frontier.json and reports/nov23-vm-provider-rejected-imports.json.
+
+Previous checkpoint and remaining release scope follow; its older 126-name count and 34-provider rollout inventory are historical.
+
 The current deliverable is an original Build-engine renderer running in readable JavaScript, not the complete original game. Original `app_main`, menus, simulation and offline gameplay remain release gates. Do not replace those paths with a demonstration engine or success stubs.
 
 Verified November 23 compiler/callable checkpoint (current main; exact fingerprints in the reports). The November 23 renderer refresh passed with zero page exceptions and the same E1L1 image checksum. Its exact module/runtime bytes match the canonical component manifest.

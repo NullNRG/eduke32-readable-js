@@ -27,7 +27,7 @@
       "criterion": "Every archived original file is catalogued and excluded translation candidates have explicit reasons",
       "details": {
         "archived_source_files_examined": 1410,
-        "catalogued_excluded_translation_candidates": 187,
+        "catalogued_excluded_translation_candidates": 232,
         "catalogued_original_archive_entries": 1410,
         "headers_are_indirectly_selected_and_not_claimed_as_excluded_translation_units": true
       },
@@ -42,9 +42,16 @@
     {
       "criterion": "Canonical source-wide semantic extraction includes complete calls and initialization dependencies",
       "details": {
-        "attempted_units": 0,
-        "limitations": [],
-        "unit_statuses": null
+        "attempted_units": 111,
+        "limitations": [
+          "No complete indirect-call or callback target dataflow",
+          "Global read/write classification not yet implemented",
+          "Implicit template/lifetime details limited to libclang cursor API",
+          "Clang JSON emitter does not yet attach these USRs automatically"
+        ],
+        "unit_statuses": {
+          "parsed": 111
+        }
       },
       "evidence": [
         "semantic_index"
@@ -57,11 +64,11 @@
     {
       "criterion": "Original app_main startup-to-gameplay dependency graph has no unresolved implementation",
       "details": {
-        "blocked_definitions": 3443,
+        "blocked_definitions": 2940,
         "entry_resolution": "unique",
-        "reachable_definitions": 9197,
-        "unresolved_references": 1687,
-        "unverified_provider_links": 1276
+        "reachable_definitions": 8451,
+        "unresolved_references": 1194,
+        "unverified_provider_links": 894
       },
       "evidence": [
         "boot_blockers"
@@ -94,11 +101,11 @@
       "criterion": "At least 90 percent of comparable historical blocked declarations have verified executable recovery",
       "details": {
         "current_comparison_hash_bound": false,
-        "historical_records_without_proven_identity": 2009,
-        "proven_baseline_identities": 4201,
-        "syntax_emitted": 40,
-        "verified_executable_recovered": 0,
-        "verified_recovery_fraction": 0.0
+        "historical_records_without_proven_identity": null,
+        "proven_baseline_identities": null,
+        "syntax_emitted": null,
+        "verified_executable_recovered": null,
+        "verified_recovery_fraction": null
       },
       "evidence": [
         "recovery_comparison",
@@ -112,7 +119,7 @@
     {
       "criterion": "The full reachable original gameplay implementation is recovered and semantically verified",
       "details": {
-        "reachable_nodes": 9197,
+        "reachable_nodes": 8451,
         "semantically_verified_reachable_nodes": 0
       },
       "evidence": [
@@ -204,16 +211,16 @@
       "criterion": "The complete compiler/runtime regression selection passes",
       "details": {
         "complete": true,
-        "completed_tests": 156,
+        "completed_tests": 180,
         "counts": {
           "failed": 0,
           "launch-failed": 0,
-          "passed": 156,
+          "passed": 180,
           "timeout": 0
         },
         "failed_or_incomplete_tests": [],
         "passing_function_fixtures_do_not_verify_original_engine_gameplay": true,
-        "selected_tests": 156
+        "selected_tests": 180
       },
       "evidence": [
         "regression_suite"
@@ -247,20 +254,20 @@
     "self_contained_offline_game"
   ],
   "format": "source-first-original-port-acceptance/1",
-  "generated_utc": "2026-11-24T02:04:08.776943+00:00",
+  "generated_utc": "2026-11-24T06:31:10.384498+00:00",
   "inputs": {
     "all_blockers": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\all-blockers.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\all-blockers.json",
       "present": true,
-      "sha256": "0d14f5ebec800e99c08330064b48ccf3c2ba87e4c1f6eec99bb127710a13c738"
+      "sha256": "7f86476fcf8ec8078444d2a28550349df4a2b0e5cbb1ab10dd5644062e4ba9f1"
     },
     "boot_blockers": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\boot-blockers.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\boot-blockers.json",
       "present": true,
-      "sha256": "49b2c18bbf42703bb16a4f752891e97c419e208dcc0cb647b744c0de343942a0"
+      "sha256": "077d1fbac2bcb1e07c852380e5851c01e55ecb7e2ca1b25417331653b0502447"
     },
     "browser_gameplay": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\browser-gameplay.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\browser-gameplay.json",
       "present": false,
       "sha256": null
     },
@@ -275,9 +282,9 @@
       "sha256": "5f4d195a446632c3de01060e87696aee362f83196586cb1e44846b709fee43db"
     },
     "dependency_graph": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\dependency-graph.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\dependency-graph.json",
       "present": true,
-      "sha256": "c3c2310a2a075ac4c749b0da1ae1d0972ef28364ea61d141a3701cd51f04a458"
+      "sha256": "c55728c175f34275e9a2b3a71475614abc7e9d1e18d6fce519166c786eb2c4fc"
     },
     "link_report": {
       "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\globally-linked\\global-recovery.json",
@@ -285,39 +292,39 @@
       "sha256": "04ce656383974061adebf1feec7d60ac62d1bc3abbc898c6a9cb6061b5b42ebf"
     },
     "native_gameplay": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\native-gameplay-parity.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\native-gameplay-parity.json",
       "present": false,
       "sha256": null
     },
     "offline_audit": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\offline-bundle-audit.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\offline-bundle-audit.json",
       "present": false,
       "sha256": null
     },
     "recovery_comparison": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\recovery-comparison.json",
-      "present": true,
-      "sha256": "ed49ec8a641e18c37841f8304720ea6be90235fa0f54489cbdc4fb908669663f"
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\recovery-comparison.json",
+      "present": false,
+      "sha256": null
     },
     "regression_suite": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\recovery-regression-final.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\recovery-regression-final.json",
       "present": true,
-      "sha256": "8c3cda21afc668ce44c8448aa2f40e43dbf225731ca74589a927d827bc4e9090"
+      "sha256": "1da287351e5a4e91edd14b322358db87f79096b9be9b4fead699a534090c7b46"
     },
     "reproducibility": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\reproducible-build.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\reproducible-build.json",
       "present": false,
       "sha256": null
     },
     "semantic_index": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\semantic-index.summary.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\semantic-index.summary.json",
       "present": true,
-      "sha256": "900ddcd1981ec649de8e08bf0ab3b4a7f6268af8b06232ce977da5c0b14fa385"
+      "sha256": "13cc115903e02109d94cad49bda60c11cd92cb150421c3c7acd8f4dcff633b30"
     },
     "source_inventory": {
-      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\reports\\source-files-current.json",
+      "path": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\reports\\source-files-current.json",
       "present": true,
-      "sha256": "fe3d07275d1b105557a7a7c993d1314658b404cd4625e2af4424c22fb64fddca"
+      "sha256": "8a3b0a2faaa57a4e6d7e5b3daf7d7f300fc719a2557601b05c9b1a98d0b2665d"
     }
   },
   "original_game_playable_verified": false,
