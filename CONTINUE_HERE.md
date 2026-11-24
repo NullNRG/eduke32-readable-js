@@ -21,6 +21,10 @@ python tools/recover_browser_component.py --snapshot
 
 Read reports/nov23-header-value-regressions.json for the 13 targeted tests on the latest compiler and reports/nov19-final-shared-regressions.json for the earlier 20-test checkpoint and its fingerprints. A current checkpoint does not mean the complete historical regression suite or game acceptance passes. Use BUILD_PORTABILITY.md to set up another machine; do not copy local SDKs/caches into public Git.
 
+## November 24 original scalar writes
+
+Run `python work/verify_original_vm_leaf_operations.py` after loading `work/session-env.ps1` to compare the installed writer and angle helper against native C++. The first mixed helper batch exposed vec2/vec3 factory requirements even in `P_GetP`, whose original body reads a scalar sprite field through a pointer cast. Its emitter materializes the full record before the field projection. Keep the native extent and alignment checks while eliminating unused prototype materialization only for a verified leaf access.
+
 ## Completed checkpoint: original CON division
 
 The nine arithmetic helpers link and pass native/Chromium tests in seven storage modes. Original `Gv_DivVar` now also links and passes 783 native/Chromium divisions / 3,132 checked values across six storage modes. Eight targeted regressions pass. Do not reimplement these verified helpers. Next work is private callable ownership, original vector contracts and VM/startup closure.

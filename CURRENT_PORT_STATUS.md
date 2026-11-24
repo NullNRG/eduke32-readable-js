@@ -2,6 +2,12 @@
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
 
+## November 24 scalar writer and angle helper
+
+The active component includes the original `VM_SetStruct` and `G_GetAngleDelta`. Chromium matched the native C++ source on 768 scalar writes and 2,049 angle deltas. The writer test checks every byte, including adjacent bytes that must stay intact. The compiler also normalizes the switch expression and labels to their Clang integer types, including in recovered resume dispatches. Four targeted regressions pass. [Original function results](reports/nov24-original-vm-leaves.json) · [Compiler regressions](reports/nov24-switch-discriminant-regressions.json)
+
+The renderer image below is from the November 23 module set. The new module set is undergoing the same Chromium render check. The original game entry point is still absent. The November 23 diagnostic below gives the prior VM count.
+
 ## Latest shared-provider and integer-semantics checkpoint
 
 Nineteen existing original helpers now have verified same-TU callable contracts; together with the ten CON operators, 29 calls bind through original Clang identity and implementation bytes. Typed readers were recompiled after fixing native 64-bit switch labels emitted as JavaScript Numbers. Shared constant lowering now substitutes only Clang-proven non-ODR integral uses; address and volatile uses retain storage dependencies.

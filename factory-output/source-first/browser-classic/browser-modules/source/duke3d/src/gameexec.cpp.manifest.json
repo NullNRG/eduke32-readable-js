@@ -58,8 +58,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\gameexec.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 86,
-  "emitted": 86,
+  "found": 88,
+  "emitted": 88,
   "blocked": 0,
   "definitions": [
     {
@@ -3907,6 +3907,84 @@
       "status": "source-first",
       "external_imports": [],
       "unresolved_references": []
+    },
+    {
+      "name": "G_GetAngleDelta",
+      "source_name": "G_GetAngleDelta",
+      "kind": "FunctionDecl",
+      "line": 595,
+      "original_type": "int (int, int)",
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/gameexec.cpp",
+      "source_references": [
+        "klabs"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "klabs",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/gameexec.cpp",
+            "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+            "mangled_name": "_ZL5klabsi",
+            "original_type": "int32_t (const int32_t)",
+            "source_name": "klabs",
+            "source_offset": 10206,
+            "body_sha256": "8cb737f355ae0b3163fb66cbb4657aae72e78d3bfaecdc48e17ba08f51dc5ffc",
+            "original_definition": {
+              "source_header": "source/build/include/pragmas.h",
+              "source_offset": 10206,
+              "source_line": 321,
+              "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+            }
+          },
+          "consumer_source": "source/duke3d/src/gameexec.cpp",
+          "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+        }
+      ],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "klabs"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "VM_SetStruct",
+      "source_name": "VM_SetStruct",
+      "kind": "FunctionDecl",
+      "line": 199,
+      "original_type": "void (const uint32_t, intptr_t *const, int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL12VM_SetStructjPli",
+        "original_type": "void (const uint32_t, intptr_t *const, int32_t)",
+        "source_name": "VM_SetStruct",
+        "source_offset": 7839,
+        "body_sha256": "97bae23eaa7ba831e10b529953f249e11e072f0861b01460d5e319bff7ea3a07",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 7839,
+          "source_line": 199,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+        }
+      },
+      "original_header_function": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 7839,
+        "source_line": 199,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [],
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
     }
   ],
   "imports": [],
@@ -5323,6 +5401,46 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "c4d576a2fa4f6868df331584cfa5e434ddfe58218a49ca71a6a7c38b3fae62a0"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_gameexec_cpp_fb5e2304f79d.mjs",
+      "sha256": "fb5e2304f79df4f17f74defbc0099161eeacce5185818414a09cc597e404bef4",
+      "original_source": "source/duke3d/src/gameexec.cpp",
+      "exports": [
+        "G_GetAngleDelta",
+        "VM_SetStruct"
+      ],
+      "reexports": [
+        "G_GetAngleDelta",
+        "VM_SetStruct"
+      ],
+      "imports": [
+        {
+          "name": "klabs",
+          "from": "source/duke3d/src/gameexec.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/gameexec.cpp",
+            "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+            "mangled_name": "_ZL5klabsi",
+            "original_type": "int32_t (const int32_t)",
+            "source_name": "klabs",
+            "source_offset": 10206,
+            "body_sha256": "8cb737f355ae0b3163fb66cbb4657aae72e78d3bfaecdc48e17ba08f51dc5ffc",
+            "original_definition": {
+              "source_header": "source/build/include/pragmas.h",
+              "source_offset": 10206,
+              "source_line": 321,
+              "header_sha256": "5f834c5a6c6aa3248a8dcc824a0e108ffca88a5ffabffab52cdb963692d967ec"
+            }
+          },
+          "consumer_source": "source/duke3d/src/gameexec.cpp",
+          "implementation_sha256": "2a708cb99adf243c680de6f24f1071e959a4e727dc25dda04cb5b9948311b467"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "07b8830239040e8dcfc9a14f0b2204f3777abf5270efd030906de38696de47d5"
     }
   ],
   "superseded_module_fragments": [
