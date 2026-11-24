@@ -2402,165 +2402,6 @@
       "unresolved_references": []
     },
     {
-      "name": "Gv_DivVar",
-      "source_name": "Gv_DivVar",
-      "kind": "FunctionDecl",
-      "line": 243,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "original_header_function": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 11279,
-        "source_line": 243,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "aGameVars",
-        "bfdivtable32",
-        "fix16_div",
-        "fix16_from_int__header_6768ed80e668",
-        "lastd_s32_b",
-        "libdivide_s32_branchfree_do",
-        "libdivide_s32_branchfree_gen",
-        "vm"
-      ],
-      "storage_constructor_count": 0,
-      "storage_assignment_count": 1,
-      "trivial_record_assignment_proofs": [
-        {
-          "abi": "source-clang-trivial-record-assignment/1",
-          "record_name": "libdivide::libdivide_s32_branchfree_t",
-          "source_record": "libdivide::libdivide_s32_branchfree_t",
-          "clang_method_id": "0x24cf6f91830",
-          "clang_assignment_signature": "libdivide_s32_branchfree_t &(libdivide_s32_branchfree_t &&) noexcept",
-          "assignment_mode": "clang-trivial-implicit-byte-copy",
-          "native_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
-          }
-        }
-      ],
-      "external_reference_imports": [],
-      "external_storage_imports": [
-        {
-          "name": "lastd_s32_b",
-          "binding": "__cxx_global_cell_b6db0759e33cdbb028a91dc6",
-          "abi": "source-global-cell/2",
-          "original_type": "int"
-        },
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t",
-          "byte_record_data_access": {
-            "abi": "source-record-field-access/1",
-            "reference_count": 2,
-            "accesses": [
-              {
-                "clang_reference_id": "0x24cf7cdb888",
-                "fields": [
-                  {
-                    "id": "0x1f14dda91c8",
-                    "name": "playerNum"
-                  }
-                ],
-                "result_type": "int"
-              },
-              {
-                "clang_reference_id": "0x24cf7cdb888",
-                "fields": [
-                  {
-                    "id": "0x1f14dda9160",
-                    "name": "spriteNum"
-                  }
-                ],
-                "result_type": "int"
-              }
-            ]
-          }
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        },
-        {
-          "name": "bfdivtable32",
-          "abi": "source-byte-record-array/1",
-          "stride": 5,
-          "dimensions": [
-            16384
-          ],
-          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
-          "original_type": "libdivide::libdivide_s32_branchfree_t[16384]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "control_flow": {
-        "passes": [
-          "find_nested_terminal_labels",
-          "index_labels",
-          "resolve_edges",
-          "verify_copied_suffixes",
-          "validate_lifetimes",
-          "detect_tail_returns",
-          "form_regions",
-          "verify_nesting",
-          "bind_control_exits"
-        ],
-        "detected": {
-          "labels": 0,
-          "same_switch_terminal_break_jumps": 1,
-          "nested_terminal_jumps": 1,
-          "shadowed_locals_renamed": 2,
-          "locals_checked": 4,
-          "exit_blocks": 0,
-          "natural_loops": 0,
-          "reducible": 1
-        },
-        "strategy": "structured-source-labels-no-opcode-dispatch"
-      },
-      "external_imports": [
-        "aGameVars",
-        "bfdivtable32",
-        "fix16_div",
-        "lastd_s32_b",
-        "libdivide_s32_branchfree_do",
-        "libdivide_s32_branchfree_gen",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
       "name": "Gv_AddVar",
       "source_name": "Gv_AddVar",
       "kind": "FunctionDecl",
@@ -3564,6 +3405,181 @@
       "external_imports": [
         "Fix16",
         "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_DivVar",
+      "source_name": "Gv_DivVar",
+      "kind": "FunctionDecl",
+      "line": 243,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_DivVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_DivVar",
+        "source_offset": 11279,
+        "body_sha256": "ae10429e8b361c783fcd0edde036a64f3e07311daf561428ae0c52260c8a09d0",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 11279,
+          "source_line": 243,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+        }
+      },
+      "original_header_function": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 11279,
+        "source_line": 243,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "aGameVars",
+        "bfdivtable32",
+        "fix16_div",
+        "fix16_from_int__header_6768ed80e668",
+        "lastd_s32_b",
+        "libdivide_s32_branchfree_do",
+        "libdivide_s32_branchfree_gen",
+        "vm"
+      ],
+      "storage_constructor_count": 0,
+      "storage_assignment_count": 1,
+      "trivial_record_assignment_proofs": [
+        {
+          "abi": "source-clang-trivial-record-assignment/1",
+          "record_name": "libdivide::libdivide_s32_branchfree_t",
+          "source_record": "libdivide::libdivide_s32_branchfree_t",
+          "clang_method_id": "0x24cf6f91830",
+          "clang_assignment_signature": "libdivide_s32_branchfree_t &(libdivide_s32_branchfree_t &&) noexcept",
+          "assignment_mode": "clang-trivial-implicit-byte-copy",
+          "native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          }
+        }
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "lastd_s32_b",
+          "binding": "__cxx_global_cell_b6db0759e33cdbb028a91dc6",
+          "abi": "source-global-cell/2",
+          "original_type": "int"
+        },
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t",
+          "byte_record_data_access": {
+            "abi": "source-record-field-access/1",
+            "reference_count": 2,
+            "accesses": [
+              {
+                "clang_reference_id": "0x24cf7cdb888",
+                "fields": [
+                  {
+                    "id": "0x1f14dda91c8",
+                    "name": "playerNum"
+                  }
+                ],
+                "result_type": "int"
+              },
+              {
+                "clang_reference_id": "0x24cf7cdb888",
+                "fields": [
+                  {
+                    "id": "0x1f14dda9160",
+                    "name": "spriteNum"
+                  }
+                ],
+                "result_type": "int"
+              }
+            ]
+          }
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        },
+        {
+          "name": "bfdivtable32",
+          "abi": "source-byte-record-array/1",
+          "stride": 5,
+          "dimensions": [
+            16384
+          ],
+          "schema_sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0",
+          "original_type": "libdivide::libdivide_s32_branchfree_t[16384]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "9ce070c4dbcc716e36f4dc7d230c2fe3683993c7fa9c37d6a637a708f7c906c0"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "control_flow": {
+        "passes": [
+          "find_nested_terminal_labels",
+          "index_labels",
+          "resolve_edges",
+          "verify_copied_suffixes",
+          "validate_lifetimes",
+          "detect_tail_returns",
+          "form_regions",
+          "verify_nesting",
+          "bind_control_exits"
+        ],
+        "detected": {
+          "labels": 0,
+          "same_switch_terminal_break_jumps": 1,
+          "nested_terminal_jumps": 1,
+          "shadowed_locals_renamed": 2,
+          "locals_checked": 4,
+          "exit_blocks": 0,
+          "natural_loops": 0,
+          "reducible": 1
+        },
+        "strategy": "structured-source-labels-no-opcode-dispatch"
+      },
+      "external_imports": [
+        "aGameVars",
+        "bfdivtable32",
+        "fix16_div",
+        "lastd_s32_b",
+        "libdivide_s32_branchfree_do",
+        "libdivide_s32_branchfree_gen",
         "vm"
       ],
       "unresolved_references": []
@@ -4738,7 +4754,7 @@
         }
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "ba6ed4cfdf38686fe5d9277366ff4d06f3c2ad192d6f8b9b1eeb9146a893c2c1"
+      "source_manifest_sha256": "05912822a0ad13a0c4e5b61d5206588004d1db626dd934194d5edbf3c394c65e"
     }
   ],
   "superseded_module_fragments": [

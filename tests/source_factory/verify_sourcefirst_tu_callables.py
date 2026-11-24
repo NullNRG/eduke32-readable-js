@@ -88,13 +88,15 @@ int main(){for(int n=0;n<256;n++){int a=owner_read(n),b=fragment_step(n),c=extra
  class Quiet(SimpleHTTPRequestHandler):
   extensions_map={**SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript'}
   def log_message(self,*args):pass
- with ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Quiet,directory=str(root))) as server:
-  thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
-  from playwright.sync_api import sync_playwright
-  with sync_playwright() as pw:
-   browser=pw.chromium.launch(executable_path=os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'),headless=True)
-   try:
-    page=browser.new_page();origin='http://127.0.0.1:'+str(server.server_port);page.goto(origin)
-    assert page.evaluate(expression,origin+'/owner')==expected
-   finally:browser.close();server.shutdown();thread.join()
-print('PASS 1536 native/Node/Chromium values: TU-local overload/state/callback identity, unchanged-shard reattestation, independent TUs and changed-context/body/bytes rejection')
+ browser_values=0
+ if os.environ.get('EDUKE_CHROMIUM_EXECUTABLE'):
+  with ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Quiet,directory=str(root))) as server:
+   thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+   from playwright.sync_api import sync_playwright
+   with sync_playwright() as pw:
+    browser=pw.chromium.launch(executable_path=os.environ['EDUKE_CHROMIUM_EXECUTABLE'],headless=True)
+    try:
+     page=browser.new_page();origin='http://127.0.0.1:'+str(server.server_port);page.goto(origin)
+     assert page.evaluate(expression,origin+'/owner')==expected;browser_values=1536
+    finally:browser.close();server.shutdown();thread.join()
+print(f'PASS 1536 native/Node values, {browser_values} Chromium values: TU-local overload/state/callback identity, unchanged-shard reattestation, independent TUs and changed-context/body/bytes rejection')
