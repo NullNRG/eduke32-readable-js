@@ -1087,6 +1087,35 @@ class Emit:
                 return 'cRecordPointer('+expression+', '+json.dumps(view['byte_schema'],sort_keys=True)+')'
             raise Unsupported('record pointer member requires original byte layout: '+str(base))
         return expression
+    def scalar_record_field_view(self, schema, field_name):
+        field = schema.get('fields', {}).get(field_name) if schema else None
+        if (field and (field.get('native') or field.get('pointer'))
+                and not any(key in field for key in ('length','nativeArray','pointerArray','reference'))):
+            # Preserve the full object extent and alignment while exposing
+            # just the selected field. No adjacent subobject can be observed.
+            view = {**schema, 'fields': {field_name: field}, 'fieldView': True}
+            view.pop('prototype', None)
+            return view
+        return None
+
+    def record_member_object_expr(self, pointer, field_name):
+        # The pointer cast directly feeds one original Clang field access.
+        # An opaque address needs only its checked leaf view, not prototypes
+        # for unrelated members of the enclosing record.
+        cast = pointer
+        while kind(cast) == 'ParenExpr' and len(kids(cast)) == 1:
+            cast = kids(cast)[0]
+        operands = kids(cast)
+        if (field_name and kind(cast) in ('CStyleCastExpr','CXXStaticCastExpr','CXXReinterpretCastExpr')
+                and cast.get('castKind') == 'BitCast' and len(operands) == 1
+                and re.fullmatch(r'(?:(?:const|volatile)\s+)*void\s*\*', qual(operands[0]))):
+            owner = normalized_record_name(qual(cast).rstrip().rstrip('*').strip(), self.type_aliases)
+            schema = self.global_storage_records.get(owner, {}).get('byte_schema')
+            view = self.scalar_record_field_view(schema, field_name)
+            if view and schema_has_prototype(schema):
+                return 'cRecordObject(cRecordPointer('+self.expr(operands[0])+', '+json.dumps(view,sort_keys=True)+'))'
+        return self.record_object_expr(qual(pointer), self.expr(pointer), field_name)
+
     def record_object_expr(self,pointer_type,expression,field_name=None):
         """Use the same original storage for field reads, addresses and updates."""
         if field_name:
@@ -1100,15 +1129,8 @@ class Emit:
                         raise Unsupported('large record pointer requires a proven source field: '+str(base)+'.'+field_name)
                     view={**storage_view,'fields':{field_name:field},'fieldView':True}
                     return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(view,sort_keys=True)+'))'
-            field=schema.get('fields',{}).get(field_name) if schema else None
-            if (field and (field.get('native') or field.get('pointer'))
-                    and not any(key in field for key in ('length','nativeArray','pointerArray','reference'))
-                    and schema_has_prototype(schema)):
-                # The enclosing object's size, alignment and the selected
-                # field stay as Clang proved them. This view cannot expose the
-                # record or its methods, so only its leaf field is materialized.
-                view={**schema,'fields':{field_name:field},'fieldView':True}
-                view.pop('prototype',None)
+            view=self.scalar_record_field_view(schema,field_name)
+            if view and schema_has_prototype(schema):
                 return 'cRecordObject(cRecordPointer('+expression+', '+json.dumps(view,sort_keys=True)+'))'
         return 'cRecordObject('+self.record_pointer_view(pointer_type,expression)+')'
     def record_array_member_byte_address(self,node):
@@ -1502,7 +1524,6 @@ class Emit:
                         raise Unsupported('C++ conversion requires linked source-defined class method: '+name)
                     name=resolved
                 else:raise Unsupported('nonidentifier member')
-            receiver=self.expr(a[0])
             # Clang's arrow MemberExpr already proves record-member access.
             if not name.startswith('operator'):
                 cls=normalized_record_name(re.sub(r'[&*]+\s*$','',qual(a[0])).strip(),self.type_aliases)
@@ -1518,7 +1539,9 @@ class Emit:
             declaration=self.source_field_declaration(n)
             if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
                 field_name=name if kind(declaration)=='FieldDecl' else None
-                receiver=self.record_object_expr(qual(a[0]),receiver,field_name)
+                receiver=self.record_member_object_expr(a[0],field_name)
+            else:
+                receiver=self.expr(a[0])
             member=receiver+'.'+name
             return member+'.value' if self.scalar_reference(qual(declaration)) else member
         if k=='ArraySubscriptExpr':
@@ -2668,11 +2691,12 @@ class Emit:
                 return f'cPointerElementRef({pointer}, {self.expr(a[1])})'
             return f'cArrayRef({self.expr(a[0])}, {self.expr(a[1])})'
         if k=='MemberExpr' and re.fullmatch(r'[A-Za-z_$][\w$]*',n.get('name','')):
-            receiver=self.expr(a[0])
             declaration=self.source_field_declaration(n)
             if n.get('isArrow') and kind(a[0])!='CXXThisExpr':
                 field_name=n['name'] if kind(declaration)=='FieldDecl' else None
-                receiver=self.record_object_expr(qual(a[0]),receiver,field_name)
+                receiver=self.record_member_object_expr(a[0],field_name)
+            else:
+                receiver=self.expr(a[0])
             if self.scalar_reference(qual(declaration)):return receiver+'.'+n['name']
             return f'cObjectFieldRef({receiver}, {json.dumps(n["name"])})'
         if k in ('CallExpr','CXXMemberCallExpr'):
