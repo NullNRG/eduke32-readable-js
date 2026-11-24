@@ -38,9 +38,17 @@ def main():
         runtime.bindSourceMemory();
         const release=(await import(base+'/browser-abi/libc_provider.mjs')).bindBrowserC(runtime);
         try {
-            // Follow the engine-first order used by the browser startup probe.
-            await import(base+'/source/build/src/engine.cpp.mjs');
+            // Import sector first to exercise the original save-table cycle.
             const sector=await import(base+'/source/duke3d/src/sector.cpp.mjs');
+            const save=await import(base+'/source/duke3d/src/savegame.cpp.mjs');
+            const globals=await import(base+'/source/duke3d/src/global.cpp.mjs');
+            const addresses=globalThis[Symbol.for('source-lp64-addresses/2')];
+            const origins=save.svgm_anmisc[9];
+            const count=addresses.decode(save.svgm_anmisc[12].cnt);
+            if(Number(origins.cnt)!==2048 || Number(origins.size)!==8 ||
+               addresses.encode(origins.ptr)!==addresses.encode(globals.g_origins) ||
+               count!==globals.__cxx_global_cell_c7396d09498f79f4675d125b())
+                throw Error('The original save table lost its extent or pointer identity');
             const rows=[];
             for (let tag=-1024;tag<1024;tag++)
                 rows.push([sector.isanearoperator(tag),sector.isanunderoperator(tag)].join(','));
@@ -52,6 +60,7 @@ def main():
     assert actual['rows'] == expected, next(
         ((i, got, want) for i, (got, want) in enumerate(zip(actual['rows'], expected)) if got != want), None)
     report = {'verified': True, 'definitions': ['isanearoperator', 'isanunderoperator'],
+              'sector_first_import_verified': True, 'original_save_descriptor_addresses_verified': True,
               'native_chromium_values': 4096, 'chromium_version': actual['chromium_version'],
               'native_oracle_sha256': hashlib.sha256(native.encode()).hexdigest(),
               'results_sha256': hashlib.sha256(json.dumps(expected).encode()).hexdigest(),

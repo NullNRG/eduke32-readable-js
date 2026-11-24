@@ -2,6 +2,30 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { ABIHeap, VirtualFS, SymbolLinker, NativeRuntime, bindSourceFreeAllocator } from '../../runtime/index.mjs';
+import { sourceAddressSpace } from '../../tools/source_address_runtime.mjs';
+
+test('taking a typed scalar address does not read its static value', () => {
+  let ready = false;
+  let value = 0;
+  const cell = {
+    __cReference: true,
+    get value() {
+      if (!ready) throw new ReferenceError('Original scalar is still initializing');
+      return value;
+    },
+    set value(next) { value = next; }
+  };
+  Object.defineProperty(cell, Symbol.for('source-first.scalar-lvalue-io/1'), {
+    value: Object.freeze({abi:'source-scalar-lvalue-io/1',Type:Int32Array})
+  });
+  const bits = sourceAddressSpace.encode(cell);
+  assert.notEqual(bits, 0n);
+  assert.equal(sourceAddressSpace.decode(bits), cell);
+  ready = true;
+  cell.value = 17;
+  assert.equal(sourceAddressSpace.encode(cell), bits);
+  assert.equal(sourceAddressSpace.decode(bits).value, 17);
+});
 
 function syntheticGRP() {
   const payload = new Uint8Array([1, 2, 3, 4, 5]);

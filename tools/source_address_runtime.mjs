@@ -66,6 +66,10 @@ const cSourceAddresses = (() => {
       throw new TypeError('C integer address requires proven contiguous byte storage');
     }
     if(value?.__cReference===true){
+      // A Clang-proven scalar lvalue owns its address even before the backing
+      // static value initializes. Address formation must not read that value.
+      if(value[Symbol.for('source-first.scalar-lvalue-io/1')]?.abi==='source-scalar-lvalue-io/1')
+        return {owner:value,value};
       if(value.value?.[Symbol.for('source-first.original-byte-record-storage/1')])return canonical(value.value);
       return {owner:value,value};
     }

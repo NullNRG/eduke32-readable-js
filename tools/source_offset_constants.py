@@ -2,6 +2,53 @@
 from collections import defaultdict
 from pathlib import Path
 import ctypes
+import re
+
+
+def proven_array_extent(call, c):
+    """Recognize the selected constexpr template that returns its array bound."""
+    selected = call.referenced
+    if not selected or selected.kind != c.CursorKind.FUNCTION_DECL:
+        return None
+    args = list(call.get_arguments())
+    parameters = list(selected.get_arguments())
+    if len(args) != 1 or len(parameters) != 1:
+        return None
+    parameter_type = parameters[0].type.get_canonical()
+    if parameter_type.kind != c.TypeKind.LVALUEREFERENCE:
+        return None
+    array = parameter_type.get_pointee()
+    if array.kind != c.TypeKind.CONSTANTARRAY:
+        return None
+    argument = args[0]
+    while argument.kind in (c.CursorKind.UNEXPOSED_EXPR, c.CursorKind.PAREN_EXPR):
+        children = list(argument.get_children())
+        if len(children) != 1:
+            return None
+        argument = children[0]
+    if argument.kind != c.CursorKind.DECL_REF_EXPR or not argument.referenced:
+        return None
+    original = argument.referenced.type.get_canonical()
+    extent = array.get_array_size()
+    if (argument.referenced.kind != c.CursorKind.VAR_DECL or original.kind != c.TypeKind.CONSTANTARRAY
+            or original.get_array_size() != extent or extent < 1):
+        return None
+    definition = selected.get_definition()
+    if not definition:
+        return None
+    tokens = [token.spelling for token in definition.get_tokens()]
+    if len(tokens) < 8 or 'constexpr' not in tokens[:-5] or tokens[-5:-3] != ['{', 'return'] or tokens[-2:] != [';', '}']:
+        return None
+    bound = tokens[-3]
+    if not re.fullmatch(r'[A-Za-z_]\w*', bound):
+        return None
+    if not any(tokens[i:i+3] == ['[', bound, ']'] for i in range(len(tokens)-5)):
+        return None
+    if selected.get_num_template_arguments() != 2 or selected.get_template_argument_kind(1) != c.TemplateArgumentKind.INTEGRAL:
+        return None
+    if selected.get_template_argument_value(1) != extent:
+        return None
+    return extent
 
 
 def authored_declarations(ast, source):
@@ -39,14 +86,31 @@ class OffsetConstants:
                 kind = n.get('kind')
                 ref = n.get('referencedDecl', {})
                 typ = n.get('type', {}).get('desugaredQualType', n.get('type', {}).get('qualType'))
+                location_node = n
                 if kind == 'OffsetOfExpr':
                     binding = 'offsetof'
+                elif decl.get('kind') == 'VarDecl' and kind == 'CallExpr' and typ == 'unsigned long':
+                    children = n.get('inner', ())
+                    if len(children) != 2:
+                        continue
+                    callee = children[0]
+                    if callee.get('castKind') == 'FunctionToPointerDecay':
+                        callee = next(iter(callee.get('inner', ())), {})
+                    template = callee.get('foundReferencedDecl', {})
+                    ref = callee.get('referencedDecl', {})
+                    if (template.get('kind') != 'FunctionTemplateDecl' or ref.get('kind') != 'FunctionDecl'
+                            or not re.search(r'\(&\)\[\d+\]', ref.get('type', {}).get('qualType', ''))):
+                        continue
+                    binding = 'extent:' + ref['name']
+                    # The compact AST retains the original template-reference
+                    # span even when it omits the surrounding CallExpr range.
+                    location_node = callee
                 elif (decl.get('kind') == 'VarDecl' and kind == 'DeclRefExpr' and n.get('nonOdrUseReason') == 'constant' and
                       ref.get('kind') == 'VarDecl' and typ == 'const bool' and ref.get('name')):
                     binding = 'bool:' + ref['name']
                 else:
                     continue
-                loc = n.get('range', {}).get('begin', {})
+                loc = location_node.get('range', {}).get('begin', {})
                 loc = loc.get('expansionLoc', loc)
                 if 'offset' not in loc or 'includedFrom' in loc:
                     continue
@@ -72,8 +136,12 @@ class OffsetConstants:
             if len(unique_nodes) != 1 or len(results) != 1:
                 continue
             for n in candidates:
-                n['_source_evaluated_array_constant'] = results[0]
-            matched['offsets' if key[-1] == 'offsetof' else 'booleans'] += 1
+                if key[-1].startswith('extent:'):
+                    n['_source_constant_array_extent'] = results[0]
+                else:
+                    n['_source_evaluated_array_constant'] = results[0]
+            category = 'offsets' if key[-1] == 'offsetof' else 'array_extents' if key[-1].startswith('extent:') else 'booleans'
+            matched[category] += 1
         self.report.update(requested=len(groups), matched=sum(matched.values()), by_kind=dict(matched))
 
     def evaluate(self):
@@ -117,6 +185,7 @@ class OffsetConstants:
                 continue
             for expr in decl.walk_preorder():
                 typ = expr.type.get_canonical().spelling
+                extent = None
                 if expr.kind == c.CursorKind.UNEXPOSED_EXPR and typ == 'unsigned long' and expr.type.get_size() == 8:
                     children = list(expr.get_children())
                     # OffsetOfExpr exposes its type and member designators.
@@ -131,6 +200,11 @@ class OffsetConstants:
                     if not ref or ref.kind != c.CursorKind.VAR_DECL or ref.storage_class != c.StorageClass.STATIC:
                         continue
                     binding = 'bool:' + ref.spelling
+                elif is_array and expr.kind == c.CursorKind.CALL_EXPR and typ == 'unsigned long':
+                    extent = proven_array_extent(expr, c)
+                    if extent is None:
+                        continue
+                    binding = 'extent:' + expr.spelling
                 else:
                     continue
                 result = evaluate(expr)
@@ -139,7 +213,7 @@ class OffsetConstants:
                         if result_kind(result) == 1:  # CXEval_Int
                             key = decl.spelling, decl.location.offset, expr.location.offset, typ, binding
                             number = unsigned_value(result)
-                            if binding == 'offsetof' or number in (0, 1):
+                            if binding == 'offsetof' or (extent is not None and number == extent) or (extent is None and number in (0, 1)):
                                 values[key].append(number)
                     finally:
                         dispose(result)

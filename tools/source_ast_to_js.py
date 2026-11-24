@@ -1340,6 +1340,10 @@ class Emit:
                 or kind(a[1]) in ('NonTypeTemplateParmDecl','TemplateArgument')):
                 raise Unsupported('non-type template substitution lacks Clang-selected argument')
             return js_cast(self.expr(a[1]),qual(n))
+        if k=='CallExpr' and '_source_constant_array_extent' in n:
+            native_type = resolve_scalar_storage_alias(qual(n), self.type_aliases)
+            literal = str(n['_source_constant_array_extent']) + ('n' if is_wide_integer(native_type) else '')
+            return js_cast(literal, native_type)
         if k=='VAArgExpr':
             # Clang's original va_arg type must correspond to an ABI-safe
             # promoted scalar or pointer; records via va_arg need a distinct
@@ -4893,7 +4897,7 @@ def reference_names(node, resolver=None, class_dependencies=None, trivial_assign
         for child in emitted_children(n):collect(child,k)
     collect(node)
     def walk(n):
-        if '_source_evaluated_array_constant' in n:return
+        if '_source_evaluated_array_constant' in n or '_source_constant_array_extent' in n:return
         if id(n) in (library_service_nodes or set()):
             children=emitted_children(n)
             if kind(n)=='CXXOperatorCallExpr':children=children[1:]
