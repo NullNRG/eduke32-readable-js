@@ -23,7 +23,7 @@ Read reports/nov23-header-value-regressions.json for the 13 targeted tests on th
 
 ## November 24 original entry follow-up
 
-The current compiler lowers `app_main` after reconnecting the native ClockTicks conversion declaration. Read reports/nov24-app-main-current-frontier.json for the 42 direct unresolved names in the bounded probe. Refresh existing private callable providers with exact source and byte proofs before reimplementing them. Continue with original CON compilation, menus, and the game loop. The verified direct Chromium game module import currently has neither entry export.
+The current compiler lowers `app_main` after reconnecting the native ClockTicks conversion and the original static forward declarations for game startup helpers. Read reports/nov24-app-main-private-redeclarations.json for the 40 direct unresolved names in the bounded probe. Refresh existing private callable providers with exact source and byte proofs before reimplementing them. Continue with original CON compilation, menus, and the game loop. The verified direct Chromium game module import currently has neither entry export.
 
 Run `node work/verify_original_entry_helpers.mjs` to execute the recovered logging callback and game-button registration against the canonical JavaScript modules. The TU callable regression includes calls through forward declarations preceding overloaded static definitions. Reproduce the original entry probe with `python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --query-limit 16 --probe-only`.
 

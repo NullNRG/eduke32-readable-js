@@ -1,10 +1,10 @@
-# Current EDuke32 JavaScript port status — November 23, 2026
+# Current EDuke32 JavaScript port status — November 24, 2026
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
 
 ## November 24 original entry lowering checkpoint
 
-The original game module imports directly in Chromium. The compiler now reconnects Clang-selected conversion declarations in filtered bodies, including the original `ClockTicks::operator int` used by `app_main`. The 16-query diagnostic lowers the original entry and leaves **42 direct unresolved names**. The count is scoped to this probe. `G_Startup` is also source-lowered and awaits its original CON and error-handling dependencies. The strict release check still requires linked startup, game menus, playable simulation and the offline page. [Chromium import](reports/nov24-original-game-module-import.json) · [Entry frontier](reports/nov24-app-main-current-frontier.json) · [Startup frontier](reports/nov24-original-entry-frontier.json)
+The original game module imports directly in Chromium. The compiler now reconnects the Clang-selected `ClockTicks::operator int` conversion used by `app_main` and resolves static forward declarations through Clang's redeclaration chain. The latest 16-query diagnostic lowers the original entry and leaves **40 direct unresolved names**, down from 42 in the earlier probe. The original logging callback and game-button registration execute directly in Node. `G_Startup` awaits the original CON and error-handling dependencies. The strict release check still requires linked startup, game menus, playable simulation and the offline page. [Entry frontier](reports/nov24-app-main-private-redeclarations.json) · [Startup frontier](reports/nov24-original-entry-frontier.json) · [Helper execution](reports/nov24-original-entry-helper-execution.json)
 
 ## November 24 save descriptor startup checkpoint
 
