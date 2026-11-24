@@ -29,18 +29,44 @@ def sites(ast,names):
             digest=hashlib.sha256(json.dumps(body_semantic(bodies[0]),sort_keys=True,separators=(',',':')).encode()).hexdigest()
             for ordinal,reference in enumerate(references):
                 yield (mangled,owner.get('type',{}).get('qualType'),offset,digest,ordinal),reference
+
+def private_redeclaration_proofs(declarations,contracts):
+    """Prove calls made before a static definition through Clang's previousDecl chain."""
+    proofs={}
+    if not contracts:return proofs
+    for declaration in declarations.values():
+        if declaration.get('storageClass')!='static' or not declaration.get('previousDecl'):continue
+        proof=tu_functions.selected(declaration,contracts)
+        if not proof:continue
+        previous_id=declaration['previousDecl']
+        seen={declaration['id']}
+        while previous_id and previous_id not in seen:
+            previous=declarations.get(previous_id)
+            if (not previous or previous.get('mangledName')!=proof['mangled_name']
+                or previous.get('name')!=proof['source_name']
+                or previous.get('type',{}).get('qualType')!=proof['original_type']):break
+            proofs.setdefault(previous_id,{})[json.dumps(proof,sort_keys=True)]=proof
+            seen.add(previous_id)
+            previous_id=previous.get('previousDecl')
+    return proofs
+
 def index(complete,names,contracts=None):
     result={}
     if not names:return result
     for tree in complete:
         if tree.get('kind')!='TranslationUnitDecl':continue
-        declarations={node['id']:node for node in walk(tree) if node.get('kind')=='FunctionDecl' and node.get('id')}
+        declarations={node['id']:node for node in walk(tree) if node.get('kind')=='FunctionDecl'
+                      and node.get('name') in names and node.get('id')}
+        redeclarations=private_redeclaration_proofs(declarations,contracts)
         for key,reference in sites([tree],names):
-            selected=reference.get('referencedDecl',{});declaration=declarations.get(selected.get('id'),{})
+            selected=reference.get('referencedDecl',{});selected_id=selected.get('id')
+            declaration=declarations.get(selected_id,{})
+            if (declaration.get('name')!=selected.get('name')
+                or declaration.get('type',{}).get('qualType')!=selected.get('type',{}).get('qualType')):continue
+            witnesses=dict(redeclarations.get(selected_id,{}))
             proof=identity(declaration) or tu_functions.selected(declaration,contracts or {})
-            if (proof and declaration.get('name')==selected.get('name')
-                and declaration.get('type',{}).get('qualType')==selected.get('type',{}).get('qualType')):
-                result.setdefault(key,{})[json.dumps(proof,sort_keys=True)]=proof
+            if proof:witnesses[json.dumps(proof,sort_keys=True)]=proof
+            if witnesses:result.setdefault(key,{}).update(witnesses)
     return result
 def rebind(ast,proofs,names):
     for key,reference in sites(ast,names):

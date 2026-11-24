@@ -102,6 +102,10 @@ def selected(root,public=False):
     report_keys+=('original_engine_storage_repair_report','original_timer_frontier_report',
                   'original_script_relocation_report','original_script_relocation_strides_report',
                   'original_sector_tags_report')
+    report_keys+=('original_save_array_extent_report','original_game_module_import_report',
+                  'original_entry_frontier_report','original_startup_frontier_report',
+                  'original_array_extent_regression_report','original_entry_helper_execution_report',
+                  'original_entry_redeclaration_frontier_report')
     for key in report_keys:
         if snapshot.get(key):add(package_tool.safe_path(root,snapshot[key]))
     for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):

@@ -25,6 +25,8 @@ Read reports/nov23-header-value-regressions.json for the 13 targeted tests on th
 
 The current compiler lowers `app_main` after reconnecting the native ClockTicks conversion declaration. Read reports/nov24-app-main-current-frontier.json for the 42 direct unresolved names in the bounded probe. Refresh existing private callable providers with exact source and byte proofs before reimplementing them. Continue with original CON compilation, menus, and the game loop. The verified direct Chromium game module import currently has neither entry export.
 
+Run `node work/verify_original_entry_helpers.mjs` to execute the recovered logging callback and game-button registration against the canonical JavaScript modules. The TU callable regression includes calls through forward declarations preceding overloaded static definitions. Reproduce the original entry probe with `python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --query-limit 16 --probe-only`.
+
 ## November 24 storage and sector follow-up
 
 After loading `work/session-env.ps1`, run `python work/verify_original_script_relocation.py` and `python work/verify_original_sector_tags.py`. The active engine and savegame storage have single owners. Keep the pointer relocation parity checks when changing the CON loader. The current launcher engine test passes after normal engine-first initialization. Sector-first import now passes after folding the original compile-time `ARRAY_SIZE(g_origins)` and removing the address bridge’s read of typed scalar storage during static initialization. Run `python work/refresh_save_array_extent.py --prove-only` to recheck the exact extent. Keep the two save descriptor address checks in the sector test.
@@ -69,7 +71,7 @@ The typed-reader switch fix belongs in tools/source_ast_to_js.py CaseStmt loweri
 
 Vector imports still require real original factory implementations. Inspect tools/source_header_records.py and source_first_global_link.py. Obtain an actual method superset from Clang's original definitions; extend proofs for verified anonymous-union/nested-vector storage where appropriate. Keep source bytes, target layout, required methods and alias identity checked. Never merge incompatible factories or drop prototype verification.
 
-The component audit reports duplicate immutable header storage in engine.cpp and savegame.cpp. Inspect the exact active fragments listed in reports/nov23-continuation-frontier.json. Use the existing initializer/identity checks and verified fragment mechanism to retain one storage owner. Do not delete fragments, ignore immutable addresses or fabricate manifests.
+The active component audit verifies unique original storage in engine.cpp and savegame.cpp. Continue to use the existing initializer and identity checks when refreshing those fragments.
 
 ## Safe incremental recovery/refresh
 

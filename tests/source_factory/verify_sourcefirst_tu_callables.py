@@ -19,7 +19,9 @@ static int tick(double n){return (int)n-1000;}
 int external_pick(int);int external_pick(double);
 ''')
  (source/'external.cpp').write_text('int external_pick(int n){return n+101;}\nint external_pick(double n){return (int)n-301;}')
- (source/'unit.cpp').write_text('''#include "helpers.hpp"
+ (source/'unit.cpp').write_text('''static int tick(int);
+static int tick(double);
+int external_pick(int);int external_pick(double);
 typedef int (*Callback)(int);
 extern "C" int owner_read(int n){return tick(n);}
 extern "C" Callback owner_address(){return tick;}
@@ -27,6 +29,7 @@ extern "C" int fragment_step(int n){Callback p=tick;return p(n)+tick((double)n);
 extern "C" Callback fragment_address(){return tick;}
 extern "C" int extra_step(int n){return tick(n*2);}
 extern "C" int late_overloads(int n){return external_pick(n)+tick(n)+external_pick((double)n)+tick((double)n);}
+#include "helpers.hpp"
 ''')
  (source/'other.cpp').write_text('#include "helpers.hpp"\nextern "C" int other_read(int n){return tick(n);}')
  def compile(unit,out,names,existing=None):
