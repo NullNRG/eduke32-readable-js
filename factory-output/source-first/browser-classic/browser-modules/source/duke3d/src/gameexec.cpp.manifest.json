@@ -2402,753 +2402,6 @@
       "unresolved_references": []
     },
     {
-      "name": "Gv_AddVar",
-      "source_name": "Gv_AddVar",
-      "kind": "FunctionDecl",
-      "line": 282,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12519,
-        "source_line": 282,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12539,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 282,
-          "col": 21,
-          "tokLen": 9,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "e0f50e7a5000326d34860eae65c02c9cb6d151030d10f69f091083dc4ebdbe57"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_AndVar",
-      "source_name": "Gv_AndVar",
-      "kind": "FunctionDecl",
-      "line": 286,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12659,
-        "source_line": 286,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12679,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 286,
-          "col": 21,
-          "tokLen": 9,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "29345bb3ac63276f38131422ebbf9d84c4803423b4afc67ee4a92cc0697bf4a1"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_ModVar",
-      "source_name": "Gv_ModVar",
-      "kind": "FunctionDecl",
-      "line": 285,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12624,
-        "source_line": 285,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12644,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 285,
-          "col": 21,
-          "tokLen": 9,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "405ad33e552c3f161782c46280834ff7dc48a3750ab2470b6a170f6c622b1cee"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_MulVar",
-      "source_name": "Gv_MulVar",
-      "kind": "FunctionDecl",
-      "line": 284,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12589,
-        "source_line": 284,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12609,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 284,
-          "col": 21,
-          "tokLen": 9,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "1cee39b3aaeb97a480815c3322cc1204d43789dfa6c4d98e059d1112085f982c"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_OrVar",
-      "source_name": "Gv_OrVar",
-      "kind": "FunctionDecl",
-      "line": 288,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12729,
-        "source_line": 288,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12749,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 288,
-          "col": 21,
-          "tokLen": 8,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "95525ea8cea9b44e7628328bceaa17f6387bc86d0dc93fb323ab6b648aab9070"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_ShiftVarL",
-      "source_name": "Gv_ShiftVarL",
-      "kind": "FunctionDecl",
-      "line": 289,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12763,
-        "source_line": 289,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12783,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 289,
-          "col": 21,
-          "tokLen": 12,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "0abfb4e174b74bbe1aca0a767f27fe1388aa26f1d8f893f307d4082078017ec6"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_ShiftVarR",
-      "source_name": "Gv_ShiftVarR",
-      "kind": "FunctionDecl",
-      "line": 290,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12802,
-        "source_line": 290,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12822,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 290,
-          "col": 21,
-          "tokLen": 12,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "ff012ce19ea86e85572115e60137521afc87e04d8b816b39a618fd5bf21028da"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_SubVar",
-      "source_name": "Gv_SubVar",
-      "kind": "FunctionDecl",
-      "line": 283,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12554,
-        "source_line": 283,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12574,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 283,
-          "col": 21,
-          "tokLen": 9,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "91e89b12b9f338f709622499995891204a0bff316cb7293e70c27e4ca0cf152d"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
-      "name": "Gv_XorVar",
-      "source_name": "Gv_XorVar",
-      "kind": "FunctionDecl",
-      "line": 287,
-      "original_type": "void (const int, const int32_t)",
-      "linkage": "internal",
-      "macro_header_definition": {
-        "source_header": "source/duke3d/src/gamevars.h",
-        "source_offset": 12694,
-        "source_line": 287,
-        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
-        "expansion_token": "VM_GAMEVAR_OPERATOR",
-        "clang_spelling_location": {
-          "offset": 12714,
-          "file": "source/duke3d/src/gamevars.h",
-          "line": 287,
-          "col": 21,
-          "tokLen": 9,
-          "includedFrom": {
-            "file": "source/duke3d/src/game.h"
-          }
-        },
-        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
-        "expanded_body_sha256": "7cd773f396c994dda9175843c9c552dab5ffea8aa84f59ea666d33977d6e0219"
-      },
-      "physical_source": "source/duke3d/src/gamevars.h",
-      "source_references": [
-        "Fix16",
-        "aGameVars",
-        "fix16_from_int__header_6768ed80e668",
-        "vm"
-      ],
-      "external_reference_imports": [
-        {
-          "name": "Fix16",
-          "header_record_proof": {
-            "source_header": "source/build/include/fix16.hpp",
-            "source_offset": 93,
-            "enclosing_record": "Fix16",
-            "type": "Fix16",
-            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
-            "prototype_factory_abi": "source-header-record-factory/1"
-          }
-        }
-      ],
-      "external_storage_imports": [
-        {
-          "name": "vm",
-          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
-          "abi": "source-global-cell/2",
-          "original_type": "struct vmstate_t"
-        },
-        {
-          "name": "aGameVars",
-          "abi": "source-byte-record-array/1",
-          "stride": 32,
-          "dimensions": [
-            2048
-          ],
-          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
-          "original_type": "gamevar_t[2048]",
-          "native_element_layout": {
-            "abi": "source-record-field-storage/1",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "native_nested_layout": {
-            "abi": "source-native-record-array-layout/2",
-            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
-          },
-          "record_array_nested_data_view": "source-native-record-array-data-view/2",
-          "record_array_data_view": "source-native-record-array-data-view/1",
-          "consumer_source": "source/duke3d/src/gameexec.cpp"
-        }
-      ],
-      "status": "source-first",
-      "external_imports": [
-        "Fix16",
-        "aGameVars",
-        "vm"
-      ],
-      "unresolved_references": []
-    },
-    {
       "name": "Gv_DivVar",
       "source_name": "Gv_DivVar",
       "kind": "FunctionDecl",
@@ -3303,6 +2556,1014 @@
         "lastd_s32_b",
         "libdivide_s32_branchfree_do",
         "libdivide_s32_branchfree_gen",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_AddVar",
+      "source_name": "Gv_AddVar",
+      "kind": "FunctionDecl",
+      "line": 282,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_AddVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_AddVar",
+        "source_offset": 12519,
+        "body_sha256": "ebd3e60b2e6a4b60e5f625820e885ff56e1335375f8d0afbab4fac1ee6ffd50d",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12519,
+          "source_line": 282,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12539,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 282,
+            "col": 21,
+            "tokLen": 9,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "e0f50e7a5000326d34860eae65c02c9cb6d151030d10f69f091083dc4ebdbe57"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12519,
+        "source_line": 282,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12539,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 282,
+          "col": 21,
+          "tokLen": 9,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "e0f50e7a5000326d34860eae65c02c9cb6d151030d10f69f091083dc4ebdbe57"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_AndVar",
+      "source_name": "Gv_AndVar",
+      "kind": "FunctionDecl",
+      "line": 286,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_AndVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_AndVar",
+        "source_offset": 12659,
+        "body_sha256": "842db4f8c46396601138c3da317123a2c28f19be8c9852b117f12bd05aaf46ae",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12659,
+          "source_line": 286,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12679,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 286,
+            "col": 21,
+            "tokLen": 9,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "29345bb3ac63276f38131422ebbf9d84c4803423b4afc67ee4a92cc0697bf4a1"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12659,
+        "source_line": 286,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12679,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 286,
+          "col": 21,
+          "tokLen": 9,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "29345bb3ac63276f38131422ebbf9d84c4803423b4afc67ee4a92cc0697bf4a1"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_ModVar",
+      "source_name": "Gv_ModVar",
+      "kind": "FunctionDecl",
+      "line": 285,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_ModVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_ModVar",
+        "source_offset": 12624,
+        "body_sha256": "db1ec6125982fe4f91b20b8e9aa6ecbef23d55b9baf818460c6d3cb89f3d49cb",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12624,
+          "source_line": 285,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12644,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 285,
+            "col": 21,
+            "tokLen": 9,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "405ad33e552c3f161782c46280834ff7dc48a3750ab2470b6a170f6c622b1cee"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12624,
+        "source_line": 285,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12644,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 285,
+          "col": 21,
+          "tokLen": 9,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "405ad33e552c3f161782c46280834ff7dc48a3750ab2470b6a170f6c622b1cee"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_MulVar",
+      "source_name": "Gv_MulVar",
+      "kind": "FunctionDecl",
+      "line": 284,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_MulVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_MulVar",
+        "source_offset": 12589,
+        "body_sha256": "3137b0e685d48d1ddb0a392397e8f5af35f673e0e3d460a062e98e47fd30f77b",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12589,
+          "source_line": 284,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12609,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 284,
+            "col": 21,
+            "tokLen": 9,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "1cee39b3aaeb97a480815c3322cc1204d43789dfa6c4d98e059d1112085f982c"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12589,
+        "source_line": 284,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12609,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 284,
+          "col": 21,
+          "tokLen": 9,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "1cee39b3aaeb97a480815c3322cc1204d43789dfa6c4d98e059d1112085f982c"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_OrVar",
+      "source_name": "Gv_OrVar",
+      "kind": "FunctionDecl",
+      "line": 288,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL8Gv_OrVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_OrVar",
+        "source_offset": 12729,
+        "body_sha256": "abbec6beabf85ca3fb10a124a2ed61659fa90efc19a7781181a549ec2b15189f",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12729,
+          "source_line": 288,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12749,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 288,
+            "col": 21,
+            "tokLen": 8,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "95525ea8cea9b44e7628328bceaa17f6387bc86d0dc93fb323ab6b648aab9070"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12729,
+        "source_line": 288,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12749,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 288,
+          "col": 21,
+          "tokLen": 8,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "95525ea8cea9b44e7628328bceaa17f6387bc86d0dc93fb323ab6b648aab9070"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_ShiftVarL",
+      "source_name": "Gv_ShiftVarL",
+      "kind": "FunctionDecl",
+      "line": 289,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL12Gv_ShiftVarLii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_ShiftVarL",
+        "source_offset": 12763,
+        "body_sha256": "fbaa7c12eac9d8e6e17a175344b956381fea74d63c0846c0a1903156c65664a1",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12763,
+          "source_line": 289,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12783,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 289,
+            "col": 21,
+            "tokLen": 12,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "0abfb4e174b74bbe1aca0a767f27fe1388aa26f1d8f893f307d4082078017ec6"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12763,
+        "source_line": 289,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12783,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 289,
+          "col": 21,
+          "tokLen": 12,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "0abfb4e174b74bbe1aca0a767f27fe1388aa26f1d8f893f307d4082078017ec6"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_ShiftVarR",
+      "source_name": "Gv_ShiftVarR",
+      "kind": "FunctionDecl",
+      "line": 290,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL12Gv_ShiftVarRii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_ShiftVarR",
+        "source_offset": 12802,
+        "body_sha256": "718f22b03955f06de232f90a5d9f0fa165de13fcc66d33bb89992c85c36e576b",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12802,
+          "source_line": 290,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12822,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 290,
+            "col": 21,
+            "tokLen": 12,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "ff012ce19ea86e85572115e60137521afc87e04d8b816b39a618fd5bf21028da"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12802,
+        "source_line": 290,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12822,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 290,
+          "col": 21,
+          "tokLen": 12,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "ff012ce19ea86e85572115e60137521afc87e04d8b816b39a618fd5bf21028da"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_SubVar",
+      "source_name": "Gv_SubVar",
+      "kind": "FunctionDecl",
+      "line": 283,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_SubVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_SubVar",
+        "source_offset": 12554,
+        "body_sha256": "555ecb3fd6ac1a8c44deb938c4d74fcc9dd078b01c0e5d1aba2425771607e357",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12554,
+          "source_line": 283,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12574,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 283,
+            "col": 21,
+            "tokLen": 9,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "91e89b12b9f338f709622499995891204a0bff316cb7293e70c27e4ca0cf152d"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12554,
+        "source_line": 283,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12574,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 283,
+          "col": 21,
+          "tokLen": 9,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "91e89b12b9f338f709622499995891204a0bff316cb7293e70c27e4ca0cf152d"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
+        "vm"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "Gv_XorVar",
+      "source_name": "Gv_XorVar",
+      "kind": "FunctionDecl",
+      "line": 287,
+      "original_type": "void (const int, const int32_t)",
+      "linkage": "internal",
+      "cpp_function_identity": {
+        "abi": "source-clang-tu-function-identity/1",
+        "translation_unit": "source/duke3d/src/gameexec.cpp",
+        "preprocessor_sha256": "bad32f46f6d41157f82ffb50696f56655b0d697f18538af023a5396bce33f8e4",
+        "mangled_name": "_ZL9Gv_XorVarii",
+        "original_type": "void (const int, const int32_t)",
+        "source_name": "Gv_XorVar",
+        "source_offset": 12694,
+        "body_sha256": "34d8e23ab91acdfc57815411e6afe0737b296fcb065c60981e13bd775cba478a",
+        "original_definition": {
+          "source_header": "source/duke3d/src/gamevars.h",
+          "source_offset": 12694,
+          "source_line": 287,
+          "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+          "expansion_token": "VM_GAMEVAR_OPERATOR",
+          "clang_spelling_location": {
+            "offset": 12714,
+            "file": "source/duke3d/src/gamevars.h",
+            "line": 287,
+            "col": 21,
+            "tokLen": 9,
+            "includedFrom": {
+              "file": "source/duke3d/src/game.h"
+            }
+          },
+          "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+          "expanded_body_sha256": "7cd773f396c994dda9175843c9c552dab5ffea8aa84f59ea666d33977d6e0219"
+        }
+      },
+      "macro_header_definition": {
+        "source_header": "source/duke3d/src/gamevars.h",
+        "source_offset": 12694,
+        "source_line": 287,
+        "header_sha256": "78eef7802ab274c7f5e6b9deba533ed208742150db068fd5d8841b337ac34482",
+        "expansion_token": "VM_GAMEVAR_OPERATOR",
+        "clang_spelling_location": {
+          "offset": 12714,
+          "file": "source/duke3d/src/gamevars.h",
+          "line": 287,
+          "col": 21,
+          "tokLen": 9,
+          "includedFrom": {
+            "file": "source/duke3d/src/game.h"
+          }
+        },
+        "physical_origin_proof": "clang-macro-expansion-at-verified-header-byte-offset",
+        "expanded_body_sha256": "7cd773f396c994dda9175843c9c552dab5ffea8aa84f59ea666d33977d6e0219"
+      },
+      "physical_source": "source/duke3d/src/gamevars.h",
+      "source_references": [
+        "Fix16",
+        "aGameVars",
+        "fix16_from_int__header_6768ed80e668",
+        "vm"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "Fix16",
+          "header_record_proof": {
+            "source_header": "source/build/include/fix16.hpp",
+            "source_offset": 93,
+            "enclosing_record": "Fix16",
+            "type": "Fix16",
+            "semantic_sha256": "c6babe877600b5932ea3f890ced1fa1aa9fccfa055e275ea1569b6fd1f0371f3",
+            "prototype_factory_abi": "source-header-record-factory/1"
+          }
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "vm",
+          "binding": "__cxx_global_cell_5bce98f73f3ed0c837f2729e",
+          "abi": "source-global-cell/2",
+          "original_type": "struct vmstate_t"
+        },
+        {
+          "name": "aGameVars",
+          "abi": "source-byte-record-array/1",
+          "stride": 32,
+          "dimensions": [
+            2048
+          ],
+          "schema_sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55",
+          "original_type": "gamevar_t[2048]",
+          "native_element_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "native_nested_layout": {
+            "abi": "source-native-record-array-layout/2",
+            "sha256": "194ab0883dddea018b72bd801db9ac1f47bc735714eb32caeb96b2bb6e04cd55"
+          },
+          "record_array_nested_data_view": "source-native-record-array-data-view/2",
+          "record_array_data_view": "source-native-record-array-data-view/1",
+          "consumer_source": "source/duke3d/src/gameexec.cpp"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "Fix16",
+        "aGameVars",
         "vm"
       ],
       "unresolved_references": []
@@ -4354,7 +4615,7 @@
         }
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
-      "source_manifest_sha256": "40ab20cb6ad5337a94b66c167644ae2274bcf9416e297ed56c7122271c1a2f1e"
+      "source_manifest_sha256": "30343b8cec5f97cb95f75c662167dee8a381687aad5eb5d7960b83daa0327e4b"
     },
     {
       "module": "source/duke3d/src/_source_legacy_gameexec_cpp_d2a638535044.mjs",

@@ -105,16 +105,23 @@ def main():
     code=re.sub(r'from ([\'"])(\.{1,2}/[^\'"]+)\1',relocate,code)
     digest=hashlib.sha256(code.encode()).hexdigest()
     fragment=original.parent/('_source_legacy_'+original.stem.replace('.','_')+'_'+digest[:12]+'.mjs')
-    if fragment.exists():raise ValueError('Fragment path already exists')
+    identical=bool(replacing and digest==a.replace_fragment_sha256)
+    if identical:
+        if (preserved or set(a.exports)!=set(replacing['exports'])
+                or any(row.get('kind')!='FunctionDecl' for row in selected)
+                or fragment.read_bytes()!=code.encode('utf-8')):
+            raise ValueError('Unchanged-fragment reattestation requires the exact original function interface and bytes')
+    elif fragment.exists():raise ValueError('Fragment path already exists')
     declaration='export { '+', '.join(reexports)+' } from '+json.dumps('./'+fragment.name)+';'
     rendered=(before.decode().replace(old_export,preserved_declaration+declaration,1) if replacing else
         before.decode()+'\n// Original Clang-generated fragment; imports existing owner storage.\n'+declaration+'\n')
+    if identical:rendered=before.decode()
     backup=ROOT/'work/fragment-integration-backup'/hashlib.sha256(before).hexdigest()[:16]
     backup.mkdir(parents=True,exist_ok=True)
     (backup/original.name).write_bytes(before);(backup/owner_manifest.name).write_bytes(before_manifest)
     # The recorded SHA-256 is over these exact UTF-8 bytes on every host.
     # Windows text newline conversion previously invalidated fragment proofs.
-    fragment.write_text(code,encoding='utf-8',newline='\n')
+    if not identical:fragment.write_text(code,encoding='utf-8',newline='\n')
     temporary=original.with_suffix('.candidate.mjs');temporary.write_bytes(rendered.encode('utf-8'))
     try:
         for file in (fragment,temporary):subprocess.run(['node','--check',str(file)],check=True,capture_output=True,text=True)
@@ -129,17 +136,23 @@ def main():
                 owner[key]=[item for item in owner.get(key,[]) if item.get('name')!=row['name']]+[row]
         owner['found']=len(owner['definitions']);owner['emitted']=sum(d['status']=='source-first' for d in owner['definitions'])
         owner['blocked']=sum(d['status']=='blocked' for d in owner['definitions'])
-        if replacing:
+        if replacing and not identical:
             owner.setdefault('superseded_module_fragments',[]).append(replacing)
             owner['module_fragments'].remove(replacing)
             if preserved:owner['module_fragments'].append(preserved)
-        owner.setdefault('module_fragments',[]).append({'module':fragment.relative_to(target).as_posix(),
+        record={'module':fragment.relative_to(target).as_posix(),
             'sha256':digest,'original_source':source,'exports':a.exports,'reexports':reexports,'imports':manifest['imports'],
             'native_pointer_abi':manifest.get('native_pointer_abi'),
-            'source_manifest_sha256':hashlib.sha256(a.manifest.read_bytes()).hexdigest()})
+            'source_manifest_sha256':hashlib.sha256(a.manifest.read_bytes()).hexdigest()}
+        if identical:
+            owner['module_fragments'][owner['module_fragments'].index(replacing)]={**record,
+                'exports':replacing['exports'],'reexports':replacing.get('reexports',replacing['exports'])}
+        else:owner.setdefault('module_fragments',[]).append(record)
         original.write_bytes(rendered.encode('utf-8'));owner_manifest.write_text(json.dumps(owner,indent=2)+'\n')
     except Exception:
-        original.write_bytes(before);owner_manifest.write_bytes(before_manifest);fragment.unlink(missing_ok=True);raise
+        original.write_bytes(before);owner_manifest.write_bytes(before_manifest)
+        if not identical:fragment.unlink(missing_ok=True)
+        raise
     finally:temporary.unlink(missing_ok=True)
     report={'format':'verified-original-source-fragment-integration/1','source':source,
         'fragment':str(fragment.relative_to(ROOT) if fragment.is_relative_to(ROOT) else fragment),'fragment_sha256':digest,'exports':a.exports,
@@ -148,6 +161,7 @@ def main():
         'owner_before_sha256':hashlib.sha256(before).hexdigest(),
         'owner_after_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),
         'original_owner_only_reexport_changed':bool(replacing)}
+    report['implementation_bytes_unchanged']=identical
     a.report.parent.mkdir(parents=True,exist_ok=True)
     a.report.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))

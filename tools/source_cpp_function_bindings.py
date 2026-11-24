@@ -1,5 +1,6 @@
 """External overload binding through exact Clang native function identities."""
 import hashlib,json,re
+import source_tu_function_bindings as tu_functions
 from pathlib import Path
 from source_field_bindings import body_semantic
 ABI='source-clang-cpp-function-identity/1'
@@ -28,7 +29,7 @@ def sites(ast,names):
             digest=hashlib.sha256(json.dumps(body_semantic(bodies[0]),sort_keys=True,separators=(',',':')).encode()).hexdigest()
             for ordinal,reference in enumerate(references):
                 yield (mangled,owner.get('type',{}).get('qualType'),offset,digest,ordinal),reference
-def index(complete,names):
+def index(complete,names,contracts=None):
     result={}
     if not names:return result
     for tree in complete:
@@ -36,7 +37,7 @@ def index(complete,names):
         declarations={node['id']:node for node in walk(tree) if node.get('kind')=='FunctionDecl' and node.get('id')}
         for key,reference in sites([tree],names):
             selected=reference.get('referencedDecl',{});declaration=declarations.get(selected.get('id'),{})
-            proof=identity(declaration)
+            proof=identity(declaration) or tu_functions.selected(declaration,contracts or {})
             if (proof and declaration.get('name')==selected.get('name')
                 and declaration.get('type',{}).get('qualType')==selected.get('type',{}).get('qualType')):
                 result.setdefault(key,{})[json.dumps(proof,sort_keys=True)]=proof
@@ -68,20 +69,23 @@ def load(root,owners):
 def bind(ast,contracts,local_ids):
     if not contracts:return
     names={proof['identity']['source_name'] for proof in contracts.values()}
-    rebind(ast,index(ast,names),names)
+    rebind(ast,index(ast,names,contracts),names)
     for tree in ast:
         for reference in walk(tree):
             if reference.get('kind')!='DeclRefExpr':continue
             declaration=reference.get('referencedDecl',{})
-            if declaration.get('kind')!='FunctionDecl' or declaration.get('id') in local_ids:continue
+            if declaration.get('kind')!='FunctionDecl':continue
             declaration.pop(BINDING,None)
             selected=declaration.get(SELECTION)
             proof=contracts.get(json.dumps(selected,sort_keys=True)) if selected else None
+            if declaration.get('id') in local_ids and not (proof and proof['identity'].get('abi')==tu_functions.ABI):continue
             if proof:declaration[BINDING]=proof
 def import_error(dependency,units,export_reader):
     expected=dependency.get('cpp_function_identity')
     if expected is None:return None
     provider=units.get(dependency['from'])
+    if expected.get('abi')==tu_functions.ABI:
+        return tu_functions.import_error(dependency,provider,export_reader)
     if not provider:return 'C++ function identity provider missing'
     rows=[row for row in provider['manifest'].get('definitions',[]) if row.get('name')==dependency['name'] and row.get('status')=='source-first']
     if (len(rows)!=1 or rows[0].get('kind')!='FunctionDecl' or rows[0].get('linkage')!='external'

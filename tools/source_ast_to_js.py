@@ -49,6 +49,7 @@ from source_sibling_tail import recover as recover_sibling_tail
 from source_backward_tail import recover as recover_backward_tail
 from source_cpp_function_bindings import (identity as cpp_function_identity, load as load_cpp_function_bindings,
     bind as bind_cpp_functions, index as index_cpp_functions, rebind as rebind_cpp_functions, BINDING as CPP_FUNCTION_BINDING)
+import source_tu_function_bindings as tu_functions
 from source_parameter_bindings import unique_parameters
 from source_c_allocators import complete as complete_c_allocator_declarations
 from source_explicit_member_operators import explicit_operator, has_unresolved_explicit_operators, rebind_explicit_operators
@@ -4987,9 +4988,10 @@ def resolve_friend_origin(source_root, record_name, record_offset, friend_name, 
         except OSError:continue
     return matches[0] if len(matches)==1 else None
 
-def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None,external_cpp_functions=None,std_unordered_allowed=True):
+def produce(ast,source,source_rel,filters=None,include_header_inlines=False,project_symbols=None,record_layouts=None,enum_constants=None,source_root=None,header_dependency_closure=False,compile_as_cpp=True,standard_heap_runtime=False,private_source_storage=None,standard_c_heap_runtime=False,header_definition_owners=None,existing_source_storage=None,header_inline_names=None,external_cpp_functions=None,std_unordered_allowed=True,tu_function_inputs=None):
+    tu_functions.annotate(ast)
     cpp_names={proof['identity']['source_name'] for proof in (external_cpp_functions or {}).values()}
-    if cpp_names:rebind_cpp_functions(ast,index_cpp_functions(ast,cpp_names),cpp_names)
+    if cpp_names:rebind_cpp_functions(ast,index_cpp_functions(ast,cpp_names,external_cpp_functions),cpp_names)
     normalize_specializations(ast)
     std_unordered_types,std_unordered_methods=std_unordered.recover(ast) if standard_heap_runtime and std_unordered_allowed else ({},{})
     if std_unordered_types:std_unordered.rebind(ast,std_unordered.index(ast))
@@ -5578,6 +5580,15 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         if n.get('id'):by_id[n['id']]=symbol
         if kind(n)=='FunctionDecl' and signatures[(name,qual(n))]==1:
             by_signature[(name,qual(n))]=symbol
+    # Reuse only a full original callable contract, never its raw name or
+    # a signature-only alias. Filtered AST pointer IDs can collide across
+    # invocations; the selected-callsite proof below must bind every use.
+    borrowed_callables=[n for n in candidates if tu_functions.selected(n,external_cpp_functions or {})]
+    for n in borrowed_callables:
+        by_id.pop(n.get('id'),None)
+        by_signature.pop((n.get('name'),qual(n)),None)
+    borrowed_callable_ids={id(n) for n in borrowed_callables}
+    candidates=[n for n in candidates if id(n) not in borrowed_callable_ids]
     # Filtered queries have different declaration IDs. Only a same-TU,
     # unchanged-body callsite proof may reconnect a selected template ABI to
     # an actual source definition. Never choose by shared name/function type.
@@ -5876,6 +5887,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
         # Header `static inline` closures have the same TU-local identity.
         row['linkage']=('internal' if n.get('storageClass')=='static'
                         or id(n) in header_helper_ids or id(n) in header_global_internal else 'external')
+        if row['linkage']=='internal':
+            native_private=tu_functions.identity(n,source_rel,tu_function_inputs)
+            if native_private:row['cpp_function_identity']=native_private
         source_path=n.get('loc',{}).get('file')
         if id(n) in header_function_proofs:
             proof=header_function_proofs[id(n)]
@@ -5935,6 +5949,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
             row['line']=n['_source_macro_header']['source_line']
             source_path=n['_source_macro_header']['source_header']
         if source_path and name not in header_record_proofs:row['physical_source']=source_path
+        if row.get('cpp_function_identity',{}).get('abi')==tu_functions.ABI:
+            origin=row.get('macro_header_definition') or row.get('original_header_function')
+            if origin:row['cpp_function_identity']['original_definition']=origin
         if id(n) in header_definition_proofs:
             row['header_definition_owner']=header_definition_proofs[id(n)]
             row['physical_source']=header_definition_proofs[id(n)]['file']
@@ -6167,6 +6184,9 @@ def produce(ast,source,source_rel,filters=None,include_header_inlines=False,proj
                 if existing is None:
                     existing={'name':target};row['external_reference_imports'].append(existing)
                 existing['cpp_function_identity']=proof['identity']
+                if proof['identity'].get('abi')==tu_functions.ABI:
+                    existing['consumer_source']=source_rel
+                    existing['implementation_sha256']=proof['implementation_sha256']
             row['external_reference_imports'].extend({'name':target,'instance_method_contract':contract}
                 for target,contract in sorted(getattr(em,'used_instance_methods',{}).items()) if target in project_symbols)
             row['external_reference_imports'].extend({'name':target,'reference_class_abi':REFERENCE_ABI}
@@ -6473,6 +6493,7 @@ def main():
                        standard_c_heap_runtime=standard_c_heap_runtime,
                        private_source_storage=private_source_storage,header_definition_owners=header_definition_owners,existing_source_storage=existing_source_storage,
                        external_cpp_functions=external_cpp_functions,
+                       tu_function_inputs=ast_cache_inputs,
                        std_unordered_allowed=not std_unordered_allocator_blocked,
                        header_inline_names=set(opt.header_inline_filter.split(',')) if opt.header_inline_filter is not None else None)
     args=[]
@@ -6719,6 +6740,25 @@ def main():
     retry_implicit_member_closure()
     index=json.loads(opt.project_symbols.read_text()) if opt.project_symbols else {}
     external_cpp_functions=load_cpp_function_bindings(opt.import_root,index)
+    private_callables=tu_functions.load(opt.import_root,opt.source,ast_cache_inputs,index)
+    # An explicitly requested original provider is being recompiled, rather
+    # than borrowed from its preceding implementation.
+    requested_callables=set(opt.filter.split(',')) if opt.filter else set()
+    private_callables={key:value for key,value in private_callables.items()
+                       if not opt.rebuild_owner_sha256 and value['identity']['source_name'] not in requested_callables}
+    external_cpp_functions.update(private_callables)
+    index.update({contract['name']:opt.source for contract in private_callables.values()})
+    private_names={contract['identity']['source_name'] for contract in private_callables.values()}
+    if private_names and any(node.get('referencedDecl',{}).get('name') in private_names
+            for tree in ast for node in descendants(tree) if kind(node)=='DeclRefExpr'):
+        full_command=[frontend,*language,'-Xclang','-ast-dump=json','-fsyntax-only',*args,opt.source]
+        full_cache=None
+        if opt.ast_cache_dir:
+            key=hashlib.sha256(json.dumps([str(root),full_command,ast_cache_inputs],sort_keys=True).encode())
+            full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
+        complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
+        ast_decode.append(decode)
+        cpp_function_selection_index.update(index_cpp_functions(complete,private_names,external_cpp_functions))
     for name in existing_source_storage:
         # TU-private names are intentionally absent from the global export
         # index. They enter only this exact original unit's fragment map.
@@ -6969,7 +7009,7 @@ def main():
                 full_cache=opt.ast_cache_dir/('full-types-'+key.hexdigest()+'.json')
             try:
                 complete,decode=run_clang_ast(full_command,cwd=root,cache_path=full_cache)
-                cpp_function_selection_index.update(index_cpp_functions(complete,{proof['identity']['source_name'] for proof in external_cpp_functions.values()}))
+                cpp_function_selection_index.update(index_cpp_functions(complete,{proof['identity']['source_name'] for proof in external_cpp_functions.values()},external_cpp_functions))
                 normalize_specializations(complete)
                 std_unordered_allocator_blocked=std_unordered.custom_allocation(complete)
                 std_unordered_selection_index.update(std_unordered.index(complete))
@@ -7673,6 +7713,7 @@ const cStackAlloc = amount => {
                        +(BUILTIN_RUNTIME+'\n'+'\n'.join(src for key,src in BUILTIN_JS.items() if key+'(' in body)+'\n' if any(key+'(' in body for key in BUILTIN_JS) else '')+body+'\n',encoding='utf-8')
     result={'source':opt.source,'dependency_closure':closure,'enum_closure':enum_closure,'span_closure':span_closure,'typedef_closure':typedef_closure,'pod_record_closure':pod_record_closure,'friend_closure':friend_closure,'header_ctor_closure':header_ctor_closure,'member_operator_closure':member_operator_closure,'implicit_member_closure':implicit_member_closure,'lifetime_closure':lifetime_closure,'output':str(outfile),'ast_frontend':'Clang pre-optimization JSON AST','found':len(report),'emitted':sum(x['status']=='source-first' for x in report),'blocked':sum(x['status']=='blocked' for x in report),'definitions':report,'imports':[{ 'name':name,'from':index[name]} for name in used_imports],'llvm_fallback_used':False,'control_flow':{'structured_functions':sum(bool(x.get('control_flow')) for x in report if x['status']=='source-first'),'recognized_goto_functions':sum(bool(x.get('control_flow')) for x in report),'recognized_goto_edges':sum(sum(x.get('control_flow',{}).get('detected',{}).get(k,0) for k in ('forward_goto','backward_goto')) for x in report)}}
     result['toolchain']=toolchain
+    result['emitted_module_sha256']=hashlib.sha256(outfile.read_bytes()).hexdigest()
     if header_storage_reattestations:result['header_storage_reattestations']=header_storage_reattestations
     result['initial_declaration_selection']='exact' if opt.exact_filter else 'clang-substring'
     result['native_pointer_abi']=NATIVE_POINTER_ABI

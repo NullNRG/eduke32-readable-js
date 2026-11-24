@@ -4,6 +4,8 @@ The original Build engine renders a raw E1L1 scene in Chromium through readable 
 
 ## November 23 compiler checkpoint
 
+TU-private callable reuse is now implemented through Clang-selected mangling/type, original body/offset and full preprocessor fingerprints. Imports verify the exact defining implementation bytes and same-TU ownership. Ten targeted linker/compiler regressions pass, including 1,536 native/Node/Chromium values for overloads, shared statics, callback identity and separate TU state. Nine original CON operators now carry these contracts without changing any JavaScript implementation bytes. The new VM caller probe is being checked separately. [Regression evidence](reports/nov23-tu-callable-regressions.json) · [Original helper reattestation](reports/nov23-con-callable-contract-install.json)
+
 The source control-flow pass now recognizes terminal case/default-label suffixes that break out of the same original switch. Eight targeted regressions pass, including 4,608 native/full/filtered Node/Chromium comparisons and rejection of nested-control/entered-storage transfers. Goto-local declarations now use the same JavaScript-safe spelling as their references, fixing the original C++ local named `var`. [Regression evidence](reports/nov23-switch-break-regressions.json)
 
 Original `Gv_DivVar` is linked and passes **783 native/Chromium divisions / 3,132 checked values** across global, per-player, per-actor, int32, int16 and Q16 storage. Original `enginePreInit` initializes the divider tables. Defined nonzero division inputs are tested; full VM execution is not claimed. The existing nine arithmetic helpers still pass all 1,512 mutations after integration. [Division evidence](reports/nov23-original-con-division.json)
