@@ -2,6 +2,10 @@
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
 
+## November 25 VM state and original input
+
+The compiler now initializes local records with an anonymous pointer union in the physical Clang field order. Both pointer names share the original slot, and the selected field must match Clang's type and declaration. The original joystick button, hat, and clear functions are installed. They matched 960 native C++ values separately in Node and Chromium. [Compiler regressions](reports/nov25-vm-pointer-union-regressions.json) · [Joystick parity](reports/nov25-original-joystick-parity.json)
+
 ## November 25 startup callables and CON compiler
 
 The original CON value parser now reads decimal and hexadecimal literals into live script storage in Chromium. The same test verifies original allocation relocation, four writer modes, bitmap flags, and the shared script cursor. Exact callable identities allow the parser to reuse the existing writer and allocator fragments. A separate original exit probe still blocks on the end screens, configuration and sound shutdown, and CON event execution. [Chromium script test](reports/nov25-con-script-writers-runtime.json) · [Exit dependencies](reports/nov25-original-exit-current.json)

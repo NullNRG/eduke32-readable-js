@@ -1,0 +1,561 @@
+{
+  "source": "source/mact/src/joystick.cpp",
+  "dependency_closure": {
+    "enabled": true,
+    "additional_ast_filters": [
+      "min"
+    ],
+    "additional_ast_roots": 33,
+    "rounds": 1,
+    "query_limit": 16,
+    "budget_exhausted": false,
+    "unqueried_references": []
+  },
+  "enum_closure": {
+    "enabled": true,
+    "queried": [],
+    "proven_values": {},
+    "rejected": {},
+    "rounds": 0
+  },
+  "span_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "typedef_closure": {
+    "queried": [],
+    "proven": {},
+    "rejected": {}
+  },
+  "pod_record_closure": {
+    "queried": [
+      "controllerinput_t"
+    ],
+    "proven": [
+      "controllerinput_t"
+    ],
+    "rejected": {}
+  },
+  "friend_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "header_ctor_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "member_operator_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "implicit_member_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "lifetime_closure": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\mact\\src\\joystick.cpp.mjs",
+  "ast_frontend": "Clang pre-optimization JSON AST",
+  "found": 5,
+  "emitted": 5,
+  "blocked": 0,
+  "definitions": [
+    {
+      "name": "JOYSTICK_ClearAllButtons",
+      "source_name": "JOYSTICK_ClearAllButtons",
+      "kind": "FunctionDecl",
+      "line": 68,
+      "original_type": "void ()",
+      "linkage": "external",
+      "physical_source": "source/mact/src/joystick.cpp",
+      "source_references": [
+        "joystick"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "joystick",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "joystick"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "JOYSTICK_GetButtons",
+      "source_name": "JOYSTICK_GetButtons",
+      "kind": "FunctionDecl",
+      "line": 43,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/mact/src/joystick.cpp",
+      "source_references": [
+        "JOYSTICK_GetHat",
+        "joyReadButtons",
+        "joystick",
+        "min__template_774131ccff66371d"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "joystick",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "joyReadButtons",
+        "joystick"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "JOYSTICK_GetControllerButtons",
+      "source_name": "JOYSTICK_GetControllerButtons",
+      "kind": "FunctionDecl",
+      "line": 58,
+      "original_type": "int32_t ()",
+      "linkage": "external",
+      "physical_source": "source/mact/src/joystick.cpp",
+      "source_references": [
+        "joyReadButtons",
+        "joystick"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "joystick",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "joyReadButtons",
+        "joystick"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "JOYSTICK_GetHat",
+      "source_name": "JOYSTICK_GetHat",
+      "kind": "FunctionDecl",
+      "line": 73,
+      "original_type": "int32_t (int32_t)",
+      "linkage": "external",
+      "physical_source": "source/mact/src/joystick.cpp",
+      "source_references": [
+        "joystick"
+      ],
+      "external_reference_imports": [],
+      "external_storage_imports": [
+        {
+          "name": "joystick",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          }
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "joystick"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "min__template_774131ccff66371d",
+      "source_name": "min",
+      "kind": "FunctionDecl",
+      "line": 230,
+      "original_type": "const int &(const int &, const int &)",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_ZSt3minIiERKT_S2_S2_",
+        "original_type": "const int &(const int &, const int &)",
+        "source_name": "min"
+      },
+      "clang_template_mangled_name": "_ZSt3minIiERKT_S2_S2_",
+      "linkage": "external",
+      "original_header_function": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "source_line": 230,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700"
+      },
+      "odr_inline": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "enclosing_record": "(free inline function)",
+        "type": "const int &(const int &, const int &)",
+        "semantic_sha256": "827cd33afddd28371f9c9f66a8a152fff75298a0687de7e950037779fe554e49"
+      },
+      "toolchain_header_definition": {
+        "source_header": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+        "source_offset": 7695,
+        "header_sha256": "42c8e17cb5b1fe51b02152d1374bf464884407e371fe49a2cfd0cda53a37f700",
+        "physical_origin_proof": "unique-target-sysroot-identifier-byte-offset",
+        "target_abi": "x86_64-linux-lp64-le"
+      },
+      "physical_source": "@sysroot/usr/include/c++/12/bits/stl_algobase.h",
+      "source_references": [],
+      "cpp_reference_contract": {
+        "abi": "source-cpp-lvalue-reference/1",
+        "parameters": [
+          {
+            "index": 0,
+            "type": "int",
+            "const": true
+          },
+          {
+            "index": 1,
+            "type": "int",
+            "const": true
+          }
+        ],
+        "result": "int"
+      },
+      "external_reference_imports": [],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [],
+      "unresolved_references": []
+    }
+  ],
+  "imports": [],
+  "llvm_fallback_used": false,
+  "control_flow": {
+    "structured_functions": 0,
+    "recognized_goto_functions": 0,
+    "recognized_goto_edges": 0
+  },
+  "toolchain": {
+    "frontend": "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\llvm-mingw-20261006-ucrt-x86_64\\bin\\clang++.EXE",
+    "arguments": [
+      "--target=x86_64-linux-gnu",
+      "--sysroot=C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu\\c++\\12",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\c++\\12\\backward",
+      "-isystem",
+      "C:\\Users\\andre\\Documents\\Codex\\2026-10-13\\master-execution-prompt-complete-eduke32-readable\\work\\toolchains\\linux-sysroot\\usr\\include\\x86_64-linux-gnu"
+    ],
+    "abi": "x86_64-linux-lp64-le",
+    "compiler_version": "clang version 23.1.3 (https://github.com/llvm/llvm-project.git 0d261d1ca552c95a8f007e061c787ac7132fbcbc)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin\nConfiguration file: C:/Users/andre/Documents/Codex/2026-10-13/master-execution-prompt-complete-eduke32-readable/work/toolchains/llvm-mingw-20261006-ucrt-x86_64/bin/x86_64-w64-windows-gnu.cfg",
+    "abi_verified": true
+  },
+  "emitted_module_sha256": "08c5ce5f139de5cfdf2e0614a43aee5da1527d72d9b4c40300d87da8abc48c9d",
+  "initial_declaration_selection": "exact",
+  "native_pointer_abi": "source-lp64-addresses/2",
+  "header_definition_contract": {
+    "contract_sha256": "a0ae6639afbe64457c36219e4f0ec5f4bd3d103ec3d0ae250e8d184ae7496d34",
+    "semantic_fingerprint": "1e1539d977ef427515e54a7da276b844eb801b85450cf1335c92f4e5e3ef00a1"
+  },
+  "c_allocator_declarations": {
+    "queried": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "template_destructor_closure": {
+    "requested": [],
+    "proven": [],
+    "rejected": {}
+  },
+  "prototype_layout_closure": {
+    "requested": [],
+    "queried": false,
+    "status": "not-required"
+  },
+  "filtered_c_storage_scope": {
+    "attempted": false,
+    "proven_file_scope": 0,
+    "local_or_ambiguous_roots_rejected": 0
+  },
+  "compiler_runtime_input_sha256": "b8d231730e1849d0c6ab8e0e2ee1ee29848bc823912efc98411a9bd41ac70dc2",
+  "compiler_runtime_inputs_unchanged": true,
+  "standard_heap_contract": {
+    "contract_sha256": "7329cd13eba9539719812a839c9be5beeeb65fcccfa7d3f02fb7709a28eee527",
+    "semantic_fingerprint": "1e1539d977ef427515e54a7da276b844eb801b85450cf1335c92f4e5e3ef00a1",
+    "selected_units": 111,
+    "original_global_replacements_absent": true,
+    "original_c_allocators_absent": true
+  },
+  "record_layout_extraction": {
+    "explicitly_required": true,
+    "records": 2540,
+    "sha256": "9e926608709a1099218c913ba2fb2469322bdb65a51e89df4560b1dbd9c04c82",
+    "attempts": [
+      {
+        "mode": "-fdump-record-layouts",
+        "phase": "codegen",
+        "revision": "source-finalized-native-record-layouts/2",
+        "returncode": 0,
+        "stdout_sha256": "819da2a9b891b4366c8fe889f9577fd3a66090aa6edab335aef1f6b481f37810",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "full_type_closure": {
+    "attempted": false,
+    "retained_type_roots": 0
+  },
+  "dependency_layout_closure": {
+    "attempted": false,
+    "records_added": 0
+  },
+  "ast_cache_inputs": {
+    "format": "source-ast-clang-dependencies/1",
+    "sha256": "8ff9ad28ed1c8bd9364f66798d66f3865e8fe190eaf958672b86efcd26fbe738",
+    "dependency_count": 338,
+    "preprocessor_verified": true,
+    "content_hashes_not_mtimes": true
+  },
+  "ast_decode": [
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 150,
+      "ranges_omitted": 47,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 37,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 7233,
+      "cache_storage": "json",
+      "cache_entry_bytes": 50332,
+      "cache_hit": false,
+      "json_bytes": 50332,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 118868726,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 75,
+      "ranges_omitted": 24,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 10,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 3506,
+      "cache_storage": "json",
+      "cache_entry_bytes": 18218,
+      "cache_hit": false,
+      "json_bytes": 18218,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 118886944,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 25,
+      "ranges_omitted": 8,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 3,
+      "include_metadata_reuses": 0,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 1440,
+      "cache_storage": "json",
+      "cache_entry_bytes": 4941,
+      "cache_hit": false,
+      "json_bytes": 4941,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 118891885,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 237,
+      "ranges_omitted": 91,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 0,
+      "type_metadata_reuses": 80,
+      "include_metadata_reuses": 1,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 13685,
+      "cache_storage": "json",
+      "cache_entry_bytes": 139757,
+      "cache_hit": false,
+      "json_bytes": 139757,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 119031642,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 2,
+      "objects": 143,
+      "ranges_omitted": 27,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 0,
+      "semantic_barrier_ranges_retained": 0,
+      "instance_method_ranges_retained": 3,
+      "type_metadata_reuses": 12,
+      "include_metadata_reuses": 31,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 4227,
+      "cache_storage": "json",
+      "cache_entry_bytes": 29869,
+      "cache_hit": false,
+      "json_bytes": 29869,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 119061511,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "retained"
+    },
+    {
+      "format": "source-ast-stream/1",
+      "backend": "yajl2_c",
+      "retained_source_ranges": false,
+      "roots": 273,
+      "objects": 8904,
+      "ranges_omitted": 2058,
+      "allocator_body_ranges_retained": 0,
+      "macro_declaration_ranges_retained": 92,
+      "semantic_barrier_ranges_retained": 1,
+      "instance_method_ranges_retained": 50,
+      "type_metadata_reuses": 1701,
+      "include_metadata_reuses": 1762,
+      "capture_storage": "streamed-gzip",
+      "capture_stored_bytes": 353084,
+      "cache_storage": "gzip",
+      "cache_entry_bytes": 353084,
+      "cache_hit": false,
+      "json_bytes": 4254754,
+      "cache_policy_revision": "source-ast-disk-cache/2",
+      "cache_budget_bytes": 134217728,
+      "cache_retained": true,
+      "cache_retained_bytes": 119414595,
+      "cache_evicted_entries": 0,
+      "cache_evicted_bytes": 0,
+      "cache_retention_reason": "compressed-retained"
+    }
+  ],
+  "header_inline_filter": null,
+  "storage_exports": [],
+  "private_storage_exports": [],
+  "module_fragments": [
+    {
+      "module": "source/mact/src/_source_legacy_joystick_cpp_2a6d4357ca33.mjs",
+      "sha256": "2a6d4357ca339882e613fbb7dfbb1b157fa2090146456dad0fba8b6e4367fd07",
+      "original_source": "source/mact/src/joystick.cpp",
+      "exports": [
+        "JOYSTICK_ClearAllButtons",
+        "JOYSTICK_GetButtons",
+        "JOYSTICK_GetControllerButtons",
+        "JOYSTICK_GetHat",
+        "min__template_774131ccff66371d"
+      ],
+      "reexports": [
+        "JOYSTICK_ClearAllButtons",
+        "JOYSTICK_GetButtons",
+        "JOYSTICK_GetControllerButtons",
+        "JOYSTICK_GetHat",
+        "min__template_774131ccff66371d"
+      ],
+      "imports": [
+        {
+          "name": "joyReadButtons",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "joystick",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_39a39d1bfab5e142a4f76536",
+          "abi": "source-global-cell/2",
+          "original_type": "struct controllerinput_t",
+          "byte_record_schema_sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca",
+          "byte_record_native_layout": {
+            "abi": "source-record-field-storage/1",
+            "sha256": "a45135acd55cc8b443582efba69ee3647ff802b4fb7d11796aa435fa664d89ca"
+          }
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "d62b396df1a79b156945befaf199a4d2726ac2692ad1d40a6729d092cf6d68ae"
+    }
+  ]
+}

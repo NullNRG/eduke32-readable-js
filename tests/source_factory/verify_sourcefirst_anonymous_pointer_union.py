@@ -1,34 +1,47 @@
 #!/usr/bin/env python3
 """ABI-proven C anonymous pointer union: source-compiled shared alias tests."""
-import json,subprocess,tempfile,sys,base64,asyncio,shutil
+import json,subprocess,tempfile,sys,base64,asyncio,shutil,os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 def run(cmd,cwd,timeout=60):
  p=subprocess.run(cmd,cwd=cwd,text=True,capture_output=True,timeout=timeout)
  assert p.returncode==0,(cmd,p.stdout[-1200:],p.stderr[-1200:]);return p.stdout
-async def browser(module):
+async def browser(module,expected):
  from playwright.async_api import async_playwright
- exe=shutil.which('chromium')
+ exe=os.environ.get('EDUKE_CHROMIUM_EXECUTABLE') or shutil.which('chromium')
  if not exe:return False
  async with async_playwright() as pw:
   br=await pw.chromium.launch(executable_path=exe,headless=True,args=['--no-sandbox','--disable-gpu-sandbox'])
   try:
    page=await br.new_page();await page.set_content('<title>Source C union ABI</title>')
    errs=[];page.on('pageerror',lambda err:errs.append(str(err)))
-   got=await page.evaluate('''async encoded=>{const u=URL.createObjectURL(new Blob([Uint8Array.from(atob(encoded),c=>c.charCodeAt(0))],{type:'text/javascript'})); try {const m=await import(u);if(m.g.a!==null||m.g.b!==null)throw Error('not zeroed');const p={original:'verified'};m.g.a=p;if(m.g.b!==p)throw Error('alias is not shared');m.g.b=null;if(m.g.a!==null)throw Error('reverse alias is not shared');return [m.g.n,m.g.flag,m.g.tail]}finally{URL.revokeObjectURL(u)}}''',base64.b64encode(module).decode())
-   assert got==[0,0,None],got
+   got=await page.evaluate('''async encoded=>{const u=URL.createObjectURL(new Blob([Uint8Array.from(atob(encoded),c=>c.charCodeAt(0))],{type:'text/javascript'})); try {const m=await import(u);if(m.g.a!==null||m.g.b!==null)throw Error('not zeroed');const p={original:'verified'};m.g.a=p;if(m.g.b!==p)throw Error('alias is not shared');m.g.b=null;if(m.g.a!==null)throw Error('reverse alias is not shared');return [m.check(),...Array.from({length:256},(_,i)=>m.local_state(i-128))]}finally{URL.revokeObjectURL(u)}}''',base64.b64encode(module).decode())
+   assert got==list(map(int,expected)),got
    assert not errs,errs
    return True
   finally:await br.close()
 with tempfile.TemporaryDirectory(prefix='eduke-c-pointer-union-') as td:
  p=Path(td)
- (p/'unit.cpp').write_text('''struct A { int x; };struct B { int y; };typedef struct { int n,flag;union {A *a;B *b;};int *tail; } state_t;state_t g;extern "C" int check(){return (g.n==0 && g.flag==0 && g.a==nullptr && g.b==nullptr && g.tail==nullptr); }\n''')
- (p/'native.cpp').write_text('''#include <stdio.h>\nextern "C" int check();int main(){printf("%d\\n",check());}\n''')
+ (p/'unit.cpp').write_text('''struct A { int x; };struct B { int y; };typedef struct { int n,flag;union {A *a;B *b;};int *tail; } state_t;state_t g;extern "C" int check(){return (g.n==0 && g.flag==0 && g.a==nullptr && g.b==nullptr && g.tail==nullptr); }
+struct LocalState { int tag; union { int *value; unsigned *alias; }; int stamp; int *tail; };
+extern "C" int local_state(int n) {
+    int source[3] = {n, n + 7, n + 19};
+    const LocalState item = { 2*n, { &source[1] }, n+10, &source[2] };
+    const LocalState empty = { n, {}, 5, nullptr };
+    return item.tag + *item.value + item.stamp + *item.tail
+           + (item.alias == (unsigned *)&source[1]) + (empty.value == nullptr) + empty.stamp;
+}
+''')
+ (p/'native.cpp').write_text('''#include <stdio.h>\nextern "C" int check(),local_state(int);int main(){printf("%d\\n",check());for(int i=-128;i<128;++i)printf("%d\\n",local_state(i));}\n''')
  run(['clang++','-std=gnu++14','unit.cpp','native.cpp','-o','native'],p)
- assert run([str(p/'native')],p).strip()=='1'
+ expected=run([str(p/'native')],p).splitlines()
+ assert expected[0]=='1'
  run([sys.executable,str(ROOT/'tools/source_ast_to_js.py'),'--root',str(p),'--source','unit.cpp','--out-dir',str(p/'out')],ROOT)
  module=p/'out/unit.cpp.mjs';text=module.read_text();manifest=json.loads((p/'out/unit.cpp.manifest.json').read_text());defs={r['name']:r for r in manifest['definitions']};assert defs['g']['status']=='source-first',defs['g']
  assert 'pointerAliases' in text and '"a", "b"' in text
+ assert defs['local_state']['status']=='source-first',defs['local_state']
+ actual=run(['node','--input-type=module','-e','import('+json.dumps(module.as_uri())+').then(m=>{console.log(m.check());for (let i=-128;i<128;i++)console.log(m.local_state(i));})'],p)
+ assert actual.splitlines()==expected
  got=run(['node','--input-type=module','-e','import('+json.dumps(module.as_uri())+').then(m=>{if(m.g.a!==null || m.g.b!==null)throw Error("bad zero");let v={x:42};m.g.a=v;if(m.g.b!==v)throw Error("bad alias");m.g.b=null;if(m.g.a!==null)throw Error("bad reverse alias");console.log(m.g.n,m.g.flag,m.g.tail)})'],p)
  assert got.strip()=='0 0 null',got
  # The copy must keep the two union member names backed by one pointer
@@ -42,7 +55,7 @@ with tempfile.TemporaryDirectory(prefix='eduke-c-pointer-union-') as td:
  clone.b=null;if(clone.a!==null||g.a!==obj)throw Error("copied slot is not independent");console.log("copy PASS");'''
  (p/'copy.mjs').write_text(probe)
  assert run(['node','copy.mjs'],p).strip()=='copy PASS'
- b=asyncio.run(browser(module.read_bytes()))
+ b=asyncio.run(browser(module.read_bytes(),expected))
  source=ROOT/'factory-output/source-first/fix14-types/source/duke3d/src/gameexec.cpp.mjs'
  if source.exists():
   src=source.read_text()

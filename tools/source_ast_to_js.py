@@ -373,6 +373,7 @@ def recover_trivial_aggregate_records(ast, static_storage=False, source_root=Non
             if not static_storage and any(kind(child)=='CXXMethodDecl' and not child.get('isImplicit') and any(kind(inner)=='CompoundStmt' for inner in kids(child))
                    for child in kids(n)):continue
             fields=[f for f in kids(n) if kind(f)=='FieldDecl']
+            initialization_order=tuple(field.get('name') for field in fields)
             pointer_aliases=[]
             flattened_anonymous_members=[]
             flattened_anonymous_types=[]
@@ -412,7 +413,7 @@ def recover_trivial_aggregate_records(ast, static_storage=False, source_root=Non
                     r'(?:const )?(?:unsigned )?(?:char|short|int|float|double|u?int(?:8|16|32|64)_t)\s*\[\d+\]',
                     qual(item)) for item in alternatives):
                     safe_union=False
-            signature=(n.get('tagUsed'),tuple((f['name'],qual(f)) for f in fields))
+            signature=(n.get('tagUsed'),tuple((f['name'],qual(f)) for f in fields),initialization_order)
             for key in names:
                 if key in found and found[key]['signature']!=signature:ambiguous.add(key)
                 else:found[key]={'signature':signature,'fields':[(f['name'],qual(f)) for f in fields],
@@ -423,6 +424,7 @@ def recover_trivial_aggregate_records(ast, static_storage=False, source_root=Non
                              'copyable':static_storage or traits.get('copyCtor',{}).get('trivial') is True,
                              'moveable':traits.get('moveCtor',{}).get('trivial') is True,
                              'pointer_aliases':pointer_aliases,
+                             'initialization_order':initialization_order,
                              'flattened_anonymous_types':flattened_anonymous_types,
                              'flattened_anonymous_members':flattened_anonymous_members}
     return {name:value for name,value in found.items() if name not in ambiguous}
@@ -2304,6 +2306,8 @@ class Emit:
             if schema and 'bytes' in schema:
                 raise Unsupported('opaque union initializer needs byte-accurate member construction')
             if schema and 'record' in schema:
+                if schema.get('pointerAliases') and self.current_function:
+                    return self.pointer_alias_record_initializer(schema,n)
                 fields=list(schema['record'].items())
                 if not a and static_zero_schema:
                     return self.zero_aggregate(schema)
@@ -2575,6 +2579,36 @@ class Emit:
         if not self.current_function:initial='cStaticInitializerValues('+initial+')'
         return ('cByteRecordNDArray('+json.dumps(schema['recordArray'],sort_keys=True)+', '
             +json.dumps(schema['dims'])+', '+self.byte_record_prototypes(schema)+', '+initial+')')
+
+    def pointer_alias_record_initializer(self,schema,node):
+        """Initialize the one Clang-selected pointer slot in source field order."""
+        name=normalized_record_name(qual(node),self.type_aliases)
+        record=self.global_storage_records.get(name,{})
+        ordered=record.get('initialization_order',())
+        values=kids(node)
+        fields=dict(record.get('fields',[]))
+        if (len(schema['pointerAliases'])!=1 or ordered.count(None)!=1
+                or len(ordered)!=len(values)):
+            raise Unsupported('pointer union initializer requires exact Clang field order: '+qual(node))
+        aliases=schema['pointerAliases'][0]
+        initializers=[]
+        for field,value in zip(ordered,values):
+            if kind(value)=='ImplicitValueInitExpr' and not kids(value):
+                continue
+            if field is None:
+                if (kind(value)!='InitListExpr' or clean_record_type(qual(value)) not in
+                        record.get('flattened_anonymous_types',())):
+                    raise Unsupported('pointer union initializer lacks exact original anonymous type')
+                elements=kids(value)
+                if not elements:continue
+                selected=value.get('field',{})
+                field=selected.get('name')
+                if (len(elements)!=1 or kind(selected)!='FieldDecl'
+                        or field not in aliases or qual(selected)!=fields[field]):
+                    raise Unsupported('pointer union initializer lacks exact Clang-selected member')
+                value=elements[0]
+            initializers.append('['+json.dumps(field)+']: '+self.expr(value))
+        return 'Object.assign('+self.zero_aggregate(schema)+', {'+', '.join(initializers)+'})'
 
     def byte_record_initializer(self,schema,node):
         static_relocations=not self.current_function or getattr(self,'static_byte_relocations',False)
