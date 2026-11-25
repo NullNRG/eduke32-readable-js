@@ -72,7 +72,20 @@ def main(argv=None):
         if local:
             providers=base/'reports'/('local-factory-providers-'+source.replace('/','_')+'.json')
             providers.write_text(json.dumps({**symbols,**local},indent=2)+'\n')
-    key=hashlib.sha256(providers.read_bytes()+names.encode()+str((args.query_limit,args.whole_unit,args.included_functions)).encode()+(ROOT/'tools/source_ast_to_js.py').read_bytes()).hexdigest()[:16]
+    from source_ast_to_js import compiler_runtime_revision
+    owner_manifest=owner.with_suffix('.manifest.json')
+    component_manifest=base/'component-manifest.json'
+    # A TU-private identity can change caller lowering without changing the
+    # global owner index. Keep that probe's evidence separate from the old run.
+    inputs={
+        'source':source,'names':names,'query_limit':args.query_limit,
+        'whole_unit':args.whole_unit,'included_functions':args.included_functions,
+        'compiler_runtime':compiler_runtime_revision(),
+        'provider_index':hashlib.sha256(providers.read_bytes()).hexdigest(),
+        'owner_manifest':hashlib.sha256(owner_manifest.read_bytes()).hexdigest() if owner_manifest.is_file() else None,
+        'component_manifest':hashlib.sha256(component_manifest.read_bytes()).hexdigest() if component_manifest.is_file() else None,
+    }
+    key=hashlib.sha256(json.dumps(inputs,sort_keys=True).encode()).hexdigest()[:16]
     stage=base/'boot-probes'/source.replace('/','_')/('reachable-'+key);stage.mkdir(parents=True,exist_ok=True)
     command=[sys.executable,ROOT/'tools/source_ast_to_js.py','--root',component.SOURCE,'--source',source,
         '--compile-commands',component.COMMANDS,'--out-dir',stage,
@@ -82,7 +95,6 @@ def main(argv=None):
     if args.included_functions:command+=['--header-inlines','--header-inline-filter',names]
     if not args.whole_unit:command+=['--filter',names,'--exact-filter']
     if args.reuse_manifest:
-        from source_ast_to_js import compiler_runtime_revision
         from source_ast_cache_paths import source_ast_input_fingerprint
         from source_first_toolchain import frontend_config
         manifest=args.reuse_manifest.resolve();doc=json.loads(manifest.read_text())
@@ -114,7 +126,6 @@ def main(argv=None):
             result=subprocess.run(list(map(str,command)),cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         if result.returncode:
             if rejected_path.is_file() and rejected_path.stat().st_mtime_ns != previous_rejection:
-                from source_ast_to_js import compiler_runtime_revision
                 rejected=json.loads(rejected_path.read_text(encoding='utf-8'))
                 if (rejected.get('source')==source and rejected.get('compiler_runtime_input_sha256')==compiler_runtime_revision()
                         and rejected.get('module_written') is False and rejected.get('link_verified') is False):

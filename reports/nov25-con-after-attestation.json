@@ -1,0 +1,210 @@
+{
+  "source": "source/duke3d/src/gamedef.cpp",
+  "requested": [
+    "C_Compile",
+    "C_ParseCommand"
+  ],
+  "requested_resolved": {
+    "C_Compile": false,
+    "C_ParseCommand": false
+  },
+  "requested_lowered": {
+    "C_Compile": true,
+    "C_ParseCommand": true
+  },
+  "requested_compiled": {
+    "C_Compile": false,
+    "C_ParseCommand": false
+  },
+  "requested_still_unlinked": [
+    "C_Compile",
+    "C_ParseCommand"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-9a2daacfe71b96f6/source/duke3d/src/gamedef.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "C_SetScriptSize",
+      "reason": "unlinked identifiers: SILENCE_UNUSED, bitmap_test, min, xrealloc",
+      "dependencies": [
+        "SILENCE_UNUSED",
+        "bitmap_test",
+        "min",
+        "xrealloc"
+      ]
+    },
+    {
+      "name": "C_GetNextLabelName",
+      "reason": "unlinked identifiers: G_GameExit",
+      "dependencies": [
+        "G_GameExit"
+      ]
+    },
+    {
+      "name": "C_GetNextGameArrayName",
+      "reason": "unlinked identifiers: C_GetNextLabelName, scriptWriteValue",
+      "dependencies": [
+        "C_GetNextLabelName",
+        "scriptWriteValue"
+      ]
+    },
+    {
+      "name": "C_GetNextKeyword",
+      "reason": "unlinked identifiers: scriptWriteValue",
+      "dependencies": [
+        "scriptWriteValue"
+      ]
+    },
+    {
+      "name": "C_GetNextVarType",
+      "reason": "unlinked identifiers: C_GetNextLabelName, scriptWriteValue",
+      "dependencies": [
+        "C_GetNextLabelName",
+        "scriptWriteValue"
+      ]
+    },
+    {
+      "name": "C_GetManyVarsType",
+      "reason": "unlinked identifiers: C_GetNextVarType",
+      "dependencies": [
+        "C_GetNextVarType"
+      ]
+    },
+    {
+      "name": "C_GetNextValue",
+      "reason": "unlinked identifiers: scriptWriteValue",
+      "dependencies": [
+        "scriptWriteValue"
+      ]
+    },
+    {
+      "name": "C_GetStructureIndexes",
+      "reason": "unlinked identifiers: C_GetNextLabelName, C_GetNextVarType, scriptWriteValue",
+      "dependencies": [
+        "C_GetNextLabelName",
+        "C_GetNextVarType",
+        "scriptWriteValue"
+      ]
+    },
+    {
+      "name": "C_CheckEmptyBranch",
+      "reason": "unlinked identifiers: scriptWriteAtOffset",
+      "dependencies": [
+        "scriptWriteAtOffset"
+      ]
+    },
+    {
+      "name": "C_CountCaseStatements",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_Include",
+      "reason": "unlinked identifiers: xmalloc",
+      "dependencies": [
+        "xmalloc"
+      ]
+    },
+    {
+      "name": "C_SetDefName",
+      "reason": "unlinked identifiers: dup_filename",
+      "dependencies": [
+        "dup_filename"
+      ]
+    },
+    {
+      "name": "C_SetCfgName",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup",
+      "dependencies": [
+        "CONFIG_ReadSetup",
+        "CONFIG_WriteSetup"
+      ]
+    },
+    {
+      "name": "C_BitOrNextValue",
+      "reason": "unlinked identifiers: C_GetNextValue",
+      "dependencies": [
+        "C_GetNextValue"
+      ]
+    },
+    {
+      "name": "C_FinishBitOr",
+      "reason": "unlinked identifiers: scriptWriteValue",
+      "dependencies": [
+        "scriptWriteValue"
+      ]
+    },
+    {
+      "name": "C_FillEventBreakStackWithJump",
+      "reason": "unlinked identifiers: scriptWriteAtOffset",
+      "dependencies": [
+        "scriptWriteAtOffset"
+      ]
+    },
+    {
+      "name": "C_ParseCommand",
+      "reason": "unlinked identifiers: C_BitOrNextValue, C_CheckEmptyBranch, C_FillEventBreakStackWithJump, C_FinishBitOr, C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextKeyword, C_GetNextLabelName, C_GetNextValue, C_GetNextVarType, C_GetStructureIndexes, C_Include",
+      "dependencies": [
+        "C_BitOrNextValue",
+        "C_CheckEmptyBranch",
+        "C_FillEventBreakStackWithJump",
+        "C_FinishBitOr",
+        "C_GetManyVarsType",
+        "C_GetNextGameArrayName",
+        "C_GetNextKeyword",
+        "C_GetNextLabelName",
+        "C_GetNextValue",
+        "C_GetNextVarType",
+        "C_GetStructureIndexes",
+        "C_Include",
+        "C_SetCfgName",
+        "C_SetDefName",
+        "C_SetScriptSize",
+        "scriptUpdateOpcodeForVariableType",
+        "scriptWriteAtOffset",
+        "scriptWritePointer",
+        "scriptWriteStateLocation",
+        "scriptWriteValue",
+        "xrealloc"
+      ]
+    },
+    {
+      "name": "C_Compile",
+      "reason": "unlinked identifiers: C_Include, C_ParseCommand, C_SetScriptSize, G_GameExit, Gv_Init, bitmap_test, scriptWriteAtOffset, scriptWritePointer, xmalloc",
+      "dependencies": [
+        "C_Include",
+        "C_ParseCommand",
+        "C_SetScriptSize",
+        "G_GameExit",
+        "Gv_Init",
+        "bitmap_test",
+        "scriptWriteAtOffset",
+        "scriptWritePointer",
+        "xmalloc"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "a7e5e8b0c7142fa438525f19f3ff8d7a7b0e1e3f1697b7207775b7bcccccf2c4",
+  "provider_index_sha256": "dda6bdc524370329b1633b74ae6119ff9a3fb22e0276465379e7a50035313f6a",
+  "query_limit": 22,
+  "dependency_budget_exhausted": true,
+  "unqueried_references": [
+    "CONFIG_ReadSetup",
+    "CONFIG_WriteSetup",
+    "Gv_Init",
+    "SILENCE_UNUSED",
+    "bitmap_test",
+    "dup_filename",
+    "min",
+    "scriptUpdateOpcodeForVariableType",
+    "scriptWriteAtOffset",
+    "scriptWritePointer",
+    "scriptWriteStateLocation",
+    "scriptWriteValue",
+    "xmalloc",
+    "xrealloc"
+  ],
+  "probe_only": true
+}

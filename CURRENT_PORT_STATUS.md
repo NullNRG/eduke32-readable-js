@@ -8,7 +8,7 @@ The original startup module now has exact Clang identities for eight previously 
 
 The 18-query entry probe lowers the original `app_main` and `G_Startup`. It reports 39 direct unresolved names for the entry. The original fatal-error callback and allocator teardown now resolve inside that probe. `G_CompileScripts` has three direct unresolved names in the same run, `C_Compile`, `G_GameExit`, and `VM_OnEvent`. [Entry frontier](reports/nov25-entry-after-attestation.json) · [Strict release status](reports/nov25-current-release-acceptance.json)
 
-The active modules also gained verified identities for 22 existing private CON parser callables and the original post-load palette callback. Four original token classifiers matched 1,280 native Clang outcomes in both Node and Chromium. These identities preserve the original JavaScript implementation bytes. [Parser callable identities](reports/nov25-con-parser-callables.json) · [Classifier parity](reports/nov25-original-con-token-classification.json) · [Palette callback identity](reports/nov25-game-palette-callable.json)
+The active modules also gained verified identities for 22 existing private CON parser callables and the original post-load palette callback. Four original token classifiers matched 1,280 native Clang outcomes in both Node and Chromium. In successive 22-query probes, the direct unresolved names for `C_ParseCommand` dropped from 32 to 21 and those for `C_Compile` from 12 to nine. Those counts cover the bounded probe. [Current CON frontier](reports/nov25-con-after-attestation.json) · [Classifier parity](reports/nov25-original-con-token-classification.json) · [Palette callback identity](reports/nov25-game-palette-callable.json)
 
 ## November 24 original entry lowering checkpoint
 
