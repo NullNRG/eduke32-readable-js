@@ -34,7 +34,12 @@ def main(argv=None):
     parser.add_argument('--reuse-manifest',type=Path,help='Require current compiler and preprocessor content fingerprints before reusing an emission')
     args=parser.parse_args(argv);source,names=args.source,args.names;out=component.OUT;base=component.BASE
     if args.query_limit<1:parser.error('--query-limit must be positive')
-    suffix='-'+re.sub(r'[^A-Za-z0-9_]','_',names) if args.probe_only else ''
+    suffix=''
+    if args.probe_only:
+        label=re.sub(r'[^A-Za-z0-9_]','_',names)
+        if len(label)>55:
+            label=label[:38]+'-'+hashlib.sha256(names.encode()).hexdigest()[:16]
+        suffix='-'+label
     frontier_path=base/'reports'/('frontier-'+source.replace('/','_')+suffix+'.json')
     assert source in {row['file'] for row in json.loads(component.COMMANDS.read_text())}
     owner=out/(source+'.mjs');existing=active_exports(owner) if owner.is_file() else set()

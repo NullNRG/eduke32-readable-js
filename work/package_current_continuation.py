@@ -106,6 +106,9 @@ def selected(root,public=False):
                   'original_entry_frontier_report','original_startup_frontier_report',
                   'original_array_extent_regression_report','original_entry_helper_execution_report',
                   'original_entry_redeclaration_frontier_report')
+    report_keys+=('startup_callable_attestation_report','current_con_compiler_frontier_report',
+                  'current_attested_entry_frontier_report','current_con_parser_attestation_report',
+                  'current_con_parser_token_report','current_postload_palette_attestation_report')
     for key in report_keys:
         if snapshot.get(key):add(package_tool.safe_path(root,snapshot[key]))
     for name in ('oct25-original-libdivide-parity.json','oct27-original-xxhash-parity.json'):
