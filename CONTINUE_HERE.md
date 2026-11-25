@@ -31,6 +31,8 @@ The latest November 25 CON probe is `reports/nov25-con-current-writer-frontier.j
 
 Run `python work/verify_original_con_script_resize.py --report reports/nov25-con-script-writers-runtime.json` to check original heap relocation, script words and bitmaps, and decimal/hex literal parsing against the active module. The latest requested exit functions lowered but remain unlinked. Read `reports/nov25-original-exit-current.json` for their missing providers.
 
+Run `python work/verify_original_joystick.py` for original joystick parity and combined keyboard, mouse, and joystick checks. `reports/nov25-vm-event-after-union.json` identifies the current VM event blocker. Preserve the same shared pointer slot when lowering the nested event state snapshot, then verify original VM event dispatch.
+
 ## November 24 storage and sector follow-up
 
 After loading `work/session-env.ps1`, run `python work/verify_original_script_relocation.py` and `python work/verify_original_sector_tags.py`. The active engine and savegame storage have single owners. Keep the pointer relocation parity checks when changing the CON loader. The current launcher engine test passes after normal engine-first initialization. Sector-first import now passes after folding the original compile-time `ARRAY_SIZE(g_origins)` and removing the address bridge’s read of typed scalar storage during static initialization. Run `python work/refresh_save_array_extent.py --prove-only` to recheck the exact extent. Keep the two save descriptor address checks in the sector test.

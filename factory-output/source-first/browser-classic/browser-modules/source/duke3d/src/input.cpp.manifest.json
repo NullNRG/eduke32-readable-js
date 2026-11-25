@@ -392,8 +392,8 @@
   },
   "output": "C:\\Users\\andre\\Documents\\Codex\\work\\EDuke32_SourceFactory_Oct13\\factory-output\\source-first\\browser-classic\\browser-modules\\source\\duke3d\\src\\input.cpp.mjs",
   "ast_frontend": "Clang pre-optimization JSON AST",
-  "found": 8,
-  "emitted": 8,
+  "found": 10,
+  "emitted": 10,
   "blocked": 0,
   "definitions": [
     {
@@ -726,6 +726,150 @@
       "external_storage_imports": [],
       "status": "source-first",
       "external_imports": [],
+      "unresolved_references": []
+    },
+    {
+      "name": "I_CheckAllInput",
+      "source_name": "I_CheckAllInput",
+      "kind": "FunctionDecl",
+      "line": 33,
+      "original_type": "int32_t ()",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_Z15I_CheckAllInputv",
+        "original_type": "int32_t ()",
+        "source_name": "I_CheckAllInput"
+      },
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/input.cpp",
+      "source_references": [
+        "JOYSTICK_GetButtons",
+        "MOUSE_GetButtons__header_76a106d5f825",
+        "g_keyAsciiEnd",
+        "g_keyAsciiPos"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "MOUSE_GetButtons__header_76a106d5f825",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/input.cpp",
+            "preprocessor_sha256": "a7cbd0f36dde84c9ca6c0db7a06db0e2fa5cd780ce3debe9754f9a33fe171d0d",
+            "mangled_name": "_ZL16MOUSE_GetButtonsv",
+            "original_type": "int32_t ()",
+            "source_name": "MOUSE_GetButtons",
+            "source_offset": 1731,
+            "body_sha256": "c51b8d2ff1cf1353c029e355b377befc0de3e76c2ec566b8bc1be22e2bded139",
+            "original_definition": {
+              "source_header": "source/mact/include/mouse.h",
+              "source_offset": 1731,
+              "source_line": 59,
+              "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+            }
+          },
+          "consumer_source": "source/duke3d/src/input.cpp",
+          "implementation_sha256": "14ed5e56d98e9472e1a0f58eece10f938a4af0d22b326bfbfb116dbc2542ea99"
+        }
+      ],
+      "external_storage_imports": [
+        {
+          "name": "g_keyAsciiEnd",
+          "binding": "__cxx_global_cell_ee6f4502eccd328f27b46fb8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_keyAsciiPos",
+          "binding": "__cxx_global_cell_a6fc8c10b0aec7fd31285ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        }
+      ],
+      "status": "source-first",
+      "external_imports": [
+        "JOYSTICK_GetButtons",
+        "MOUSE_GetButtons__header_76a106d5f825",
+        "g_keyAsciiEnd",
+        "g_keyAsciiPos"
+      ],
+      "unresolved_references": []
+    },
+    {
+      "name": "I_ClearAllInput",
+      "source_name": "I_ClearAllInput",
+      "kind": "FunctionDecl",
+      "line": 42,
+      "original_type": "void ()",
+      "cpp_function_identity": {
+        "abi": "source-clang-cpp-function-identity/1",
+        "mangled_name": "_Z15I_ClearAllInputv",
+        "original_type": "void ()",
+        "source_name": "I_ClearAllInput"
+      },
+      "linkage": "external",
+      "physical_source": "source/duke3d/src/input.cpp",
+      "source_references": [
+        "CONTROL_ClearAllButtons",
+        "JOYSTICK_ClearAllButtons",
+        "KB_ClearKeysDown__header_e905ff1838cf",
+        "MOUSE_ClearAllButtons__header_2e77d05bcea3",
+        "keyFlushChars",
+        "mouseAdvanceClickState"
+      ],
+      "external_reference_imports": [
+        {
+          "name": "KB_ClearKeysDown__header_e905ff1838cf",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/input.cpp",
+            "preprocessor_sha256": "a7cbd0f36dde84c9ca6c0db7a06db0e2fa5cd780ce3debe9754f9a33fe171d0d",
+            "mangled_name": "_ZL16KB_ClearKeysDownv",
+            "original_type": "void ()",
+            "source_name": "KB_ClearKeysDown",
+            "source_offset": 4434,
+            "body_sha256": "4da0e2a14c9281083ffcc9c6140325efa6d621367b8ba3c477a359cfd6d380ca",
+            "original_definition": {
+              "source_header": "source/mact/include/keyboard.h",
+              "source_offset": 4434,
+              "source_line": 90,
+              "header_sha256": "1c9fbae4aa9fa781ab6cf2b2d9f9cb156a3150c6f867d562012e93b81c64495f"
+            }
+          },
+          "consumer_source": "source/duke3d/src/input.cpp",
+          "implementation_sha256": "14ed5e56d98e9472e1a0f58eece10f938a4af0d22b326bfbfb116dbc2542ea99"
+        },
+        {
+          "name": "MOUSE_ClearAllButtons__header_2e77d05bcea3",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/input.cpp",
+            "preprocessor_sha256": "a7cbd0f36dde84c9ca6c0db7a06db0e2fa5cd780ce3debe9754f9a33fe171d0d",
+            "mangled_name": "_ZL21MOUSE_ClearAllButtonsv",
+            "original_type": "void ()",
+            "source_name": "MOUSE_ClearAllButtons",
+            "source_offset": 1887,
+            "body_sha256": "3b3fbba23ec7f233a305347f666e888fcd68ea3c3eb6e55f3a703a56db849b63",
+            "original_definition": {
+              "source_header": "source/mact/include/mouse.h",
+              "source_offset": 1887,
+              "source_line": 61,
+              "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+            }
+          },
+          "consumer_source": "source/duke3d/src/input.cpp",
+          "implementation_sha256": "14ed5e56d98e9472e1a0f58eece10f938a4af0d22b326bfbfb116dbc2542ea99"
+        }
+      ],
+      "external_storage_imports": [],
+      "status": "source-first",
+      "external_imports": [
+        "CONTROL_ClearAllButtons",
+        "JOYSTICK_ClearAllButtons",
+        "KB_ClearKeysDown__header_e905ff1838cf",
+        "MOUSE_ClearAllButtons__header_2e77d05bcea3",
+        "keyFlushChars",
+        "mouseAdvanceClickState"
+      ],
       "unresolved_references": []
     }
   ],
@@ -1507,6 +1651,133 @@
       ],
       "native_pointer_abi": "source-lp64-addresses/2",
       "source_manifest_sha256": "00ed238ae6adf2c3a7b3e8d8368b0c6dd83405d4b19447123fd08ecd1bde2e09"
+    },
+    {
+      "module": "source/duke3d/src/_source_legacy_input_cpp_276ab08f6481.mjs",
+      "sha256": "276ab08f6481d1a1f58bdda90bc22371ed9dd270d2792dcbc7c83acb7a6438da",
+      "original_source": "source/duke3d/src/input.cpp",
+      "exports": [
+        "I_CheckAllInput",
+        "I_ClearAllInput"
+      ],
+      "reexports": [
+        "I_CheckAllInput",
+        "I_ClearAllInput"
+      ],
+      "imports": [
+        {
+          "name": "CONTROL_ClearAllButtons",
+          "from": "source/mact/src/control.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "JOYSTICK_ClearAllButtons",
+          "from": "source/mact/src/joystick.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "JOYSTICK_GetButtons",
+          "from": "source/mact/src/joystick.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "KB_ClearKeysDown__header_e905ff1838cf",
+          "from": "source/duke3d/src/input.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/input.cpp",
+            "preprocessor_sha256": "a7cbd0f36dde84c9ca6c0db7a06db0e2fa5cd780ce3debe9754f9a33fe171d0d",
+            "mangled_name": "_ZL16KB_ClearKeysDownv",
+            "original_type": "void ()",
+            "source_name": "KB_ClearKeysDown",
+            "source_offset": 4434,
+            "body_sha256": "4da0e2a14c9281083ffcc9c6140325efa6d621367b8ba3c477a359cfd6d380ca",
+            "original_definition": {
+              "source_header": "source/mact/include/keyboard.h",
+              "source_offset": 4434,
+              "source_line": 90,
+              "header_sha256": "1c9fbae4aa9fa781ab6cf2b2d9f9cb156a3150c6f867d562012e93b81c64495f"
+            }
+          },
+          "consumer_source": "source/duke3d/src/input.cpp",
+          "implementation_sha256": "14ed5e56d98e9472e1a0f58eece10f938a4af0d22b326bfbfb116dbc2542ea99"
+        },
+        {
+          "name": "MOUSE_ClearAllButtons__header_2e77d05bcea3",
+          "from": "source/duke3d/src/input.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/input.cpp",
+            "preprocessor_sha256": "a7cbd0f36dde84c9ca6c0db7a06db0e2fa5cd780ce3debe9754f9a33fe171d0d",
+            "mangled_name": "_ZL21MOUSE_ClearAllButtonsv",
+            "original_type": "void ()",
+            "source_name": "MOUSE_ClearAllButtons",
+            "source_offset": 1887,
+            "body_sha256": "3b3fbba23ec7f233a305347f666e888fcd68ea3c3eb6e55f3a703a56db849b63",
+            "original_definition": {
+              "source_header": "source/mact/include/mouse.h",
+              "source_offset": 1887,
+              "source_line": 61,
+              "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+            }
+          },
+          "consumer_source": "source/duke3d/src/input.cpp",
+          "implementation_sha256": "14ed5e56d98e9472e1a0f58eece10f938a4af0d22b326bfbfb116dbc2542ea99"
+        },
+        {
+          "name": "MOUSE_GetButtons__header_76a106d5f825",
+          "from": "source/duke3d/src/input.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "cpp_function_identity": {
+            "abi": "source-clang-tu-function-identity/1",
+            "translation_unit": "source/duke3d/src/input.cpp",
+            "preprocessor_sha256": "a7cbd0f36dde84c9ca6c0db7a06db0e2fa5cd780ce3debe9754f9a33fe171d0d",
+            "mangled_name": "_ZL16MOUSE_GetButtonsv",
+            "original_type": "int32_t ()",
+            "source_name": "MOUSE_GetButtons",
+            "source_offset": 1731,
+            "body_sha256": "c51b8d2ff1cf1353c029e355b377befc0de3e76c2ec566b8bc1be22e2bded139",
+            "original_definition": {
+              "source_header": "source/mact/include/mouse.h",
+              "source_offset": 1731,
+              "source_line": 59,
+              "header_sha256": "4ce8ea5e5ab424ad7b782983fcf7ffee07939c42a42e738145bd69302111e8f1"
+            }
+          },
+          "consumer_source": "source/duke3d/src/input.cpp",
+          "implementation_sha256": "14ed5e56d98e9472e1a0f58eece10f938a4af0d22b326bfbfb116dbc2542ea99"
+        },
+        {
+          "name": "g_keyAsciiEnd",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_ee6f4502eccd328f27b46fb8",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "g_keyAsciiPos",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2",
+          "binding": "__cxx_global_cell_a6fc8c10b0aec7fd31285ec6",
+          "abi": "source-global-cell/2",
+          "original_type": "unsigned char"
+        },
+        {
+          "name": "keyFlushChars",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        },
+        {
+          "name": "mouseAdvanceClickState",
+          "from": "source/build/src/baselayer.cpp",
+          "native_pointer_abi": "source-lp64-addresses/2"
+        }
+      ],
+      "native_pointer_abi": "source-lp64-addresses/2",
+      "source_manifest_sha256": "fd267827539dae1f5212d7953b765efe087cf25b2ead3810e8149647acce15da"
     }
   ]
 }

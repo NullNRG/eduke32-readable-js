@@ -1,0 +1,71 @@
+{
+  "source": "source/duke3d/src/gameexec.cpp",
+  "requested": [
+    "VM_ExecuteEventWithValue",
+    "VM_ExecuteEvent"
+  ],
+  "requested_resolved": {
+    "VM_ExecuteEventWithValue": false,
+    "VM_ExecuteEvent": false
+  },
+  "requested_lowered": {
+    "VM_ExecuteEventWithValue": true,
+    "VM_ExecuteEvent": true
+  },
+  "requested_compiled": {
+    "VM_ExecuteEventWithValue": false,
+    "VM_ExecuteEvent": false
+  },
+  "requested_still_unlinked": [
+    "VM_ExecuteEventWithValue",
+    "VM_ExecuteEvent"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gameexec.cpp/reachable-6cefe0d9c029a4ad/source/duke3d/src/gameexec.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "VM_EventInlineInternal__",
+      "reason": "byte aggregate requires Clang-selected initializer",
+      "dependencies": []
+    },
+    {
+      "name": "VM_ExecuteEvent__cxx_1904a3e31049",
+      "reason": "unlinked identifiers: VM_EventInlineInternal__",
+      "dependencies": [
+        "VM_EventInlineInternal__"
+      ]
+    },
+    {
+      "name": "VM_ExecuteEvent__cxx_6faa17a7b819",
+      "reason": "unlinked identifiers: VM_EventInlineInternal__",
+      "dependencies": [
+        "VM_EventInlineInternal__"
+      ]
+    },
+    {
+      "name": "VM_ExecuteEvent__cxx_22b0fd6c2a7a",
+      "reason": "unlinked identifiers: VM_EventInlineInternal__",
+      "dependencies": [
+        "VM_EventInlineInternal__"
+      ]
+    },
+    {
+      "name": "VM_ExecuteEventWithValue",
+      "reason": "unlinked identifiers: VM_EventInlineInternal__",
+      "dependencies": [
+        "VM_EventInlineInternal__"
+      ]
+    },
+    {
+      "name": "__cxx_record_EcEntryData_48fff24b8ab2923a",
+      "reason": "C++ inheritance requires a source-level inheritance lowering pass",
+      "dependencies": []
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "b566a01e02a2c883f205d070b1b94eb52db43b34cc6f4670726e1ebdc737059b",
+  "provider_index_sha256": "0022a183e985dd2ebe35eccea736820f267c10a5d6a9450182c23145e19edfb5",
+  "query_limit": 32,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": true
+}

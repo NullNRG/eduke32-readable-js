@@ -15,7 +15,7 @@ from verify_original_vfs import MODULES, ProbeServer, Quiet, ROOT, SOURCE, run
 JOYSTICK = 'source/mact/src/joystick.cpp'
 BASELAYER = 'source/build/src/baselayer.cpp'
 ANGLES = [-1, 0, 4400, 9000, 13500, 17999, 22500, 27000, 31500, 35999]
-CHECK = r"""async ({base, modules, angles, stateBinding, activeBinding, flagsOffset}) => {
+CHECK = r"""async ({base, modules, angles, stateBinding, activeBinding, flagsOffset, inputCells}) => {
     const {NativeRuntime} = await import(base + '/runtime/index.mjs');
     const runtime = new NativeRuntime({memoryBytes:16 << 20});
     runtime.bindSourceMemory();
@@ -25,12 +25,13 @@ CHECK = r"""async ({base, modules, angles, stateBinding, activeBinding, flagsOff
         const layer = await import(graph + '/source/build/src/baselayer.cpp.mjs');
         const platform = await import(graph + '/source/build/src/sdlayer.cpp.mjs');
         const map = await import(graph + '/source/mact/src/joystick.cpp.mjs');
+        const input = await import(graph + '/source/duke3d/src/input.cpp.mjs');
         const joystick = layer[stateBinding]().value;
         const storage = joystick[Symbol.for('source-first.original-byte-record-storage/1')].bytes;
         const active = platform[activeBinding]();
         const hats = new Int32Array(1);
         joystick.pHat = hats;
-        return Array.from({length:160}, (_, i) => {
+        const rows = Array.from({length:160}, (_, i) => {
             active.value = (i >> 1) & 1;
             storage[flagsOffset] = i & 1;
             joystick.numButtons = 4 + (i % 10);
@@ -39,9 +40,32 @@ CHECK = r"""async ({base, modules, angles, stateBinding, activeBinding, flagsOff
             hats[0] = angles[i % angles.length];
             const row = [map.JOYSTICK_GetButtons(), map.JOYSTICK_GetControllerButtons(),
                          map.JOYSTICK_GetHat(0), map.JOYSTICK_GetHat(-1), map.JOYSTICK_GetHat(1)];
+            if (Boolean(input.I_CheckAllInput()) !== Boolean(row[0]))
+                throw Error('Original combined input missed its joystick state');
             map.JOYSTICK_ClearAllButtons();
             return [...row, joystick.bits];
         });
+        joystick.numHats = 0;
+        active.value = 1;
+        const cell = name => layer[inputCells[name]]();
+        cell('g_keyAsciiEnd').value = 1;
+        if (!input.I_CheckAllInput()) throw Error('Original input missed the keyboard queue');
+        input.I_ClearAllInput();
+        if (cell('g_keyAsciiEnd').value !== cell('g_keyAsciiPos').value || input.I_CheckAllInput())
+            throw Error('Original input did not clear its keyboard queue');
+        cell('g_mouseEnabled').value = true;
+        cell('g_mouseInsideWindow').value = true;
+        cell('g_mouseBits').value = 1;
+        if (!input.I_CheckAllInput()) throw Error('Original input missed its mouse button');
+        input.I_ClearAllInput();
+        if (cell('g_mouseBits').value !== 0 || input.I_CheckAllInput())
+            throw Error('Original input did not clear its mouse button');
+        joystick.bits = 1;
+        if (!input.I_CheckAllInput()) throw Error('Original input missed its joystick button');
+        input.I_ClearAllInput();
+        if (joystick.bits !== 0 || input.I_CheckAllInput())
+            throw Error('Original input did not clear its joystick button');
+        return rows;
     } finally {
         release();
         runtime.close();
@@ -98,7 +122,9 @@ def compare(actual, expected):
 def main():
     info = {'modules': MODULES.relative_to(ROOT).as_posix(), 'angles': ANGLES,
             'stateBinding': binding(BASELAYER, 'joystick'),
-            'activeBinding': binding('source/build/src/sdlayer.cpp', 'appactive')}
+            'activeBinding': binding('source/build/src/sdlayer.cpp', 'appactive'),
+            'inputCells': {name: binding(BASELAYER, name) for name in (
+                'g_keyAsciiEnd', 'g_keyAsciiPos', 'g_mouseEnabled', 'g_mouseInsideWindow', 'g_mouseBits')}}
     with tempfile.TemporaryDirectory(dir=ROOT / 'work', prefix='joystick-native-') as directory:
         folder = Path(directory)
         info['flagsOffset'], expected = native(folder)
@@ -129,7 +155,9 @@ def main():
     report = {'passed': True, 'original_source': JOYSTICK,
               'source_sha256': hashlib.sha256((SOURCE / JOYSTICK).read_bytes()).hexdigest(),
               'native_rows': len(expected), 'native_node_values': len(expected) * 6,
-              'native_chromium_values': len(expected) * 6, 'gameplay_verified': False}
+              'native_chromium_values': len(expected) * 6,
+              'original_input_checked_and_cleared': ['keyboard_queue', 'mouse_button', 'joystick_button'],
+              'gameplay_verified': False}
     (ROOT / 'reports/nov25-original-joystick-parity.json').write_text(json.dumps(report, indent=2) + '\n',
                                                                        encoding='utf-8')
     print('PASS original joystick button, hat and clear behavior against native C++ in Node and Chromium')
