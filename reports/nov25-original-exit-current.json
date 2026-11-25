@@ -1,0 +1,57 @@
+{
+  "source": "source/duke3d/src/game.cpp",
+  "requested": [
+    "G_GameExit",
+    "G_Shutdown"
+  ],
+  "requested_resolved": {
+    "G_GameExit": false,
+    "G_Shutdown": false
+  },
+  "requested_lowered": {
+    "G_GameExit": true,
+    "G_Shutdown": true
+  },
+  "requested_compiled": {
+    "G_GameExit": false,
+    "G_Shutdown": false
+  },
+  "requested_still_unlinked": [
+    "G_GameExit",
+    "G_Shutdown"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_game.cpp/reachable-4212a3e3c5509f60/source/duke3d/src/game.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "G_GameExit",
+      "reason": "unlinked identifiers: G_BonusScreen, G_DisplayExtraScreens",
+      "dependencies": [
+        "G_BonusScreen",
+        "G_DisplayExtraScreens"
+      ]
+    },
+    {
+      "name": "G_Shutdown",
+      "reason": "unlinked identifiers: CONFIG_WriteSetup, S_MusicShutdown, S_SoundShutdown",
+      "dependencies": [
+        "CONFIG_WriteSetup",
+        "S_MusicShutdown",
+        "S_SoundShutdown"
+      ]
+    },
+    {
+      "name": "VM_OnEventWithReturn__header_58b695402eef",
+      "reason": "unlinked identifiers: VM_ExecuteEventWithValue",
+      "dependencies": [
+        "VM_ExecuteEventWithValue"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "a7e5e8b0c7142fa438525f19f3ff8d7a7b0e1e3f1697b7207775b7bcccccf2c4",
+  "provider_index_sha256": "2c3f145cf1849fdabfc13e162cf3fa4466eb44a32875329a3dadf37eb481662b",
+  "query_limit": 26,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": false
+}

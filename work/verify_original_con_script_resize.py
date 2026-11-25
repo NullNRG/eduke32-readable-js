@@ -1,4 +1,5 @@
 """Exercise the linked original CON relocation with live browser allocations."""
+import argparse
 import functools
 import hashlib
 import json
@@ -45,7 +46,44 @@ PROBE = r'''async ({base, cells}) => {
         new Uint8Array(heap.buffer,moved+128,64).some(Boolean)) {
       throw Error('Original CON relocation lost script data or pointer offsets');
     }
+    const pointerBitmap = Number(addresses.encode(cell('bitptr').value));
+    const stateBitmap = Number(addresses.encode(cell('bitstate').value));
+    view().setUint8(pointerBitmap, 255);
+    view().setUint8(stateBitmap, 255);
+    const compiler = units.gamedef;
+    const slot = index => addresses.decode(BigInt(moved + 8 * index));
+    compiler.scriptWriteValue(-1709);
+    compiler.scriptWriteAtOffset(701, slot(5));
+    compiler.scriptWritePointer(BigInt(moved + 24), slot(6));
+    compiler.scriptWriteStateLocation(131, slot(7));
+    const expected = [-1709n, 701n, BigInt(moved + 24), 131n];
+    if (expected.some((value, index) => view().getBigInt64(moved + 8 * (index + 4), true) !== value) ||
+        addresses.encode(cell('g_scriptPtr').value) !== BigInt(moved + 40) ||
+        view().getUint8(pointerBitmap) !== 0x4f ||
+        view().getUint8(stateBitmap) !== 0x8f) {
+      throw Error('Original CON writers changed the wrong bits, word, or script cursor');
+    }
+    const hash = await import(base+'/source/build/src/hash.cpp.mjs');
+    const labels = cell('h_labels').value;
+    hash.hash_init(labels);
+    try {
+      const input = new TextEncoder().encode('// compiler input\n-2147483648 0x7fffffff 42\0');
+      cell('textptr').value = input;
+      cell('g_scriptPtr').value = slot(8);
+      for (const [index, value] of [-2147483648n, 2147483647n, 42n].entries()) {
+        if (compiler.C_GetNextValue(1) !== 0 || view().getBigInt64(moved + 8 * (8 + index), true) !== value) {
+          throw Error('Original CON parser did not write the literal at index '+index);
+        }
+      }
+      if (compiler.C_GetNextValue(1) !== -1 || addresses.encode(cell('g_scriptPtr').value) !== BigInt(moved + 88)) {
+        throw Error('Original CON parser did not retain the script cursor at EOF');
+      }
+    } finally {
+      hash.hash_free(labels);
+    }
     return {diagnostic_executed:true,resize_executed:true,old_count:16,new_count:24,
+            script_writer_cases:4,shared_script_cursor_verified:true,relocation_bitmaps_verified:true,
+            parsed_original_con_literals:3,original_con_eof_verified:true,
             pointer_relocated:moved!==beginning,original_app_main_executed:false};
   } finally {
     release();
@@ -55,18 +93,22 @@ PROBE = r'''async ({base, cells}) => {
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--report', default='reports/nov17-original-con-script-resize.json')
+    args = parser.parse_args()
     modules = ROOT / PROFILE['boot_module_root'] / 'source/duke3d/src'
     cells = {}
     for unit, names in {
         'global': ('apScript', 'g_scriptPtr', 'g_scriptSize'),
-        'gamedef': ('bitptr', 'bitstate'),
+        'gamedef': ('bitptr', 'bitstate', 'h_labels', 'textptr'),
         'gameexec': ('g_currentEvent',),
     }.items():
         doc = json.loads((modules / (unit + '.cpp.manifest.json')).read_text())
         for name in names:
             definition, = [row for row in doc['definitions']
                            if row['name'] == name and row['status'] == 'source-first']
-            cells[name] = (unit, definition['global_storage']['binding'])
+            declaration = definition.get('global_storage') or definition['private_storage']
+            cells[name] = (unit, declaration['binding'])
     server = ProbeServer(('127.0.0.1', 0), functools.partial(QuietHandler, directory=ROOT))
     threading.Thread(target=server.serve_forever, daemon=True).start()
     try:
@@ -91,9 +133,9 @@ def main():
     finally:
         server.shutdown()
         server.server_close()
-    (ROOT / 'reports/nov17-original-con-script-resize.json').write_text(
+    (ROOT / args.report).write_text(
         json.dumps(result, indent=2) + '\n', encoding='utf-8')
-    print('PASS original script diagnostics and allocation relocation in Chromium')
+    print('PASS original CON relocation, script writes, and literal parsing in Chromium')
 
 
 if __name__ == '__main__':

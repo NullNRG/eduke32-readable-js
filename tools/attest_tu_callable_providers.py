@@ -8,7 +8,7 @@ import re
 
 import recover_browser_component as component
 from source_ast_to_js import compiler_runtime_revision
-from source_first_global_link import exported_names
+from source_first_global_link import exported_names, original_unlinked_dependencies
 from source_tu_function_bindings import ABI, implementation
 
 
@@ -16,12 +16,30 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def private_definition(document, name):
+def private_definition(document, name, *, allow_unlinked=False):
     rows = [row for row in document['definitions'] if row['name'] == name
-            and row['status'] == 'source-first']
+            and (row['status'] == 'source-first'
+                 or allow_unlinked and original_unlinked_dependencies(row))]
     if len(rows) != 1 or rows[0]['kind'] != 'FunctionDecl' or rows[0]['linkage'] != 'internal':
         raise ValueError('No unique emitted TU-local function: ' + name)
     return rows[0]
+
+
+def witness_definition(document, current):
+    name = current['name']
+    if any(row['name'] == name for row in document['definitions']):
+        return private_definition(document, name, allow_unlinked=True)
+    # An explicitly requested static header definition is emitted with its
+    # source name. An earlier dependency-driven compile may have used the
+    # deterministic TU-local header binding. Keep the installed binding.
+    spelling = current['source_name']
+    identity = '\0'.join((document['source'], spelling, current['original_type']))
+    if name != spelling + '__header_' + sha(identity.encode('utf-8'))[:12]:
+        raise ValueError('No unique native callable witness: ' + name)
+    witness = private_definition(document, spelling, allow_unlinked=True)
+    if not witness.get('cpp_function_identity', {}).get('original_definition'):
+        raise ValueError('No exact header declaration witness for: ' + name)
+    return witness
 
 
 def archived_bytes(producer_file, destination, root):
@@ -85,10 +103,13 @@ def attest(fresh_path, names, report_path):
 
     changes = []
     verified_producers = {}
-    keys = ('name', 'source_name', 'original_type', 'line', 'linkage')
+    keys = ('source_name', 'original_type', 'line', 'linkage')
     for name in names:
         current = private_definition(owner, name)
-        witness = private_definition(fresh, name)
+        # The native declaration identity exists even when this probe's
+        # dependency budget leaves the already-installed body unlinked.
+        # Only the emitted archived producer may prove implementation bytes.
+        witness = witness_definition(fresh, current)
         proof = witness.get('cpp_function_identity', {})
         if (proof.get('abi') != ABI or proof.get('translation_unit') != source
                 or proof.get('preprocessor_sha256') != inputs['sha256']
@@ -126,7 +147,8 @@ def attest(fresh_path, names, report_path):
                        for row in (current, previous))):
             raise ValueError('Original declaration differs from the archived provider: ' + name)
         current['cpp_function_identity'] = proof
-        changes.append({'export': name, 'original_clang_identity': proof, 'module_sha256': digest,
+        changes.append({'export': name, 'witness_export': witness['name'], 'witness_status': witness['status'],
+                        'original_clang_identity': proof, 'module_sha256': digest,
                         'archived_producer_manifest_sha256': origin_digest})
 
     report = {'format': 'sourcefactory-tu-callable-attestation/1', 'source': source,

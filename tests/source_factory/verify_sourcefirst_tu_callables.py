@@ -123,8 +123,23 @@ static int legacy_helper(int n){return n*7+13;}
   else:
    raise AssertionError('missing fresh callable identity accepted')
   assert not report.exists() and installed_manifest.read_bytes()==before_attestation
-  result=attest(evidence,['legacy_helper'],report)
+  link_only=copy.deepcopy(compiled)
+  row=next(r for r in link_only['definitions'] if r['name']=='legacy_helper')
+  row.update(status='blocked',reason='unsupported statement')
+  link_only_path=witness/'link-only.manifest.json'
+  link_only_path.write_text(json.dumps(link_only))
+  try:
+   attest(link_only_path,['legacy_helper'],report)
+  except ValueError as error:
+   assert 'legacy_helper' in str(error),error
+  else:
+   raise AssertionError('semantic failure accepted as a callable witness')
+  assert not report.exists() and installed_manifest.read_bytes()==before_attestation
+  row.update(reason='unlinked identifiers: required_provider',unresolved_references=['required_provider'])
+  link_only_path.write_text(json.dumps(link_only))
+  result=attest(link_only_path,['legacy_helper'],report)
  assert result['implementation_bytes_changed'] is False
+ assert result['attested'][0]['witness_status']=='blocked'
  assert all(p.read_bytes()==data for p,data in modules_before.items())
  assert any(proof['name']=='legacy_helper' for proof in load(owner,'unit.cpp',inputs,{}).values())
 
