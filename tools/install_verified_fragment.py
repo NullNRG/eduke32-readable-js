@@ -7,6 +7,7 @@ import argparse,hashlib,json,os,re,subprocess
 from pathlib import Path
 from browser_target_closure import active_exports
 from source_first_global_link import storage_import_error
+from source_fragment_storage import header_storage_identity
 ROOT=Path(__file__).resolve().parents[1]
 def main():
     p=argparse.ArgumentParser();p.add_argument('--manifest',type=Path,required=True)
@@ -32,9 +33,17 @@ def main():
     # fragment's original functions and cannot pass an ownership proof.
     owned_storage={row['name']:row for row in owner.get('definitions',[])
         if row.get('status')=='source-first' and row.get('kind')=='VarDecl'}
+    header_storage={identity:row['name'] for row in owned_storage.values()
+                    if (identity:=header_storage_identity(row,source))}
     for row in manifest.get('definitions',[]):
         if row.get('status')=='source-first' and row.get('kind')=='VarDecl' and row['name'] in owned_storage:
             raise ValueError('Fragment duplicates existing original storage: '+row['name'])
+        identity=header_storage_identity(row,source)
+        if identity:
+            if identity in header_storage:
+                raise ValueError('Fragment duplicates original header storage: '
+                                 +row['name']+' and '+header_storage[identity])
+            header_storage[identity]=row['name']
     replacing=None;old_export=None;preserved=None;preserved_declaration=''
     if a.replace_fragment_sha256:
         if not re.fullmatch(r'[a-f0-9]{64}',a.replace_fragment_sha256):raise ValueError('Invalid expected fragment hash')

@@ -1,0 +1,112 @@
+{
+  "source": "source/duke3d/src/gamedef.cpp",
+  "requested": [
+    "C_Compile",
+    "C_ParseCommand"
+  ],
+  "requested_resolved": {
+    "C_Compile": false,
+    "C_ParseCommand": false
+  },
+  "requested_lowered": {
+    "C_Compile": true,
+    "C_ParseCommand": true
+  },
+  "requested_compiled": {
+    "C_Compile": false,
+    "C_ParseCommand": false
+  },
+  "requested_still_unlinked": [
+    "C_Compile",
+    "C_ParseCommand"
+  ],
+  "manifest": "factory-output/source-first/browser-classic/boot-probes/source_duke3d_src_gamedef.cpp/reachable-6cd7bdb86422c938/source/duke3d/src/gamedef.cpp.manifest.json",
+  "blocked": [
+    {
+      "name": "C_GetNextLabelName",
+      "reason": "unlinked identifiers: G_GameExit",
+      "dependencies": [
+        "G_GameExit"
+      ]
+    },
+    {
+      "name": "C_GetNextGameArrayName",
+      "reason": "unlinked identifiers: C_GetNextLabelName",
+      "dependencies": [
+        "C_GetNextLabelName"
+      ]
+    },
+    {
+      "name": "C_GetNextVarType",
+      "reason": "unlinked identifiers: C_GetNextLabelName",
+      "dependencies": [
+        "C_GetNextLabelName"
+      ]
+    },
+    {
+      "name": "C_GetManyVarsType",
+      "reason": "unlinked identifiers: C_GetNextVarType",
+      "dependencies": [
+        "C_GetNextVarType"
+      ]
+    },
+    {
+      "name": "C_GetStructureIndexes",
+      "reason": "unlinked identifiers: C_GetNextLabelName, C_GetNextVarType",
+      "dependencies": [
+        "C_GetNextLabelName",
+        "C_GetNextVarType"
+      ]
+    },
+    {
+      "name": "C_CountCaseStatements",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_Include",
+      "reason": "unlinked identifiers: C_ParseCommand",
+      "dependencies": [
+        "C_ParseCommand"
+      ]
+    },
+    {
+      "name": "C_SetCfgName",
+      "reason": "unlinked identifiers: CONFIG_ReadSetup, CONFIG_WriteSetup",
+      "dependencies": [
+        "CONFIG_ReadSetup",
+        "CONFIG_WriteSetup"
+      ]
+    },
+    {
+      "name": "C_ParseCommand",
+      "reason": "unlinked identifiers: C_GetManyVarsType, C_GetNextGameArrayName, C_GetNextLabelName, C_GetNextVarType, C_GetStructureIndexes, C_SetCfgName",
+      "dependencies": [
+        "C_GetManyVarsType",
+        "C_GetNextGameArrayName",
+        "C_GetNextLabelName",
+        "C_GetNextVarType",
+        "C_GetStructureIndexes",
+        "C_SetCfgName"
+      ]
+    },
+    {
+      "name": "C_Compile",
+      "reason": "unlinked identifiers: C_ParseCommand, G_GameExit, Gv_Init",
+      "dependencies": [
+        "C_ParseCommand",
+        "G_GameExit",
+        "Gv_Init"
+      ]
+    }
+  ],
+  "original_gameplay_verified": false,
+  "compiler_runtime_input_sha256": "b8d231730e1849d0c6ab8e0e2ee1ee29848bc823912efc98411a9bd41ac70dc2",
+  "provider_index_sha256": "dda6bdc524370329b1633b74ae6119ff9a3fb22e0276465379e7a50035313f6a",
+  "query_limit": 22,
+  "dependency_budget_exhausted": false,
+  "unqueried_references": [],
+  "probe_only": true
+}

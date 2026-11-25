@@ -16,6 +16,7 @@ import hashlib
 from source_record_data_access import compatible as compatible_record_field_storage
 from source_record_array_storage import compatible as compatible_record_array_storage
 from source_header_records import compatible_factory_proof
+from source_fragment_exports import fragment_exports
 from source_ast_to_js import js_ident, GLOBAL_STORAGE_ABI, global_storage_binding, PRIVATE_STORAGE_ABI, private_storage_binding
 from source_first_toolchain import fingerprint_toolchain
 import json
@@ -30,22 +31,8 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 FRONT=ROOT/'tools/source_ast_to_js.py'
 IDENT=re.compile(r'^[A-Za-z_$][\w$]*$')
-EXPORT=re.compile(r'^export\s+(?:(?:async)\s+)?(?:function|const|let|var|class)\s+([A-Za-z_$][\w$]*)\b',re.MULTILINE)
-
-def exported_names(file, _chain=frozenset()):
-    file=file.resolve()
-    if not file.is_file() or file in _chain:return set()
-    content=file.read_text(encoding='utf-8');result=set(EXPORT.findall(content))
-    # Source fragments preserve globals in immutable neighboring shards.
-    # Follow explicit exports only when every binding exists in that shard;
-    # a manifest's claim or a missing/out-of-directory module is insufficient.
-    for group,relative in re.findall(r'^export\s*\{([^}]*)\}\s*from\s*["\'](\./_source_(?:legacy|storage)_[^"\']+)["\'];?$',content,re.M):
-        target=(file.parent/relative).resolve()
-        if target.parent!=file.parent:continue
-        names={part.strip() for part in group.split(',')}
-        if names and all(IDENT.fullmatch(name) for name in names) and names<=exported_names(target,_chain|{file}):
-            result.update(names)
-    return result
+def exported_names(file):
+    return fragment_exports(file)
 
 def missing_exports(names, file):
     defined=exported_names(file)

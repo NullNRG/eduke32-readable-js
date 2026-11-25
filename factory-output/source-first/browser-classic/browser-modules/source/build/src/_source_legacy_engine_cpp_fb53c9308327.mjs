@@ -1,3 +1,5 @@
+import { fix16_one__header_global_1ff90da45b33318d as fix16_one } from "./_source_legacy_engine_cpp_8b5d59287bf2.mjs";
+export { fix16_one__header_global_1ff90da45b33318d as fix16_one } from "./_source_legacy_engine_cpp_8b5d59287bf2.mjs";
 // Source-first C/C++ -> JavaScript (original identifiers/structured statements).
 // Original translation unit: source/build/src/engine.cpp
 // Status: partial STRICT semantic conversion, not a full engine module.
@@ -1172,14 +1174,6 @@ export function ClockTicks() {
 }
 
 // C/C++ source: source/build/include/fix16.h:35
-export const fix16_one = i32(65536);
-function __cxx_static_address_c29b06c10506345e8d6bdbd9() {
-  return __cxx_static_address_c29b06c10506345e8d6bdbd9.reference || (__cxx_static_address_c29b06c10506345e8d6bdbd9.reference = {
-    __cReference: true,
-    get value() { return fix16_one; },
-    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
-  });
-}
 
 // C/C++ source: source/build/src/engine.cpp:8461
 export function msqrtasm(c) {

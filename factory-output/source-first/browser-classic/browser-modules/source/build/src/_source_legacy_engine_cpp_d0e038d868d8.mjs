@@ -1,3 +1,5 @@
+import { fix16_half__header_global_32abdaf38138b574 as fix16_half } from "./_source_legacy_engine_cpp_8b5d59287bf2.mjs";
+export { fix16_half__header_global_32abdaf38138b574 as fix16_half } from "./_source_legacy_engine_cpp_8b5d59287bf2.mjs";
 // Source-first C/C++ -> JavaScript (original identifiers/structured statements).
 // Original translation unit: source/build/src/engine.cpp
 // Status: partial STRICT semantic conversion, not a full engine module.
@@ -1215,14 +1217,6 @@ const popcnt = value => {let v=value,n=0;while(v){v&=v-1n;n++;}return n;};
 
 const __builtin_unreachable = () => { throw new Error("C++ undefined behavior: reached __builtin_unreachable"); };
 // C/C++ source: source/build/include/fix16.h:36
-export const fix16_half = i32(32768);
-function __cxx_static_address_c2752e6487072a4053402f2f() {
-  return __cxx_static_address_c2752e6487072a4053402f2f.reference || (__cxx_static_address_c2752e6487072a4053402f2f.reference = {
-    __cReference: true,
-    get value() { return fix16_half; },
-    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
-  });
-}
 
 // C/C++ source: source/build/src/engine.cpp:71
 export function oldnonpow2() {

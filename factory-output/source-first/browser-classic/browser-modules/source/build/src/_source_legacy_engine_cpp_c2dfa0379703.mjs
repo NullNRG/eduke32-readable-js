@@ -1,3 +1,5 @@
+import { pow2char__header_global_712730224f5e2862 as pow2char, __cxx_private_cell_3dbbd23dc4df226e70c52d7b as __cxx_private_cell_06afb7607c36925d71b82247 } from "./_source_legacy_engine_cpp_b109dbbe1c92.mjs";
+export { pow2char__header_global_712730224f5e2862 as pow2char, __cxx_private_cell_3dbbd23dc4df226e70c52d7b as __cxx_private_cell_06afb7607c36925d71b82247 } from "./_source_legacy_engine_cpp_b109dbbe1c92.mjs";
 // Source-first C/C++ -> JavaScript (original identifiers/structured statements).
 // Original translation unit: source/build/src/engine.cpp
 // Status: partial STRICT semantic conversion, not a full engine module.
@@ -461,15 +463,6 @@ export function getreachabilitybitmap(sectnum) {
 }
 
 // C/C++ source: source/build/include/compat.h:1169
-export const pow2char = new Uint8Array([(u32(1) & 255), (u32(2) & 255), (u32(4) & 255), (u32(8) & 255), (u32(16) & 255), (u32(32) & 255), (u32(64) & 255), (u32(128) & 255)]);
-function __cxx_static_address_06afb7607c36925d71b82247() {
-  return __cxx_static_address_06afb7607c36925d71b82247.reference || (__cxx_static_address_06afb7607c36925d71b82247.reference = {
-    __cReference: true,
-    get value() { return pow2char; },
-    set value(__cxx_lvalue_0) { throw new TypeError("static aggregate/const address assignment needs proven copy semantics"); }
-  });
-}
-export function __cxx_private_cell_06afb7607c36925d71b82247() { return __cxx_static_address_06afb7607c36925d71b82247(); }
 
 // C/C++ source: source/build/include/build.h:1300
 export function getcrc16__header_6717f56e8526(buffer, bufleng, crc) {

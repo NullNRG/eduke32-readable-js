@@ -13,4 +13,15 @@ with tempfile.TemporaryDirectory(prefix='fragment-storage-audit-') as temporary:
     assert result==[{'source':'unit.cpp','duplicate_storage':{'original_state':['unit.cpp.mjs','fragment.mjs']}}],result
     (root/'fragment.mjs').write_text('export function step(){return 9;}\n')
     assert audit(root)==[]
-print('PASS: actual hidden original state is audited independently of selected re-exports')
+
+    proof={'translation_unit':'unit.cpp','source_header':'state.h','source_offset':12}
+    row={'source_name':'original_state','status':'source-first','kind':'VarDecl',
+         'header_global_definition':proof}
+    (root/'fragment.mjs').write_text('export let legacy_original_state=7;\n')
+    (root/'unit.cpp.manifest.json').write_text(json.dumps({'source':'unit.cpp','module_fragments':[
+        {'module':'fragment.mjs','exports':['legacy_original_state']}],
+        'definitions':[dict(row,name='original_state'),dict(row,name='legacy_original_state')]}))
+    result=audit(root)
+    assert result==[{'source':'unit.cpp','duplicate_storage':{},'duplicate_header_storage':[
+        {'header':'state.h','offset':12,'bindings':['legacy_original_state','original_state']}]}],result
+print('PASS: hidden storage and distinct JavaScript names for the same native declaration are rejected')

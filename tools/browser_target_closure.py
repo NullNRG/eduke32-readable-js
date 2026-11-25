@@ -10,12 +10,11 @@ import argparse,hashlib,json,os,re,subprocess,shutil
 from collections import defaultdict,Counter,deque
 from pathlib import Path
 from browser_target_abi import ROOT,build as build_sdl
+from source_fragment_exports import fragment_exports
 
 OWNER='browser-abi/libc_provider'
-EXPORT=re.compile(r'^export\s+(?:(?:async)\s+)?(?:function|const|let|var|class)\s+([A-Za-z_$][\w$]*)\b',re.M)
 IDENT=re.compile(r'^[a-zA-Z_$][\w$]*$')
 
-REEXPORT=re.compile(r'^export\s*\{([^}]*)\}\s*from\s*["\'](\./_source_legacy_[^"\']+)["\'];?$',re.M)
 def active_exports(module):
     """Count named ESM exports only when their actual implementation exists.
 
@@ -23,18 +22,7 @@ def active_exports(module):
     Clang-derived implementation shard. Never infer exports from an old
     manifest when the active module silently shadowed its declarations.
     """
-    content=module.read_text(encoding='utf-8')
-    exports=set(EXPORT.findall(content))
-    for names,filename in REEXPORT.findall(content):
-        shard=(module.parent/filename).resolve()
-        if shard.parent!=module.parent.resolve() or not shard.is_file():
-            raise RuntimeError('Invalid or missing verified source shard: '+filename)
-        available=set(EXPORT.findall(shard.read_text(encoding='utf-8')))
-        declared={item.strip() for item in names.split(',')}
-        if not declared or not declared.issubset(available):
-            raise RuntimeError('Reexport not backed by original generated source: '+filename)
-        exports.update(declared)
-    return exports
+    return fragment_exports(module,strict=True)
 
 def libc_symbols():
     js='import {NativeRuntime} from "./runtime/index.mjs"; const r=new NativeRuntime();console.log(JSON.stringify(Object.keys(r.library.symbols).filter(n=>typeof r.library.symbols[n]==="function").sort()));r.close();'

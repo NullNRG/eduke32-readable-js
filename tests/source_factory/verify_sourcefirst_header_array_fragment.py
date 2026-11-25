@@ -42,6 +42,16 @@ int main(){for(int n=0;n<256;n++){int r=step(n);printf("%d,%d\\n",r,owner_read()
                       ';for(let n=0;n<256;n++){const r=step(n);console.log(r+","+owner_read());}')
     assert run(['node',runner]).splitlines()==expected
     before=(target/'unit.cpp.mjs').read_bytes()
+    manifest_before=(target/'unit.cpp.manifest.json').read_bytes()
+    owner=json.loads(manifest_before)
+    original=next(row for row in owner['definitions'] if row.get('source_name')=='weights'
+                  and row['kind']=='VarDecl' and row['status']=='source-first')
+    doc['definitions'].append(dict(original,name='other_weights_spelling'))
+    manifest.write_text(json.dumps(doc))
+    assert 'duplicates original header storage' in run(install,False)
+    assert (target/'unit.cpp.mjs').read_bytes()==before
+    assert (target/'unit.cpp.manifest.json').read_bytes()==manifest_before
+
     header.write_text(header.read_text().replace('{3,7,11,19}','{5,7,11,19}'))
     run([*compiler,'--out-dir',later,'--project-symbols',symbols,'--import-root',target])
     assert 'duplicates existing original storage' in run(install,False)
