@@ -25,7 +25,9 @@ Read reports/nov23-header-value-regressions.json for the 13 targeted tests on th
 
 The current compiler lowers `app_main` after reconnecting the native ClockTicks conversion and the original static forward declarations for game startup helpers. Read reports/nov24-app-main-private-redeclarations.json for the 40 direct unresolved names in the bounded probe. Refresh existing private callable providers with exact source and byte proofs before reimplementing them. Continue with original CON compilation, menus, and the game loop. The verified direct Chromium game module import currently has neither entry export.
 
-Run `node work/verify_original_entry_helpers.mjs` to execute the recovered logging callback and game-button registration against the canonical JavaScript modules. The TU callable regression includes calls through forward declarations preceding overloaded static definitions. Reproduce the original entry probe with `python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --query-limit 16 --probe-only`.
+Run `node work/verify_original_entry_helpers.mjs` to execute the recovered logging callback, game-button registration, allocation, reallocation, and cleanup helpers against the canonical JavaScript modules. The TU callable regression includes calls through forward declarations and restoration of a callable identity from verified archived source fragment bytes. Reproduce the original entry probe with `python work/recover_boot_reachable.py source/duke3d/src/game.cpp app_main --query-limit 16 --probe-only`.
+
+The November 25 CON probe is `reports/nov25-original-con-compiler-frontier.json`. Compare newly emitted Clang callable identities with the existing `gamedef.cpp.mjs` module before rebuilding parser helpers. The attestation tool accepts a fresh unit manifest and explicit original export names. It requires the original producer manifests and modules saved under the canonical boot-probes directory.
 
 ## November 24 storage and sector follow-up
 

@@ -2,7 +2,9 @@
 import copy,functools,json,os,subprocess,sys,tempfile,threading
 from pathlib import Path
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
+from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools'))
+from attest_tu_callable_providers import attest, component
 from source_first_global_link import storage_import_error
 from source_tu_function_bindings import ABI,load
 from source_cpp_function_bindings import sites,rebind,SELECTION
@@ -29,6 +31,7 @@ extern "C" int fragment_step(int n){Callback p=tick;return p(n)+tick((double)n);
 extern "C" Callback fragment_address(){return tick;}
 extern "C" int extra_step(int n){return tick(n*2);}
 extern "C" int late_overloads(int n){return external_pick(n)+tick(n)+external_pick((double)n)+tick((double)n);}
+static int legacy_helper(int n){return n*7+13;}
 #include "helpers.hpp"
 ''')
  (source/'other.cpp').write_text('#include "helpers.hpp"\nextern "C" int other_read(int n){return tick(n);}')
@@ -91,6 +94,40 @@ extern "C" int late_overloads(int n){return external_pick(n)+tick(n)+external_pi
       '--replace-fragment-sha256',active['sha256'],'--report',root/'reattested.json'])
  assert json.loads((root/'reattested.json').read_text())['implementation_bytes_unchanged']
  assert all(p.read_bytes()==data for p,data in unchanged.items())
+
+ # Reattach an original callable identity from a new Clang measurement while
+ # continuing to execute the exact immutable original fragment bytes.
+ archived=root/'boot-probes'/'unit.cpp'/'producer'
+ witness=root/'witness'
+ compiled=compile('unit.cpp',witness,'legacy_helper',owner)
+ archived.mkdir(parents=True)
+ saved=copy.deepcopy(compiled)
+ legacy=next(r for r in saved['definitions'] if r['name']=='legacy_helper')
+ del legacy['cpp_function_identity']
+ saved['output']=str(archived/'unit.cpp.mjs')
+ (archived/'unit.cpp.mjs').write_bytes((witness/'unit.cpp.mjs').read_bytes())
+ (archived/'unit.cpp.manifest.json').write_text(json.dumps(saved))
+ run([sys.executable,ROOT/'tools/install_verified_fragment.py','--manifest',archived/'unit.cpp.manifest.json',
+      '--target',owner,'--exports','legacy_helper','--report',root/'archive-install.json'])
+ installed_manifest=owner/'unit.cpp.manifest.json'
+ before_attestation=installed_manifest.read_bytes()
+ modules_before={p:p.read_bytes() for p in owner.glob('*.mjs')}
+ predicates={'BASE':root,'OUT':owner,'SOURCE':source}
+ with patch.multiple(component,**predicates):
+  evidence=witness/'unit.cpp.manifest.json'
+  report=root/'legacy-attestation.json'
+  try:
+   attest(evidence,['legacy_helper','extra_step'],report)
+  except ValueError as error:
+   assert 'extra_step' in str(error),error
+  else:
+   raise AssertionError('missing fresh callable identity accepted')
+  assert not report.exists() and installed_manifest.read_bytes()==before_attestation
+  result=attest(evidence,['legacy_helper'],report)
+ assert result['implementation_bytes_changed'] is False
+ assert all(p.read_bytes()==data for p,data in modules_before.items())
+ assert any(proof['name']=='legacy_helper' for proof in load(owner,'unit.cpp',inputs,{}).values())
+
  compile('other.cpp',owner,'other_read')
  (root/'driver.cpp').write_text('''#include <cstdio>
 typedef int(*Callback)(int);

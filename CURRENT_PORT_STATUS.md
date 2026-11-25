@@ -1,6 +1,10 @@
-# Current EDuke32 JavaScript port status — November 24, 2026
+# Current EDuke32 JavaScript port status — November 25, 2026
 
 The original Build engine renders a raw E1L1 scene in Chromium through readable JavaScript. **Original `app_main`, game menus and playable simulation have not been verified. A playable `dist/index.html` has not been produced.** The strict release gate continues to reject delivery.
+
+## November 25 startup callables and CON compiler
+
+The original startup module now has exact Clang identities for eight previously emitted private functions, including `G_Cleanup`, `G_FatalEngineInitError`, and the original allocation wrappers. The attestation verifies the archived producer and preserves the active JavaScript bytes. The original wrappers passed 128 allocation, reallocation, and cleanup cases in Node, preserving 8,256 bytes. The bounded CON probe lowers both `C_Compile` and `C_ParseCommand` and still requires original parser, configuration, and game exit providers. [Startup identities](reports/nov25-original-startup-callables.json) · [Runtime smoke test](reports/nov25-startup-helper-execution.json) · [CON frontier](reports/nov25-original-con-compiler-frontier.json)
 
 ## November 24 original entry lowering checkpoint
 
